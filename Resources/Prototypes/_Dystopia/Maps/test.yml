@@ -1,0 +1,28 @@
+# ТЕСТОВАЯ карта: берём готовую планетарную карту Terra из Корвакса,
+# но подключаем к ней НАШУ станцию-прототип и планетарный биом.
+# Нужна только чтобы проверить, что связка работает. Потом её заменит карта Города.
+
+- type: gameMap
+  id: DystopiaTest
+  mapName: 'Город (тест)'
+  mapPath: /Maps/Corvax/corvax_terra.yml
+  maxRandomOffset: 0
+  randomRotation: false
+  minPlayers: 0
+  stations:
+    Terra: # должно совпадать с BecomesStation id внутри файла карты
+      stationProto: DystopiaCityStation
+      components:
+        - type: StationNameSetup
+          mapNameTemplate: 'Город'
+        - type: StationBiome
+          biome: TerraPlanet
+          mapLightColor: "#1A1410FF"
+        - type: StationJobs
+          availableJobs:
+            # Пока ванильные роли — свои фракции добавим на этапе 3.
+            Captain: [ 1, 1 ]
+            SecurityOfficer: [ 2, 2 ]
+            MedicalDoctor: [ 1, 1 ]
+            Scientist: [ 1, 1 ]
+            Passenger: [ -1, -1 ]

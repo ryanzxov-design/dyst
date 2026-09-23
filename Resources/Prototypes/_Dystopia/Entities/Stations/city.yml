@@ -1,0 +1,14 @@
+# Станция-прототип Города.
+# В отличие от StandardNanotrasenStation здесь нет космических частей:
+# эвакуационного шаттла, прибытия (arrivals), ЦК, экспедиций, магнита, карго-шаттла.
+
+- type: entity
+  id: DystopiaCityStation
+  parent:
+    - BaseStation
+    - BaseStationJobsSpawning
+    - BaseStationRecords
+    - BaseStationAlertLevels
+  categories: [ HideSpawnMenu ]
+  components:
+    - type: Transform

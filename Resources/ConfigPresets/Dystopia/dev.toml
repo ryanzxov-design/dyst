@@ -1,0 +1,19 @@
+# Пресет настроек для локальной разработки «Города».
+# Подключается через параметр запуска: --cvar config.presets=Dystopia/dev
+# (см. runserver-dystopia.bat в корне репозитория).
+# Грузится ПОСЛЕ стандартного Build/development.toml и перекрывает его значения.
+
+[game]
+map = "DystopiaTest"
+defaultpreset = "extended"   # без антагонистов, пока тестируем карту
+lobbyenabled = true
+lobbyduration = 20
+
+[shuttle]
+emergency = false            # нет эвак-шаттла: вызов эвака просто завершает раунд
+arrivals = false             # поздний заход — через SpawnPointLatejoin на карте
+grid_fill = false            # не спавнить космические гриды вокруг станции
+auto_call_time = 0           # не вызывать эвак автоматически
+
+[events]
+enabled = false              # космические события (метеоры и т.п.) выключены
