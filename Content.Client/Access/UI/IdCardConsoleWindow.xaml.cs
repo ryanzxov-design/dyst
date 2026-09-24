@@ -31,7 +31,7 @@ namespace Content.Client.Access.UI
         private string? _lastJobProto;
 
         // The job that will be picked if the ID doesn't have a job on the station.
-        private static ProtoId<JobPrototype> _defaultJob = "Passenger";
+        private static ProtoId<JobPrototype> _defaultJob = "DystopiaProletarian"; // Dystopia-HideVanillaJobsInConsole
 
         public IdCardConsoleWindow(IdCardConsoleBoundUserInterface owner, IPrototypeManager prototypeManager,
             List<ProtoId<AccessLevelPrototype>> accessLevels)
@@ -61,12 +61,27 @@ namespace Content.Client.Access.UI
             var jobs = _prototypeManager.EnumeratePrototypes<JobPrototype>().ToList();
             jobs.Sort((x, y) => string.Compare(x.LocalizedName, y.LocalizedName, StringComparison.CurrentCulture));
 
+            // Dystopia-HideVanillaJobsInConsole-Start
+            // Показываем только роли из департаментов, которые видны в редакторе персонажа.
+            var visibleJobs = new HashSet<ProtoId<JobPrototype>>();
+            foreach (var department in _prototypeManager.EnumeratePrototypes<DepartmentPrototype>())
+            {
+                if (department.EditorHidden)
+                    continue;
+
+                visibleJobs.UnionWith(department.Roles);
+            }
+            // Dystopia-HideVanillaJobsInConsole-End
+
             foreach (var job in jobs)
             {
                 if (!job.OverrideConsoleVisibility.GetValueOrDefault(job.SetPreference))
                 {
                     continue;
                 }
+
+                if (!visibleJobs.Contains(job.ID)) // Dystopia-HideVanillaJobsInConsole
+                    continue;
 
                 _jobPrototypeIds.Add(job.ID);
                 JobPresetOptionButton.AddItem(Loc.GetString(job.Name), _jobPrototypeIds.Count - 1);
