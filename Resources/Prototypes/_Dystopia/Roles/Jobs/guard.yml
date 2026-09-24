@@ -1,5 +1,5 @@
 # Роли: Городская Стража
-# Снаряжение и доступы — ВРЕМЕННЫЕ (ванильные), заменим на этапах 3б и 3в.
+# Снаряжение — ВРЕМЕННОЕ (ванильное), заменим на подэтапе 3в.
 
 - type: job
   id: DystopiaGuardCaptain
@@ -11,9 +11,19 @@
   supervisors: dystopia-job-supervisors-consul
   joinNotifyCrew: true
   accessGroups:
+  # ВРЕМЕННО: ванильные доступы для дверей тестовой карты Terra. Убрать вместе с Terra.
   - Security
   - Armory
   access:
+  - DystopiaAdministration
+  - DystopiaGuardCaptain
+  - DystopiaGuard
+  - DystopiaGuardArmory
+  - DystopiaPrison
+  - DystopiaPatrol
+  - DystopiaPatrolArmory
+  - DystopiaGates
+  # ВРЕМЕННО: ванильные доступы для дверей тестовой карты Terra. Убрать вместе с Terra.
   - Command
   - HeadOfSecurity
   - Maintenance
@@ -37,9 +47,15 @@
   icon: "JobIconDystopiaGuardSergeant"
   supervisors: dystopia-job-supervisors-guard-captain
   accessGroups:
+  # ВРЕМЕННО: ванильные доступы для дверей тестовой карты Terra. Убрать вместе с Terra.
   - Security
   - Armory
   access:
+  - DystopiaGuard
+  - DystopiaGuardArmory
+  - DystopiaPrison
+  - DystopiaGates
+  # ВРЕМЕННО: ванильные доступы для дверей тестовой карты Terra. Убрать вместе с Terra.
   - Maintenance
   - External
 
@@ -61,8 +77,13 @@
   icon: "JobIconDystopiaGuardsman"
   supervisors: dystopia-job-supervisors-guard
   accessGroups:
+  # ВРЕМЕННО: ванильные доступы для дверей тестовой карты Terra. Убрать вместе с Terra.
   - Security
   access:
+  - DystopiaGuard
+  - DystopiaPrison
+  - DystopiaGates
+  # ВРЕМЕННО: ванильные доступы для дверей тестовой карты Terra. Убрать вместе с Terra.
   - Maintenance
   - External
 
@@ -84,6 +105,8 @@
   icon: "JobIconDystopiaGuardRecruit"
   supervisors: dystopia-job-supervisors-guard
   access:
+  - DystopiaGuard
+  # ВРЕМЕННО: ванильные доступы для дверей тестовой карты Terra. Убрать вместе с Terra.
   - Security
   - Maintenance
 

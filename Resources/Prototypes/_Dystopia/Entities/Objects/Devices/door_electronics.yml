@@ -1,0 +1,193 @@
+# Платы доступа для дверей Города. Используются в шлюзах ниже; маппер может ставить их и в другие двери.
+
+- type: entity
+  parent: DoorElectronics
+  id: DoorElectronicsDystopiaConsul
+  suffix: Город, Кабинет Консула, Locked
+  components:
+  - type: AccessReader
+    access: [["DystopiaConsul"]]
+
+- type: entity
+  parent: DoorElectronics
+  id: DoorElectronicsDystopiaAdministration
+  suffix: Город, Администрация, Locked
+  components:
+  - type: AccessReader
+    access: [["DystopiaAdministration"]]
+
+- type: entity
+  parent: DoorElectronics
+  id: DoorElectronicsDystopiaInspection
+  suffix: Город, Кабинет Инспектора, Locked
+  components:
+  - type: AccessReader
+    access: [["DystopiaInspection"]]
+
+- type: entity
+  parent: DoorElectronics
+  id: DoorElectronicsDystopiaGuardCaptain
+  suffix: Город, Кабинет капитана Стражи, Locked
+  components:
+  - type: AccessReader
+    access: [["DystopiaGuardCaptain"]]
+
+- type: entity
+  parent: DoorElectronics
+  id: DoorElectronicsDystopiaChiefSanitary
+  suffix: Город, Кабинет главного санитарного врача, Locked
+  components:
+  - type: AccessReader
+    access: [["DystopiaChiefSanitary"]]
+
+- type: entity
+  parent: DoorElectronics
+  id: DoorElectronicsDystopiaScienceDirector
+  suffix: Город, Кабинет директора Научной службы, Locked
+  components:
+  - type: AccessReader
+    access: [["DystopiaScienceDirector"]]
+
+- type: entity
+  parent: DoorElectronics
+  id: DoorElectronicsDystopiaGuard
+  suffix: Город, Стража, Locked
+  components:
+  - type: AccessReader
+    access: [["DystopiaGuard"]]
+
+- type: entity
+  parent: DoorElectronics
+  id: DoorElectronicsDystopiaGuardArmory
+  suffix: Город, Арсенал Стражи, Locked
+  components:
+  - type: AccessReader
+    access: [["DystopiaGuardArmory"]]
+
+- type: entity
+  parent: DoorElectronics
+  id: DoorElectronicsDystopiaPrison
+  suffix: Город, Тюрьма, Locked
+  components:
+  - type: AccessReader
+    access: [["DystopiaPrison"]]
+
+- type: entity
+  parent: DoorElectronics
+  id: DoorElectronicsDystopiaPatrol
+  suffix: Город, Патруль, Locked
+  components:
+  - type: AccessReader
+    access: [["DystopiaPatrol"]]
+
+- type: entity
+  parent: DoorElectronics
+  id: DoorElectronicsDystopiaPatrolArmory
+  suffix: Город, Арсенал Патруля, Locked
+  components:
+  - type: AccessReader
+    access: [["DystopiaPatrolArmory"]]
+
+- type: entity
+  parent: DoorElectronics
+  id: DoorElectronicsDystopiaGates
+  suffix: Город, Ворота, Locked
+  components:
+  - type: AccessReader
+    access: [["DystopiaGates"]]
+
+- type: entity
+  parent: DoorElectronics
+  id: DoorElectronicsDystopiaSanitary
+  suffix: Город, Санитария, Locked
+  components:
+  - type: AccessReader
+    access: [["DystopiaSanitary"]]
+
+- type: entity
+  parent: DoorElectronics
+  id: DoorElectronicsDystopiaPharmacy
+  suffix: Город, Аптека, Locked
+  components:
+  - type: AccessReader
+    access: [["DystopiaPharmacy"]]
+
+- type: entity
+  parent: DoorElectronics
+  id: DoorElectronicsDystopiaCrematorium
+  suffix: Город, Крематорий, Locked
+  components:
+  - type: AccessReader
+    access: [["DystopiaCrematorium"]]
+
+- type: entity
+  parent: DoorElectronics
+  id: DoorElectronicsDystopiaTechnical
+  suffix: Город, Техническое, Locked
+  components:
+  - type: AccessReader
+    access: [["DystopiaTechnical"]]
+
+- type: entity
+  parent: DoorElectronics
+  id: DoorElectronicsDystopiaScience
+  suffix: Город, Наука, Locked
+  components:
+  - type: AccessReader
+    access: [["DystopiaScience"]]
+
+- type: entity
+  parent: DoorElectronics
+  id: DoorElectronicsDystopiaAugmentation
+  suffix: Город, Аугментационная, Locked
+  components:
+  - type: AccessReader
+    access: [["DystopiaAugmentation"]]
+
+- type: entity
+  parent: DoorElectronics
+  id: DoorElectronicsDystopiaIsolationLab
+  suffix: Город, Изоляционная лаборатория, Locked
+  components:
+  - type: AccessReader
+    access: [["DystopiaIsolationLab"]]
+
+- type: entity
+  parent: DoorElectronics
+  id: DoorElectronicsDystopiaFactory
+  suffix: Город, Завод, Locked
+  components:
+  - type: AccessReader
+    access: [["DystopiaFactory"]]
+
+- type: entity
+  parent: DoorElectronics
+  id: DoorElectronicsDystopiaGreenhouse
+  suffix: Город, Теплицы, Locked
+  components:
+  - type: AccessReader
+    access: [["DystopiaGreenhouse"]]
+
+- type: entity
+  parent: DoorElectronics
+  id: DoorElectronicsDystopiaCanteen
+  suffix: Город, Столовая, Locked
+  components:
+  - type: AccessReader
+    access: [["DystopiaCanteen"]]
+
+- type: entity
+  parent: DoorElectronics
+  id: DoorElectronicsDystopiaTavern
+  suffix: Город, Кабак, Locked
+  components:
+  - type: AccessReader
+    access: [["DystopiaTavern"]]
+
+- type: entity
+  parent: DoorElectronics
+  id: DoorElectronicsDystopiaShop
+  suffix: Город, Лавка, Locked
+  components:
+  - type: AccessReader
+    access: [["DystopiaShop"]]

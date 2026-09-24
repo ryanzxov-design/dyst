@@ -1,5 +1,5 @@
 # Роли: Санитарная Служба
-# Снаряжение и доступы — ВРЕМЕННЫЕ (ванильные), заменим на этапах 3б и 3в.
+# Снаряжение — ВРЕМЕННОЕ (ванильное), заменим на подэтапе 3в.
 
 - type: job
   id: DystopiaChiefSanitaryDoctor
@@ -11,8 +11,17 @@
   supervisors: dystopia-job-supervisors-consul
   joinNotifyCrew: true
   accessGroups:
+  # ВРЕМЕННО: ванильные доступы для дверей тестовой карты Terra. Убрать вместе с Terra.
   - Medical
   access:
+  - DystopiaAdministration
+  - DystopiaChiefSanitary
+  - DystopiaSanitary
+  - DystopiaPharmacy
+  - DystopiaCrematorium
+  - DystopiaTechnical
+  - DystopiaGates
+  # ВРЕМЕННО: ванильные доступы для дверей тестовой карты Terra. Убрать вместе с Terra.
   - Command
   - ChiefMedicalOfficer
   - Maintenance
@@ -36,6 +45,8 @@
   icon: "JobIconDystopiaHealer"
   supervisors: dystopia-job-supervisors-sanitary-chief
   access:
+  - DystopiaSanitary
+  # ВРЕМЕННО: ванильные доступы для дверей тестовой карты Terra. Убрать вместе с Terra.
   - Medical
   - Maintenance
 
@@ -57,6 +68,10 @@
   icon: "JobIconDystopiaDisinfector"
   supervisors: dystopia-job-supervisors-sanitary-chief
   access:
+  - DystopiaSanitary
+  - DystopiaCrematorium
+  - DystopiaGates
+  # ВРЕМЕННО: ванильные доступы для дверей тестовой карты Terra. Убрать вместе с Terra.
   - Medical
   - Maintenance
   - External
@@ -80,8 +95,13 @@
   icon: "JobIconDystopiaLiquidator"
   supervisors: dystopia-job-supervisors-sanitary-chief
   accessGroups:
+  # ВРЕМЕННО: ванильные доступы для дверей тестовой карты Terra. Убрать вместе с Terra.
   - Engineering
   access:
+  - DystopiaSanitary
+  - DystopiaTechnical
+  - DystopiaGates
+  # ВРЕМЕННО: ванильные доступы для дверей тестовой карты Terra. Убрать вместе с Terra.
   - Medical
   - Maintenance
   - External
@@ -104,6 +124,9 @@
   icon: "JobIconDystopiaPharmacist"
   supervisors: dystopia-job-supervisors-sanitary-chief
   access:
+  - DystopiaSanitary
+  - DystopiaPharmacy
+  # ВРЕМЕННО: ванильные доступы для дверей тестовой карты Terra. Убрать вместе с Terra.
   - Medical
   - Chemistry
   - Maintenance
@@ -126,6 +149,8 @@
   icon: "JobIconDystopiaJuniorOrderly"
   supervisors: dystopia-job-supervisors-sanitary
   access:
+  - DystopiaSanitary
+  # ВРЕМЕННО: ванильные доступы для дверей тестовой карты Terra. Убрать вместе с Terra.
   - Medical
   - Maintenance
 

@@ -1,5 +1,5 @@
 # Роли: Горожане
-# Снаряжение и доступы — ВРЕМЕННЫЕ (ванильные), заменим на этапах 3б и 3в.
+# Снаряжение — ВРЕМЕННОЕ (ванильное), заменим на подэтапе 3в.
 
 - type: job
   id: DystopiaProletarian
@@ -10,6 +10,7 @@
   icon: "JobIconDystopiaProletarian"
   supervisors: dystopia-job-supervisors-inspector
   access:
+  # ВРЕМЕННО: ванильные доступы для дверей тестовой карты Terra. Убрать вместе с Terra.
   - Maintenance
 
 - type: startingGear
@@ -30,6 +31,8 @@
   icon: "JobIconDystopiaShopkeeper"
   supervisors: dystopia-job-supervisors-inspector
   access:
+  - DystopiaShop
+  # ВРЕМЕННО: ванильные доступы для дверей тестовой карты Terra. Убрать вместе с Terra.
   - Cargo
   - Maintenance
 

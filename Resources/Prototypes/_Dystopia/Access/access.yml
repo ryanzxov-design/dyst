@@ -1,0 +1,126 @@
+# Уровни доступа Города.
+
+- type: accessLevel
+  id: DystopiaConsul
+  name: id-card-access-level-dystopia-consul
+
+- type: accessLevel
+  id: DystopiaAdministration
+  name: id-card-access-level-dystopia-administration
+
+- type: accessLevel
+  id: DystopiaInspection
+  name: id-card-access-level-dystopia-inspection
+
+- type: accessLevel
+  id: DystopiaGuardCaptain
+  name: id-card-access-level-dystopia-guard-captain
+
+- type: accessLevel
+  id: DystopiaChiefSanitary
+  name: id-card-access-level-dystopia-chief-sanitary
+
+- type: accessLevel
+  id: DystopiaScienceDirector
+  name: id-card-access-level-dystopia-science-director
+
+- type: accessLevel
+  id: DystopiaGuard
+  name: id-card-access-level-dystopia-guard
+
+- type: accessLevel
+  id: DystopiaGuardArmory
+  name: id-card-access-level-dystopia-guard-armory
+
+- type: accessLevel
+  id: DystopiaPrison
+  name: id-card-access-level-dystopia-prison
+
+- type: accessLevel
+  id: DystopiaPatrol
+  name: id-card-access-level-dystopia-patrol
+
+- type: accessLevel
+  id: DystopiaPatrolArmory
+  name: id-card-access-level-dystopia-patrol-armory
+
+- type: accessLevel
+  id: DystopiaGates
+  name: id-card-access-level-dystopia-gates
+
+- type: accessLevel
+  id: DystopiaSanitary
+  name: id-card-access-level-dystopia-sanitary
+
+- type: accessLevel
+  id: DystopiaPharmacy
+  name: id-card-access-level-dystopia-pharmacy
+
+- type: accessLevel
+  id: DystopiaCrematorium
+  name: id-card-access-level-dystopia-crematorium
+
+- type: accessLevel
+  id: DystopiaTechnical
+  name: id-card-access-level-dystopia-technical
+
+- type: accessLevel
+  id: DystopiaScience
+  name: id-card-access-level-dystopia-science
+
+- type: accessLevel
+  id: DystopiaAugmentation
+  name: id-card-access-level-dystopia-augmentation
+
+- type: accessLevel
+  id: DystopiaIsolationLab
+  name: id-card-access-level-dystopia-isolation-lab
+
+- type: accessLevel
+  id: DystopiaFactory
+  name: id-card-access-level-dystopia-factory
+
+- type: accessLevel
+  id: DystopiaGreenhouse
+  name: id-card-access-level-dystopia-greenhouse
+
+- type: accessLevel
+  id: DystopiaCanteen
+  name: id-card-access-level-dystopia-canteen
+
+- type: accessLevel
+  id: DystopiaTavern
+  name: id-card-access-level-dystopia-tavern
+
+- type: accessLevel
+  id: DystopiaShop
+  name: id-card-access-level-dystopia-shop
+
+# Все доступы Города (для Консула).
+- type: accessGroup
+  id: DystopiaAll
+  tags:
+  - DystopiaConsul
+  - DystopiaAdministration
+  - DystopiaInspection
+  - DystopiaGuardCaptain
+  - DystopiaChiefSanitary
+  - DystopiaScienceDirector
+  - DystopiaGuard
+  - DystopiaGuardArmory
+  - DystopiaPrison
+  - DystopiaPatrol
+  - DystopiaPatrolArmory
+  - DystopiaGates
+  - DystopiaSanitary
+  - DystopiaPharmacy
+  - DystopiaCrematorium
+  - DystopiaTechnical
+  - DystopiaScience
+  - DystopiaAugmentation
+  - DystopiaIsolationLab
+  - DystopiaFactory
+  - DystopiaGreenhouse
+  - DystopiaCanteen
+  - DystopiaTavern
+  - DystopiaShop

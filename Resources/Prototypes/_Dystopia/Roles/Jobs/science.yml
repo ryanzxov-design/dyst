@@ -1,5 +1,5 @@
 # Роли: Научная Служба
-# Снаряжение и доступы — ВРЕМЕННЫЕ (ванильные), заменим на этапах 3б и 3в.
+# Снаряжение — ВРЕМЕННОЕ (ванильное), заменим на подэтапе 3в.
 
 - type: job
   id: DystopiaScienceDirector
@@ -11,8 +11,16 @@
   supervisors: dystopia-job-supervisors-consul
   joinNotifyCrew: true
   accessGroups:
+  # ВРЕМЕННО: ванильные доступы для дверей тестовой карты Terra. Убрать вместе с Terra.
   - Research
   access:
+  - DystopiaAdministration
+  - DystopiaScienceDirector
+  - DystopiaScience
+  - DystopiaAugmentation
+  - DystopiaIsolationLab
+  - DystopiaGates
+  # ВРЕМЕННО: ванильные доступы для дверей тестовой карты Terra. Убрать вместе с Terra.
   - Command
   - ResearchDirector
   - Maintenance
@@ -36,6 +44,9 @@
   icon: "JobIconDystopiaAugmentologist"
   supervisors: dystopia-job-supervisors-science-director
   access:
+  - DystopiaScience
+  - DystopiaAugmentation
+  # ВРЕМЕННО: ванильные доступы для дверей тестовой карты Terra. Убрать вместе с Terra.
   - Research
   - Maintenance
 
@@ -57,6 +68,9 @@
   icon: "JobIconDystopiaPathobiologist"
   supervisors: dystopia-job-supervisors-science-director
   access:
+  - DystopiaScience
+  - DystopiaIsolationLab
+  # ВРЕМЕННО: ванильные доступы для дверей тестовой карты Terra. Убрать вместе с Terra.
   - Research
   - Medical
   - Maintenance
@@ -79,6 +93,8 @@
   icon: "JobIconDystopiaResearcher"
   supervisors: dystopia-job-supervisors-science-director
   access:
+  - DystopiaScience
+  # ВРЕМЕННО: ванильные доступы для дверей тестовой карты Terra. Убрать вместе с Terra.
   - Research
   - Maintenance
 
@@ -100,6 +116,8 @@
   icon: "JobIconDystopiaLabAssistant"
   supervisors: dystopia-job-supervisors-science
   access:
+  - DystopiaScience
+  # ВРЕМЕННО: ванильные доступы для дверей тестовой карты Terra. Убрать вместе с Terra.
   - Research
   - Maintenance
 

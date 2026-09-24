@@ -1,5 +1,5 @@
 # Роли: Внешний Патруль
-# Снаряжение и доступы — ВРЕМЕННЫЕ (ванильные), заменим на этапах 3б и 3в.
+# Снаряжение — ВРЕМЕННОЕ (ванильное), заменим на подэтапе 3в.
 
 - type: job
   id: DystopiaPraetorian
@@ -10,9 +10,15 @@
   icon: "JobIconDystopiaPraetorian"
   supervisors: dystopia-job-supervisors-consul
   accessGroups:
+  # ВРЕМЕННО: ванильные доступы для дверей тестовой карты Terra. Убрать вместе с Terra.
   - Security
   - Armory
   access:
+  - DystopiaConsul
+  - DystopiaAdministration
+  - DystopiaPatrol
+  - DystopiaPatrolArmory
+  # ВРЕМЕННО: ванильные доступы для дверей тестовой карты Terra. Убрать вместе с Terra.
   - Command
   - Maintenance
   - External
@@ -35,8 +41,13 @@
   icon: "JobIconDystopiaGrenadier"
   supervisors: dystopia-job-supervisors-patrol
   accessGroups:
+  # ВРЕМЕННО: ванильные доступы для дверей тестовой карты Terra. Убрать вместе с Terra.
   - Security
   access:
+  - DystopiaPatrol
+  - DystopiaPatrolArmory
+  - DystopiaGates
+  # ВРЕМЕННО: ванильные доступы для дверей тестовой карты Terra. Убрать вместе с Terra.
   - Maintenance
   - External
 
@@ -58,8 +69,13 @@
   icon: "JobIconDystopiaStormtrooper"
   supervisors: dystopia-job-supervisors-patrol
   accessGroups:
+  # ВРЕМЕННО: ванильные доступы для дверей тестовой карты Terra. Убрать вместе с Terra.
   - Security
   access:
+  - DystopiaPatrol
+  - DystopiaPatrolArmory
+  - DystopiaGates
+  # ВРЕМЕННО: ванильные доступы для дверей тестовой карты Terra. Убрать вместе с Terra.
   - Maintenance
   - External
 
@@ -81,8 +97,12 @@
   icon: "JobIconDystopiaSoldier"
   supervisors: dystopia-job-supervisors-patrol
   accessGroups:
+  # ВРЕМЕННО: ванильные доступы для дверей тестовой карты Terra. Убрать вместе с Terra.
   - Security
   access:
+  - DystopiaPatrol
+  - DystopiaGates
+  # ВРЕМЕННО: ванильные доступы для дверей тестовой карты Terra. Убрать вместе с Terra.
   - Maintenance
   - External
 

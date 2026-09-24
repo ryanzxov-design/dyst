@@ -1,0 +1,217 @@
+# Шлюзы Города с доступом. Внешний вид пока ванильный.
+
+- type: entity
+  parent: AirlockCommand
+  id: AirlockDystopiaConsulLocked
+  suffix: Город, Кабинет Консула, Locked
+  components:
+  - type: ContainerFill
+    containers:
+      board: [ DoorElectronicsDystopiaConsul ]
+
+- type: entity
+  parent: AirlockCommand
+  id: AirlockDystopiaAdministrationLocked
+  suffix: Город, Администрация, Locked
+  components:
+  - type: ContainerFill
+    containers:
+      board: [ DoorElectronicsDystopiaAdministration ]
+
+- type: entity
+  parent: AirlockCommand
+  id: AirlockDystopiaInspectionLocked
+  suffix: Город, Кабинет Инспектора, Locked
+  components:
+  - type: ContainerFill
+    containers:
+      board: [ DoorElectronicsDystopiaInspection ]
+
+- type: entity
+  parent: AirlockSecurity
+  id: AirlockDystopiaGuardCaptainLocked
+  suffix: Город, Кабинет капитана Стражи, Locked
+  components:
+  - type: ContainerFill
+    containers:
+      board: [ DoorElectronicsDystopiaGuardCaptain ]
+
+- type: entity
+  parent: AirlockMedical
+  id: AirlockDystopiaChiefSanitaryLocked
+  suffix: Город, Кабинет главного санитарного врача, Locked
+  components:
+  - type: ContainerFill
+    containers:
+      board: [ DoorElectronicsDystopiaChiefSanitary ]
+
+- type: entity
+  parent: AirlockScience
+  id: AirlockDystopiaScienceDirectorLocked
+  suffix: Город, Кабинет директора Научной службы, Locked
+  components:
+  - type: ContainerFill
+    containers:
+      board: [ DoorElectronicsDystopiaScienceDirector ]
+
+- type: entity
+  parent: AirlockSecurity
+  id: AirlockDystopiaGuardLocked
+  suffix: Город, Стража, Locked
+  components:
+  - type: ContainerFill
+    containers:
+      board: [ DoorElectronicsDystopiaGuard ]
+
+- type: entity
+  parent: AirlockSecurity
+  id: AirlockDystopiaGuardArmoryLocked
+  suffix: Город, Арсенал Стражи, Locked
+  components:
+  - type: ContainerFill
+    containers:
+      board: [ DoorElectronicsDystopiaGuardArmory ]
+
+- type: entity
+  parent: AirlockSecurity
+  id: AirlockDystopiaPrisonLocked
+  suffix: Город, Тюрьма, Locked
+  components:
+  - type: ContainerFill
+    containers:
+      board: [ DoorElectronicsDystopiaPrison ]
+
+- type: entity
+  parent: AirlockSecurity
+  id: AirlockDystopiaPatrolLocked
+  suffix: Город, Патруль, Locked
+  components:
+  - type: ContainerFill
+    containers:
+      board: [ DoorElectronicsDystopiaPatrol ]
+
+- type: entity
+  parent: AirlockSecurity
+  id: AirlockDystopiaPatrolArmoryLocked
+  suffix: Город, Арсенал Патруля, Locked
+  components:
+  - type: ContainerFill
+    containers:
+      board: [ DoorElectronicsDystopiaPatrolArmory ]
+
+- type: entity
+  parent: AirlockExternal
+  id: AirlockDystopiaGatesLocked
+  suffix: Город, Ворота, Locked
+  components:
+  - type: ContainerFill
+    containers:
+      board: [ DoorElectronicsDystopiaGates ]
+
+- type: entity
+  parent: AirlockMedical
+  id: AirlockDystopiaSanitaryLocked
+  suffix: Город, Санитария, Locked
+  components:
+  - type: ContainerFill
+    containers:
+      board: [ DoorElectronicsDystopiaSanitary ]
+
+- type: entity
+  parent: AirlockChemistry
+  id: AirlockDystopiaPharmacyLocked
+  suffix: Город, Аптека, Locked
+  components:
+  - type: ContainerFill
+    containers:
+      board: [ DoorElectronicsDystopiaPharmacy ]
+
+- type: entity
+  parent: AirlockMedical
+  id: AirlockDystopiaCrematoriumLocked
+  suffix: Город, Крематорий, Locked
+  components:
+  - type: ContainerFill
+    containers:
+      board: [ DoorElectronicsDystopiaCrematorium ]
+
+- type: entity
+  parent: AirlockMaint
+  id: AirlockDystopiaTechnicalLocked
+  suffix: Город, Техническое, Locked
+  components:
+  - type: ContainerFill
+    containers:
+      board: [ DoorElectronicsDystopiaTechnical ]
+
+- type: entity
+  parent: AirlockScience
+  id: AirlockDystopiaScienceLocked
+  suffix: Город, Наука, Locked
+  components:
+  - type: ContainerFill
+    containers:
+      board: [ DoorElectronicsDystopiaScience ]
+
+- type: entity
+  parent: AirlockScience
+  id: AirlockDystopiaAugmentationLocked
+  suffix: Город, Аугментационная, Locked
+  components:
+  - type: ContainerFill
+    containers:
+      board: [ DoorElectronicsDystopiaAugmentation ]
+
+- type: entity
+  parent: AirlockVirology
+  id: AirlockDystopiaIsolationLabLocked
+  suffix: Город, Изоляционная лаборатория, Locked
+  components:
+  - type: ContainerFill
+    containers:
+      board: [ DoorElectronicsDystopiaIsolationLab ]
+
+- type: entity
+  parent: AirlockEngineering
+  id: AirlockDystopiaFactoryLocked
+  suffix: Город, Завод, Locked
+  components:
+  - type: ContainerFill
+    containers:
+      board: [ DoorElectronicsDystopiaFactory ]
+
+- type: entity
+  parent: AirlockHydroponics
+  id: AirlockDystopiaGreenhouseLocked
+  suffix: Город, Теплицы, Locked
+  components:
+  - type: ContainerFill
+    containers:
+      board: [ DoorElectronicsDystopiaGreenhouse ]
+
+- type: entity
+  parent: Airlock
+  id: AirlockDystopiaCanteenLocked
+  suffix: Город, Столовая, Locked
+  components:
+  - type: ContainerFill
+    containers:
+      board: [ DoorElectronicsDystopiaCanteen ]
+
+- type: entity
+  parent: Airlock
+  id: AirlockDystopiaTavernLocked
+  suffix: Город, Кабак, Locked
+  components:
+  - type: ContainerFill
+    containers:
+      board: [ DoorElectronicsDystopiaTavern ]
+
+- type: entity
+  parent: AirlockCargo
+  id: AirlockDystopiaShopLocked
+  suffix: Город, Лавка, Locked
+  components:
+  - type: ContainerFill
+    containers:
+      board: [ DoorElectronicsDystopiaShop ]

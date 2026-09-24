@@ -1,0 +1,39 @@
+# Консоль Гражданской Инспекции — перепрограммирование ID-карт.
+# Пользоваться может Инспектор или Консул (AccessReader).
+# Выдать можно только те доступы, которые есть у карты в верхнем слоте (так устроена ванильная консоль):
+# Инспектор выдаёт рабочие места и Ворота, Консул — всё.
+
+- type: entity
+  parent: ComputerId
+  id: ComputerIdDystopia
+  name: консоль Гражданской Инспекции
+  description: Терминал для назначения жителей на работы и выдачи пропусков.
+  components:
+  - type: AccessReader
+    access: [["DystopiaInspection"], ["DystopiaConsul"]]
+  - type: IdCardConsole
+    accessLevels:
+    - DystopiaConsul
+    - DystopiaAdministration
+    - DystopiaInspection
+    - DystopiaGuardCaptain
+    - DystopiaChiefSanitary
+    - DystopiaScienceDirector
+    - DystopiaGuard
+    - DystopiaGuardArmory
+    - DystopiaPrison
+    - DystopiaPatrol
+    - DystopiaPatrolArmory
+    - DystopiaGates
+    - DystopiaSanitary
+    - DystopiaPharmacy
+    - DystopiaCrematorium
+    - DystopiaTechnical
+    - DystopiaScience
+    - DystopiaAugmentation
+    - DystopiaIsolationLab
+    - DystopiaFactory
+    - DystopiaGreenhouse
+    - DystopiaCanteen
+    - DystopiaTavern
+    - DystopiaShop
