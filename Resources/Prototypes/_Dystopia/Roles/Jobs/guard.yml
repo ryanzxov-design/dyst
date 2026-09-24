@@ -1,0 +1,97 @@
+# Роли: Городская Стража
+# Снаряжение и доступы — ВРЕМЕННЫЕ (ванильные), заменим на этапах 3б и 3в.
+
+- type: job
+  id: DystopiaGuardCaptain
+  name: job-name-dystopia-guard-captain
+  description: job-description-dystopia-guard-captain
+  playTimeTracker: JobDystopiaGuardCaptain
+  startingGear: DystopiaGuardCaptainGear
+  icon: "JobIconDystopiaGuardCaptain"
+  supervisors: dystopia-job-supervisors-consul
+  joinNotifyCrew: true
+  accessGroups:
+  - Security
+  - Armory
+  access:
+  - Command
+  - HeadOfSecurity
+  - Maintenance
+  - External
+
+- type: startingGear
+  id: DystopiaGuardCaptainGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitHoS
+    shoes: ClothingShoesBootsJack
+    back: ClothingBackpackSecurity
+    id: HoSPDA
+    ears: ClothingHeadsetAltSecurity
+
+- type: job
+  id: DystopiaGuardSergeant
+  name: job-name-dystopia-guard-sergeant
+  description: job-description-dystopia-guard-sergeant
+  playTimeTracker: JobDystopiaGuardSergeant
+  startingGear: DystopiaGuardSergeantGear
+  icon: "JobIconDystopiaGuardSergeant"
+  supervisors: dystopia-job-supervisors-guard-captain
+  accessGroups:
+  - Security
+  - Armory
+  access:
+  - Maintenance
+  - External
+
+- type: startingGear
+  id: DystopiaGuardSergeantGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitWarden
+    shoes: ClothingShoesBootsJack
+    back: ClothingBackpackSecurity
+    id: WardenPDA
+    ears: ClothingHeadsetSecurity
+
+- type: job
+  id: DystopiaGuardsman
+  name: job-name-dystopia-guardsman
+  description: job-description-dystopia-guardsman
+  playTimeTracker: JobDystopiaGuardsman
+  startingGear: DystopiaGuardsmanGear
+  icon: "JobIconDystopiaGuardsman"
+  supervisors: dystopia-job-supervisors-guard
+  accessGroups:
+  - Security
+  access:
+  - Maintenance
+  - External
+
+- type: startingGear
+  id: DystopiaGuardsmanGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitSec
+    shoes: ClothingShoesBootsJack
+    back: ClothingBackpackSecurity
+    id: SecurityPDA
+    ears: ClothingHeadsetSecurity
+
+- type: job
+  id: DystopiaGuardRecruit
+  name: job-name-dystopia-guard-recruit
+  description: job-description-dystopia-guard-recruit
+  playTimeTracker: JobDystopiaGuardRecruit
+  startingGear: DystopiaGuardRecruitGear
+  icon: "JobIconDystopiaGuardRecruit"
+  supervisors: dystopia-job-supervisors-guard
+  access:
+  - Security
+  - Maintenance
+
+- type: startingGear
+  id: DystopiaGuardRecruitGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitSecGrey
+    shoes: ClothingShoesBootsJack
+    back: ClothingBackpackSecurity
+    id: SecurityCadetPDA
+    ears: ClothingHeadsetSecurity

@@ -1,0 +1,43 @@
+# Роли: Горожане
+# Снаряжение и доступы — ВРЕМЕННЫЕ (ванильные), заменим на этапах 3б и 3в.
+
+- type: job
+  id: DystopiaProletarian
+  name: job-name-dystopia-proletarian
+  description: job-description-dystopia-proletarian
+  playTimeTracker: JobDystopiaProletarian
+  startingGear: DystopiaProletarianGear
+  icon: "JobIconDystopiaProletarian"
+  supervisors: dystopia-job-supervisors-inspector
+  access:
+  - Maintenance
+
+- type: startingGear
+  id: DystopiaProletarianGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitColorGrey
+    shoes: ClothingShoesColorBlack
+    back: ClothingBackpack
+    id: PassengerPDA
+    ears: ClothingHeadsetGrey
+
+- type: job
+  id: DystopiaShopkeeper
+  name: job-name-dystopia-shopkeeper
+  description: job-description-dystopia-shopkeeper
+  playTimeTracker: JobDystopiaShopkeeper
+  startingGear: DystopiaShopkeeperGear
+  icon: "JobIconDystopiaShopkeeper"
+  supervisors: dystopia-job-supervisors-inspector
+  access:
+  - Cargo
+  - Maintenance
+
+- type: startingGear
+  id: DystopiaShopkeeperGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitCargo
+    shoes: ClothingShoesColorBrown
+    back: ClothingBackpackCargo
+    id: CargoPDA
+    ears: ClothingHeadsetCargo

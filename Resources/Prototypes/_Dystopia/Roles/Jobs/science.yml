@@ -1,0 +1,113 @@
+# Роли: Научная Служба
+# Снаряжение и доступы — ВРЕМЕННЫЕ (ванильные), заменим на этапах 3б и 3в.
+
+- type: job
+  id: DystopiaScienceDirector
+  name: job-name-dystopia-science-director
+  description: job-description-dystopia-science-director
+  playTimeTracker: JobDystopiaScienceDirector
+  startingGear: DystopiaScienceDirectorGear
+  icon: "JobIconDystopiaScienceDirector"
+  supervisors: dystopia-job-supervisors-consul
+  joinNotifyCrew: true
+  accessGroups:
+  - Research
+  access:
+  - Command
+  - ResearchDirector
+  - Maintenance
+  - External
+
+- type: startingGear
+  id: DystopiaScienceDirectorGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitResearchDirector
+    shoes: ClothingShoesBootsLaceup
+    back: ClothingBackpackScience
+    id: RnDPDA
+    ears: ClothingHeadsetRD
+
+- type: job
+  id: DystopiaAugmentologist
+  name: job-name-dystopia-augmentologist
+  description: job-description-dystopia-augmentologist
+  playTimeTracker: JobDystopiaAugmentologist
+  startingGear: DystopiaAugmentologistGear
+  icon: "JobIconDystopiaAugmentologist"
+  supervisors: dystopia-job-supervisors-science-director
+  access:
+  - Research
+  - Maintenance
+
+- type: startingGear
+  id: DystopiaAugmentologistGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitRoboticist
+    shoes: ClothingShoesColorBlack
+    back: ClothingBackpackScience
+    id: SciencePDA
+    ears: ClothingHeadsetRobotics
+
+- type: job
+  id: DystopiaPathobiologist
+  name: job-name-dystopia-pathobiologist
+  description: job-description-dystopia-pathobiologist
+  playTimeTracker: JobDystopiaPathobiologist
+  startingGear: DystopiaPathobiologistGear
+  icon: "JobIconDystopiaPathobiologist"
+  supervisors: dystopia-job-supervisors-science-director
+  access:
+  - Research
+  - Medical
+  - Maintenance
+
+- type: startingGear
+  id: DystopiaPathobiologistGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitGenetics
+    shoes: ClothingShoesColorWhite
+    back: ClothingBackpackGenetics
+    id: SciencePDA
+    ears: ClothingHeadsetMedicalScience
+
+- type: job
+  id: DystopiaResearcher
+  name: job-name-dystopia-researcher
+  description: job-description-dystopia-researcher
+  playTimeTracker: JobDystopiaResearcher
+  startingGear: DystopiaResearcherGear
+  icon: "JobIconDystopiaResearcher"
+  supervisors: dystopia-job-supervisors-science-director
+  access:
+  - Research
+  - Maintenance
+
+- type: startingGear
+  id: DystopiaResearcherGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitScientist
+    shoes: ClothingShoesColorWhite
+    back: ClothingBackpackScience
+    id: SciencePDA
+    ears: ClothingHeadsetScience
+
+- type: job
+  id: DystopiaLabAssistant
+  name: job-name-dystopia-lab-assistant
+  description: job-description-dystopia-lab-assistant
+  playTimeTracker: JobDystopiaLabAssistant
+  startingGear: DystopiaLabAssistantGear
+  icon: "JobIconDystopiaLabAssistant"
+  supervisors: dystopia-job-supervisors-science
+  access:
+  - Research
+  - Maintenance
+
+- type: startingGear
+  id: DystopiaLabAssistantGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitColorWhite
+    shoes: ClothingShoesColorBlack
+    back: ClothingBackpackScience
+    id: ResearchAssistantPDA
+    ears: ClothingHeadsetScience

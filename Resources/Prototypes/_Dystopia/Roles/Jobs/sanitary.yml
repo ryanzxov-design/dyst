@@ -1,0 +1,139 @@
+# Роли: Санитарная Служба
+# Снаряжение и доступы — ВРЕМЕННЫЕ (ванильные), заменим на этапах 3б и 3в.
+
+- type: job
+  id: DystopiaChiefSanitaryDoctor
+  name: job-name-dystopia-chief-sanitary-doctor
+  description: job-description-dystopia-chief-sanitary-doctor
+  playTimeTracker: JobDystopiaChiefSanitaryDoctor
+  startingGear: DystopiaChiefSanitaryDoctorGear
+  icon: "JobIconDystopiaChiefSanitaryDoctor"
+  supervisors: dystopia-job-supervisors-consul
+  joinNotifyCrew: true
+  accessGroups:
+  - Medical
+  access:
+  - Command
+  - ChiefMedicalOfficer
+  - Maintenance
+  - External
+
+- type: startingGear
+  id: DystopiaChiefSanitaryDoctorGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitCMO
+    shoes: ClothingShoesBootsLaceup
+    back: ClothingBackpackMedical
+    id: CMOPDA
+    ears: ClothingHeadsetCMO
+
+- type: job
+  id: DystopiaHealer
+  name: job-name-dystopia-healer
+  description: job-description-dystopia-healer
+  playTimeTracker: JobDystopiaHealer
+  startingGear: DystopiaHealerGear
+  icon: "JobIconDystopiaHealer"
+  supervisors: dystopia-job-supervisors-sanitary-chief
+  access:
+  - Medical
+  - Maintenance
+
+- type: startingGear
+  id: DystopiaHealerGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitMedicalDoctor
+    shoes: ClothingShoesColorWhite
+    back: ClothingBackpackMedical
+    id: MedicalPDA
+    ears: ClothingHeadsetMedical
+
+- type: job
+  id: DystopiaDisinfector
+  name: job-name-dystopia-disinfector
+  description: job-description-dystopia-disinfector
+  playTimeTracker: JobDystopiaDisinfector
+  startingGear: DystopiaDisinfectorGear
+  icon: "JobIconDystopiaDisinfector"
+  supervisors: dystopia-job-supervisors-sanitary-chief
+  access:
+  - Medical
+  - Maintenance
+  - External
+  - Janitor
+
+- type: startingGear
+  id: DystopiaDisinfectorGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitVirology
+    shoes: ClothingShoesGaloshes
+    back: ClothingBackpackVirology
+    id: MedicalPDA
+    ears: ClothingHeadsetMedical
+
+- type: job
+  id: DystopiaLiquidator
+  name: job-name-dystopia-liquidator
+  description: job-description-dystopia-liquidator
+  playTimeTracker: JobDystopiaLiquidator
+  startingGear: DystopiaLiquidatorGear
+  icon: "JobIconDystopiaLiquidator"
+  supervisors: dystopia-job-supervisors-sanitary-chief
+  accessGroups:
+  - Engineering
+  access:
+  - Medical
+  - Maintenance
+  - External
+
+- type: startingGear
+  id: DystopiaLiquidatorGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitEngineeringHazard
+    shoes: ClothingShoesBootsWork
+    back: ClothingBackpackEngineering
+    id: EngineerPDA
+    ears: ClothingHeadsetEngineering
+
+- type: job
+  id: DystopiaPharmacist
+  name: job-name-dystopia-pharmacist
+  description: job-description-dystopia-pharmacist
+  playTimeTracker: JobDystopiaPharmacist
+  startingGear: DystopiaPharmacistGear
+  icon: "JobIconDystopiaPharmacist"
+  supervisors: dystopia-job-supervisors-sanitary-chief
+  access:
+  - Medical
+  - Chemistry
+  - Maintenance
+
+- type: startingGear
+  id: DystopiaPharmacistGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitChemistry
+    shoes: ClothingShoesColorWhite
+    back: ClothingBackpackChemistry
+    id: ChemistryPDA
+    ears: ClothingHeadsetMedical
+
+- type: job
+  id: DystopiaJuniorOrderly
+  name: job-name-dystopia-junior-orderly
+  description: job-description-dystopia-junior-orderly
+  playTimeTracker: JobDystopiaJuniorOrderly
+  startingGear: DystopiaJuniorOrderlyGear
+  icon: "JobIconDystopiaJuniorOrderly"
+  supervisors: dystopia-job-supervisors-sanitary
+  access:
+  - Medical
+  - Maintenance
+
+- type: startingGear
+  id: DystopiaJuniorOrderlyGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitColorWhite
+    shoes: ClothingShoesColorWhite
+    back: ClothingBackpackMedical
+    id: MedicalInternPDA
+    ears: ClothingHeadsetMedical

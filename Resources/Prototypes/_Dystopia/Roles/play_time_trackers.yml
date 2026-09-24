@@ -1,0 +1,73 @@
+# Трекеры наигранного времени для ролей Города.
+
+- type: playTimeTracker
+  id: JobDystopiaConsul
+
+- type: playTimeTracker
+  id: JobDystopiaAdjutant
+
+- type: playTimeTracker
+  id: JobDystopiaCivilInspector
+
+- type: playTimeTracker
+  id: JobDystopiaGuardCaptain
+
+- type: playTimeTracker
+  id: JobDystopiaGuardSergeant
+
+- type: playTimeTracker
+  id: JobDystopiaGuardsman
+
+- type: playTimeTracker
+  id: JobDystopiaGuardRecruit
+
+- type: playTimeTracker
+  id: JobDystopiaPraetorian
+
+- type: playTimeTracker
+  id: JobDystopiaGrenadier
+
+- type: playTimeTracker
+  id: JobDystopiaStormtrooper
+
+- type: playTimeTracker
+  id: JobDystopiaSoldier
+
+- type: playTimeTracker
+  id: JobDystopiaChiefSanitaryDoctor
+
+- type: playTimeTracker
+  id: JobDystopiaHealer
+
+- type: playTimeTracker
+  id: JobDystopiaDisinfector
+
+- type: playTimeTracker
+  id: JobDystopiaLiquidator
+
+- type: playTimeTracker
+  id: JobDystopiaPharmacist
+
+- type: playTimeTracker
+  id: JobDystopiaJuniorOrderly
+
+- type: playTimeTracker
+  id: JobDystopiaScienceDirector
+
+- type: playTimeTracker
+  id: JobDystopiaAugmentologist
+
+- type: playTimeTracker
+  id: JobDystopiaPathobiologist
+
+- type: playTimeTracker
+  id: JobDystopiaResearcher
+
+- type: playTimeTracker
+  id: JobDystopiaLabAssistant
+
+- type: playTimeTracker
+  id: JobDystopiaProletarian
+
+- type: playTimeTracker
+  id: JobDystopiaShopkeeper

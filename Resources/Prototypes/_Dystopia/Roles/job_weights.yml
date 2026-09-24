@@ -1,0 +1,30 @@
+# Порядок назначения ролей на старте раунда (сначала высокий вес) и порядок отображения.
+# Подключается в gameMap через поле jobWeights.
+
+- type: jobWeight
+  id: DystopiaJobWeights
+  weights:
+    DystopiaConsul: 30
+    DystopiaAdjutant: 15
+    DystopiaCivilInspector: 20
+    DystopiaGuardCaptain: 20
+    DystopiaGuardSergeant: 10
+    DystopiaGuardsman: 0
+    DystopiaGuardRecruit: 0
+    DystopiaPraetorian: 15
+    DystopiaGrenadier: 0
+    DystopiaStormtrooper: 0
+    DystopiaSoldier: 0
+    DystopiaChiefSanitaryDoctor: 20
+    DystopiaHealer: 0
+    DystopiaDisinfector: 0
+    DystopiaLiquidator: 0
+    DystopiaPharmacist: 0
+    DystopiaJuniorOrderly: 0
+    DystopiaScienceDirector: 20
+    DystopiaAugmentologist: 0
+    DystopiaPathobiologist: 0
+    DystopiaResearcher: 0
+    DystopiaLabAssistant: 0
+    DystopiaProletarian: 0
+    DystopiaShopkeeper: 0

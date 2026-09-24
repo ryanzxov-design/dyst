@@ -1,0 +1,96 @@
+# Роли: Внешний Патруль
+# Снаряжение и доступы — ВРЕМЕННЫЕ (ванильные), заменим на этапах 3б и 3в.
+
+- type: job
+  id: DystopiaPraetorian
+  name: job-name-dystopia-praetorian
+  description: job-description-dystopia-praetorian
+  playTimeTracker: JobDystopiaPraetorian
+  startingGear: DystopiaPraetorianGear
+  icon: "JobIconDystopiaPraetorian"
+  supervisors: dystopia-job-supervisors-consul
+  accessGroups:
+  - Security
+  - Armory
+  access:
+  - Command
+  - Maintenance
+  - External
+
+- type: startingGear
+  id: DystopiaPraetorianGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitSeniorOfficer
+    shoes: ClothingShoesBootsCombat
+    back: ClothingBackpackERTSecurity
+    id: SecurityPDA
+    ears: ClothingHeadsetAltSecurity
+
+- type: job
+  id: DystopiaGrenadier
+  name: job-name-dystopia-grenadier
+  description: job-description-dystopia-grenadier
+  playTimeTracker: JobDystopiaGrenadier
+  startingGear: DystopiaGrenadierGear
+  icon: "JobIconDystopiaGrenadier"
+  supervisors: dystopia-job-supervisors-patrol
+  accessGroups:
+  - Security
+  access:
+  - Maintenance
+  - External
+
+- type: startingGear
+  id: DystopiaGrenadierGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitERTEngineer
+    shoes: ClothingShoesBootsCombat
+    back: ClothingBackpackERTSecurity
+    id: SecurityPDA
+    ears: ClothingHeadsetSecurity
+
+- type: job
+  id: DystopiaStormtrooper
+  name: job-name-dystopia-stormtrooper
+  description: job-description-dystopia-stormtrooper
+  playTimeTracker: JobDystopiaStormtrooper
+  startingGear: DystopiaStormtrooperGear
+  icon: "JobIconDystopiaStormtrooper"
+  supervisors: dystopia-job-supervisors-patrol
+  accessGroups:
+  - Security
+  access:
+  - Maintenance
+  - External
+
+- type: startingGear
+  id: DystopiaStormtrooperGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitERTLeader
+    shoes: ClothingShoesBootsCombat
+    back: ClothingBackpackERTSecurity
+    id: SecurityPDA
+    ears: ClothingHeadsetSecurity
+
+- type: job
+  id: DystopiaSoldier
+  name: job-name-dystopia-soldier
+  description: job-description-dystopia-soldier
+  playTimeTracker: JobDystopiaSoldier
+  startingGear: DystopiaSoldierGear
+  icon: "JobIconDystopiaSoldier"
+  supervisors: dystopia-job-supervisors-patrol
+  accessGroups:
+  - Security
+  access:
+  - Maintenance
+  - External
+
+- type: startingGear
+  id: DystopiaSoldierGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitERTSecurity
+    shoes: ClothingShoesBootsCombat
+    back: ClothingBackpackERTSecurity
+    id: SecurityPDA
+    ears: ClothingHeadsetSecurity

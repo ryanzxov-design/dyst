@@ -1,0 +1,73 @@
+# Департаменты Города. Ванильные департаменты скрыты из редактора персонажа (editorHidden).
+
+- type: department
+  id: DystopiaAdministration
+  name: department-DystopiaAdministration
+  description: department-DystopiaAdministration-description
+  color: "#8C7A4B"
+  weight: 100
+  roles:
+  - DystopiaConsul
+  - DystopiaAdjutant
+  - DystopiaCivilInspector
+
+- type: department
+  id: DystopiaGuard
+  name: department-DystopiaGuard
+  description: department-DystopiaGuard-description
+  color: "#B03A2E"
+  weight: 50
+  roles:
+  - DystopiaGuardCaptain
+  - DystopiaGuardSergeant
+  - DystopiaGuardsman
+  - DystopiaGuardRecruit
+
+- type: department
+  id: DystopiaPatrol
+  name: department-DystopiaPatrol
+  description: department-DystopiaPatrol-description
+  color: "#4A5A6A"
+  weight: 40
+  roles:
+  - DystopiaPraetorian
+  - DystopiaGrenadier
+  - DystopiaStormtrooper
+  - DystopiaSoldier
+
+- type: department
+  id: DystopiaSanitary
+  name: department-DystopiaSanitary
+  description: department-DystopiaSanitary-description
+  color: "#4F8A3C"
+  weight: 30
+  roles:
+  - DystopiaChiefSanitaryDoctor
+  - DystopiaHealer
+  - DystopiaDisinfector
+  - DystopiaLiquidator
+  - DystopiaPharmacist
+  - DystopiaJuniorOrderly
+
+- type: department
+  id: DystopiaScience
+  name: department-DystopiaScience
+  description: department-DystopiaScience-description
+  color: "#3A6EA5"
+  weight: 20
+  roles:
+  - DystopiaScienceDirector
+  - DystopiaAugmentologist
+  - DystopiaPathobiologist
+  - DystopiaResearcher
+  - DystopiaLabAssistant
+
+- type: department
+  id: DystopiaCitizens
+  name: department-DystopiaCitizens
+  description: department-DystopiaCitizens-description
+  color: "#7F7F7F"
+  weight: -10
+  roles:
+  - DystopiaProletarian
+  - DystopiaShopkeeper

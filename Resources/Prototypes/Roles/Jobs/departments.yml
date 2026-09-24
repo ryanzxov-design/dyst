@@ -3,6 +3,7 @@
   name: department-Cargo
   description: department-Cargo-description
   color: "#A46106"
+  editorHidden: true # Dystopia-HideVanillaDepartments
   roles:
   - CargoTechnician
   - Quartermaster
@@ -13,6 +14,7 @@
   name: department-Civilian
   description: department-Civilian-description
   color: "#7F7F7F"
+  editorHidden: true # Dystopia-HideVanillaDepartments
   weight: -10
   ignoreForDepartmentFallback: true
   roles:
@@ -43,6 +45,7 @@
   name: department-Command
   description: department-Command-description
   color: "#334E6D"
+  editorHidden: true # Dystopia-HideVanillaDepartments
   roles:
   - Captain
   - ChiefEngineer
@@ -69,6 +72,7 @@
   name: department-Engineering
   description: department-Engineering-description
   color: "#EFB341"
+  editorHidden: true # Dystopia-HideVanillaDepartments
   roles:
   - AtmosphericTechnician
   - ChiefEngineer
@@ -81,6 +85,7 @@
   name: department-Medical
   description: department-Medical-description
   color: "#52B4E9"
+  editorHidden: true # Dystopia-HideVanillaDepartments
   roles:
   - Chemist
   - ChiefMedicalOfficer
@@ -95,6 +100,7 @@
   name: department-Science
   description: department-Science-description
   color: "#D381C9"
+  editorHidden: true # Dystopia-HideVanillaDepartments
   roles:
   - ResearchDirector
   - Scientist
@@ -106,6 +112,7 @@
   name: department-Security
   description: department-Security-description
   color: "#DE3A3A"
+  editorHidden: true # Dystopia-HideVanillaDepartments
   weight: 20
   roles:
   - HeadOfSecurity
@@ -122,6 +129,7 @@
   name: department-Service
   description: department-Service-description
   color: "#9FED58"
+  editorHidden: true # Dystopia-HideVanillaDepartments
   roles:
   - Bartender
   - Botanist
@@ -143,6 +151,7 @@
   name: department-Silicon
   description: department-Silicon-description
   color: "#D381C9"
+  editorHidden: true # Dystopia-HideVanillaDepartments
   roles:
   - Borg
   - StationAi
@@ -152,6 +161,7 @@
   name: department-Specific
   description: department-Specific-description
   color: "#9FED58"
+  editorHidden: true # Dystopia-HideVanillaDepartments
   weight: 10
   ignoreForDepartmentFallback: true
   roles:

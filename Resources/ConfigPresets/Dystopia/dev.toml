@@ -8,6 +8,8 @@ map = "DystopiaTest"
 defaultpreset = "extended"   # без антагонистов, пока тестируем карту
 lobbyenabled = true
 lobbyduration = 20
+# Роли, которые включены у НОВОГО персонажа по умолчанию
+new_character_jobs = "DystopiaProletarian"
 
 [shuttle]
 emergency = false            # нет эвак-шаттла: вызов эвака просто завершает раунд

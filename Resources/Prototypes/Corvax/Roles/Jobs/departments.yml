@@ -3,6 +3,7 @@
   name: department-Legal
   description: department-Legal-description
   color: "#0c344d"
+  editorHidden: true # Dystopia-HideVanillaDepartments
   roles:
   - Magistrate
   - IAA

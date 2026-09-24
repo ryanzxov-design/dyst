@@ -1,6 +1,9 @@
 # ТЕСТОВАЯ карта: берём готовую планетарную карту Terra из Корвакса,
 # но подключаем к ней НАШУ станцию-прототип и планетарный биом.
 # Нужна только чтобы проверить, что связка работает. Потом её заменит карта Города.
+#
+# На Terra нет точек спавна наших ролей, поэтому в начале раунда в логе сервера будут ошибки
+# "Unable to pick a valid spawn point" — игрок всё равно появится на случайной точке. Это ожидаемо.
 
 - type: gameMap
   id: DystopiaTest
@@ -9,6 +12,7 @@
   maxRandomOffset: 0
   randomRotation: false
   minPlayers: 0
+  jobWeights: DystopiaJobWeights
   stations:
     Terra: # должно совпадать с BecomesStation id внутри файла карты
       stationProto: DystopiaCityStation
@@ -20,9 +24,33 @@
           mapLightColor: "#1A1410FF"
         - type: StationJobs
           availableJobs:
-            # Пока ванильные роли — свои фракции добавим на этапе 3.
-            Captain: [ 1, 1 ]
-            SecurityOfficer: [ 2, 2 ]
-            MedicalDoctor: [ 1, 1 ]
-            Scientist: [ 1, 1 ]
-            Passenger: [ -1, -1 ]
+            # Администрация
+            DystopiaConsul: [ 1, 1 ]
+            DystopiaAdjutant: [ 1, 2 ]
+            DystopiaCivilInspector: [ 1, 1 ]
+            # Городская Стража
+            DystopiaGuardCaptain: [ 1, 1 ]
+            DystopiaGuardSergeant: [ 1, 2 ]
+            DystopiaGuardsman: [ 3, 6 ]
+            DystopiaGuardRecruit: [ 1, 3 ]
+            # Внешний Патруль
+            DystopiaPraetorian: [ 1, 2 ]
+            DystopiaGrenadier: [ 1, 2 ]
+            DystopiaStormtrooper: [ 1, 3 ]
+            DystopiaSoldier: [ 2, 4 ]
+            # Санитарная Служба
+            DystopiaChiefSanitaryDoctor: [ 1, 1 ]
+            DystopiaHealer: [ 2, 3 ]
+            DystopiaDisinfector: [ 2, 4 ]
+            DystopiaLiquidator: [ 2, 3 ]
+            DystopiaPharmacist: [ 1, 1 ]
+            DystopiaJuniorOrderly: [ 1, 3 ]
+            # Научная Служба
+            DystopiaScienceDirector: [ 1, 1 ]
+            DystopiaAugmentologist: [ 1, 2 ]
+            DystopiaPathobiologist: [ 1, 2 ]
+            DystopiaResearcher: [ 2, 3 ]
+            DystopiaLabAssistant: [ 1, 3 ]
+            # Горожане
+            DystopiaProletarian: [ -1, -1 ]
+            DystopiaShopkeeper: [ 1, 2 ]

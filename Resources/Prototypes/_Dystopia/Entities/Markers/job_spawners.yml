@@ -1,0 +1,289 @@
+# Точки спавна ролей для маппинга Города.
+
+- type: entity
+  id: SpawnPointDystopiaConsul
+  parent: SpawnPointJobBase
+  name: консул
+  components:
+  - type: SpawnPoint
+    job_id: DystopiaConsul
+  - type: Sprite
+    layers:
+      - state: green
+      - state: captain
+
+- type: entity
+  id: SpawnPointDystopiaAdjutant
+  parent: SpawnPointJobBase
+  name: адъютант
+  components:
+  - type: SpawnPoint
+    job_id: DystopiaAdjutant
+  - type: Sprite
+    layers:
+      - state: green
+      - state: lawyer
+
+- type: entity
+  id: SpawnPointDystopiaCivilInspector
+  parent: SpawnPointJobBase
+  name: гражданский инспектор
+  components:
+  - type: SpawnPoint
+    job_id: DystopiaCivilInspector
+  - type: Sprite
+    layers:
+      - state: green
+      - state: hop
+
+- type: entity
+  id: SpawnPointDystopiaGuardCaptain
+  parent: SpawnPointJobBase
+  name: капитан Стражи
+  components:
+  - type: SpawnPoint
+    job_id: DystopiaGuardCaptain
+  - type: Sprite
+    layers:
+      - state: green
+      - state: hos
+
+- type: entity
+  id: SpawnPointDystopiaGuardSergeant
+  parent: SpawnPointJobBase
+  name: сержант Стражи
+  components:
+  - type: SpawnPoint
+    job_id: DystopiaGuardSergeant
+  - type: Sprite
+    layers:
+      - state: green
+      - state: warden
+
+- type: entity
+  id: SpawnPointDystopiaGuardsman
+  parent: SpawnPointJobBase
+  name: городской стражник
+  components:
+  - type: SpawnPoint
+    job_id: DystopiaGuardsman
+  - type: Sprite
+    layers:
+      - state: green
+      - state: security_officer
+
+- type: entity
+  id: SpawnPointDystopiaGuardRecruit
+  parent: SpawnPointJobBase
+  name: рекрут Стражи
+  components:
+  - type: SpawnPoint
+    job_id: DystopiaGuardRecruit
+  - type: Sprite
+    layers:
+      - state: green
+      - state: security_cadet
+
+- type: entity
+  id: SpawnPointDystopiaPraetorian
+  parent: SpawnPointJobBase
+  name: преторианец
+  components:
+  - type: SpawnPoint
+    job_id: DystopiaPraetorian
+  - type: Sprite
+    layers:
+      - state: green
+      - state: seniorofficer
+
+- type: entity
+  id: SpawnPointDystopiaGrenadier
+  parent: SpawnPointJobBase
+  name: гренадер
+  components:
+  - type: SpawnPoint
+    job_id: DystopiaGrenadier
+  - type: Sprite
+    layers:
+      - state: green
+      - state: ertengineer
+
+- type: entity
+  id: SpawnPointDystopiaStormtrooper
+  parent: SpawnPointJobBase
+  name: штурмовик
+  components:
+  - type: SpawnPoint
+    job_id: DystopiaStormtrooper
+  - type: Sprite
+    layers:
+      - state: green
+      - state: ertleader
+
+- type: entity
+  id: SpawnPointDystopiaSoldier
+  parent: SpawnPointJobBase
+  name: солдат
+  components:
+  - type: SpawnPoint
+    job_id: DystopiaSoldier
+  - type: Sprite
+    layers:
+      - state: green
+      - state: ertsecurity
+
+- type: entity
+  id: SpawnPointDystopiaChiefSanitaryDoctor
+  parent: SpawnPointJobBase
+  name: главный санитарный врач
+  components:
+  - type: SpawnPoint
+    job_id: DystopiaChiefSanitaryDoctor
+  - type: Sprite
+    layers:
+      - state: green
+      - state: cmo
+
+- type: entity
+  id: SpawnPointDystopiaHealer
+  parent: SpawnPointJobBase
+  name: лекарь
+  components:
+  - type: SpawnPoint
+    job_id: DystopiaHealer
+  - type: Sprite
+    layers:
+      - state: green
+      - state: doctor
+
+- type: entity
+  id: SpawnPointDystopiaDisinfector
+  parent: SpawnPointJobBase
+  name: дезинфектор
+  components:
+  - type: SpawnPoint
+    job_id: DystopiaDisinfector
+  - type: Sprite
+    layers:
+      - state: green
+      - state: virologist
+
+- type: entity
+  id: SpawnPointDystopiaLiquidator
+  parent: SpawnPointJobBase
+  name: ликвидатор
+  components:
+  - type: SpawnPoint
+    job_id: DystopiaLiquidator
+  - type: Sprite
+    layers:
+      - state: green
+      - state: engineer
+
+- type: entity
+  id: SpawnPointDystopiaPharmacist
+  parent: SpawnPointJobBase
+  name: фармацевт
+  components:
+  - type: SpawnPoint
+    job_id: DystopiaPharmacist
+  - type: Sprite
+    layers:
+      - state: green
+      - state: chemist
+
+- type: entity
+  id: SpawnPointDystopiaJuniorOrderly
+  parent: SpawnPointJobBase
+  name: младший санитар
+  components:
+  - type: SpawnPoint
+    job_id: DystopiaJuniorOrderly
+  - type: Sprite
+    layers:
+      - state: green
+      - state: medicalintern
+
+- type: entity
+  id: SpawnPointDystopiaScienceDirector
+  parent: SpawnPointJobBase
+  name: директор Научной службы
+  components:
+  - type: SpawnPoint
+    job_id: DystopiaScienceDirector
+  - type: Sprite
+    layers:
+      - state: green
+      - state: rd
+
+- type: entity
+  id: SpawnPointDystopiaAugmentologist
+  parent: SpawnPointJobBase
+  name: аугментолог
+  components:
+  - type: SpawnPoint
+    job_id: DystopiaAugmentologist
+  - type: Sprite
+    layers:
+      - state: green
+      - state: roboticist
+
+- type: entity
+  id: SpawnPointDystopiaPathobiologist
+  parent: SpawnPointJobBase
+  name: патобиолог
+  components:
+  - type: SpawnPoint
+    job_id: DystopiaPathobiologist
+  - type: Sprite
+    layers:
+      - state: green
+      - state: geneticist
+
+- type: entity
+  id: SpawnPointDystopiaResearcher
+  parent: SpawnPointJobBase
+  name: исследователь
+  components:
+  - type: SpawnPoint
+    job_id: DystopiaResearcher
+  - type: Sprite
+    layers:
+      - state: green
+      - state: scientist
+
+- type: entity
+  id: SpawnPointDystopiaLabAssistant
+  parent: SpawnPointJobBase
+  name: лаборант
+  components:
+  - type: SpawnPoint
+    job_id: DystopiaLabAssistant
+  - type: Sprite
+    layers:
+      - state: green
+      - state: researchassistant
+
+- type: entity
+  id: SpawnPointDystopiaProletarian
+  parent: SpawnPointJobBase
+  name: пролетарий
+  components:
+  - type: SpawnPoint
+    job_id: DystopiaProletarian
+  - type: Sprite
+    layers:
+      - state: green
+      - state: passenger
+
+- type: entity
+  id: SpawnPointDystopiaShopkeeper
+  parent: SpawnPointJobBase
+  name: лавочник
+  components:
+  - type: SpawnPoint
+    job_id: DystopiaShopkeeper
+  - type: Sprite
+    layers:
+      - state: green
+      - state: cargo_tech

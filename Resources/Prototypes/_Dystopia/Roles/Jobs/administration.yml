@@ -1,0 +1,72 @@
+# Роли: Администрация Города
+# Снаряжение и доступы — ВРЕМЕННЫЕ (ванильные), заменим на этапах 3б и 3в.
+
+- type: job
+  id: DystopiaConsul
+  name: job-name-dystopia-consul
+  description: job-description-dystopia-consul
+  playTimeTracker: JobDystopiaConsul
+  startingGear: DystopiaConsulGear
+  icon: "JobIconDystopiaConsul"
+  supervisors: job-supervisors-nobody
+  joinNotifyCrew: true
+  accessGroups:
+  - AllAccess
+
+- type: startingGear
+  id: DystopiaConsulGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitCaptain
+    shoes: ClothingShoesBootsLaceup
+    back: ClothingBackpackCaptain
+    id: CaptainPDA
+    ears: ClothingHeadsetAltCommand
+
+- type: job
+  id: DystopiaAdjutant
+  name: job-name-dystopia-adjutant
+  description: job-description-dystopia-adjutant
+  playTimeTracker: JobDystopiaAdjutant
+  startingGear: DystopiaAdjutantGear
+  icon: "JobIconDystopiaAdjutant"
+  supervisors: dystopia-job-supervisors-command
+  access:
+  - Command
+  - Maintenance
+  - External
+  - Lawyer
+
+- type: startingGear
+  id: DystopiaAdjutantGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitCommandGeneric
+    shoes: ClothingShoesBootsLaceup
+    back: ClothingBackpack
+    id: LawyerPDA
+    ears: ClothingHeadsetCommand
+
+- type: job
+  id: DystopiaCivilInspector
+  name: job-name-dystopia-civil-inspector
+  description: job-description-dystopia-civil-inspector
+  playTimeTracker: JobDystopiaCivilInspector
+  startingGear: DystopiaCivilInspectorGear
+  icon: "JobIconDystopiaCivilInspector"
+  supervisors: dystopia-job-supervisors-consul
+  joinNotifyCrew: true
+  accessGroups:
+  - Service
+  - Cargo
+  access:
+  - Command
+  - HeadOfPersonnel
+  - Maintenance
+
+- type: startingGear
+  id: DystopiaCivilInspectorGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitHoP
+    shoes: ClothingShoesColorBrown
+    back: ClothingBackpack
+    id: HoPPDA
+    ears: ClothingHeadsetCommand
