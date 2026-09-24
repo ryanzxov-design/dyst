@@ -1,5 +1,5 @@
 # Роли: Горожане
-# Снаряжение — ВРЕМЕННОЕ (ванильное), заменим на подэтапе 3в.
+# Сумки (и пояс/РПС у Стражи) выдаются через выбор снаряжения — см. Loadouts/loadouts.yml.
 
 - type: job
   id: DystopiaProletarian
@@ -17,9 +17,9 @@
   id: DystopiaProletarianGear
   equipment:
     jumpsuit: ClothingUniformJumpsuitColorGrey
+    mask: ClothingMaskGas
     shoes: ClothingShoesColorBlack
-    back: ClothingBackpack
-    id: PassengerPDA
+    id: DystopiaProletarianPDA
     ears: ClothingHeadsetGrey
 
 - type: job
@@ -40,7 +40,7 @@
   id: DystopiaShopkeeperGear
   equipment:
     jumpsuit: ClothingUniformJumpsuitCargo
+    mask: ClothingMaskGas
     shoes: ClothingShoesColorBrown
-    back: ClothingBackpackCargo
-    id: CargoPDA
+    id: DystopiaShopkeeperPDA
     ears: ClothingHeadsetCargo

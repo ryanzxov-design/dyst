@@ -1,0 +1,444 @@
+# ID-карты профессий Города. Цвет полос — цвет департамента, иконка — своя.
+# Позже эта же карта станет банковской картой жителя.
+
+- type: entity
+  parent: IDCardStandard
+  id: DystopiaConsulIDCard
+  name: ID-карта (консул)
+  components:
+  - type: Sprite
+    layers:
+    - state: gold
+    - state: stripe_top
+      color: "#B8962E"
+    - state: stripe_bottom
+      color: "#725d1c"
+    - sprite: _Dystopia/Interface/job_icons.rsi
+      offset: -0.09375, 0.0625
+      state: Consul
+  - type: Item
+    heldPrefix: gold
+  - type: PresetIdCard
+    job: DystopiaConsul
+
+- type: entity
+  parent: IDCardStandard
+  id: DystopiaAdjutantIDCard
+  name: ID-карта (адъютант)
+  components:
+  - type: Sprite
+    layers:
+    - state: default
+    - state: stripe_top
+      color: "#B8962E"
+    - state: stripe_bottom
+      color: "#725d1c"
+    - sprite: _Dystopia/Interface/job_icons.rsi
+      offset: -0.09375, 0.0625
+      state: Adjutant
+  - type: PresetIdCard
+    job: DystopiaAdjutant
+
+- type: entity
+  parent: IDCardStandard
+  id: DystopiaCivilInspectorIDCard
+  name: ID-карта (гражданский инспектор)
+  components:
+  - type: Sprite
+    layers:
+    - state: silver
+    - state: stripe_top
+      color: "#B8962E"
+    - state: stripe_bottom
+      color: "#725d1c"
+    - sprite: _Dystopia/Interface/job_icons.rsi
+      offset: -0.09375, 0.0625
+      state: CivilInspector
+  - type: Item
+    heldPrefix: silver
+  - type: PresetIdCard
+    job: DystopiaCivilInspector
+
+- type: entity
+  parent: IDCardStandard
+  id: DystopiaGuardCaptainIDCard
+  name: ID-карта (капитан Стражи)
+  components:
+  - type: Sprite
+    layers:
+    - state: silver
+    - state: stripe_top
+      color: "#3E5C8A"
+    - state: stripe_bottom
+      color: "#263955"
+    - sprite: _Dystopia/Interface/job_icons.rsi
+      offset: -0.09375, 0.0625
+      state: GuardCaptain
+  - type: Item
+    heldPrefix: silver
+  - type: PresetIdCard
+    job: DystopiaGuardCaptain
+
+- type: entity
+  parent: IDCardStandard
+  id: DystopiaGuardSergeantIDCard
+  name: ID-карта (сержант Стражи)
+  components:
+  - type: Sprite
+    layers:
+    - state: default
+    - state: stripe_top
+      color: "#3E5C8A"
+    - state: stripe_bottom
+      color: "#263955"
+    - sprite: _Dystopia/Interface/job_icons.rsi
+      offset: -0.09375, 0.0625
+      state: GuardSergeant
+  - type: PresetIdCard
+    job: DystopiaGuardSergeant
+
+- type: entity
+  parent: IDCardStandard
+  id: DystopiaGuardsmanIDCard
+  name: ID-карта (городской стражник)
+  components:
+  - type: Sprite
+    layers:
+    - state: default
+    - state: stripe_top
+      color: "#3E5C8A"
+    - state: stripe_bottom
+      color: "#263955"
+    - sprite: _Dystopia/Interface/job_icons.rsi
+      offset: -0.09375, 0.0625
+      state: Guardsman
+  - type: PresetIdCard
+    job: DystopiaGuardsman
+
+- type: entity
+  parent: IDCardStandard
+  id: DystopiaGuardRecruitIDCard
+  name: ID-карта (рекрут Стражи)
+  components:
+  - type: Sprite
+    layers:
+    - state: default
+    - state: stripe_top
+      color: "#3E5C8A"
+    - state: stripe_bottom
+      color: "#263955"
+    - sprite: _Dystopia/Interface/job_icons.rsi
+      offset: -0.09375, 0.0625
+      state: GuardRecruit
+  - type: PresetIdCard
+    job: DystopiaGuardRecruit
+
+- type: entity
+  parent: IDCardStandard
+  id: DystopiaPraetorianIDCard
+  name: ID-карта (преторианец)
+  components:
+  - type: Sprite
+    layers:
+    - state: default
+    - state: stripe_top
+      color: "#55636F"
+    - state: stripe_bottom
+      color: "#343d44"
+    - sprite: _Dystopia/Interface/job_icons.rsi
+      offset: -0.09375, 0.0625
+      state: Praetorian
+  - type: PresetIdCard
+    job: DystopiaPraetorian
+
+- type: entity
+  parent: IDCardStandard
+  id: DystopiaGrenadierIDCard
+  name: ID-карта (гренадер)
+  components:
+  - type: Sprite
+    layers:
+    - state: default
+    - state: stripe_top
+      color: "#55636F"
+    - state: stripe_bottom
+      color: "#343d44"
+    - sprite: _Dystopia/Interface/job_icons.rsi
+      offset: -0.09375, 0.0625
+      state: Grenadier
+  - type: PresetIdCard
+    job: DystopiaGrenadier
+
+- type: entity
+  parent: IDCardStandard
+  id: DystopiaStormtrooperIDCard
+  name: ID-карта (штурмовик)
+  components:
+  - type: Sprite
+    layers:
+    - state: default
+    - state: stripe_top
+      color: "#55636F"
+    - state: stripe_bottom
+      color: "#343d44"
+    - sprite: _Dystopia/Interface/job_icons.rsi
+      offset: -0.09375, 0.0625
+      state: Stormtrooper
+  - type: PresetIdCard
+    job: DystopiaStormtrooper
+
+- type: entity
+  parent: IDCardStandard
+  id: DystopiaSoldierIDCard
+  name: ID-карта (солдат)
+  components:
+  - type: Sprite
+    layers:
+    - state: default
+    - state: stripe_top
+      color: "#55636F"
+    - state: stripe_bottom
+      color: "#343d44"
+    - sprite: _Dystopia/Interface/job_icons.rsi
+      offset: -0.09375, 0.0625
+      state: Soldier
+  - type: PresetIdCard
+    job: DystopiaSoldier
+
+- type: entity
+  parent: IDCardStandard
+  id: DystopiaChiefSanitaryDoctorIDCard
+  name: ID-карта (главный санитарный врач)
+  components:
+  - type: Sprite
+    layers:
+    - state: silver
+    - state: stripe_top
+      color: "#4F8A3C"
+    - state: stripe_bottom
+      color: "#305525"
+    - sprite: _Dystopia/Interface/job_icons.rsi
+      offset: -0.09375, 0.0625
+      state: ChiefSanitaryDoctor
+  - type: Item
+    heldPrefix: silver
+  - type: PresetIdCard
+    job: DystopiaChiefSanitaryDoctor
+
+- type: entity
+  parent: IDCardStandard
+  id: DystopiaHealerIDCard
+  name: ID-карта (лекарь)
+  components:
+  - type: Sprite
+    layers:
+    - state: default
+    - state: stripe_top
+      color: "#4F8A3C"
+    - state: stripe_bottom
+      color: "#305525"
+    - sprite: _Dystopia/Interface/job_icons.rsi
+      offset: -0.09375, 0.0625
+      state: Healer
+  - type: PresetIdCard
+    job: DystopiaHealer
+
+- type: entity
+  parent: IDCardStandard
+  id: DystopiaDisinfectorIDCard
+  name: ID-карта (дезинфектор)
+  components:
+  - type: Sprite
+    layers:
+    - state: default
+    - state: stripe_top
+      color: "#4F8A3C"
+    - state: stripe_bottom
+      color: "#305525"
+    - sprite: _Dystopia/Interface/job_icons.rsi
+      offset: -0.09375, 0.0625
+      state: Disinfector
+  - type: PresetIdCard
+    job: DystopiaDisinfector
+
+- type: entity
+  parent: IDCardStandard
+  id: DystopiaLiquidatorIDCard
+  name: ID-карта (ликвидатор)
+  components:
+  - type: Sprite
+    layers:
+    - state: default
+    - state: stripe_top
+      color: "#4F8A3C"
+    - state: stripe_bottom
+      color: "#305525"
+    - sprite: _Dystopia/Interface/job_icons.rsi
+      offset: -0.09375, 0.0625
+      state: Liquidator
+  - type: PresetIdCard
+    job: DystopiaLiquidator
+
+- type: entity
+  parent: IDCardStandard
+  id: DystopiaPharmacistIDCard
+  name: ID-карта (фармацевт)
+  components:
+  - type: Sprite
+    layers:
+    - state: default
+    - state: stripe_top
+      color: "#4F8A3C"
+    - state: stripe_bottom
+      color: "#305525"
+    - sprite: _Dystopia/Interface/job_icons.rsi
+      offset: -0.09375, 0.0625
+      state: Pharmacist
+  - type: PresetIdCard
+    job: DystopiaPharmacist
+
+- type: entity
+  parent: IDCardStandard
+  id: DystopiaJuniorOrderlyIDCard
+  name: ID-карта (младший санитар)
+  components:
+  - type: Sprite
+    layers:
+    - state: default
+    - state: stripe_top
+      color: "#4F8A3C"
+    - state: stripe_bottom
+      color: "#305525"
+    - sprite: _Dystopia/Interface/job_icons.rsi
+      offset: -0.09375, 0.0625
+      state: JuniorOrderly
+  - type: PresetIdCard
+    job: DystopiaJuniorOrderly
+
+- type: entity
+  parent: IDCardStandard
+  id: DystopiaScienceDirectorIDCard
+  name: ID-карта (директор Научной службы)
+  components:
+  - type: Sprite
+    layers:
+    - state: silver
+    - state: stripe_top
+      color: "#2F7F86"
+    - state: stripe_bottom
+      color: "#1d4e53"
+    - sprite: _Dystopia/Interface/job_icons.rsi
+      offset: -0.09375, 0.0625
+      state: ScienceDirector
+  - type: Item
+    heldPrefix: silver
+  - type: PresetIdCard
+    job: DystopiaScienceDirector
+
+- type: entity
+  parent: IDCardStandard
+  id: DystopiaAugmentologistIDCard
+  name: ID-карта (аугментолог)
+  components:
+  - type: Sprite
+    layers:
+    - state: default
+    - state: stripe_top
+      color: "#2F7F86"
+    - state: stripe_bottom
+      color: "#1d4e53"
+    - sprite: _Dystopia/Interface/job_icons.rsi
+      offset: -0.09375, 0.0625
+      state: Augmentologist
+  - type: PresetIdCard
+    job: DystopiaAugmentologist
+
+- type: entity
+  parent: IDCardStandard
+  id: DystopiaPathobiologistIDCard
+  name: ID-карта (патобиолог)
+  components:
+  - type: Sprite
+    layers:
+    - state: default
+    - state: stripe_top
+      color: "#2F7F86"
+    - state: stripe_bottom
+      color: "#1d4e53"
+    - sprite: _Dystopia/Interface/job_icons.rsi
+      offset: -0.09375, 0.0625
+      state: Pathobiologist
+  - type: PresetIdCard
+    job: DystopiaPathobiologist
+
+- type: entity
+  parent: IDCardStandard
+  id: DystopiaResearcherIDCard
+  name: ID-карта (исследователь)
+  components:
+  - type: Sprite
+    layers:
+    - state: default
+    - state: stripe_top
+      color: "#2F7F86"
+    - state: stripe_bottom
+      color: "#1d4e53"
+    - sprite: _Dystopia/Interface/job_icons.rsi
+      offset: -0.09375, 0.0625
+      state: Researcher
+  - type: PresetIdCard
+    job: DystopiaResearcher
+
+- type: entity
+  parent: IDCardStandard
+  id: DystopiaLabAssistantIDCard
+  name: ID-карта (лаборант)
+  components:
+  - type: Sprite
+    layers:
+    - state: default
+    - state: stripe_top
+      color: "#2F7F86"
+    - state: stripe_bottom
+      color: "#1d4e53"
+    - sprite: _Dystopia/Interface/job_icons.rsi
+      offset: -0.09375, 0.0625
+      state: LabAssistant
+  - type: PresetIdCard
+    job: DystopiaLabAssistant
+
+- type: entity
+  parent: IDCardStandard
+  id: DystopiaProletarianIDCard
+  name: ID-карта (пролетарий)
+  components:
+  - type: Sprite
+    layers:
+    - state: default
+    - state: stripe_top
+      color: "#7F7F7F"
+    - state: stripe_bottom
+      color: "#4e4e4e"
+    - sprite: _Dystopia/Interface/job_icons.rsi
+      offset: -0.09375, 0.0625
+      state: Proletarian
+  - type: PresetIdCard
+    job: DystopiaProletarian
+
+- type: entity
+  parent: IDCardStandard
+  id: DystopiaShopkeeperIDCard
+  name: ID-карта (лавочник)
+  components:
+  - type: Sprite
+    layers:
+    - state: default
+    - state: stripe_top
+      color: "#7F7F7F"
+    - state: stripe_bottom
+      color: "#4e4e4e"
+    - sprite: _Dystopia/Interface/job_icons.rsi
+      offset: -0.09375, 0.0625
+      state: Shopkeeper
+  - type: PresetIdCard
+    job: DystopiaShopkeeper

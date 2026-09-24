@@ -1,0 +1,186 @@
+# Одежда Города. Спрайты — перекраски ванильных (CC-BY-SA-3.0), лежат в Textures/_Dystopia.
+
+# --- Консул: весь в белом ---
+- type: entity
+  parent: ClothingUniformJumpsuitCaptain
+  id: DystopiaClothingUniformConsul
+  name: белый мундир Консула
+  description: Безупречно белый мундир правителя Города. Ни пятнышка — грязь здесь убирают другие.
+  components:
+  - type: Sprite
+    sprite: _Dystopia/Clothing/Uniforms/consul.rsi
+  - type: Clothing
+    sprite: _Dystopia/Clothing/Uniforms/consul.rsi
+
+- type: entity
+  parent: ClothingNeckCloakCap
+  id: DystopiaClothingNeckConsulCloak
+  name: белый плащ Консула
+  description: Белый плащ с золотой каймой. Его видно издалека — и это главное.
+  components:
+  - type: Sprite
+    sprite: _Dystopia/Clothing/Neck/consul_cloak.rsi
+  - type: Clothing
+    sprite: _Dystopia/Clothing/Neck/consul_cloak.rsi
+
+- type: entity
+  parent: ClothingOuterCoatCaptain
+  id: DystopiaClothingOuterConsulJacket
+  name: торжественный китель Консула
+  description: Белоснежный китель с золотым шитьём. Надевается, когда Город должен видеть своего правителя.
+  components:
+  - type: Sprite
+    sprite: _Dystopia/Clothing/OuterClothing/consul_jacket.rsi
+  - type: Clothing
+    sprite: _Dystopia/Clothing/OuterClothing/consul_jacket.rsi
+
+# --- Городская Стража: бездушно синяя ---
+- type: entity
+  parent: ClothingUniformJumpsuitSec
+  id: DystopiaClothingUniformGuard
+  name: форма Городской Стражи
+  description: Синяя форма Городской Стражи. Одинаковая у всех — как и лица под беретами.
+  components:
+  - type: Sprite
+    sprite: _Dystopia/Clothing/Uniforms/guard.rsi
+  - type: Clothing
+    sprite: _Dystopia/Clothing/Uniforms/guard.rsi
+
+- type: entity
+  parent: ClothingUniformJumpsuitWarden
+  id: DystopiaClothingUniformGuardSergeant
+  name: форма сержанта Стражи
+  description: Синяя форма с сержантскими знаками различия.
+  components:
+  - type: Sprite
+    sprite: _Dystopia/Clothing/Uniforms/guard_sergeant.rsi
+  - type: Clothing
+    sprite: _Dystopia/Clothing/Uniforms/guard_sergeant.rsi
+
+- type: entity
+  parent: ClothingUniformJumpsuitHoS
+  id: DystopiaClothingUniformGuardCaptain
+  name: форма капитана Стражи
+  description: Синяя форма с золотыми знаками различия капитана Городской Стражи.
+  components:
+  - type: Sprite
+    sprite: _Dystopia/Clothing/Uniforms/guard_captain.rsi
+  - type: Clothing
+    sprite: _Dystopia/Clothing/Uniforms/guard_captain.rsi
+
+- type: entity
+  parent: ClothingHeadHatBeretSecurity
+  id: DystopiaClothingHeadGuardBeret
+  name: берет Стражи
+  description: Синий берет Городской Стражи.
+  components:
+  - type: Sprite
+    sprite: _Dystopia/Clothing/Head/guard_beret.rsi
+  - type: Clothing
+    sprite: _Dystopia/Clothing/Head/guard_beret.rsi
+
+# --- Броня Санитарной и Научной служб (пока с ванильным видом) ---
+- type: entity
+  parent: ClothingOuterSuitFire
+  id: DystopiaClothingOuterDisinfectorSuit
+  name: костюм дезинфектора
+  description: Тяжёлый защитный костюм. Держит огонь собственного огнемёта и едкие выделения плоти.
+  components:
+  - type: Armor
+    modifiers:
+      coefficients:
+        Slash: 0.9
+        Heat: 0.5
+        Cold: 0.8
+        Caustic: 0.5
+  - type: FireProtection
+    reduction: 0.8
+  - type: ClothingSpeedModifier
+    walkModifier: 0.85
+    sprintModifier: 0.85
+
+- type: entity
+  parent: ClothingOuterBioScientist
+  id: DystopiaClothingOuterPathobiologistSuit
+  name: костюм патобиолога
+  description: Герметичный лабораторный костюм для работы с образцами заражённой плоти.
+  components:
+  - type: Armor
+    modifiers:
+      coefficients:
+        Caustic: 0.6
+        Poison: 0.6
+        Cellular: 0.7
+
+# --- Маска Стражи: противогаз + свойства очков СБ (защита от вспышек, HUD Стражи) ---
+- type: entity
+  parent: [ClothingMaskGasSecurity, ShowSecurityIcons]
+  id: DystopiaClothingMaskGuard
+  name: маска Стражи
+  description: Глухая маска Городской Стражи. В прорезях для глаз холодно светится голубым — лица за ней никто не видел.
+  components:
+  - type: Sprite
+    sprite: _Dystopia/Clothing/Mask/guard_mask.rsi
+    layers:
+    - state: icon
+    - state: icon-glow
+      shader: unshaded
+  - type: Clothing
+    sprite: _Dystopia/Clothing/Mask/guard_mask.rsi
+    clothingVisuals:
+      mask:
+      - state: equipped-MASK
+      - state: equipped-MASK-glow
+        shader: unshaded
+  - type: FlashImmunity
+  - type: EyeProtection
+    protectionTime: 5
+
+# --- Пояс и РПС Стражи ---
+- type: entity
+  parent: ClothingBeltSecurity
+  id: DystopiaClothingBeltGuard
+  name: пояс Стражи
+  description: Синий поясной ремень Городской Стражи.
+  components:
+  - type: Sprite
+    sprite: _Dystopia/Clothing/Belt/guard_belt.rsi
+  - type: Clothing
+    sprite: _Dystopia/Clothing/Belt/guard_belt.rsi
+
+- type: entity
+  parent: ClothingBeltSecurityWebbing
+  id: DystopiaClothingBeltGuardWebbing
+  name: РПС Стражи
+  description: Разгрузочная система Городской Стражи.
+  components:
+  - type: Sprite
+    sprite: _Dystopia/Clothing/Belt/guard_webbing.rsi
+  - type: Clothing
+    sprite: _Dystopia/Clothing/Belt/guard_webbing.rsi
+
+- type: entity
+  parent: DystopiaClothingBeltGuard
+  id: DystopiaClothingBeltGuardFilled
+  suffix: Заполненный
+  components:
+  - type: StorageFill
+    contents:
+    - id: MagazinePistol
+    - id: DystopiaGuardBaton
+    - id: Handcuffs
+      amount: 2
+    - id: Tourniquet
+
+- type: entity
+  parent: DystopiaClothingBeltGuardWebbing
+  id: DystopiaClothingBeltGuardWebbingFilled
+  suffix: Заполненная
+  components:
+  - type: StorageFill
+    contents:
+    - id: MagazinePistol
+    - id: DystopiaGuardBaton
+    - id: Handcuffs
+      amount: 2
+    - id: Tourniquet

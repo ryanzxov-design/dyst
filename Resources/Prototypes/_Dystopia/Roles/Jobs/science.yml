@@ -1,5 +1,5 @@
 # Роли: Научная Служба
-# Снаряжение — ВРЕМЕННОЕ (ванильное), заменим на подэтапе 3в.
+# Сумки (и пояс/РПС у Стражи) выдаются через выбор снаряжения — см. Loadouts/loadouts.yml.
 
 - type: job
   id: DystopiaScienceDirector
@@ -30,9 +30,10 @@
   id: DystopiaScienceDirectorGear
   equipment:
     jumpsuit: ClothingUniformJumpsuitResearchDirector
+    outerClothing: ClothingOuterCoatRD
+    mask: ClothingMaskGas
     shoes: ClothingShoesBootsLaceup
-    back: ClothingBackpackScience
-    id: RnDPDA
+    id: DystopiaScienceDirectorPDA
     ears: ClothingHeadsetRD
 
 - type: job
@@ -54,9 +55,11 @@
   id: DystopiaAugmentologistGear
   equipment:
     jumpsuit: ClothingUniformJumpsuitRoboticist
+    mask: ClothingMaskGas
+    gloves: ClothingHandsGlovesLatex
     shoes: ClothingShoesColorBlack
-    back: ClothingBackpackScience
-    id: SciencePDA
+    belt: ClothingBeltUtilityFilled
+    id: DystopiaAugmentologistPDA
     ears: ClothingHeadsetRobotics
 
 - type: job
@@ -79,10 +82,18 @@
   id: DystopiaPathobiologistGear
   equipment:
     jumpsuit: ClothingUniformJumpsuitGenetics
+    outerClothing: DystopiaClothingOuterPathobiologistSuit
+    head: ClothingHeadHatHoodBioScientist
+    mask: ClothingMaskGas
+    gloves: ClothingHandsGlovesLatex
     shoes: ClothingShoesColorWhite
-    back: ClothingBackpackGenetics
-    id: SciencePDA
+    id: DystopiaPathobiologistPDA
     ears: ClothingHeadsetMedicalScience
+  storage:
+    back:
+    - Syringe
+    - Syringe
+    - Beaker
 
 - type: job
   id: DystopiaResearcher
@@ -102,9 +113,10 @@
   id: DystopiaResearcherGear
   equipment:
     jumpsuit: ClothingUniformJumpsuitScientist
+    outerClothing: ClothingOuterCoatLab
+    mask: ClothingMaskGas
     shoes: ClothingShoesColorWhite
-    back: ClothingBackpackScience
-    id: SciencePDA
+    id: DystopiaResearcherPDA
     ears: ClothingHeadsetScience
 
 - type: job
@@ -125,7 +137,8 @@
   id: DystopiaLabAssistantGear
   equipment:
     jumpsuit: ClothingUniformJumpsuitColorWhite
+    outerClothing: ClothingOuterCoatLab
+    mask: ClothingMaskGas
     shoes: ClothingShoesColorBlack
-    back: ClothingBackpackScience
-    id: ResearchAssistantPDA
+    id: DystopiaLabAssistantPDA
     ears: ClothingHeadsetScience

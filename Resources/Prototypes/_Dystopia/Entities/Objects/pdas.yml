@@ -1,0 +1,193 @@
+# КПК профессий Города. Внутри — ID-карта профессии. Внешний вид пока ванильный.
+
+- type: entity
+  parent: CaptainPDA
+  id: DystopiaConsulPDA
+  name: КПК (консул)
+  components:
+  - type: Pda
+    id: DystopiaConsulIDCard
+
+- type: entity
+  parent: LawyerPDA
+  id: DystopiaAdjutantPDA
+  name: КПК (адъютант)
+  components:
+  - type: Pda
+    id: DystopiaAdjutantIDCard
+
+- type: entity
+  parent: HoPPDA
+  id: DystopiaCivilInspectorPDA
+  name: КПК (гражданский инспектор)
+  components:
+  - type: Pda
+    id: DystopiaCivilInspectorIDCard
+
+- type: entity
+  parent: HoSPDA
+  id: DystopiaGuardCaptainPDA
+  name: КПК (капитан Стражи)
+  components:
+  - type: Pda
+    id: DystopiaGuardCaptainIDCard
+
+- type: entity
+  parent: WardenPDA
+  id: DystopiaGuardSergeantPDA
+  name: КПК (сержант Стражи)
+  components:
+  - type: Pda
+    id: DystopiaGuardSergeantIDCard
+
+- type: entity
+  parent: SecurityPDA
+  id: DystopiaGuardsmanPDA
+  name: КПК (городской стражник)
+  components:
+  - type: Pda
+    id: DystopiaGuardsmanIDCard
+
+- type: entity
+  parent: SecurityCadetPDA
+  id: DystopiaGuardRecruitPDA
+  name: КПК (рекрут Стражи)
+  components:
+  - type: Pda
+    id: DystopiaGuardRecruitIDCard
+
+- type: entity
+  parent: SecurityPDA
+  id: DystopiaPraetorianPDA
+  name: КПК (преторианец)
+  components:
+  - type: Pda
+    id: DystopiaPraetorianIDCard
+
+- type: entity
+  parent: SecurityPDA
+  id: DystopiaGrenadierPDA
+  name: КПК (гренадер)
+  components:
+  - type: Pda
+    id: DystopiaGrenadierIDCard
+
+- type: entity
+  parent: SecurityPDA
+  id: DystopiaStormtrooperPDA
+  name: КПК (штурмовик)
+  components:
+  - type: Pda
+    id: DystopiaStormtrooperIDCard
+
+- type: entity
+  parent: SecurityPDA
+  id: DystopiaSoldierPDA
+  name: КПК (солдат)
+  components:
+  - type: Pda
+    id: DystopiaSoldierIDCard
+
+- type: entity
+  parent: CMOPDA
+  id: DystopiaChiefSanitaryDoctorPDA
+  name: КПК (главный санитарный врач)
+  components:
+  - type: Pda
+    id: DystopiaChiefSanitaryDoctorIDCard
+
+- type: entity
+  parent: MedicalPDA
+  id: DystopiaHealerPDA
+  name: КПК (лекарь)
+  components:
+  - type: Pda
+    id: DystopiaHealerIDCard
+
+- type: entity
+  parent: MedicalPDA
+  id: DystopiaDisinfectorPDA
+  name: КПК (дезинфектор)
+  components:
+  - type: Pda
+    id: DystopiaDisinfectorIDCard
+
+- type: entity
+  parent: EngineerPDA
+  id: DystopiaLiquidatorPDA
+  name: КПК (ликвидатор)
+  components:
+  - type: Pda
+    id: DystopiaLiquidatorIDCard
+
+- type: entity
+  parent: ChemistryPDA
+  id: DystopiaPharmacistPDA
+  name: КПК (фармацевт)
+  components:
+  - type: Pda
+    id: DystopiaPharmacistIDCard
+
+- type: entity
+  parent: MedicalInternPDA
+  id: DystopiaJuniorOrderlyPDA
+  name: КПК (младший санитар)
+  components:
+  - type: Pda
+    id: DystopiaJuniorOrderlyIDCard
+
+- type: entity
+  parent: RnDPDA
+  id: DystopiaScienceDirectorPDA
+  name: КПК (директор Научной службы)
+  components:
+  - type: Pda
+    id: DystopiaScienceDirectorIDCard
+
+- type: entity
+  parent: SciencePDA
+  id: DystopiaAugmentologistPDA
+  name: КПК (аугментолог)
+  components:
+  - type: Pda
+    id: DystopiaAugmentologistIDCard
+
+- type: entity
+  parent: SciencePDA
+  id: DystopiaPathobiologistPDA
+  name: КПК (патобиолог)
+  components:
+  - type: Pda
+    id: DystopiaPathobiologistIDCard
+
+- type: entity
+  parent: SciencePDA
+  id: DystopiaResearcherPDA
+  name: КПК (исследователь)
+  components:
+  - type: Pda
+    id: DystopiaResearcherIDCard
+
+- type: entity
+  parent: ResearchAssistantPDA
+  id: DystopiaLabAssistantPDA
+  name: КПК (лаборант)
+  components:
+  - type: Pda
+    id: DystopiaLabAssistantIDCard
+
+- type: entity
+  parent: PassengerPDA
+  id: DystopiaProletarianPDA
+  name: КПК (пролетарий)
+  components:
+  - type: Pda
+    id: DystopiaProletarianIDCard
+
+- type: entity
+  parent: CargoPDA
+  id: DystopiaShopkeeperPDA
+  name: КПК (лавочник)
+  components:
+  - type: Pda
+    id: DystopiaShopkeeperIDCard

@@ -19,3 +19,6 @@ auto_call_time = 0           # не вызывать эвак автоматич
 
 [events]
 enabled = false              # космические события (метеоры и т.п.) выключены
+
+[ic]
+random_species_weights = "DystopiaSpeciesWeights"   # случайные персонажи — только люди

@@ -1,0 +1,168 @@
+# Выбор снаряжения (лоадауты) для ролей Города.
+# Сумки — ванильные группы (рюкзак / сумка / вещмешок в цветах службы).
+# Стража дополнительно выбирает пояс или РПС (обе уже заполнены).
+
+- type: loadoutGroup
+  id: DystopiaGuardBelt
+  name: loadout-group-dystopia-guard-belt
+  loadouts:
+  - DystopiaGuardBelt
+  - DystopiaGuardWebbing
+
+- type: loadout
+  id: DystopiaGuardBelt
+  equipment:
+    belt: DystopiaClothingBeltGuardFilled
+
+- type: loadout
+  id: DystopiaGuardWebbing
+  equipment:
+    belt: DystopiaClothingBeltGuardWebbingFilled
+
+- type: roleLoadout
+  id: JobDystopiaConsul
+  groups:
+  - Inventory # Corvax-Loadouts
+  - CaptainBackpack
+
+- type: roleLoadout
+  id: JobDystopiaAdjutant
+  groups:
+  - Inventory # Corvax-Loadouts
+  - CommonBackpack
+
+- type: roleLoadout
+  id: JobDystopiaCivilInspector
+  groups:
+  - Inventory # Corvax-Loadouts
+  - CommonBackpack
+
+- type: roleLoadout
+  id: JobDystopiaGuardCaptain
+  groups:
+  - Inventory # Corvax-Loadouts
+  - SecurityBackpack
+  - DystopiaGuardBelt
+
+- type: roleLoadout
+  id: JobDystopiaGuardSergeant
+  groups:
+  - Inventory # Corvax-Loadouts
+  - SecurityBackpack
+  - DystopiaGuardBelt
+
+- type: roleLoadout
+  id: JobDystopiaGuardsman
+  groups:
+  - Inventory # Corvax-Loadouts
+  - SecurityBackpack
+  - DystopiaGuardBelt
+
+- type: roleLoadout
+  id: JobDystopiaGuardRecruit
+  groups:
+  - Inventory # Corvax-Loadouts
+  - SecurityBackpack
+  - DystopiaGuardBelt
+
+- type: roleLoadout
+  id: JobDystopiaPraetorian
+  groups:
+  - Inventory # Corvax-Loadouts
+  - SecurityBackpack
+
+- type: roleLoadout
+  id: JobDystopiaGrenadier
+  groups:
+  - Inventory # Corvax-Loadouts
+  - SecurityBackpack
+
+- type: roleLoadout
+  id: JobDystopiaStormtrooper
+  groups:
+  - Inventory # Corvax-Loadouts
+  - SecurityBackpack
+
+- type: roleLoadout
+  id: JobDystopiaSoldier
+  groups:
+  - Inventory # Corvax-Loadouts
+  - SecurityBackpack
+
+- type: roleLoadout
+  id: JobDystopiaChiefSanitaryDoctor
+  groups:
+  - Inventory # Corvax-Loadouts
+  - MedicalBackpack
+
+- type: roleLoadout
+  id: JobDystopiaHealer
+  groups:
+  - Inventory # Corvax-Loadouts
+  - MedicalBackpack
+
+- type: roleLoadout
+  id: JobDystopiaDisinfector
+  groups:
+  - Inventory # Corvax-Loadouts
+  - MedicalBackpack
+
+- type: roleLoadout
+  id: JobDystopiaLiquidator
+  groups:
+  - Inventory # Corvax-Loadouts
+  - StationEngineerBackpack
+
+- type: roleLoadout
+  id: JobDystopiaPharmacist
+  groups:
+  - Inventory # Corvax-Loadouts
+  - ChemistBackpack
+
+- type: roleLoadout
+  id: JobDystopiaJuniorOrderly
+  groups:
+  - Inventory # Corvax-Loadouts
+  - MedicalBackpack
+
+- type: roleLoadout
+  id: JobDystopiaScienceDirector
+  groups:
+  - Inventory # Corvax-Loadouts
+  - ScientistBackpack
+
+- type: roleLoadout
+  id: JobDystopiaAugmentologist
+  groups:
+  - Inventory # Corvax-Loadouts
+  - ScientistBackpack
+
+- type: roleLoadout
+  id: JobDystopiaPathobiologist
+  groups:
+  - Inventory # Corvax-Loadouts
+  - ScientistBackpack
+
+- type: roleLoadout
+  id: JobDystopiaResearcher
+  groups:
+  - Inventory # Corvax-Loadouts
+  - ScientistBackpack
+
+- type: roleLoadout
+  id: JobDystopiaLabAssistant
+  groups:
+  - Inventory # Corvax-Loadouts
+  - ScientistBackpack
+
+- type: roleLoadout
+  id: JobDystopiaProletarian
+  groups:
+  - Inventory # Corvax-Loadouts
+  - CommonBackpack
+
+- type: roleLoadout
+  id: JobDystopiaShopkeeper
+  groups:
+  - Inventory # Corvax-Loadouts
+  - CargoTechnicianBackpack

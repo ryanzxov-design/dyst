@@ -1,5 +1,6 @@
 # Роли: Внешний Патруль
-# Снаряжение — ВРЕМЕННОЕ (ванильное), заменим на подэтапе 3в.
+# Сумки (и пояс/РПС у Стражи) выдаются через выбор снаряжения — см. Loadouts/loadouts.yml.
+# Снаряжение Внешнего Патруля — ВРЕМЕННОЕ, будет позже.
 
 - type: job
   id: DystopiaPraetorian
@@ -27,9 +28,9 @@
   id: DystopiaPraetorianGear
   equipment:
     jumpsuit: ClothingUniformJumpsuitSeniorOfficer
+    mask: ClothingMaskGas
     shoes: ClothingShoesBootsCombat
-    back: ClothingBackpackERTSecurity
-    id: SecurityPDA
+    id: DystopiaPraetorianPDA
     ears: ClothingHeadsetAltSecurity
 
 - type: job
@@ -55,9 +56,9 @@
   id: DystopiaGrenadierGear
   equipment:
     jumpsuit: ClothingUniformJumpsuitERTEngineer
+    mask: ClothingMaskGas
     shoes: ClothingShoesBootsCombat
-    back: ClothingBackpackERTSecurity
-    id: SecurityPDA
+    id: DystopiaGrenadierPDA
     ears: ClothingHeadsetSecurity
 
 - type: job
@@ -83,9 +84,9 @@
   id: DystopiaStormtrooperGear
   equipment:
     jumpsuit: ClothingUniformJumpsuitERTLeader
+    mask: ClothingMaskGas
     shoes: ClothingShoesBootsCombat
-    back: ClothingBackpackERTSecurity
-    id: SecurityPDA
+    id: DystopiaStormtrooperPDA
     ears: ClothingHeadsetSecurity
 
 - type: job
@@ -110,7 +111,7 @@
   id: DystopiaSoldierGear
   equipment:
     jumpsuit: ClothingUniformJumpsuitERTSecurity
+    mask: ClothingMaskGas
     shoes: ClothingShoesBootsCombat
-    back: ClothingBackpackERTSecurity
-    id: SecurityPDA
+    id: DystopiaSoldierPDA
     ears: ClothingHeadsetSecurity

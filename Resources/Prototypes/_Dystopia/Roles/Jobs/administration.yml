@@ -1,5 +1,5 @@
 # Роли: Администрация Города
-# Снаряжение — ВРЕМЕННОЕ (ванильное), заменим на подэтапе 3в.
+# Сумки (и пояс/РПС у Стражи) выдаются через выбор снаряжения — см. Loadouts/loadouts.yml.
 
 - type: job
   id: DystopiaConsul
@@ -18,11 +18,19 @@
 - type: startingGear
   id: DystopiaConsulGear
   equipment:
-    jumpsuit: ClothingUniformJumpsuitCaptain
-    shoes: ClothingShoesBootsLaceup
-    back: ClothingBackpackCaptain
-    id: CaptainPDA
+    jumpsuit: DystopiaClothingUniformConsul
+    outerClothing: DystopiaClothingOuterConsulJacket
+    neck: DystopiaClothingNeckConsulCloak
+    gloves: ClothingHandsGlovesColorWhite
+    shoes: ClothingShoesColorWhite
+    id: DystopiaConsulPDA
     ears: ClothingHeadsetAltCommand
+    pocket1: WeaponPistolMk58
+  storage:
+    back:
+    - MagazinePistol
+    - RubberStampCaptain
+    - Pen
 
 - type: job
   id: DystopiaAdjutant
@@ -48,10 +56,16 @@
   id: DystopiaAdjutantGear
   equipment:
     jumpsuit: ClothingUniformJumpsuitCommandGeneric
+    mask: ClothingMaskGas
     shoes: ClothingShoesBootsLaceup
-    back: ClothingBackpack
-    id: LawyerPDA
+    id: DystopiaAdjutantPDA
     ears: ClothingHeadsetCommand
+    pocket1: Pen
+  storage:
+    back:
+    - Paper
+    - Paper
+    - Paper
 
 - type: job
   id: DystopiaCivilInspector
@@ -84,7 +98,13 @@
   id: DystopiaCivilInspectorGear
   equipment:
     jumpsuit: ClothingUniformJumpsuitHoP
+    mask: ClothingMaskGas
     shoes: ClothingShoesColorBrown
-    back: ClothingBackpack
-    id: HoPPDA
+    id: DystopiaCivilInspectorPDA
     ears: ClothingHeadsetCommand
+    pocket1: Pen
+  storage:
+    back:
+    - RubberStampHop
+    - Paper
+    - Paper

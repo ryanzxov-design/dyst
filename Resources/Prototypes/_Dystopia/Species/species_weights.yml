@@ -1,0 +1,6 @@
+# Веса рас для случайных персонажей — только люди.
+# Подключается в dev.toml: ic.random_species_weights = "DystopiaSpeciesWeights"
+- type: weightedRandomSpecies
+  id: DystopiaSpeciesWeights
+  weights:
+    Human: 1

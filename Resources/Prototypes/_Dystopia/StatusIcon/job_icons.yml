@@ -1,193 +1,193 @@
-# Иконки ролей. Пока используют ванильные спрайты — свои нарисуем позже.
+# Иконки ролей Города (свои спрайты, Textures/_Dystopia/Interface/job_icons.rsi).
 
 - type: jobIcon
   parent: JobIcon
   id: JobIconDystopiaConsul
   icon:
-    sprite: /Textures/Interface/Misc/job_icons.rsi
-    state: Captain
+    sprite: /Textures/_Dystopia/Interface/job_icons.rsi
+    state: Consul
   jobName: job-name-dystopia-consul
 
 - type: jobIcon
   parent: JobIcon
   id: JobIconDystopiaAdjutant
   icon:
-    sprite: /Textures/Interface/Misc/job_icons.rsi
-    state: Lawyer
+    sprite: /Textures/_Dystopia/Interface/job_icons.rsi
+    state: Adjutant
   jobName: job-name-dystopia-adjutant
 
 - type: jobIcon
   parent: JobIcon
   id: JobIconDystopiaCivilInspector
   icon:
-    sprite: /Textures/Interface/Misc/job_icons.rsi
-    state: HeadOfPersonnel
+    sprite: /Textures/_Dystopia/Interface/job_icons.rsi
+    state: CivilInspector
   jobName: job-name-dystopia-civil-inspector
 
 - type: jobIcon
   parent: JobIcon
   id: JobIconDystopiaGuardCaptain
   icon:
-    sprite: /Textures/Interface/Misc/job_icons.rsi
-    state: HeadOfSecurity
+    sprite: /Textures/_Dystopia/Interface/job_icons.rsi
+    state: GuardCaptain
   jobName: job-name-dystopia-guard-captain
 
 - type: jobIcon
   parent: JobIcon
   id: JobIconDystopiaGuardSergeant
   icon:
-    sprite: /Textures/Interface/Misc/job_icons.rsi
-    state: Warden
+    sprite: /Textures/_Dystopia/Interface/job_icons.rsi
+    state: GuardSergeant
   jobName: job-name-dystopia-guard-sergeant
 
 - type: jobIcon
   parent: JobIcon
   id: JobIconDystopiaGuardsman
   icon:
-    sprite: /Textures/Interface/Misc/job_icons.rsi
-    state: SecurityOfficer
+    sprite: /Textures/_Dystopia/Interface/job_icons.rsi
+    state: Guardsman
   jobName: job-name-dystopia-guardsman
 
 - type: jobIcon
   parent: JobIcon
   id: JobIconDystopiaGuardRecruit
   icon:
-    sprite: /Textures/Interface/Misc/job_icons.rsi
-    state: SecurityCadet
+    sprite: /Textures/_Dystopia/Interface/job_icons.rsi
+    state: GuardRecruit
   jobName: job-name-dystopia-guard-recruit
 
 - type: jobIcon
   parent: JobIcon
   id: JobIconDystopiaPraetorian
   icon:
-    sprite: /Textures/Interface/Misc/job_icons.rsi
-    state: SeniorOfficer
+    sprite: /Textures/_Dystopia/Interface/job_icons.rsi
+    state: Praetorian
   jobName: job-name-dystopia-praetorian
 
 - type: jobIcon
   parent: JobIcon
   id: JobIconDystopiaGrenadier
   icon:
-    sprite: /Textures/Interface/Misc/job_icons.rsi
-    state: ERTEngineer
+    sprite: /Textures/_Dystopia/Interface/job_icons.rsi
+    state: Grenadier
   jobName: job-name-dystopia-grenadier
 
 - type: jobIcon
   parent: JobIcon
   id: JobIconDystopiaStormtrooper
   icon:
-    sprite: /Textures/Interface/Misc/job_icons.rsi
-    state: ERTLeader
+    sprite: /Textures/_Dystopia/Interface/job_icons.rsi
+    state: Stormtrooper
   jobName: job-name-dystopia-stormtrooper
 
 - type: jobIcon
   parent: JobIcon
   id: JobIconDystopiaSoldier
   icon:
-    sprite: /Textures/Interface/Misc/job_icons.rsi
-    state: ERTSecurity
+    sprite: /Textures/_Dystopia/Interface/job_icons.rsi
+    state: Soldier
   jobName: job-name-dystopia-soldier
 
 - type: jobIcon
   parent: JobIcon
   id: JobIconDystopiaChiefSanitaryDoctor
   icon:
-    sprite: /Textures/Interface/Misc/job_icons.rsi
-    state: ChiefMedicalOfficer
+    sprite: /Textures/_Dystopia/Interface/job_icons.rsi
+    state: ChiefSanitaryDoctor
   jobName: job-name-dystopia-chief-sanitary-doctor
 
 - type: jobIcon
   parent: JobIcon
   id: JobIconDystopiaHealer
   icon:
-    sprite: /Textures/Interface/Misc/job_icons.rsi
-    state: MedicalDoctor
+    sprite: /Textures/_Dystopia/Interface/job_icons.rsi
+    state: Healer
   jobName: job-name-dystopia-healer
 
 - type: jobIcon
   parent: JobIcon
   id: JobIconDystopiaDisinfector
   icon:
-    sprite: /Textures/Interface/Misc/job_icons.rsi
-    state: Virologist
+    sprite: /Textures/_Dystopia/Interface/job_icons.rsi
+    state: Disinfector
   jobName: job-name-dystopia-disinfector
 
 - type: jobIcon
   parent: JobIcon
   id: JobIconDystopiaLiquidator
   icon:
-    sprite: /Textures/Interface/Misc/job_icons.rsi
-    state: StationEngineer
+    sprite: /Textures/_Dystopia/Interface/job_icons.rsi
+    state: Liquidator
   jobName: job-name-dystopia-liquidator
 
 - type: jobIcon
   parent: JobIcon
   id: JobIconDystopiaPharmacist
   icon:
-    sprite: /Textures/Interface/Misc/job_icons.rsi
-    state: Chemist
+    sprite: /Textures/_Dystopia/Interface/job_icons.rsi
+    state: Pharmacist
   jobName: job-name-dystopia-pharmacist
 
 - type: jobIcon
   parent: JobIcon
   id: JobIconDystopiaJuniorOrderly
   icon:
-    sprite: /Textures/Interface/Misc/job_icons.rsi
-    state: MedicalIntern
+    sprite: /Textures/_Dystopia/Interface/job_icons.rsi
+    state: JuniorOrderly
   jobName: job-name-dystopia-junior-orderly
 
 - type: jobIcon
   parent: JobIcon
   id: JobIconDystopiaScienceDirector
   icon:
-    sprite: /Textures/Interface/Misc/job_icons.rsi
-    state: ResearchDirector
+    sprite: /Textures/_Dystopia/Interface/job_icons.rsi
+    state: ScienceDirector
   jobName: job-name-dystopia-science-director
 
 - type: jobIcon
   parent: JobIcon
   id: JobIconDystopiaAugmentologist
   icon:
-    sprite: /Textures/Interface/Misc/job_icons.rsi
-    state: Roboticist
+    sprite: /Textures/_Dystopia/Interface/job_icons.rsi
+    state: Augmentologist
   jobName: job-name-dystopia-augmentologist
 
 - type: jobIcon
   parent: JobIcon
   id: JobIconDystopiaPathobiologist
   icon:
-    sprite: /Textures/Interface/Misc/job_icons.rsi
-    state: Geneticist
+    sprite: /Textures/_Dystopia/Interface/job_icons.rsi
+    state: Pathobiologist
   jobName: job-name-dystopia-pathobiologist
 
 - type: jobIcon
   parent: JobIcon
   id: JobIconDystopiaResearcher
   icon:
-    sprite: /Textures/Interface/Misc/job_icons.rsi
-    state: Scientist
+    sprite: /Textures/_Dystopia/Interface/job_icons.rsi
+    state: Researcher
   jobName: job-name-dystopia-researcher
 
 - type: jobIcon
   parent: JobIcon
   id: JobIconDystopiaLabAssistant
   icon:
-    sprite: /Textures/Interface/Misc/job_icons.rsi
-    state: ResearchAssistant
+    sprite: /Textures/_Dystopia/Interface/job_icons.rsi
+    state: LabAssistant
   jobName: job-name-dystopia-lab-assistant
 
 - type: jobIcon
   parent: JobIcon
   id: JobIconDystopiaProletarian
   icon:
-    sprite: /Textures/Interface/Misc/job_icons.rsi
-    state: Passenger
+    sprite: /Textures/_Dystopia/Interface/job_icons.rsi
+    state: Proletarian
   jobName: job-name-dystopia-proletarian
 
 - type: jobIcon
   parent: JobIcon
   id: JobIconDystopiaShopkeeper
   icon:
-    sprite: /Textures/Interface/Misc/job_icons.rsi
-    state: CargoTechnician
+    sprite: /Textures/_Dystopia/Interface/job_icons.rsi
+    state: Shopkeeper
   jobName: job-name-dystopia-shopkeeper

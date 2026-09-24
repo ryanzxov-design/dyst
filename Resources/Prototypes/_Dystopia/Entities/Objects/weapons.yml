@@ -1,0 +1,24 @@
+# Дубинка Стражи: 7 тупого урона, валит с ног за 4 удара (4 × 26 = 104 урона выносливости при пороге 100).
+# Урон по выносливости не зависит от брони цели (StaminaDamageOnHit), а тупой урон — зависит.
+
+- type: entity
+  parent: Truncheon
+  id: DystopiaGuardBaton
+  name: дубинка
+  description: Простая резиновая дубинка Городской Стражи. Больно, унизительно, эффективно.
+  components:
+  - type: MeleeWeapon
+    damage:
+      types:
+        Blunt: 7
+    bluntStaminaDamageFactor: 0
+  - type: StaminaDamageOnHit
+    damage: 26
+  - type: Item
+    size: Normal
+    shape:
+    - 0,0,0,1
+  - type: Tag
+    tags:
+    - Truncheon
+    - SecBeltEquip

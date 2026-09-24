@@ -1,5 +1,5 @@
 # Роли: Санитарная Служба
-# Снаряжение — ВРЕМЕННОЕ (ванильное), заменим на подэтапе 3в.
+# Сумки (и пояс/РПС у Стражи) выдаются через выбор снаряжения — см. Loadouts/loadouts.yml.
 
 - type: job
   id: DystopiaChiefSanitaryDoctor
@@ -31,10 +31,15 @@
   id: DystopiaChiefSanitaryDoctorGear
   equipment:
     jumpsuit: ClothingUniformJumpsuitCMO
+    eyes: ClothingEyesHudMedical
+    mask: ClothingMaskGas
     shoes: ClothingShoesBootsLaceup
-    back: ClothingBackpackMedical
-    id: CMOPDA
+    id: DystopiaChiefSanitaryDoctorPDA
     ears: ClothingHeadsetCMO
+    pocket1: HandheldHealthAnalyzer
+  storage:
+    back:
+    - MedkitFilled
 
 - type: job
   id: DystopiaHealer
@@ -54,10 +59,14 @@
   id: DystopiaHealerGear
   equipment:
     jumpsuit: ClothingUniformJumpsuitMedicalDoctor
+    mask: ClothingMaskGas
     shoes: ClothingShoesColorWhite
-    back: ClothingBackpackMedical
-    id: MedicalPDA
+    id: DystopiaHealerPDA
     ears: ClothingHeadsetMedical
+    pocket1: HandheldHealthAnalyzer
+  storage:
+    back:
+    - MedkitFilled
 
 - type: job
   id: DystopiaDisinfector
@@ -81,10 +90,17 @@
   id: DystopiaDisinfectorGear
   equipment:
     jumpsuit: ClothingUniformJumpsuitVirology
+    outerClothing: DystopiaClothingOuterDisinfectorSuit
+    head: ClothingHeadHelmetFire
+    mask: ClothingMaskGas
     shoes: ClothingShoesGaloshes
-    back: ClothingBackpackVirology
-    id: MedicalPDA
+    id: DystopiaDisinfectorPDA
     ears: ClothingHeadsetMedical
+  storage:
+    back:
+    - BodyBagFolded
+    - BodyBagFolded
+    - BodyBagFolded
 
 - type: job
   id: DystopiaLiquidator
@@ -110,9 +126,12 @@
   id: DystopiaLiquidatorGear
   equipment:
     jumpsuit: ClothingUniformJumpsuitEngineeringHazard
+    head: ClothingHeadHatWelding
+    mask: ClothingMaskGas
+    gloves: ClothingHandsGlovesColorYellow
     shoes: ClothingShoesBootsWork
-    back: ClothingBackpackEngineering
-    id: EngineerPDA
+    belt: ClothingBeltUtilityFilled
+    id: DystopiaLiquidatorPDA
     ears: ClothingHeadsetEngineering
 
 - type: job
@@ -135,10 +154,17 @@
   id: DystopiaPharmacistGear
   equipment:
     jumpsuit: ClothingUniformJumpsuitChemistry
+    outerClothing: ClothingOuterCoatLabChem
+    mask: ClothingMaskGas
+    gloves: ClothingHandsGlovesLatex
     shoes: ClothingShoesColorWhite
-    back: ClothingBackpackChemistry
-    id: ChemistryPDA
+    id: DystopiaPharmacistPDA
     ears: ClothingHeadsetMedical
+  storage:
+    back:
+    - Beaker
+    - Beaker
+    - Syringe
 
 - type: job
   id: DystopiaJuniorOrderly
@@ -158,7 +184,12 @@
   id: DystopiaJuniorOrderlyGear
   equipment:
     jumpsuit: ClothingUniformJumpsuitColorWhite
+    mask: ClothingMaskGas
+    gloves: ClothingHandsGlovesLatex
     shoes: ClothingShoesColorWhite
-    back: ClothingBackpackMedical
-    id: MedicalInternPDA
+    id: DystopiaJuniorOrderlyPDA
     ears: ClothingHeadsetMedical
+  storage:
+    back:
+    - Gauze
+    - Gauze

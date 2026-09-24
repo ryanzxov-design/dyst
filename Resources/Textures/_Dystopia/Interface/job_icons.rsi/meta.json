@@ -1,0 +1,83 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Original job icons made for Dystopia (ryanzxov-design/dyst)",
+  "size": {
+    "x": 8,
+    "y": 8
+  },
+  "states": [
+    {
+      "name": "Consul"
+    },
+    {
+      "name": "Adjutant"
+    },
+    {
+      "name": "CivilInspector"
+    },
+    {
+      "name": "GuardCaptain"
+    },
+    {
+      "name": "GuardSergeant"
+    },
+    {
+      "name": "Guardsman"
+    },
+    {
+      "name": "GuardRecruit"
+    },
+    {
+      "name": "Praetorian"
+    },
+    {
+      "name": "Grenadier"
+    },
+    {
+      "name": "Stormtrooper"
+    },
+    {
+      "name": "Soldier"
+    },
+    {
+      "name": "ChiefSanitaryDoctor"
+    },
+    {
+      "name": "Healer"
+    },
+    {
+      "name": "Disinfector"
+    },
+    {
+      "name": "Liquidator"
+    },
+    {
+      "name": "Pharmacist"
+    },
+    {
+      "name": "JuniorOrderly"
+    },
+    {
+      "name": "ScienceDirector"
+    },
+    {
+      "name": "Augmentologist"
+    },
+    {
+      "name": "Pathobiologist"
+    },
+    {
+      "name": "Researcher"
+    },
+    {
+      "name": "LabAssistant"
+    },
+    {
+      "name": "Proletarian"
+    },
+    {
+      "name": "Shopkeeper"
+    }
+  ]
+}

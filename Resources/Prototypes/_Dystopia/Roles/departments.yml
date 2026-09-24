@@ -4,7 +4,7 @@
   id: DystopiaAdministration
   name: department-DystopiaAdministration
   description: department-DystopiaAdministration-description
-  color: "#8C7A4B"
+  color: "#B8962E"
   weight: 100
   roles:
   - DystopiaConsul
@@ -15,7 +15,7 @@
   id: DystopiaGuard
   name: department-DystopiaGuard
   description: department-DystopiaGuard-description
-  color: "#B03A2E"
+  color: "#3E5C8A"
   weight: 50
   roles:
   - DystopiaGuardCaptain
@@ -27,7 +27,7 @@
   id: DystopiaPatrol
   name: department-DystopiaPatrol
   description: department-DystopiaPatrol-description
-  color: "#4A5A6A"
+  color: "#55636F"
   weight: 40
   roles:
   - DystopiaPraetorian
@@ -53,7 +53,7 @@
   id: DystopiaScience
   name: department-DystopiaScience
   description: department-DystopiaScience-description
-  color: "#3A6EA5"
+  color: "#2F7F86"
   weight: 20
   roles:
   - DystopiaScienceDirector

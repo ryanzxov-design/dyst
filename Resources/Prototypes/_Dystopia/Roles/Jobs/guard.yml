@@ -1,5 +1,5 @@
 # Роли: Городская Стража
-# Снаряжение — ВРЕМЕННОЕ (ванильное), заменим на подэтапе 3в.
+# Сумки (и пояс/РПС у Стражи) выдаются через выбор снаряжения — см. Loadouts/loadouts.yml.
 
 - type: job
   id: DystopiaGuardCaptain
@@ -37,11 +37,18 @@
 - type: startingGear
   id: DystopiaGuardCaptainGear
   equipment:
-    jumpsuit: ClothingUniformJumpsuitHoS
+    jumpsuit: DystopiaClothingUniformGuardCaptain
+    outerClothing: ClothingOuterCoatHoSGreatcoat
+    head: ClothingHeadHatBeretHoS
+    mask: DystopiaClothingMaskGuard
+    gloves: ClothingHandsGlovesCombat
     shoes: ClothingShoesBootsJack
-    back: ClothingBackpackSecurity
-    id: HoSPDA
+    id: DystopiaGuardCaptainPDA
     ears: ClothingHeadsetAltSecurity
+    pocket1: WeaponRevolverMateba
+  storage:
+    back:
+    - SpeedLoaderMagnum
 
 - type: job
   id: DystopiaGuardSergeant
@@ -67,11 +74,15 @@
 - type: startingGear
   id: DystopiaGuardSergeantGear
   equipment:
-    jumpsuit: ClothingUniformJumpsuitWarden
+    jumpsuit: DystopiaClothingUniformGuardSergeant
+    outerClothing: ClothingOuterArmorBasic
+    head: DystopiaClothingHeadGuardBeret
+    mask: DystopiaClothingMaskGuard
+    gloves: ClothingHandsGlovesColorBlack
     shoes: ClothingShoesBootsJack
-    back: ClothingBackpackSecurity
-    id: WardenPDA
+    id: DystopiaGuardSergeantPDA
     ears: ClothingHeadsetSecurity
+    pocket1: WeaponPistolMk58
 
 - type: job
   id: DystopiaGuardsman
@@ -95,11 +106,15 @@
 - type: startingGear
   id: DystopiaGuardsmanGear
   equipment:
-    jumpsuit: ClothingUniformJumpsuitSec
+    jumpsuit: DystopiaClothingUniformGuard
+    outerClothing: ClothingOuterArmorBasic
+    head: DystopiaClothingHeadGuardBeret
+    mask: DystopiaClothingMaskGuard
+    gloves: ClothingHandsGlovesColorBlack
     shoes: ClothingShoesBootsJack
-    back: ClothingBackpackSecurity
-    id: SecurityPDA
+    id: DystopiaGuardsmanPDA
     ears: ClothingHeadsetSecurity
+    pocket1: WeaponPistolMk58
 
 - type: job
   id: DystopiaGuardRecruit
@@ -118,8 +133,11 @@
 - type: startingGear
   id: DystopiaGuardRecruitGear
   equipment:
-    jumpsuit: ClothingUniformJumpsuitSecGrey
+    jumpsuit: DystopiaClothingUniformGuard
+    head: DystopiaClothingHeadGuardBeret
+    mask: DystopiaClothingMaskGuard
+    gloves: ClothingHandsGlovesColorBlack
     shoes: ClothingShoesBootsJack
-    back: ClothingBackpackSecurity
-    id: SecurityCadetPDA
+    id: DystopiaGuardRecruitPDA
     ears: ClothingHeadsetSecurity
+    pocket1: WeaponPistolMk58
