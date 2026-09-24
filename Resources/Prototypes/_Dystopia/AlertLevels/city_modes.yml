@@ -1,0 +1,54 @@
+# Положения Города — это уровни тревоги станции (ванильная система AlertLevel).
+# selectable: false — их нельзя выбрать с ванильной консоли связи, только с Консоли Управления Городом.
+
+- type: alertLevel
+  id: DystopiaNormal
+  name: alert-level-dystopia-normal
+  announcement: alert-level-dystopia-normal-announcement
+  instructions: alert-level-dystopia-normal-instructions
+  color: "#7FA7D9"
+  emergencyLightColor: "#7FA7D9"
+  selectable: false
+
+- type: alertLevel
+  id: DystopiaCurfew
+  name: alert-level-dystopia-curfew
+  announcement: alert-level-dystopia-curfew-announcement
+  instructions: alert-level-dystopia-curfew-instructions
+  sound: /Audio/Misc/notice1.ogg
+  color: "#D9B44A"
+  emergencyLightColor: Goldenrod
+  selectable: false
+
+- type: alertLevel
+  id: DystopiaQuarantine
+  name: alert-level-dystopia-quarantine
+  announcement: alert-level-dystopia-quarantine-announcement
+  instructions: alert-level-dystopia-quarantine-instructions
+  sound: /Audio/Misc/bluealert.ogg
+  color: "#6DBF4E"
+  emergencyLightColor: "#4F8A3C"
+  forceEnableEmergencyLights: true
+  selectable: false
+
+- type: alertLevel
+  id: DystopiaMartialLaw
+  name: alert-level-dystopia-martial
+  announcement: alert-level-dystopia-martial-announcement
+  instructions: alert-level-dystopia-martial-instructions
+  sound: /Audio/Misc/redalert.ogg
+  color: "#E05A4F"
+  emergencyLightColor: Red
+  forceEnableEmergencyLights: true
+  selectable: false
+
+- type: alertLevel
+  id: DystopiaSiege
+  name: alert-level-dystopia-siege
+  announcement: alert-level-dystopia-siege-announcement
+  instructions: alert-level-dystopia-siege-instructions
+  sound: /Audio/Misc/redalert.ogg
+  color: "#B0302A"
+  emergencyLightColor: "#8B0000"
+  forceEnableEmergencyLights: true
+  selectable: false

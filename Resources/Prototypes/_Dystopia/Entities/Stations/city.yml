@@ -12,6 +12,16 @@
   categories: [ HideSpawnMenu ]
   components:
     - type: Transform
+    # Положения Города вместо ванильных уровней тревоги (меняет Консул через Консоль Управления Городом).
+    - type: AlertLevel
+      availableAlertLevels:
+      - DystopiaNormal
+      - DystopiaCurfew
+      - DystopiaQuarantine
+      - DystopiaMartialLaw
+      - DystopiaSiege
+      defaultAlertLevel: DystopiaNormal
+      currentAlertLevel: DystopiaNormal
     # Банк Города: казна, личные счета, зарплаты и налоги (этап Э1).
     # Позже эти ставки будет менять Консул через Консоль Управления Городом.
     - type: CityBank

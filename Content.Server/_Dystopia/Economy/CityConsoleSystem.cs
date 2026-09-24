@@ -2,15 +2,21 @@ using System.Linq;
 using Content.Server.Popups;
 using Content.Shared._Dystopia.Economy;
 using Content.Shared.Access.Systems;
+using Content.Shared.AlertLevel;
+using Content.Shared.CCVar;
+using Content.Shared.Chat;
 using Content.Shared.Roles;
 using Robust.Server.GameObjects;
+using Robust.Shared.Configuration;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 
 namespace Content.Server._Dystopia.Economy;
 
 /// <summary>
-/// Консоль Управления Городом, раздел «Казна»: ставки зарплат и налогов, премии, изъятия, журнал.
+/// Консоль Управления Городом.
+/// «Казна»: ставки зарплат и налогов, премии, изъятия, журнал.
+/// «Положения»: режимы Города (уровни тревоги станции) и консульские уведомления.
 /// Все действия проверяют доступ (AccessReader консоли) на сервере.
 /// </summary>
 public sealed partial class CityConsoleSystem : EntitySystem
@@ -20,6 +26,11 @@ public sealed partial class CityConsoleSystem : EntitySystem
     [Dependency] private CityBankSystem _bank = default!;
     [Dependency] private AccessReaderSystem _access = default!;
     [Dependency] private PopupSystem _popup = default!;
+    [Dependency] private AlertLevelSystem _alertLevel = default!;
+    [Dependency] private SharedChatSystem _chat = default!;
+    [Dependency] private IConfigurationManager _cfg = default!;
+
+    private static readonly Color AnnouncementColor = Color.FromHex("#D9B44A");
 
     private const int MaxSalary = 100000;
     private const int MaxReasonLength = 120;
@@ -34,6 +45,8 @@ public sealed partial class CityConsoleSystem : EntitySystem
         SubscribeLocalEvent<CityConsoleComponent, CityConsoleSetRatesMessage>(OnSetRates);
         SubscribeLocalEvent<CityConsoleComponent, CityConsoleBonusMessage>(OnBonus);
         SubscribeLocalEvent<CityConsoleComponent, CityConsoleSeizeMessage>(OnSeize);
+        SubscribeLocalEvent<CityConsoleComponent, CityConsoleSetModeMessage>(OnSetMode);
+        SubscribeLocalEvent<CityConsoleComponent, CityConsoleAnnounceMessage>(OnAnnounce);
     }
 
     public override void Update(float frameTime)
@@ -74,7 +87,7 @@ public sealed partial class CityConsoleSystem : EntitySystem
         if (!_bank.TryGetBank(out var bank))
         {
             _ui.SetUiState(console, CityConsoleUiKey.Key,
-                new CityConsoleBoundUserInterfaceState(0, 0, new(), new(), new()));
+                new CityConsoleBoundUserInterfaceState(0, 0, new(), new(), new(), new(), string.Empty, 0));
             return;
         }
 
@@ -102,8 +115,31 @@ public sealed partial class CityConsoleSystem : EntitySystem
         var log = bank.Comp.Log.TakeLast(ShownLogEntries).Reverse().ToList();
         var seconds = Math.Max(0, (int) (bank.Comp.NextPayday - _timing.CurTime).TotalSeconds);
 
+        // Положения: уровни тревоги станции Города (банк висит на той же станции).
+        var modes = new List<CityConsoleModeEntry>();
+        var currentMode = string.Empty;
+        if (TryComp<AlertLevelComponent>(bank.Owner, out var alert))
+        {
+            currentMode = alert.CurrentAlertLevel.Id;
+            foreach (var level in alert.AvailableAlertLevels)
+            {
+                if (!ProtoMan.TryIndex(level, out var proto))
+                    continue;
+
+                modes.Add(new CityConsoleModeEntry(
+                    level.Id,
+                    proto.LocalizedName,
+                    _alertLevel.AlertLevelInstructions(proto),
+                    proto.Color));
+            }
+        }
+
+        var cooldown = 0;
+        if (TryComp<CityConsoleComponent>(console, out var consoleComp))
+            cooldown = Math.Max(0, (int) Math.Ceiling((consoleComp.NextAnnouncement - _timing.CurTime).TotalSeconds));
+
         _ui.SetUiState(console, CityConsoleUiKey.Key,
-            new CityConsoleBoundUserInterfaceState(bank.Comp.Treasury, seconds, jobs, accounts, log));
+            new CityConsoleBoundUserInterfaceState(bank.Comp.Treasury, seconds, jobs, accounts, log, modes, currentMode, cooldown));
     }
 
     private string JobName(ProtoId<JobPrototype> job)
@@ -194,6 +230,92 @@ public sealed partial class CityConsoleSystem : EntitySystem
         _bank.AddLog(bank, Loc.GetString("dystopia-city-console-log-seize",
             ("actor", Name(args.Actor)), ("name", account.Name), ("id", account.Id),
             ("amount", taken), ("reason", reason)));
+
+        UpdateAllConsoles();
+    }
+
+    private void OnSetMode(Entity<CityConsoleComponent> ent, ref CityConsoleSetModeMessage args)
+    {
+        if (!CheckAccess(ent.Owner, args.Actor) || !_bank.TryGetBank(out var bank))
+            return;
+
+        if (!TryComp<AlertLevelComponent>(bank.Owner, out var alert))
+            return;
+
+        var level = new ProtoId<AlertLevelPrototype>(args.ModeId);
+        if (alert.CurrentAlertLevel == level)
+            return;
+
+        // Проверяем, что такое положение есть у Города. Перебором, а не .Contains():
+        // AlertLevelComponent разрешает чужим системам только чтение полей.
+        var available = false;
+        foreach (var candidate in alert.AvailableAlertLevels)
+        {
+            if (candidate != level)
+                continue;
+
+            available = true;
+            break;
+        }
+
+        if (!available)
+            return;
+
+        if (_timing.CurTime < ent.Comp.NextModeChange)
+        {
+            _popup.PopupEntity(Loc.GetString("dystopia-city-console-cooldown"), ent.Owner, args.Actor);
+            return;
+        }
+
+        if (!ProtoMan.TryIndex(level, out var proto))
+            return;
+
+        ent.Comp.NextModeChange = _timing.CurTime + TimeSpan.FromSeconds(ent.Comp.ModeChangeCooldown);
+
+        // Звук положения играет AlertLevelSystem, а объявление делаем своё — от имени Консула.
+        _alertLevel.SetLevel((bank.Owner, alert), level, playSound: true, announce: false, force: true);
+
+        var text = Loc.GetString("dystopia-city-console-mode-announcement",
+            ("name", proto.LocalizedName),
+            ("announcement", _alertLevel.AlertLevelAnnouncement(proto)),
+            ("instructions", _alertLevel.AlertLevelInstructions(proto)));
+
+        _chat.DispatchStationAnnouncement(bank.Owner, text,
+            sender: Loc.GetString("dystopia-city-console-sender"),
+            playDefaultSound: proto.Sound == null,
+            colorOverride: proto.Color);
+
+        _bank.AddLog(bank, Loc.GetString("dystopia-city-console-log-mode",
+            ("actor", Name(args.Actor)), ("name", proto.LocalizedName)));
+
+        UpdateAllConsoles();
+    }
+
+    private void OnAnnounce(Entity<CityConsoleComponent> ent, ref CityConsoleAnnounceMessage args)
+    {
+        if (!CheckAccess(ent.Owner, args.Actor) || !_bank.TryGetBank(out var bank))
+            return;
+
+        if (_timing.CurTime < ent.Comp.NextAnnouncement)
+        {
+            _popup.PopupEntity(Loc.GetString("dystopia-city-console-cooldown"), ent.Owner, args.Actor);
+            return;
+        }
+
+        var maxLength = _cfg.GetCVar(CCVars.ChatMaxAnnouncementLength);
+        var text = SharedChatSystem.SanitizeAnnouncement(args.Text, maxLength);
+        if (string.IsNullOrWhiteSpace(text))
+            return;
+
+        ent.Comp.NextAnnouncement = _timing.CurTime + TimeSpan.FromSeconds(ent.Comp.AnnouncementCooldown);
+
+        _chat.DispatchStationAnnouncement(bank.Owner, text,
+            sender: Loc.GetString("dystopia-city-console-sender"),
+            playDefaultSound: true,
+            colorOverride: AnnouncementColor);
+
+        _bank.AddLog(bank, Loc.GetString("dystopia-city-console-log-announce",
+            ("actor", Name(args.Actor)), ("text", text)));
 
         UpdateAllConsoles();
     }

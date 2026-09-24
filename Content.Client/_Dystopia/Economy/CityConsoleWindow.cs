@@ -9,7 +9,7 @@ namespace Content.Client._Dystopia.Economy;
 
 /// <summary>
 /// Окно Консоли Управления Городом. Слева — разделы, справа — рабочая область.
-/// Сейчас работает раздел «Казна»; «Положения» и «Законы» — заглушки.
+/// Работают разделы «Казна» и «Положения»; «Законы» — заглушка.
 /// Окно собрано в коде (без XAML), чтобы его было проще менять.
 /// </summary>
 public sealed class CityConsoleWindow : DefaultWindow
@@ -17,6 +17,8 @@ public sealed class CityConsoleWindow : DefaultWindow
     public event Action<string, int, int>? OnSetRates;
     public event Action<int, int, string>? OnBonus;
     public event Action<int, int, string>? OnSeize;
+    public event Action<string>? OnSetMode;
+    public event Action<string>? OnAnnounce;
 
     private static readonly Color AccentColor = Color.FromHex("#B8962E");
     private static readonly Color DimColor = Color.FromHex("#8A8A8A");
@@ -41,6 +43,15 @@ public sealed class CityConsoleWindow : DefaultWindow
     private string _accountsSignature = string.Empty;
     private int _selectedAccount = -1;
     private string _logSignature = string.Empty;
+
+    // Положения
+    private readonly Label _currentModeLabel;
+    private readonly RichTextLabel _modeInfo;
+    private readonly BoxContainer _modeButtons;
+    private readonly LineEdit _announceEdit;
+    private readonly Button _announceButton;
+    private readonly Label _announceCooldownLabel;
+    private string _modesSignature = string.Empty;
 
     public CityConsoleWindow()
     {
@@ -84,7 +95,14 @@ public sealed class CityConsoleWindow : DefaultWindow
             VerticalExpand = true,
             SeparationOverride = 8,
         };
-        _decreesPanel = MakeStub("dystopia-city-console-stub-decrees");
+        var decrees = new BoxContainer
+        {
+            Orientation = BoxContainer.LayoutOrientation.Vertical,
+            HorizontalExpand = true,
+            VerticalExpand = true,
+            SeparationOverride = 8,
+        };
+        _decreesPanel = decrees;
         _lawsPanel = MakeStub("dystopia-city-console-stub-laws");
         content.AddChild(_treasuryPanel);
         content.AddChild(_decreesPanel);
@@ -146,6 +164,50 @@ public sealed class CityConsoleWindow : DefaultWindow
         _logBox = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Vertical, HorizontalExpand = true };
         logScroll.AddChild(_logBox);
         _treasuryPanel.AddChild(logScroll);
+
+        // --- Положения ---
+        _currentModeLabel = new Label();
+        _modeInfo = new RichTextLabel { HorizontalExpand = true };
+        decrees.AddChild(_currentModeLabel);
+        decrees.AddChild(_modeInfo);
+
+        decrees.AddChild(MakeHeader("dystopia-city-console-modes-header"));
+        _modeButtons = new BoxContainer
+        {
+            Orientation = BoxContainer.LayoutOrientation.Vertical,
+            HorizontalExpand = true,
+            SeparationOverride = 4,
+        };
+        decrees.AddChild(_modeButtons);
+
+        decrees.AddChild(MakeHeader("dystopia-city-console-announce-header"));
+        var announceRow = new BoxContainer
+        {
+            Orientation = BoxContainer.LayoutOrientation.Horizontal,
+            HorizontalExpand = true,
+            SeparationOverride = 6,
+        };
+        _announceEdit = new LineEdit
+        {
+            HorizontalExpand = true,
+            PlaceHolder = Loc.GetString("dystopia-city-console-announce-placeholder"),
+        };
+        _announceButton = new Button { Text = Loc.GetString("dystopia-city-console-announce-button") };
+        _announceButton.OnPressed += _ =>
+        {
+            var text = _announceEdit.Text.Trim();
+            if (text.Length == 0)
+                return;
+
+            OnAnnounce?.Invoke(text);
+            _announceEdit.Text = string.Empty;
+        };
+        announceRow.AddChild(_announceEdit);
+        announceRow.AddChild(_announceButton);
+        decrees.AddChild(announceRow);
+
+        _announceCooldownLabel = new Label { FontColorOverride = DimColor };
+        decrees.AddChild(_announceCooldownLabel);
 
         SelectTab(0);
     }
@@ -212,6 +274,58 @@ public sealed class CityConsoleWindow : DefaultWindow
         UpdateRates(state.Jobs);
         UpdateAccounts(state.Accounts);
         UpdateLog(state.Log);
+        UpdateModes(state);
+    }
+
+    private void UpdateModes(CityConsoleBoundUserInterfaceState state)
+    {
+        var current = state.Modes.FirstOrDefault(m => m.Id == state.CurrentMode);
+        if (current != null)
+        {
+            _currentModeLabel.Text = Loc.GetString("dystopia-city-console-current-mode", ("name", current.Name));
+            _currentModeLabel.FontColorOverride = current.Color;
+            _modeInfo.SetMessage(current.Instructions, DimColor);
+        }
+        else
+        {
+            _currentModeLabel.Text = Loc.GetString("dystopia-city-console-no-modes");
+            _currentModeLabel.FontColorOverride = DimColor;
+            _modeInfo.SetMessage(string.Empty);
+        }
+
+        if (state.AnnouncementCooldown > 0)
+        {
+            _announceButton.Disabled = true;
+            _announceCooldownLabel.Text = Loc.GetString("dystopia-city-console-announce-cooldown",
+                ("seconds", state.AnnouncementCooldown));
+        }
+        else
+        {
+            _announceButton.Disabled = false;
+            _announceCooldownLabel.Text = string.Empty;
+        }
+
+        // Кнопки режимов пересобираем только когда что-то поменялось.
+        var signature = state.CurrentMode + "|" + string.Join(";", state.Modes.Select(m => m.Id));
+        if (signature == _modesSignature)
+            return;
+        _modesSignature = signature;
+
+        _modeButtons.RemoveAllChildren();
+        foreach (var mode in state.Modes)
+        {
+            var id = mode.Id;
+            var button = new Button
+            {
+                Text = mode.Name,
+                HorizontalExpand = true,
+                MinHeight = 32,
+                Disabled = mode.Id == state.CurrentMode,
+                ModulateSelfOverride = mode.Color,
+            };
+            button.OnPressed += _ => OnSetMode?.Invoke(id);
+            _modeButtons.AddChild(button);
+        }
     }
 
     private void UpdateRates(List<CityConsoleJobEntry> jobs)

@@ -57,7 +57,6 @@ dystopia-city-console-title = Консоль Управления Городом
 dystopia-city-console-tab-treasury = Казна
 dystopia-city-console-tab-decrees = Положения
 dystopia-city-console-tab-laws = Законы
-dystopia-city-console-stub-decrees = Раздел «Положения» появится в следующем обновлении: режимы Города и консульские уведомления.
 dystopia-city-console-stub-laws = Раздел «Законы» появится в следующем обновлении: Свод законов Города.
 dystopia-city-console-treasury = Казна Города: { $amount } { $amount ->
         [one] марка
@@ -77,7 +76,7 @@ dystopia-city-console-bonus = Выписать премию
 dystopia-city-console-seize = Изъять
 dystopia-city-console-account-line = №{ $id } — { $name } ({ $job }) — { $balance }{ $frozen }
 dystopia-city-console-frozen = {" "}[заморожен]
-dystopia-city-console-log-header = Журнал казны
+dystopia-city-console-log-header = Журнал решений Консула
 dystopia-city-console-log-empty = Записей пока нет.
 dystopia-city-console-no-reason = без объяснения причин
 dystopia-city-console-access-denied = Доступ запрещён.
@@ -86,3 +85,18 @@ dystopia-city-console-nothing-to-seize = На счету нечего изыма
 dystopia-city-console-log-rates = { $actor }: { $job } — зарплата { $salary }, налог { $tax }%.
 dystopia-city-console-log-bonus = { $actor }: премия { $name } (№{ $id }) +{ $net }, налог { $tax }. Основание: { $reason }
 dystopia-city-console-log-seize = { $actor }: изъятие у { $name } (№{ $id }) { $amount }. Основание: { $reason }
+
+## Консоль: Положения
+
+dystopia-city-console-sender = Консул Города
+dystopia-city-console-current-mode = Действующее положение: { $name }
+dystopia-city-console-no-modes = Положения Города недоступны на этой станции.
+dystopia-city-console-modes-header = Ввести положение
+dystopia-city-console-announce-header = Консульское уведомление
+dystopia-city-console-announce-placeholder = Текст уведомления для всего Города
+dystopia-city-console-announce-button = Опубликовать
+dystopia-city-console-announce-cooldown = Следующее уведомление можно опубликовать через { $seconds } сек.
+dystopia-city-console-cooldown = Слишком часто. Подождите.
+dystopia-city-console-mode-announcement = { $announcement } Положение: «{ $name }». { $instructions }
+dystopia-city-console-log-mode = { $actor }: введено положение «{ $name }».
+dystopia-city-console-log-announce = { $actor }: уведомление — { $text }

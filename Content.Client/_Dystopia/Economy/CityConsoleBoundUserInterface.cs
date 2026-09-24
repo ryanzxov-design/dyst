@@ -16,6 +16,8 @@ public sealed partial class CityConsoleBoundUserInterface(EntityUid owner, Enum 
         _window.OnSetRates += (job, salary, tax) => SendMessage(new CityConsoleSetRatesMessage(job, salary, tax));
         _window.OnBonus += (id, amount, reason) => SendMessage(new CityConsoleBonusMessage(id, amount, reason));
         _window.OnSeize += (id, amount, reason) => SendMessage(new CityConsoleSeizeMessage(id, amount, reason));
+        _window.OnSetMode += mode => SendMessage(new CityConsoleSetModeMessage(mode));
+        _window.OnAnnounce += text => SendMessage(new CityConsoleAnnounceMessage(text));
     }
 
     protected override void UpdateState(BoundUserInterfaceState state)
