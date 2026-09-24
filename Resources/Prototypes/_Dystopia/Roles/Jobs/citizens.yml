@@ -17,7 +17,6 @@
   id: DystopiaProletarianGear
   equipment:
     jumpsuit: ClothingUniformJumpsuitColorGrey
-    mask: ClothingMaskGas
     shoes: ClothingShoesColorBlack
     id: DystopiaProletarianPDA
     ears: ClothingHeadsetGrey
@@ -40,7 +39,6 @@
   id: DystopiaShopkeeperGear
   equipment:
     jumpsuit: ClothingUniformJumpsuitCargo
-    mask: ClothingMaskGas
     shoes: ClothingShoesColorBrown
     id: DystopiaShopkeeperPDA
     ears: ClothingHeadsetCargo

@@ -53,7 +53,7 @@
   id: DystopiaScience
   name: department-DystopiaScience
   description: department-DystopiaScience-description
-  color: "#2F7F86"
+  color: "#6B4C8F"
   weight: 20
   roles:
   - DystopiaScienceDirector

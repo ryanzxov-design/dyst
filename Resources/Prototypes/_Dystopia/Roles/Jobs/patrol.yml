@@ -28,7 +28,7 @@
   id: DystopiaPraetorianGear
   equipment:
     jumpsuit: ClothingUniformJumpsuitSeniorOfficer
-    mask: ClothingMaskGas
+    mask: DystopiaClothingMaskGasSanitary
     shoes: ClothingShoesBootsCombat
     id: DystopiaPraetorianPDA
     ears: ClothingHeadsetAltSecurity
@@ -56,7 +56,7 @@
   id: DystopiaGrenadierGear
   equipment:
     jumpsuit: ClothingUniformJumpsuitERTEngineer
-    mask: ClothingMaskGas
+    mask: DystopiaClothingMaskGasSanitary
     shoes: ClothingShoesBootsCombat
     id: DystopiaGrenadierPDA
     ears: ClothingHeadsetSecurity
@@ -84,7 +84,7 @@
   id: DystopiaStormtrooperGear
   equipment:
     jumpsuit: ClothingUniformJumpsuitERTLeader
-    mask: ClothingMaskGas
+    mask: DystopiaClothingMaskGasSanitary
     shoes: ClothingShoesBootsCombat
     id: DystopiaStormtrooperPDA
     ears: ClothingHeadsetSecurity
@@ -111,7 +111,7 @@
   id: DystopiaSoldierGear
   equipment:
     jumpsuit: ClothingUniformJumpsuitERTSecurity
-    mask: ClothingMaskGas
+    mask: DystopiaClothingMaskGasSanitary
     shoes: ClothingShoesBootsCombat
     id: DystopiaSoldierPDA
     ears: ClothingHeadsetSecurity

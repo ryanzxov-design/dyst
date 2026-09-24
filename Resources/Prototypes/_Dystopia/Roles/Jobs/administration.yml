@@ -56,7 +56,7 @@
   id: DystopiaAdjutantGear
   equipment:
     jumpsuit: ClothingUniformJumpsuitCommandGeneric
-    mask: ClothingMaskGas
+    mask: DystopiaClothingMaskGasSanitary
     shoes: ClothingShoesBootsLaceup
     id: DystopiaAdjutantPDA
     ears: ClothingHeadsetCommand
@@ -98,7 +98,7 @@
   id: DystopiaCivilInspectorGear
   equipment:
     jumpsuit: ClothingUniformJumpsuitHoP
-    mask: ClothingMaskGas
+    mask: DystopiaClothingMaskGasSanitary
     shoes: ClothingShoesColorBrown
     id: DystopiaCivilInspectorPDA
     ears: ClothingHeadsetCommand

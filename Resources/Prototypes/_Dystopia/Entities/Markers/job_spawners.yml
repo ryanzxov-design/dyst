@@ -135,7 +135,7 @@
 - type: entity
   id: SpawnPointDystopiaChiefSanitaryDoctor
   parent: SpawnPointJobBase
-  name: главный санитарный врач
+  name: глава Санитарной Службы
   components:
   - type: SpawnPoint
     job_id: DystopiaChiefSanitaryDoctor

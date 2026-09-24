@@ -39,7 +39,7 @@
 - type: entity
   parent: AirlockMedical
   id: AirlockDystopiaChiefSanitaryLocked
-  suffix: Город, Кабинет главного санитарного врача, Locked
+  suffix: Город, Кабинет главы Санитарной Службы, Locked
   components:
   - type: ContainerFill
     containers:

@@ -208,7 +208,7 @@
 - type: entity
   parent: IDCardStandard
   id: DystopiaChiefSanitaryDoctorIDCard
-  name: ID-карта (главный санитарный врач)
+  name: ID-карта (глава Санитарной Службы)
   components:
   - type: Sprite
     layers:
@@ -324,9 +324,9 @@
     layers:
     - state: silver
     - state: stripe_top
-      color: "#2F7F86"
+      color: "#6B4C8F"
     - state: stripe_bottom
-      color: "#1d4e53"
+      color: "#422f58"
     - sprite: _Dystopia/Interface/job_icons.rsi
       offset: -0.09375, 0.0625
       state: ScienceDirector
@@ -344,9 +344,9 @@
     layers:
     - state: default
     - state: stripe_top
-      color: "#2F7F86"
+      color: "#6B4C8F"
     - state: stripe_bottom
-      color: "#1d4e53"
+      color: "#422f58"
     - sprite: _Dystopia/Interface/job_icons.rsi
       offset: -0.09375, 0.0625
       state: Augmentologist
@@ -362,9 +362,9 @@
     layers:
     - state: default
     - state: stripe_top
-      color: "#2F7F86"
+      color: "#6B4C8F"
     - state: stripe_bottom
-      color: "#1d4e53"
+      color: "#422f58"
     - sprite: _Dystopia/Interface/job_icons.rsi
       offset: -0.09375, 0.0625
       state: Pathobiologist
@@ -380,9 +380,9 @@
     layers:
     - state: default
     - state: stripe_top
-      color: "#2F7F86"
+      color: "#6B4C8F"
     - state: stripe_bottom
-      color: "#1d4e53"
+      color: "#422f58"
     - sprite: _Dystopia/Interface/job_icons.rsi
       offset: -0.09375, 0.0625
       state: Researcher
@@ -398,9 +398,9 @@
     layers:
     - state: default
     - state: stripe_top
-      color: "#2F7F86"
+      color: "#6B4C8F"
     - state: stripe_bottom
-      color: "#1d4e53"
+      color: "#422f58"
     - sprite: _Dystopia/Interface/job_icons.rsi
       offset: -0.09375, 0.0625
       state: LabAssistant

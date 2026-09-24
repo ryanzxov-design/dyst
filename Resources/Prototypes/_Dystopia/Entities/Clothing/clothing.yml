@@ -117,7 +117,7 @@
   parent: [ClothingMaskGasSecurity, ShowSecurityIcons]
   id: DystopiaClothingMaskGuard
   name: маска Стражи
-  description: Глухая маска Городской Стражи. В прорезях для глаз холодно светится голубым — лица за ней никто не видел.
+  description: Глухая резиновая маска с круглыми окулярами и фильтром. В окулярах холодно тлеет голубой свет — лица за ней никто не видел.
   components:
   - type: Sprite
     sprite: _Dystopia/Clothing/Mask/guard_mask.rsi
@@ -184,3 +184,32 @@
     - id: Handcuffs
       amount: 2
     - id: Tourniquet
+
+# --- Противогазы служб ---
+- type: entity
+  parent: ClothingMaskGasMerc
+  id: DystopiaClothingMaskGasSanitary
+  name: санитарный противогаз
+  description: Серый противогаз установленного Городом образца. Выдаётся служащим вместе с формой.
+  components:
+  - type: Sprite
+    sprite: _Dystopia/Clothing/Mask/gas_sanitary.rsi
+  - type: Clothing
+    sprite: _Dystopia/Clothing/Mask/gas_sanitary.rsi
+
+- type: entity
+  parent: ClothingMaskGasMerc
+  id: DystopiaClothingMaskGasField
+  name: полевой противогаз
+  description: Грубый, но надёжный противогаз для работы в очагах заразы и за стенами Города.
+
+- type: entity
+  parent: ClothingMaskGasExplorer
+  id: DystopiaClothingMaskGasScience
+  name: противогаз Научной службы
+  description: Лабораторный противогаз с широким обзором. Не спасёт от того, что вы изучаете, но даст время это записать.
+  components:
+  - type: Sprite
+    sprite: _Dystopia/Clothing/Mask/gas_science.rsi
+  - type: Clothing
+    sprite: _Dystopia/Clothing/Mask/gas_science.rsi

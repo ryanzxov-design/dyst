@@ -91,7 +91,7 @@
 - type: entity
   parent: CMOPDA
   id: DystopiaChiefSanitaryDoctorPDA
-  name: КПК (главный санитарный врач)
+  name: КПК (глава Санитарной Службы)
   components:
   - type: Pda
     id: DystopiaChiefSanitaryDoctorIDCard

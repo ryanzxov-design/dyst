@@ -1,7 +1,7 @@
 {
   "version": 1,
   "license": "CC-BY-SA-3.0",
-  "copyright": "Taken from tgstation at commit https://github.com/tgstation/tgstation/commit/4f6190e2895e09116663ef282d3ce1d8b35c032e (Clothing/Mask/gas.rsi) | Recolored, glowing blue lenses added for Dystopia",
+  "copyright": "icon and equipped-MASK drawn by ryanzxov-design for Dystopia; inhands repainted from tgstation gas mask (Clothing/Mask/gas.rsi, commit 4f6190e2895e09116663ef282d3ce1d8b35c032e); glow layers derived",
   "size": {
     "x": 32,
     "y": 32

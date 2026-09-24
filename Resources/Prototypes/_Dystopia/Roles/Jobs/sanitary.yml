@@ -32,7 +32,7 @@
   equipment:
     jumpsuit: ClothingUniformJumpsuitCMO
     eyes: ClothingEyesHudMedical
-    mask: ClothingMaskGas
+    mask: DystopiaClothingMaskGasSanitary
     shoes: ClothingShoesBootsLaceup
     id: DystopiaChiefSanitaryDoctorPDA
     ears: ClothingHeadsetCMO
@@ -59,7 +59,7 @@
   id: DystopiaHealerGear
   equipment:
     jumpsuit: ClothingUniformJumpsuitMedicalDoctor
-    mask: ClothingMaskGas
+    mask: DystopiaClothingMaskGasSanitary
     shoes: ClothingShoesColorWhite
     id: DystopiaHealerPDA
     ears: ClothingHeadsetMedical
@@ -92,7 +92,7 @@
     jumpsuit: ClothingUniformJumpsuitVirology
     outerClothing: DystopiaClothingOuterDisinfectorSuit
     head: ClothingHeadHelmetFire
-    mask: ClothingMaskGas
+    mask: DystopiaClothingMaskGasField
     shoes: ClothingShoesGaloshes
     id: DystopiaDisinfectorPDA
     ears: ClothingHeadsetMedical
@@ -127,7 +127,7 @@
   equipment:
     jumpsuit: ClothingUniformJumpsuitEngineeringHazard
     head: ClothingHeadHatWelding
-    mask: ClothingMaskGas
+    mask: DystopiaClothingMaskGasField
     gloves: ClothingHandsGlovesColorYellow
     shoes: ClothingShoesBootsWork
     belt: ClothingBeltUtilityFilled
@@ -155,7 +155,7 @@
   equipment:
     jumpsuit: ClothingUniformJumpsuitChemistry
     outerClothing: ClothingOuterCoatLabChem
-    mask: ClothingMaskGas
+    mask: DystopiaClothingMaskGasSanitary
     gloves: ClothingHandsGlovesLatex
     shoes: ClothingShoesColorWhite
     id: DystopiaPharmacistPDA
@@ -184,7 +184,7 @@
   id: DystopiaJuniorOrderlyGear
   equipment:
     jumpsuit: ClothingUniformJumpsuitColorWhite
-    mask: ClothingMaskGas
+    mask: DystopiaClothingMaskGasSanitary
     gloves: ClothingHandsGlovesLatex
     shoes: ClothingShoesColorWhite
     id: DystopiaJuniorOrderlyPDA
