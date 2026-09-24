@@ -34,6 +34,10 @@
   supervisors: dystopia-job-supervisors-command
   access:
   - DystopiaAdministration
+  - DystopiaGuard
+  - DystopiaPatrol
+  - DystopiaSanitary
+  - DystopiaScience
   # ВРЕМЕННО: ванильные доступы для дверей тестовой карты Terra. Убрать вместе с Terra.
   - Command
   - Maintenance

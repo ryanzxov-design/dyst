@@ -23,6 +23,11 @@
   - DystopiaPatrol
   - DystopiaPatrolArmory
   - DystopiaGates
+  - DystopiaFactory
+  - DystopiaGreenhouse
+  - DystopiaCanteen
+  - DystopiaTavern
+  - DystopiaShop
   # ВРЕМЕННО: ванильные доступы для дверей тестовой карты Terra. Убрать вместе с Terra.
   - Command
   - HeadOfSecurity
