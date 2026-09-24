@@ -12,3 +12,73 @@
   categories: [ HideSpawnMenu ]
   components:
     - type: Transform
+    # Банк Города: казна, личные счета, зарплаты и налоги (этап Э1).
+    # Позже эти ставки будет менять Консул через Консоль Управления Городом.
+    - type: CityBank
+      treasury: 100000
+      payIntervalMinutes: 10
+      startingSalaries: 2
+      # Зарплата за один период (10 минут), в марках, до налога
+      salaries:
+        # Администрация Города
+        DystopiaConsul: 300
+        DystopiaAdjutant: 150
+        DystopiaCivilInspector: 200
+        # Городская Стража
+        DystopiaGuardCaptain: 220
+        DystopiaGuardSergeant: 150
+        DystopiaGuardsman: 120
+        DystopiaGuardRecruit: 70
+        # Внешний Патруль
+        DystopiaPraetorian: 200
+        DystopiaGrenadier: 160
+        DystopiaStormtrooper: 160
+        DystopiaSoldier: 130
+        # Санитарная Служба
+        DystopiaChiefSanitaryDoctor: 200
+        DystopiaHealer: 130
+        DystopiaDisinfector: 130
+        DystopiaLiquidator: 120
+        DystopiaPharmacist: 120
+        DystopiaJuniorOrderly: 70
+        # Научная Служба
+        DystopiaScienceDirector: 200
+        DystopiaAugmentologist: 150
+        DystopiaPathobiologist: 140
+        DystopiaResearcher: 120
+        DystopiaLabAssistant: 70
+        # Горожане
+        DystopiaProletarian: 40
+        DystopiaShopkeeper: 50
+      # Налог в процентах от дохода
+      taxRates:
+        # Администрация Города
+        DystopiaConsul: 0
+        DystopiaAdjutant: 10
+        DystopiaCivilInspector: 10
+        # Городская Стража
+        DystopiaGuardCaptain: 10
+        DystopiaGuardSergeant: 10
+        DystopiaGuardsman: 10
+        DystopiaGuardRecruit: 10
+        # Внешний Патруль
+        DystopiaPraetorian: 5
+        DystopiaGrenadier: 10
+        DystopiaStormtrooper: 10
+        DystopiaSoldier: 10
+        # Санитарная Служба
+        DystopiaChiefSanitaryDoctor: 10
+        DystopiaHealer: 10
+        DystopiaDisinfector: 10
+        DystopiaLiquidator: 10
+        DystopiaPharmacist: 10
+        DystopiaJuniorOrderly: 10
+        # Научная Служба
+        DystopiaScienceDirector: 10
+        DystopiaAugmentologist: 10
+        DystopiaPathobiologist: 10
+        DystopiaResearcher: 10
+        DystopiaLabAssistant: 10
+        # Горожане
+        DystopiaProletarian: 20
+        DystopiaShopkeeper: 30
