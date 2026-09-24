@@ -18,6 +18,12 @@ public sealed partial class CityConsoleBoundUserInterface(EntityUid owner, Enum 
         _window.OnSeize += (id, amount, reason) => SendMessage(new CityConsoleSeizeMessage(id, amount, reason));
         _window.OnSetMode += mode => SendMessage(new CityConsoleSetModeMessage(mode));
         _window.OnAnnounce += text => SendMessage(new CityConsoleAnnounceMessage(text));
+        _window.OnNewLaw += () => SendMessage(new CityConsoleNewLawMessage());
+        _window.OnSaveLaw += (id, number, title, text, sanction) =>
+            SendMessage(new CityConsoleSaveLawMessage(id, number, title, text, sanction));
+        _window.OnDeleteLaw += id => SendMessage(new CityConsoleDeleteLawMessage(id));
+        _window.OnSaveSanctions += (sanctions, provision) =>
+            SendMessage(new CityConsoleSaveSanctionsMessage(sanctions, provision));
     }
 
     protected override void UpdateState(BoundUserInterfaceState state)

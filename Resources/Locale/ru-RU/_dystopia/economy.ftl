@@ -57,7 +57,6 @@ dystopia-city-console-title = Консоль Управления Городом
 dystopia-city-console-tab-treasury = Казна
 dystopia-city-console-tab-decrees = Положения
 dystopia-city-console-tab-laws = Законы
-dystopia-city-console-stub-laws = Раздел «Законы» появится в следующем обновлении: Свод законов Города.
 dystopia-city-console-treasury = Казна Города: { $amount } { $amount ->
         [one] марка
         [few] марки

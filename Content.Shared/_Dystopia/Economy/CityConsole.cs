@@ -1,3 +1,4 @@
+using Content.Shared._Dystopia.Laws;
 using Robust.Shared.Serialization;
 
 namespace Content.Shared._Dystopia.Economy;
@@ -66,7 +67,10 @@ public sealed class CityConsoleBoundUserInterfaceState(
     List<string> log,
     List<CityConsoleModeEntry> modes,
     string currentMode,
-    int announcementCooldown) : BoundUserInterfaceState
+    int announcementCooldown,
+    List<CityLaw> laws,
+    List<CitySanctionClass> sanctions,
+    string generalProvision) : BoundUserInterfaceState
 {
     public readonly int Treasury = treasury;
     public readonly int SecondsToPayday = secondsToPayday;
@@ -76,6 +80,9 @@ public sealed class CityConsoleBoundUserInterfaceState(
     public readonly List<CityConsoleModeEntry> Modes = modes;
     public readonly string CurrentMode = currentMode;
     public readonly int AnnouncementCooldown = announcementCooldown;
+    public readonly List<CityLaw> Laws = laws;
+    public readonly List<CitySanctionClass> Sanctions = sanctions;
+    public readonly string GeneralProvision = generalProvision;
 }
 
 /// <summary>Изменить зарплату и налог профессии.</summary>
@@ -117,4 +124,38 @@ public sealed class CityConsoleSetModeMessage(string modeId) : BoundUserInterfac
 public sealed class CityConsoleAnnounceMessage(string text) : BoundUserInterfaceMessage
 {
     public readonly string Text = text;
+}
+
+/// <summary>Создать новую статью Свода законов.</summary>
+[Serializable, NetSerializable]
+public sealed class CityConsoleNewLawMessage : BoundUserInterfaceMessage
+{
+}
+
+/// <summary>Сохранить статью Свода законов.</summary>
+[Serializable, NetSerializable]
+public sealed class CityConsoleSaveLawMessage(int id, int number, string title, string text, string sanction)
+    : BoundUserInterfaceMessage
+{
+    public readonly int Id = id;
+    public readonly int Number = number;
+    public readonly string Title = title;
+    public readonly string Text = text;
+    public readonly string Sanction = sanction;
+}
+
+/// <summary>Удалить статью Свода законов.</summary>
+[Serializable, NetSerializable]
+public sealed class CityConsoleDeleteLawMessage(int id) : BoundUserInterfaceMessage
+{
+    public readonly int Id = id;
+}
+
+/// <summary>Сохранить шкалу санкций.</summary>
+[Serializable, NetSerializable]
+public sealed class CityConsoleSaveSanctionsMessage(List<CitySanctionClass> sanctions, string generalProvision)
+    : BoundUserInterfaceMessage
+{
+    public readonly List<CitySanctionClass> Sanctions = sanctions;
+    public readonly string GeneralProvision = generalProvision;
 }

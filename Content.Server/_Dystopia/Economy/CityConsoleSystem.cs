@@ -1,9 +1,11 @@
 using System.Linq;
+using Content.Server._Dystopia.Laws;
 using Content.Server.Popups;
 using Content.Shared._Dystopia.Economy;
 using Content.Shared.Access.Systems;
 using Content.Shared.AlertLevel;
 using Content.Shared.CCVar;
+using Content.Shared.GameTicking;
 using Content.Shared.Chat;
 using Content.Shared.Roles;
 using Robust.Server.GameObjects;
@@ -17,6 +19,7 @@ namespace Content.Server._Dystopia.Economy;
 /// Консоль Управления Городом.
 /// «Казна»: ставки зарплат и налогов, премии, изъятия, журнал.
 /// «Положения»: режимы Города (уровни тревоги станции) и консульские уведомления.
+/// «Законы»: Свод законов и шкала санкций (хранит и раздаёт в КПК CityLawsSystem).
 /// Все действия проверяют доступ (AccessReader консоли) на сервере.
 /// </summary>
 public sealed partial class CityConsoleSystem : EntitySystem
@@ -29,6 +32,8 @@ public sealed partial class CityConsoleSystem : EntitySystem
     [Dependency] private AlertLevelSystem _alertLevel = default!;
     [Dependency] private SharedChatSystem _chat = default!;
     [Dependency] private IConfigurationManager _cfg = default!;
+    [Dependency] private CityLawsSystem _laws = default!;
+    [Dependency] private GameTicker _ticker = default!;
 
     private static readonly Color AnnouncementColor = Color.FromHex("#D9B44A");
 
@@ -47,6 +52,10 @@ public sealed partial class CityConsoleSystem : EntitySystem
         SubscribeLocalEvent<CityConsoleComponent, CityConsoleSeizeMessage>(OnSeize);
         SubscribeLocalEvent<CityConsoleComponent, CityConsoleSetModeMessage>(OnSetMode);
         SubscribeLocalEvent<CityConsoleComponent, CityConsoleAnnounceMessage>(OnAnnounce);
+        SubscribeLocalEvent<CityConsoleComponent, CityConsoleNewLawMessage>(OnNewLaw);
+        SubscribeLocalEvent<CityConsoleComponent, CityConsoleSaveLawMessage>(OnSaveLaw);
+        SubscribeLocalEvent<CityConsoleComponent, CityConsoleDeleteLawMessage>(OnDeleteLaw);
+        SubscribeLocalEvent<CityConsoleComponent, CityConsoleSaveSanctionsMessage>(OnSaveSanctions);
     }
 
     public override void Update(float frameTime)
@@ -87,7 +96,7 @@ public sealed partial class CityConsoleSystem : EntitySystem
         if (!_bank.TryGetBank(out var bank))
         {
             _ui.SetUiState(console, CityConsoleUiKey.Key,
-                new CityConsoleBoundUserInterfaceState(0, 0, new(), new(), new(), new(), string.Empty, 0));
+                new CityConsoleBoundUserInterfaceState(0, 0, new(), new(), new(), new(), string.Empty, 0, new(), new(), string.Empty));
             return;
         }
 
@@ -138,8 +147,11 @@ public sealed partial class CityConsoleSystem : EntitySystem
         if (TryComp<CityConsoleComponent>(console, out var consoleComp))
             cooldown = Math.Max(0, (int) Math.Ceiling((consoleComp.NextAnnouncement - _timing.CurTime).TotalSeconds));
 
+        var lawsState = _laws.GetUiState();
+
         _ui.SetUiState(console, CityConsoleUiKey.Key,
-            new CityConsoleBoundUserInterfaceState(bank.Comp.Treasury, seconds, jobs, accounts, log, modes, currentMode, cooldown));
+            new CityConsoleBoundUserInterfaceState(bank.Comp.Treasury, seconds, jobs, accounts, log, modes, currentMode, cooldown,
+                lawsState.Laws, lawsState.Sanctions, lawsState.GeneralProvision));
     }
 
     private string JobName(ProtoId<JobPrototype> job)
@@ -316,6 +328,63 @@ public sealed partial class CityConsoleSystem : EntitySystem
 
         _bank.AddLog(bank, Loc.GetString("dystopia-city-console-log-announce",
             ("actor", Name(args.Actor)), ("text", text)));
+
+        UpdateAllConsoles();
+    }
+
+    private void OnNewLaw(Entity<CityConsoleComponent> ent, ref CityConsoleNewLawMessage args)
+    {
+        if (!CheckAccess(ent.Owner, args.Actor) || !_bank.TryGetBank(out var bank) || !_laws.TryGetLaws(out var laws))
+            return;
+
+        var law = _laws.CreateLaw(laws, _ticker.RoundDuration());
+        if (law == null)
+            return;
+
+        _bank.AddLog(bank, Loc.GetString("dystopia-city-console-log-law-new",
+            ("actor", Name(args.Actor)), ("number", law.Number)));
+
+        UpdateAllConsoles();
+    }
+
+    private void OnSaveLaw(Entity<CityConsoleComponent> ent, ref CityConsoleSaveLawMessage args)
+    {
+        if (!CheckAccess(ent.Owner, args.Actor) || !_bank.TryGetBank(out var bank) || !_laws.TryGetLaws(out var laws))
+            return;
+
+        var law = _laws.UpdateLaw(laws, args.Id, args.Number, args.Title, args.Text, args.Sanction, _ticker.RoundDuration());
+        if (law == null)
+            return;
+
+        _bank.AddLog(bank, Loc.GetString("dystopia-city-console-log-law-save",
+            ("actor", Name(args.Actor)), ("number", law.Number), ("title", law.Title)));
+
+        UpdateAllConsoles();
+    }
+
+    private void OnDeleteLaw(Entity<CityConsoleComponent> ent, ref CityConsoleDeleteLawMessage args)
+    {
+        if (!CheckAccess(ent.Owner, args.Actor) || !_bank.TryGetBank(out var bank) || !_laws.TryGetLaws(out var laws))
+            return;
+
+        var law = _laws.DeleteLaw(laws, args.Id);
+        if (law == null)
+            return;
+
+        _bank.AddLog(bank, Loc.GetString("dystopia-city-console-log-law-delete",
+            ("actor", Name(args.Actor)), ("number", law.Number), ("title", law.Title)));
+
+        UpdateAllConsoles();
+    }
+
+    private void OnSaveSanctions(Entity<CityConsoleComponent> ent, ref CityConsoleSaveSanctionsMessage args)
+    {
+        if (!CheckAccess(ent.Owner, args.Actor) || !_bank.TryGetBank(out var bank) || !_laws.TryGetLaws(out var laws))
+            return;
+
+        _laws.SetSanctions(laws, args.Sanctions, args.GeneralProvision);
+
+        _bank.AddLog(bank, Loc.GetString("dystopia-city-console-log-sanctions", ("actor", Name(args.Actor))));
 
         UpdateAllConsoles();
     }

@@ -1,15 +1,18 @@
 using System.Linq;
 using System.Numerics;
+using Content.Client._Dystopia.Laws;
 using Content.Shared._Dystopia.Economy;
+using Content.Shared._Dystopia.Laws;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Robust.Client.UserInterface.CustomControls;
+using Robust.Shared.Utility;
 
 namespace Content.Client._Dystopia.Economy;
 
 /// <summary>
 /// Окно Консоли Управления Городом. Слева — разделы, справа — рабочая область.
-/// Работают разделы «Казна» и «Положения»; «Законы» — заглушка.
+/// Разделы: «Казна», «Положения», «Законы».
 /// Окно собрано в коде (без XAML), чтобы его было проще менять.
 /// </summary>
 public sealed class CityConsoleWindow : DefaultWindow
@@ -19,6 +22,10 @@ public sealed class CityConsoleWindow : DefaultWindow
     public event Action<int, int, string>? OnSeize;
     public event Action<string>? OnSetMode;
     public event Action<string>? OnAnnounce;
+    public event Action? OnNewLaw;
+    public event Action<int, int, string, string, string>? OnSaveLaw;
+    public event Action<int>? OnDeleteLaw;
+    public event Action<List<CitySanctionClass>, string>? OnSaveSanctions;
 
     private static readonly Color AccentColor = Color.FromHex("#B8962E");
     private static readonly Color DimColor = Color.FromHex("#8A8A8A");
@@ -52,6 +59,33 @@ public sealed class CityConsoleWindow : DefaultWindow
     private readonly Button _announceButton;
     private readonly Label _announceCooldownLabel;
     private string _modesSignature = string.Empty;
+
+    // Законы
+    private readonly Button _articlesSubTab;
+    private readonly Button _sanctionsSubTab;
+    private readonly Control _articlesView;
+    private readonly Control _sanctionsView;
+    private readonly BoxContainer _lawList;
+    private readonly BoxContainer _lawEditor;
+    private readonly Label _lawHint;
+    private readonly LineEdit _lawNumber;
+    private readonly Label _lawEnacted;
+    private readonly LineEdit _lawTitle;
+    private readonly TextEdit _lawText;
+    private readonly LineEdit _lawSanction;
+    private readonly Button _lawDelete;
+    private readonly GridContainer _sanctionsGrid;
+    private readonly LineEdit _generalProvision;
+    private readonly Dictionary<string, (LineEdit Legal, LineEdit Disciplinary)> _sanctionEdits = new();
+    private readonly Dictionary<string, (string Legal, string Disciplinary)> _lastServerSanctions = new();
+    private string _lastServerProvision = string.Empty;
+    private List<CityLaw> _laws = new();
+    private string _lawsSignature = string.Empty;
+    private int _selectedLawId = -1;
+    private string _filledLawSignature = string.Empty;
+    private bool _selectNewestLaw;
+    private int _maxLawIdBeforeCreate;
+    private bool _deleteArmed;
 
     public CityConsoleWindow()
     {
@@ -103,7 +137,14 @@ public sealed class CityConsoleWindow : DefaultWindow
             SeparationOverride = 8,
         };
         _decreesPanel = decrees;
-        _lawsPanel = MakeStub("dystopia-city-console-stub-laws");
+        var lawsPanel = new BoxContainer
+        {
+            Orientation = BoxContainer.LayoutOrientation.Vertical,
+            HorizontalExpand = true,
+            VerticalExpand = true,
+            SeparationOverride = 6,
+        };
+        _lawsPanel = lawsPanel;
         content.AddChild(_treasuryPanel);
         content.AddChild(_decreesPanel);
         content.AddChild(_lawsPanel);
@@ -209,7 +250,132 @@ public sealed class CityConsoleWindow : DefaultWindow
         _announceCooldownLabel = new Label { FontColorOverride = DimColor };
         decrees.AddChild(_announceCooldownLabel);
 
+        // --- Законы ---
+        var subTabs = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Horizontal, HorizontalExpand = true };
+        _articlesSubTab = new Button { Text = Loc.GetString("dystopia-laws-tab-articles"), ToggleMode = true, HorizontalExpand = true };
+        _sanctionsSubTab = new Button { Text = Loc.GetString("dystopia-laws-tab-sanctions-scale"), ToggleMode = true, HorizontalExpand = true };
+        subTabs.AddChild(_articlesSubTab);
+        subTabs.AddChild(_sanctionsSubTab);
+        lawsPanel.AddChild(subTabs);
+
+        var lawsContent = new Control { HorizontalExpand = true, VerticalExpand = true };
+        lawsPanel.AddChild(lawsContent);
+
+        // Статьи: слева список, справа редактор.
+        var articlesView = new BoxContainer
+        {
+            Orientation = BoxContainer.LayoutOrientation.Horizontal,
+            HorizontalExpand = true,
+            VerticalExpand = true,
+            SeparationOverride = 8,
+        };
+        _articlesView = articlesView;
+        lawsContent.AddChild(articlesView);
+
+        var listColumn = new BoxContainer
+        {
+            Orientation = BoxContainer.LayoutOrientation.Vertical,
+            MinWidth = 230,
+            VerticalExpand = true,
+            SeparationOverride = 4,
+        };
+        var listScroll = new ScrollContainer { HScrollEnabled = false, VerticalExpand = true };
+        _lawList = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Vertical, HorizontalExpand = true, SeparationOverride = 2 };
+        listScroll.AddChild(_lawList);
+        listColumn.AddChild(listScroll);
+        var newLaw = new Button { Text = Loc.GetString("dystopia-city-console-law-new") };
+        newLaw.OnPressed += _ =>
+        {
+            _selectNewestLaw = true;
+            _maxLawIdBeforeCreate = _laws.Count == 0 ? 0 : _laws.Max(l => l.Id);
+            OnNewLaw?.Invoke();
+        };
+        listColumn.AddChild(newLaw);
+        articlesView.AddChild(listColumn);
+
+        var editorColumn = new BoxContainer
+        {
+            Orientation = BoxContainer.LayoutOrientation.Vertical,
+            HorizontalExpand = true,
+            VerticalExpand = true,
+            SeparationOverride = 4,
+        };
+        _lawHint = new Label { Text = Loc.GetString("dystopia-city-console-law-hint"), FontColorOverride = DimColor };
+        editorColumn.AddChild(_lawHint);
+
+        _lawEditor = new BoxContainer
+        {
+            Orientation = BoxContainer.LayoutOrientation.Vertical,
+            HorizontalExpand = true,
+            VerticalExpand = true,
+            SeparationOverride = 4,
+            Visible = false,
+        };
+        editorColumn.AddChild(_lawEditor);
+        articlesView.AddChild(editorColumn);
+
+        var numberRow = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Horizontal, HorizontalExpand = true, SeparationOverride = 6 };
+        numberRow.AddChild(new Label { Text = Loc.GetString("dystopia-city-console-law-number") });
+        _lawNumber = new LineEdit { MinWidth = 60 };
+        numberRow.AddChild(_lawNumber);
+        _lawEnacted = new Label { FontColorOverride = DimColor, HorizontalExpand = true };
+        numberRow.AddChild(_lawEnacted);
+        _lawEditor.AddChild(numberRow);
+
+        _lawEditor.AddChild(new Label { Text = Loc.GetString("dystopia-city-console-law-title") });
+        _lawTitle = new LineEdit { HorizontalExpand = true };
+        _lawEditor.AddChild(_lawTitle);
+
+        _lawEditor.AddChild(new Label { Text = Loc.GetString("dystopia-city-console-law-text") });
+        _lawText = new TextEdit { HorizontalExpand = true, VerticalExpand = true, MinHeight = 150 };
+        _lawEditor.AddChild(_lawText);
+
+        _lawEditor.AddChild(new Label { Text = Loc.GetString("dystopia-city-console-law-sanction") });
+        _lawSanction = new LineEdit { HorizontalExpand = true };
+        _lawEditor.AddChild(_lawSanction);
+
+        var lawButtons = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Horizontal, HorizontalExpand = true, SeparationOverride = 6 };
+        var saveLaw = new Button { Text = Loc.GetString("dystopia-city-console-law-save"), HorizontalExpand = true };
+        saveLaw.OnPressed += _ => SaveSelectedLaw();
+        _lawDelete = new Button { Text = Loc.GetString("dystopia-city-console-law-delete") };
+        _lawDelete.OnPressed += _ => DeleteSelectedLaw();
+        lawButtons.AddChild(saveLaw);
+        lawButtons.AddChild(_lawDelete);
+        _lawEditor.AddChild(lawButtons);
+
+        // Шкала санкций.
+        var sanctionsView = new BoxContainer
+        {
+            Orientation = BoxContainer.LayoutOrientation.Vertical,
+            HorizontalExpand = true,
+            VerticalExpand = true,
+            SeparationOverride = 6,
+        };
+        _sanctionsView = sanctionsView;
+        lawsContent.AddChild(sanctionsView);
+
+        _sanctionsGrid = new GridContainer { Columns = 3, HorizontalExpand = true };
+        sanctionsView.AddChild(_sanctionsGrid);
+        sanctionsView.AddChild(new Label { Text = Loc.GetString("dystopia-laws-general-provision"), FontColorOverride = AccentColor });
+        _generalProvision = new LineEdit { HorizontalExpand = true };
+        sanctionsView.AddChild(_generalProvision);
+        var saveSanctions = new Button { Text = Loc.GetString("dystopia-city-console-sanctions-save") };
+        saveSanctions.OnPressed += _ => SaveSanctions();
+        sanctionsView.AddChild(saveSanctions);
+
+        _articlesSubTab.OnPressed += _ => SelectLawsSubTab(false);
+        _sanctionsSubTab.OnPressed += _ => SelectLawsSubTab(true);
+        SelectLawsSubTab(false);
+
         SelectTab(0);
+    }
+
+    private void SelectLawsSubTab(bool sanctions)
+    {
+        _articlesView.Visible = !sanctions;
+        _sanctionsView.Visible = sanctions;
+        _articlesSubTab.Pressed = !sanctions;
+        _sanctionsSubTab.Pressed = sanctions;
     }
 
     private static Button MakeTab(string loc)
@@ -226,18 +392,6 @@ public sealed class CityConsoleWindow : DefaultWindow
     private static Label MakeHeader(string loc)
     {
         return new Label { Text = Loc.GetString(loc), FontColorOverride = AccentColor, Margin = new Thickness(0, 6, 0, 0) };
-    }
-
-    private static Control MakeStub(string loc)
-    {
-        var box = new BoxContainer
-        {
-            Orientation = BoxContainer.LayoutOrientation.Vertical,
-            HorizontalExpand = true,
-            VerticalExpand = true,
-        };
-        box.AddChild(new Label { Text = Loc.GetString(loc), FontColorOverride = DimColor });
-        return box;
     }
 
     private void SelectTab(int index)
@@ -275,6 +429,184 @@ public sealed class CityConsoleWindow : DefaultWindow
         UpdateAccounts(state.Accounts);
         UpdateLog(state.Log);
         UpdateModes(state);
+        UpdateLaws(state);
+        UpdateSanctions(state);
+    }
+
+    private static string LawSignature(CityLaw law)
+    {
+        return $"{law.Id}|{law.Number}|{law.Title}|{law.Text}|{law.Sanction}|{law.EnactedAt}";
+    }
+
+    private void UpdateLaws(CityConsoleBoundUserInterfaceState state)
+    {
+        _laws = state.Laws;
+
+        // Только что созданная статья выбирается автоматически.
+        if (_selectNewestLaw)
+        {
+            var created = _laws.Where(l => l.Id > _maxLawIdBeforeCreate).OrderByDescending(l => l.Id).FirstOrDefault();
+            if (created != null)
+            {
+                _selectNewestLaw = false;
+                SelectLaw(created.Id);
+            }
+        }
+
+        var signature = string.Join(";", _laws.Select(l => $"{l.Id}:{l.Number}:{l.Title}"));
+        if (signature != _lawsSignature)
+        {
+            _lawsSignature = signature;
+            RebuildLawList();
+        }
+
+        var selected = _laws.FirstOrDefault(l => l.Id == _selectedLawId);
+        if (selected == null)
+        {
+            if (_selectedLawId != -1)
+                SelectLaw(-1);
+            return;
+        }
+
+        // Статью изменили на сервере — обновляем редактор, если Консул сейчас не печатает в нём.
+        if (LawSignature(selected) != _filledLawSignature && !EditorFocused())
+            FillEditor(selected);
+    }
+
+    private bool EditorFocused()
+    {
+        return _lawNumber.HasKeyboardFocus() || _lawTitle.HasKeyboardFocus() ||
+               _lawText.HasKeyboardFocus() || _lawSanction.HasKeyboardFocus();
+    }
+
+    private void RebuildLawList()
+    {
+        _lawList.RemoveAllChildren();
+        foreach (var law in _laws)
+        {
+            var id = law.Id;
+            var button = new Button
+            {
+                Text = Loc.GetString("dystopia-laws-article-header", ("number", law.Number), ("title", law.Title)),
+                ToggleMode = true,
+                Pressed = id == _selectedLawId,
+                HorizontalExpand = true,
+                ClipText = true,
+            };
+            button.OnPressed += _ => SelectLaw(id);
+            _lawList.AddChild(button);
+        }
+    }
+
+    private void SelectLaw(int id)
+    {
+        _selectedLawId = id;
+        _deleteArmed = false;
+        _lawDelete.Text = Loc.GetString("dystopia-city-console-law-delete");
+
+        var law = _laws.FirstOrDefault(l => l.Id == id);
+        _lawEditor.Visible = law != null;
+        _lawHint.Visible = law == null;
+
+        if (law != null)
+            FillEditor(law);
+        else
+            _filledLawSignature = string.Empty;
+
+        RebuildLawList();
+    }
+
+    private void FillEditor(CityLaw law)
+    {
+        _lawNumber.Text = law.Number.ToString();
+        _lawTitle.Text = law.Title;
+        _lawText.TextRope = new Rope.Leaf(law.Text);
+        _lawSanction.Text = law.Sanction;
+        _lawEnacted.Text = Loc.GetString("dystopia-laws-article-enacted", ("time", CityLawsUiFragment.FormatTime(law.EnactedAt)));
+        _filledLawSignature = LawSignature(law);
+    }
+
+    private void SaveSelectedLaw()
+    {
+        if (_selectedLawId < 0 || !int.TryParse(_lawNumber.Text.Trim(), out var number))
+            return;
+
+        OnSaveLaw?.Invoke(_selectedLawId, number, _lawTitle.Text, Rope.Collapse(_lawText.TextRope), _lawSanction.Text);
+    }
+
+    private void DeleteSelectedLaw()
+    {
+        if (_selectedLawId < 0)
+            return;
+
+        // Удаление в два нажатия, чтобы не снести статью случайно.
+        if (!_deleteArmed)
+        {
+            _deleteArmed = true;
+            _lawDelete.Text = Loc.GetString("dystopia-city-console-law-delete-confirm");
+            return;
+        }
+
+        _deleteArmed = false;
+        _lawDelete.Text = Loc.GetString("dystopia-city-console-law-delete");
+        OnDeleteLaw?.Invoke(_selectedLawId);
+    }
+
+    private void UpdateSanctions(CityConsoleBoundUserInterfaceState state)
+    {
+        if (_sanctionEdits.Count != state.Sanctions.Count || state.Sanctions.Any(s => !_sanctionEdits.ContainsKey(s.Class)))
+        {
+            _sanctionsGrid.RemoveAllChildren();
+            _sanctionEdits.Clear();
+            _lastServerSanctions.Clear();
+
+            _sanctionsGrid.AddChild(new Label { Text = Loc.GetString("dystopia-city-console-sanctions-col-class"), FontColorOverride = DimColor });
+            _sanctionsGrid.AddChild(new Label { Text = Loc.GetString("dystopia-city-console-sanctions-col-legal"), FontColorOverride = DimColor });
+            _sanctionsGrid.AddChild(new Label { Text = Loc.GetString("dystopia-city-console-sanctions-col-disciplinary"), FontColorOverride = DimColor });
+
+            foreach (var sanction in state.Sanctions)
+            {
+                var legal = new LineEdit { HorizontalExpand = true, Text = sanction.Legal };
+                var disciplinary = new LineEdit { HorizontalExpand = true, Text = sanction.Disciplinary };
+                _sanctionsGrid.AddChild(new Label { Text = sanction.Class, FontColorOverride = AccentColor, MinWidth = 50 });
+                _sanctionsGrid.AddChild(legal);
+                _sanctionsGrid.AddChild(disciplinary);
+                _sanctionEdits[sanction.Class] = (legal, disciplinary);
+                _lastServerSanctions[sanction.Class] = (sanction.Legal, sanction.Disciplinary);
+            }
+
+            _generalProvision.Text = state.GeneralProvision;
+            _lastServerProvision = state.GeneralProvision;
+            return;
+        }
+
+        foreach (var sanction in state.Sanctions)
+        {
+            var edits = _sanctionEdits[sanction.Class];
+            var last = _lastServerSanctions[sanction.Class];
+
+            if (last.Legal != sanction.Legal && !edits.Legal.HasKeyboardFocus())
+                edits.Legal.Text = sanction.Legal;
+            if (last.Disciplinary != sanction.Disciplinary && !edits.Disciplinary.HasKeyboardFocus())
+                edits.Disciplinary.Text = sanction.Disciplinary;
+
+            _lastServerSanctions[sanction.Class] = (sanction.Legal, sanction.Disciplinary);
+        }
+
+        if (_lastServerProvision != state.GeneralProvision && !_generalProvision.HasKeyboardFocus())
+            _generalProvision.Text = state.GeneralProvision;
+        _lastServerProvision = state.GeneralProvision;
+    }
+
+    private void SaveSanctions()
+    {
+        var list = new List<CitySanctionClass>();
+        foreach (var (cls, edits) in _sanctionEdits)
+        {
+            list.Add(new CitySanctionClass { Class = cls, Legal = edits.Legal.Text, Disciplinary = edits.Disciplinary.Text });
+        }
+
+        OnSaveSanctions?.Invoke(list, _generalProvision.Text);
     }
 
     private void UpdateModes(CityConsoleBoundUserInterfaceState state)
