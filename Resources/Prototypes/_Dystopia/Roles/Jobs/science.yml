@@ -34,7 +34,7 @@
     mask: DystopiaClothingMaskGasScience
     shoes: ClothingShoesBootsLaceup
     id: DystopiaScienceDirectorPDA
-    ears: ClothingHeadsetRD
+    ears: ClothingHeadsetAltDystopiaScienceDirector
 
 - type: job
   id: DystopiaAugmentologist
@@ -60,7 +60,7 @@
     shoes: ClothingShoesColorBlack
     belt: ClothingBeltUtilityFilled
     id: DystopiaAugmentologistPDA
-    ears: ClothingHeadsetRobotics
+    ears: ClothingHeadsetDystopiaScience
 
 - type: job
   id: DystopiaPathobiologist
@@ -88,7 +88,7 @@
     gloves: ClothingHandsGlovesLatex
     shoes: ClothingShoesColorWhite
     id: DystopiaPathobiologistPDA
-    ears: ClothingHeadsetMedicalScience
+    ears: ClothingHeadsetDystopiaScience
   storage:
     back:
     - Syringe
@@ -117,7 +117,7 @@
     mask: DystopiaClothingMaskGasScience
     shoes: ClothingShoesColorWhite
     id: DystopiaResearcherPDA
-    ears: ClothingHeadsetScience
+    ears: ClothingHeadsetDystopiaScience
 
 - type: job
   id: DystopiaLabAssistant
@@ -141,4 +141,4 @@
     mask: DystopiaClothingMaskGasScience
     shoes: ClothingShoesColorBlack
     id: DystopiaLabAssistantPDA
-    ears: ClothingHeadsetScience
+    ears: ClothingHeadsetDystopiaScience

@@ -35,7 +35,7 @@
     mask: DystopiaClothingMaskGasSanitary
     shoes: ClothingShoesBootsLaceup
     id: DystopiaChiefSanitaryDoctorPDA
-    ears: ClothingHeadsetCMO
+    ears: ClothingHeadsetAltDystopiaChiefSanitary
     pocket1: HandheldHealthAnalyzer
   storage:
     back:
@@ -62,7 +62,7 @@
     mask: DystopiaClothingMaskGasSanitary
     shoes: ClothingShoesColorWhite
     id: DystopiaHealerPDA
-    ears: ClothingHeadsetMedical
+    ears: ClothingHeadsetDystopiaSanitary
     pocket1: HandheldHealthAnalyzer
   storage:
     back:
@@ -95,7 +95,7 @@
     mask: DystopiaClothingMaskGasField
     shoes: ClothingShoesGaloshes
     id: DystopiaDisinfectorPDA
-    ears: ClothingHeadsetMedical
+    ears: ClothingHeadsetDystopiaSanitary
   storage:
     back:
     - BodyBagFolded
@@ -132,7 +132,7 @@
     shoes: ClothingShoesBootsWork
     belt: ClothingBeltUtilityFilled
     id: DystopiaLiquidatorPDA
-    ears: ClothingHeadsetEngineering
+    ears: ClothingHeadsetDystopiaSanitary
 
 - type: job
   id: DystopiaPharmacist
@@ -159,7 +159,7 @@
     gloves: ClothingHandsGlovesLatex
     shoes: ClothingShoesColorWhite
     id: DystopiaPharmacistPDA
-    ears: ClothingHeadsetMedical
+    ears: ClothingHeadsetDystopiaSanitary
   storage:
     back:
     - Beaker
@@ -188,7 +188,7 @@
     gloves: ClothingHandsGlovesLatex
     shoes: ClothingShoesColorWhite
     id: DystopiaJuniorOrderlyPDA
-    ears: ClothingHeadsetMedical
+    ears: ClothingHeadsetDystopiaSanitary
   storage:
     back:
     - Gauze

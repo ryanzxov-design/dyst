@@ -15,10 +15,10 @@
 
 - type: radioChannel
   id: Command
-  name: chat-radio-command
+  name: chat-radio-dystopia-administration # Dystopia-Radio
   keycode: 'к' # Corvax-Localization
   frequency: 135.3
-  color: "#fcdf03"
+  color: "#D9B44A" # Dystopia-Radio
 
 - type: radioChannel
   id: Engineering
@@ -29,24 +29,24 @@
 
 - type: radioChannel
   id: Medical
-  name: chat-radio-medical
+  name: chat-radio-dystopia-sanitary # Dystopia-Radio
   keycode: 'м' # Corvax-Localization
   frequency: 135.5
-  color: "#57b8f0"
+  color: "#6DBF4E" # Dystopia-Radio
 
 - type: radioChannel
   id: Science
-  name: chat-radio-science
+  name: chat-radio-dystopia-science # Dystopia-Radio
   keycode: 'н' # Corvax-Localization
   frequency: 135.1
-  color: "#cd7ccd"
+  color: "#A57BDB" # Dystopia-Radio
 
 - type: radioChannel
   id: Security
-  name: chat-radio-security
+  name: chat-radio-dystopia-guard # Dystopia-Radio
   keycode: 'о' # Corvax-Localization
   frequency: 135.9
-  color: "#ff4242"
+  color: "#5B8FD9" # Dystopia-Radio
 
 - type: radioChannel
   id: Service

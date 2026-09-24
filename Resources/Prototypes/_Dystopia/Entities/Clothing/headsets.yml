@@ -1,0 +1,196 @@
+# Гарнитуры Города. Спрайты — перекраски ванильной гарнитуры СБ в цвета служб.
+# У всех служащих есть Общий канал (он же служебный: у горожан раций нет).
+# Наушники (alt) — у Консула и глав служб.
+
+- type: entity
+  parent: ClothingHeadset
+  id: ClothingHeadsetDystopiaAdministration
+  name: гарнитура Администрации
+  components:
+  - type: ContainerFill
+    containers:
+      key_slots:
+      - EncryptionKeyDystopiaAdministration
+      - EncryptionKeyCommon
+  - type: Sprite
+    sprite: _Dystopia/Clothing/Ears/Headsets/administration.rsi
+  - type: Clothing
+    sprite: _Dystopia/Clothing/Ears/Headsets/administration.rsi
+
+- type: entity
+  parent: ClothingHeadsetAlt
+  id: ClothingHeadsetAltDystopiaAdministration
+  name: наушники Администрации
+  components:
+  - type: ContainerFill
+    containers:
+      key_slots:
+      - EncryptionKeyDystopiaAdministration
+      - EncryptionKeyCommon
+  - type: Sprite
+    sprite: _Dystopia/Clothing/Ears/Headsets/administration.rsi
+  - type: Clothing
+    sprite: _Dystopia/Clothing/Ears/Headsets/administration.rsi
+
+- type: entity
+  parent: ClothingHeadsetAlt
+  id: ClothingHeadsetAltDystopiaConsul
+  name: наушники Консула
+  components:
+  - type: ContainerFill
+    containers:
+      key_slots:
+      - EncryptionKeyDystopiaAdministration
+      - EncryptionKeyDystopiaGuard
+      - EncryptionKeyDystopiaPatrol
+      - EncryptionKeyDystopiaSanitary
+      - EncryptionKeyDystopiaScience
+      - EncryptionKeyCommon
+  - type: EncryptionKeyHolder
+    keySlots: 6
+  - type: Sprite
+    sprite: _Dystopia/Clothing/Ears/Headsets/consul.rsi
+  - type: Clothing
+    sprite: _Dystopia/Clothing/Ears/Headsets/consul.rsi
+
+- type: entity
+  parent: ClothingHeadsetAlt
+  id: ClothingHeadsetAltDystopiaGuardCaptain
+  name: наушники капитана Стражи
+  components:
+  - type: ContainerFill
+    containers:
+      key_slots:
+      - EncryptionKeyDystopiaAdministration
+      - EncryptionKeyDystopiaGuard
+      - EncryptionKeyDystopiaPatrol
+      - EncryptionKeyCommon
+  - type: Sprite
+    sprite: _Dystopia/Clothing/Ears/Headsets/guard.rsi
+  - type: Clothing
+    sprite: _Dystopia/Clothing/Ears/Headsets/guard.rsi
+
+- type: entity
+  parent: ClothingHeadset
+  id: ClothingHeadsetDystopiaGuard
+  name: гарнитура Стражи
+  components:
+  - type: ContainerFill
+    containers:
+      key_slots:
+      - EncryptionKeyDystopiaGuard
+      - EncryptionKeyCommon
+  - type: Sprite
+    sprite: _Dystopia/Clothing/Ears/Headsets/guard.rsi
+  - type: Clothing
+    sprite: _Dystopia/Clothing/Ears/Headsets/guard.rsi
+
+- type: entity
+  parent: ClothingHeadsetAlt
+  id: ClothingHeadsetAltDystopiaPraetorian
+  name: наушники преторианца
+  components:
+  - type: ContainerFill
+    containers:
+      key_slots:
+      - EncryptionKeyDystopiaAdministration
+      - EncryptionKeyDystopiaPatrol
+      - EncryptionKeyCommon
+  - type: Sprite
+    sprite: _Dystopia/Clothing/Ears/Headsets/patrol.rsi
+  - type: Clothing
+    sprite: _Dystopia/Clothing/Ears/Headsets/patrol.rsi
+
+- type: entity
+  parent: ClothingHeadset
+  id: ClothingHeadsetDystopiaPatrol
+  name: гарнитура Патруля
+  components:
+  - type: ContainerFill
+    containers:
+      key_slots:
+      - EncryptionKeyDystopiaPatrol
+      - EncryptionKeyCommon
+  - type: Sprite
+    sprite: _Dystopia/Clothing/Ears/Headsets/patrol.rsi
+  - type: Clothing
+    sprite: _Dystopia/Clothing/Ears/Headsets/patrol.rsi
+
+- type: entity
+  parent: ClothingHeadsetAlt
+  id: ClothingHeadsetAltDystopiaChiefSanitary
+  name: наушники главы Санитарной Службы
+  components:
+  - type: ContainerFill
+    containers:
+      key_slots:
+      - EncryptionKeyDystopiaAdministration
+      - EncryptionKeyDystopiaSanitary
+      - EncryptionKeyCommon
+  - type: Sprite
+    sprite: _Dystopia/Clothing/Ears/Headsets/sanitary.rsi
+  - type: Clothing
+    sprite: _Dystopia/Clothing/Ears/Headsets/sanitary.rsi
+
+- type: entity
+  parent: ClothingHeadset
+  id: ClothingHeadsetDystopiaSanitary
+  name: гарнитура Санитарии
+  components:
+  - type: ContainerFill
+    containers:
+      key_slots:
+      - EncryptionKeyDystopiaSanitary
+      - EncryptionKeyCommon
+  - type: Sprite
+    sprite: _Dystopia/Clothing/Ears/Headsets/sanitary.rsi
+  - type: Clothing
+    sprite: _Dystopia/Clothing/Ears/Headsets/sanitary.rsi
+
+- type: entity
+  parent: ClothingHeadsetAlt
+  id: ClothingHeadsetAltDystopiaScienceDirector
+  name: наушники директора Научной службы
+  components:
+  - type: ContainerFill
+    containers:
+      key_slots:
+      - EncryptionKeyDystopiaAdministration
+      - EncryptionKeyDystopiaScience
+      - EncryptionKeyCommon
+  - type: Sprite
+    sprite: _Dystopia/Clothing/Ears/Headsets/science.rsi
+  - type: Clothing
+    sprite: _Dystopia/Clothing/Ears/Headsets/science.rsi
+
+- type: entity
+  parent: ClothingHeadset
+  id: ClothingHeadsetDystopiaScience
+  name: гарнитура Науки
+  components:
+  - type: ContainerFill
+    containers:
+      key_slots:
+      - EncryptionKeyDystopiaScience
+      - EncryptionKeyCommon
+  - type: Sprite
+    sprite: _Dystopia/Clothing/Ears/Headsets/science.rsi
+  - type: Clothing
+    sprite: _Dystopia/Clothing/Ears/Headsets/science.rsi
+
+# Самодельная гарнитура: пустая, на один ключ. Будет собираться работягами (крафт — позже).
+- type: entity
+  parent: ClothingHeadset
+  id: ClothingHeadsetDystopiaMakeshift
+  name: самодельная гарнитура
+  description: Собрана из того, что нашлось на свалке. Держится на изоленте и надежде.
+  components:
+  - type: ContainerFill
+    containers:
+      key_slots: []
+  - type: EncryptionKeyHolder
+    keySlots: 1
+  - type: Sprite
+    sprite: _Dystopia/Clothing/Ears/Headsets/makeshift.rsi
+  - type: Clothing
+    sprite: _Dystopia/Clothing/Ears/Headsets/makeshift.rsi

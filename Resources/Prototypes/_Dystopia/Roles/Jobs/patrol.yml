@@ -31,7 +31,7 @@
     mask: DystopiaClothingMaskGasSanitary
     shoes: ClothingShoesBootsCombat
     id: DystopiaPraetorianPDA
-    ears: ClothingHeadsetAltSecurity
+    ears: ClothingHeadsetAltDystopiaPraetorian
 
 - type: job
   id: DystopiaGrenadier
@@ -59,7 +59,7 @@
     mask: DystopiaClothingMaskGasSanitary
     shoes: ClothingShoesBootsCombat
     id: DystopiaGrenadierPDA
-    ears: ClothingHeadsetSecurity
+    ears: ClothingHeadsetDystopiaPatrol
 
 - type: job
   id: DystopiaStormtrooper
@@ -87,7 +87,7 @@
     mask: DystopiaClothingMaskGasSanitary
     shoes: ClothingShoesBootsCombat
     id: DystopiaStormtrooperPDA
-    ears: ClothingHeadsetSecurity
+    ears: ClothingHeadsetDystopiaPatrol
 
 - type: job
   id: DystopiaSoldier
@@ -114,4 +114,4 @@
     mask: DystopiaClothingMaskGasSanitary
     shoes: ClothingShoesBootsCombat
     id: DystopiaSoldierPDA
-    ears: ClothingHeadsetSecurity
+    ears: ClothingHeadsetDystopiaPatrol

@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Encryption key labels made for Dystopia",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "administration_label"
+    },
+    {
+      "name": "guard_label"
+    },
+    {
+      "name": "patrol_label"
+    },
+    {
+      "name": "sanitary_label"
+    },
+    {
+      "name": "science_label"
+    },
+    {
+      "name": "cult_label"
+    },
+    {
+      "name": "unauthorized_label"
+    }
+  ]
+}

@@ -19,7 +19,6 @@
     jumpsuit: ClothingUniformJumpsuitColorGrey
     shoes: ClothingShoesColorBlack
     id: DystopiaProletarianPDA
-    ears: ClothingHeadsetGrey
 
 - type: job
   id: DystopiaShopkeeper
@@ -41,4 +40,3 @@
     jumpsuit: ClothingUniformJumpsuitCargo
     shoes: ClothingShoesColorBrown
     id: DystopiaShopkeeperPDA
-    ears: ClothingHeadsetCargo

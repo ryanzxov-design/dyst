@@ -24,7 +24,7 @@
     gloves: ClothingHandsGlovesColorWhite
     shoes: ClothingShoesColorWhite
     id: DystopiaConsulPDA
-    ears: ClothingHeadsetAltCommand
+    ears: ClothingHeadsetAltDystopiaConsul
     pocket1: WeaponPistolMk58
   storage:
     back:
@@ -59,7 +59,7 @@
     mask: DystopiaClothingMaskGasSanitary
     shoes: ClothingShoesBootsLaceup
     id: DystopiaAdjutantPDA
-    ears: ClothingHeadsetCommand
+    ears: ClothingHeadsetDystopiaAdministration
     pocket1: Pen
   storage:
     back:
@@ -101,7 +101,7 @@
     mask: DystopiaClothingMaskGasSanitary
     shoes: ClothingShoesColorBrown
     id: DystopiaCivilInspectorPDA
-    ears: ClothingHeadsetCommand
+    ears: ClothingHeadsetAltDystopiaAdministration
     pocket1: Pen
   storage:
     back:

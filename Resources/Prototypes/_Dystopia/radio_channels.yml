@@ -1,0 +1,30 @@
+# Радиоканалы Города (новые). Каналы Администрации, Стражи, Санитарии и Науки —
+# это переименованные ванильные Command / Security / Medical / Science (см. Resources/Prototypes/radio_channels.yml).
+# Новые каналы — дальнобойные (longRange): им не нужен телеком-сервер Города.
+
+- type: radioChannel
+  id: DystopiaPatrol
+  name: chat-radio-dystopia-patrol
+  keycode: 'в'
+  frequency: 136.1
+  color: "#8FA1B3"
+  longRange: true
+
+# Канал Культа Плоти. Ключ пока никому не выдаётся — появится вместе с Культом.
+- type: radioChannel
+  id: DystopiaCult
+  name: chat-radio-dystopia-cult
+  keycode: 'ш'
+  frequency: 121.9
+  color: "#C0392B"
+  longRange: true
+
+# Неавторизованный канал: его нет у служащих Города. Ключ и самодельную гарнитуру
+# работяги будут собирать сами (крафт — позже).
+- type: radioChannel
+  id: DystopiaUnauthorized
+  name: chat-radio-dystopia-unauthorized
+  keycode: 'р'
+  frequency: 147.3
+  color: "#D98E3F"
+  longRange: true

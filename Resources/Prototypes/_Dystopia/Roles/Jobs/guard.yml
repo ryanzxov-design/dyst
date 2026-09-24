@@ -44,7 +44,7 @@
     gloves: ClothingHandsGlovesCombat
     shoes: ClothingShoesBootsJack
     id: DystopiaGuardCaptainPDA
-    ears: ClothingHeadsetAltSecurity
+    ears: ClothingHeadsetAltDystopiaGuardCaptain
     pocket1: WeaponRevolverMateba
   storage:
     back:
@@ -81,7 +81,7 @@
     gloves: ClothingHandsGlovesColorBlack
     shoes: ClothingShoesBootsJack
     id: DystopiaGuardSergeantPDA
-    ears: ClothingHeadsetSecurity
+    ears: ClothingHeadsetDystopiaGuard
     pocket1: WeaponPistolMk58
 
 - type: job
@@ -113,7 +113,7 @@
     gloves: ClothingHandsGlovesColorBlack
     shoes: ClothingShoesBootsJack
     id: DystopiaGuardsmanPDA
-    ears: ClothingHeadsetSecurity
+    ears: ClothingHeadsetDystopiaGuard
     pocket1: WeaponPistolMk58
 
 - type: job
@@ -139,5 +139,5 @@
     gloves: ClothingHandsGlovesColorBlack
     shoes: ClothingShoesBootsJack
     id: DystopiaGuardRecruitPDA
-    ears: ClothingHeadsetSecurity
+    ears: ClothingHeadsetDystopiaGuard
     pocket1: WeaponPistolMk58

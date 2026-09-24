@@ -1,0 +1,113 @@
+# Ключи шифрования Города. Лейблы — свои спрайты (_Dystopia/Objects/Devices/encryption_labels.rsi).
+
+- type: entity
+  parent: EncryptionKey
+  id: EncryptionKeyDystopiaAdministration
+  name: ключ шифрования Администрации
+  description: Ключ шифрования служебного радиоканала Города.
+  components:
+  - type: EncryptionKey
+    channels:
+    - Command
+    defaultChannel: Command
+  - type: Sprite
+    layers:
+    - state: crypt_gold
+    - sprite: _Dystopia/Objects/Devices/encryption_labels.rsi
+      state: administration_label
+
+- type: entity
+  parent: EncryptionKey
+  id: EncryptionKeyDystopiaGuard
+  name: ключ шифрования Стражи
+  description: Ключ шифрования служебного радиоканала Города.
+  components:
+  - type: EncryptionKey
+    channels:
+    - Security
+    defaultChannel: Security
+  - type: Sprite
+    layers:
+    - state: crypt_gray
+    - sprite: _Dystopia/Objects/Devices/encryption_labels.rsi
+      state: guard_label
+
+- type: entity
+  parent: EncryptionKey
+  id: EncryptionKeyDystopiaPatrol
+  name: ключ шифрования Патруля
+  description: Ключ шифрования служебного радиоканала Города.
+  components:
+  - type: EncryptionKey
+    channels:
+    - DystopiaPatrol
+    defaultChannel: DystopiaPatrol
+  - type: Sprite
+    layers:
+    - state: crypt_gray
+    - sprite: _Dystopia/Objects/Devices/encryption_labels.rsi
+      state: patrol_label
+
+- type: entity
+  parent: EncryptionKey
+  id: EncryptionKeyDystopiaSanitary
+  name: ключ шифрования Санитарии
+  description: Ключ шифрования служебного радиоканала Города.
+  components:
+  - type: EncryptionKey
+    channels:
+    - Medical
+    defaultChannel: Medical
+  - type: Sprite
+    layers:
+    - state: crypt_gray
+    - sprite: _Dystopia/Objects/Devices/encryption_labels.rsi
+      state: sanitary_label
+
+- type: entity
+  parent: EncryptionKey
+  id: EncryptionKeyDystopiaScience
+  name: ключ шифрования Науки
+  description: Ключ шифрования служебного радиоканала Города.
+  components:
+  - type: EncryptionKey
+    channels:
+    - Science
+    defaultChannel: Science
+  - type: Sprite
+    layers:
+    - state: crypt_gray
+    - sprite: _Dystopia/Objects/Devices/encryption_labels.rsi
+      state: science_label
+
+- type: entity
+  parent: EncryptionKey
+  id: EncryptionKeyDystopiaCult
+  name: склизкий ключ шифрования
+  description: Покрыт чем-то тёплым и живым. Лучше не спрашивать, откуда он.
+  components:
+  - type: EncryptionKey
+    channels:
+    - DystopiaCult
+    defaultChannel: DystopiaCult
+  - type: Sprite
+    layers:
+    - state: crypt_rusted
+    - sprite: _Dystopia/Objects/Devices/encryption_labels.rsi
+      state: cult_label
+
+- type: entity
+  parent: EncryptionKey
+  id: EncryptionKeyDystopiaUnauthorized
+  name: самодельный ключ шифрования
+  description: Грубо спаянная плата. Ловит частоту, которой нет в реестрах Города.
+  components:
+  - type: EncryptionKey
+    channels:
+    - DystopiaUnauthorized
+    defaultChannel: DystopiaUnauthorized
+  - type: Sprite
+    layers:
+    - state: crypt_rusted
+    - sprite: _Dystopia/Objects/Devices/encryption_labels.rsi
+      state: unauthorized_label
