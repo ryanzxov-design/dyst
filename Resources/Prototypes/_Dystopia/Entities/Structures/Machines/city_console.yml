@@ -1,0 +1,37 @@
+# Консоль Управления Городом. Открывается только с доступом Консула.
+# Раздел «Казна» работает; «Положения» и «Законы» — в следующих шагах.
+
+- type: entity
+  parent: BaseComputer
+  id: ComputerDystopiaCityConsole
+  name: Консоль Управления Городом
+  description: Терминал, через который Консул управляет казной, законами и положениями Города.
+  components:
+  - type: Sprite
+    layers:
+    - map: ["computerLayerBody"]
+      state: computer
+    - map: ["computerLayerKeyboard"]
+      state: generic_keyboard
+    - map: ["computerLayerScreen"]
+      state: comm
+    - map: ["computerLayerKeys"]
+      state: generic_keys
+    - map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
+      state: generic_panel_open
+  - type: AccessReader
+    access: [["DystopiaConsul"]]
+  - type: ActivatableUIRequiresAccess
+  - type: CityConsole
+  - type: ActivatableUI
+    key: enum.CityConsoleUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.CityConsoleUiKey.Key:
+        type: CityConsoleBoundUserInterface
+      enum.WiresUiKey.Key:
+        type: WiresBoundUserInterface
+  - type: PointLight
+    radius: 1.5
+    energy: 3.0
+    color: "#B8962E"

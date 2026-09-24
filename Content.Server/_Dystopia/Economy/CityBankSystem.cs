@@ -26,6 +26,7 @@ public sealed partial class CityBankSystem : EntitySystem
     [Dependency] private IChatManager _chat = default!;
     [Dependency] private SharedIdCardSystem _idCard = default!;
     [Dependency] private MobStateSystem _mobState = default!;
+    [Dependency] private GameTicker _ticker = default!;
 
     public override void Initialize()
     {
@@ -208,13 +209,66 @@ public sealed partial class CityBankSystem : EntitySystem
                 ("net", net), ("tax", tax), ("balance", account.Balance)));
         }
 
+        AddLog(bank, Loc.GetString("dystopia-bank-log-payday", ("paid", paid), ("unpaid", unpaid), ("treasury", bank.Comp.Treasury)));
         return (paid, unpaid);
     }
 
-    private void Notify(EntityUid owner, string message)
+    /// <summary>Личное сообщение в чат владельцу счёта (если он в игре).</summary>
+    public void Notify(EntityUid owner, string message)
     {
         if (TryComp<ActorComponent>(owner, out var actor))
             _chat.DispatchServerMessage(actor.PlayerSession, message);
+    }
+
+    #endregion
+
+    #region Премии, изъятия, журнал
+
+    /// <summary>
+    /// Премия из казны. С премии удерживается налог профессии, из казны уходит сумма за вычетом налога.
+    /// </summary>
+    public bool TryPayBonus(Entity<CityBankComponent> bank, CityBankAccount account, int amount, string reason, out int net, out int tax)
+    {
+        tax = amount * GetTaxRate(bank, account) / 100;
+        net = amount - tax;
+
+        if (amount <= 0 || bank.Comp.Treasury < net)
+            return false;
+
+        bank.Comp.Treasury -= net;
+        account.Balance += net;
+
+        if (account.Owner is { } owner)
+            Notify(owner, Loc.GetString("dystopia-bank-bonus-received", ("net", net), ("tax", tax), ("reason", reason)));
+
+        return true;
+    }
+
+    /// <summary>Изъятие со счёта в казну. Изымается не больше, чем есть на счету. Возвращает изъятую сумму.</summary>
+    public int Seize(Entity<CityBankComponent> bank, CityBankAccount account, int amount, string reason)
+    {
+        var taken = Math.Clamp(amount, 0, account.Balance);
+        if (taken <= 0)
+            return 0;
+
+        account.Balance -= taken;
+        bank.Comp.Treasury += taken;
+
+        if (account.Owner is { } owner)
+            Notify(owner, Loc.GetString("dystopia-bank-seized", ("amount", taken), ("reason", reason)));
+
+        return taken;
+    }
+
+    /// <summary>Запись в журнал казны с временем раунда.</summary>
+    public void AddLog(Entity<CityBankComponent> bank, string text)
+    {
+        var time = _ticker.RoundDuration();
+        bank.Comp.Log.Add($"[{(int) time.TotalHours:00}:{time.Minutes:00}] {text}");
+
+        var excess = bank.Comp.Log.Count - bank.Comp.MaxLogEntries;
+        if (excess > 0)
+            bank.Comp.Log.RemoveRange(0, excess);
     }
 
     #endregion

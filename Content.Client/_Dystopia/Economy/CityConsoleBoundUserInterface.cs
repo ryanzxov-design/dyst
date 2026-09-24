@@ -1,0 +1,28 @@
+using Content.Shared._Dystopia.Economy;
+using Robust.Client.UserInterface;
+
+namespace Content.Client._Dystopia.Economy;
+
+public sealed partial class CityConsoleBoundUserInterface(EntityUid owner, Enum uiKey) : BoundUserInterface(owner, uiKey)
+{
+    [ViewVariables]
+    private CityConsoleWindow? _window;
+
+    protected override void Open()
+    {
+        base.Open();
+
+        _window = this.CreateWindow<CityConsoleWindow>();
+        _window.OnSetRates += (job, salary, tax) => SendMessage(new CityConsoleSetRatesMessage(job, salary, tax));
+        _window.OnBonus += (id, amount, reason) => SendMessage(new CityConsoleBonusMessage(id, amount, reason));
+        _window.OnSeize += (id, amount, reason) => SendMessage(new CityConsoleSeizeMessage(id, amount, reason));
+    }
+
+    protected override void UpdateState(BoundUserInterfaceState state)
+    {
+        base.UpdateState(state);
+
+        if (state is CityConsoleBoundUserInterfaceState cast)
+            _window?.UpdateState(cast);
+    }
+}

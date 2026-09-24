@@ -38,6 +38,14 @@ public sealed partial class CityBankComponent : Component
     /// <summary>Реестр счетов: номер счёта -> счёт.</summary>
     [ViewVariables]
     public Dictionary<int, CityBankAccount> Accounts = new();
+
+    /// <summary>Журнал операций казны (для Консоли Управления Городом). Новые записи — в конце.</summary>
+    [ViewVariables]
+    public List<string> Log = new();
+
+    /// <summary>Сколько последних записей журнала хранить.</summary>
+    [DataField]
+    public int MaxLogEntries = 100;
 }
 
 /// <summary>
