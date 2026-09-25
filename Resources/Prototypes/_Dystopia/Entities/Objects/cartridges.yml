@@ -1,10 +1,10 @@
-# Программа КПК «Свод законов» (только чтение). Предустанавливается в КПК Города (см. pdas.yml).
+# Программы КПК Города. Ставятся во все КПК Города (см. DystopiaPdaPrograms в pdas.yml).
 
 - type: entity
   parent: BasePDACartridge
   id: DystopiaLawsCartridge
-  name: картридж «Свод законов»
-  description: Программа для чтения Свода законов Города и шкалы санкций.
+  name: "картридж «Свод законов»"
+  description: "Программа для чтения Свода законов Города и шкалы санкций."
   components:
   - type: Sprite
     state: cart-y
@@ -16,3 +16,20 @@
       sprite: Interface/Misc/program_icons.rsi
       state: news_read
   - type: CityLawsCartridge
+
+- type: entity
+  parent: BasePDACartridge
+  id: DystopiaBankCartridge
+  name: "картридж «Банк»"
+  description: "Программа Банка Города: баланс, история операций и переводы."
+  components:
+  - type: Sprite
+    state: cart-y
+  - type: UIFragment
+    ui: !type:CityBankUi
+  - type: Cartridge
+    programName: dystopia-bank-program-name
+    icon:
+      sprite: Interface/Misc/program_icons.rsi
+      state: crew_manifest
+  - type: CityBankCartridge

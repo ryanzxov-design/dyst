@@ -15,9 +15,9 @@ using Robust.Shared.Timing;
 namespace Content.Server._Dystopia.Economy;
 
 /// <summary>
-/// Банк Города: открывает счета новым жителям, платит зарплаты из казны, удерживает налоги.
-/// Публичные методы (TryGetBank, TryGetAccount, Deposit, TryWithdraw, Payday) — для консоли Консула,
-/// терминалов и автоматов, которые появятся позже.
+/// Банк Города: счета жителей, зарплаты, налоги, долги, переводы, банковский реестр.
+/// Деньги лежат на счёте в реестре Города, ID-карта — ключ к счёту.
+/// Кто держит карту (активная карта: в руке или в слоте ID), тот и распоряжается счётом.
 /// </summary>
 public sealed partial class CityBankSystem : EntitySystem
 {
@@ -104,6 +104,9 @@ public sealed partial class CityBankSystem : EntitySystem
         };
 
         bank.Comp.Accounts[id] = account;
+        AddHistory(bank, account, Loc.GetString("dystopia-bank-history-opened", ("amount", account.Balance)));
+        AddLedger(bank, Loc.GetString("dystopia-bank-ledger-opened",
+            ("id", id), ("name", name), ("amount", account.Balance)), null, id);
         return account;
     }
 
@@ -121,11 +124,15 @@ public sealed partial class CityBankSystem : EntitySystem
         return false;
     }
 
-    /// <summary>Счёт, к которому привязана карта.</summary>
+    /// <summary>Счёт, к которому привязана карта (или КПК, в котором лежит карта).</summary>
     public bool TryGetAccount(EntityUid card, out Entity<CityBankComponent> bank, [NotNullWhen(true)] out CityBankAccount? account)
     {
         bank = default;
         account = null;
+
+        // КПК — берём карту, которая в нём лежит.
+        if (TryComp<PdaComponent>(card, out var pda) && pda.ContainedId is { } contained)
+            card = contained;
 
         if (!TryComp<CityBankCardComponent>(card, out var bankCard) ||
             bankCard.AccountId is not { } id ||
@@ -140,7 +147,19 @@ public sealed partial class CityBankSystem : EntitySystem
         return true;
     }
 
-    /// <summary>Зачисляет деньги на счёт (отрицательная сумма — списание, баланс не уходит ниже нуля).</summary>
+    /// <summary>
+    /// Счёт активной карты существа: сначала карта в руке, потом в слоте ID (в том числе в КПК).
+    /// Кто держит карту — тот и распоряжается счётом.
+    /// </summary>
+    public bool TryGetActiveAccount(EntityUid user, out Entity<CityBankComponent> bank, [NotNullWhen(true)] out CityBankAccount? account)
+    {
+        bank = default;
+        account = null;
+
+        return _idCard.TryFindIdCard(user, out var card) && TryGetAccount(card.Owner, out bank, out account);
+    }
+
+    /// <summary>Зачисляет (или списывает, если сумма отрицательная) деньги на счёт без налога. Для админ-команд.</summary>
     public void Deposit(CityBankAccount account, int amount)
     {
         account.Balance = Math.Max(0, account.Balance + amount);
@@ -165,13 +184,109 @@ public sealed partial class CityBankSystem : EntitySystem
         return Math.Clamp(bank.Comp.TaxRates.GetValueOrDefault(job), 0, 100);
     }
 
+    /// <summary>
+    /// Доход на счёт с удержанием налога и погашением долга. Налог и погашение долга остаются в казне
+    /// (если деньги пришли из казны) или поступают в неё (если деньги пришли извне — от покупателя, по векселю).
+    /// Возвращает (зачислено на счёт, налог, погашено долга).
+    /// </summary>
+    public (int Net, int Tax, int DebtPaid) ApplyIncome(Entity<CityBankComponent> bank, CityBankAccount account, int gross)
+    {
+        if (gross <= 0)
+            return (0, 0, 0);
+
+        var tax = gross * GetTaxRate(bank, account) / 100;
+        var afterTax = gross - tax;
+        var debtPaid = Math.Min(account.Debt, afterTax);
+        var net = afterTax - debtPaid;
+
+        account.Debt -= debtPaid;
+        account.Balance += net;
+        return (net, tax, debtPaid);
+    }
+
+    #endregion
+
+    #region Переводы и штрафы
+
+    public enum TransferResult : byte
+    {
+        Success,
+        Frozen,
+        NotEnoughMoney,
+        NoRecipient,
+        SameAccount,
+        BadAmount,
+    }
+
+    /// <summary>Перевод между счетами. Налогом не облагается.</summary>
+    public TransferResult Transfer(Entity<CityBankComponent> bank, CityBankAccount from, int toId, int amount, string comment)
+    {
+        if (amount <= 0)
+            return TransferResult.BadAmount;
+
+        if (!bank.Comp.Accounts.TryGetValue(toId, out var to))
+            return TransferResult.NoRecipient;
+
+        if (to.Id == from.Id)
+            return TransferResult.SameAccount;
+
+        if (from.Frozen)
+            return TransferResult.Frozen;
+
+        if (from.Balance < amount)
+            return TransferResult.NotEnoughMoney;
+
+        from.Balance -= amount;
+        to.Balance += amount;
+
+        AddHistory(bank, from, Loc.GetString("dystopia-bank-history-transfer-out",
+            ("amount", amount), ("id", to.Id), ("name", to.Name), ("comment", comment)));
+        AddHistory(bank, to, Loc.GetString("dystopia-bank-history-transfer-in",
+            ("amount", amount), ("id", from.Id), ("name", from.Name), ("comment", comment)));
+        AddLedger(bank, Loc.GetString("dystopia-bank-ledger-transfer",
+            ("from", from.Id), ("to", to.Id), ("amount", amount), ("comment", comment)), from.Id, to.Id);
+
+        if (to.Owner is { } owner)
+        {
+            Notify(owner, Loc.GetString("dystopia-bank-transfer-received",
+                ("amount", amount), ("id", from.Id), ("name", from.Name), ("comment", comment)));
+        }
+
+        return TransferResult.Success;
+    }
+
+    /// <summary>
+    /// Штраф в казну. Списывается всё, что есть на счёте (даже замороженном), остаток становится долгом.
+    /// Возвращает (списано, добавлено в долг).
+    /// </summary>
+    public (int Taken, int ToDebt) Fine(Entity<CityBankComponent> bank, CityBankAccount account, int amount, string reason)
+    {
+        if (amount <= 0)
+            return (0, 0);
+
+        var taken = Math.Min(amount, account.Balance);
+        var toDebt = amount - taken;
+
+        account.Balance -= taken;
+        account.Debt += toDebt;
+        bank.Comp.Treasury += taken;
+
+        AddHistory(bank, account, Loc.GetString("dystopia-bank-history-fine",
+            ("amount", amount), ("debt", toDebt), ("reason", reason)));
+        AddLedger(bank, Loc.GetString("dystopia-bank-ledger-fine",
+            ("id", account.Id), ("name", account.Name), ("amount", amount), ("debt", toDebt), ("reason", reason)),
+            account.Id, null);
+
+        return (taken, toDebt);
+    }
+
     #endregion
 
     #region Зарплаты
 
     /// <summary>
     /// Выплата зарплат всем живым владельцам незамороженных счетов.
-    /// Налог удерживается сразу: из казны уходит только зарплата за вычетом налога.
+    /// Налог и погашение долга удерживаются сразу: из казны уходит только то, что зачислено на счёт.
     /// Если в казне не хватает денег — зарплата не выплачивается.
     /// </summary>
     public (int Paid, int Unpaid) Payday(Entity<CityBankComponent> bank)
@@ -191,8 +306,11 @@ public sealed partial class CityBankSystem : EntitySystem
             if (account.Owner is not { } owner || TerminatingOrDeleted(owner) || _mobState.IsDead(owner))
                 continue;
 
+            // Сколько реально уйдёт из казны: зарплата минус налог (налог и долг остаются в казне).
             var tax = salary * GetTaxRate(bank, account) / 100;
-            var net = salary - tax;
+            var afterTax = salary - tax;
+            var debtPaid = Math.Min(account.Debt, afterTax);
+            var net = afterTax - debtPaid;
 
             if (bank.Comp.Treasury < net)
             {
@@ -202,14 +320,24 @@ public sealed partial class CityBankSystem : EntitySystem
             }
 
             bank.Comp.Treasury -= net;
+            account.Debt -= debtPaid;
             account.Balance += net;
             paid++;
 
+            AddHistory(bank, account, Loc.GetString("dystopia-bank-history-salary",
+                ("net", net), ("tax", tax), ("debt", debtPaid)));
+            AddLedger(bank, Loc.GetString("dystopia-bank-ledger-salary",
+                ("id", account.Id), ("name", account.Name), ("net", net), ("tax", tax), ("debt", debtPaid)),
+                null, account.Id);
+
             Notify(owner, Loc.GetString("dystopia-bank-salary-paid",
                 ("net", net), ("tax", tax), ("balance", account.Balance)));
+            if (debtPaid > 0)
+                Notify(owner, Loc.GetString("dystopia-bank-debt-withheld", ("amount", debtPaid), ("debt", account.Debt)));
         }
 
-        AddLog(bank, Loc.GetString("dystopia-bank-log-payday", ("paid", paid), ("unpaid", unpaid), ("treasury", bank.Comp.Treasury)));
+        AddLedger(bank, Loc.GetString("dystopia-bank-log-payday",
+            ("paid", paid), ("unpaid", unpaid), ("treasury", bank.Comp.Treasury)), null, null);
         return (paid, unpaid);
     }
 
@@ -222,21 +350,28 @@ public sealed partial class CityBankSystem : EntitySystem
 
     #endregion
 
-    #region Премии, изъятия, журнал
+    #region Премии и изъятия Консула
 
     /// <summary>
-    /// Премия из казны. С премии удерживается налог профессии, из казны уходит сумма за вычетом налога.
+    /// Премия из казны. С премии удерживается налог профессии (и долг), из казны уходит только зачисленное.
     /// </summary>
     public bool TryPayBonus(Entity<CityBankComponent> bank, CityBankAccount account, int amount, string reason, out int net, out int tax)
     {
         tax = amount * GetTaxRate(bank, account) / 100;
-        net = amount - tax;
+        var afterTax = amount - tax;
+        var debtPaid = Math.Min(account.Debt, Math.Max(0, afterTax));
+        net = afterTax - debtPaid;
 
         if (amount <= 0 || bank.Comp.Treasury < net)
             return false;
 
         bank.Comp.Treasury -= net;
+        account.Debt -= debtPaid;
         account.Balance += net;
+
+        AddHistory(bank, account, Loc.GetString("dystopia-bank-history-bonus", ("net", net), ("tax", tax), ("reason", reason)));
+        AddLedger(bank, Loc.GetString("dystopia-bank-ledger-bonus",
+            ("id", account.Id), ("name", account.Name), ("net", net), ("tax", tax), ("reason", reason)), null, account.Id);
 
         if (account.Owner is { } owner)
             Notify(owner, Loc.GetString("dystopia-bank-bonus-received", ("net", net), ("tax", tax), ("reason", reason)));
@@ -254,24 +389,59 @@ public sealed partial class CityBankSystem : EntitySystem
         account.Balance -= taken;
         bank.Comp.Treasury += taken;
 
+        AddHistory(bank, account, Loc.GetString("dystopia-bank-history-seized", ("amount", taken), ("reason", reason)));
+        AddLedger(bank, Loc.GetString("dystopia-bank-ledger-seized",
+            ("id", account.Id), ("name", account.Name), ("amount", taken), ("reason", reason)), account.Id, null);
+
         if (account.Owner is { } owner)
             Notify(owner, Loc.GetString("dystopia-bank-seized", ("amount", taken), ("reason", reason)));
 
         return taken;
     }
 
-    /// <summary>Запись в журнал казны с временем раунда.</summary>
-    public void AddLog(Entity<CityBankComponent> bank, string text)
+    #endregion
+
+    #region Журналы
+
+    private string Stamp()
     {
         var time = _ticker.RoundDuration();
-        bank.Comp.Log.Add($"[{(int) time.TotalHours:00}:{time.Minutes:00}] {text}");
+        return $"[{(int) time.TotalHours:00}:{time.Minutes:00}]";
+    }
+
+    /// <summary>Журнал решений Консула (только решения Консула).</summary>
+    public void AddLog(Entity<CityBankComponent> bank, string text)
+    {
+        bank.Comp.Log.Add($"{Stamp()} {text}");
 
         var excess = bank.Comp.Log.Count - bank.Comp.MaxLogEntries;
         if (excess > 0)
             bank.Comp.Log.RemoveRange(0, excess);
     }
 
+    /// <summary>Банковский реестр: все движения денег.</summary>
+    public void AddLedger(Entity<CityBankComponent> bank, string text, int? from, int? to)
+    {
+        bank.Comp.Ledger.Add(new CityBankLedgerEntry($"{Stamp()} {text}", from, to));
+
+        var excess = bank.Comp.Ledger.Count - bank.Comp.MaxLedgerEntries;
+        if (excess > 0)
+            bank.Comp.Ledger.RemoveRange(0, excess);
+    }
+
+    /// <summary>История операций конкретного счёта.</summary>
+    public void AddHistory(Entity<CityBankComponent> bank, CityBankAccount account, string text)
+    {
+        account.History.Add($"{Stamp()} {text}");
+
+        var excess = account.History.Count - bank.Comp.MaxHistoryEntries;
+        if (excess > 0)
+            account.History.RemoveRange(0, excess);
+    }
+
     #endregion
+
+    #region Осмотр
 
     private void OnCardExamined(Entity<CityBankCardComponent> ent, ref ExaminedEvent args)
     {
@@ -296,4 +466,6 @@ public sealed partial class CityBankSystem : EntitySystem
         if (args.Examiner == account.Owner)
             args.PushMarkup(Loc.GetString("dystopia-bank-card-examine-balance", ("balance", account.Balance)));
     }
+
+    #endregion
 }

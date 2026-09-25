@@ -1,5 +1,5 @@
 # КПК профессий Города. Внутри — ID-карта профессии. Внешний вид пока ванильный.
-# CityLawsPreinstall — при появлении в КПК ставится программа «Свод законов».
+# DystopiaPdaPrograms — программы Города, которые ставятся в КПК при появлении.
 
 - type: entity
   parent: CaptainPDA
@@ -8,7 +8,10 @@
   components:
   - type: Pda
     id: DystopiaConsulIDCard
-  - type: CityLawsPreinstall
+  - type: DystopiaPdaPrograms
+    programs:
+    - DystopiaLawsCartridge
+    - DystopiaBankCartridge
 
 - type: entity
   parent: LawyerPDA
@@ -17,7 +20,10 @@
   components:
   - type: Pda
     id: DystopiaAdjutantIDCard
-  - type: CityLawsPreinstall
+  - type: DystopiaPdaPrograms
+    programs:
+    - DystopiaLawsCartridge
+    - DystopiaBankCartridge
 
 - type: entity
   parent: HoPPDA
@@ -26,7 +32,10 @@
   components:
   - type: Pda
     id: DystopiaCivilInspectorIDCard
-  - type: CityLawsPreinstall
+  - type: DystopiaPdaPrograms
+    programs:
+    - DystopiaLawsCartridge
+    - DystopiaBankCartridge
 
 - type: entity
   parent: HoSPDA
@@ -35,7 +44,10 @@
   components:
   - type: Pda
     id: DystopiaGuardCaptainIDCard
-  - type: CityLawsPreinstall
+  - type: DystopiaPdaPrograms
+    programs:
+    - DystopiaLawsCartridge
+    - DystopiaBankCartridge
 
 - type: entity
   parent: WardenPDA
@@ -44,7 +56,10 @@
   components:
   - type: Pda
     id: DystopiaGuardSergeantIDCard
-  - type: CityLawsPreinstall
+  - type: DystopiaPdaPrograms
+    programs:
+    - DystopiaLawsCartridge
+    - DystopiaBankCartridge
 
 - type: entity
   parent: SecurityPDA
@@ -53,7 +68,10 @@
   components:
   - type: Pda
     id: DystopiaGuardsmanIDCard
-  - type: CityLawsPreinstall
+  - type: DystopiaPdaPrograms
+    programs:
+    - DystopiaLawsCartridge
+    - DystopiaBankCartridge
 
 - type: entity
   parent: SecurityCadetPDA
@@ -62,7 +80,10 @@
   components:
   - type: Pda
     id: DystopiaGuardRecruitIDCard
-  - type: CityLawsPreinstall
+  - type: DystopiaPdaPrograms
+    programs:
+    - DystopiaLawsCartridge
+    - DystopiaBankCartridge
 
 - type: entity
   parent: SecurityPDA
@@ -71,7 +92,10 @@
   components:
   - type: Pda
     id: DystopiaPraetorianIDCard
-  - type: CityLawsPreinstall
+  - type: DystopiaPdaPrograms
+    programs:
+    - DystopiaLawsCartridge
+    - DystopiaBankCartridge
 
 - type: entity
   parent: SecurityPDA
@@ -80,7 +104,10 @@
   components:
   - type: Pda
     id: DystopiaGrenadierIDCard
-  - type: CityLawsPreinstall
+  - type: DystopiaPdaPrograms
+    programs:
+    - DystopiaLawsCartridge
+    - DystopiaBankCartridge
 
 - type: entity
   parent: SecurityPDA
@@ -89,7 +116,10 @@
   components:
   - type: Pda
     id: DystopiaStormtrooperIDCard
-  - type: CityLawsPreinstall
+  - type: DystopiaPdaPrograms
+    programs:
+    - DystopiaLawsCartridge
+    - DystopiaBankCartridge
 
 - type: entity
   parent: SecurityPDA
@@ -98,7 +128,10 @@
   components:
   - type: Pda
     id: DystopiaSoldierIDCard
-  - type: CityLawsPreinstall
+  - type: DystopiaPdaPrograms
+    programs:
+    - DystopiaLawsCartridge
+    - DystopiaBankCartridge
 
 - type: entity
   parent: CMOPDA
@@ -107,7 +140,10 @@
   components:
   - type: Pda
     id: DystopiaChiefSanitaryDoctorIDCard
-  - type: CityLawsPreinstall
+  - type: DystopiaPdaPrograms
+    programs:
+    - DystopiaLawsCartridge
+    - DystopiaBankCartridge
 
 - type: entity
   parent: MedicalPDA
@@ -116,7 +152,10 @@
   components:
   - type: Pda
     id: DystopiaHealerIDCard
-  - type: CityLawsPreinstall
+  - type: DystopiaPdaPrograms
+    programs:
+    - DystopiaLawsCartridge
+    - DystopiaBankCartridge
 
 - type: entity
   parent: MedicalPDA
@@ -125,7 +164,10 @@
   components:
   - type: Pda
     id: DystopiaDisinfectorIDCard
-  - type: CityLawsPreinstall
+  - type: DystopiaPdaPrograms
+    programs:
+    - DystopiaLawsCartridge
+    - DystopiaBankCartridge
 
 - type: entity
   parent: EngineerPDA
@@ -134,7 +176,10 @@
   components:
   - type: Pda
     id: DystopiaLiquidatorIDCard
-  - type: CityLawsPreinstall
+  - type: DystopiaPdaPrograms
+    programs:
+    - DystopiaLawsCartridge
+    - DystopiaBankCartridge
 
 - type: entity
   parent: ChemistryPDA
@@ -143,7 +188,10 @@
   components:
   - type: Pda
     id: DystopiaPharmacistIDCard
-  - type: CityLawsPreinstall
+  - type: DystopiaPdaPrograms
+    programs:
+    - DystopiaLawsCartridge
+    - DystopiaBankCartridge
 
 - type: entity
   parent: MedicalInternPDA
@@ -152,7 +200,10 @@
   components:
   - type: Pda
     id: DystopiaJuniorOrderlyIDCard
-  - type: CityLawsPreinstall
+  - type: DystopiaPdaPrograms
+    programs:
+    - DystopiaLawsCartridge
+    - DystopiaBankCartridge
 
 - type: entity
   parent: RnDPDA
@@ -161,7 +212,10 @@
   components:
   - type: Pda
     id: DystopiaScienceDirectorIDCard
-  - type: CityLawsPreinstall
+  - type: DystopiaPdaPrograms
+    programs:
+    - DystopiaLawsCartridge
+    - DystopiaBankCartridge
 
 - type: entity
   parent: SciencePDA
@@ -170,7 +224,10 @@
   components:
   - type: Pda
     id: DystopiaAugmentologistIDCard
-  - type: CityLawsPreinstall
+  - type: DystopiaPdaPrograms
+    programs:
+    - DystopiaLawsCartridge
+    - DystopiaBankCartridge
 
 - type: entity
   parent: SciencePDA
@@ -179,7 +236,10 @@
   components:
   - type: Pda
     id: DystopiaPathobiologistIDCard
-  - type: CityLawsPreinstall
+  - type: DystopiaPdaPrograms
+    programs:
+    - DystopiaLawsCartridge
+    - DystopiaBankCartridge
 
 - type: entity
   parent: SciencePDA
@@ -188,7 +248,10 @@
   components:
   - type: Pda
     id: DystopiaResearcherIDCard
-  - type: CityLawsPreinstall
+  - type: DystopiaPdaPrograms
+    programs:
+    - DystopiaLawsCartridge
+    - DystopiaBankCartridge
 
 - type: entity
   parent: ResearchAssistantPDA
@@ -197,7 +260,10 @@
   components:
   - type: Pda
     id: DystopiaLabAssistantIDCard
-  - type: CityLawsPreinstall
+  - type: DystopiaPdaPrograms
+    programs:
+    - DystopiaLawsCartridge
+    - DystopiaBankCartridge
 
 - type: entity
   parent: PassengerPDA
@@ -206,7 +272,10 @@
   components:
   - type: Pda
     id: DystopiaProletarianIDCard
-  - type: CityLawsPreinstall
+  - type: DystopiaPdaPrograms
+    programs:
+    - DystopiaLawsCartridge
+    - DystopiaBankCartridge
 
 - type: entity
   parent: CargoPDA
@@ -215,4 +284,7 @@
   components:
   - type: Pda
     id: DystopiaShopkeeperIDCard
-  - type: CityLawsPreinstall
+  - type: DystopiaPdaPrograms
+    programs:
+    - DystopiaLawsCartridge
+    - DystopiaBankCartridge

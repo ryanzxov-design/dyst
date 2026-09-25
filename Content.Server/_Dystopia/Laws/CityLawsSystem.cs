@@ -1,7 +1,6 @@
 using System.Linq;
 using Content.Shared._Dystopia.Laws;
 using Content.Shared.CartridgeLoader;
-using Robust.Shared.Prototypes;
 
 namespace Content.Server._Dystopia.Laws;
 
@@ -13,8 +12,6 @@ public sealed partial class CityLawsSystem : EntitySystem
 {
     [Dependency] private CartridgeLoaderSystem _cartridgeLoader = default!;
 
-    public static readonly EntProtoId CartridgePrototype = "DystopiaLawsCartridge";
-
     public const int MaxTitleLength = 100;
     public const int MaxTextLength = 2000;
     public const int MaxSanctionLength = 300;
@@ -23,14 +20,7 @@ public sealed partial class CityLawsSystem : EntitySystem
     public override void Initialize()
     {
         base.Initialize();
-        SubscribeLocalEvent<CityLawsPreinstallComponent, MapInitEvent>(OnPreinstallMapInit);
         SubscribeLocalEvent<CityLawsCartridgeComponent, CartridgeUiReadyEvent>(OnUiReady);
-    }
-
-    private void OnPreinstallMapInit(Entity<CityLawsPreinstallComponent> ent, ref MapInitEvent args)
-    {
-        if (TryComp<CartridgeLoaderComponent>(ent.Owner, out var loader))
-            _cartridgeLoader.InstallProgram((ent.Owner, loader), CartridgePrototype, deinstallable: false);
     }
 
     private void OnUiReady(Entity<CityLawsCartridgeComponent> ent, ref CartridgeUiReadyEvent args)

@@ -93,12 +93,6 @@ public sealed partial class CityLawsCartridgeComponent : Component
 {
 }
 
-/// <summary>Метка для КПК: при появлении в него устанавливается программа «Свод законов».</summary>
-[RegisterComponent]
-public sealed partial class CityLawsPreinstallComponent : Component
-{
-}
-
 /// <summary>Состояние программы «Свод законов».</summary>
 [Serializable, NetSerializable]
 public sealed class CityLawsUiState(List<CityLaw> laws, List<CitySanctionClass> sanctions, string generalProvision)

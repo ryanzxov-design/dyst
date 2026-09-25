@@ -1,5 +1,6 @@
 using Content.Shared.Roles;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Serialization;
 
 namespace Content.Shared._Dystopia.Economy;
 
@@ -39,13 +40,24 @@ public sealed partial class CityBankComponent : Component
     [ViewVariables]
     public Dictionary<int, CityBankAccount> Accounts = new();
 
-    /// <summary>Журнал операций казны (для Консоли Управления Городом). Новые записи — в конце.</summary>
+    /// <summary>Журнал решений Консула (Консоль Управления Городом). Новые записи — в конце.</summary>
     [ViewVariables]
     public List<string> Log = new();
 
-    /// <summary>Сколько последних записей журнала хранить.</summary>
+    /// <summary>Сколько последних записей журнала решений хранить.</summary>
     [DataField]
     public int MaxLogEntries = 100;
+
+    /// <summary>Банковский реестр: все движения денег (терминал банковских операций). Новые записи — в конце.</summary>
+    [ViewVariables]
+    public List<CityBankLedgerEntry> Ledger = new();
+
+    [DataField]
+    public int MaxLedgerEntries = 500;
+
+    /// <summary>Сколько последних операций хранить в истории каждого счёта.</summary>
+    [DataField]
+    public int MaxHistoryEntries = 30;
 }
 
 /// <summary>
@@ -59,4 +71,23 @@ public sealed class CityBankAccount
     [ViewVariables(VVAccess.ReadWrite)] public int Balance;
     [ViewVariables(VVAccess.ReadWrite)] public EntityUid? Owner;
     [ViewVariables(VVAccess.ReadWrite)] public bool Frozen;
+
+    /// <summary>Долг перед Городом (неоплаченные штрафы). Гасится из будущих доходов.</summary>
+    [ViewVariables(VVAccess.ReadWrite)] public int Debt;
+
+    /// <summary>История операций по счёту (для программы КПК «Банк»). Новые записи — в конце.</summary>
+    [ViewVariables] public List<string> History = new();
+}
+
+/// <summary>Запись банковского реестра.</summary>
+[Serializable, NetSerializable]
+public sealed class CityBankLedgerEntry(string text, int? from, int? to)
+{
+    public readonly string Text = text;
+
+    /// <summary>Счёт, с которого ушли деньги (null — казна или вне банка).</summary>
+    public readonly int? From = from;
+
+    /// <summary>Счёт, на который пришли деньги (null — казна или вне банка).</summary>
+    public readonly int? To = to;
 }

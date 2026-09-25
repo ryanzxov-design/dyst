@@ -31,7 +31,8 @@ public sealed partial class CityBankInfoCommand : LocalizedEntityCommands
         foreach (var account in bank.Comp.Accounts.Values.OrderBy(a => a.Id))
         {
             var frozen = account.Frozen ? " [ЗАМОРОЖЕН]" : string.Empty;
-            shell.WriteLine($"  №{account.Id}  {account.Name}  ({account.Job?.Id ?? "-"})  {account.Balance}{frozen}");
+            var debt = account.Debt > 0 ? $" долг {account.Debt}" : string.Empty;
+            shell.WriteLine($"  №{account.Id}  {account.Name}  ({account.Job?.Id ?? "-"})  {account.Balance}{debt}{frozen}");
         }
     }
 }

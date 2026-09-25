@@ -99,3 +99,53 @@ dystopia-city-console-cooldown = Слишком часто. Подождите.
 dystopia-city-console-mode-announcement = { $announcement } Положение: «{ $name }». { $instructions }
 dystopia-city-console-log-mode = { $actor }: введено положение «{ $name }».
 dystopia-city-console-log-announce = { $actor }: уведомление — { $text }
+
+## История счёта (программа КПК «Банк»)
+
+dystopia-bank-history-opened = Счёт открыт, стартовый баланс { $amount }
+dystopia-bank-history-salary = Зарплата +{ $net } (налог { $tax }, погашено долга { $debt })
+dystopia-bank-history-bonus = Премия +{ $net } (налог { $tax }): { $reason }
+dystopia-bank-history-seized = Изъято −{ $amount }: { $reason }
+dystopia-bank-history-transfer-out = Перевод −{ $amount } на №{ $id } ({ $name }): { $comment }
+dystopia-bank-history-transfer-in = Перевод +{ $amount } от №{ $id } ({ $name }): { $comment }
+dystopia-bank-history-fine = Штраф −{ $amount } (в долг { $debt }): { $reason }
+
+## Банковский реестр (терминал банковских операций)
+
+dystopia-bank-ledger-opened = Открыт счёт №{ $id } ({ $name }), стартовый баланс { $amount }.
+dystopia-bank-ledger-salary = Зарплата №{ $id } ({ $name }): +{ $net }, налог { $tax }, погашено долга { $debt }.
+dystopia-bank-ledger-bonus = Премия Консула №{ $id } ({ $name }): +{ $net }, налог { $tax }. { $reason }
+dystopia-bank-ledger-seized = Изъятие Консула №{ $id } ({ $name }): −{ $amount }. { $reason }
+dystopia-bank-ledger-transfer = Перевод №{ $from } → №{ $to }: { $amount }. { $comment }
+dystopia-bank-ledger-fine = Штраф №{ $id } ({ $name }): { $amount }, в долг { $debt }. { $reason }
+
+## Переводы
+
+dystopia-bank-transfer-received = Входящий перевод: +{ $amount } от №{ $id } ({ $name }). { $comment }
+dystopia-bank-transfer-success = Переведено { $amount } на счёт №{ $id }.
+dystopia-bank-transfer-frozen = Счёт заморожен. Операции запрещены.
+dystopia-bank-transfer-no-money = Недостаточно средств.
+dystopia-bank-transfer-no-recipient = Счёт получателя не найден.
+dystopia-bank-transfer-same = Нельзя перевести на свой же счёт.
+dystopia-bank-transfer-bad-amount = Неверная сумма.
+dystopia-bank-debt-withheld = В счёт долга удержано { $amount }. Остаток долга: { $debt }.
+
+## Программа КПК «Банк»
+
+dystopia-bank-program-name = Банк
+dystopia-bank-ui-no-card = В КПК нет ID-карты со счётом Банка Города.
+dystopia-bank-ui-account = Счёт №{ $id } — { $name }
+dystopia-bank-ui-balance = Баланс: { $balance } { $balance ->
+        [one] марка
+        [few] марки
+       *[many] марок
+    }
+dystopia-bank-ui-frozen = {" "}[ЗАМОРОЖЕН]
+dystopia-bank-ui-debt = Долг перед Городом: { $debt }
+dystopia-bank-ui-transfer-header = Перевод
+dystopia-bank-ui-to = Номер счёта получателя
+dystopia-bank-ui-amount = Сумма
+dystopia-bank-ui-comment = Комментарий
+dystopia-bank-ui-send = Перевести
+dystopia-bank-ui-history-header = История операций
+dystopia-bank-ui-history-empty = Операций пока нет.
