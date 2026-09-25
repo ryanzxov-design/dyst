@@ -1,0 +1,37 @@
+# Терминал банковских операций: реестр счетов, журнал операций, заморозка счетов.
+# Доступ — Стража или Администрация.
+
+- type: entity
+  parent: BaseComputer
+  id: ComputerDystopiaBankTerminal
+  name: "терминал банковских операций"
+  description: "Терминал Банка Города: реестр счетов жителей, журнал всех денежных операций, заморозка счетов."
+  components:
+  - type: Sprite
+    layers:
+    - map: ["computerLayerBody"]
+      state: computer
+    - map: ["computerLayerKeyboard"]
+      state: generic_keyboard
+    - map: ["computerLayerScreen"]
+      state: request
+    - map: ["computerLayerKeys"]
+      state: generic_keys
+    - map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
+      state: generic_panel_open
+  - type: AccessReader
+    access: [["DystopiaGuard"], ["DystopiaAdministration"]]
+  - type: ActivatableUIRequiresAccess
+  - type: CityBankTerminal
+  - type: ActivatableUI
+    key: enum.CityBankTerminalUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.CityBankTerminalUiKey.Key:
+        type: CityBankTerminalBoundUserInterface
+      enum.WiresUiKey.Key:
+        type: WiresBoundUserInterface
+  - type: PointLight
+    radius: 1.5
+    energy: 1.6
+    color: "#3E5C8A"

@@ -2,11 +2,13 @@ using System.Diagnostics.CodeAnalysis;
 using Content.Server.Chat.Managers;
 using Content.Shared._Dystopia.Economy;
 using Content.Shared.Access.Systems;
+using Content.Shared.CartridgeLoader;
 using Content.Shared.Examine;
 using Content.Shared.GameTicking;
 using Content.Shared.Mobs.Systems;
 using Content.Shared.PDA;
 using Content.Shared.Roles;
+using Robust.Shared.Containers;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
@@ -18,6 +20,7 @@ namespace Content.Server._Dystopia.Economy;
 /// Банк Города: счета жителей, зарплаты, налоги, долги, переводы, банковский реестр.
 /// Деньги лежат на счёте в реестре Города, ID-карта — ключ к счёту.
 /// Кто держит карту (активная карта: в руке или в слоте ID), тот и распоряжается счётом.
+/// Сообщения о деньгах приходят уведомлением на КПК, в котором лежит карта счёта.
 /// </summary>
 public sealed partial class CityBankSystem : EntitySystem
 {
@@ -27,6 +30,8 @@ public sealed partial class CityBankSystem : EntitySystem
     [Dependency] private SharedIdCardSystem _idCard = default!;
     [Dependency] private MobStateSystem _mobState = default!;
     [Dependency] private GameTicker _ticker = default!;
+    [Dependency] private SharedContainerSystem _container = default!;
+    [Dependency] private CartridgeLoaderSystem _cartridgeLoader = default!;
 
     public override void Initialize()
     {
@@ -212,13 +217,14 @@ public sealed partial class CityBankSystem : EntitySystem
     {
         Success,
         Frozen,
+        RecipientFrozen,
         NotEnoughMoney,
         NoRecipient,
         SameAccount,
         BadAmount,
     }
 
-    /// <summary>Перевод между счетами. Налогом не облагается.</summary>
+    /// <summary>Перевод между счетами. Налогом не облагается. С замороженного и на замороженный счёт переводить нельзя.</summary>
     public TransferResult Transfer(Entity<CityBankComponent> bank, CityBankAccount from, int toId, int amount, string comment)
     {
         if (amount <= 0)
@@ -233,6 +239,9 @@ public sealed partial class CityBankSystem : EntitySystem
         if (from.Frozen)
             return TransferResult.Frozen;
 
+        if (to.Frozen)
+            return TransferResult.RecipientFrozen;
+
         if (from.Balance < amount)
             return TransferResult.NotEnoughMoney;
 
@@ -246,11 +255,49 @@ public sealed partial class CityBankSystem : EntitySystem
         AddLedger(bank, Loc.GetString("dystopia-bank-ledger-transfer",
             ("from", from.Id), ("to", to.Id), ("amount", amount), ("comment", comment)), from.Id, to.Id);
 
-        if (to.Owner is { } owner)
-        {
-            Notify(owner, Loc.GetString("dystopia-bank-transfer-received",
-                ("amount", amount), ("id", from.Id), ("name", from.Name), ("comment", comment)));
-        }
+        NotifyAccount(to, Loc.GetString("dystopia-bank-transfer-received",
+            ("amount", amount), ("id", from.Id), ("name", from.Name), ("comment", comment)));
+
+        return TransferResult.Success;
+    }
+
+    /// <summary>
+    /// Оплата покупки: с плательщика уходит полная сумма, продавцу — доход за вычетом налога его профессии
+    /// (и погашения долга); налог и погашение идут в казну. Замороженные счета не участвуют.
+    /// </summary>
+    public TransferResult PayMerchant(Entity<CityBankComponent> bank, CityBankAccount payer, CityBankAccount merchant, int amount, string description)
+    {
+        if (amount <= 0)
+            return TransferResult.BadAmount;
+
+        if (payer.Id == merchant.Id)
+            return TransferResult.SameAccount;
+
+        if (payer.Frozen)
+            return TransferResult.Frozen;
+
+        if (merchant.Frozen)
+            return TransferResult.RecipientFrozen;
+
+        if (payer.Balance < amount)
+            return TransferResult.NotEnoughMoney;
+
+        payer.Balance -= amount;
+        var (net, tax, debtPaid) = ApplyIncome(bank, merchant, amount);
+        bank.Comp.Treasury += tax + debtPaid;
+
+        AddHistory(bank, payer, Loc.GetString("dystopia-bank-history-purchase",
+            ("amount", amount), ("id", merchant.Id), ("name", merchant.Name), ("description", description)));
+        AddHistory(bank, merchant, Loc.GetString("dystopia-bank-history-sale",
+            ("net", net), ("tax", tax), ("id", payer.Id), ("description", description)));
+        AddLedger(bank, Loc.GetString("dystopia-bank-ledger-purchase",
+            ("from", payer.Id), ("to", merchant.Id), ("amount", amount), ("tax", tax), ("description", description)),
+            payer.Id, merchant.Id);
+
+        NotifyAccount(payer, Loc.GetString("dystopia-bank-purchase-notify",
+            ("amount", amount), ("name", merchant.Name), ("description", description)));
+        NotifyAccount(merchant, Loc.GetString("dystopia-bank-sale-notify",
+            ("net", net), ("tax", tax), ("description", description)));
 
         return TransferResult.Success;
     }
@@ -276,6 +323,7 @@ public sealed partial class CityBankSystem : EntitySystem
         AddLedger(bank, Loc.GetString("dystopia-bank-ledger-fine",
             ("id", account.Id), ("name", account.Name), ("amount", amount), ("debt", toDebt), ("reason", reason)),
             account.Id, null);
+        NotifyAccount(account, Loc.GetString("dystopia-bank-fined", ("amount", amount), ("debt", toDebt), ("reason", reason)));
 
         return (taken, toDebt);
     }
@@ -315,7 +363,7 @@ public sealed partial class CityBankSystem : EntitySystem
             if (bank.Comp.Treasury < net)
             {
                 unpaid++;
-                Notify(owner, Loc.GetString("dystopia-bank-salary-unpaid"));
+                NotifyAccount(account, Loc.GetString("dystopia-bank-salary-unpaid"));
                 continue;
             }
 
@@ -330,10 +378,10 @@ public sealed partial class CityBankSystem : EntitySystem
                 ("id", account.Id), ("name", account.Name), ("net", net), ("tax", tax), ("debt", debtPaid)),
                 null, account.Id);
 
-            Notify(owner, Loc.GetString("dystopia-bank-salary-paid",
+            NotifyAccount(account, Loc.GetString("dystopia-bank-salary-paid",
                 ("net", net), ("tax", tax), ("balance", account.Balance)));
             if (debtPaid > 0)
-                Notify(owner, Loc.GetString("dystopia-bank-debt-withheld", ("amount", debtPaid), ("debt", account.Debt)));
+                NotifyAccount(account, Loc.GetString("dystopia-bank-debt-withheld", ("amount", debtPaid), ("debt", account.Debt)));
         }
 
         AddLedger(bank, Loc.GetString("dystopia-bank-log-payday",
@@ -341,11 +389,34 @@ public sealed partial class CityBankSystem : EntitySystem
         return (paid, unpaid);
     }
 
-    /// <summary>Личное сообщение в чат владельцу счёта (если он в игре).</summary>
+    /// <summary>Личное сообщение в чат (только для открытия счёта и админских нужд).</summary>
     public void Notify(EntityUid owner, string message)
     {
         if (TryComp<ActorComponent>(owner, out var actor))
             _chat.DispatchServerMessage(actor.PlayerSession, message);
+    }
+
+    /// <summary>
+    /// Уведомление на КПК, в котором лежит карта этого счёта (звонок КПК + сообщение тому, кто его носит).
+    /// Если карта не в КПК — уведомления нет: деньги видны в программе «Банк».
+    /// </summary>
+    public void NotifyAccount(CityBankAccount account, string message)
+    {
+        var header = Loc.GetString("dystopia-bank-notification-header");
+        var query = EntityQueryEnumerator<CityBankCardComponent>();
+        while (query.MoveNext(out var card, out var bankCard))
+        {
+            if (bankCard.AccountId != account.Id)
+                continue;
+
+            if (!_container.TryGetContainingContainer((card, null, null), out var container) ||
+                !HasComp<CartridgeLoaderComponent>(container.Owner))
+            {
+                continue;
+            }
+
+            _cartridgeLoader.SendNotification(container.Owner, header, message);
+        }
     }
 
     #endregion
@@ -373,8 +444,7 @@ public sealed partial class CityBankSystem : EntitySystem
         AddLedger(bank, Loc.GetString("dystopia-bank-ledger-bonus",
             ("id", account.Id), ("name", account.Name), ("net", net), ("tax", tax), ("reason", reason)), null, account.Id);
 
-        if (account.Owner is { } owner)
-            Notify(owner, Loc.GetString("dystopia-bank-bonus-received", ("net", net), ("tax", tax), ("reason", reason)));
+        NotifyAccount(account, Loc.GetString("dystopia-bank-bonus-received", ("net", net), ("tax", tax), ("reason", reason)));
 
         return true;
     }
@@ -393,8 +463,7 @@ public sealed partial class CityBankSystem : EntitySystem
         AddLedger(bank, Loc.GetString("dystopia-bank-ledger-seized",
             ("id", account.Id), ("name", account.Name), ("amount", taken), ("reason", reason)), account.Id, null);
 
-        if (account.Owner is { } owner)
-            Notify(owner, Loc.GetString("dystopia-bank-seized", ("amount", taken), ("reason", reason)));
+        NotifyAccount(account, Loc.GetString("dystopia-bank-seized", ("amount", taken), ("reason", reason)));
 
         return taken;
     }

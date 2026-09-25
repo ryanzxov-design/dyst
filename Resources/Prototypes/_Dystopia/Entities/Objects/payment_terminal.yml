@@ -1,0 +1,21 @@
+# Платёжный терминал Лавки.
+
+- type: entity
+  parent: BaseItem
+  id: DystopiaPaymentTerminal
+  name: "платёжный терминал"
+  description: "Терминал оплаты по ID-карте. Продавец выставляет счёт, покупатель прикладывает карту или КПК."
+  components:
+  - type: Sprite
+    sprite: _Dystopia/Objects/Devices/payment_terminal.rsi
+    state: icon
+  - type: Item
+    size: Small
+    sprite: _Dystopia/Objects/Devices/payment_terminal.rsi
+  - type: PaymentTerminal
+  - type: ActivatableUI
+    key: enum.PaymentTerminalUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.PaymentTerminalUiKey.Key:
+        type: PaymentTerminalBoundUserInterface

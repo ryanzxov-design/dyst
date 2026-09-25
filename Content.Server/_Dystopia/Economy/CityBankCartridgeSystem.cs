@@ -73,6 +73,7 @@ public sealed partial class CityBankCartridgeSystem : EntitySystem
             CityBankSystem.TransferResult.Success => Loc.GetString("dystopia-bank-transfer-success",
                 ("amount", transfer.Amount), ("id", transfer.ToAccount)),
             CityBankSystem.TransferResult.Frozen => Loc.GetString("dystopia-bank-transfer-frozen"),
+            CityBankSystem.TransferResult.RecipientFrozen => Loc.GetString("dystopia-bank-transfer-recipient-frozen"),
             CityBankSystem.TransferResult.NotEnoughMoney => Loc.GetString("dystopia-bank-transfer-no-money"),
             CityBankSystem.TransferResult.NoRecipient => Loc.GetString("dystopia-bank-transfer-no-recipient"),
             CityBankSystem.TransferResult.SameAccount => Loc.GetString("dystopia-bank-transfer-same"),

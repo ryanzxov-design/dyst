@@ -40,3 +40,6 @@
     jumpsuit: ClothingUniformJumpsuitCargo
     shoes: ClothingShoesColorBrown
     id: DystopiaShopkeeperPDA
+  storage:
+    back:
+    - DystopiaPaymentTerminal

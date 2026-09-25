@@ -124,6 +124,7 @@ dystopia-bank-ledger-fine = Штраф №{ $id } ({ $name }): { $amount }, в �
 dystopia-bank-transfer-received = Входящий перевод: +{ $amount } от №{ $id } ({ $name }). { $comment }
 dystopia-bank-transfer-success = Переведено { $amount } на счёт №{ $id }.
 dystopia-bank-transfer-frozen = Счёт заморожен. Операции запрещены.
+dystopia-bank-transfer-recipient-frozen = Счёт получателя заморожен. Перевод невозможен.
 dystopia-bank-transfer-no-money = Недостаточно средств.
 dystopia-bank-transfer-no-recipient = Счёт получателя не найден.
 dystopia-bank-transfer-same = Нельзя перевести на свой же счёт.
@@ -149,3 +150,72 @@ dystopia-bank-ui-comment = Комментарий
 dystopia-bank-ui-send = Перевести
 dystopia-bank-ui-history-header = История операций
 dystopia-bank-ui-history-empty = Операций пока нет.
+
+## Уведомления КПК
+
+dystopia-bank-notification-header = Банк Города
+dystopia-bank-fined = Выписан штраф { $amount }. В долг: { $debt }. Основание: { $reason }
+dystopia-bank-frozen-notify = Ваш счёт заморожен. Операции по счёту запрещены.
+dystopia-bank-unfrozen-notify = Ваш счёт разморожен.
+dystopia-bank-history-frozen = Счёт заморожен
+dystopia-bank-history-unfrozen = Счёт разморожен
+dystopia-bank-ledger-frozen = Счёт №{ $id } ({ $name }) заморожен. Распорядился: { $actor }.
+dystopia-bank-ledger-unfrozen = Счёт №{ $id } ({ $name }) разморожен. Распорядился: { $actor }.
+
+## Терминал банковских операций
+
+dystopia-bank-terminal-title = Терминал банковских операций
+dystopia-bank-terminal-search = Поиск: номер счёта, имя или профессия
+dystopia-bank-terminal-accounts-header = Реестр счетов
+dystopia-bank-terminal-col-id = Счёт
+dystopia-bank-terminal-col-name = Владелец
+dystopia-bank-terminal-col-job = Профессия
+dystopia-bank-terminal-col-balance = Баланс
+dystopia-bank-terminal-col-debt = Долг
+dystopia-bank-terminal-col-status = Статус
+dystopia-bank-terminal-status-active = активен
+dystopia-bank-terminal-status-frozen = ЗАМОРОЖЕН
+dystopia-bank-terminal-history = Операции
+dystopia-bank-terminal-freeze = Заморозить
+dystopia-bank-terminal-unfreeze = Разморозить
+dystopia-bank-terminal-ledger-header = Журнал операций (все счета)
+dystopia-bank-terminal-ledger-header-account = Журнал операций: счёт №{ $id }
+dystopia-bank-terminal-reset-filter = Все операции
+dystopia-bank-terminal-ledger-empty = Операций нет.
+
+## Покупки (платёжный терминал)
+
+dystopia-bank-history-purchase = Покупка −{ $amount } у №{ $id } ({ $name }): { $description }
+dystopia-bank-history-sale = Продажа +{ $net } (налог { $tax }) покупателю №{ $id }: { $description }
+dystopia-bank-ledger-purchase = Покупка №{ $from } → №{ $to }: { $amount }, налог { $tax }. { $description }
+dystopia-bank-purchase-notify = Оплата { $amount } ({ $name }): { $description }
+dystopia-bank-sale-notify = Продажа: +{ $net } (налог { $tax }). { $description }
+
+## Платёжный терминал
+
+dystopia-payment-terminal-title = Платёжный терминал
+dystopia-payment-terminal-linked-to = Привязан к счёту №{ $id } ({ $name })
+dystopia-payment-terminal-unlinked = Терминал не привязан к счёту.
+dystopia-payment-terminal-link = Привязать к моему счёту
+dystopia-payment-terminal-unlink = Отвязать
+dystopia-payment-terminal-amount = Сумма
+dystopia-payment-terminal-description = За что (товар или услуга)
+dystopia-payment-terminal-set-bill = Выставить счёт
+dystopia-payment-terminal-cancel-bill = Отменить счёт
+dystopia-payment-terminal-bill = К оплате: { $amount } — { $description }
+dystopia-payment-terminal-no-bill-ui = Счёт к оплате не выставлен.
+dystopia-payment-terminal-hint = Покупатель прикладывает к терминалу ID-карту или КПК.
+dystopia-payment-terminal-tax-rate = Налог с продаж: { $rate }%
+dystopia-payment-terminal-tax-preview = Налог { $rate }%: { $tax } в казну, вам — { $net }
+dystopia-payment-terminal-linked = Терминал привязан к счёту №{ $id }.
+dystopia-payment-terminal-not-owner = Управлять терминалом может только владелец привязанного счёта.
+dystopia-payment-terminal-no-card = Нет ID-карты со счётом Банка Города.
+dystopia-payment-terminal-not-linked = Сначала привяжите терминал к счёту.
+dystopia-payment-terminal-no-bill = Счёт к оплате не выставлен.
+dystopia-payment-terminal-bill-changed = Счёт к оплате изменился. Приложите карту снова.
+dystopia-payment-terminal-paid = Оплачено: { $amount }.
+dystopia-payment-terminal-merchant-frozen = Счёт продавца заморожен. Оплата невозможна.
+dystopia-payment-terminal-same = Нельзя оплатить самому себе.
+dystopia-payment-terminal-examine-unlinked = Терминал не привязан к счёту.
+dystopia-payment-terminal-examine-linked = Привязан к счёту [color=gold]№{ $id }[/color].
+dystopia-payment-terminal-examine-bill = К оплате: [color=gold]{ $amount }[/color] — { $description }
