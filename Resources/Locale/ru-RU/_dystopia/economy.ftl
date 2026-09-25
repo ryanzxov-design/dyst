@@ -279,3 +279,24 @@ dystopia-vexel-printer-limit = Наибольшая сумма одного ве
 dystopia-vexel-printer-reason = Основание (за что)
 dystopia-vexel-printer-print = Напечатать вексель
 dystopia-vexel-printer-hint = Вексель на предъявителя: обналичит тот, кто использует его в руке.
+
+## Городские автоматы
+
+dystopia-vendor-title = Городской автомат
+dystopia-vendor-hint = Оплата с ID-карты (в руке или в слоте ID).
+dystopia-vendor-price = { $price } { $price ->
+        [one] марка
+        [few] марки
+       *[many] марок
+    }
+dystopia-vendor-stock = ост. { $amount }
+dystopia-vendor-buy = Купить
+dystopia-vendor-out-of-stock = Товар закончился.
+dystopia-bank-history-vendor = Автомат −{ $amount }: { $item }
+dystopia-bank-ledger-vendor = Автомат: №{ $id } ({ $name }) −{ $amount }, { $item }.
+
+## Автомат пайков
+
+dystopia-ration-no-assignment = Паёк положен только гражданам с трудовым назначением.
+dystopia-ration-cooldown = Следующий паёк через { $minutes } мин.
+dystopia-ration-issued = Паёк выдан. Следующий — через { $minutes } мин.

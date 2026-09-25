@@ -1,0 +1,110 @@
+# Городские автоматы. Внешний вид пока ванильный.
+
+# Автомат за марки: оплата с активной карты покупателя, выручка — в казну Города.
+- type: entity
+  parent: [ BaseMachinePowered, BaseMachineDestructible ]
+  id: DystopiaVendingCity
+  name: "городской автомат"
+  description: "Автомат Городского снабжения. Оплата по ID-карте."
+  components:
+  - type: Sprite
+    sprite: Structures/Machines/VendingMachines/snack.rsi
+    snapCardinals: true
+    layers:
+    - state: "off"
+    - state: normal-unshaded
+      shader: unshaded
+  - type: Physics
+    bodyType: Static
+  - type: Transform
+    noRot: true
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.25,-0.45,0.25,0.45"
+        mask:
+        - MachineMask
+        layer:
+        - MachineLayer
+        density: 200
+  - type: Anchorable
+  - type: ApcPowerReceiver
+    powerLoad: 200
+  - type: ActivatableUI
+    key: enum.CityVendorUiKey.Key
+  - type: ActivatableUIRequiresPower
+  - type: UserInterface
+    interfaces:
+      enum.CityVendorUiKey.Key:
+        type: CityVendorBoundUserInterface
+  - type: PointLight
+    radius: 1.5
+    energy: 1.2
+    color: "#D9B44A"
+  - type: CityVendor
+    inventory:
+    - item: FoodSnackNutribrick
+      price: 15
+      amount: 20
+    - item: FoodBreadPlain
+      price: 20
+      amount: 10
+    - item: FoodSnackChips
+      price: 20
+      amount: 10
+    - item: FoodSnackMREBrownie
+      price: 25
+      amount: 10
+    - item: DrinkWaterBottleFull
+      price: 10
+      amount: 20
+    - item: DrinkColaCan
+      price: 25
+      amount: 10
+
+# Автомат пайков: бесплатно раз в 20 минут на счёт, только при доступе рабочего места
+# (выдаёт Гражданский Инспектор). Паёк: питательный брикет и бутылка воды.
+- type: entity
+  parent: [ BaseMachinePowered, BaseMachineDestructible ]
+  id: DystopiaRationDispenser
+  name: "автомат пайков"
+  description: "Выдаёт паёк работающим гражданам. Паёк положен тем, у кого есть трудовое назначение."
+  components:
+  - type: Sprite
+    sprite: Structures/Machines/VendingMachines/sustenance.rsi
+    snapCardinals: true
+    layers:
+    - state: "off"
+    - state: normal-unshaded
+      shader: unshaded
+  - type: Physics
+    bodyType: Static
+  - type: Transform
+    noRot: true
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.25,-0.45,0.25,0.45"
+        mask:
+        - MachineMask
+        layer:
+        - MachineLayer
+        density: 200
+  - type: Anchorable
+  - type: ApcPowerReceiver
+    powerLoad: 200
+  - type: AccessReader
+    access: [["DystopiaFactory"], ["DystopiaGreenhouse"], ["DystopiaCanteen"], ["DystopiaTechnical"]]
+  - type: PointLight
+    radius: 1.5
+    energy: 1.2
+    color: "#7FA7D9"
+  - type: CityRationDispenser
+    cooldownMinutes: 20
+    items:
+    - FoodSnackNutribrick
+    - DrinkWaterBottleFull

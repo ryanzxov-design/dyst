@@ -470,6 +470,31 @@ public sealed partial class CityBankSystem : EntitySystem
 
     #endregion
 
+    #region Автоматы
+
+    /// <summary>Покупка в городском автомате: деньги с активной карты покупателя — в казну.</summary>
+    public TransferResult BuyFromCity(Entity<CityBankComponent> bank, CityBankAccount buyer, int price, string item)
+    {
+        if (price < 0)
+            return TransferResult.BadAmount;
+
+        if (buyer.Frozen)
+            return TransferResult.Frozen;
+
+        if (buyer.Balance < price)
+            return TransferResult.NotEnoughMoney;
+
+        buyer.Balance -= price;
+        bank.Comp.Treasury += price;
+
+        AddHistory(bank, buyer, Loc.GetString("dystopia-bank-history-vendor", ("amount", price), ("item", item)));
+        AddLedger(bank, Loc.GetString("dystopia-bank-ledger-vendor",
+            ("id", buyer.Id), ("name", buyer.Name), ("amount", price), ("item", item)), buyer.Id, null);
+        return TransferResult.Success;
+    }
+
+    #endregion
+
     #region Фонды
 
     public CityFund? GetFund(Entity<CityBankComponent> bank, string fundId)
