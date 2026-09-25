@@ -49,6 +49,7 @@
   storage:
     back:
     - SpeedLoaderMagnum
+    - DystopiaFineTerminal
 
 - type: job
   id: DystopiaGuardSergeant
@@ -83,6 +84,9 @@
     id: DystopiaGuardSergeantPDA
     ears: ClothingHeadsetDystopiaGuard
     pocket1: WeaponPistolMk58
+  storage:
+    back:
+    - DystopiaFineTerminal
 
 - type: job
   id: DystopiaGuardsman
@@ -115,6 +119,9 @@
     id: DystopiaGuardsmanPDA
     ears: ClothingHeadsetDystopiaGuard
     pocket1: WeaponPistolMk58
+  storage:
+    back:
+    - DystopiaFineTerminal
 
 - type: job
   id: DystopiaGuardRecruit
@@ -141,3 +148,6 @@
     id: DystopiaGuardRecruitPDA
     ears: ClothingHeadsetDystopiaGuard
     pocket1: WeaponPistolMk58
+  storage:
+    back:
+    - DystopiaFineTerminal

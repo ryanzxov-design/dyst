@@ -1,0 +1,24 @@
+# Штрафной терминал Стражи. Работает только с доступом Стражи.
+
+- type: entity
+  parent: BaseItem
+  id: DystopiaFineTerminal
+  name: "штрафной терминал"
+  description: "Терминал Стражи для выписки штрафов по статьям Свода законов. Штраф списывается с ID-карты нарушителя."
+  components:
+  - type: Sprite
+    sprite: _Dystopia/Objects/Devices/fine_terminal.rsi
+    state: icon
+  - type: Item
+    size: Small
+    sprite: _Dystopia/Objects/Devices/fine_terminal.rsi
+  - type: AccessReader
+    access: [["DystopiaGuard"]]
+  - type: ActivatableUIRequiresAccess
+  - type: FineTerminal
+  - type: ActivatableUI
+    key: enum.FineTerminalUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.FineTerminalUiKey.Key:
+        type: FineTerminalBoundUserInterface

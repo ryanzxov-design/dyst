@@ -219,3 +219,21 @@ dystopia-payment-terminal-same = Нельзя оплатить самому се
 dystopia-payment-terminal-examine-unlinked = Терминал не привязан к счёту.
 dystopia-payment-terminal-examine-linked = Привязан к счёту [color=gold]№{ $id }[/color].
 dystopia-payment-terminal-examine-bill = К оплате: [color=gold]{ $amount }[/color] — { $description }
+
+## Штрафной терминал
+
+dystopia-fine-terminal-title = Штрафной терминал
+dystopia-fine-terminal-article = Статья Свода законов
+dystopia-fine-terminal-no-article = Без статьи
+dystopia-fine-terminal-amount = Сумма штрафа
+dystopia-fine-terminal-reason-placeholder = Пояснение (необязательно)
+dystopia-fine-terminal-prepare = Подготовить штраф
+dystopia-fine-terminal-clear = Сбросить
+dystopia-fine-terminal-pending = Готов к выписке: { $amount } — { $article }
+dystopia-fine-terminal-not-prepared = Штраф не подготовлен.
+dystopia-fine-terminal-hint = Подготовьте штраф, затем примените терминал на нарушителе.
+dystopia-fine-terminal-no-card = У нарушителя нет ID-карты со счётом Банка Города.
+dystopia-fine-terminal-writing-others = { $officer } выписывает штраф: { $target }.
+dystopia-fine-terminal-writing-target = Вам выписывают штраф!
+dystopia-fine-terminal-reason = { $reason } (выписал: { $officer })
+dystopia-fine-terminal-done = Штраф { $amount } выписан на счёт №{ $id }: списано { $taken }, в долг { $debt }.
