@@ -70,7 +70,8 @@ public sealed class CityConsoleBoundUserInterfaceState(
     int announcementCooldown,
     List<CityLaw> laws,
     List<CitySanctionClass> sanctions,
-    string generalProvision) : BoundUserInterfaceState
+    string generalProvision,
+    List<CityConsoleFundEntry> funds) : BoundUserInterfaceState
 {
     public readonly int Treasury = treasury;
     public readonly int SecondsToPayday = secondsToPayday;
@@ -83,6 +84,16 @@ public sealed class CityConsoleBoundUserInterfaceState(
     public readonly List<CityLaw> Laws = laws;
     public readonly List<CitySanctionClass> Sanctions = sanctions;
     public readonly string GeneralProvision = generalProvision;
+    public readonly List<CityConsoleFundEntry> Funds = funds;
+}
+
+[Serializable, NetSerializable]
+public sealed class CityConsoleFundEntry(string id, string name, string description, int balance)
+{
+    public readonly string Id = id;
+    public readonly string Name = name;
+    public readonly string Description = description;
+    public readonly int Balance = balance;
 }
 
 /// <summary>Изменить зарплату и налог профессии.</summary>
@@ -158,4 +169,13 @@ public sealed class CityConsoleSaveSanctionsMessage(List<CitySanctionClass> sanc
 {
     public readonly List<CitySanctionClass> Sanctions = sanctions;
     public readonly string GeneralProvision = generalProvision;
+}
+
+/// <summary>Перевести деньги между казной и фондом: toFund — из казны в фонд, иначе обратно.</summary>
+[Serializable, NetSerializable]
+public sealed class CityConsoleFundTransferMessage(string fundId, int amount, bool toFund) : BoundUserInterfaceMessage
+{
+    public readonly string FundId = fundId;
+    public readonly int Amount = amount;
+    public readonly bool ToFund = toFund;
 }

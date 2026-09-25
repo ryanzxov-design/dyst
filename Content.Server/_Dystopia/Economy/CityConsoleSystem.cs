@@ -56,6 +56,7 @@ public sealed partial class CityConsoleSystem : EntitySystem
         SubscribeLocalEvent<CityConsoleComponent, CityConsoleSaveLawMessage>(OnSaveLaw);
         SubscribeLocalEvent<CityConsoleComponent, CityConsoleDeleteLawMessage>(OnDeleteLaw);
         SubscribeLocalEvent<CityConsoleComponent, CityConsoleSaveSanctionsMessage>(OnSaveSanctions);
+        SubscribeLocalEvent<CityConsoleComponent, CityConsoleFundTransferMessage>(OnFundTransfer);
     }
 
     public override void Update(float frameTime)
@@ -96,7 +97,7 @@ public sealed partial class CityConsoleSystem : EntitySystem
         if (!_bank.TryGetBank(out var bank))
         {
             _ui.SetUiState(console, CityConsoleUiKey.Key,
-                new CityConsoleBoundUserInterfaceState(0, 0, new(), new(), new(), new(), string.Empty, 0, new(), new(), string.Empty));
+                new CityConsoleBoundUserInterfaceState(0, 0, new(), new(), new(), new(), string.Empty, 0, new(), new(), string.Empty, new()));
             return;
         }
 
@@ -151,7 +152,8 @@ public sealed partial class CityConsoleSystem : EntitySystem
 
         _ui.SetUiState(console, CityConsoleUiKey.Key,
             new CityConsoleBoundUserInterfaceState(bank.Comp.Treasury, seconds, jobs, accounts, log, modes, currentMode, cooldown,
-                lawsState.Laws, lawsState.Sanctions, lawsState.GeneralProvision));
+                lawsState.Laws, lawsState.Sanctions, lawsState.GeneralProvision,
+                bank.Comp.Funds.Select(f => new CityConsoleFundEntry(f.Id, f.Name, f.Description, f.Balance)).ToList()));
     }
 
     private string JobName(ProtoId<JobPrototype> job)
@@ -385,6 +387,29 @@ public sealed partial class CityConsoleSystem : EntitySystem
         _laws.SetSanctions(laws, args.Sanctions, args.GeneralProvision);
 
         _bank.AddLog(bank, Loc.GetString("dystopia-city-console-log-sanctions", ("actor", Name(args.Actor))));
+
+        UpdateAllConsoles();
+    }
+
+    private void OnFundTransfer(Entity<CityConsoleComponent> ent, ref CityConsoleFundTransferMessage args)
+    {
+        if (!CheckAccess(ent.Owner, args.Actor) || !_bank.TryGetBank(out var bank))
+            return;
+
+        var fund = _bank.GetFund(bank, args.FundId);
+        if (fund == null || args.Amount <= 0)
+            return;
+
+        if (!_bank.TryMoveFundMoney(bank, fund, args.Amount, args.ToFund))
+        {
+            _popup.PopupEntity(Loc.GetString(args.ToFund
+                ? "dystopia-city-console-not-enough-treasury"
+                : "dystopia-city-console-fund-not-enough"), ent.Owner, args.Actor);
+            return;
+        }
+
+        _bank.AddLog(bank, Loc.GetString(args.ToFund ? "dystopia-city-console-log-fund-in" : "dystopia-city-console-log-fund-out",
+            ("actor", Name(args.Actor)), ("fund", fund.Name), ("amount", args.Amount)));
 
         UpdateAllConsoles();
     }

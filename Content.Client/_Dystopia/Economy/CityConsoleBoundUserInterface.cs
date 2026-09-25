@@ -24,6 +24,8 @@ public sealed partial class CityConsoleBoundUserInterface(EntityUid owner, Enum 
         _window.OnDeleteLaw += id => SendMessage(new CityConsoleDeleteLawMessage(id));
         _window.OnSaveSanctions += (sanctions, provision) =>
             SendMessage(new CityConsoleSaveSanctionsMessage(sanctions, provision));
+        _window.OnFundTransfer += (fund, amount, toFund) =>
+            SendMessage(new CityConsoleFundTransferMessage(fund, amount, toFund));
     }
 
     protected override void UpdateState(BoundUserInterfaceState state)

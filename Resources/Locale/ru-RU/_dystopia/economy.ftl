@@ -237,3 +237,45 @@ dystopia-fine-terminal-writing-others = { $officer } выписывает штр
 dystopia-fine-terminal-writing-target = Вам выписывают штраф!
 dystopia-fine-terminal-reason = { $reason } (выписал: { $officer })
 dystopia-fine-terminal-done = Штраф { $amount } выписан на счёт №{ $id }: списано { $taken }, в долг { $debt }.
+
+## Фонды
+
+dystopia-city-console-tab-funds = Фонды
+dystopia-city-console-funds-hint = Деньги фондов выделяются из казны и тратятся только на цель фонда.
+dystopia-city-console-funds-empty = Фондов нет.
+dystopia-city-console-fund-balance = В фонде: { $amount } { $amount ->
+        [one] марка
+        [few] марки
+       *[many] марок
+    }
+dystopia-city-console-fund-deposit = Пополнить из казны
+dystopia-city-console-fund-withdraw = Вернуть в казну
+dystopia-city-console-fund-not-enough = В фонде недостаточно средств.
+dystopia-city-console-log-fund-in = { $actor }: в «{ $fund }» из казны +{ $amount }.
+dystopia-city-console-log-fund-out = { $actor }: из «{ $fund }» в казну { $amount }.
+dystopia-bank-ledger-fund-in = Казна → «{ $fund }»: { $amount }. В фонде: { $balance }.
+dystopia-bank-ledger-fund-out = «{ $fund }» → казна: { $amount }. В фонде: { $balance }.
+
+## Векселя
+
+dystopia-vexel-name = вексель на { $amount } { $amount ->
+        [one] марку
+        [few] марки
+       *[many] марок
+    }
+dystopia-vexel-examine = Вексель №{ $serial } на [color=gold]{ $amount }[/color]. Основание: { $reason }. Выдал: { $issuer }.
+dystopia-vexel-no-card = Нужна ID-карта со счётом Банка Города (в руке или в слоте ID).
+dystopia-vexel-redeemed = Вексель обналичен на счёт №{ $id }: +{ $net } (налог { $tax }).
+dystopia-bank-history-vexel = Вексель №{ $serial } +{ $net } (налог { $tax }): { $reason }
+dystopia-bank-ledger-vexel = Вексель №{ $serial } обналичен на №{ $id } ({ $name }): { $amount }, зачислено { $net }, налог { $tax }.
+dystopia-bank-ledger-vexel-printed = Напечатан вексель №{ $serial } на { $amount } из «{ $fund }». Выдал: { $issuer }. { $reason }
+dystopia-bank-vexel-notify = Обналичен вексель №{ $serial }: +{ $net } (налог { $tax }).
+
+## Вексельный принтер
+
+dystopia-vexel-printer-title = Вексельный принтер
+dystopia-vexel-printer-fund = { $fund }: { $amount }
+dystopia-vexel-printer-limit = Наибольшая сумма одного векселя: { $amount }
+dystopia-vexel-printer-reason = Основание (за что)
+dystopia-vexel-printer-print = Напечатать вексель
+dystopia-vexel-printer-hint = Вексель на предъявителя: обналичит тот, кто использует его в руке.

@@ -36,6 +36,13 @@ public sealed partial class CityBankComponent : Component
     [DataField]
     public Dictionary<ProtoId<JobPrototype>, int> TaxRates = new();
 
+    /// <summary>
+    /// Фонды Города (Фонд поощрений и т.п.). Пополняются Консулом из казны.
+    /// Набор фондов задаётся в прототипе станции.
+    /// </summary>
+    [DataField]
+    public List<CityFund> Funds = new();
+
     /// <summary>Реестр счетов: номер счёта -> счёт.</summary>
     [ViewVariables]
     public Dictionary<int, CityBankAccount> Accounts = new();
@@ -90,4 +97,22 @@ public sealed class CityBankLedgerEntry(string text, int? from, int? to)
 
     /// <summary>Счёт, на который пришли деньги (null — казна или вне банка).</summary>
     public readonly int? To = to;
+}
+
+/// <summary>Фонд Города: деньги, выделенные из казны на определённую цель.</summary>
+[DataDefinition]
+public sealed partial class CityFund
+{
+    /// <summary>Идентификатор фонда (по нему фонд находят приборы, например вексельный принтер).</summary>
+    [DataField(required: true)]
+    public string Id = string.Empty;
+
+    [DataField]
+    public string Name = string.Empty;
+
+    [DataField]
+    public string Description = string.Empty;
+
+    [DataField]
+    public int Balance;
 }

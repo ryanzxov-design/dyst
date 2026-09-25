@@ -470,6 +470,78 @@ public sealed partial class CityBankSystem : EntitySystem
 
     #endregion
 
+    #region Фонды
+
+    public CityFund? GetFund(Entity<CityBankComponent> bank, string fundId)
+    {
+        foreach (var fund in bank.Comp.Funds)
+        {
+            if (fund.Id == fundId)
+                return fund;
+        }
+
+        return null;
+    }
+
+    /// <summary>Перевод между казной и фондом. toFund — из казны в фонд, иначе из фонда в казну.</summary>
+    public bool TryMoveFundMoney(Entity<CityBankComponent> bank, CityFund fund, int amount, bool toFund)
+    {
+        if (amount <= 0)
+            return false;
+
+        if (toFund)
+        {
+            if (bank.Comp.Treasury < amount)
+                return false;
+
+            bank.Comp.Treasury -= amount;
+            fund.Balance += amount;
+        }
+        else
+        {
+            if (fund.Balance < amount)
+                return false;
+
+            fund.Balance -= amount;
+            bank.Comp.Treasury += amount;
+        }
+
+        AddLedger(bank, Loc.GetString(toFund ? "dystopia-bank-ledger-fund-in" : "dystopia-bank-ledger-fund-out",
+            ("fund", fund.Name), ("amount", amount), ("balance", fund.Balance)), null, null);
+        return true;
+    }
+
+    /// <summary>Списать деньги из фонда (например, на печать векселя).</summary>
+    public bool TrySpendFund(CityFund fund, int amount)
+    {
+        if (amount <= 0 || fund.Balance < amount)
+            return false;
+
+        fund.Balance -= amount;
+        return true;
+    }
+
+    /// <summary>
+    /// Обналичивание векселя: деньги уже вышли из фонда при печати, на счёт зачисляется доход
+    /// за вычетом налога и долга; налог и погашение долга уходят в казну.
+    /// </summary>
+    public (int Net, int Tax, int DebtPaid) RedeemVexel(Entity<CityBankComponent> bank, CityBankAccount account, int amount, string serial, string reason)
+    {
+        var (net, tax, debtPaid) = ApplyIncome(bank, account, amount);
+        bank.Comp.Treasury += tax + debtPaid;
+
+        AddHistory(bank, account, Loc.GetString("dystopia-bank-history-vexel",
+            ("net", net), ("tax", tax), ("serial", serial), ("reason", reason)));
+        AddLedger(bank, Loc.GetString("dystopia-bank-ledger-vexel",
+            ("id", account.Id), ("name", account.Name), ("amount", amount), ("net", net), ("tax", tax), ("serial", serial)),
+            null, account.Id);
+        NotifyAccount(account, Loc.GetString("dystopia-bank-vexel-notify", ("net", net), ("tax", tax), ("serial", serial)));
+
+        return (net, tax, debtPaid);
+    }
+
+    #endregion
+
     #region Журналы
 
     private string Stamp()

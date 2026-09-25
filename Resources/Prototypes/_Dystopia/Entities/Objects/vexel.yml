@@ -1,0 +1,16 @@
+# Вексель на предъявителя. Печатается вексельным принтером; сумма и данные задаются при печати.
+# Обналичивание — использовать в руке (Z): сумма зачисляется на активную карту держателя.
+
+- type: entity
+  parent: BaseItem
+  id: DystopiaVexel
+  name: "вексель"
+  description: "Вексель Города на предъявителя. Использовать в руке, чтобы зачислить сумму на свой счёт."
+  components:
+  - type: Sprite
+    sprite: _Dystopia/Objects/Misc/vexel.rsi
+    state: icon
+  - type: Item
+    size: Tiny
+    sprite: _Dystopia/Objects/Misc/vexel.rsi
+  - type: Vexel

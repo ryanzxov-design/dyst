@@ -1,0 +1,36 @@
+# Вексельный принтер Гражданского Инспектора: печатает векселя из Фонда поощрений.
+
+- type: entity
+  parent: BaseComputer
+  id: ComputerDystopiaVexelPrinter
+  name: "вексельный принтер"
+  description: "Печатает векселя Города на предъявителя. Деньги берутся из Фонда поощрений."
+  components:
+  - type: Sprite
+    layers:
+    - map: ["computerLayerBody"]
+      state: computer
+    - map: ["computerLayerKeyboard"]
+      state: generic_keyboard
+    - map: ["computerLayerScreen"]
+      state: id
+    - map: ["computerLayerKeys"]
+      state: generic_keys
+    - map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
+      state: generic_panel_open
+  - type: AccessReader
+    access: [["DystopiaInspection"]]
+  - type: ActivatableUIRequiresAccess
+  - type: VexelPrinter
+  - type: ActivatableUI
+    key: enum.VexelPrinterUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.VexelPrinterUiKey.Key:
+        type: VexelPrinterBoundUserInterface
+      enum.WiresUiKey.Key:
+        type: WiresBoundUserInterface
+  - type: PointLight
+    radius: 1.5
+    energy: 1.6
+    color: "#D9B44A"

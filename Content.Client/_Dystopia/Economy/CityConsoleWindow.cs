@@ -12,7 +12,7 @@ namespace Content.Client._Dystopia.Economy;
 
 /// <summary>
 /// Окно Консоли Управления Городом. Слева — разделы, справа — рабочая область.
-/// Разделы: «Казна», «Положения», «Законы».
+/// Разделы: «Казна», «Положения», «Законы», «Фонды».
 /// Окно собрано в коде (без XAML), чтобы его было проще менять.
 /// </summary>
 public sealed class CityConsoleWindow : DefaultWindow
@@ -26,6 +26,7 @@ public sealed class CityConsoleWindow : DefaultWindow
     public event Action<int, int, string, string, string>? OnSaveLaw;
     public event Action<int>? OnDeleteLaw;
     public event Action<List<CitySanctionClass>, string>? OnSaveSanctions;
+    public event Action<string, int, bool>? OnFundTransfer;
 
     private static readonly Color AccentColor = Color.FromHex("#B8962E");
     private static readonly Color DimColor = Color.FromHex("#8A8A8A");
@@ -36,6 +37,10 @@ public sealed class CityConsoleWindow : DefaultWindow
     private readonly Button _treasuryTab;
     private readonly Button _decreesTab;
     private readonly Button _lawsTab;
+    private readonly Button _fundsTab;
+    private readonly Control _fundsPanel;
+    private readonly BoxContainer _fundsList;
+    private string _fundsSignature = string.Empty;
 
     // Казна
     private readonly Label _treasuryLabel;
@@ -114,9 +119,11 @@ public sealed class CityConsoleWindow : DefaultWindow
         _treasuryTab = MakeTab("dystopia-city-console-tab-treasury");
         _decreesTab = MakeTab("dystopia-city-console-tab-decrees");
         _lawsTab = MakeTab("dystopia-city-console-tab-laws");
+        _fundsTab = MakeTab("dystopia-city-console-tab-funds");
         nav.AddChild(_treasuryTab);
         nav.AddChild(_decreesTab);
         nav.AddChild(_lawsTab);
+        nav.AddChild(_fundsTab);
 
         // --- Правая рабочая область ---
         var content = new Control { HorizontalExpand = true, VerticalExpand = true };
@@ -145,13 +152,29 @@ public sealed class CityConsoleWindow : DefaultWindow
             SeparationOverride = 6,
         };
         _lawsPanel = lawsPanel;
+        var fundsPanel = new BoxContainer
+        {
+            Orientation = BoxContainer.LayoutOrientation.Vertical,
+            HorizontalExpand = true,
+            VerticalExpand = true,
+            SeparationOverride = 8,
+        };
+        _fundsPanel = fundsPanel;
+        fundsPanel.AddChild(new Label { Text = Loc.GetString("dystopia-city-console-funds-hint"), FontColorOverride = DimColor });
+        var fundsScroll = new ScrollContainer { HScrollEnabled = false, VerticalExpand = true };
+        _fundsList = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Vertical, HorizontalExpand = true, SeparationOverride = 10 };
+        fundsScroll.AddChild(_fundsList);
+        fundsPanel.AddChild(fundsScroll);
+
         content.AddChild(_treasuryPanel);
         content.AddChild(_decreesPanel);
         content.AddChild(_lawsPanel);
+        content.AddChild(_fundsPanel);
 
         _treasuryTab.OnPressed += _ => SelectTab(0);
         _decreesTab.OnPressed += _ => SelectTab(1);
         _lawsTab.OnPressed += _ => SelectTab(2);
+        _fundsTab.OnPressed += _ => SelectTab(3);
 
         // --- Казна: шапка ---
         _treasuryLabel = new Label { FontColorOverride = AccentColor };
@@ -399,9 +422,11 @@ public sealed class CityConsoleWindow : DefaultWindow
         _treasuryPanel.Visible = index == 0;
         _decreesPanel.Visible = index == 1;
         _lawsPanel.Visible = index == 2;
+        _fundsPanel.Visible = index == 3;
         _treasuryTab.Pressed = index == 0;
         _decreesTab.Pressed = index == 1;
         _lawsTab.Pressed = index == 2;
+        _fundsTab.Pressed = index == 3;
     }
 
     private void SendMoney(bool bonus)
@@ -431,6 +456,70 @@ public sealed class CityConsoleWindow : DefaultWindow
         UpdateModes(state);
         UpdateLaws(state);
         UpdateSanctions(state);
+        UpdateFunds(state.Funds);
+    }
+
+    private readonly Dictionary<string, Label> _fundBalances = new();
+
+    private void UpdateFunds(List<CityConsoleFundEntry> funds)
+    {
+        // Строки фондов строим один раз (чтобы не сбивать ввод суммы), потом обновляем только балансы.
+        var signature = string.Join(";", funds.Select(f => f.Id));
+        if (signature != _fundsSignature)
+        {
+            _fundsSignature = signature;
+            _fundsList.RemoveAllChildren();
+            _fundBalances.Clear();
+
+            foreach (var fund in funds)
+            {
+                var id = fund.Id;
+                var box = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Vertical, HorizontalExpand = true, SeparationOverride = 4 };
+                box.AddChild(new Label { Text = fund.Name, FontColorOverride = AccentColor });
+                if (fund.Description.Length > 0)
+                    box.AddChild(new Label { Text = fund.Description, FontColorOverride = DimColor });
+
+                var balance = new Label();
+                box.AddChild(balance);
+                _fundBalances[id] = balance;
+
+                var row = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Horizontal, SeparationOverride = 6 };
+                var amount = new LineEdit { MinWidth = 120, PlaceHolder = Loc.GetString("dystopia-city-console-amount") };
+                var toFund = new Button { Text = Loc.GetString("dystopia-city-console-fund-deposit") };
+                var fromFund = new Button { Text = Loc.GetString("dystopia-city-console-fund-withdraw") };
+                toFund.OnPressed += _ =>
+                {
+                    if (int.TryParse(amount.Text.Trim(), out var value) && value > 0)
+                    {
+                        OnFundTransfer?.Invoke(id, value, true);
+                        amount.Text = string.Empty;
+                    }
+                };
+                fromFund.OnPressed += _ =>
+                {
+                    if (int.TryParse(amount.Text.Trim(), out var value) && value > 0)
+                    {
+                        OnFundTransfer?.Invoke(id, value, false);
+                        amount.Text = string.Empty;
+                    }
+                };
+                row.AddChild(amount);
+                row.AddChild(toFund);
+                row.AddChild(fromFund);
+                box.AddChild(row);
+
+                _fundsList.AddChild(box);
+            }
+
+            if (funds.Count == 0)
+                _fundsList.AddChild(new Label { Text = Loc.GetString("dystopia-city-console-funds-empty"), FontColorOverride = DimColor });
+        }
+
+        foreach (var fund in funds)
+        {
+            if (_fundBalances.TryGetValue(fund.Id, out var label))
+                label.Text = Loc.GetString("dystopia-city-console-fund-balance", ("amount", fund.Balance));
+        }
     }
 
     private static string LawSignature(CityLaw law)
