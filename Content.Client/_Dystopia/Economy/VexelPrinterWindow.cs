@@ -1,4 +1,5 @@
 using System.Numerics;
+using Content.Client._Dystopia.UserInterface;
 using Content.Shared._Dystopia.Economy;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
@@ -7,12 +8,12 @@ using Robust.Client.UserInterface.CustomControls;
 namespace Content.Client._Dystopia.Economy;
 
 /// <summary>Окно вексельного принтера: остаток фонда, сумма и основание, печать векселя.</summary>
-public sealed class VexelPrinterWindow : DefaultWindow
+public sealed class VexelPrinterWindow : CityWindow
 {
     public event Action<int, string>? OnPrint;
 
-    private static readonly Color AccentColor = Color.FromHex("#D9B44A");
-    private static readonly Color DimColor = Color.FromHex("#8A8A8A");
+    private static readonly Color AccentColor = CityUi.Accent;
+    private static readonly Color DimColor = CityUi.Dim;
 
     private readonly Label _fund;
     private readonly Label _limit;
@@ -21,9 +22,11 @@ public sealed class VexelPrinterWindow : DefaultWindow
 
     public VexelPrinterWindow()
     {
-        Title = Loc.GetString("dystopia-vexel-printer-title");
-        MinSize = new Vector2(420, 220);
-        SetSize = new Vector2(440, 230);
+        WindowTitle = Loc.GetString("dystopia-vexel-printer-title");
+        Subtitle = Loc.GetString("dystopia-city-ui-sub-vexel");
+        Slogan = Loc.GetString("dystopia-city-ui-slogan-vexel");
+        MinSize = new Vector2(480, 340);
+        SetSize = new Vector2(520, 360);
 
         var root = new BoxContainer
         {
@@ -39,12 +42,12 @@ public sealed class VexelPrinterWindow : DefaultWindow
         root.AddChild(_fund);
         root.AddChild(_limit);
 
-        _amount = new LineEdit { HorizontalExpand = true, PlaceHolder = Loc.GetString("dystopia-city-console-amount") };
-        _reason = new LineEdit { HorizontalExpand = true, PlaceHolder = Loc.GetString("dystopia-vexel-printer-reason") };
+        _amount = new LineEdit { StyleBoxOverride = CityUi.Box(CityUi.Input, CityUi.Line, 1, 6, 3), HorizontalExpand = true, PlaceHolder = Loc.GetString("dystopia-city-console-amount") };
+        _reason = new LineEdit { StyleBoxOverride = CityUi.Box(CityUi.Input, CityUi.Line, 1, 6, 3), HorizontalExpand = true, PlaceHolder = Loc.GetString("dystopia-vexel-printer-reason") };
         root.AddChild(_amount);
         root.AddChild(_reason);
 
-        var print = new Button { Text = Loc.GetString("dystopia-vexel-printer-print") };
+        var print = CityUi.MakeButton(Loc.GetString("dystopia-vexel-printer-print"), CityButtonStyle.Primary);
         print.OnPressed += _ =>
         {
             if (!int.TryParse(_amount.Text.Trim(), out var amount) || amount <= 0)

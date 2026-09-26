@@ -1,4 +1,5 @@
 using System.Numerics;
+using Content.Client._Dystopia.UserInterface;
 using Content.Shared._Dystopia.Economy;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
@@ -7,20 +8,22 @@ using Robust.Client.UserInterface.CustomControls;
 namespace Content.Client._Dystopia.Economy;
 
 /// <summary>Окно городского автомата: товары, цены, остаток, кнопка «Купить».</summary>
-public sealed class CityVendorWindow : DefaultWindow
+public sealed class CityVendorWindow : CityWindow
 {
     public event Action<int>? OnBuy;
 
-    private static readonly Color AccentColor = Color.FromHex("#D9B44A");
-    private static readonly Color DimColor = Color.FromHex("#8A8A8A");
+    private static readonly Color AccentColor = CityUi.Accent;
+    private static readonly Color DimColor = CityUi.Dim;
 
     private readonly GridContainer _grid;
 
     public CityVendorWindow()
     {
-        Title = Loc.GetString("dystopia-vendor-title");
-        MinSize = new Vector2(420, 300);
-        SetSize = new Vector2(460, 380);
+        WindowTitle = Loc.GetString("dystopia-vendor-title");
+        Subtitle = Loc.GetString("dystopia-city-ui-sub-vendor");
+        Slogan = Loc.GetString("dystopia-city-ui-slogan-vendor");
+        MinSize = new Vector2(480, 400);
+        SetSize = new Vector2(520, 500);
 
         var root = new BoxContainer
         {
@@ -60,7 +63,8 @@ public sealed class CityVendorWindow : DefaultWindow
                 MinWidth = 70,
             });
 
-            var buy = new Button { Text = Loc.GetString("dystopia-vendor-buy"), Disabled = item.Amount == 0 };
+            var buy = CityUi.MakeButton(Loc.GetString("dystopia-vendor-buy"), CityButtonStyle.Primary);
+            buy.Disabled = item.Amount == 0;
             buy.OnPressed += _ => OnBuy?.Invoke(index);
             _grid.AddChild(buy);
         }

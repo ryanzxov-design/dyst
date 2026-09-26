@@ -1,4 +1,5 @@
 using System.Numerics;
+using Content.Client._Dystopia.UserInterface;
 using Content.Shared._Dystopia.Economy;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
@@ -7,15 +8,15 @@ using Robust.Client.UserInterface.CustomControls;
 namespace Content.Client._Dystopia.Economy;
 
 /// <summary>Окно платёжного терминала: привязка к счёту, выставление и отмена счёта к оплате.</summary>
-public sealed class PaymentTerminalWindow : DefaultWindow
+public sealed class PaymentTerminalWindow : CityWindow
 {
     public event Action<int, string>? OnSetBill;
     public event Action? OnCancelBill;
     public event Action? OnLink;
     public event Action? OnUnlink;
 
-    private static readonly Color AccentColor = Color.FromHex("#D9B44A");
-    private static readonly Color DimColor = Color.FromHex("#8A8A8A");
+    private static readonly Color AccentColor = CityUi.Accent;
+    private static readonly Color DimColor = CityUi.Dim;
 
     private readonly Label _linked;
     private readonly Label _bill;
@@ -30,9 +31,11 @@ public sealed class PaymentTerminalWindow : DefaultWindow
 
     public PaymentTerminalWindow()
     {
-        Title = Loc.GetString("dystopia-payment-terminal-title");
-        MinSize = new Vector2(420, 260);
-        SetSize = new Vector2(460, 280);
+        WindowTitle = Loc.GetString("dystopia-payment-terminal-title");
+        Subtitle = Loc.GetString("dystopia-city-ui-sub-payment");
+        Slogan = Loc.GetString("dystopia-city-ui-slogan-payment");
+        MinSize = new Vector2(480, 380);
+        SetSize = new Vector2(520, 410);
 
         var root = new BoxContainer
         {
@@ -47,9 +50,10 @@ public sealed class PaymentTerminalWindow : DefaultWindow
         root.AddChild(_linked);
 
         var linkRow = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Horizontal, SeparationOverride = 6 };
-        var link = new Button { Text = Loc.GetString("dystopia-payment-terminal-link"), HorizontalExpand = true };
+        var link = CityUi.MakeButton(Loc.GetString("dystopia-payment-terminal-link"));
+        link.HorizontalExpand = true;
         link.OnPressed += _ => OnLink?.Invoke();
-        _unlink = new Button { Text = Loc.GetString("dystopia-payment-terminal-unlink") };
+        _unlink = CityUi.MakeButton(Loc.GetString("dystopia-payment-terminal-unlink"));
         _unlink.OnPressed += _ => OnUnlink?.Invoke();
         linkRow.AddChild(link);
         linkRow.AddChild(_unlink);
@@ -58,8 +62,8 @@ public sealed class PaymentTerminalWindow : DefaultWindow
         _bill = new Label { FontColorOverride = AccentColor, Margin = new Thickness(0, 6, 0, 0) };
         root.AddChild(_bill);
 
-        _amount = new LineEdit { HorizontalExpand = true, PlaceHolder = Loc.GetString("dystopia-payment-terminal-amount") };
-        _description = new LineEdit { HorizontalExpand = true, PlaceHolder = Loc.GetString("dystopia-payment-terminal-description") };
+        _amount = new LineEdit { StyleBoxOverride = CityUi.Box(CityUi.Input, CityUi.Line, 1, 6, 3), HorizontalExpand = true, PlaceHolder = Loc.GetString("dystopia-payment-terminal-amount") };
+        _description = new LineEdit { StyleBoxOverride = CityUi.Box(CityUi.Input, CityUi.Line, 1, 6, 3), HorizontalExpand = true, PlaceHolder = Loc.GetString("dystopia-payment-terminal-description") };
         root.AddChild(_amount);
         _taxPreview = new Label { FontColorOverride = DimColor };
         root.AddChild(_taxPreview);
@@ -67,7 +71,8 @@ public sealed class PaymentTerminalWindow : DefaultWindow
         root.AddChild(_description);
 
         var billRow = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Horizontal, SeparationOverride = 6 };
-        _setBill = new Button { Text = Loc.GetString("dystopia-payment-terminal-set-bill"), HorizontalExpand = true };
+        _setBill = CityUi.MakeButton(Loc.GetString("dystopia-payment-terminal-set-bill"), CityButtonStyle.Primary);
+        _setBill.HorizontalExpand = true;
         _setBill.OnPressed += _ =>
         {
             if (!int.TryParse(_amount.Text.Trim(), out var amount) || amount <= 0)
@@ -75,7 +80,7 @@ public sealed class PaymentTerminalWindow : DefaultWindow
 
             OnSetBill?.Invoke(amount, _description.Text);
         };
-        _cancelBill = new Button { Text = Loc.GetString("dystopia-payment-terminal-cancel-bill") };
+        _cancelBill = CityUi.MakeButton(Loc.GetString("dystopia-payment-terminal-cancel-bill"));
         _cancelBill.OnPressed += _ => OnCancelBill?.Invoke();
         billRow.AddChild(_setBill);
         billRow.AddChild(_cancelBill);

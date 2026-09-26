@@ -1,5 +1,6 @@
 using System.Linq;
 using System.Numerics;
+using Content.Client._Dystopia.UserInterface;
 using Content.Shared._Dystopia.Economy;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
@@ -12,13 +13,13 @@ namespace Content.Client._Dystopia.Economy;
 /// Окно терминала банковских операций: поиск, реестр счетов с заморозкой, журнал операций.
 /// Нажатие «Операции» у счёта показывает в журнале только его операции.
 /// </summary>
-public sealed class CityBankTerminalWindow : DefaultWindow
+public sealed class CityBankTerminalWindow : CityWindow
 {
     public event Action<int, bool>? OnSetFrozen;
 
-    private static readonly Color AccentColor = Color.FromHex("#B8962E");
-    private static readonly Color DimColor = Color.FromHex("#8A8A8A");
-    private static readonly Color WarnColor = Color.FromHex("#E05A4F");
+    private static readonly Color AccentColor = CityUi.Accent;
+    private static readonly Color DimColor = CityUi.Dim;
+    private static readonly Color WarnColor = CityUi.Danger;
 
     private readonly LineEdit _search;
     private readonly GridContainer _accountsGrid;
@@ -33,9 +34,11 @@ public sealed class CityBankTerminalWindow : DefaultWindow
 
     public CityBankTerminalWindow()
     {
-        Title = Loc.GetString("dystopia-bank-terminal-title");
-        MinSize = new Vector2(760, 520);
-        SetSize = new Vector2(860, 640);
+        WindowTitle = Loc.GetString("dystopia-bank-terminal-title");
+        Subtitle = Loc.GetString("dystopia-city-ui-sub-bank");
+        Slogan = Loc.GetString("dystopia-city-ui-slogan-bank");
+        MinSize = new Vector2(760, 600);
+        SetSize = new Vector2(920, 740);
 
         var root = new BoxContainer
         {
@@ -46,7 +49,7 @@ public sealed class CityBankTerminalWindow : DefaultWindow
         };
         Contents.AddChild(root);
 
-        _search = new LineEdit { HorizontalExpand = true, PlaceHolder = Loc.GetString("dystopia-bank-terminal-search") };
+        _search = new LineEdit { StyleBoxOverride = CityUi.Box(CityUi.Input, CityUi.Line, 1, 6, 3), HorizontalExpand = true, PlaceHolder = Loc.GetString("dystopia-bank-terminal-search") };
         _search.OnTextChanged += _ => Redraw(true);
         root.AddChild(_search);
 
@@ -58,7 +61,8 @@ public sealed class CityBankTerminalWindow : DefaultWindow
 
         var ledgerHeaderRow = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Horizontal, HorizontalExpand = true };
         _ledgerHeader = new Label { FontColorOverride = AccentColor, HorizontalExpand = true };
-        _resetFilter = new Button { Text = Loc.GetString("dystopia-bank-terminal-reset-filter"), Visible = false };
+        _resetFilter = CityUi.MakeButton(Loc.GetString("dystopia-bank-terminal-reset-filter"));
+        _resetFilter.Visible = false;
         _resetFilter.OnPressed += _ =>
         {
             _accountFilter = null;
@@ -133,15 +137,15 @@ public sealed class CityBankTerminalWindow : DefaultWindow
                 });
 
                 var actions = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Horizontal, SeparationOverride = 4 };
-                var history = new Button { Text = Loc.GetString("dystopia-bank-terminal-history") };
+                var history = CityUi.MakeButton(Loc.GetString("dystopia-bank-terminal-history"));
                 history.OnPressed += _ =>
                 {
                     _accountFilter = id;
                     Redraw(true);
                 };
-                var freeze = new Button
+                var freeze = new CityButton(string.Empty, account.Frozen ? CityButtonStyle.Normal : CityButtonStyle.Danger)
                 {
-                    Text = Loc.GetString(account.Frozen ? "dystopia-bank-terminal-unfreeze" : "dystopia-bank-terminal-freeze"),
+                    Text = Loc.GetString(account.Frozen ? "dystopia-bank-terminal-unfreeze" : "dystopia-bank-terminal-freeze").ToUpperInvariant(),
                 };
                 var frozen = account.Frozen;
                 freeze.OnPressed += _ => OnSetFrozen?.Invoke(id, !frozen);

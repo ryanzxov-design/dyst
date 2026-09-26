@@ -32,8 +32,8 @@ public sealed partial class CityLawsUi : UIFragment
 
 public sealed class CityLawsUiFragment : BoxContainer
 {
-    private static readonly Color AccentColor = Color.FromHex("#D9B44A");
-    private static readonly Color DimColor = Color.FromHex("#8A8A8A");
+    private static readonly Color AccentColor = Color.FromHex("#78BEE1");
+    private static readonly Color DimColor = Color.FromHex("#607A92");
 
     private readonly Button _articlesTab;
     private readonly Button _sanctionsTab;

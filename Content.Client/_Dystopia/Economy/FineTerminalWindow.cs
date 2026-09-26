@@ -1,5 +1,6 @@
 using System.Linq;
 using System.Numerics;
+using Content.Client._Dystopia.UserInterface;
 using Content.Shared._Dystopia.Economy;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
@@ -12,16 +13,16 @@ namespace Content.Client._Dystopia.Economy;
 /// Окно штрафного терминала: выбор статьи Свода законов, сумма, пояснение.
 /// После подготовки штрафа терминал применяется на нарушителе.
 /// </summary>
-public sealed class FineTerminalWindow : DefaultWindow
+public sealed class FineTerminalWindow : CityWindow
 {
     public event Action<int, int, string>? OnPrepare;
     public event Action? OnClear;
 
-    private static readonly Color AccentColor = Color.FromHex("#5B8FD9");
-    private static readonly Color DimColor = Color.FromHex("#8A8A8A");
-    private static readonly Color WarnColor = Color.FromHex("#E05A4F");
+    private static readonly Color AccentColor = CityUi.Accent;
+    private static readonly Color DimColor = CityUi.Dim;
+    private static readonly Color WarnColor = CityUi.Danger;
 
-    private readonly OptionButton _lawSelect;
+    private readonly CityDropdown _lawSelect;
     private readonly RichTextLabel _sanction;
     private readonly LineEdit _amount;
     private readonly LineEdit _reason;
@@ -34,9 +35,11 @@ public sealed class FineTerminalWindow : DefaultWindow
 
     public FineTerminalWindow()
     {
-        Title = Loc.GetString("dystopia-fine-terminal-title");
-        MinSize = new Vector2(460, 320);
-        SetSize = new Vector2(500, 340);
+        WindowTitle = Loc.GetString("dystopia-fine-terminal-title");
+        Subtitle = Loc.GetString("dystopia-city-ui-sub-fine");
+        Slogan = Loc.GetString("dystopia-city-ui-slogan-fine");
+        MinSize = new Vector2(500, 440);
+        SetSize = new Vector2(540, 470);
 
         var root = new BoxContainer
         {
@@ -48,11 +51,10 @@ public sealed class FineTerminalWindow : DefaultWindow
         Contents.AddChild(root);
 
         root.AddChild(new Label { Text = Loc.GetString("dystopia-fine-terminal-article"), FontColorOverride = AccentColor });
-        _lawSelect = new OptionButton { HorizontalExpand = true };
-        _lawSelect.OnItemSelected += args =>
+        _lawSelect = new CityDropdown { HorizontalExpand = true };
+        _lawSelect.OnItemSelected += id =>
         {
-            args.Button.SelectId(args.Id);
-            _selectedLawId = args.Id;
+            _selectedLawId = id;
             UpdateSanction();
         };
         root.AddChild(_lawSelect);
@@ -60,13 +62,14 @@ public sealed class FineTerminalWindow : DefaultWindow
         _sanction = new RichTextLabel { HorizontalExpand = true };
         root.AddChild(_sanction);
 
-        _amount = new LineEdit { HorizontalExpand = true, PlaceHolder = Loc.GetString("dystopia-fine-terminal-amount") };
-        _reason = new LineEdit { HorizontalExpand = true, PlaceHolder = Loc.GetString("dystopia-fine-terminal-reason-placeholder") };
+        _amount = new LineEdit { StyleBoxOverride = CityUi.Box(CityUi.Input, CityUi.Line, 1, 6, 3), HorizontalExpand = true, PlaceHolder = Loc.GetString("dystopia-fine-terminal-amount") };
+        _reason = new LineEdit { StyleBoxOverride = CityUi.Box(CityUi.Input, CityUi.Line, 1, 6, 3), HorizontalExpand = true, PlaceHolder = Loc.GetString("dystopia-fine-terminal-reason-placeholder") };
         root.AddChild(_amount);
         root.AddChild(_reason);
 
         var buttons = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Horizontal, SeparationOverride = 6 };
-        var prepare = new Button { Text = Loc.GetString("dystopia-fine-terminal-prepare"), HorizontalExpand = true };
+        var prepare = CityUi.MakeButton(Loc.GetString("dystopia-fine-terminal-prepare"), CityButtonStyle.Primary);
+        prepare.HorizontalExpand = true;
         prepare.OnPressed += _ =>
         {
             if (!int.TryParse(_amount.Text.Trim(), out var amount) || amount <= 0)
@@ -74,7 +77,7 @@ public sealed class FineTerminalWindow : DefaultWindow
 
             OnPrepare?.Invoke(_selectedLawId, amount, _reason.Text);
         };
-        _clear = new Button { Text = Loc.GetString("dystopia-fine-terminal-clear") };
+        _clear = CityUi.MakeButton(Loc.GetString("dystopia-fine-terminal-clear"));
         _clear.OnPressed += _ => OnClear?.Invoke();
         buttons.AddChild(prepare);
         buttons.AddChild(_clear);

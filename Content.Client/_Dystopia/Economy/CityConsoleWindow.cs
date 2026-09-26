@@ -1,8 +1,10 @@
 using System.Linq;
 using System.Numerics;
 using Content.Client._Dystopia.Laws;
+using Content.Client._Dystopia.UserInterface;
 using Content.Shared._Dystopia.Economy;
 using Content.Shared._Dystopia.Laws;
+using Robust.Client.Graphics;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Robust.Client.UserInterface.CustomControls;
@@ -15,7 +17,7 @@ namespace Content.Client._Dystopia.Economy;
 /// Разделы: «Казна», «Положения», «Законы», «Фонды».
 /// Окно собрано в коде (без XAML), чтобы его было проще менять.
 /// </summary>
-public sealed class CityConsoleWindow : DefaultWindow
+public sealed class CityConsoleWindow : CityWindow
 {
     public event Action<string, int, int>? OnSetRates;
     public event Action<int, int, string>? OnBonus;
@@ -28,16 +30,16 @@ public sealed class CityConsoleWindow : DefaultWindow
     public event Action<List<CitySanctionClass>, string>? OnSaveSanctions;
     public event Action<string, int, bool>? OnFundTransfer;
 
-    private static readonly Color AccentColor = Color.FromHex("#B8962E");
-    private static readonly Color DimColor = Color.FromHex("#8A8A8A");
+    private static readonly Color AccentColor = CityUi.Accent;
+    private static readonly Color DimColor = CityUi.Dim;
 
     private readonly Control _treasuryPanel;
     private readonly Control _decreesPanel;
     private readonly Control _lawsPanel;
-    private readonly Button _treasuryTab;
-    private readonly Button _decreesTab;
-    private readonly Button _lawsTab;
-    private readonly Button _fundsTab;
+    private readonly CityButton _treasuryTab;
+    private readonly CityButton _decreesTab;
+    private readonly CityButton _lawsTab;
+    private readonly CityButton _fundsTab;
     private readonly Control _fundsPanel;
     private readonly BoxContainer _fundsList;
     private string _fundsSignature = string.Empty;
@@ -45,10 +47,12 @@ public sealed class CityConsoleWindow : DefaultWindow
     // Казна
     private readonly Label _treasuryLabel;
     private readonly Label _paydayLabel;
+    private readonly Label _accountsCountLabel;
+    private readonly Label _navModeLabel;
     private readonly GridContainer _ratesGrid;
     private readonly Dictionary<string, (LineEdit Salary, LineEdit Tax)> _rateEdits = new();
     private readonly Dictionary<string, (int Salary, int Tax)> _lastServerRates = new();
-    private readonly OptionButton _accountSelect;
+    private readonly CityDropdown _accountSelect;
     private readonly LineEdit _amountEdit;
     private readonly LineEdit _reasonEdit;
     private readonly BoxContainer _logBox;
@@ -66,8 +70,8 @@ public sealed class CityConsoleWindow : DefaultWindow
     private string _modesSignature = string.Empty;
 
     // Законы
-    private readonly Button _articlesSubTab;
-    private readonly Button _sanctionsSubTab;
+    private readonly CityButton _articlesSubTab;
+    private readonly CityButton _sanctionsSubTab;
     private readonly Control _articlesView;
     private readonly Control _sanctionsView;
     private readonly BoxContainer _lawList;
@@ -94,9 +98,11 @@ public sealed class CityConsoleWindow : DefaultWindow
 
     public CityConsoleWindow()
     {
-        Title = Loc.GetString("dystopia-city-console-title");
-        MinSize = new Vector2(820, 560);
-        SetSize = new Vector2(900, 640);
+        WindowTitle = Loc.GetString("dystopia-city-console-title");
+        Subtitle = Loc.GetString("dystopia-city-console-subtitle");
+        Slogan = Loc.GetString("dystopia-city-ui-slogan");
+        MinSize = new Vector2(900, 720);
+        SetSize = new Vector2(980, 780);
 
         var root = new BoxContainer
         {
@@ -111,19 +117,38 @@ public sealed class CityConsoleWindow : DefaultWindow
         var nav = new BoxContainer
         {
             Orientation = BoxContainer.LayoutOrientation.Vertical,
-            MinWidth = 160,
-            SeparationOverride = 4,
+            MinWidth = 180,
+            SeparationOverride = 8,
         };
         root.AddChild(nav);
 
-        _treasuryTab = MakeTab("dystopia-city-console-tab-treasury");
-        _decreesTab = MakeTab("dystopia-city-console-tab-decrees");
-        _lawsTab = MakeTab("dystopia-city-console-tab-laws");
-        _fundsTab = MakeTab("dystopia-city-console-tab-funds");
+        _treasuryTab = MakeTab(1, "dystopia-city-console-tab-treasury");
+        _decreesTab = MakeTab(2, "dystopia-city-console-tab-decrees");
+        _lawsTab = MakeTab(3, "dystopia-city-console-tab-laws");
+        _fundsTab = MakeTab(4, "dystopia-city-console-tab-funds");
         nav.AddChild(_treasuryTab);
         nav.AddChild(_decreesTab);
         nav.AddChild(_lawsTab);
         nav.AddChild(_fundsTab);
+
+        // Действующее положение — внизу навигации
+        nav.AddChild(new Control { VerticalExpand = true });
+        var modeCard = new CityCard();
+        var modeBox = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Vertical, SeparationOverride = 2 };
+        modeBox.AddChild(CityUi.MakeLabel(Loc.GetString("dystopia-city-console-nav-mode").ToUpperInvariant(), CityUi.Dim, CityUi.Regular(10)));
+        _navModeLabel = CityUi.MakeLabel(string.Empty, CityUi.Accent, CityUi.Bold(13));
+        _navModeLabel.ClipText = true;
+        modeBox.AddChild(_navModeLabel);
+        modeCard.AddChild(modeBox);
+        nav.AddChild(modeCard);
+
+        // Вертикальный разделитель между навигацией и содержимым
+        root.AddChild(new PanelContainer
+        {
+            PanelOverride = new StyleBoxFlat { BackgroundColor = CityUi.Line },
+            MinWidth = 1,
+            VerticalExpand = true,
+        });
 
         // --- Правая рабочая область ---
         var content = new Control { HorizontalExpand = true, VerticalExpand = true };
@@ -177,10 +202,16 @@ public sealed class CityConsoleWindow : DefaultWindow
         _fundsTab.OnPressed += _ => SelectTab(3);
 
         // --- Казна: шапка ---
-        _treasuryLabel = new Label { FontColorOverride = AccentColor };
-        _paydayLabel = new Label { FontColorOverride = DimColor };
-        _treasuryPanel.AddChild(_treasuryLabel);
-        _treasuryPanel.AddChild(_paydayLabel);
+        var cards = new BoxContainer
+        {
+            Orientation = BoxContainer.LayoutOrientation.Horizontal,
+            HorizontalExpand = true,
+            SeparationOverride = 10,
+        };
+        _treasuryLabel = AddCard(cards, "dystopia-city-console-card-treasury", "dystopia-city-console-card-treasury-unit", true);
+        _paydayLabel = AddCard(cards, "dystopia-city-console-card-payday", "dystopia-city-console-card-payday-unit", false);
+        _accountsCountLabel = AddCard(cards, "dystopia-city-console-card-accounts", "dystopia-city-console-card-accounts-unit", false);
+        _treasuryPanel.AddChild(cards);
 
         // --- Казна: ставки профессий ---
         _treasuryPanel.AddChild(MakeHeader("dystopia-city-console-rates-header"));
@@ -188,7 +219,7 @@ public sealed class CityConsoleWindow : DefaultWindow
         {
             HScrollEnabled = false,
             VerticalExpand = true,
-            MinHeight = 220,
+            MinHeight = 170,
         };
         _ratesGrid = new GridContainer { Columns = 4, HorizontalExpand = true };
         ratesScroll.AddChild(_ratesGrid);
@@ -196,12 +227,8 @@ public sealed class CityConsoleWindow : DefaultWindow
 
         // --- Казна: премии и изъятия ---
         _treasuryPanel.AddChild(MakeHeader("dystopia-city-console-money-header"));
-        _accountSelect = new OptionButton { HorizontalExpand = true };
-        _accountSelect.OnItemSelected += args =>
-        {
-            args.Button.SelectId(args.Id);
-            _selectedAccount = args.Id;
-        };
+        _accountSelect = new CityDropdown { HorizontalExpand = true };
+        _accountSelect.OnItemSelected += id => _selectedAccount = id;
         _treasuryPanel.AddChild(_accountSelect);
 
         var moneyRow = new BoxContainer
@@ -210,10 +237,10 @@ public sealed class CityConsoleWindow : DefaultWindow
             HorizontalExpand = true,
             SeparationOverride = 6,
         };
-        _amountEdit = new LineEdit { MinWidth = 110, PlaceHolder = Loc.GetString("dystopia-city-console-amount") };
-        _reasonEdit = new LineEdit { HorizontalExpand = true, PlaceHolder = Loc.GetString("dystopia-city-console-reason") };
-        var bonusButton = new Button { Text = Loc.GetString("dystopia-city-console-bonus") };
-        var seizeButton = new Button { Text = Loc.GetString("dystopia-city-console-seize") };
+        _amountEdit = new LineEdit { StyleBoxOverride = CityUi.Box(CityUi.Input, CityUi.Line, 1, 6, 3), MinWidth = 110, PlaceHolder = Loc.GetString("dystopia-city-console-amount") };
+        _reasonEdit = new LineEdit { StyleBoxOverride = CityUi.Box(CityUi.Input, CityUi.Line, 1, 6, 3), HorizontalExpand = true, PlaceHolder = Loc.GetString("dystopia-city-console-reason") };
+        var bonusButton = CityUi.MakeButton(Loc.GetString("dystopia-city-console-bonus"), CityButtonStyle.Primary);
+        var seizeButton = CityUi.MakeButton(Loc.GetString("dystopia-city-console-seize"), CityButtonStyle.Danger);
         bonusButton.OnPressed += _ => SendMoney(true);
         seizeButton.OnPressed += _ => SendMoney(false);
         moneyRow.AddChild(_amountEdit);
@@ -224,10 +251,13 @@ public sealed class CityConsoleWindow : DefaultWindow
 
         // --- Казна: журнал ---
         _treasuryPanel.AddChild(MakeHeader("dystopia-city-console-log-header"));
-        var logScroll = new ScrollContainer { HScrollEnabled = false, MinHeight = 120 };
+        var logScroll = new ScrollContainer { HScrollEnabled = false, MinHeight = 100, VerticalExpand = true };
         _logBox = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Vertical, HorizontalExpand = true };
         logScroll.AddChild(_logBox);
-        _treasuryPanel.AddChild(logScroll);
+        var logPanel = CityUi.MakePanel(CityUi.Input, CityUi.Line, 8);
+        logPanel.VerticalExpand = true;
+        logPanel.AddChild(logScroll);
+        _treasuryPanel.AddChild(logPanel);
 
         // --- Положения ---
         _currentModeLabel = new Label();
@@ -252,11 +282,11 @@ public sealed class CityConsoleWindow : DefaultWindow
             SeparationOverride = 6,
         };
         _announceEdit = new LineEdit
-        {
+        { StyleBoxOverride = CityUi.Box(CityUi.Input, CityUi.Line, 1, 6, 3),
             HorizontalExpand = true,
             PlaceHolder = Loc.GetString("dystopia-city-console-announce-placeholder"),
         };
-        _announceButton = new Button { Text = Loc.GetString("dystopia-city-console-announce-button") };
+        _announceButton = new CityButton(Loc.GetString("dystopia-city-console-announce-button").ToUpperInvariant(), CityButtonStyle.Normal) { };
         _announceButton.OnPressed += _ =>
         {
             var text = _announceEdit.Text.Trim();
@@ -275,8 +305,10 @@ public sealed class CityConsoleWindow : DefaultWindow
 
         // --- Законы ---
         var subTabs = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Horizontal, HorizontalExpand = true };
-        _articlesSubTab = new Button { Text = Loc.GetString("dystopia-laws-tab-articles"), ToggleMode = true, HorizontalExpand = true };
-        _sanctionsSubTab = new Button { Text = Loc.GetString("dystopia-laws-tab-sanctions-scale"), ToggleMode = true, HorizontalExpand = true };
+        _articlesSubTab = CityUi.MakeButton(Loc.GetString("dystopia-laws-tab-articles"), CityButtonStyle.Tab);
+        _articlesSubTab.HorizontalExpand = true;
+        _sanctionsSubTab = CityUi.MakeButton(Loc.GetString("dystopia-laws-tab-sanctions-scale"), CityButtonStyle.Tab);
+        _sanctionsSubTab.HorizontalExpand = true;
         subTabs.AddChild(_articlesSubTab);
         subTabs.AddChild(_sanctionsSubTab);
         lawsPanel.AddChild(subTabs);
@@ -306,7 +338,7 @@ public sealed class CityConsoleWindow : DefaultWindow
         _lawList = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Vertical, HorizontalExpand = true, SeparationOverride = 2 };
         listScroll.AddChild(_lawList);
         listColumn.AddChild(listScroll);
-        var newLaw = new Button { Text = Loc.GetString("dystopia-city-console-law-new") };
+        var newLaw = new CityButton(Loc.GetString("dystopia-city-console-law-new").ToUpperInvariant(), CityButtonStyle.Normal) { };
         newLaw.OnPressed += _ =>
         {
             _selectNewestLaw = true;
@@ -339,14 +371,14 @@ public sealed class CityConsoleWindow : DefaultWindow
 
         var numberRow = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Horizontal, HorizontalExpand = true, SeparationOverride = 6 };
         numberRow.AddChild(new Label { Text = Loc.GetString("dystopia-city-console-law-number") });
-        _lawNumber = new LineEdit { MinWidth = 60 };
+        _lawNumber = new LineEdit { StyleBoxOverride = CityUi.Box(CityUi.Input, CityUi.Line, 1, 6, 3), MinWidth = 60 };
         numberRow.AddChild(_lawNumber);
         _lawEnacted = new Label { FontColorOverride = DimColor, HorizontalExpand = true };
         numberRow.AddChild(_lawEnacted);
         _lawEditor.AddChild(numberRow);
 
         _lawEditor.AddChild(new Label { Text = Loc.GetString("dystopia-city-console-law-title") });
-        _lawTitle = new LineEdit { HorizontalExpand = true };
+        _lawTitle = new LineEdit { StyleBoxOverride = CityUi.Box(CityUi.Input, CityUi.Line, 1, 6, 3), HorizontalExpand = true };
         _lawEditor.AddChild(_lawTitle);
 
         _lawEditor.AddChild(new Label { Text = Loc.GetString("dystopia-city-console-law-text") });
@@ -354,13 +386,13 @@ public sealed class CityConsoleWindow : DefaultWindow
         _lawEditor.AddChild(_lawText);
 
         _lawEditor.AddChild(new Label { Text = Loc.GetString("dystopia-city-console-law-sanction") });
-        _lawSanction = new LineEdit { HorizontalExpand = true };
+        _lawSanction = new LineEdit { StyleBoxOverride = CityUi.Box(CityUi.Input, CityUi.Line, 1, 6, 3), HorizontalExpand = true };
         _lawEditor.AddChild(_lawSanction);
 
         var lawButtons = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Horizontal, HorizontalExpand = true, SeparationOverride = 6 };
-        var saveLaw = new Button { Text = Loc.GetString("dystopia-city-console-law-save"), HorizontalExpand = true };
+        var saveLaw = new CityButton(Loc.GetString("dystopia-city-console-law-save").ToUpperInvariant(), CityButtonStyle.Normal) { HorizontalExpand = true };
         saveLaw.OnPressed += _ => SaveSelectedLaw();
-        _lawDelete = new Button { Text = Loc.GetString("dystopia-city-console-law-delete") };
+        _lawDelete = CityUi.MakeButton(Loc.GetString("dystopia-city-console-law-delete"), CityButtonStyle.Danger);
         _lawDelete.OnPressed += _ => DeleteSelectedLaw();
         lawButtons.AddChild(saveLaw);
         lawButtons.AddChild(_lawDelete);
@@ -380,9 +412,9 @@ public sealed class CityConsoleWindow : DefaultWindow
         _sanctionsGrid = new GridContainer { Columns = 3, HorizontalExpand = true };
         sanctionsView.AddChild(_sanctionsGrid);
         sanctionsView.AddChild(new Label { Text = Loc.GetString("dystopia-laws-general-provision"), FontColorOverride = AccentColor });
-        _generalProvision = new LineEdit { HorizontalExpand = true };
+        _generalProvision = new LineEdit { StyleBoxOverride = CityUi.Box(CityUi.Input, CityUi.Line, 1, 6, 3), HorizontalExpand = true };
         sanctionsView.AddChild(_generalProvision);
-        var saveSanctions = new Button { Text = Loc.GetString("dystopia-city-console-sanctions-save") };
+        var saveSanctions = new CityButton(Loc.GetString("dystopia-city-console-sanctions-save").ToUpperInvariant(), CityButtonStyle.Normal) { };
         saveSanctions.OnPressed += _ => SaveSanctions();
         sanctionsView.AddChild(saveSanctions);
 
@@ -397,24 +429,44 @@ public sealed class CityConsoleWindow : DefaultWindow
     {
         _articlesView.Visible = !sanctions;
         _sanctionsView.Visible = sanctions;
-        _articlesSubTab.Pressed = !sanctions;
-        _sanctionsSubTab.Pressed = sanctions;
+        _articlesSubTab.Active = !sanctions;
+        _sanctionsSubTab.Active = sanctions;
     }
 
-    private static Button MakeTab(string loc)
+    private static CityButton MakeTab(int number, string loc)
     {
-        return new Button
-        {
-            Text = Loc.GetString(loc),
-            ToggleMode = true,
-            HorizontalExpand = true,
-            MinHeight = 36,
-        };
+        var button = CityUi.MakeButton($"{number:00}   {Loc.GetString(loc)}", CityButtonStyle.Tab);
+        button.HorizontalExpand = true;
+        return button;
     }
 
-    private static Label MakeHeader(string loc)
+    private static Control MakeHeader(string loc)
     {
-        return new Label { Text = Loc.GetString(loc), FontColorOverride = AccentColor, Margin = new Thickness(0, 6, 0, 0) };
+        return CityUi.SectionHeader(Loc.GetString(loc));
+    }
+
+    /// <summary>Карточка-показатель: подпись, крупное значение, единица измерения. Возвращает метку значения.</summary>
+    private static Label AddCard(BoxContainer row, string captionLoc, string unitLoc, bool highlight)
+    {
+        var card = new CityCard { HorizontalExpand = true };
+        var box = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Vertical, SeparationOverride = 2 };
+        box.AddChild(CityUi.MakeLabel(Loc.GetString(captionLoc).ToUpperInvariant(), CityUi.Dim, CityUi.Regular(10)));
+        var valueRow = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Horizontal, SeparationOverride = 6 };
+        var value = CityUi.MakeLabel("—", highlight ? CityUi.Glow : CityUi.Text, CityUi.Bold(20));
+        valueRow.AddChild(value);
+        var unit = CityUi.MakeLabel(Loc.GetString(unitLoc), CityUi.Muted, CityUi.Regular(10));
+        unit.VerticalAlignment = VAlignment.Bottom;
+        unit.Margin = new Thickness(0, 0, 0, 4);
+        valueRow.AddChild(unit);
+        box.AddChild(valueRow);
+        card.AddChild(box);
+        row.AddChild(card);
+        return value;
+    }
+
+    private static string FormatNumber(int value)
+    {
+        return value.ToString("#,0", System.Globalization.CultureInfo.InvariantCulture).Replace(',', ' ');
     }
 
     private void SelectTab(int index)
@@ -423,10 +475,10 @@ public sealed class CityConsoleWindow : DefaultWindow
         _decreesPanel.Visible = index == 1;
         _lawsPanel.Visible = index == 2;
         _fundsPanel.Visible = index == 3;
-        _treasuryTab.Pressed = index == 0;
-        _decreesTab.Pressed = index == 1;
-        _lawsTab.Pressed = index == 2;
-        _fundsTab.Pressed = index == 3;
+        _treasuryTab.Active = index == 0;
+        _decreesTab.Active = index == 1;
+        _lawsTab.Active = index == 2;
+        _fundsTab.Active = index == 3;
     }
 
     private void SendMoney(bool bonus)
@@ -446,9 +498,9 @@ public sealed class CityConsoleWindow : DefaultWindow
 
     public void UpdateState(CityConsoleBoundUserInterfaceState state)
     {
-        _treasuryLabel.Text = Loc.GetString("dystopia-city-console-treasury", ("amount", state.Treasury));
-        _paydayLabel.Text = Loc.GetString("dystopia-city-console-payday",
-            ("minutes", state.SecondsToPayday / 60), ("seconds", (state.SecondsToPayday % 60).ToString("00")));
+        _treasuryLabel.Text = FormatNumber(state.Treasury);
+        _paydayLabel.Text = $"{state.SecondsToPayday / 60:00}:{state.SecondsToPayday % 60:00}";
+        _accountsCountLabel.Text = state.Accounts.Count.ToString();
 
         UpdateRates(state.Jobs);
         UpdateAccounts(state.Accounts);
@@ -484,9 +536,9 @@ public sealed class CityConsoleWindow : DefaultWindow
                 _fundBalances[id] = balance;
 
                 var row = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Horizontal, SeparationOverride = 6 };
-                var amount = new LineEdit { MinWidth = 120, PlaceHolder = Loc.GetString("dystopia-city-console-amount") };
-                var toFund = new Button { Text = Loc.GetString("dystopia-city-console-fund-deposit") };
-                var fromFund = new Button { Text = Loc.GetString("dystopia-city-console-fund-withdraw") };
+                var amount = new LineEdit { StyleBoxOverride = CityUi.Box(CityUi.Input, CityUi.Line, 1, 6, 3), MinWidth = 120, PlaceHolder = Loc.GetString("dystopia-city-console-amount") };
+                var toFund = new CityButton(Loc.GetString("dystopia-city-console-fund-deposit").ToUpperInvariant(), CityButtonStyle.Normal) { };
+                var fromFund = new CityButton(Loc.GetString("dystopia-city-console-fund-withdraw").ToUpperInvariant(), CityButtonStyle.Normal) { };
                 toFund.OnPressed += _ =>
                 {
                     if (int.TryParse(amount.Text.Trim(), out var value) && value > 0)
@@ -574,13 +626,11 @@ public sealed class CityConsoleWindow : DefaultWindow
         foreach (var law in _laws)
         {
             var id = law.Id;
-            var button = new Button
+            var button = new CityButton(Loc.GetString("dystopia-laws-article-header", ("number", law.Number), ("title", law.Title)), CityButtonStyle.Tab)
             {
-                Text = Loc.GetString("dystopia-laws-article-header", ("number", law.Number), ("title", law.Title)),
-                ToggleMode = true,
-                Pressed = id == _selectedLawId,
+                Active = id == _selectedLawId,
                 HorizontalExpand = true,
-                ClipText = true,
+                Marquee = true,
             };
             button.OnPressed += _ => SelectLaw(id);
             _lawList.AddChild(button);
@@ -591,7 +641,7 @@ public sealed class CityConsoleWindow : DefaultWindow
     {
         _selectedLawId = id;
         _deleteArmed = false;
-        _lawDelete.Text = Loc.GetString("dystopia-city-console-law-delete");
+        _lawDelete.Text = Loc.GetString("dystopia-city-console-law-delete").ToUpperInvariant();
 
         var law = _laws.FirstOrDefault(l => l.Id == id);
         _lawEditor.Visible = law != null;
@@ -632,12 +682,12 @@ public sealed class CityConsoleWindow : DefaultWindow
         if (!_deleteArmed)
         {
             _deleteArmed = true;
-            _lawDelete.Text = Loc.GetString("dystopia-city-console-law-delete-confirm");
+            _lawDelete.Text = Loc.GetString("dystopia-city-console-law-delete-confirm").ToUpperInvariant();
             return;
         }
 
         _deleteArmed = false;
-        _lawDelete.Text = Loc.GetString("dystopia-city-console-law-delete");
+        _lawDelete.Text = Loc.GetString("dystopia-city-console-law-delete").ToUpperInvariant();
         OnDeleteLaw?.Invoke(_selectedLawId);
     }
 
@@ -655,8 +705,8 @@ public sealed class CityConsoleWindow : DefaultWindow
 
             foreach (var sanction in state.Sanctions)
             {
-                var legal = new LineEdit { HorizontalExpand = true, Text = sanction.Legal };
-                var disciplinary = new LineEdit { HorizontalExpand = true, Text = sanction.Disciplinary };
+                var legal = new LineEdit { StyleBoxOverride = CityUi.Box(CityUi.Input, CityUi.Line, 1, 6, 3), HorizontalExpand = true, Text = sanction.Legal };
+                var disciplinary = new LineEdit { StyleBoxOverride = CityUi.Box(CityUi.Input, CityUi.Line, 1, 6, 3), HorizontalExpand = true, Text = sanction.Disciplinary };
                 _sanctionsGrid.AddChild(new Label { Text = sanction.Class, FontColorOverride = AccentColor, MinWidth = 50 });
                 _sanctionsGrid.AddChild(legal);
                 _sanctionsGrid.AddChild(disciplinary);
@@ -704,6 +754,8 @@ public sealed class CityConsoleWindow : DefaultWindow
         if (current != null)
         {
             _currentModeLabel.Text = Loc.GetString("dystopia-city-console-current-mode", ("name", current.Name));
+            _navModeLabel.Text = current.Name.ToUpperInvariant();
+            _navModeLabel.FontColorOverride = current.Color;
             _currentModeLabel.FontColorOverride = current.Color;
             _modeInfo.SetMessage(current.Instructions, DimColor);
         }
@@ -736,13 +788,12 @@ public sealed class CityConsoleWindow : DefaultWindow
         foreach (var mode in state.Modes)
         {
             var id = mode.Id;
-            var button = new Button
+            var button = new CityButton(mode.Name.ToUpperInvariant(), mode.Id == state.CurrentMode ? CityButtonStyle.Primary : CityButtonStyle.Normal)
             {
-                Text = mode.Name,
                 HorizontalExpand = true,
                 MinHeight = 32,
                 Disabled = mode.Id == state.CurrentMode,
-                ModulateSelfOverride = mode.Color,
+                TextColor = mode.Color,
             };
             button.OnPressed += _ => OnSetMode?.Invoke(id);
             _modeButtons.AddChild(button);
@@ -766,9 +817,9 @@ public sealed class CityConsoleWindow : DefaultWindow
 
             foreach (var job in jobs)
             {
-                var salaryEdit = new LineEdit { MinWidth = 90, Text = job.Salary.ToString() };
-                var taxEdit = new LineEdit { MinWidth = 60, Text = job.Tax.ToString() };
-                var save = new Button { Text = Loc.GetString("dystopia-city-console-save") };
+                var salaryEdit = new LineEdit { StyleBoxOverride = CityUi.Box(CityUi.Input, CityUi.Line, 1, 6, 3), MinWidth = 90, Text = job.Salary.ToString() };
+                var taxEdit = new LineEdit { StyleBoxOverride = CityUi.Box(CityUi.Input, CityUi.Line, 1, 6, 3), MinWidth = 60, Text = job.Tax.ToString() };
+                var save = new CityButton(Loc.GetString("dystopia-city-console-save").ToUpperInvariant(), CityButtonStyle.Normal) { };
                 var jobId = job.JobId;
 
                 save.OnPressed += _ =>
@@ -856,7 +907,13 @@ public sealed class CityConsoleWindow : DefaultWindow
 
         foreach (var line in log)
         {
-            _logBox.AddChild(new Label { Text = line });
+            _logBox.AddChild(new Label
+            {
+                Text = line,
+                FontOverride = CityUi.Mono(11),
+                ClipText = true,
+                FontColorOverride = _logBox.ChildCount == 0 ? CityUi.Text : CityUi.Dim,
+            });
         }
     }
 }
