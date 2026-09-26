@@ -1,0 +1,11 @@
+# Шейдеры Dystopia (экранные эффекты).
+
+- type: shader
+  id: DystopiaCityGrade
+  kind: source
+  path: "/Textures/Shaders/_Dystopia/city_grade.swsl"
+
+- type: shader
+  id: DystopiaVisor
+  kind: source
+  path: "/Textures/Shaders/_Dystopia/visor.swsl"

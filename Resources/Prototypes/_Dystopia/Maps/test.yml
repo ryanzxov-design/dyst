@@ -21,7 +21,7 @@
           mapNameTemplate: 'Город'
         - type: StationBiome
           biome: TerraPlanet
-          mapLightColor: "#1A1410FF"
+          mapLightColor: "#10161EFF" # холодная тусклая темнота вместо тёплой (была #1A1410FF)
         - type: StationJobs
           availableJobs:
             # Администрация

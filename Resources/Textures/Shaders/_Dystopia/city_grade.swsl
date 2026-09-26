@@ -1,0 +1,36 @@
+// Dystopia: «картинка Города» — мягкая выборочная цветокоррекция.
+// Гасит в первую очередь ТЁПЛЫЕ цвета (кирпич, дерево, ржавчина), холодные почти не трогает.
+// Яркие насыщенные источники (лампы, экраны, кровь) не трогает — они остаются живыми акцентами.
+// Холодит только средние тона: чёрное остаётся чёрным, белое — белым. Яркость не меняется.
+
+uniform sampler2D SCREEN_TEXTURE;
+uniform highp float baseDesaturation; // приглушение всех цветов
+uniform highp float warmDesaturation; // дополнительное приглушение тёплых цветов
+uniform highp float coldness;         // холодный сдвиг средних тонов
+
+void fragment() {
+    highp vec4 src = zTextureSpec(SCREEN_TEXTURE, UV);
+    highp vec3 c = src.rgb;
+
+    highp float lum = zGrayscale(c);
+    highp float mx = max(c.r, max(c.g, c.b));
+    highp float mn = min(c.r, min(c.g, c.b));
+    highp float sat = mx > 0.0 ? (mx - mn) / mx : 0.0;
+
+    // Тёплый пиксель — красного больше, чем синего.
+    highp float warm = clamp((c.r - c.b) * 2.5, 0.0, 1.0);
+
+    // Яркие насыщенные пиксели — источники света и экраны: их не трогаем.
+    highp float protect = smoothstep(0.55, 0.9, mx) * smoothstep(0.35, 0.7, sat);
+
+    highp float amount = (baseDesaturation + warmDesaturation * warm) * (1.0 - protect);
+    c = mix(c, vec3(lum), amount);
+
+    // Холодный сдвиг только средних тонов, с сохранением яркости.
+    highp float mid = smoothstep(0.04, 0.25, lum) * (1.0 - smoothstep(0.75, 1.0, lum));
+    highp vec3 cold = c * vec3(0.93, 1.00, 1.08);
+    cold *= zGrayscale(c) / max(zGrayscale(cold), 0.0001);
+    c = mix(c, cold, coldness * mid);
+
+    COLOR = vec4(clamp(c, 0.0, 1.0), src.a);
+}

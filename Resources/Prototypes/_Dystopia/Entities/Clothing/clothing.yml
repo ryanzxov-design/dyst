@@ -137,6 +137,21 @@
     protectionTime: 5
 
 # --- Пояс и РПС Стражи ---
+  # Визор: синяя монохромная картинка (яркость сохраняется), резкость, полоски
+  - type: DystopiaVisor
+    tint: "#2F86FF"
+    centerStrength: 0
+    edgeStrength: 0
+    haze: 0
+    darken: 0
+    monochrome: 0.9
+    sharpen: 0.6
+    brightness: 0.1
+    centerRelief: 0.08
+    scanlines: 1
+    linePeriod: 6
+    lineStrength: 0.3
+
 - type: entity
   parent: ClothingBeltSecurity
   id: DystopiaClothingBeltGuard
@@ -196,12 +211,27 @@
     sprite: _Dystopia/Clothing/Mask/gas_sanitary.rsi
   - type: Clothing
     sprite: _Dystopia/Clothing/Mask/gas_sanitary.rsi
+  # Взгляд через зелёные стёкла
+  - type: DystopiaVisor
+    tint: "#52956A"
+    centerStrength: 0.12
+    edgeStrength: 0.7
+    haze: 0.12
+    darken: 0.15
 
 - type: entity
   parent: ClothingMaskGasMerc
   id: DystopiaClothingMaskGasField
   name: полевой противогаз
   description: Грубый, но надёжный противогаз для работы в очагах заразы и за стенами Города.
+  components:
+  # Взгляд через жёлтые стёкла — грубое стекло, мутнее
+  - type: DystopiaVisor
+    tint: "#C2CB48"
+    centerStrength: 0.15
+    edgeStrength: 0.75
+    haze: 0.18
+    darken: 0.2
 
 - type: entity
   parent: ClothingMaskGasExplorer
@@ -213,3 +243,11 @@
     sprite: _Dystopia/Clothing/Mask/gas_science.rsi
   - type: Clothing
     sprite: _Dystopia/Clothing/Mask/gas_science.rsi
+  # Взгляд через фиолетовые стёкла — широкий обзор, почти без мути
+  - type: DystopiaVisor
+    tint: "#846D98"
+    centerStrength: 0.1
+    edgeStrength: 0.6
+    haze: 0.06
+    darken: 0.1
+

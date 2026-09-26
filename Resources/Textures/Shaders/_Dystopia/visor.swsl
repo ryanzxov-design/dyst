@@ -1,0 +1,78 @@
+// Dystopia: взгляд через маску.
+// Противогазы: цвет стёкол слабый в центре и сильнее к краям экрана (по кругу), лёгкая мутность стекла.
+// Маска Стражи: синий монохромный визор с сохранением яркости, резкостью и полосками.
+
+uniform sampler2D SCREEN_TEXTURE;
+uniform highp vec3 tint;            // цвет стёкол
+uniform highp float centerStrength; // сила цвета в центре экрана
+uniform highp float edgeStrength;   // сила цвета у краёв экрана
+uniform highp float haze;           // мутность стекла
+uniform highp float darken;         // лёгкое затемнение у самых краёв
+uniform highp float monochrome;     // 0..1 — перевод картинки в оттенки цвета стёкол (визор Стражи)
+uniform highp float sharpen;        // 0..1 — усиление резкости краёв (детали читаются в монохроме)
+uniform highp float brightness;     // подъём яркости визора (0 — как без маски)
+uniform highp float centerRelief;   // насколько визор слабее в центре экрана (0 — одинаково везде)
+uniform highp float scanlines;      // 0..1 — полоски визора (вкл/сила)
+uniform highp float linePeriod;     // шаг полосок в пикселях экрана
+uniform highp float lineStrength;   // затемнение тёмной полоски
+
+void fragment() {
+    highp vec2 px = SCREEN_PIXEL_SIZE;
+    highp vec4 src = zTextureSpec(SCREEN_TEXTURE, UV);
+    highp vec3 c = src.rgb;
+
+    // Резкость: усиливаем разницу с соседями — контуры читаются даже без цвета
+    if (sharpen > 0.0) {
+        highp vec3 blur = zTextureSpec(SCREEN_TEXTURE, UV + vec2(px.x, 0.0)).rgb;
+        blur += zTextureSpec(SCREEN_TEXTURE, UV - vec2(px.x, 0.0)).rgb;
+        blur += zTextureSpec(SCREEN_TEXTURE, UV + vec2(0.0, px.y)).rgb;
+        blur += zTextureSpec(SCREEN_TEXTURE, UV - vec2(0.0, px.y)).rgb;
+        c = clamp(c + (c - blur * 0.25) * sharpen, 0.0, 1.0);
+    }
+
+    // Мутность стекла
+    if (haze > 0.0) {
+        highp vec3 avg = zTextureSpec(SCREEN_TEXTURE, UV + vec2(px.x * 2.0, 0.0)).rgb;
+        avg += zTextureSpec(SCREEN_TEXTURE, UV - vec2(px.x * 2.0, 0.0)).rgb;
+        avg += zTextureSpec(SCREEN_TEXTURE, UV + vec2(0.0, px.y * 2.0)).rgb;
+        avg += zTextureSpec(SCREEN_TEXTURE, UV - vec2(0.0, px.y * 2.0)).rgb;
+        c = mix(c, avg * 0.25, haze);
+    }
+
+    // Расстояние от центра экрана по кругу: 0 — центр, 1 — угол экрана
+    highp float aspect = px.y / px.x;
+    highp vec2 p = vec2((UV.x - 0.5) * aspect, UV.y - 0.5);
+    highp float r = length(p) / (0.5 * sqrt(aspect * aspect + 1.0));
+
+    highp vec3 t = tint / max(max(tint.r, tint.g), max(tint.b, 0.001));
+    highp float lum = zGrayscale(c);
+
+    // Визор Стражи: монохром в цвет стёкол с СОХРАНЕНИЕМ воспринимаемой яркости (+ небольшой подъём)
+    if (monochrome > 0.0) {
+        highp float lumb = clamp(lum * (1.0 + brightness) + brightness * 0.3, 0.0, 1.0);
+        highp vec3 dark = tint * 0.15;
+        highp vec3 mid = mix(tint, vec3(1.0), 0.1);
+        highp vec3 bright = mix(tint, vec3(1.0), 0.8);
+        highp vec3 ramp = lumb < 0.5 ? mix(dark, mid, lumb * 2.0) : mix(mid, bright, (lumb - 0.5) * 2.0);
+        ramp *= lumb / max(zGrayscale(ramp), 0.0001);
+        highp float mono = monochrome * (1.0 - centerRelief * (1.0 - smoothstep(0.1, 0.9, r)));
+        c = mix(c, clamp(ramp, 0.0, 1.0), mono);
+    }
+
+    // Цвет стёкол: слабый в центре, сильный к краям
+    highp float amount = mix(centerStrength, edgeStrength, smoothstep(0.12, 0.95, r));
+    highp vec3 tinted = (c * t) * 1.12 + tint * 0.10;
+    c = mix(c, tinted, amount);
+
+    // Лёгкое затемнение у самых краёв (оправа стекла)
+    c *= 1.0 - darken * smoothstep(0.7, 1.05, r);
+
+    // Полоски визора: тёмная и светлая чередуются — средняя яркость не падает
+    if (scanlines > 0.0) {
+        highp float phase = fract(FRAGCOORD.y / max(linePeriod, 2.0));
+        highp float k = phase < 0.34 ? 1.0 - lineStrength * 0.53 : (phase < 0.67 ? 1.0 : 1.0 + lineStrength * 0.27);
+        c *= mix(1.0, k, scanlines);
+    }
+
+    COLOR = vec4(clamp(c, 0.0, 1.0), src.a);
+}
