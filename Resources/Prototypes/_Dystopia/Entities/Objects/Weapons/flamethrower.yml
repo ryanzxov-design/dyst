@@ -1,0 +1,191 @@
+# Ранцевый огнемёт Дезинфектора (по мотивам ЛПО-50): баллоны на спине + брандспойт в руках.
+# Работает на сварочном топливе. Пары топлива поджигают пол по пути струи и цели при попадании.
+# Заправка — как у ранцевого бака для воды: приложить к цистерне с топливом.
+
+- type: Tag
+  id: DystopiaFlamethrowerNozzle
+
+- type: Tag
+  id: DystopiaFlamethrowerTank
+
+# --- Брандспойт ---
+- type: entity
+  parent: BaseItem
+  id: DystopiaFlamethrower
+  name: "огнемёт дезинфектора"
+  description: "Брандспойт ранцевого огнемёта с запальником. Работает только от баллонов на спине."
+  components:
+  - type: Tag
+    tags:
+    - DystopiaFlamethrowerNozzle
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/flamethrower.rsi
+    layers:
+    - state: icon
+    - state: icon-pilot
+      shader: unshaded
+  - type: Item
+    sprite: _Dystopia/Objects/Weapons/flamethrower.rsi
+    size: Large
+  - type: Gun
+    cameraRecoilScalar: 0
+    fireRate: 8
+    projectileSpeed: 9
+    minAngle: 4
+    maxAngle: 16
+    angleIncrease: 1
+    angleDecay: 12
+    selectedMode: FullAuto
+    availableModes:
+    - FullAuto
+    soundGunshot:
+      path: /Audio/Effects/fire.ogg
+      params:
+        volume: -8
+        variation: 0.15
+    soundEmpty:
+      path: /Audio/Items/hiss.ogg
+      params:
+        volume: -6
+  - type: Appearance
+  - type: ClothingSlotAmmoProvider
+  - type: SlotBasedConnectedContainer
+    targetSlot: BACK
+    containerWhitelist:
+      tags:
+      - DystopiaFlamethrowerTank
+  - type: PointLight
+    radius: 1.1
+    energy: 1.2
+    color: "#FF9A40"
+    castShadows: false
+
+# --- Баллоны на спину (пустые) ---
+- type: entity
+  parent: [SolutionTank, SolutionGinormous, Clothing, ClothingSlotBase]
+  id: DystopiaFlamethrowerTank
+  name: "баллоны ранцевого огнемёта"
+  description: "Три баллона с топливом на ремнях. Сбоку крепление для брандспойта."
+  components:
+  - type: Tag
+    tags:
+    - DystopiaFlamethrowerTank
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/flamethrower_tank.rsi
+    state: icon
+  - type: Item
+    size: Ginormous
+  - type: Clothing
+    slots: BACK
+    sprite: _Dystopia/Objects/Weapons/flamethrower_tank.rsi
+  - type: Solution
+    solution:
+      maxVol: 300
+  - type: ItemSlots
+    slots:
+      item:
+        priority: 2
+        whitelist:
+          tags:
+          - DystopiaFlamethrowerNozzle
+  - type: ItemMapper
+    mapLayers:
+      icon-filled:
+        whitelist:
+          tags:
+          - DystopiaFlamethrowerNozzle
+  - type: Appearance
+  - type: SolutionAmmoProvider
+    solutionId: tank
+    proto: DystopiaFlameShot
+    fireCost: 2
+  - type: SolutionTransfer
+    transferAmount: 50
+    maxTransferAmount: 100
+    minTransferAmount: 10
+    canChangeTransferAmount: true
+  - type: UserInterface
+    interfaces:
+      enum.TransferAmountUiKey.Key:
+        type: TransferAmountBoundUserInterface
+  - type: DrawableSolution
+    solution: tank
+  - type: RefillableSolution
+    solution: tank
+  - type: DrainableSolution
+    solution: tank
+  - type: ExaminableSolution
+    solution: tank
+    exactVolume: true
+
+# --- Баллоны заправленные, с брандспойтом в креплении ---
+- type: entity
+  parent: DystopiaFlamethrowerTank
+  id: DystopiaFlamethrowerTankFilled
+  suffix: Заправлен
+  components:
+  - type: Solution
+    solution:
+      maxVol: 300
+      reagents:
+      - ReagentId: WeldingFuel
+        Quantity: 300
+  - type: ItemSlots
+    slots:
+      item:
+        priority: 2
+        startingItem: DystopiaFlamethrower
+        whitelist:
+          tags:
+          - DystopiaFlamethrowerNozzle
+
+# --- Струя пламени ---
+# Короткоживущие пары топлива: поджигают пол по пути (FlammableTileReaction топлива)
+# и поджигают того, в кого попали.
+- type: entity
+  parent: [ SolutionVapor, SolutionSmall ]
+  id: DystopiaFlameShot
+  categories: [ HideSpawnMenu ]
+  name: "пламя"
+  components:
+  - type: Physics
+    bodyType: Dynamic
+  - type: TileFrictionModifier
+    modifier: 0
+  - type: TimedDespawn
+    lifetime: 0.45
+  - type: Projectile
+    damage:
+      types:
+        Heat: 4
+  - type: Sprite
+    noRot: false
+    sprite: _Dystopia/Objects/Weapons/flame_shot.rsi
+    layers:
+    - state: flame
+      shader: unshaded
+  - type: Ammo
+    muzzleFlash: null
+  - type: Fixtures
+    fixtures:
+      projectile:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.15,-0.30,0.15,0.20"
+        hard: false
+        mask:
+        - Impassable
+        - BulletImpassable
+  - type: Vapor
+    active: true
+    transferAmountPercentage: 1
+  - type: Appearance
+  - type: IgnitionSource
+    temperature: 700
+    ignited: true
+  - type: IgniteOnCollide
+    fireStacks: 0.6
+  - type: PointLight
+    radius: 2
+    energy: 3
+    color: "#FF8C3A"
+    castShadows: false

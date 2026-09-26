@@ -79,13 +79,18 @@
   - type: Clothing
     sprite: _Dystopia/Clothing/Head/guard_beret.rsi
 
-# --- Броня Санитарной и Научной служб (пока с ванильным видом) ---
+# --- Броня Санитарной и Научной служб ---
+# Дезинфектор: прорезиненный костюм по мотивам Л-1 с резиновым фартуком.
 - type: entity
   parent: ClothingOuterSuitFire
   id: DystopiaClothingOuterDisinfectorSuit
   name: костюм дезинфектора
   description: Тяжёлый защитный костюм. Держит огонь собственного огнемёта и едкие выделения плоти.
   components:
+  - type: Sprite
+    sprite: _Dystopia/Clothing/OuterClothing/disinfector.rsi
+  - type: Clothing
+    sprite: _Dystopia/Clothing/OuterClothing/disinfector.rsi
   - type: Armor
     modifiers:
       coefficients:
@@ -99,12 +104,17 @@
     walkModifier: 0.85
     sprintModifier: 0.85
 
+# Патобиолог: герметичный холодно-белый костюм с молнией и фиолетовыми вставками Науки.
 - type: entity
   parent: ClothingOuterBioScientist
   id: DystopiaClothingOuterPathobiologistSuit
   name: костюм патобиолога
   description: Герметичный лабораторный костюм для работы с образцами заражённой плоти.
   components:
+  - type: Sprite
+    sprite: _Dystopia/Clothing/OuterClothing/pathobiologist.rsi
+  - type: Clothing
+    sprite: _Dystopia/Clothing/OuterClothing/pathobiologist.rsi
   - type: Armor
     modifiers:
       coefficients:
