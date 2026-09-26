@@ -1,26 +1,53 @@
 # Вексельный принтер Гражданского Инспектора: печатает векселя из Фонда поощрений.
 
 - type: entity
-  parent: BaseComputer
+  parent: [ BaseMachinePowered, BaseMachineDestructible ]
   id: ComputerDystopiaVexelPrinter
   name: "вексельный принтер"
   description: "Печатает векселя Города на предъявителя. Деньги берутся из Фонда поощрений."
   components:
   - type: Sprite
+    sprite: _Dystopia/Structures/Machines/vexel_printer.rsi
     layers:
-    - map: ["computerLayerBody"]
-      state: computer
-    - map: ["computerLayerKeyboard"]
-      state: generic_keyboard
-    - map: ["computerLayerScreen"]
-      state: id
-    - map: ["computerLayerKeys"]
-      state: generic_keys
-    - map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
-      state: generic_panel_open
+    - state: base
+    - state: screen
+      map: ["screen"]
+      shader: unshaded
+  # Можно поворачивать: у спрайта 4 направления.
+  - type: Transform
+    noRot: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.35,-0.45,0.35,0.35"
+        density: 190
+        mask:
+        - MachineMask
+        layer:
+        - MachineLayer
+  - type: ApcPowerReceiver
+    powerLoad: 200
+  - type: Computer
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.ComputerVisuals.Powered:
+        screen:
+          True: { visible: true }
+          False: { visible: false }
+  - type: LitOnPowered
+  - type: PointLight
+    radius: 1.2
+    energy: 1.2
+    color: "#78BEE1"
+    enabled: false
+    castShadows: false
   - type: AccessReader
     access: [["DystopiaInspection"]]
   - type: ActivatableUIRequiresAccess
+  - type: ActivatableUIRequiresPower
   - type: VexelPrinter
   - type: ActivatableUI
     key: enum.VexelPrinterUiKey.Key
@@ -28,9 +55,3 @@
     interfaces:
       enum.VexelPrinterUiKey.Key:
         type: VexelPrinterBoundUserInterface
-      enum.WiresUiKey.Key:
-        type: WiresBoundUserInterface
-  - type: PointLight
-    radius: 1.5
-    energy: 1.6
-    color: "#D9B44A"

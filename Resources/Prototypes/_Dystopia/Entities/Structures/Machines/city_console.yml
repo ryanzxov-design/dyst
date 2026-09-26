@@ -1,27 +1,54 @@
-# Консоль Управления Городом. Открывается только с доступом Консула.
-# Раздел «Казна» работает; «Положения» и «Законы» — в следующих шагах.
+# Консоль Управления Городом — триптих 3×3 клетки: большой центральный монитор и два развёрнутых крыла. Открывается только с доступом Консула.
+# Ставится центром на среднюю клетку, «лицом» вниз (на юг). Не вращается.
 
 - type: entity
-  parent: BaseComputer
+  parent: [ BaseMachinePowered, BaseMachineDestructible ]
   id: ComputerDystopiaCityConsole
-  name: Консоль Управления Городом
-  description: Терминал, через который Консул управляет казной, законами и положениями Города.
+  name: "Консоль Управления Городом"
+  description: "Монолит, через который Консул управляет казной, законами и положениями Города."
   components:
   - type: Sprite
+    sprite: _Dystopia/Structures/Machines/city_console.rsi
+    noRot: true
     layers:
-    - map: ["computerLayerBody"]
-      state: computer
-    - map: ["computerLayerKeyboard"]
-      state: generic_keyboard
-    - map: ["computerLayerScreen"]
-      state: comm
-    - map: ["computerLayerKeys"]
-      state: generic_keys
-    - map: [ "enum.WiresVisualLayers.MaintenancePanel" ]
-      state: generic_panel_open
+    - state: base
+    - state: screen
+      map: ["screen"]
+      shader: unshaded
+  - type: Transform
+    noRot: true
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-1.45,-1.45,1.45,1.45"
+        density: 1000
+        mask:
+        - MachineMask
+        layer:
+        - MachineLayer
+  - type: ApcPowerReceiver
+    powerLoad: 1500
+  - type: Computer
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.ComputerVisuals.Powered:
+        screen:
+          True: { visible: true }
+          False: { visible: false }
+  - type: LitOnPowered
+  - type: PointLight
+    radius: 3
+    energy: 2.0
+    color: "#78BEE1"
+    enabled: false
+    castShadows: false
   - type: AccessReader
     access: [["DystopiaConsul"]]
   - type: ActivatableUIRequiresAccess
+  - type: ActivatableUIRequiresPower
   - type: CityConsole
   - type: ActivatableUI
     key: enum.CityConsoleUiKey.Key
@@ -29,9 +56,3 @@
     interfaces:
       enum.CityConsoleUiKey.Key:
         type: CityConsoleBoundUserInterface
-      enum.WiresUiKey.Key:
-        type: WiresBoundUserInterface
-  - type: PointLight
-    radius: 1.5
-    energy: 3.0
-    color: "#B8962E"
