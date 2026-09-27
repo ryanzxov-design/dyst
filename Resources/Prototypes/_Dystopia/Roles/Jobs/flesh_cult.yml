@@ -17,6 +17,7 @@
     - type: DystopiaFleshCultist
       rank: Apostle
       statusIcon: DystopiaFleshApostleIcon
+    - type: DystopiaFleshSeeder
 
 - type: startingGear
   id: DystopiaFleshApostleGear

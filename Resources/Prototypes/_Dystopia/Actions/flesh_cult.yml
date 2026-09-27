@@ -1,0 +1,35 @@
+# Способности Культа Плоти. Самостоятельные сущности, без parent.
+
+# Посеять Семя Плоти (Апостол, Проповедник): несколько секунд на месте, затем росток → Киста.
+- type: entity
+  id: ActionDystopiaFleshPlantSeed
+  name: Посеять Семя Плоти
+  description: Вырастить в земле под собой Семя Плоти. Через минуту из него поднимется Киста. Не работает рядом со стабилизаторами Города.
+  components:
+  - type: Action
+    useDelay: 180
+    itemIconStyle: NoItem
+  - type: Sprite
+    sprite: _Dystopia/Interface/Actions/flesh_cult.rsi
+    layers:
+    - map: ["enum.ActionVisuals.Icon"]
+      state: plant_seed
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.ActionState.Toggled:
+        enum.ActionVisuals.Icon:
+          True: { visible: false }
+          False: { visible: true }
+        enum.ActionVisuals.IconToggled:
+          True: { visible: true }
+          False: { visible: false }
+      enum.LimitedChargesState.HasCharges:
+        enum.ActionVisuals.Icon:
+          True: { color: White }
+          False: { color: DimGray }
+        enum.ActionVisuals.IconToggled:
+          True: { color: White }
+          False: { color: DimGray }
+  - type: InstantAction
+    event: !type:DystopiaFleshPlantSeedActionEvent

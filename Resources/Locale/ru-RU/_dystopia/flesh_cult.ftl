@@ -13,7 +13,7 @@ dystopia-job-supervisors-flesh-apostle = Апостолу Плоти
 roles-antag-dystopia-flesh-preacher-name = Проповедник Плоти
 roles-antag-dystopia-flesh-preacher-objective = Живите среди горожан под видом Пролетария. Сейте Семена Плоти, ломайте стабилизаторы, ведите людей к Колыбели.
 role-subtype-dystopia-flesh-preacher = Проповедник
-dystopia-flesh-preacher-briefing = Вы — Проповедник Плоти. Для Города вы обычный Пролетарий. Плоть связывает вас с братьями: канал «Шёпот Плоти» слышен вам без всякой рации, говорить в него — через :ш. Не выдайте себя: за веру в Городе казнят.
+dystopia-flesh-preacher-briefing = Вы — Проповедник Плоти. Для Города вы обычный Пролетарий. Плоть связывает вас с братьями: канал «Шёпот Плоти» слышен вам без всякой рации, говорить в него — через :ш. Вы умеете сеять Семена Плоти: из них вырастают Кисты, затягивающие Город наростами. Не выдайте себя: за веру в Городе казнят.
 
 dystopia-flesh-cult-round-end-agent-name = проповедник Плоти
 dystopia-flesh-cult-title = Культ Плоти
@@ -31,3 +31,13 @@ dystopia-cradle-examine-envoys = Созревших Посланников: [col
 
 dystopia-admin-verb-make-flesh-preacher = Сделать Проповедником Плоти
 dystopia-admin-verb-make-flesh-preacher-desc = Делает игрока Проповедником Плоти: значок Культа, ключ «Шёпота Плоти», инструкция.
+
+## Семя, Киста, наросты
+
+dystopia-flesh-seed-planting = Вы вдавливаете Семя Плоти в пол...
+dystopia-flesh-seed-planted = Семя пустило корни. Скоро здесь поднимется Киста.
+dystopia-flesh-seed-bad-place = Здесь Семя не приживётся.
+dystopia-flesh-seed-suppressed = Что-то глушит Плоть поблизости — Семя не приживётся.
+dystopia-flesh-growth-dissolve-start = Нарост обволакивает { $body }...
+dystopia-flesh-growth-dissolved = Плоть переварила тело без остатка.
+dystopia-flesh-zone-choke = Едкие споры жгут лёгкие!

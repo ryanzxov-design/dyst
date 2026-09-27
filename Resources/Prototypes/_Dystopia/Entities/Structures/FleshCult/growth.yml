@@ -1,0 +1,256 @@
+# Семя → Росток → Киста → Наросты. Самостоятельные сущности, без parent.
+# Горит: пожар на клетке (в том числе от огнемёта) жжёт плоть через температуру,
+# пары топлива поджигают её напрямую.
+
+# --- Росток: через минуту становится Кистой ---
+- type: entity
+  id: DystopiaFleshSeedling
+  name: росток плоти
+  description: Из пола тянется пульсирующий мясистый побег. Его стоит сжечь, пока он не вырос.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        hard: false
+        shape: !type:PhysShapeAabb
+          bounds: "-0.3,-0.3,0.3,0.3"
+        layer:
+        - MidImpassable
+  - type: Sprite
+    sprite: _Dystopia/Structures/FleshCult/seedling.rsi
+    state: seedling
+    drawdepth: Objects
+  - type: Damageable
+    damageModifierSet: DystopiaFlesh
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 20
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/Effects/gib1.ogg
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+  - type: Temperature
+    temperature: 293.15
+    heatCapacity: 5000
+  - type: AtmosExposed
+  - type: TemperatureDamage
+    heatDamage:
+      types:
+        Heat: 5
+    coldDamage: {}
+    coldDamageThreshold: 0
+  - type: Flammable
+    fireSpread: false
+    damage:
+      types:
+        Heat: 3
+  - type: Reactive
+    groups:
+      Flammable: [Touch]
+      Extinguish: [Touch]
+  - type: DystopiaFleshSeedling
+    growTime: 60
+
+# --- Киста: растит наросты, вокруг — ядовитая зона со спорами ---
+- type: entity
+  id: DystopiaFleshCyst
+  name: киста плоти
+  description: Раздутый мясной мешок. Из пор сочатся едкие споры — без противогаза не подходить.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.4,-0.4,0.4,0.4"
+        density: 200
+        mask:
+        - MachineMask
+        layer:
+        - MachineLayer
+  - type: Sprite
+    sprite: _Dystopia/Structures/FleshCult/cyst.rsi
+    noRot: true
+    drawdepth: Objects
+    layers:
+    - state: cyst
+    - state: glow
+      shader: unshaded
+  - type: PointLight
+    radius: 2.5
+    energy: 0.8
+    color: "#9AB840"
+    castShadows: false
+  - type: Damageable
+    damageContainer: StructuralBiological
+    damageModifierSet: DystopiaFlesh
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 150
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/Effects/gib3.ogg
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          DystopiaBiomassChunk:
+            min: 1
+            max: 2
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+  - type: Temperature
+    temperature: 293.15
+    heatCapacity: 15000
+  - type: AtmosExposed
+  - type: TemperatureDamage
+    heatDamage:
+      types:
+        Heat: 8
+    coldDamage: {}
+    coldDamageThreshold: 0
+  - type: Flammable
+    fireSpread: true
+    damage:
+      types:
+        Heat: 4
+  - type: Reactive
+    groups:
+      Flammable: [Touch]
+      Extinguish: [Touch]
+  - type: DystopiaFleshCyst
+    maxGrowths: 20
+    spreadInterval: 4
+    zoneRadius: 2.5
+    zoneDamage:
+      types:
+        Poison: 1.5
+  # Споры: видимая граница ядовитой зоны
+  - type: DystopiaParticleEmitter
+    emitters:
+    # Облако спор: тусклые жёлто-зелёные клочья, медленно дрейфуют во всей зоне
+    - rate: 28
+      lifetime: 1.6,3.2
+      speed: 0.05,0.25
+      spread: 360
+      alignToVelocity: false
+      inheritVelocity: 0
+      drag: 0.5
+      jitter: 2.5
+      size: 2,3
+      additive: false
+      colors:
+      - "#7E9A3000"
+      - "#8FAF3A6E"
+      - "#6E8A2A50"
+      - "#5A702000"
+    # Светящиеся споры: мелкие яркие точки, мерцают
+    - rate: 8
+      lifetime: 1.0,2.2
+      speed: 0.1,0.4
+      spread: 360
+      alignToVelocity: false
+      inheritVelocity: 0
+      drag: 0.4
+      jitter: 2.3
+      size: 1,1
+      additive: true
+      flicker: 0.5
+      colors:
+      - "#D2E870FF"
+      - "#9AB84080"
+      - "#6E8A2A00"
+
+# --- Нарост: замедляет и жжёт всех, кроме культистов; переваривает трупы ---
+- type: entity
+  id: DystopiaFleshGrowth
+  name: нарост плоти
+  description: Пол затянут живым мясом. Оно липнет к подошвам и разъедает кожу.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+  - type: Clickable
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        hard: false
+        density: 7
+        shape: !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        layer:
+        - MidImpassable
+  - type: Sprite
+    sprite: _Dystopia/Structures/FleshCult/growth.rsi
+    state: growth
+    drawdepth: FloorObjects
+    noRot: false
+  - type: MeleeSound
+    soundGroups:
+      Brute:
+        path: /Audio/Weapons/slash.ogg
+  - type: Damageable
+    damageModifierSet: DystopiaFlesh
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 25
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+  - type: Temperature
+    temperature: 293.15
+    heatCapacity: 21000
+  - type: AtmosExposed
+  - type: TemperatureDamage
+    heatDamage:
+      types:
+        Heat: 5
+    coldDamage: {}
+    coldDamageThreshold: 0
+  - type: Flammable
+    fireSpread: true
+    damage:
+      types:
+        Heat: 3
+  - type: Reactive
+    groups:
+      Flammable: [Touch]
+      Extinguish: [Touch]
+  - type: SpeedModifierContacts
+    walkSpeedModifier: 0.55
+    sprintSpeedModifier: 0.55
+    ignoreWhitelist:
+      components:
+      - DystopiaFleshCultist
+  - type: DamageContacts
+    damage:
+      types:
+        Caustic: 1
+    ignoreWhitelist:
+      components:
+      - DystopiaFleshCultist
+  - type: DystopiaFleshGrowth
+    dissolveTime: 30

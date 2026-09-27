@@ -22,6 +22,7 @@
   - type: DystopiaFleshCultist
     rank: Preacher
     statusIcon: DystopiaFleshPreacherIcon
+  - type: DystopiaFleshSeeder
   mindRoles:
   - MindRoleDystopiaFleshPreacher
   briefing:

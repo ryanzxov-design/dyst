@@ -88,7 +88,8 @@ public sealed partial class DystopiaFleshCradleSystem : EntitySystem
         return false;
     }
 
-    private void DropEverything(EntityUid body)
+    /// <summary>Одежда, снаряжение и вещи из рук падают на пол (перед поглощением тела).</summary>
+    public void DropEverything(EntityUid body)
     {
         // Одежда и снаряжение падают на пол
         if (_inventory.TryGetContainerSlotEnumerator(body, out var enumerator))

@@ -1,0 +1,10 @@
+# Живая плоть Культа: боится огня, режется, пули вязнут, кислоты и яды почти не берут.
+- type: damageModifierSet
+  id: DystopiaFlesh
+  coefficients:
+    Heat: 2.5
+    Slash: 1.2
+    Blunt: 1.0
+    Piercing: 0.6
+    Caustic: 0.3
+    Poison: 0
