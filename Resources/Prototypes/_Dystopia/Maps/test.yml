@@ -53,4 +53,8 @@
             DystopiaLabAssistant: [ 1, 3 ]
             # Горожане
             DystopiaProletarian: [ -1, -1 ]
+            # Культ Плоти. ВРЕМЕННО здесь: пока нет логова, культисты появляются в Городе.
+            # Когда будет карта с логовом — перенести в отдельную станцию логова.
+            DystopiaFleshApostle: [ 1, 1 ]
+            DystopiaFleshCarrier: [ 2, 4 ]
             DystopiaShopkeeper: [ 1, 2 ]

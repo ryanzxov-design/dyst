@@ -78,6 +78,15 @@
     },
     {
       "name": "Shopkeeper"
+    },
+    {
+      "name": "FleshApostle"
+    },
+    {
+      "name": "FleshCarrier"
+    },
+    {
+      "name": "FleshPreacher"
     }
   ]
 }

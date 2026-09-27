@@ -1,0 +1,39 @@
+# Кусок биомассы — корм для Колыбели Плоти. Самостоятельная сущность, без parent.
+
+- type: entity
+  id: DystopiaBiomassChunk
+  name: кусок биомассы
+  description: Тёплый дрожащий ком плоти. Колыбель будет рада.
+  components:
+  - type: Item
+    size: Small
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/gib1.ogg
+      params:
+        volume: -4
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.1
+        friction: 0.6
+  - type: Sprite
+    sprite: _Dystopia/Objects/FleshCult/biomass.rsi
+    state: icon
+    noRot: false
+  - type: Pullable
+  - type: DystopiaBiomass
+    amount: 10

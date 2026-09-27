@@ -191,3 +191,57 @@
     sprite: /Textures/_Dystopia/Interface/job_icons.rsi
     state: Shopkeeper
   jobName: job-name-dystopia-shopkeeper
+
+# --- Культ Плоти ---
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDystopiaFleshApostle
+  icon:
+    sprite: /Textures/_Dystopia/Interface/job_icons.rsi
+    state: FleshApostle
+  jobName: job-name-dystopia-flesh-apostle
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDystopiaFleshCarrier
+  icon:
+    sprite: /Textures/_Dystopia/Interface/job_icons.rsi
+    state: FleshCarrier
+  jobName: job-name-dystopia-flesh-carrier
+
+# Значки «свой» над головой — видят только культисты (компонент культиста другим не передаётся).
+- type: factionIcon
+  id: DystopiaFleshApostleIcon
+  isShaded: true
+  priority: 11
+  showTo:
+    components:
+    - ShowAntagIcons
+    - DystopiaFleshCultist
+  icon:
+    sprite: /Textures/_Dystopia/Interface/job_icons.rsi
+    state: FleshApostle
+
+- type: factionIcon
+  id: DystopiaFleshPreacherIcon
+  isShaded: true
+  priority: 11
+  showTo:
+    components:
+    - ShowAntagIcons
+    - DystopiaFleshCultist
+  icon:
+    sprite: /Textures/_Dystopia/Interface/job_icons.rsi
+    state: FleshPreacher
+
+- type: factionIcon
+  id: DystopiaFleshCarrierIcon
+  isShaded: true
+  priority: 11
+  showTo:
+    components:
+    - ShowAntagIcons
+    - DystopiaFleshCultist
+  icon:
+    sprite: /Textures/_Dystopia/Interface/job_icons.rsi
+    state: FleshCarrier

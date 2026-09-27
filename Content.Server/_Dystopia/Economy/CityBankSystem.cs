@@ -75,6 +75,11 @@ public sealed partial class CityBankSystem : EntitySystem
         if (ev.JobId != null)
             job = new ProtoId<JobPrototype>(ev.JobId);
 
+        // Счёт открывается только тем, кто есть в штатном расписании Города (таблица зарплат).
+        // Культисты из логова и прочие не-горожане счёта не получают.
+        if (job == null || !bank.Salaries.ContainsKey(job.Value))
+            return;
+
         var account = OpenAccount((ev.Station, bank), Name(ev.Mob), job, ev.Mob);
 
         if (_idCard.TryFindIdCard(ev.Mob, out var card))

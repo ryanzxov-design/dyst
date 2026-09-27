@@ -5,7 +5,7 @@
 
 [game]
 map = "DystopiaTest"
-defaultpreset = "extended"   # без антагонистов, пока тестируем карту
+defaultpreset = "DystopiaFleshCult"   # режим с Культом Плоти (Проповедники среди Пролетариев)
 lobbyenabled = true
 lobbyduration = 20
 # Роли, которые включены у НОВОГО персонажа по умолчанию

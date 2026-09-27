@@ -1,0 +1,49 @@
+# Проповедник Плоти — скрытый антагонист. Выбирается из Пролетариев, у которых включено
+# «Проповедник Плоти» в настройках антагонистов. Для Города он обычный работяга.
+
+- type: antag
+  id: DystopiaFleshPreacher
+  name: roles-antag-dystopia-flesh-preacher-name
+  antagonist: true
+  setPreference: true
+  objective: roles-antag-dystopia-flesh-preacher-objective
+
+- type: antagSpecifier
+  id: DystopiaFleshPreacher
+  prefRoles:
+  - DystopiaFleshPreacher
+  jobWhitelist:
+  - DystopiaProletarian
+  blacklist:
+    components:
+    - AntagImmune
+  startingGear: DystopiaFleshPreacherGear
+  components:
+  - type: DystopiaFleshCultist
+    rank: Preacher
+    statusIcon: DystopiaFleshPreacherIcon
+  mindRoles:
+  - MindRoleDystopiaFleshPreacher
+  briefing:
+    text: dystopia-flesh-preacher-briefing
+    color: "#C0392B"
+    sound: "/Audio/Ambience/Antag/headrev_start.ogg"
+
+# С собой — ключ «Шёпота Плоти». Рации у Пролетария нет: ключ надо вставить в самодельную гарнитуру.
+- type: startingGear
+  id: DystopiaFleshPreacherGear
+  equipment:
+    pocket2: EncryptionKeyDystopiaCult
+
+# Роль разума Проповедника (для итогов раунда и админов). Самостоятельная сущность, без parent.
+- type: entity
+  id: MindRoleDystopiaFleshPreacher
+  name: Flesh Preacher Role
+  description: Mind Role entity
+  components:
+  - type: MindRole
+    antag: true
+    antagPrototype: DystopiaFleshPreacher
+    roleType: TeamAntagonist
+    sortWeight: 50
+    subtype: role-subtype-dystopia-flesh-preacher

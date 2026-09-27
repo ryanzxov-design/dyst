@@ -71,3 +71,14 @@
   roles:
   - DystopiaProletarian
   - DystopiaShopkeeper
+
+# Культ Плоти — не служба Города, открытый антагонист из логова в пустошах.
+- type: department
+  id: DystopiaFleshCult
+  name: department-DystopiaFleshCult
+  description: department-DystopiaFleshCult-description
+  color: "#7A1F2B"
+  weight: -20
+  roles:
+  - DystopiaFleshApostle
+  - DystopiaFleshCarrier

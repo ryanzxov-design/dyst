@@ -71,3 +71,10 @@
 
 - type: playTimeTracker
   id: JobDystopiaShopkeeper
+
+# Культ Плоти
+- type: playTimeTracker
+  id: JobDystopiaFleshApostle
+
+- type: playTimeTracker
+  id: JobDystopiaFleshCarrier

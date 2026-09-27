@@ -1,0 +1,76 @@
+# Гарнитура Культа Плоти: только канал «Шёпот Плоти». Самостоятельная сущность, без parent.
+
+- type: entity
+  id: ClothingHeadsetDystopiaFlesh
+  name: гарнитура Шёпота Плоти
+  description: Сросшаяся с хрящом гарнитура. Шепчет голосами Культа.
+  components:
+  - type: Item
+    size: Small
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    state: icon
+    sprite: _Dystopia/Clothing/Ears/Headsets/flesh.rsi
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Tag
+    tags:
+    - WhitelistChameleon
+  - type: StaticPrice
+    price: 10
+  - type: FlavorProfile
+    flavors:
+    - fiber
+  - type: ContainerContainer
+    containers:
+      key_slots: !type:Container
+  - type: ContainerFill
+    containers:
+      key_slots:
+      - EncryptionKeyDystopiaCult
+  - type: Headset
+  - type: EncryptionKeyHolder
+    keySlots: 4
+  - type: Clothing
+    slots:
+    - ears
+    sprite: _Dystopia/Clothing/Ears/Headsets/flesh.rsi
+  - type: GuideHelp
+    guides:
+    - Radio

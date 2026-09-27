@@ -1,0 +1,59 @@
+# Колыбель Плоти — сердце логова Культа. Самостоятельная сущность, без parent.
+# Кормление: перетащить труп на Колыбель (несколько секунд) или приложить кусок биомассы.
+# Уничтожение Колыбели — победа Правительства Города (этап 6).
+
+- type: entity
+  id: DystopiaFleshCradle
+  name: Колыбель Плоти
+  description: Пульсирующая утроба из мяса и костей. Она голодна.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.9,-0.9,0.9,0.9"
+        density: 1000
+        mask:
+        - MachineMask
+        layer:
+        - MachineLayer
+  - type: Sprite
+    sprite: _Dystopia/Structures/FleshCult/cradle.rsi
+    noRot: true
+    drawdepth: Mobs
+    layers:
+    - state: base
+    - state: glow
+      shader: unshaded
+  - type: PointLight
+    radius: 3
+    energy: 1.6
+    color: "#C0302A"
+    castShadows: false
+  - type: Damageable
+    damageContainer: StructuralBiological
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 1500
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/Effects/gib2.ogg
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          DystopiaBiomassChunk:
+            min: 4
+            max: 7
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+  - type: DystopiaFleshCradle

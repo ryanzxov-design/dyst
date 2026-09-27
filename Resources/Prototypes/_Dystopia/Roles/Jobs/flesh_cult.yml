@@ -1,0 +1,50 @@
+# Роли: Культ Плоти (открытый антагонист). Появляются в логове в пустошах.
+# Проповедник — не отдельная роль лобби: это скрытый антагонист среди Пролетариев (см. Roles/Antags/flesh_cult.yml).
+
+- type: job
+  id: DystopiaFleshApostle
+  name: job-name-dystopia-flesh-apostle
+  description: job-description-dystopia-flesh-apostle
+  playTimeTracker: JobDystopiaFleshApostle
+  startingGear: DystopiaFleshApostleGear
+  icon: "JobIconDystopiaFleshApostle"
+  supervisors: dystopia-job-supervisors-flesh
+  canBeAntag: false
+  special:
+  - !type:AddComponentSpecial
+    components:
+    - type: DystopiaFleshCultist
+      rank: Apostle
+      statusIcon: DystopiaFleshApostleIcon
+
+- type: startingGear
+  id: DystopiaFleshApostleGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitColorBrown
+    outerClothing: ClothingOuterRobesCult
+    head: ClothingHeadHatHoodCulthood
+    shoes: ClothingShoesColorBrown
+    ears: ClothingHeadsetDystopiaFlesh
+
+- type: job
+  id: DystopiaFleshCarrier
+  name: job-name-dystopia-flesh-carrier
+  description: job-description-dystopia-flesh-carrier
+  playTimeTracker: JobDystopiaFleshCarrier
+  startingGear: DystopiaFleshCarrierGear
+  icon: "JobIconDystopiaFleshCarrier"
+  supervisors: dystopia-job-supervisors-flesh-apostle
+  canBeAntag: false
+  special:
+  - !type:AddComponentSpecial
+    components:
+    - type: DystopiaFleshCultist
+      rank: Carrier
+      statusIcon: DystopiaFleshCarrierIcon
+
+- type: startingGear
+  id: DystopiaFleshCarrierGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitColorBrown
+    shoes: ClothingShoesColorBrown
+    ears: ClothingHeadsetDystopiaFlesh
