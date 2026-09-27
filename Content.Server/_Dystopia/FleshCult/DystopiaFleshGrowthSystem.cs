@@ -4,6 +4,8 @@ using Content.Shared._Dystopia.FleshCult;
 using Content.Shared.Atmos.Components;
 using Content.Shared.Clothing.Components;
 using Content.Shared.Damage.Systems;
+using Content.Shared.Doors;
+using Content.Shared.Doors.Components;
 using Content.Shared.Humanoid;
 using Content.Shared.Inventory;
 using Content.Shared.Mobs.Components;
@@ -34,8 +36,11 @@ public sealed partial class DystopiaFleshGrowthSystem : EntitySystem
     [Dependency] private InventorySystem _inventory = default!;
     [Dependency] private PopupSystem _popup = default!;
     [Dependency] private DystopiaFleshCradleSystem _cradle = default!;
+    [Dependency] private AppearanceSystem _appearance = default!;
 
     private static readonly Vector2i[] Neighbors = { new(1, 0), new(-1, 0), new(0, 1), new(0, -1) };
+
+    private readonly List<Entity<DystopiaFleshCystComponent, TransformComponent>> _cystBuffer = new();
 
     public override void Initialize()
     {
@@ -48,6 +53,35 @@ public sealed partial class DystopiaFleshGrowthSystem : EntitySystem
     {
         ent.Comp.NextSpread = _timing.CurTime + TimeSpan.FromSeconds(ent.Comp.SpreadInterval);
         ent.Comp.NextZoneTick = _timing.CurTime + TimeSpan.FromSeconds(1);
+
+        // Под самой кистой тоже нарост — чтобы вокруг неё не было чистого пятна.
+        var xform = Transform(ent);
+        if (_transform.GetGrid(xform.Coordinates) is not { } gridUid || !TryComp<MapGridComponent>(gridUid, out var grid))
+            return;
+
+        var tile = _map.TileIndicesFor(gridUid, grid, xform.Coordinates);
+        foreach (var anchored in _map.GetAnchoredEntities(gridUid, grid, tile))
+        {
+            if (TryComp<DystopiaFleshGrowthComponent>(anchored, out var existing))
+            {
+                // Нарост уже есть (киста выросла на месте нароста) — забираем его себе
+                existing.Cyst = ent.Owner;
+                existing.WitherAt = null;
+                ent.Comp.Growths.Add(anchored);
+                return;
+            }
+        }
+
+        SpawnGrowth(ent, gridUid, grid, tile);
+    }
+
+    private EntityUid SpawnGrowth(Entity<DystopiaFleshCystComponent> cyst, EntityUid gridUid, MapGridComponent grid, Vector2i tile)
+    {
+        var growth = Spawn(cyst.Comp.Growth, _map.GridTileToLocal(gridUid, grid, tile));
+        _appearance.SetData(growth, DystopiaFleshGrowthVisuals.Variant, _random.Next(1, 4));
+        EnsureComp<DystopiaFleshGrowthComponent>(growth).Cyst = cyst.Owner;
+        cyst.Comp.Growths.Add(growth);
+        return growth;
     }
 
     private void OnGrowthShutdown(Entity<DystopiaFleshGrowthComponent> ent, ref ComponentShutdown args)
@@ -62,22 +96,33 @@ public sealed partial class DystopiaFleshGrowthSystem : EntitySystem
         var now = _timing.CurTime;
 
         // --- Кисты: рост и ядовитая зона ---
+        // Сначала собираем список: рост может породить новую кисту, а менять набор кист во время перебора нельзя.
+        _cystBuffer.Clear();
         var cysts = EntityQueryEnumerator<DystopiaFleshCystComponent, TransformComponent>();
         while (cysts.MoveNext(out var uid, out var cyst, out var xform))
         {
+            _cystBuffer.Add((uid, cyst, xform));
+        }
+
+        foreach (var ent in _cystBuffer)
+        {
+            if (TerminatingOrDeleted(ent.Owner))
+                continue;
+
+            var cyst = ent.Comp1;
             if (now >= cyst.NextSpread)
             {
-                var speed = new DystopiaFleshGrowthSpeedEvent(uid);
+                var speed = new DystopiaFleshGrowthSpeedEvent(ent.Owner);
                 RaiseLocalEvent(ref speed);
                 var interval = cyst.SpreadInterval * MathF.Max(1f, speed.Multiplier) * _random.NextFloat(0.8f, 1.2f);
                 cyst.NextSpread = now + TimeSpan.FromSeconds(interval);
-                Spread((uid, cyst, xform));
+                Spread(ent);
             }
 
             if (now >= cyst.NextZoneTick)
             {
                 cyst.NextZoneTick = now + TimeSpan.FromSeconds(1);
-                PoisonZone((uid, cyst, xform));
+                PoisonZone(ent);
             }
         }
 
@@ -169,11 +214,7 @@ public sealed partial class DystopiaFleshGrowthSystem : EntitySystem
             if (candidates.Count == 0)
                 return;
 
-            var chosen = _random.Pick(candidates);
-            var growth = Spawn(cyst.Comp1.Growth, _map.GridTileToLocal(gridUid, grid, chosen));
-            _transform.SetLocalRotation(growth, Angle.FromDegrees(90 * _random.Next(4)));
-            EnsureComp<DystopiaFleshGrowthComponent>(growth).Cyst = cyst.Owner;
-            cyst.Comp1.Growths.Add(growth);
+            SpawnGrowth((cyst.Owner, cyst.Comp1), gridUid, grid, _random.Pick(candidates));
             return;
         }
 
@@ -207,13 +248,13 @@ public sealed partial class DystopiaFleshGrowthSystem : EntitySystem
         if (attempt.Cancelled)
             return;
 
+        // Нарост на месте новой кисты не удаляем: новая киста заберёт его себе (он окажется под ней).
         cyst.Comp1.ChildSpawned = true;
         cyst.Comp1.Growths.Remove(edge);
-        QueueDel(edge);
         Spawn(cyst.Comp1.Cyst, coords);
     }
 
-    /// <summary>Клетка годится для нароста: пол есть, нет стен/дверей и другой плоти.</summary>
+    /// <summary>Клетка годится для нароста: пол есть, нет стен и другой плоти. Незаваренные двери пропускают.</summary>
     private bool IsFreeTile(EntityUid gridUid, MapGridComponent grid, Vector2i tile)
     {
         if (!_map.TryGetTileRef(gridUid, grid, tile, out var tileRef) || tileRef.Tile.IsEmpty)
@@ -221,6 +262,15 @@ public sealed partial class DystopiaFleshGrowthSystem : EntitySystem
 
         foreach (var anchored in _map.GetAnchoredEntities(gridUid, grid, tile))
         {
+            // Дверь пропускает плоть под собой, если её не заварили
+            if (TryComp<DoorComponent>(anchored, out var door))
+            {
+                if (door.State == DoorState.Welded)
+                    return false;
+
+                continue;
+            }
+
             if (HasComp<AirtightComponent>(anchored) ||
                 HasComp<DystopiaFleshGrowthComponent>(anchored) ||
                 HasComp<DystopiaFleshCystComponent>(anchored) ||

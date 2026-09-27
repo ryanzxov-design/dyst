@@ -1,4 +1,5 @@
 # Семя → Росток → Киста → Наросты. Самостоятельные сущности, без parent.
+# Наросты проходят под незаваренными дверями; под самой кистой тоже нарост.
 # Горит: пожар на клетке (в том числе от огнемёта) жжёт плоть через температуру,
 # пары топлива поджигают её напрямую.
 
@@ -138,7 +139,7 @@
       Flammable: [Touch]
       Extinguish: [Touch]
   - type: DystopiaFleshCyst
-    maxGrowths: 20
+    maxGrowths: 30
     spreadInterval: 4
     zoneRadius: 2.5
     zoneDamage:
@@ -204,9 +205,19 @@
         - MidImpassable
   - type: Sprite
     sprite: _Dystopia/Structures/FleshCult/growth.rsi
-    state: growth
     drawdepth: FloorObjects
-    noRot: false
+    layers:
+    - state: kudzu_33
+      map: ["base"]
+  # Вариант рисунка выбирается случайно при появлении (1–3)
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DystopiaFleshGrowthVisuals.Variant:
+        base:
+          1: { state: kudzu_13 }
+          2: { state: kudzu_23 }
+          3: { state: kudzu_33 }
   - type: MeleeSound
     soundGroups:
       Brute:

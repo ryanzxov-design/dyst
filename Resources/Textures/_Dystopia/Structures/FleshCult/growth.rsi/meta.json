@@ -1,14 +1,20 @@
 {
   "version": 1,
-  "license": "CC-BY-SA-3.0",
-  "copyright": "Made for Dystopia",
+  "license": "CC0-1.0",
+  "copyright": "Created by EmoGarbage404 & tom-leys (github) for space-station-14 (fleshkudzu.rsi). Copied for Dystopia.",
   "size": {
     "x": 32,
     "y": 32
   },
   "states": [
     {
-      "name": "growth"
+      "name": "kudzu_13"
+    },
+    {
+      "name": "kudzu_23"
+    },
+    {
+      "name": "kudzu_33"
     }
   ]
 }

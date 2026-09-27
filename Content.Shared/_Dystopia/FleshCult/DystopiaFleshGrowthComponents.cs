@@ -47,7 +47,7 @@ public sealed partial class DystopiaFleshSeedlingComponent : Component
 public sealed partial class DystopiaFleshCystComponent : Component
 {
     [DataField]
-    public int MaxGrowths = 20;
+    public int MaxGrowths = 30;
 
     /// <summary>Секунд между появлением новых наростов.</summary>
     [DataField]
@@ -129,3 +129,10 @@ public record struct DystopiaFleshSeedAttemptEvent(EntityCoordinates Coordinates
 /// <summary>Во сколько раз медленнее растут наросты у этой кисты (стабилизаторы, этап К3). 1 — без замедления.</summary>
 [ByRefEvent]
 public record struct DystopiaFleshGrowthSpeedEvent(EntityUid Cyst, float Multiplier = 1f);
+
+/// <summary>Внешний вид нароста: вариант рисунка 1–3 (выбирается случайно при появлении).</summary>
+[Serializable, NetSerializable]
+public enum DystopiaFleshGrowthVisuals : byte
+{
+    Variant,
+}

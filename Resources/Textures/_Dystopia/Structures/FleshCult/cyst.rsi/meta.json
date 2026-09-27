@@ -1,7 +1,7 @@
 {
   "version": 1,
   "license": "CC-BY-SA-3.0",
-  "copyright": "Made for Dystopia",
+  "copyright": "Created by Aleksh#7552 (discord) for space-station-14 (flesh_decoration.rsi). Animated and glow layer added for Dystopia.",
   "size": {
     "x": 32,
     "y": 32
@@ -11,8 +11,8 @@
       "name": "cyst",
       "delays": [
         [
-          0.8,
-          0.5
+          1.2,
+          0.8
         ]
       ]
     },
@@ -20,8 +20,8 @@
       "name": "glow",
       "delays": [
         [
-          0.8,
-          0.5
+          1.2,
+          0.8
         ]
       ]
     }

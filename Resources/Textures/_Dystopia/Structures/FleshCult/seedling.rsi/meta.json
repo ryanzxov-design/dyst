@@ -1,20 +1,14 @@
 {
   "version": 1,
   "license": "CC-BY-SA-3.0",
-  "copyright": "Made for Dystopia",
+  "copyright": "Created by Aleksh#7552 (discord) for space-station-14 (flesh_decoration.rsi). Animated and glow layer added for Dystopia.",
   "size": {
     "x": 32,
     "y": 32
   },
   "states": [
     {
-      "name": "seedling",
-      "delays": [
-        [
-          1.0,
-          0.7
-        ]
-      ]
+      "name": "seedling"
     }
   ]
 }
