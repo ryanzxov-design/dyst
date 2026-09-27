@@ -1,0 +1,260 @@
+# Верхняя одежда: костюмы, пальто, куртки.
+# Dystopia. Все предметы в этом файле самостоятельные: без parent, все свойства выписаны явно.
+
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent ClothingOuterCoatCaptain)
+
+- type: entity
+  id: DystopiaClothingOuterConsulJacket
+  name: торжественный китель Консула
+  description: Белоснежный китель с золотым шитьём. Надевается, когда Город должен видеть своего правителя.
+  components:
+  - type: Item
+    size: Normal
+    shape:
+    - 0,0,1,2
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    state: icon
+    sprite: _Dystopia/Clothing/OuterClothing/consul_jacket.rsi
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Tag
+    tags:
+    - WhitelistChameleon
+  - type: StaticPrice
+    price: 70
+  - type: FlavorProfile
+    flavors:
+    - fiber
+  - type: Clothing
+    slots:
+    - outerClothing
+    sprite: _Dystopia/Clothing/OuterClothing/consul_jacket.rsi
+  - type: Storage
+    grid:
+    - 0,0,2,1
+    maxItemSize: Small
+  - type: ContainerContainer
+    containers:
+      storagebase: !type:Container
+        ents: []
+  - type: UserInterface
+    interfaces:
+      enum.StorageUiKey.Key:
+        type: StorageBoundUserInterface
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.5
+        Slash: 0.5
+        Piercing: 0.6
+        Heat: 0.5
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent ClothingOuterSuitFire)
+
+- type: entity
+  id: DystopiaClothingOuterDisinfectorSuit
+  name: костюм дезинфектора
+  description: Тяжёлый защитный костюм. Держит огонь собственного огнемёта и едкие выделения плоти.
+  components:
+  - type: AllowSuitStorage
+  - type: TemperatureProtection
+    coefficient: 0.01
+  - type: Item
+    size: Huge
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    state: icon
+    sprite: _Dystopia/Clothing/OuterClothing/disinfector.rsi
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Tag
+    tags:
+    - WhitelistChameleon
+  - type: StaticPrice
+    price: 10
+  - type: FlavorProfile
+    flavors:
+    - fiber
+  - type: Clothing
+    slots:
+    - outerClothing
+    sprite: _Dystopia/Clothing/OuterClothing/disinfector.rsi
+  - type: ClothingSpeedModifier
+    walkModifier: 0.85
+    sprintModifier: 0.85
+  - type: HeldSpeedModifier
+  - type: FireProtection
+    reduction: 0.8
+  - type: PressureProtection
+    highPressureMultiplier: 0.04
+  - type: Armor
+    modifiers:
+      coefficients:
+        Slash: 0.9
+        Heat: 0.5
+        Cold: 0.8
+        Caustic: 0.5
+  - type: GroupExamine
+  - type: ProtectedFromStepTriggers
+    slots: WITHOUT_POCKET
+  - type: HideLayerClothing
+    slots:
+    - Tail
+  - type: ZombificationResistance
+    zombificationResistanceCoefficient: 0.25
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent ClothingOuterBioScientist)
+
+- type: entity
+  id: DystopiaClothingOuterPathobiologistSuit
+  name: костюм патобиолога
+  description: Герметичный лабораторный костюм для работы с образцами заражённой плоти.
+  suffix: Science
+  components:
+  - type: AllowSuitStorage
+    whitelist:
+      components:
+      - GasTank
+  - type: Item
+    size: Huge
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    state: icon
+    sprite: _Dystopia/Clothing/OuterClothing/pathobiologist.rsi
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Tag
+    tags:
+    - WhitelistChameleon
+  - type: StaticPrice
+    price: 10
+  - type: FlavorProfile
+    flavors:
+    - fiber
+  - type: Clothing
+    slots:
+    - outerClothing
+    sprite: _Dystopia/Clothing/OuterClothing/pathobiologist.rsi
+  - type: ClothingSpeedModifier
+    walkModifier: 0.95
+    sprintModifier: 0.95
+  - type: HeldSpeedModifier
+  - type: HideLayerClothing
+    slots:
+    - Tail
+  - type: Armor
+    modifiers:
+      coefficients:
+        Caustic: 0.6
+        Poison: 0.6
+        Cellular: 0.7
+  - type: ZombificationResistance
+    zombificationResistanceCoefficient: 0.35
+  - type: GroupExamine

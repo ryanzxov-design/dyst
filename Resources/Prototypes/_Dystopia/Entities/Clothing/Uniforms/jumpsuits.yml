@@ -1,0 +1,454 @@
+# Формы (слот INNERCLOTHING).
+# Dystopia. Все предметы в этом файле самостоятельные: без parent, все свойства выписаны явно.
+
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent ClothingUniformJumpsuitCaptain)
+
+- type: entity
+  id: DystopiaClothingUniformConsul
+  name: белый мундир Консула
+  description: Безупречно белый мундир правителя Города. Ни пятнышка — грязь здесь убирают другие.
+  components:
+  - type: Contraband
+    severity: Corvax431
+    allowedDepartments: [Command]
+    allowedJobs: [Captain]
+  - type: ToolRefinable
+    qualityNeeded: Slicing
+    verbText: refined-slice-verb-name
+    verbDefaultTooltip: refined-slice-verb-message-default
+    toolMissingQualityTooltip: refined-slice-verb-message-tool
+    startRefinePopupType: small
+    popupForUser: refined-butchered-success
+    popupForOther: refined-butchered-success-others
+    verbIcon: Interface/VerbIcons/cutlery.svg.192dpi.png
+    sound: !type:SoundPathSpecifier
+      path: /Audio/Items/Culinary/chop.ogg
+    refineResult:
+    - id: MaterialCloth1
+      amount: 3
+  - type: Item
+    size: Normal
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    state: icon
+    sprite: _Dystopia/Clothing/Uniforms/consul.rsi
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Tag
+    tags:
+    - ClothMade
+    - Recyclable
+    - WhitelistChameleon
+  - type: StaticPrice
+    price: 10
+  - type: FlavorProfile
+    flavors:
+    - fiber
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Fiber
+        Quantity: 30
+    id: food
+  - type: Clothing
+    slots: [innerclothing]
+    equipSound:
+      path: /Audio/Items/jumpsuit_equip.ogg
+    sprite: _Dystopia/Clothing/Uniforms/consul.rsi
+  - type: PhysicalComposition
+    materialComposition:
+      Cloth: 150
+  - type: Edible
+    requiresSpecialDigestion: true
+  - type: SuitSensor
+  - type: DeviceNetwork
+    deviceNetId: Wireless
+    transmitFrequencyId: SuitSensor
+    savableAddress: false
+  - type: WirelessNetworkConnection
+    range: 1200
+  - type: StationLimitedNetwork
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent ClothingUniformJumpsuitSec)
+
+- type: entity
+  id: DystopiaClothingUniformGuard
+  name: форма Городской Стражи
+  description: Синяя форма Городской Стражи. Одинаковая у всех — как и лица под беретами.
+  components:
+  - type: Foldable
+    canFoldInsideContainer: true
+    unfoldVerbText: fold-zip-verb
+    foldVerbText: fold-unzip-verb
+  - type: FoldableClothing
+    foldedEquippedPrefix: folded
+  - type: Contraband
+    severity: Corvax431
+    allowedDepartments: [Security]
+    allowedJobs: [SecurityOfficer]
+  - type: ToolRefinable
+    qualityNeeded: Slicing
+    verbText: refined-slice-verb-name
+    verbDefaultTooltip: refined-slice-verb-message-default
+    toolMissingQualityTooltip: refined-slice-verb-message-tool
+    startRefinePopupType: small
+    popupForUser: refined-butchered-success
+    popupForOther: refined-butchered-success-others
+    verbIcon: Interface/VerbIcons/cutlery.svg.192dpi.png
+    sound: !type:SoundPathSpecifier
+      path: /Audio/Items/Culinary/chop.ogg
+    refineResult:
+    - id: MaterialCloth1
+      amount: 3
+  - type: Item
+    size: Normal
+    inhandVisuals:
+      left:
+      - state: inhand-left
+        color: "#C12D30"
+        sprite: _Dystopia/Clothing/Uniforms/color_inhand.rsi
+      - state: overlay-inhand-left
+      right:
+      - state: inhand-right
+        color: "#C12D30"
+        sprite: _Dystopia/Clothing/Uniforms/color_inhand.rsi
+      - state: overlay-inhand-right
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    state: icon
+    sprite: _Dystopia/Clothing/Uniforms/guard.rsi
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Tag
+    tags:
+    - ClothMade
+    - Recyclable
+    - WhitelistChameleon
+  - type: StaticPrice
+    price: 10
+  - type: FlavorProfile
+    flavors:
+    - fiber
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Fiber
+        Quantity: 30
+    id: food
+  - type: Clothing
+    slots: [innerclothing]
+    equipSound:
+      path: /Audio/Items/jumpsuit_equip.ogg
+    sprite: _Dystopia/Clothing/Uniforms/guard.rsi
+  - type: PhysicalComposition
+    materialComposition:
+      Cloth: 150
+  - type: Edible
+    requiresSpecialDigestion: true
+  - type: SuitSensor
+  - type: DeviceNetwork
+    deviceNetId: Wireless
+    transmitFrequencyId: SuitSensor
+    savableAddress: false
+  - type: WirelessNetworkConnection
+    range: 1200
+  - type: StationLimitedNetwork
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent ClothingUniformJumpsuitWarden)
+
+- type: entity
+  id: DystopiaClothingUniformGuardSergeant
+  name: форма сержанта Стражи
+  description: Синяя форма с сержантскими знаками различия.
+  components:
+  - type: Contraband
+    severity: Corvax431
+    allowedDepartments: [Security]
+    allowedJobs: [Warden]
+  - type: ToolRefinable
+    qualityNeeded: Slicing
+    verbText: refined-slice-verb-name
+    verbDefaultTooltip: refined-slice-verb-message-default
+    toolMissingQualityTooltip: refined-slice-verb-message-tool
+    startRefinePopupType: small
+    popupForUser: refined-butchered-success
+    popupForOther: refined-butchered-success-others
+    verbIcon: Interface/VerbIcons/cutlery.svg.192dpi.png
+    sound: !type:SoundPathSpecifier
+      path: /Audio/Items/Culinary/chop.ogg
+    refineResult:
+    - id: MaterialCloth1
+      amount: 3
+  - type: Item
+    size: Normal
+    inhandVisuals:
+      left:
+      - state: inhand-left
+        color: "#C12D30"
+        sprite: _Dystopia/Clothing/Uniforms/color_inhand.rsi
+      - state: overlay-inhand-left
+      right:
+      - state: inhand-right
+        color: "#C12D30"
+        sprite: _Dystopia/Clothing/Uniforms/color_inhand.rsi
+      - state: overlay-inhand-right
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    state: icon
+    sprite: _Dystopia/Clothing/Uniforms/guard_sergeant.rsi
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Tag
+    tags:
+    - ClothMade
+    - Recyclable
+    - WhitelistChameleon
+  - type: StaticPrice
+    price: 10
+  - type: FlavorProfile
+    flavors:
+    - fiber
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Fiber
+        Quantity: 30
+    id: food
+  - type: Clothing
+    slots: [innerclothing]
+    equipSound:
+      path: /Audio/Items/jumpsuit_equip.ogg
+    sprite: _Dystopia/Clothing/Uniforms/guard_sergeant.rsi
+  - type: PhysicalComposition
+    materialComposition:
+      Cloth: 150
+  - type: Edible
+    requiresSpecialDigestion: true
+  - type: SuitSensor
+  - type: DeviceNetwork
+    deviceNetId: Wireless
+    transmitFrequencyId: SuitSensor
+    savableAddress: false
+  - type: WirelessNetworkConnection
+    range: 1200
+  - type: StationLimitedNetwork
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent ClothingUniformJumpsuitHoS)
+
+- type: entity
+  id: DystopiaClothingUniformGuardCaptain
+  name: форма капитана Стражи
+  description: Синяя форма с золотыми знаками различия капитана Городской Стражи.
+  components:
+  - type: Contraband
+    severity: Corvax431
+    allowedDepartments: [Command]
+    allowedJobs: [HeadOfSecurity]
+  - type: ToolRefinable
+    qualityNeeded: Slicing
+    verbText: refined-slice-verb-name
+    verbDefaultTooltip: refined-slice-verb-message-default
+    toolMissingQualityTooltip: refined-slice-verb-message-tool
+    startRefinePopupType: small
+    popupForUser: refined-butchered-success
+    popupForOther: refined-butchered-success-others
+    verbIcon: Interface/VerbIcons/cutlery.svg.192dpi.png
+    sound: !type:SoundPathSpecifier
+      path: /Audio/Items/Culinary/chop.ogg
+    refineResult:
+    - id: MaterialCloth1
+      amount: 3
+  - type: Item
+    size: Normal
+    inhandVisuals:
+      left:
+      - state: inhand-left
+        color: "#C12D30"
+        sprite: _Dystopia/Clothing/Uniforms/color_inhand.rsi
+      - state: overlay-inhand-left
+      right:
+      - state: inhand-right
+        color: "#C12D30"
+        sprite: _Dystopia/Clothing/Uniforms/color_inhand.rsi
+      - state: overlay-inhand-right
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    state: icon
+    sprite: _Dystopia/Clothing/Uniforms/guard_captain.rsi
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Tag
+    tags:
+    - ClothMade
+    - Recyclable
+    - WhitelistChameleon
+  - type: StaticPrice
+    price: 10
+  - type: FlavorProfile
+    flavors:
+    - fiber
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Fiber
+        Quantity: 30
+    id: food
+  - type: Clothing
+    slots: [innerclothing]
+    equipSound:
+      path: /Audio/Items/jumpsuit_equip.ogg
+    sprite: _Dystopia/Clothing/Uniforms/guard_captain.rsi
+  - type: PhysicalComposition
+    materialComposition:
+      Cloth: 150
+  - type: Edible
+    requiresSpecialDigestion: true
+  - type: SuitSensor
+  - type: DeviceNetwork
+    deviceNetId: Wireless
+    transmitFrequencyId: SuitSensor
+    savableAddress: false
+  - type: WirelessNetworkConnection
+    range: 1200
+  - type: StationLimitedNetwork

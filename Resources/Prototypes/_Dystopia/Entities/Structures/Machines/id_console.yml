@@ -1,17 +1,155 @@
-# Консоль Гражданской Инспекции — перепрограммирование ID-карт.
-# Пользоваться может Инспектор или Консул (AccessReader).
-# Выдать можно только те доступы, которые есть у карты в верхнем слоте (так устроена ванильная консоль):
-# Инспектор выдаёт рабочие места и Ворота, Консул — всё.
+# Dystopia. Все предметы в этом файле самостоятельные: без parent, все свойства выписаны явно.
+
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent ComputerId)
 
 - type: entity
-  parent: ComputerId
   id: ComputerIdDystopia
   name: консоль Гражданской Инспекции
   description: Терминал для назначения жителей на работы и выдачи пропусков.
+  placement:
+    mode: SnapgridCenter
   components:
-  - type: AccessReader
-    access: [["DystopiaInspection"], ["DystopiaConsul"]]
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 100
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: GlassBreak
+      - !type:ChangeConstructionNodeBehavior
+        node: monitorBroken
+  - type: Damageable
+    damageModifierSet: GlassReinforcedMod
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Transform
+    anchored: true
+  - type: Clickable
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.35,0.25,0.35"
+        density: 190
+        mask:
+        - MachineMask
+        layer:
+        - MachineLayer
+  - type: Pullable
+  - type: Tag
+    tags:
+    - Structure
+  - type: InteractionOutline
+  - type: Rotatable
+  - type: Anchorable
+  - type: Construction
+    graph: Computer
+    node: computer
+    containers:
+    - board
+  - type: Sprite
+    drawdepth: Objects
+    sprite: _Dystopia/Structures/Machines/computers.rsi
+    layers:
+    - map: ["computerLayerBody"]
+      state: computer
+    - map: ["computerLayerKeyboard"]
+      state: generic_keyboard
+    - map: ["computerLayerScreen"]
+      state: id
+    - map: ["computerLayerKeys"]
+      state: id_key
+    - map: ["enum.WiresVisualLayers.MaintenancePanel"]
+      state: generic_panel_open
+  - type: Animateable
+  - type: MeleeSound
+    soundGroups:
+      Brute:
+        collection: GlassSmash
+  - type: Computer
+    board: IDComputerCircuitboard
+  - type: ApcPowerReceiver
+    powerLoad: 50
+  - type: PowerState
+    idlePowerDraw: 50
+    workingPowerDraw: 500
+  - type: UIPowerState
+  - type: ExtensionCableReceiver
+  - type: ActivatableUIRequiresPower
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.ComputerVisuals.Powered:
+        computerLayerScreen:
+          true: {visible: true, shader: unshaded}
+          false: {visible: false}
+        computerLayerKeys:
+          true: {visible: true, shader: unshaded}
+          false: {visible: true, shader: shaded}
+  - type: LitOnPowered
+  - type: PointLight
+    radius: 1.5
+    energy: 4.0
+    enabled: false
+    lightMask: ConeSingle
+    autoRot: true
+    offset: "0, 0.4"
+    castShadows: false
+    color: "#3c5eb5"
+  - type: EmitSoundOnUIOpen
+    sound:
+      collection: Keyboard
+      params:
+        volume: -1
+        variation: 0.10
+        pitch: 1.10
+    blacklist:
+      tags:
+      - NoConsoleSound
+  - type: ContainerContainer
+    containers:
+      board: !type:Container
+      IdCardConsole-privilegedId: !type:ContainerSlot
+      IdCardConsole-targetId: !type:ContainerSlot
+  - type: LightningTarget
+    priority: 1
+  - type: RequireProjectileTarget
+  - type: Electrified
+    enabled: false
+    usesApcPower: true
+  - type: WiresPanel
+  - type: WiresVisuals
+  - type: Wires
+    boardName: wires-board-name-computer
+    layoutId: ComputerAi
+  - type: StationAiWhitelist
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [Command]
+    allowedJobs: []
   - type: IdCardConsole
+    privilegedIdSlot:
+      name: id-card-console-privileged-id
+      ejectSound: /Audio/Machines/id_swipe.ogg
+      insertSound: /Audio/Weapons/Guns/MagIn/batrifle_magin.ogg
+      ejectOnBreak: true
+      swap: false
+      whitelist:
+        components:
+        - IdCard
+    targetIdSlot:
+      name: id-card-console-target-id
+      ejectSound: /Audio/Machines/id_swipe.ogg
+      insertSound: /Audio/Weapons/Guns/MagIn/batrifle_magin.ogg
+      ejectOnBreak: true
+      swap: false
+      whitelist:
+        components:
+        - IdCard
     accessLevels:
     - DystopiaConsul
     - DystopiaAdministration
@@ -37,3 +175,19 @@
     - DystopiaCanteen
     - DystopiaTavern
     - DystopiaShop
+  - type: ActivatableUI
+    key: enum.IdCardConsoleUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.IdCardConsoleUiKey.Key:
+        type: IdCardConsoleBoundUserInterface
+      enum.WiresUiKey.Key:
+        type: WiresBoundUserInterface
+  - type: CrewManifestViewer
+    ownerKey: enum.IdCardConsoleUiKey.Key
+  - type: Speech
+    speechVerb: Robotic
+    speechSounds: Pai
+  - type: ItemSlots
+  - type: AccessReader
+    access: [["DystopiaInspection"], ["DystopiaConsul"]]

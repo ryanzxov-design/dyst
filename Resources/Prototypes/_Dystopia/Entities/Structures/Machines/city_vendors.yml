@@ -1,37 +1,66 @@
-# Городские автоматы. Внешний вид пока ванильный.
+# Dystopia. Все предметы в этом файле самостоятельные: без parent, все свойства выписаны явно.
 
-# Автомат за марки: оплата с активной карты покупателя, выручка — в казну Города.
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent BaseMachinePowered, BaseMachineDestructible)
+
 - type: entity
-  parent: [ BaseMachinePowered, BaseMachineDestructible ]
   id: DystopiaVendingCity
   name: "городской автомат"
   description: "Автомат Городского снабжения. Оплата по ID-карте."
+  placement:
+    mode: SnapgridCenter
   components:
-  - type: Sprite
-    sprite: Structures/Machines/VendingMachines/snack.rsi
-    snapCardinals: true
-    layers:
-    - state: "off"
-    - state: normal-unshaded
-      shader: unshaded
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 175
+      behaviors:
+      - !type:SpawnEntitiesBehavior
+        offset: 0
+        spawn:
+          MachineFrameDestroyed:
+            min: 1
+            max: 1
+  - type: Damageable
+    damageModifierSet: SteelMod
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: GravityAffected
   - type: Physics
     bodyType: Static
-  - type: Transform
-    noRot: true
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.25,-0.45,0.25,0.45"
         mask:
         - MachineMask
         layer:
         - MachineLayer
         density: 200
+  - type: Pullable
+  - type: Tag
+    tags:
+    - Structure
+  - type: Animateable
+  - type: InteractionOutline
   - type: Anchorable
+    delay: 2
   - type: ApcPowerReceiver
     powerLoad: 200
+  - type: ExtensionCableReceiver
+  - type: LightningTarget
+    priority: 1
+  - type: Sprite
+    sprite: _Dystopia/Structures/Machines/city_vendor.rsi
+    snapCardinals: true
+    layers:
+    - state: "off"
+    - state: normal-unshaded
+      shader: unshaded
   - type: ActivatableUI
     key: enum.CityVendorUiKey.Key
   - type: ActivatableUIRequiresPower
@@ -63,40 +92,67 @@
     - item: DrinkColaCan
       price: 25
       amount: 10
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent BaseMachinePowered, BaseMachineDestructible)
 
-# Автомат пайков: бесплатно раз в 20 минут на счёт, только при доступе рабочего места
-# (выдаёт Гражданский Инспектор). Паёк: питательный брикет и бутылка воды.
 - type: entity
-  parent: [ BaseMachinePowered, BaseMachineDestructible ]
   id: DystopiaRationDispenser
   name: "автомат пайков"
   description: "Выдаёт паёк работающим гражданам. Паёк положен тем, у кого есть трудовое назначение."
+  placement:
+    mode: SnapgridCenter
   components:
-  - type: Sprite
-    sprite: Structures/Machines/VendingMachines/sustenance.rsi
-    snapCardinals: true
-    layers:
-    - state: "off"
-    - state: normal-unshaded
-      shader: unshaded
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 175
+      behaviors:
+      - !type:SpawnEntitiesBehavior
+        offset: 0
+        spawn:
+          MachineFrameDestroyed:
+            min: 1
+            max: 1
+  - type: Damageable
+    damageModifierSet: SteelMod
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: GravityAffected
   - type: Physics
     bodyType: Static
-  - type: Transform
-    noRot: true
   - type: Fixtures
     fixtures:
       fix1:
-        shape:
-          !type:PhysShapeAabb
+        shape: !type:PhysShapeAabb
           bounds: "-0.25,-0.45,0.25,0.45"
         mask:
         - MachineMask
         layer:
         - MachineLayer
         density: 200
+  - type: Pullable
+  - type: Tag
+    tags:
+    - Structure
+  - type: Animateable
+  - type: InteractionOutline
   - type: Anchorable
+    delay: 2
   - type: ApcPowerReceiver
     powerLoad: 200
+  - type: ExtensionCableReceiver
+  - type: LightningTarget
+    priority: 1
+  - type: Sprite
+    sprite: _Dystopia/Structures/Machines/ration_dispenser.rsi
+    snapCardinals: true
+    layers:
+    - state: "off"
+    - state: normal-unshaded
+      shader: unshaded
   - type: AccessReader
     access: [["DystopiaFactory"], ["DystopiaGreenhouse"], ["DystopiaCanteen"], ["DystopiaTechnical"]]
   - type: PointLight

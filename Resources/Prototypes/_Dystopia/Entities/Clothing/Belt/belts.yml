@@ -1,0 +1,547 @@
+# Пояса и разгрузки.
+# Dystopia. Все предметы в этом файле самостоятельные: без parent, все свойства выписаны явно.
+
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent ClothingBeltSecurity)
+
+- type: entity
+  id: DystopiaClothingBeltGuard
+  name: пояс Стражи
+  description: Синий поясной ремень Городской Стражи.
+  components:
+  - type: Contraband
+    severity: Corvax431
+    allowedDepartments: [Security]
+    allowedJobs: []
+  - type: ExplosionResistance
+    worn: false
+    examine: explosion-resistance-contents-coefficient-value
+    damageCoefficient: 0.9
+  - type: GroupExamine
+  - type: Armor
+    modifiers: {}
+  - type: Item
+    size: Ginormous
+    shape:
+    - 0,0,7,1
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    state: icon
+    sprite: _Dystopia/Clothing/Belt/guard_belt.rsi
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Tag
+    tags:
+    - WhitelistChameleon
+  - type: StaticPrice
+    price: 20
+  - type: FlavorProfile
+    flavors:
+    - fiber
+  - type: Clothing
+    slots: [belt]
+    equipSound:
+      path: /Audio/Items/belt_equip.ogg
+    quickEquip: false
+    sprite: _Dystopia/Clothing/Belt/guard_belt.rsi
+  - type: PhysicalComposition
+    materialComposition:
+      Cloth: 50
+  - type: Storage
+    maxItemSize: Normal
+    defaultStorageOrientation: Vertical
+    grid:
+    - 0,0,7,1
+    whitelist:
+      tags:
+      - CigPack
+      - Taser
+      - SecBeltEquip
+      - Radio
+      - Sidearm
+      - MagazinePistol
+      - MagazineMagnum
+      - CombatKnife
+      - HandGrenade
+      - Stunbaton
+      components:
+      - FlashOnTrigger
+      - SmokeOnTrigger
+      - Flash
+      - Handcuff
+      - BallisticAmmoProvider
+      - CartridgeAmmo
+      - DoorRemote
+      - Whistle
+      - BalloonPopper
+  - type: ContainerContainer
+    containers:
+      storagebase: !type:Container
+        ents: []
+  - type: UserInterface
+    interfaces:
+      enum.StorageUiKey.Key:
+        type: StorageBoundUserInterface
+  - type: ItemMapper
+    sprite: Clothing/Belt/belt_overlay.rsi
+    mapLayers:
+      flashbang:
+        whitelist:
+          components:
+          - FlashOnTrigger
+      stunbaton:
+        whitelist:
+          tags:
+          - Stunbaton
+      tear_gas_grenade:
+        whitelist:
+          components:
+          - SmokeOnTrigger
+  - type: Appearance
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent ClothingBeltSecurityWebbing)
+
+- type: entity
+  id: DystopiaClothingBeltGuardWebbing
+  name: РПС Стражи
+  description: Разгрузочная система Городской Стражи.
+  components:
+  - type: Contraband
+    severity: Corvax431
+    allowedDepartments: [Security]
+    allowedJobs: []
+  - type: ExplosionResistance
+    worn: false
+    examine: explosion-resistance-contents-coefficient-value
+    damageCoefficient: 0.9
+  - type: GroupExamine
+  - type: Armor
+    modifiers: {}
+  - type: Item
+    size: Ginormous
+    shape:
+    - 0,0,7,1
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    state: icon
+    sprite: _Dystopia/Clothing/Belt/guard_webbing.rsi
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Tag
+    tags:
+    - WhitelistChameleon
+  - type: StaticPrice
+    price: 20
+  - type: FlavorProfile
+    flavors:
+    - fiber
+  - type: Clothing
+    slots: [belt]
+    equipSound:
+      path: /Audio/Items/belt_equip.ogg
+    quickEquip: false
+    sprite: _Dystopia/Clothing/Belt/guard_webbing.rsi
+  - type: PhysicalComposition
+    materialComposition:
+      Cloth: 50
+  - type: Storage
+    maxItemSize: Normal
+    defaultStorageOrientation: Vertical
+    grid:
+    - 0,0,7,1
+    whitelist:
+      tags:
+      - CigPack
+      - Taser
+      - SecBeltEquip
+      - Radio
+      - Sidearm
+      - MagazinePistol
+      - MagazineMagnum
+      - CombatKnife
+      - HandGrenade
+      - Stunbaton
+      components:
+      - FlashOnTrigger
+      - SmokeOnTrigger
+      - Flash
+      - Handcuff
+      - BallisticAmmoProvider
+      - CartridgeAmmo
+      - DoorRemote
+      - Whistle
+      - BalloonPopper
+  - type: ContainerContainer
+    containers:
+      storagebase: !type:Container
+        ents: []
+  - type: UserInterface
+    interfaces:
+      enum.StorageUiKey.Key:
+        type: StorageBoundUserInterface
+  - type: ItemMapper
+    sprite: Clothing/Belt/belt_overlay.rsi
+    mapLayers:
+      flashbang:
+        whitelist:
+          components:
+          - FlashOnTrigger
+      stunbaton:
+        whitelist:
+          tags:
+          - Stunbaton
+      tear_gas_grenade:
+        whitelist:
+          components:
+          - SmokeOnTrigger
+  - type: Appearance
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent DystopiaClothingBeltGuard)
+
+- type: entity
+  id: DystopiaClothingBeltGuardFilled
+  name: пояс Стражи
+  description: Синий поясной ремень Городской Стражи.
+  suffix: Заполненный
+  components:
+  - type: Contraband
+    severity: Corvax431
+    allowedDepartments: [Security]
+    allowedJobs: []
+  - type: ExplosionResistance
+    worn: false
+    examine: explosion-resistance-contents-coefficient-value
+    damageCoefficient: 0.9
+  - type: GroupExamine
+  - type: Armor
+    modifiers: {}
+  - type: Item
+    size: Ginormous
+    shape:
+    - 0,0,7,1
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    state: icon
+    sprite: _Dystopia/Clothing/Belt/guard_belt.rsi
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Tag
+    tags:
+    - WhitelistChameleon
+  - type: StaticPrice
+    price: 20
+  - type: FlavorProfile
+    flavors:
+    - fiber
+  - type: Clothing
+    slots: [belt]
+    equipSound:
+      path: /Audio/Items/belt_equip.ogg
+    quickEquip: false
+    sprite: _Dystopia/Clothing/Belt/guard_belt.rsi
+  - type: PhysicalComposition
+    materialComposition:
+      Cloth: 50
+  - type: Storage
+    maxItemSize: Normal
+    defaultStorageOrientation: Vertical
+    grid:
+    - 0,0,7,1
+    whitelist:
+      tags:
+      - CigPack
+      - Taser
+      - SecBeltEquip
+      - Radio
+      - Sidearm
+      - MagazinePistol
+      - MagazineMagnum
+      - CombatKnife
+      - HandGrenade
+      - Stunbaton
+      components:
+      - FlashOnTrigger
+      - SmokeOnTrigger
+      - Flash
+      - Handcuff
+      - BallisticAmmoProvider
+      - CartridgeAmmo
+      - DoorRemote
+      - Whistle
+      - BalloonPopper
+  - type: ContainerContainer
+    containers:
+      storagebase: !type:Container
+        ents: []
+  - type: UserInterface
+    interfaces:
+      enum.StorageUiKey.Key:
+        type: StorageBoundUserInterface
+  - type: ItemMapper
+    sprite: Clothing/Belt/belt_overlay.rsi
+    mapLayers:
+      flashbang:
+        whitelist:
+          components:
+          - FlashOnTrigger
+      stunbaton:
+        whitelist:
+          tags:
+          - Stunbaton
+      tear_gas_grenade:
+        whitelist:
+          components:
+          - SmokeOnTrigger
+  - type: Appearance
+  - type: StorageFill
+    contents:
+    - id: MagazinePistol
+    - id: DystopiaGuardBaton
+    - id: Handcuffs
+      amount: 2
+    - id: Tourniquet
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent DystopiaClothingBeltGuardWebbing)
+
+- type: entity
+  id: DystopiaClothingBeltGuardWebbingFilled
+  name: РПС Стражи
+  description: Разгрузочная система Городской Стражи.
+  suffix: Заполненная
+  components:
+  - type: Contraband
+    severity: Corvax431
+    allowedDepartments: [Security]
+    allowedJobs: []
+  - type: ExplosionResistance
+    worn: false
+    examine: explosion-resistance-contents-coefficient-value
+    damageCoefficient: 0.9
+  - type: GroupExamine
+  - type: Armor
+    modifiers: {}
+  - type: Item
+    size: Ginormous
+    shape:
+    - 0,0,7,1
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    state: icon
+    sprite: _Dystopia/Clothing/Belt/guard_webbing.rsi
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Tag
+    tags:
+    - WhitelistChameleon
+  - type: StaticPrice
+    price: 20
+  - type: FlavorProfile
+    flavors:
+    - fiber
+  - type: Clothing
+    slots: [belt]
+    equipSound:
+      path: /Audio/Items/belt_equip.ogg
+    quickEquip: false
+    sprite: _Dystopia/Clothing/Belt/guard_webbing.rsi
+  - type: PhysicalComposition
+    materialComposition:
+      Cloth: 50
+  - type: Storage
+    maxItemSize: Normal
+    defaultStorageOrientation: Vertical
+    grid:
+    - 0,0,7,1
+    whitelist:
+      tags:
+      - CigPack
+      - Taser
+      - SecBeltEquip
+      - Radio
+      - Sidearm
+      - MagazinePistol
+      - MagazineMagnum
+      - CombatKnife
+      - HandGrenade
+      - Stunbaton
+      components:
+      - FlashOnTrigger
+      - SmokeOnTrigger
+      - Flash
+      - Handcuff
+      - BallisticAmmoProvider
+      - CartridgeAmmo
+      - DoorRemote
+      - Whistle
+      - BalloonPopper
+  - type: ContainerContainer
+    containers:
+      storagebase: !type:Container
+        ents: []
+  - type: UserInterface
+    interfaces:
+      enum.StorageUiKey.Key:
+        type: StorageBoundUserInterface
+  - type: ItemMapper
+    sprite: Clothing/Belt/belt_overlay.rsi
+    mapLayers:
+      flashbang:
+        whitelist:
+          components:
+          - FlashOnTrigger
+      stunbaton:
+        whitelist:
+          tags:
+          - Stunbaton
+      tear_gas_grenade:
+        whitelist:
+          components:
+          - SmokeOnTrigger
+  - type: Appearance
+  - type: StorageFill
+    contents:
+    - id: MagazinePistol
+    - id: DystopiaGuardBaton
+    - id: Handcuffs
+      amount: 2
+    - id: Tourniquet

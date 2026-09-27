@@ -1,0 +1,175 @@
+# Головные уборы: береты, капюшоны.
+# Dystopia. Все предметы в этом файле самостоятельные: без parent, все свойства выписаны явно.
+
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent ClothingHeadHatBeretSecurity)
+
+- type: entity
+  id: DystopiaClothingHeadGuardBeret
+  name: берет Стражи
+  description: Синий берет Городской Стражи.
+  components:
+  - type: Item
+    size: Small
+    storedRotation: -90
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    state: icon
+    sprite: _Dystopia/Clothing/Head/guard_beret.rsi
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Tag
+    tags:
+    - ClothMade
+    - Recyclable
+    - PetWearable
+    - CorgiWearable
+    - HamsterWearable
+    - WhitelistChameleon
+  - type: StaticPrice
+    price: 10
+  - type: FlavorProfile
+    flavors:
+    - fiber
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Fiber
+        Quantity: 15
+    id: food
+  - type: Clothing
+    slots:
+    - HEAD
+    sprite: _Dystopia/Clothing/Head/guard_beret.rsi
+  - type: Edible
+    requiresSpecialDigestion: true
+  - type: Contraband
+    severity: Corvax431
+    allowedDepartments: []
+    allowedJobs: [SecurityOfficer, SeniorOfficer]
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent ClothingHeadHatHoodBioVirology, TemperatureProtection)
+
+- type: entity
+  id: DystopiaClothingHeadDisinfectorHood
+  name: капюшон дезинфектора
+  description: Прорезиненный герметичный капюшон с огнезащитной пропиткой. Подключается к баллону с воздухом, как противогаз.
+  suffix: Virology
+  components:
+  - type: TemperatureProtection
+    coefficient: 0.6
+  - type: Item
+    size: Small
+    storedRotation: -90
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    state: icon
+    sprite: _Dystopia/Clothing/Head/disinfector_hood.rsi
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Tag
+    tags:
+    - WhitelistChameleon
+  - type: StaticPrice
+    price: 10
+  - type: FlavorProfile
+    flavors:
+    - fiber
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Fiber
+        Quantity: 15
+    id: food
+  - type: Clothing
+    slots:
+    - HEAD
+    sprite: _Dystopia/Clothing/Head/disinfector_hood.rsi
+  - type: Edible
+    requiresSpecialDigestion: true
+  - type: BreathMask
+  - type: IngestionBlocker
+  - type: GroupExamine
+  - type: Armor
+    modifiers: {}
+  - type: ZombificationResistance
+    zombificationResistanceCoefficient: 0.8
+  - type: HideLayerClothing
+    layers:
+      Hair: HEAD
+      Snout: HEAD
+      HeadTop: HEAD
+      HeadSide: HEAD
+  - type: IdentityBlocker
+  - type: FireProtection
+    reduction: 0.15

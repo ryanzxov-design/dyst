@@ -1,0 +1,379 @@
+# Маски и противогазы.
+# Dystopia. Все предметы в этом файле самостоятельные: без parent, все свойства выписаны явно.
+
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent ClothingMaskGasSecurity, ShowSecurityIcons)
+
+- type: entity
+  id: DystopiaClothingMaskGuard
+  name: маска Стражи
+  description: Глухая резиновая маска с круглыми окулярами и фильтром. В окулярах холодно тлеет голубой свет — лица за ней никто не видел.
+  components:
+  - type: ShowJobIcons
+  - type: ShowSquadIcons
+  - type: ShowMindShieldIcons
+  - type: ShowCriminalRecordIcons
+  - type: ShowContrabandDetails
+  - type: Contraband
+    severity: Corvax432
+    allowedDepartments: [Security]
+    allowedJobs: []
+  - type: Item
+    size: Tiny
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    state: icon
+    sprite: _Dystopia/Clothing/Mask/guard_mask.rsi
+    layers:
+    - state: icon
+    - state: icon-glow
+      shader: unshaded
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Tag
+    tags:
+    - HamsterWearable
+    - WhitelistChameleon
+  - type: StaticPrice
+    price: 25
+  - type: FlavorProfile
+    flavors:
+    - fiber
+  - type: Clothing
+    slots: [mask]
+    sprite: _Dystopia/Clothing/Mask/guard_mask.rsi
+    clothingVisuals:
+      mask:
+      - state: equipped-MASK
+      - state: equipped-MASK-glow
+        shader: unshaded
+  - type: Mask
+  - type: BreathMask
+  - type: IngestionBlocker
+  - type: IdentityBlocker
+  - type: HideLayerClothing
+    layers:
+      Snout: Mask
+    hideOnToggle: true
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.95
+        Slash: 0.95
+        Piercing: 0.95
+        Heat: 0.95
+  - type: FlashImmunity
+  - type: EyeProtection
+    protectionTime: 5
+  - type: DystopiaVisor
+    tint: "#2F86FF"
+    centerStrength: 0
+    edgeStrength: 0
+    haze: 0
+    darken: 0
+    monochrome: 0.9
+    sharpen: 0.6
+    brightness: 0.1
+    centerRelief: 0.08
+    scanlines: 1
+    linePeriod: 6
+    lineStrength: 0.3
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent ClothingMaskGasMerc)
+
+- type: entity
+  id: DystopiaClothingMaskGasSanitary
+  name: санитарный противогаз
+  description: Серый противогаз установленного Городом образца. Выдаётся служащим вместе с формой.
+  components:
+  - type: Contraband
+    severity: Corvax431
+    allowedDepartments: [Security, Cargo]
+    allowedJobs: []
+  - type: Item
+    size: Small
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    state: icon
+    sprite: _Dystopia/Clothing/Mask/gas_sanitary.rsi
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Tag
+    tags:
+    - HamsterWearable
+    - WhitelistChameleon
+  - type: StaticPrice
+    price: 25
+  - type: FlavorProfile
+    flavors:
+    - fiber
+  - type: Clothing
+    slots: [mask]
+    sprite: _Dystopia/Clothing/Mask/gas_sanitary.rsi
+  - type: Mask
+  - type: BreathMask
+  - type: IngestionBlocker
+  - type: IdentityBlocker
+  - type: HideLayerClothing
+    layers:
+      Snout: Mask
+    hideOnToggle: true
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.90
+        Slash: 0.90
+        Piercing: 0.95
+        Heat: 0.95
+  - type: DystopiaVisor
+    tint: "#52956A"
+    centerStrength: 0.12
+    edgeStrength: 0.7
+    haze: 0.12
+    darken: 0.15
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent ClothingMaskGasMerc)
+
+- type: entity
+  id: DystopiaClothingMaskGasField
+  name: полевой противогаз
+  description: Грубый, но надёжный противогаз для работы в очагах заразы и за стенами Города.
+  components:
+  - type: Contraband
+    severity: Corvax431
+    allowedDepartments: [Security, Cargo]
+    allowedJobs: []
+  - type: Item
+    size: Small
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    state: icon
+    sprite: _Dystopia/Clothing/Mask/gas_field.rsi
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Tag
+    tags:
+    - HamsterWearable
+    - WhitelistChameleon
+  - type: StaticPrice
+    price: 25
+  - type: FlavorProfile
+    flavors:
+    - fiber
+  - type: Clothing
+    slots: [mask]
+    sprite: _Dystopia/Clothing/Mask/gas_field.rsi
+  - type: Mask
+  - type: BreathMask
+  - type: IngestionBlocker
+  - type: IdentityBlocker
+  - type: HideLayerClothing
+    layers:
+      Snout: Mask
+    hideOnToggle: true
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.90
+        Slash: 0.90
+        Piercing: 0.95
+        Heat: 0.95
+  - type: DystopiaVisor
+    tint: "#C2CB48"
+    centerStrength: 0.15
+    edgeStrength: 0.75
+    haze: 0.18
+    darken: 0.2
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent ClothingMaskGasExplorer)
+
+- type: entity
+  id: DystopiaClothingMaskGasScience
+  name: противогаз Научной службы
+  description: Лабораторный противогаз с широким обзором. Не спасёт от того, что вы изучаете, но даст время это записать.
+  components:
+  - type: Contraband
+    severity: Corvax431
+    allowedDepartments: [Cargo]
+    allowedJobs: []
+  - type: Item
+    size: Small
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    state: icon
+    sprite: _Dystopia/Clothing/Mask/gas_science.rsi
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Tag
+    tags:
+    - HamsterWearable
+    - WhitelistChameleon
+  - type: StaticPrice
+    price: 25
+  - type: FlavorProfile
+    flavors:
+    - fiber
+  - type: Clothing
+    slots: [mask]
+    sprite: _Dystopia/Clothing/Mask/gas_science.rsi
+  - type: Mask
+  - type: BreathMask
+  - type: IngestionBlocker
+  - type: IdentityBlocker
+  - type: HideLayerClothing
+    layers:
+      Snout: Mask
+    hideOnToggle: true
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.90
+        Slash: 0.90
+        Piercing: 0.95
+        Heat: 0.95
+  - type: DystopiaVisor
+    tint: "#846D98"
+    centerStrength: 0.1
+    edgeStrength: 0.6
+    haze: 0.06
+    darken: 0.1

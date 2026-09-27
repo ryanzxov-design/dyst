@@ -1,113 +1,415 @@
-# Ключи шифрования Города. Лейблы — свои спрайты (_Dystopia/Objects/Devices/encryption_labels.rsi).
+# Dystopia. Все предметы в этом файле самостоятельные: без parent, все свойства выписаны явно.
+
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent EncryptionKey)
 
 - type: entity
-  parent: EncryptionKey
   id: EncryptionKeyDystopiaAdministration
   name: ключ шифрования Администрации
   description: Ключ шифрования служебного радиоканала Города.
   components:
-  - type: EncryptionKey
-    channels:
-    - Command
-    defaultChannel: Command
+  - type: Item
+    size: Small
+    sprite: _Dystopia/Objects/Devices/encryption_keys.rsi
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
   - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Devices/encryption_keys.rsi
     layers:
     - state: crypt_gold
     - sprite: _Dystopia/Objects/Devices/encryption_labels.rsi
       state: administration_label
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: EncryptionKey
+    channels:
+    - Command
+    defaultChannel: Command
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent EncryptionKey)
 
 - type: entity
-  parent: EncryptionKey
   id: EncryptionKeyDystopiaGuard
   name: ключ шифрования Стражи
   description: Ключ шифрования служебного радиоканала Города.
   components:
-  - type: EncryptionKey
-    channels:
-    - Security
-    defaultChannel: Security
+  - type: Item
+    size: Small
+    sprite: _Dystopia/Objects/Devices/encryption_keys.rsi
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
   - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Devices/encryption_keys.rsi
     layers:
     - state: crypt_gray
     - sprite: _Dystopia/Objects/Devices/encryption_labels.rsi
       state: guard_label
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: EncryptionKey
+    channels:
+    - Security
+    defaultChannel: Security
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent EncryptionKey)
 
 - type: entity
-  parent: EncryptionKey
   id: EncryptionKeyDystopiaPatrol
   name: ключ шифрования Патруля
   description: Ключ шифрования служебного радиоканала Города.
   components:
-  - type: EncryptionKey
-    channels:
-    - DystopiaPatrol
-    defaultChannel: DystopiaPatrol
+  - type: Item
+    size: Small
+    sprite: _Dystopia/Objects/Devices/encryption_keys.rsi
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
   - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Devices/encryption_keys.rsi
     layers:
     - state: crypt_gray
     - sprite: _Dystopia/Objects/Devices/encryption_labels.rsi
       state: patrol_label
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: EncryptionKey
+    channels:
+    - DystopiaPatrol
+    defaultChannel: DystopiaPatrol
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent EncryptionKey)
 
 - type: entity
-  parent: EncryptionKey
   id: EncryptionKeyDystopiaSanitary
   name: ключ шифрования Санитарии
   description: Ключ шифрования служебного радиоканала Города.
   components:
-  - type: EncryptionKey
-    channels:
-    - Medical
-    defaultChannel: Medical
+  - type: Item
+    size: Small
+    sprite: _Dystopia/Objects/Devices/encryption_keys.rsi
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
   - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Devices/encryption_keys.rsi
     layers:
     - state: crypt_gray
     - sprite: _Dystopia/Objects/Devices/encryption_labels.rsi
       state: sanitary_label
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: EncryptionKey
+    channels:
+    - Medical
+    defaultChannel: Medical
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent EncryptionKey)
 
 - type: entity
-  parent: EncryptionKey
   id: EncryptionKeyDystopiaScience
   name: ключ шифрования Науки
   description: Ключ шифрования служебного радиоканала Города.
   components:
-  - type: EncryptionKey
-    channels:
-    - Science
-    defaultChannel: Science
+  - type: Item
+    size: Small
+    sprite: _Dystopia/Objects/Devices/encryption_keys.rsi
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
   - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Devices/encryption_keys.rsi
     layers:
     - state: crypt_gray
     - sprite: _Dystopia/Objects/Devices/encryption_labels.rsi
       state: science_label
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: EncryptionKey
+    channels:
+    - Science
+    defaultChannel: Science
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent EncryptionKey)
 
 - type: entity
-  parent: EncryptionKey
   id: EncryptionKeyDystopiaCult
   name: склизкий ключ шифрования
   description: Покрыт чем-то тёплым и живым. Лучше не спрашивать, откуда он.
   components:
-  - type: EncryptionKey
-    channels:
-    - DystopiaCult
-    defaultChannel: DystopiaCult
+  - type: Item
+    size: Small
+    sprite: _Dystopia/Objects/Devices/encryption_keys.rsi
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
   - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Devices/encryption_keys.rsi
     layers:
     - state: crypt_rusted
     - sprite: _Dystopia/Objects/Devices/encryption_labels.rsi
       state: cult_label
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: EncryptionKey
+    channels:
+    - DystopiaCult
+    defaultChannel: DystopiaCult
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent EncryptionKey)
 
 - type: entity
-  parent: EncryptionKey
   id: EncryptionKeyDystopiaUnauthorized
   name: самодельный ключ шифрования
   description: Грубо спаянная плата. Ловит частоту, которой нет в реестрах Города.
   components:
-  - type: EncryptionKey
-    channels:
-    - DystopiaUnauthorized
-    defaultChannel: DystopiaUnauthorized
+  - type: Item
+    size: Small
+    sprite: _Dystopia/Objects/Devices/encryption_keys.rsi
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
   - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Devices/encryption_keys.rsi
     layers:
     - state: crypt_rusted
     - sprite: _Dystopia/Objects/Devices/encryption_labels.rsi
       state: unauthorized_label
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: EncryptionKey
+    channels:
+    - DystopiaUnauthorized
+    defaultChannel: DystopiaUnauthorized

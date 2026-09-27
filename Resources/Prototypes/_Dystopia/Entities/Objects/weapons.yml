@@ -1,24 +1,88 @@
-# Дубинка Стражи: 7 тупого урона, валит с ног за 4 удара (4 × 26 = 104 урона выносливости при пороге 100).
-# Урон по выносливости не зависит от брони цели (StaminaDamageOnHit), а тупой урон — зависит.
+# Dystopia. Все предметы в этом файле самостоятельные: без parent, все свойства выписаны явно.
+
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent Truncheon)
 
 - type: entity
-  parent: Truncheon
   id: DystopiaGuardBaton
   name: дубинка
   description: Простая резиновая дубинка Городской Стражи. Больно, унизительно, эффективно.
   components:
-  - type: MeleeWeapon
-    damage:
-      types:
-        Blunt: 7
-    bluntStaminaDamageFactor: 0
-  - type: StaminaDamageOnHit
-    damage: 26
+  - type: Contraband
+    severity: Corvax431
+    allowedDepartments: [Security]
+    allowedJobs: []
   - type: Item
     size: Normal
     shape:
     - 0,0,0,1
+    storedRotation: -45
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Weapons/guard_baton.rsi
+    state: icon
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: MeleeWeapon
+    wideAnimationRotation: -135
+    damage:
+      types:
+        Blunt: 7
+    soundHit:
+      collection: MetalThud
+    bluntStaminaDamageFactor: 0
   - type: Tag
     tags:
     - Truncheon
     - SecBeltEquip
+  - type: Clothing
+    sprite: _Dystopia/Objects/Weapons/guard_baton.rsi
+    quickEquip: false
+    slots:
+    - Belt
+  - type: DisarmMalus
+    malus: 0.225
+  - type: Appearance
+  - type: StaticPrice
+    price: 80
+  - type: GuideHelp
+    guides:
+    - Security
+    - Antagonists
+  - type: StaminaDamageOnHit
+    damage: 26

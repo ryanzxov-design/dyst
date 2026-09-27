@@ -1,289 +1,626 @@
-# Точки спавна ролей для маппинга Города.
+# Dystopia. Все предметы в этом файле самостоятельные: без parent, все свойства выписаны явно.
+
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent SpawnPointJobBase)
 
 - type: entity
   id: SpawnPointDystopiaConsul
-  parent: SpawnPointJobBase
   name: консул
+  suffix: Job Spawn
+  placement:
+    mode: SnapgridCenter
   components:
-  - type: SpawnPoint
-    job_id: DystopiaConsul
+  - type: Transform
+    anchored: true
+  - type: Marker
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Tag
+    tags:
+    - ForceFixRotations
   - type: Sprite
+    drawdepth: Overdoors
+    sprite: Markers/jobs.rsi
     layers:
-      - state: green
-      - state: captain
+    - state: green
+    - state: captain
+  - type: SpawnPoint
+    spawn_type: Job
+    job_id: DystopiaConsul
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent SpawnPointJobBase)
 
 - type: entity
   id: SpawnPointDystopiaAdjutant
-  parent: SpawnPointJobBase
   name: адъютант
+  suffix: Job Spawn
+  placement:
+    mode: SnapgridCenter
   components:
-  - type: SpawnPoint
-    job_id: DystopiaAdjutant
+  - type: Transform
+    anchored: true
+  - type: Marker
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Tag
+    tags:
+    - ForceFixRotations
   - type: Sprite
+    drawdepth: Overdoors
+    sprite: Markers/jobs.rsi
     layers:
-      - state: green
-      - state: lawyer
+    - state: green
+    - state: lawyer
+  - type: SpawnPoint
+    spawn_type: Job
+    job_id: DystopiaAdjutant
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent SpawnPointJobBase)
 
 - type: entity
   id: SpawnPointDystopiaCivilInspector
-  parent: SpawnPointJobBase
   name: гражданский инспектор
+  suffix: Job Spawn
+  placement:
+    mode: SnapgridCenter
   components:
-  - type: SpawnPoint
-    job_id: DystopiaCivilInspector
+  - type: Transform
+    anchored: true
+  - type: Marker
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Tag
+    tags:
+    - ForceFixRotations
   - type: Sprite
+    drawdepth: Overdoors
+    sprite: Markers/jobs.rsi
     layers:
-      - state: green
-      - state: hop
+    - state: green
+    - state: hop
+  - type: SpawnPoint
+    spawn_type: Job
+    job_id: DystopiaCivilInspector
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent SpawnPointJobBase)
 
 - type: entity
   id: SpawnPointDystopiaGuardCaptain
-  parent: SpawnPointJobBase
   name: капитан Стражи
+  suffix: Job Spawn
+  placement:
+    mode: SnapgridCenter
   components:
-  - type: SpawnPoint
-    job_id: DystopiaGuardCaptain
+  - type: Transform
+    anchored: true
+  - type: Marker
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Tag
+    tags:
+    - ForceFixRotations
   - type: Sprite
+    drawdepth: Overdoors
+    sprite: Markers/jobs.rsi
     layers:
-      - state: green
-      - state: hos
+    - state: green
+    - state: hos
+  - type: SpawnPoint
+    spawn_type: Job
+    job_id: DystopiaGuardCaptain
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent SpawnPointJobBase)
 
 - type: entity
   id: SpawnPointDystopiaGuardSergeant
-  parent: SpawnPointJobBase
   name: сержант Стражи
+  suffix: Job Spawn
+  placement:
+    mode: SnapgridCenter
   components:
-  - type: SpawnPoint
-    job_id: DystopiaGuardSergeant
+  - type: Transform
+    anchored: true
+  - type: Marker
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Tag
+    tags:
+    - ForceFixRotations
   - type: Sprite
+    drawdepth: Overdoors
+    sprite: Markers/jobs.rsi
     layers:
-      - state: green
-      - state: warden
+    - state: green
+    - state: warden
+  - type: SpawnPoint
+    spawn_type: Job
+    job_id: DystopiaGuardSergeant
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent SpawnPointJobBase)
 
 - type: entity
   id: SpawnPointDystopiaGuardsman
-  parent: SpawnPointJobBase
   name: городской стражник
+  suffix: Job Spawn
+  placement:
+    mode: SnapgridCenter
   components:
-  - type: SpawnPoint
-    job_id: DystopiaGuardsman
+  - type: Transform
+    anchored: true
+  - type: Marker
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Tag
+    tags:
+    - ForceFixRotations
   - type: Sprite
+    drawdepth: Overdoors
+    sprite: Markers/jobs.rsi
     layers:
-      - state: green
-      - state: security_officer
+    - state: green
+    - state: security_officer
+  - type: SpawnPoint
+    spawn_type: Job
+    job_id: DystopiaGuardsman
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent SpawnPointJobBase)
 
 - type: entity
   id: SpawnPointDystopiaGuardRecruit
-  parent: SpawnPointJobBase
   name: рекрут Стражи
+  suffix: Job Spawn
+  placement:
+    mode: SnapgridCenter
   components:
-  - type: SpawnPoint
-    job_id: DystopiaGuardRecruit
+  - type: Transform
+    anchored: true
+  - type: Marker
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Tag
+    tags:
+    - ForceFixRotations
   - type: Sprite
+    drawdepth: Overdoors
+    sprite: Markers/jobs.rsi
     layers:
-      - state: green
-      - state: security_cadet
+    - state: green
+    - state: security_cadet
+  - type: SpawnPoint
+    spawn_type: Job
+    job_id: DystopiaGuardRecruit
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent SpawnPointJobBase)
 
 - type: entity
   id: SpawnPointDystopiaPraetorian
-  parent: SpawnPointJobBase
   name: преторианец
+  suffix: Job Spawn
+  placement:
+    mode: SnapgridCenter
   components:
-  - type: SpawnPoint
-    job_id: DystopiaPraetorian
+  - type: Transform
+    anchored: true
+  - type: Marker
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Tag
+    tags:
+    - ForceFixRotations
   - type: Sprite
+    drawdepth: Overdoors
+    sprite: Markers/jobs.rsi
     layers:
-      - state: green
-      - state: seniorofficer
+    - state: green
+    - state: seniorofficer
+  - type: SpawnPoint
+    spawn_type: Job
+    job_id: DystopiaPraetorian
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent SpawnPointJobBase)
 
 - type: entity
   id: SpawnPointDystopiaGrenadier
-  parent: SpawnPointJobBase
   name: гренадер
+  suffix: Job Spawn
+  placement:
+    mode: SnapgridCenter
   components:
-  - type: SpawnPoint
-    job_id: DystopiaGrenadier
+  - type: Transform
+    anchored: true
+  - type: Marker
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Tag
+    tags:
+    - ForceFixRotations
   - type: Sprite
+    drawdepth: Overdoors
+    sprite: Markers/jobs.rsi
     layers:
-      - state: green
-      - state: ertengineer
+    - state: green
+    - state: ertengineer
+  - type: SpawnPoint
+    spawn_type: Job
+    job_id: DystopiaGrenadier
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent SpawnPointJobBase)
 
 - type: entity
   id: SpawnPointDystopiaStormtrooper
-  parent: SpawnPointJobBase
   name: штурмовик
+  suffix: Job Spawn
+  placement:
+    mode: SnapgridCenter
   components:
-  - type: SpawnPoint
-    job_id: DystopiaStormtrooper
+  - type: Transform
+    anchored: true
+  - type: Marker
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Tag
+    tags:
+    - ForceFixRotations
   - type: Sprite
+    drawdepth: Overdoors
+    sprite: Markers/jobs.rsi
     layers:
-      - state: green
-      - state: ertleader
+    - state: green
+    - state: ertleader
+  - type: SpawnPoint
+    spawn_type: Job
+    job_id: DystopiaStormtrooper
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent SpawnPointJobBase)
 
 - type: entity
   id: SpawnPointDystopiaSoldier
-  parent: SpawnPointJobBase
   name: солдат
+  suffix: Job Spawn
+  placement:
+    mode: SnapgridCenter
   components:
-  - type: SpawnPoint
-    job_id: DystopiaSoldier
+  - type: Transform
+    anchored: true
+  - type: Marker
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Tag
+    tags:
+    - ForceFixRotations
   - type: Sprite
+    drawdepth: Overdoors
+    sprite: Markers/jobs.rsi
     layers:
-      - state: green
-      - state: ertsecurity
+    - state: green
+    - state: ertsecurity
+  - type: SpawnPoint
+    spawn_type: Job
+    job_id: DystopiaSoldier
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent SpawnPointJobBase)
 
 - type: entity
   id: SpawnPointDystopiaChiefSanitaryDoctor
-  parent: SpawnPointJobBase
   name: глава Санитарной Службы
+  suffix: Job Spawn
+  placement:
+    mode: SnapgridCenter
   components:
-  - type: SpawnPoint
-    job_id: DystopiaChiefSanitaryDoctor
+  - type: Transform
+    anchored: true
+  - type: Marker
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Tag
+    tags:
+    - ForceFixRotations
   - type: Sprite
+    drawdepth: Overdoors
+    sprite: Markers/jobs.rsi
     layers:
-      - state: green
-      - state: cmo
+    - state: green
+    - state: cmo
+  - type: SpawnPoint
+    spawn_type: Job
+    job_id: DystopiaChiefSanitaryDoctor
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent SpawnPointJobBase)
 
 - type: entity
   id: SpawnPointDystopiaHealer
-  parent: SpawnPointJobBase
   name: лекарь
+  suffix: Job Spawn
+  placement:
+    mode: SnapgridCenter
   components:
-  - type: SpawnPoint
-    job_id: DystopiaHealer
+  - type: Transform
+    anchored: true
+  - type: Marker
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Tag
+    tags:
+    - ForceFixRotations
   - type: Sprite
+    drawdepth: Overdoors
+    sprite: Markers/jobs.rsi
     layers:
-      - state: green
-      - state: doctor
+    - state: green
+    - state: doctor
+  - type: SpawnPoint
+    spawn_type: Job
+    job_id: DystopiaHealer
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent SpawnPointJobBase)
 
 - type: entity
   id: SpawnPointDystopiaDisinfector
-  parent: SpawnPointJobBase
   name: дезинфектор
+  suffix: Job Spawn
+  placement:
+    mode: SnapgridCenter
   components:
-  - type: SpawnPoint
-    job_id: DystopiaDisinfector
+  - type: Transform
+    anchored: true
+  - type: Marker
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Tag
+    tags:
+    - ForceFixRotations
   - type: Sprite
+    drawdepth: Overdoors
+    sprite: Markers/jobs.rsi
     layers:
-      - state: green
-      - state: virologist
+    - state: green
+    - state: virologist
+  - type: SpawnPoint
+    spawn_type: Job
+    job_id: DystopiaDisinfector
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent SpawnPointJobBase)
 
 - type: entity
   id: SpawnPointDystopiaLiquidator
-  parent: SpawnPointJobBase
   name: ликвидатор
+  suffix: Job Spawn
+  placement:
+    mode: SnapgridCenter
   components:
-  - type: SpawnPoint
-    job_id: DystopiaLiquidator
+  - type: Transform
+    anchored: true
+  - type: Marker
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Tag
+    tags:
+    - ForceFixRotations
   - type: Sprite
+    drawdepth: Overdoors
+    sprite: Markers/jobs.rsi
     layers:
-      - state: green
-      - state: engineer
+    - state: green
+    - state: engineer
+  - type: SpawnPoint
+    spawn_type: Job
+    job_id: DystopiaLiquidator
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent SpawnPointJobBase)
 
 - type: entity
   id: SpawnPointDystopiaPharmacist
-  parent: SpawnPointJobBase
   name: фармацевт
+  suffix: Job Spawn
+  placement:
+    mode: SnapgridCenter
   components:
-  - type: SpawnPoint
-    job_id: DystopiaPharmacist
+  - type: Transform
+    anchored: true
+  - type: Marker
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Tag
+    tags:
+    - ForceFixRotations
   - type: Sprite
+    drawdepth: Overdoors
+    sprite: Markers/jobs.rsi
     layers:
-      - state: green
-      - state: chemist
+    - state: green
+    - state: chemist
+  - type: SpawnPoint
+    spawn_type: Job
+    job_id: DystopiaPharmacist
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent SpawnPointJobBase)
 
 - type: entity
   id: SpawnPointDystopiaJuniorOrderly
-  parent: SpawnPointJobBase
   name: младший санитар
+  suffix: Job Spawn
+  placement:
+    mode: SnapgridCenter
   components:
-  - type: SpawnPoint
-    job_id: DystopiaJuniorOrderly
+  - type: Transform
+    anchored: true
+  - type: Marker
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Tag
+    tags:
+    - ForceFixRotations
   - type: Sprite
+    drawdepth: Overdoors
+    sprite: Markers/jobs.rsi
     layers:
-      - state: green
-      - state: medicalintern
+    - state: green
+    - state: medicalintern
+  - type: SpawnPoint
+    spawn_type: Job
+    job_id: DystopiaJuniorOrderly
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent SpawnPointJobBase)
 
 - type: entity
   id: SpawnPointDystopiaScienceDirector
-  parent: SpawnPointJobBase
   name: директор Научной службы
+  suffix: Job Spawn
+  placement:
+    mode: SnapgridCenter
   components:
-  - type: SpawnPoint
-    job_id: DystopiaScienceDirector
+  - type: Transform
+    anchored: true
+  - type: Marker
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Tag
+    tags:
+    - ForceFixRotations
   - type: Sprite
+    drawdepth: Overdoors
+    sprite: Markers/jobs.rsi
     layers:
-      - state: green
-      - state: rd
+    - state: green
+    - state: rd
+  - type: SpawnPoint
+    spawn_type: Job
+    job_id: DystopiaScienceDirector
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent SpawnPointJobBase)
 
 - type: entity
   id: SpawnPointDystopiaAugmentologist
-  parent: SpawnPointJobBase
   name: аугментолог
+  suffix: Job Spawn
+  placement:
+    mode: SnapgridCenter
   components:
-  - type: SpawnPoint
-    job_id: DystopiaAugmentologist
+  - type: Transform
+    anchored: true
+  - type: Marker
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Tag
+    tags:
+    - ForceFixRotations
   - type: Sprite
+    drawdepth: Overdoors
+    sprite: Markers/jobs.rsi
     layers:
-      - state: green
-      - state: roboticist
+    - state: green
+    - state: roboticist
+  - type: SpawnPoint
+    spawn_type: Job
+    job_id: DystopiaAugmentologist
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent SpawnPointJobBase)
 
 - type: entity
   id: SpawnPointDystopiaPathobiologist
-  parent: SpawnPointJobBase
   name: патобиолог
+  suffix: Job Spawn
+  placement:
+    mode: SnapgridCenter
   components:
-  - type: SpawnPoint
-    job_id: DystopiaPathobiologist
+  - type: Transform
+    anchored: true
+  - type: Marker
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Tag
+    tags:
+    - ForceFixRotations
   - type: Sprite
+    drawdepth: Overdoors
+    sprite: Markers/jobs.rsi
     layers:
-      - state: green
-      - state: geneticist
+    - state: green
+    - state: geneticist
+  - type: SpawnPoint
+    spawn_type: Job
+    job_id: DystopiaPathobiologist
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent SpawnPointJobBase)
 
 - type: entity
   id: SpawnPointDystopiaResearcher
-  parent: SpawnPointJobBase
   name: исследователь
+  suffix: Job Spawn
+  placement:
+    mode: SnapgridCenter
   components:
-  - type: SpawnPoint
-    job_id: DystopiaResearcher
+  - type: Transform
+    anchored: true
+  - type: Marker
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Tag
+    tags:
+    - ForceFixRotations
   - type: Sprite
+    drawdepth: Overdoors
+    sprite: Markers/jobs.rsi
     layers:
-      - state: green
-      - state: scientist
+    - state: green
+    - state: scientist
+  - type: SpawnPoint
+    spawn_type: Job
+    job_id: DystopiaResearcher
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent SpawnPointJobBase)
 
 - type: entity
   id: SpawnPointDystopiaLabAssistant
-  parent: SpawnPointJobBase
   name: лаборант
+  suffix: Job Spawn
+  placement:
+    mode: SnapgridCenter
   components:
-  - type: SpawnPoint
-    job_id: DystopiaLabAssistant
+  - type: Transform
+    anchored: true
+  - type: Marker
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Tag
+    tags:
+    - ForceFixRotations
   - type: Sprite
+    drawdepth: Overdoors
+    sprite: Markers/jobs.rsi
     layers:
-      - state: green
-      - state: researchassistant
+    - state: green
+    - state: researchassistant
+  - type: SpawnPoint
+    spawn_type: Job
+    job_id: DystopiaLabAssistant
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent SpawnPointJobBase)
 
 - type: entity
   id: SpawnPointDystopiaProletarian
-  parent: SpawnPointJobBase
   name: пролетарий
+  suffix: Job Spawn
+  placement:
+    mode: SnapgridCenter
   components:
-  - type: SpawnPoint
-    job_id: DystopiaProletarian
+  - type: Transform
+    anchored: true
+  - type: Marker
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Tag
+    tags:
+    - ForceFixRotations
   - type: Sprite
+    drawdepth: Overdoors
+    sprite: Markers/jobs.rsi
     layers:
-      - state: green
-      - state: passenger
+    - state: green
+    - state: passenger
+  - type: SpawnPoint
+    spawn_type: Job
+    job_id: DystopiaProletarian
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent SpawnPointJobBase)
 
 - type: entity
   id: SpawnPointDystopiaShopkeeper
-  parent: SpawnPointJobBase
   name: лавочник
+  suffix: Job Spawn
+  placement:
+    mode: SnapgridCenter
   components:
-  - type: SpawnPoint
-    job_id: DystopiaShopkeeper
+  - type: Transform
+    anchored: true
+  - type: Marker
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Tag
+    tags:
+    - ForceFixRotations
   - type: Sprite
+    drawdepth: Overdoors
+    sprite: Markers/jobs.rsi
     layers:
-      - state: green
-      - state: cargo_tech
+    - state: green
+    - state: cargo_tech
+  - type: SpawnPoint
+    spawn_type: Job
+    job_id: DystopiaShopkeeper

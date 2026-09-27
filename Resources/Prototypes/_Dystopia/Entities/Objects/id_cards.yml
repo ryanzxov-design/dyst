@@ -1,12 +1,53 @@
-# ID-карты профессий Города. Цвет полос — цвет департамента, иконка — своя.
-# Позже эта же карта станет банковской картой жителя.
+# Dystopia. Все предметы в этом файле самостоятельные: без parent, все свойства выписаны явно.
+
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent IDCardStandard)
 
 - type: entity
-  parent: IDCardStandard
   id: DystopiaConsulIDCard
   name: ID-карта (консул)
+  description: A card necessary to access various areas aboard the station.
   components:
+  - type: Item
+    size: Small
+    heldPrefix: gold
+    storedRotation: -90
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
   - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Misc/id_cards.rsi
     layers:
     - state: gold
     - state: stripe_top
@@ -16,17 +57,79 @@
     - sprite: _Dystopia/Interface/job_icons.rsi
       offset: -0.09375, 0.0625
       state: Consul
-  - type: Item
-    heldPrefix: gold
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Tag
+    tags:
+    - DoorBumpOpener
+    - WhitelistChameleon
+    - WhitelistChameleonIdCard
+  - type: StaticPrice
+    price: 10
+  - type: FlavorProfile
+    flavors:
+    - fiber
+  - type: Clothing
+    slots:
+    - idcard
+    sprite: _Dystopia/Objects/Misc/id_cards.rsi
+  - type: Access
+  - type: IdCard
+  - type: StationRecordKeyStorage
+  - type: StealTarget
+    stealGroup: IDCard
   - type: PresetIdCard
     job: DystopiaConsul
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent IDCardStandard)
 
 - type: entity
-  parent: IDCardStandard
   id: DystopiaAdjutantIDCard
   name: ID-карта (адъютант)
+  description: A card necessary to access various areas aboard the station.
   components:
+  - type: Item
+    size: Small
+    heldPrefix: default
+    storedRotation: -90
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
   - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Misc/id_cards.rsi
     layers:
     - state: default
     - state: stripe_top
@@ -36,15 +139,79 @@
     - sprite: _Dystopia/Interface/job_icons.rsi
       offset: -0.09375, 0.0625
       state: Adjutant
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Tag
+    tags:
+    - DoorBumpOpener
+    - WhitelistChameleon
+    - WhitelistChameleonIdCard
+  - type: StaticPrice
+    price: 10
+  - type: FlavorProfile
+    flavors:
+    - fiber
+  - type: Clothing
+    slots:
+    - idcard
+    sprite: _Dystopia/Objects/Misc/id_cards.rsi
+  - type: Access
+  - type: IdCard
+  - type: StationRecordKeyStorage
+  - type: StealTarget
+    stealGroup: IDCard
   - type: PresetIdCard
     job: DystopiaAdjutant
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent IDCardStandard)
 
 - type: entity
-  parent: IDCardStandard
   id: DystopiaCivilInspectorIDCard
   name: ID-карта (гражданский инспектор)
+  description: A card necessary to access various areas aboard the station.
   components:
+  - type: Item
+    size: Small
+    heldPrefix: silver
+    storedRotation: -90
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
   - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Misc/id_cards.rsi
     layers:
     - state: silver
     - state: stripe_top
@@ -54,17 +221,79 @@
     - sprite: _Dystopia/Interface/job_icons.rsi
       offset: -0.09375, 0.0625
       state: CivilInspector
-  - type: Item
-    heldPrefix: silver
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Tag
+    tags:
+    - DoorBumpOpener
+    - WhitelistChameleon
+    - WhitelistChameleonIdCard
+  - type: StaticPrice
+    price: 10
+  - type: FlavorProfile
+    flavors:
+    - fiber
+  - type: Clothing
+    slots:
+    - idcard
+    sprite: _Dystopia/Objects/Misc/id_cards.rsi
+  - type: Access
+  - type: IdCard
+  - type: StationRecordKeyStorage
+  - type: StealTarget
+    stealGroup: IDCard
   - type: PresetIdCard
     job: DystopiaCivilInspector
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent IDCardStandard)
 
 - type: entity
-  parent: IDCardStandard
   id: DystopiaGuardCaptainIDCard
   name: ID-карта (капитан Стражи)
+  description: A card necessary to access various areas aboard the station.
   components:
+  - type: Item
+    size: Small
+    heldPrefix: silver
+    storedRotation: -90
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
   - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Misc/id_cards.rsi
     layers:
     - state: silver
     - state: stripe_top
@@ -74,17 +303,79 @@
     - sprite: _Dystopia/Interface/job_icons.rsi
       offset: -0.09375, 0.0625
       state: GuardCaptain
-  - type: Item
-    heldPrefix: silver
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Tag
+    tags:
+    - DoorBumpOpener
+    - WhitelistChameleon
+    - WhitelistChameleonIdCard
+  - type: StaticPrice
+    price: 10
+  - type: FlavorProfile
+    flavors:
+    - fiber
+  - type: Clothing
+    slots:
+    - idcard
+    sprite: _Dystopia/Objects/Misc/id_cards.rsi
+  - type: Access
+  - type: IdCard
+  - type: StationRecordKeyStorage
+  - type: StealTarget
+    stealGroup: IDCard
   - type: PresetIdCard
     job: DystopiaGuardCaptain
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent IDCardStandard)
 
 - type: entity
-  parent: IDCardStandard
   id: DystopiaGuardSergeantIDCard
   name: ID-карта (сержант Стражи)
+  description: A card necessary to access various areas aboard the station.
   components:
+  - type: Item
+    size: Small
+    heldPrefix: default
+    storedRotation: -90
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
   - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Misc/id_cards.rsi
     layers:
     - state: default
     - state: stripe_top
@@ -94,15 +385,79 @@
     - sprite: _Dystopia/Interface/job_icons.rsi
       offset: -0.09375, 0.0625
       state: GuardSergeant
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Tag
+    tags:
+    - DoorBumpOpener
+    - WhitelistChameleon
+    - WhitelistChameleonIdCard
+  - type: StaticPrice
+    price: 10
+  - type: FlavorProfile
+    flavors:
+    - fiber
+  - type: Clothing
+    slots:
+    - idcard
+    sprite: _Dystopia/Objects/Misc/id_cards.rsi
+  - type: Access
+  - type: IdCard
+  - type: StationRecordKeyStorage
+  - type: StealTarget
+    stealGroup: IDCard
   - type: PresetIdCard
     job: DystopiaGuardSergeant
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent IDCardStandard)
 
 - type: entity
-  parent: IDCardStandard
   id: DystopiaGuardsmanIDCard
   name: ID-карта (городской стражник)
+  description: A card necessary to access various areas aboard the station.
   components:
+  - type: Item
+    size: Small
+    heldPrefix: default
+    storedRotation: -90
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
   - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Misc/id_cards.rsi
     layers:
     - state: default
     - state: stripe_top
@@ -112,15 +467,79 @@
     - sprite: _Dystopia/Interface/job_icons.rsi
       offset: -0.09375, 0.0625
       state: Guardsman
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Tag
+    tags:
+    - DoorBumpOpener
+    - WhitelistChameleon
+    - WhitelistChameleonIdCard
+  - type: StaticPrice
+    price: 10
+  - type: FlavorProfile
+    flavors:
+    - fiber
+  - type: Clothing
+    slots:
+    - idcard
+    sprite: _Dystopia/Objects/Misc/id_cards.rsi
+  - type: Access
+  - type: IdCard
+  - type: StationRecordKeyStorage
+  - type: StealTarget
+    stealGroup: IDCard
   - type: PresetIdCard
     job: DystopiaGuardsman
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent IDCardStandard)
 
 - type: entity
-  parent: IDCardStandard
   id: DystopiaGuardRecruitIDCard
   name: ID-карта (рекрут Стражи)
+  description: A card necessary to access various areas aboard the station.
   components:
+  - type: Item
+    size: Small
+    heldPrefix: default
+    storedRotation: -90
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
   - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Misc/id_cards.rsi
     layers:
     - state: default
     - state: stripe_top
@@ -130,15 +549,79 @@
     - sprite: _Dystopia/Interface/job_icons.rsi
       offset: -0.09375, 0.0625
       state: GuardRecruit
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Tag
+    tags:
+    - DoorBumpOpener
+    - WhitelistChameleon
+    - WhitelistChameleonIdCard
+  - type: StaticPrice
+    price: 10
+  - type: FlavorProfile
+    flavors:
+    - fiber
+  - type: Clothing
+    slots:
+    - idcard
+    sprite: _Dystopia/Objects/Misc/id_cards.rsi
+  - type: Access
+  - type: IdCard
+  - type: StationRecordKeyStorage
+  - type: StealTarget
+    stealGroup: IDCard
   - type: PresetIdCard
     job: DystopiaGuardRecruit
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent IDCardStandard)
 
 - type: entity
-  parent: IDCardStandard
   id: DystopiaPraetorianIDCard
   name: ID-карта (преторианец)
+  description: A card necessary to access various areas aboard the station.
   components:
+  - type: Item
+    size: Small
+    heldPrefix: default
+    storedRotation: -90
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
   - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Misc/id_cards.rsi
     layers:
     - state: default
     - state: stripe_top
@@ -148,15 +631,79 @@
     - sprite: _Dystopia/Interface/job_icons.rsi
       offset: -0.09375, 0.0625
       state: Praetorian
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Tag
+    tags:
+    - DoorBumpOpener
+    - WhitelistChameleon
+    - WhitelistChameleonIdCard
+  - type: StaticPrice
+    price: 10
+  - type: FlavorProfile
+    flavors:
+    - fiber
+  - type: Clothing
+    slots:
+    - idcard
+    sprite: _Dystopia/Objects/Misc/id_cards.rsi
+  - type: Access
+  - type: IdCard
+  - type: StationRecordKeyStorage
+  - type: StealTarget
+    stealGroup: IDCard
   - type: PresetIdCard
     job: DystopiaPraetorian
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent IDCardStandard)
 
 - type: entity
-  parent: IDCardStandard
   id: DystopiaGrenadierIDCard
   name: ID-карта (гренадер)
+  description: A card necessary to access various areas aboard the station.
   components:
+  - type: Item
+    size: Small
+    heldPrefix: default
+    storedRotation: -90
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
   - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Misc/id_cards.rsi
     layers:
     - state: default
     - state: stripe_top
@@ -166,15 +713,79 @@
     - sprite: _Dystopia/Interface/job_icons.rsi
       offset: -0.09375, 0.0625
       state: Grenadier
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Tag
+    tags:
+    - DoorBumpOpener
+    - WhitelistChameleon
+    - WhitelistChameleonIdCard
+  - type: StaticPrice
+    price: 10
+  - type: FlavorProfile
+    flavors:
+    - fiber
+  - type: Clothing
+    slots:
+    - idcard
+    sprite: _Dystopia/Objects/Misc/id_cards.rsi
+  - type: Access
+  - type: IdCard
+  - type: StationRecordKeyStorage
+  - type: StealTarget
+    stealGroup: IDCard
   - type: PresetIdCard
     job: DystopiaGrenadier
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent IDCardStandard)
 
 - type: entity
-  parent: IDCardStandard
   id: DystopiaStormtrooperIDCard
   name: ID-карта (штурмовик)
+  description: A card necessary to access various areas aboard the station.
   components:
+  - type: Item
+    size: Small
+    heldPrefix: default
+    storedRotation: -90
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
   - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Misc/id_cards.rsi
     layers:
     - state: default
     - state: stripe_top
@@ -184,15 +795,79 @@
     - sprite: _Dystopia/Interface/job_icons.rsi
       offset: -0.09375, 0.0625
       state: Stormtrooper
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Tag
+    tags:
+    - DoorBumpOpener
+    - WhitelistChameleon
+    - WhitelistChameleonIdCard
+  - type: StaticPrice
+    price: 10
+  - type: FlavorProfile
+    flavors:
+    - fiber
+  - type: Clothing
+    slots:
+    - idcard
+    sprite: _Dystopia/Objects/Misc/id_cards.rsi
+  - type: Access
+  - type: IdCard
+  - type: StationRecordKeyStorage
+  - type: StealTarget
+    stealGroup: IDCard
   - type: PresetIdCard
     job: DystopiaStormtrooper
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent IDCardStandard)
 
 - type: entity
-  parent: IDCardStandard
   id: DystopiaSoldierIDCard
   name: ID-карта (солдат)
+  description: A card necessary to access various areas aboard the station.
   components:
+  - type: Item
+    size: Small
+    heldPrefix: default
+    storedRotation: -90
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
   - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Misc/id_cards.rsi
     layers:
     - state: default
     - state: stripe_top
@@ -202,15 +877,79 @@
     - sprite: _Dystopia/Interface/job_icons.rsi
       offset: -0.09375, 0.0625
       state: Soldier
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Tag
+    tags:
+    - DoorBumpOpener
+    - WhitelistChameleon
+    - WhitelistChameleonIdCard
+  - type: StaticPrice
+    price: 10
+  - type: FlavorProfile
+    flavors:
+    - fiber
+  - type: Clothing
+    slots:
+    - idcard
+    sprite: _Dystopia/Objects/Misc/id_cards.rsi
+  - type: Access
+  - type: IdCard
+  - type: StationRecordKeyStorage
+  - type: StealTarget
+    stealGroup: IDCard
   - type: PresetIdCard
     job: DystopiaSoldier
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent IDCardStandard)
 
 - type: entity
-  parent: IDCardStandard
   id: DystopiaChiefSanitaryDoctorIDCard
   name: ID-карта (глава Санитарной Службы)
+  description: A card necessary to access various areas aboard the station.
   components:
+  - type: Item
+    size: Small
+    heldPrefix: silver
+    storedRotation: -90
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
   - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Misc/id_cards.rsi
     layers:
     - state: silver
     - state: stripe_top
@@ -220,17 +959,79 @@
     - sprite: _Dystopia/Interface/job_icons.rsi
       offset: -0.09375, 0.0625
       state: ChiefSanitaryDoctor
-  - type: Item
-    heldPrefix: silver
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Tag
+    tags:
+    - DoorBumpOpener
+    - WhitelistChameleon
+    - WhitelistChameleonIdCard
+  - type: StaticPrice
+    price: 10
+  - type: FlavorProfile
+    flavors:
+    - fiber
+  - type: Clothing
+    slots:
+    - idcard
+    sprite: _Dystopia/Objects/Misc/id_cards.rsi
+  - type: Access
+  - type: IdCard
+  - type: StationRecordKeyStorage
+  - type: StealTarget
+    stealGroup: IDCard
   - type: PresetIdCard
     job: DystopiaChiefSanitaryDoctor
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent IDCardStandard)
 
 - type: entity
-  parent: IDCardStandard
   id: DystopiaHealerIDCard
   name: ID-карта (лекарь)
+  description: A card necessary to access various areas aboard the station.
   components:
+  - type: Item
+    size: Small
+    heldPrefix: default
+    storedRotation: -90
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
   - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Misc/id_cards.rsi
     layers:
     - state: default
     - state: stripe_top
@@ -240,15 +1041,79 @@
     - sprite: _Dystopia/Interface/job_icons.rsi
       offset: -0.09375, 0.0625
       state: Healer
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Tag
+    tags:
+    - DoorBumpOpener
+    - WhitelistChameleon
+    - WhitelistChameleonIdCard
+  - type: StaticPrice
+    price: 10
+  - type: FlavorProfile
+    flavors:
+    - fiber
+  - type: Clothing
+    slots:
+    - idcard
+    sprite: _Dystopia/Objects/Misc/id_cards.rsi
+  - type: Access
+  - type: IdCard
+  - type: StationRecordKeyStorage
+  - type: StealTarget
+    stealGroup: IDCard
   - type: PresetIdCard
     job: DystopiaHealer
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent IDCardStandard)
 
 - type: entity
-  parent: IDCardStandard
   id: DystopiaDisinfectorIDCard
   name: ID-карта (дезинфектор)
+  description: A card necessary to access various areas aboard the station.
   components:
+  - type: Item
+    size: Small
+    heldPrefix: default
+    storedRotation: -90
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
   - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Misc/id_cards.rsi
     layers:
     - state: default
     - state: stripe_top
@@ -258,15 +1123,79 @@
     - sprite: _Dystopia/Interface/job_icons.rsi
       offset: -0.09375, 0.0625
       state: Disinfector
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Tag
+    tags:
+    - DoorBumpOpener
+    - WhitelistChameleon
+    - WhitelistChameleonIdCard
+  - type: StaticPrice
+    price: 10
+  - type: FlavorProfile
+    flavors:
+    - fiber
+  - type: Clothing
+    slots:
+    - idcard
+    sprite: _Dystopia/Objects/Misc/id_cards.rsi
+  - type: Access
+  - type: IdCard
+  - type: StationRecordKeyStorage
+  - type: StealTarget
+    stealGroup: IDCard
   - type: PresetIdCard
     job: DystopiaDisinfector
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent IDCardStandard)
 
 - type: entity
-  parent: IDCardStandard
   id: DystopiaLiquidatorIDCard
   name: ID-карта (ликвидатор)
+  description: A card necessary to access various areas aboard the station.
   components:
+  - type: Item
+    size: Small
+    heldPrefix: default
+    storedRotation: -90
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
   - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Misc/id_cards.rsi
     layers:
     - state: default
     - state: stripe_top
@@ -276,15 +1205,79 @@
     - sprite: _Dystopia/Interface/job_icons.rsi
       offset: -0.09375, 0.0625
       state: Liquidator
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Tag
+    tags:
+    - DoorBumpOpener
+    - WhitelistChameleon
+    - WhitelistChameleonIdCard
+  - type: StaticPrice
+    price: 10
+  - type: FlavorProfile
+    flavors:
+    - fiber
+  - type: Clothing
+    slots:
+    - idcard
+    sprite: _Dystopia/Objects/Misc/id_cards.rsi
+  - type: Access
+  - type: IdCard
+  - type: StationRecordKeyStorage
+  - type: StealTarget
+    stealGroup: IDCard
   - type: PresetIdCard
     job: DystopiaLiquidator
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent IDCardStandard)
 
 - type: entity
-  parent: IDCardStandard
   id: DystopiaPharmacistIDCard
   name: ID-карта (фармацевт)
+  description: A card necessary to access various areas aboard the station.
   components:
+  - type: Item
+    size: Small
+    heldPrefix: default
+    storedRotation: -90
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
   - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Misc/id_cards.rsi
     layers:
     - state: default
     - state: stripe_top
@@ -294,15 +1287,79 @@
     - sprite: _Dystopia/Interface/job_icons.rsi
       offset: -0.09375, 0.0625
       state: Pharmacist
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Tag
+    tags:
+    - DoorBumpOpener
+    - WhitelistChameleon
+    - WhitelistChameleonIdCard
+  - type: StaticPrice
+    price: 10
+  - type: FlavorProfile
+    flavors:
+    - fiber
+  - type: Clothing
+    slots:
+    - idcard
+    sprite: _Dystopia/Objects/Misc/id_cards.rsi
+  - type: Access
+  - type: IdCard
+  - type: StationRecordKeyStorage
+  - type: StealTarget
+    stealGroup: IDCard
   - type: PresetIdCard
     job: DystopiaPharmacist
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent IDCardStandard)
 
 - type: entity
-  parent: IDCardStandard
   id: DystopiaJuniorOrderlyIDCard
   name: ID-карта (младший санитар)
+  description: A card necessary to access various areas aboard the station.
   components:
+  - type: Item
+    size: Small
+    heldPrefix: default
+    storedRotation: -90
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
   - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Misc/id_cards.rsi
     layers:
     - state: default
     - state: stripe_top
@@ -312,15 +1369,79 @@
     - sprite: _Dystopia/Interface/job_icons.rsi
       offset: -0.09375, 0.0625
       state: JuniorOrderly
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Tag
+    tags:
+    - DoorBumpOpener
+    - WhitelistChameleon
+    - WhitelistChameleonIdCard
+  - type: StaticPrice
+    price: 10
+  - type: FlavorProfile
+    flavors:
+    - fiber
+  - type: Clothing
+    slots:
+    - idcard
+    sprite: _Dystopia/Objects/Misc/id_cards.rsi
+  - type: Access
+  - type: IdCard
+  - type: StationRecordKeyStorage
+  - type: StealTarget
+    stealGroup: IDCard
   - type: PresetIdCard
     job: DystopiaJuniorOrderly
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent IDCardStandard)
 
 - type: entity
-  parent: IDCardStandard
   id: DystopiaScienceDirectorIDCard
   name: ID-карта (директор Научной службы)
+  description: A card necessary to access various areas aboard the station.
   components:
+  - type: Item
+    size: Small
+    heldPrefix: silver
+    storedRotation: -90
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
   - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Misc/id_cards.rsi
     layers:
     - state: silver
     - state: stripe_top
@@ -330,17 +1451,79 @@
     - sprite: _Dystopia/Interface/job_icons.rsi
       offset: -0.09375, 0.0625
       state: ScienceDirector
-  - type: Item
-    heldPrefix: silver
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Tag
+    tags:
+    - DoorBumpOpener
+    - WhitelistChameleon
+    - WhitelistChameleonIdCard
+  - type: StaticPrice
+    price: 10
+  - type: FlavorProfile
+    flavors:
+    - fiber
+  - type: Clothing
+    slots:
+    - idcard
+    sprite: _Dystopia/Objects/Misc/id_cards.rsi
+  - type: Access
+  - type: IdCard
+  - type: StationRecordKeyStorage
+  - type: StealTarget
+    stealGroup: IDCard
   - type: PresetIdCard
     job: DystopiaScienceDirector
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent IDCardStandard)
 
 - type: entity
-  parent: IDCardStandard
   id: DystopiaAugmentologistIDCard
   name: ID-карта (аугментолог)
+  description: A card necessary to access various areas aboard the station.
   components:
+  - type: Item
+    size: Small
+    heldPrefix: default
+    storedRotation: -90
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
   - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Misc/id_cards.rsi
     layers:
     - state: default
     - state: stripe_top
@@ -350,15 +1533,79 @@
     - sprite: _Dystopia/Interface/job_icons.rsi
       offset: -0.09375, 0.0625
       state: Augmentologist
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Tag
+    tags:
+    - DoorBumpOpener
+    - WhitelistChameleon
+    - WhitelistChameleonIdCard
+  - type: StaticPrice
+    price: 10
+  - type: FlavorProfile
+    flavors:
+    - fiber
+  - type: Clothing
+    slots:
+    - idcard
+    sprite: _Dystopia/Objects/Misc/id_cards.rsi
+  - type: Access
+  - type: IdCard
+  - type: StationRecordKeyStorage
+  - type: StealTarget
+    stealGroup: IDCard
   - type: PresetIdCard
     job: DystopiaAugmentologist
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent IDCardStandard)
 
 - type: entity
-  parent: IDCardStandard
   id: DystopiaPathobiologistIDCard
   name: ID-карта (патобиолог)
+  description: A card necessary to access various areas aboard the station.
   components:
+  - type: Item
+    size: Small
+    heldPrefix: default
+    storedRotation: -90
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
   - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Misc/id_cards.rsi
     layers:
     - state: default
     - state: stripe_top
@@ -368,15 +1615,79 @@
     - sprite: _Dystopia/Interface/job_icons.rsi
       offset: -0.09375, 0.0625
       state: Pathobiologist
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Tag
+    tags:
+    - DoorBumpOpener
+    - WhitelistChameleon
+    - WhitelistChameleonIdCard
+  - type: StaticPrice
+    price: 10
+  - type: FlavorProfile
+    flavors:
+    - fiber
+  - type: Clothing
+    slots:
+    - idcard
+    sprite: _Dystopia/Objects/Misc/id_cards.rsi
+  - type: Access
+  - type: IdCard
+  - type: StationRecordKeyStorage
+  - type: StealTarget
+    stealGroup: IDCard
   - type: PresetIdCard
     job: DystopiaPathobiologist
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent IDCardStandard)
 
 - type: entity
-  parent: IDCardStandard
   id: DystopiaResearcherIDCard
   name: ID-карта (исследователь)
+  description: A card necessary to access various areas aboard the station.
   components:
+  - type: Item
+    size: Small
+    heldPrefix: default
+    storedRotation: -90
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
   - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Misc/id_cards.rsi
     layers:
     - state: default
     - state: stripe_top
@@ -386,15 +1697,79 @@
     - sprite: _Dystopia/Interface/job_icons.rsi
       offset: -0.09375, 0.0625
       state: Researcher
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Tag
+    tags:
+    - DoorBumpOpener
+    - WhitelistChameleon
+    - WhitelistChameleonIdCard
+  - type: StaticPrice
+    price: 10
+  - type: FlavorProfile
+    flavors:
+    - fiber
+  - type: Clothing
+    slots:
+    - idcard
+    sprite: _Dystopia/Objects/Misc/id_cards.rsi
+  - type: Access
+  - type: IdCard
+  - type: StationRecordKeyStorage
+  - type: StealTarget
+    stealGroup: IDCard
   - type: PresetIdCard
     job: DystopiaResearcher
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent IDCardStandard)
 
 - type: entity
-  parent: IDCardStandard
   id: DystopiaLabAssistantIDCard
   name: ID-карта (лаборант)
+  description: A card necessary to access various areas aboard the station.
   components:
+  - type: Item
+    size: Small
+    heldPrefix: default
+    storedRotation: -90
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
   - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Misc/id_cards.rsi
     layers:
     - state: default
     - state: stripe_top
@@ -404,15 +1779,79 @@
     - sprite: _Dystopia/Interface/job_icons.rsi
       offset: -0.09375, 0.0625
       state: LabAssistant
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Tag
+    tags:
+    - DoorBumpOpener
+    - WhitelistChameleon
+    - WhitelistChameleonIdCard
+  - type: StaticPrice
+    price: 10
+  - type: FlavorProfile
+    flavors:
+    - fiber
+  - type: Clothing
+    slots:
+    - idcard
+    sprite: _Dystopia/Objects/Misc/id_cards.rsi
+  - type: Access
+  - type: IdCard
+  - type: StationRecordKeyStorage
+  - type: StealTarget
+    stealGroup: IDCard
   - type: PresetIdCard
     job: DystopiaLabAssistant
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent IDCardStandard)
 
 - type: entity
-  parent: IDCardStandard
   id: DystopiaProletarianIDCard
   name: ID-карта (пролетарий)
+  description: A card necessary to access various areas aboard the station.
   components:
+  - type: Item
+    size: Small
+    heldPrefix: default
+    storedRotation: -90
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
   - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Misc/id_cards.rsi
     layers:
     - state: default
     - state: stripe_top
@@ -422,15 +1861,79 @@
     - sprite: _Dystopia/Interface/job_icons.rsi
       offset: -0.09375, 0.0625
       state: Proletarian
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Tag
+    tags:
+    - DoorBumpOpener
+    - WhitelistChameleon
+    - WhitelistChameleonIdCard
+  - type: StaticPrice
+    price: 10
+  - type: FlavorProfile
+    flavors:
+    - fiber
+  - type: Clothing
+    slots:
+    - idcard
+    sprite: _Dystopia/Objects/Misc/id_cards.rsi
+  - type: Access
+  - type: IdCard
+  - type: StationRecordKeyStorage
+  - type: StealTarget
+    stealGroup: IDCard
   - type: PresetIdCard
     job: DystopiaProletarian
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent IDCardStandard)
 
 - type: entity
-  parent: IDCardStandard
   id: DystopiaShopkeeperIDCard
   name: ID-карта (лавочник)
+  description: A card necessary to access various areas aboard the station.
   components:
+  - type: Item
+    size: Small
+    heldPrefix: default
+    storedRotation: -90
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
   - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Misc/id_cards.rsi
     layers:
     - state: default
     - state: stripe_top
@@ -440,5 +1943,28 @@
     - sprite: _Dystopia/Interface/job_icons.rsi
       offset: -0.09375, 0.0625
       state: Shopkeeper
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Tag
+    tags:
+    - DoorBumpOpener
+    - WhitelistChameleon
+    - WhitelistChameleonIdCard
+  - type: StaticPrice
+    price: 10
+  - type: FlavorProfile
+    flavors:
+    - fiber
+  - type: Clothing
+    slots:
+    - idcard
+    sprite: _Dystopia/Objects/Misc/id_cards.rsi
+  - type: Access
+  - type: IdCard
+  - type: StationRecordKeyStorage
+  - type: StealTarget
+    stealGroup: IDCard
   - type: PresetIdCard
     job: DystopiaShopkeeper

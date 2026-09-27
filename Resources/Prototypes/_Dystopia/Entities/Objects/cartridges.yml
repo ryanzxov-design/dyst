@@ -1,13 +1,57 @@
-# Программы КПК Города. Ставятся во все КПК Города (см. DystopiaPdaPrograms в pdas.yml).
+# Dystopia. Все предметы в этом файле самостоятельные: без parent, все свойства выписаны явно.
+
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent BasePDACartridge)
 
 - type: entity
-  parent: BasePDACartridge
   id: DystopiaLawsCartridge
   name: "картридж «Свод законов»"
   description: "Программа для чтения Свода законов Города и шкалы санкций."
   components:
+  - type: Item
+    size: Small
+    storedRotation: -90
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
   - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Devices/cartridge.rsi
     state: cart-y
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
   - type: UIFragment
     ui: !type:CityLawsUi
   - type: Cartridge
@@ -16,15 +60,58 @@
       sprite: Interface/Misc/program_icons.rsi
       state: news_read
   - type: CityLawsCartridge
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent BasePDACartridge)
 
 - type: entity
-  parent: BasePDACartridge
   id: DystopiaBankCartridge
   name: "картридж «Банк»"
   description: "Программа Банка Города: баланс, история операций и переводы."
   components:
+  - type: Item
+    size: Small
+    storedRotation: -90
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
   - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Devices/cartridge.rsi
     state: cart-y
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
   - type: UIFragment
     ui: !type:CityBankUi
   - type: Cartridge

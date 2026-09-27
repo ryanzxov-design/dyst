@@ -1,11 +1,59 @@
-# Вексельный принтер Гражданского Инспектора: печатает векселя из Фонда поощрений.
+# Dystopia. Все предметы в этом файле самостоятельные: без parent, все свойства выписаны явно.
+
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent BaseMachinePowered, BaseMachineDestructible)
 
 - type: entity
-  parent: [ BaseMachinePowered, BaseMachineDestructible ]
   id: ComputerDystopiaVexelPrinter
   name: "вексельный принтер"
   description: "Печатает векселя Города на предъявителя. Деньги берутся из Фонда поощрений."
+  placement:
+    mode: SnapgridCenter
   components:
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 175
+      behaviors:
+      - !type:SpawnEntitiesBehavior
+        offset: 0
+        spawn:
+          MachineFrameDestroyed:
+            min: 1
+            max: 1
+  - type: Damageable
+    damageModifierSet: SteelMod
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Transform
+    anchored: true
+    noRot: false
+  - type: Clickable
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.35,-0.45,0.35,0.35"
+        density: 190
+        mask:
+        - MachineMask
+        layer:
+        - MachineLayer
+  - type: Pullable
+  - type: Tag
+    tags:
+    - Structure
+  - type: Animateable
+  - type: InteractionOutline
+  - type: Anchorable
+    delay: 2
+  - type: ApcPowerReceiver
+    powerLoad: 200
+  - type: ExtensionCableReceiver
+  - type: LightningTarget
+    priority: 1
   - type: Sprite
     sprite: _Dystopia/Structures/Machines/vexel_printer.rsi
     layers:
@@ -13,30 +61,14 @@
     - state: screen
       map: ["screen"]
       shader: unshaded
-  # Можно поворачивать: у спрайта 4 направления.
-  - type: Transform
-    noRot: false
-  - type: Fixtures
-    fixtures:
-      fix1:
-        shape:
-          !type:PhysShapeAabb
-          bounds: "-0.35,-0.45,0.35,0.35"
-        density: 190
-        mask:
-        - MachineMask
-        layer:
-        - MachineLayer
-  - type: ApcPowerReceiver
-    powerLoad: 200
   - type: Computer
   - type: Appearance
   - type: GenericVisualizer
     visuals:
       enum.ComputerVisuals.Powered:
         screen:
-          True: { visible: true }
-          False: { visible: false }
+          true: {visible: true}
+          false: {visible: false}
   - type: LitOnPowered
   - type: PointLight
     radius: 1.2
