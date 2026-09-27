@@ -91,7 +91,7 @@
   equipment:
     jumpsuit: ClothingUniformJumpsuitVirology
     outerClothing: DystopiaClothingOuterDisinfectorSuit
-    head: ClothingHeadHelmetFire
+    head: DystopiaClothingHeadDisinfectorHood
     mask: DystopiaClothingMaskGasField
     shoes: ClothingShoesGaloshes
     id: DystopiaDisinfectorPDA

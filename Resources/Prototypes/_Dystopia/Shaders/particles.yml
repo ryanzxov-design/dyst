@@ -1,0 +1,6 @@
+# Светящиеся частицы (огонь, искры): аддитивное смешивание, без освещения.
+- type: shader
+  id: DystopiaParticleAdditive
+  kind: canvas
+  light_mode: unshaded
+  blend_mode: Add

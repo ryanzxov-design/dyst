@@ -103,6 +103,23 @@
   - type: ClothingSpeedModifier
     walkModifier: 0.85
     sprintModifier: 0.85
+  # Свойства биозащитного костюма (как у вирусологического ClothingOuterBioVirology)
+  - type: ZombificationResistance
+    zombificationResistanceCoefficient: 0.25
+
+# Капюшон дезинфектора: вид — вирусологический биокапюшон; огнезащита как у пожарного шлема;
+# свойства противогаза (подключение к баллону, блок еды, скрывает лицо); биозащита капюшона.
+- type: entity
+  parent: [ClothingHeadHatHoodBioVirology, TemperatureProtection]
+  id: DystopiaClothingHeadDisinfectorHood
+  name: капюшон дезинфектора
+  description: Прорезиненный герметичный капюшон с огнезащитной пропиткой. Подключается к баллону с воздухом, как противогаз.
+  components:
+  - type: FireProtection
+    reduction: 0.15
+  - type: BreathMask
+  - type: IngestionBlocker
+  - type: IdentityBlocker
 
 # Патобиолог: герметичный холодно-белый костюм с молнией и фиолетовыми вставками Науки.
 - type: entity
