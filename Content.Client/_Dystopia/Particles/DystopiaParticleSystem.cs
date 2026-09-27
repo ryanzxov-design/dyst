@@ -22,6 +22,10 @@ public sealed partial class DystopiaParticleSystem : EntitySystem
     public const int MaxParticles = 4000;
 
     internal readonly List<Particle> Particles = new();
+
+    // Возраст источников (для расширения облака)
+    private readonly Dictionary<EntityUid, float> _ages = new();
+    private readonly HashSet<EntityUid> _seen = new();
     private DystopiaParticleOverlay _overlay = default!;
 
     public override void Initialize()
@@ -43,11 +47,16 @@ public sealed partial class DystopiaParticleSystem : EntitySystem
         base.FrameUpdate(frameTime);
 
         // 1. Рождение новых частиц
+        _seen.Clear();
         var query = EntityQueryEnumerator<DystopiaParticleEmitterComponent, TransformComponent>();
         while (query.MoveNext(out var uid, out var comp, out var xform))
         {
             if (!comp.Enabled || xform.MapID == MapId.Nullspace)
                 continue;
+
+            _seen.Add(uid);
+            var age = _ages.GetValueOrDefault(uid) + frameTime;
+            _ages[uid] = age;
 
             var position = _transform.GetWorldPosition(xform);
             var velocity = _physics.GetMapLinearVelocity(uid, xform: xform);
@@ -58,10 +67,21 @@ public sealed partial class DystopiaParticleSystem : EntitySystem
                 var count = (int) emitter.Accumulator;
                 emitter.Accumulator -= count;
 
+                var ramp = emitter.RampTime > 0f ? Math.Clamp(age / emitter.RampTime, 0f, 1f) : 0f;
                 for (var i = 0; i < count && Particles.Count < MaxParticles; i++)
                 {
-                    Particles.Add(Spawn(emitter, xform.MapID, position, velocity));
+                    Particles.Add(Spawn(emitter, xform.MapID, position, velocity, ramp));
                 }
+            }
+        }
+
+        // Забываем возраст исчезнувших источников
+        if (_ages.Count > _seen.Count)
+        {
+            foreach (var key in new List<EntityUid>(_ages.Keys))
+            {
+                if (!_seen.Contains(key))
+                    _ages.Remove(key);
             }
         }
 
@@ -85,14 +105,15 @@ public sealed partial class DystopiaParticleSystem : EntitySystem
         }
     }
 
-    private Particle Spawn(DystopiaParticleEmitter emitter, MapId map, Vector2 position, Vector2 sourceVelocity)
+    private Particle Spawn(DystopiaParticleEmitter emitter, MapId map, Vector2 position, Vector2 sourceVelocity, float ramp)
     {
         // Направление: вдоль движения источника или от севера
         var baseAngle = emitter.AlignToVelocity && sourceVelocity.LengthSquared() > 0.0001f
             ? MathF.Atan2(sourceVelocity.Y, sourceVelocity.X)
             : MathF.PI / 2f;
         baseAngle += MathHelper.DegreesToRadians(emitter.Direction);
-        var spread = MathHelper.DegreesToRadians(emitter.Spread) * 0.5f;
+        var spreadDeg = emitter.SpreadEnd >= 0f ? emitter.Spread + (emitter.SpreadEnd - emitter.Spread) * ramp : emitter.Spread;
+        var spread = MathHelper.DegreesToRadians(spreadDeg) * 0.5f;
         var angle = baseAngle + _random.NextFloat(-spread, spread);
 
         var speed = _random.NextFloat(emitter.Speed.X, MathF.Max(emitter.Speed.X, emitter.Speed.Y));
@@ -100,7 +121,8 @@ public sealed partial class DystopiaParticleSystem : EntitySystem
                        + sourceVelocity * emitter.InheritVelocity;
 
         var jitterAngle = _random.NextFloat(0f, MathF.PI * 2f);
-        var jitter = new Vector2(MathF.Cos(jitterAngle), MathF.Sin(jitterAngle)) * _random.NextFloat(0f, emitter.Jitter);
+        var jitterRadius = emitter.JitterEnd >= 0f ? emitter.Jitter + (emitter.JitterEnd - emitter.Jitter) * ramp : emitter.Jitter;
+        var jitter = new Vector2(MathF.Cos(jitterAngle), MathF.Sin(jitterAngle)) * _random.NextFloat(0f, jitterRadius);
 
         return new Particle
         {
@@ -110,6 +132,7 @@ public sealed partial class DystopiaParticleSystem : EntitySystem
             Velocity = velocity,
             Lifetime = _random.NextFloat(emitter.Lifetime.X, MathF.Max(emitter.Lifetime.X, emitter.Lifetime.Y)),
             Seed = _random.NextFloat(),
+            SizeScale = 1f + (emitter.SizeMultiplierEnd - 1f) * ramp,
         };
     }
 
@@ -122,5 +145,6 @@ public sealed partial class DystopiaParticleSystem : EntitySystem
         public float Age;
         public float Lifetime;
         public float Seed;
+        public float SizeScale;
     }
 }

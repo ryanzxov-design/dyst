@@ -67,7 +67,7 @@ public sealed partial class DystopiaParticleOverlay : Overlay
                 color = color.WithAlpha(color.A * f);
             }
 
-            var size = MathF.Max(1f, MathF.Round(p.Emitter.Size.X + (p.Emitter.Size.Y - p.Emitter.Size.X) * t)) * Pixel;
+            var size = MathF.Max(1f, MathF.Round((p.Emitter.Size.X + (p.Emitter.Size.Y - p.Emitter.Size.X) * t) * p.SizeScale)) * Pixel;
 
             // привязка к пиксельной сетке мира
             var x = MathF.Floor(p.Position.X / Pixel) * Pixel;

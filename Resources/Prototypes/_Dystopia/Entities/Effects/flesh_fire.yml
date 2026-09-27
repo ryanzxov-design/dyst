@@ -1,0 +1,83 @@
+# Огонь на горящей плоти: горящий пол (спрайт fire.rsi из Goob-Station), частицы пламени и дыма, свет.
+# Живёт, пока плоть горит.
+# Самостоятельная сущность, без parent.
+
+- type: entity
+  id: DystopiaFleshFireEffect
+  categories: [ HideSpawnMenu ]
+  name: горящая плоть
+  components:
+  - type: Transform
+    anchored: false
+  - type: TimedDespawn
+    lifetime: 60
+  - type: Sprite
+    sprite: _Dystopia/Effects/fire.rsi
+    drawdepth: Objects
+    noRot: true
+    layers:
+    - state: "1"
+      shader: unshaded
+      color: "#FFFFFFD8"
+  - type: PointLight
+    radius: 1.8
+    energy: 2.2
+    color: "#FF8030"
+    castShadows: false
+  - type: DystopiaParticleEmitter
+    emitters:
+    # Языки пламени, поднимаются вверх
+    - rate: 90
+      lifetime: 0.35,0.8
+      speed: 0.15,0.5
+      direction: 0
+      spread: 70
+      alignToVelocity: false
+      inheritVelocity: 0
+      drift: 0,0.9
+      drag: 1.5
+      jitter: 0.45
+      size: 4,1
+      additive: true
+      colors:
+      - "#FFE296BE"
+      - "#FFA83AAF"
+      - "#EC621E96"
+      - "#A82C1464"
+      - "#50180E00"
+    # Искры
+    - rate: 6
+      lifetime: 0.5,1.0
+      speed: 0.4,1.0
+      direction: 0
+      spread: 90
+      alignToVelocity: false
+      inheritVelocity: 0
+      drift: 0,0.6
+      drag: 0.8
+      jitter: 0.3
+      size: 1,1
+      additive: true
+      flicker: 0.5
+      colors:
+      - "#FFE08AFF"
+      - "#FF8A2AE6"
+      - "#7A2A1000"
+    # Дым от горелого мяса
+    - rate: 22
+      lifetime: 0.9,1.8
+      speed: 0.1,0.3
+      direction: 0
+      spread: 60
+      alignToVelocity: false
+      inheritVelocity: 0
+      drift: 0,0.5
+      drag: 1
+      jitter: 0.3
+      size: 2,5
+      additive: false
+      colors:
+      - "#2A2A2A00"
+      - "#2E2E2E90"
+      - "#3A3A3A50"
+      - "#40404000"

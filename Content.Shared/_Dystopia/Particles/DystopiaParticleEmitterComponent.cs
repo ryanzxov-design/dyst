@@ -77,6 +77,25 @@ public sealed partial class DystopiaParticleEmitter
     [DataField]
     public float Flicker;
 
+    /// <summary>
+    /// За сколько секунд жизни источника облако расширяется до «конечных» значений ниже (0 — не расширяется).
+    /// Например, струя огнемёта: у сопла узкая, к концу дальности — широкая.
+    /// </summary>
+    [DataField]
+    public float RampTime;
+
+    /// <summary>Разброс точки появления к концу расширения, клетки.</summary>
+    [DataField]
+    public float JitterEnd = -1f;
+
+    /// <summary>Разброс направления к концу расширения, градусы.</summary>
+    [DataField]
+    public float SpreadEnd = -1f;
+
+    /// <summary>Множитель размера частиц к концу расширения.</summary>
+    [DataField]
+    public float SizeMultiplierEnd = 1f;
+
     // Рабочее поле: накопитель дробных частиц между кадрами.
     [ViewVariables]
     public float Accumulator;

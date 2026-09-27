@@ -40,6 +40,8 @@
     color: "#C0302A"
     castShadows: false
   - type: Damageable
+    damageModifierSet: DystopiaFlesh
+  - type: Injurable
     damageContainer: StructuralBiological
   - type: Destructible
     thresholds:
@@ -57,3 +59,9 @@
       - !type:DoActsBehavior
         acts: [ "Destruction" ]
   - type: DystopiaFleshCradle
+  # Колыбель тоже горит
+  - type: DystopiaFleshBurnable
+    burnTime: 8
+    burnDamage:
+      types:
+        Heat: 6

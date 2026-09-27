@@ -1,7 +1,7 @@
 # Семя → Росток → Киста → Наросты. Самостоятельные сущности, без parent.
 # Наросты проходят под незаваренными дверями; под самой кистой тоже нарост.
-# Горит: пожар на клетке (в том числе от огнемёта) жжёт плоть через температуру,
-# пары топлива поджигают её напрямую.
+# Горит (DystopiaFleshBurnable): струя огнемёта поджигает плоть на клетках, над которыми пролетает,
+# пожар на клетке поджигает плоть на ней. Цепной реакции нет.
 
 # --- Росток: через минуту становится Кистой ---
 - type: entity
@@ -31,6 +31,7 @@
     drawdepth: Objects
   - type: Damageable
     damageModifierSet: DystopiaFlesh
+  - type: Injurable
   - type: Destructible
     thresholds:
     - trigger: !type:DamageTrigger
@@ -62,6 +63,11 @@
       Extinguish: [Touch]
   - type: DystopiaFleshSeedling
     growTime: 60
+  - type: DystopiaFleshBurnable
+    burnTime: 6
+    burnDamage:
+      types:
+        Heat: 4
 
 # --- Киста: растит наросты, вокруг — ядовитая зона со спорами ---
 - type: entity
@@ -102,8 +108,9 @@
     color: "#9AB840"
     castShadows: false
   - type: Damageable
-    damageContainer: StructuralBiological
     damageModifierSet: DystopiaFlesh
+  - type: Injurable
+    damageContainer: StructuralBiological
   - type: Destructible
     thresholds:
     - trigger: !type:DamageTrigger
@@ -145,6 +152,12 @@
     zoneDamage:
       types:
         Poison: 1.5
+  # Горит: 5 Heat/с (x2.5 от плоти) — киста сгорает примерно за 12 секунд горения
+  - type: DystopiaFleshBurnable
+    burnTime: 10
+    burnDamage:
+      types:
+        Heat: 5
   # Споры: видимая граница ядовитой зоны
   - type: DystopiaParticleEmitter
     emitters:
@@ -224,6 +237,7 @@
         path: /Audio/Weapons/slash.ogg
   - type: Damageable
     damageModifierSet: DystopiaFlesh
+  - type: Injurable
   - type: Destructible
     thresholds:
     - trigger: !type:DamageTrigger
@@ -265,3 +279,9 @@
       - DystopiaFleshCultist
   - type: DystopiaFleshGrowth
     dissolveTime: 30
+  # Горит: нарост выгорает примерно за 3 секунды (на соседей огонь сам не переходит)
+  - type: DystopiaFleshBurnable
+    burnTime: 6
+    burnDamage:
+      types:
+        Heat: 4

@@ -348,11 +348,16 @@
     - rate: 320
       lifetime: 0.22,0.42
       speed: 0.4,1.8
-      spread: 70
+      spread: 50
       inheritVelocity: 0.45
       drag: 2.5
-      jitter: 0.14
+      jitter: 0.08
       size: 4,1
+      # у сопла узко, к концу дальности облако шире и крупнее
+      rampTime: 0.5
+      spreadEnd: 150
+      jitterEnd: 0.6
+      sizeMultiplierEnd: 1.8
       additive: true
       colors:
       - "#FFE296BE"
@@ -381,6 +386,9 @@
       inheritVelocity: 0.15
       drag: 2
       jitter: 0.15
+      rampTime: 0.5
+      jitterEnd: 0.7
+      sizeMultiplierEnd: 1.6
       size: 2,5
       additive: false
       colors:
@@ -408,6 +416,9 @@
     ignited: true
   - type: IgniteOnCollide
     fireStacks: 0.6
+  # Поджигает плоть Культа на клетках, над которыми пролетает струя
+  - type: DystopiaFleshIgniter
+    wideAfter: 0.3
   - type: PointLight
     radius: 2
     energy: 3
