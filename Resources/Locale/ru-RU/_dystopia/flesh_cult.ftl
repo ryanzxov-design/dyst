@@ -13,7 +13,7 @@ dystopia-job-supervisors-flesh-apostle = Апостолу Плоти
 roles-antag-dystopia-flesh-preacher-name = Проповедник Плоти
 roles-antag-dystopia-flesh-preacher-objective = Живите среди горожан под видом Пролетария. Сейте Семена Плоти, ломайте стабилизаторы, ведите людей к Колыбели.
 role-subtype-dystopia-flesh-preacher = Проповедник
-dystopia-flesh-preacher-briefing = Вы — Проповедник Плоти. Для Города вы обычный Пролетарий. В кармане у вас ключ «Шёпота Плоти»: вставьте его в самодельную гарнитуру, чтобы слышать Культ. Не выдайте себя: за веру в Городе казнят.
+dystopia-flesh-preacher-briefing = Вы — Проповедник Плоти. Для Города вы обычный Пролетарий. Плоть связывает вас с братьями: канал «Шёпот Плоти» слышен вам без всякой рации, говорить в него — через :ш. Не выдайте себя: за веру в Городе казнят.
 
 dystopia-flesh-cult-round-end-agent-name = проповедник Плоти
 dystopia-flesh-cult-title = Культ Плоти

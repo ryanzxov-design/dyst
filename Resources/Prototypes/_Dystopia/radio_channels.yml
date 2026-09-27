@@ -10,7 +10,8 @@
   color: "#8FA1B3"
   longRange: true
 
-# Канал Культа Плоти. Ключ пока никому не выдаётся — появится вместе с Культом.
+# Канал Культа Плоти. Культисты слышат его псионически, без гарнитуры (DystopiaFleshPsionicSystem).
+# Ключ и гарнитура Культа остаются в игре как предметы.
 - type: radioChannel
   id: DystopiaCult
   name: chat-radio-dystopia-cult

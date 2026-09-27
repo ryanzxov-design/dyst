@@ -1,5 +1,6 @@
 # Проповедник Плоти — скрытый антагонист. Выбирается из Пролетариев, у которых включено
 # «Проповедник Плоти» в настройках антагонистов. Для Города он обычный работяга.
+# Связь с Культом — псионическая (канал «Шёпот Плоти» без гарнитуры, см. DystopiaFleshPsionicSystem).
 
 - type: antag
   id: DystopiaFleshPreacher
@@ -17,7 +18,6 @@
   blacklist:
     components:
     - AntagImmune
-  startingGear: DystopiaFleshPreacherGear
   components:
   - type: DystopiaFleshCultist
     rank: Preacher
@@ -28,12 +28,6 @@
     text: dystopia-flesh-preacher-briefing
     color: "#C0392B"
     sound: "/Audio/Ambience/Antag/headrev_start.ogg"
-
-# С собой — ключ «Шёпота Плоти». Рации у Пролетария нет: ключ надо вставить в самодельную гарнитуру.
-- type: startingGear
-  id: DystopiaFleshPreacherGear
-  equipment:
-    pocket2: EncryptionKeyDystopiaCult
 
 # Роль разума Проповедника (для итогов раунда и админов). Самостоятельная сущность, без parent.
 - type: entity

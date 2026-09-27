@@ -1,4 +1,5 @@
 # Роли: Культ Плоти (открытый антагонист). Появляются в логове в пустошах.
+# Связь внутри Культа — псионическая, без гарнитур (гарнитура Культа осталась в игре как предмет).
 # Проповедник — не отдельная роль лобби: это скрытый антагонист среди Пролетариев (см. Roles/Antags/flesh_cult.yml).
 
 - type: job
@@ -24,7 +25,6 @@
     outerClothing: ClothingOuterRobesCult
     head: ClothingHeadHatHoodCulthood
     shoes: ClothingShoesColorBrown
-    ears: ClothingHeadsetDystopiaFlesh
 
 - type: job
   id: DystopiaFleshCarrier
@@ -47,4 +47,3 @@
   equipment:
     jumpsuit: ClothingUniformJumpsuitColorBrown
     shoes: ClothingShoesColorBrown
-    ears: ClothingHeadsetDystopiaFlesh
