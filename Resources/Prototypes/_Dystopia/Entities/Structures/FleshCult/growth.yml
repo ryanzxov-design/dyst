@@ -220,17 +220,26 @@
     sprite: _Dystopia/Structures/FleshCult/growth.rsi
     drawdepth: FloorObjects
     layers:
-    - state: kudzu_33
+    - state: kudzu_11
       map: ["base"]
-  # Вариант рисунка выбирается случайно при появлении (1–3)
+  # Стадия (1–4, раз в минуту) и вариант рисунка (1–3, случайно) -> kudzu_{стадия}{вариант}
   - type: Appearance
   - type: GenericVisualizer
     visuals:
-      enum.DystopiaFleshGrowthVisuals.Variant:
+      enum.DystopiaFleshGrowthVisuals.State:
         base:
-          1: { state: kudzu_13 }
-          2: { state: kudzu_23 }
-          3: { state: kudzu_33 }
+          kudzu_11: { state: kudzu_11 }
+          kudzu_12: { state: kudzu_12 }
+          kudzu_13: { state: kudzu_13 }
+          kudzu_21: { state: kudzu_21 }
+          kudzu_22: { state: kudzu_22 }
+          kudzu_23: { state: kudzu_23 }
+          kudzu_31: { state: kudzu_31 }
+          kudzu_32: { state: kudzu_32 }
+          kudzu_33: { state: kudzu_33 }
+          kudzu_41: { state: kudzu_41 }
+          kudzu_42: { state: kudzu_42 }
+          kudzu_43: { state: kudzu_43 }
   - type: MeleeSound
     soundGroups:
       Brute:
@@ -277,8 +286,14 @@
     ignoreWhitelist:
       components:
       - DystopiaFleshCultist
+  # Стадии: 1 -> 4, раз в минуту. Прочность x1.4 и урон x1.3 за каждую стадию.
+  # Стадия 1: прочность 25, урон 1; стадия 4: ~69 и ~2.2.
   - type: DystopiaFleshGrowth
     dissolveTime: 30
+    maxStage: 4
+    stageTime: 60
+    stageHealthMultiplier: 1.4
+    stageDamageMultiplier: 1.3
   # Горит: нарост выгорает примерно за 3 секунды (на соседей огонь сам не переходит)
   - type: DystopiaFleshBurnable
     burnTime: 6

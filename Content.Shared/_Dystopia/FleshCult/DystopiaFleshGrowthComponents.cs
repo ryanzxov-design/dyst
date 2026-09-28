@@ -97,6 +97,38 @@ public sealed partial class DystopiaFleshGrowthComponent : Component
 
     [ViewVariables]
     public TimeSpan NextCheck;
+
+    // --- Стадии нароста ---
+
+    /// <summary>Текущая стадия (1..MaxStage).</summary>
+    [ViewVariables]
+    public int Stage = 1;
+
+    [DataField]
+    public int MaxStage = 4;
+
+    /// <summary>Через сколько секунд нарост переходит в следующую стадию.</summary>
+    [DataField]
+    public float StageTime = 60f;
+
+    /// <summary>Во сколько раз прочность каждой следующей стадии больше предыдущей.</summary>
+    [DataField]
+    public float StageHealthMultiplier = 1.4f;
+
+    /// <summary>Во сколько раз урон каждой следующей стадии больше предыдущей.</summary>
+    [DataField]
+    public float StageDamageMultiplier = 1.3f;
+
+    /// <summary>Вариант рисунка 1–3 (выбирается случайно при появлении).</summary>
+    [ViewVariables]
+    public int Variant = 1;
+
+    [ViewVariables]
+    public TimeSpan NextStageAt;
+
+    /// <summary>Урон нароста на первой стадии (запоминается из DamageContacts при появлении).</summary>
+    [ViewVariables]
+    public DamageSpecifier? BaseContactDamage;
 }
 
 /// <summary>Труп, который сейчас переваривается наростом.</summary>
@@ -130,9 +162,9 @@ public record struct DystopiaFleshSeedAttemptEvent(EntityCoordinates Coordinates
 [ByRefEvent]
 public record struct DystopiaFleshGrowthSpeedEvent(EntityUid Cyst, float Multiplier = 1f);
 
-/// <summary>Внешний вид нароста: вариант рисунка 1–3 (выбирается случайно при появлении).</summary>
+/// <summary>Внешний вид нароста: состояние спрайта kudzu_{стадия}{вариант}.</summary>
 [Serializable, NetSerializable]
 public enum DystopiaFleshGrowthVisuals : byte
 {
-    Variant,
+    State,
 }

@@ -3,6 +3,8 @@ using Content.Server.Popups;
 using Content.Shared._Dystopia.FleshCult;
 using Content.Shared.Atmos.Components;
 using Content.Shared.Clothing.Components;
+using Content.Shared.Damage;
+using Content.Shared.Damage.Components;
 using Content.Shared.Damage.Systems;
 using Content.Shared.Doors;
 using Content.Shared.Doors.Components;
@@ -47,6 +49,8 @@ public sealed partial class DystopiaFleshGrowthSystem : EntitySystem
         base.Initialize();
         SubscribeLocalEvent<DystopiaFleshCystComponent, MapInitEvent>(OnCystInit);
         SubscribeLocalEvent<DystopiaFleshGrowthComponent, ComponentShutdown>(OnGrowthShutdown);
+        SubscribeLocalEvent<DystopiaFleshGrowthComponent, MapInitEvent>(OnGrowthInit);
+        SubscribeLocalEvent<DystopiaFleshGrowthComponent, DamageModifyEvent>(OnGrowthDamageModify);
     }
 
     private void OnCystInit(Entity<DystopiaFleshCystComponent> ent, ref MapInitEvent args)
@@ -78,10 +82,52 @@ public sealed partial class DystopiaFleshGrowthSystem : EntitySystem
     private EntityUid SpawnGrowth(Entity<DystopiaFleshCystComponent> cyst, EntityUid gridUid, MapGridComponent grid, Vector2i tile)
     {
         var growth = Spawn(cyst.Comp.Growth, _map.GridTileToLocal(gridUid, grid, tile));
-        _appearance.SetData(growth, DystopiaFleshGrowthVisuals.Variant, _random.Next(1, 4));
         EnsureComp<DystopiaFleshGrowthComponent>(growth).Cyst = cyst.Owner;
         cyst.Comp.Growths.Add(growth);
         return growth;
+    }
+
+    private void OnGrowthInit(Entity<DystopiaFleshGrowthComponent> ent, ref MapInitEvent args)
+    {
+        ent.Comp.Variant = _random.Next(1, 4);
+        ent.Comp.Stage = 1;
+        ent.Comp.NextStageAt = _timing.CurTime + TimeSpan.FromSeconds(ent.Comp.StageTime);
+        if (TryComp<DamageContactsComponent>(ent, out var contacts))
+            ent.Comp.BaseContactDamage = new DamageSpecifier(contacts.Damage);
+
+        UpdateGrowthVisuals(ent);
+    }
+
+    /// <summary>
+    /// Прочность стадий: порог разрушения в прототипе — прочность 1 стадии, а на старших стадиях
+    /// входящий урон делится на множитель стадии (1.4 за стадию) — то же самое, что больше прочности.
+    /// </summary>
+    private void OnGrowthDamageModify(Entity<DystopiaFleshGrowthComponent> ent, ref DamageModifyEvent args)
+    {
+        if (ent.Comp.Stage <= 1)
+            return;
+
+        var factor = MathF.Pow(ent.Comp.StageHealthMultiplier, ent.Comp.Stage - 1);
+        args.Damage = args.Damage * (1f / factor);
+    }
+
+    private void UpdateGrowthVisuals(Entity<DystopiaFleshGrowthComponent> ent)
+    {
+        _appearance.SetData(ent, DystopiaFleshGrowthVisuals.State, $"kudzu_{ent.Comp.Stage}{ent.Comp.Variant}");
+    }
+
+    private void AdvanceStage(Entity<DystopiaFleshGrowthComponent> ent)
+    {
+        ent.Comp.Stage++;
+        ent.Comp.NextStageAt = _timing.CurTime + TimeSpan.FromSeconds(ent.Comp.StageTime);
+        UpdateGrowthVisuals(ent);
+
+        // Урон каждой стадии на 30% больше предыдущей
+        if (ent.Comp.BaseContactDamage != null && TryComp<DamageContactsComponent>(ent, out var contacts))
+        {
+            contacts.Damage = ent.Comp.BaseContactDamage * MathF.Pow(ent.Comp.StageDamageMultiplier, ent.Comp.Stage - 1);
+            Dirty(ent, contacts);
+        }
     }
 
     private void OnGrowthShutdown(Entity<DystopiaFleshGrowthComponent> ent, ref ComponentShutdown args)
@@ -135,6 +181,9 @@ public sealed partial class DystopiaFleshGrowthSystem : EntitySystem
 
             growth.NextCheck = now + TimeSpan.FromSeconds(2);
 
+            if (growth.Stage < growth.MaxStage && now >= growth.NextStageAt)
+                AdvanceStage((uid, growth));
+
             if (growth.Cyst is not { } cystUid || !Exists(cystUid) || TerminatingOrDeleted(cystUid))
             {
                 growth.WitherAt ??= now + TimeSpan.FromSeconds(_random.NextFloat(15f, 45f));
@@ -147,8 +196,12 @@ public sealed partial class DystopiaFleshGrowthSystem : EntitySystem
 
             foreach (var mob in _lookup.GetEntitiesInRange<MobStateComponent>(xform.Coordinates, 0.45f))
             {
-                if (!_mobState.IsDead(mob) || HasComp<DystopiaFleshDissolvingComponent>(mob))
+                // Плоть не переваривает своих: тела культистов остаются
+                if (!_mobState.IsDead(mob) || HasComp<DystopiaFleshDissolvingComponent>(mob) ||
+                    HasComp<DystopiaFleshCultistComponent>(mob))
+                {
                     continue;
+                }
 
                 var dissolving = AddComp<DystopiaFleshDissolvingComponent>(mob);
                 dissolving.Growth = uid;
