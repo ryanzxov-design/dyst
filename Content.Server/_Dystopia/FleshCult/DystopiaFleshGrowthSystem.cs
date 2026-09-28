@@ -218,40 +218,44 @@ public sealed partial class DystopiaFleshGrowthSystem : EntitySystem
             return;
         }
 
-        // Лимит достигнут: одна из крайних клеток становится новой кистой (один раз на кисту)
+        // Лимит достигнут: самая дальняя от кисты клетка нароста становится новой кистой (один раз на кисту).
         if (cyst.Comp1.ChildSpawned)
             return;
 
-        var edges = new List<EntityUid>();
+        var parentTile = _map.TileIndicesFor(gridUid, grid, cyst.Comp2.Coordinates);
+        var farCandidates = new List<(EntityUid Growth, int Distance)>();
         foreach (var g in cyst.Comp1.Growths)
         {
             var tile = _map.TileIndicesFor(gridUid, grid, Transform(g).Coordinates);
-            foreach (var dir in Neighbors)
-            {
-                if (IsFreeTile(gridUid, grid, tile + dir))
-                {
-                    edges.Add(g);
-                    break;
-                }
-            }
+            var delta = tile - parentTile;
+            var distance = delta.X * delta.X + delta.Y * delta.Y;
+            if (distance > 0)
+                farCandidates.Add((g, distance));
         }
 
-        if (edges.Count == 0)
+        if (farCandidates.Count == 0)
             return;
 
-        var edge = _random.Pick(edges);
-        var coords = Transform(edge).Coordinates;
+        // Самые дальние — первыми; среди равных по дальности порядок случайный
+        _random.Shuffle(farCandidates);
+        farCandidates.Sort((a, b) => b.Distance.CompareTo(a.Distance));
 
-        // Стабилизаторы не дают появиться кисте в своей зоне (этап К3)
-        var attempt = new DystopiaFleshSeedAttemptEvent(coords);
-        RaiseLocalEvent(ref attempt);
-        if (attempt.Cancelled)
+        foreach (var (growth, _) in farCandidates)
+        {
+            var coords = Transform(growth).Coordinates;
+
+            // Стабилизаторы не дают появиться кисте в своей зоне (этап К3) — тогда пробуем следующую по дальности
+            var attempt = new DystopiaFleshSeedAttemptEvent(coords);
+            RaiseLocalEvent(ref attempt);
+            if (attempt.Cancelled)
+                continue;
+
+            // Нарост на месте новой кисты не удаляем: новая киста заберёт его себе (он окажется под ней).
+            cyst.Comp1.ChildSpawned = true;
+            cyst.Comp1.Growths.Remove(growth);
+            Spawn(cyst.Comp1.Cyst, coords);
             return;
-
-        // Нарост на месте новой кисты не удаляем: новая киста заберёт его себе (он окажется под ней).
-        cyst.Comp1.ChildSpawned = true;
-        cyst.Comp1.Growths.Remove(edge);
-        Spawn(cyst.Comp1.Cyst, coords);
+        }
     }
 
     /// <summary>Клетка годится для нароста: пол есть, нет стен и другой плоти. Незаваренные двери пропускают.</summary>
