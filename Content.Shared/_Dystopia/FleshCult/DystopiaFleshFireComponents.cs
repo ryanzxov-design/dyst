@@ -1,4 +1,5 @@
 using Content.Shared.Damage;
+using Robust.Shared.Audio;
 using Robust.Shared.Prototypes;
 
 namespace Content.Shared._Dystopia.FleshCult;
@@ -46,6 +47,13 @@ public sealed partial class DystopiaFleshIgniterComponent : Component
 {
     [DataField]
     public float WideAfter = 0.3f;
+
+    /// <summary>Рёв огнемёта: играет на оружии не чаще раза в SoundInterval секунд, пока идёт струя.</summary>
+    [DataField]
+    public SoundSpecifier? Sound;
+
+    [DataField]
+    public float SoundInterval = 1.6f;
 
     [ViewVariables]
     public TimeSpan SpawnTime;

@@ -1,5 +1,7 @@
 using Content.Server.Atmos.EntitySystems;
 using Content.Shared._Dystopia.FleshCult;
+using Content.Shared.Projectiles;
+using Robust.Server.Audio;
 using Content.Shared.Damage.Systems;
 using Robust.Server.GameObjects;
 using Robust.Shared.Map.Components;
@@ -22,12 +24,16 @@ public sealed partial class DystopiaFleshFireSystem : EntitySystem
     [Dependency] private MapSystem _map = default!;
     [Dependency] private AtmosphereSystem _atmosphere = default!;
     [Dependency] private DamageableSystem _damageable = default!;
+    [Dependency] private AudioSystem _audio = default!;
 
     private static readonly Vector2i[] Neighbors = { new(1, 0), new(-1, 0), new(0, 1), new(0, -1) };
 
     private readonly List<EntityUid> _toIgnite = new();
     private readonly List<EntityUid> _buffer = new();
     private TimeSpan _nextHotspotCheck;
+
+    // Когда какое оружие последний раз ревело (чтобы звук не накладывался 12 раз в секунду)
+    private readonly Dictionary<EntityUid, TimeSpan> _lastRoar = new();
 
     public override void Initialize()
     {
@@ -38,7 +44,33 @@ public sealed partial class DystopiaFleshFireSystem : EntitySystem
 
     private void OnIgniterInit(Entity<DystopiaFleshIgniterComponent> ent, ref MapInitEvent args)
     {
-        ent.Comp.SpawnTime = _timing.CurTime;
+        var now = _timing.CurTime;
+        ent.Comp.SpawnTime = now;
+
+        // Рёв огнемёта — на самом оружии, не чаще раза в SoundInterval
+        if (ent.Comp.Sound == null ||
+            !TryComp<ProjectileComponent>(ent, out var projectile) ||
+            projectile.Weapon is not { } weapon ||
+            TerminatingOrDeleted(weapon))
+        {
+            return;
+        }
+
+        if (_lastRoar.TryGetValue(weapon, out var last) && (now - last).TotalSeconds < ent.Comp.SoundInterval)
+            return;
+
+        _lastRoar[weapon] = now;
+        _audio.PlayPvs(ent.Comp.Sound, weapon);
+
+        // Чистим записи давно не стрелявшего оружия
+        if (_lastRoar.Count > 32)
+        {
+            foreach (var key in new List<EntityUid>(_lastRoar.Keys))
+            {
+                if ((now - _lastRoar[key]).TotalSeconds > 10)
+                    _lastRoar.Remove(key);
+            }
+        }
     }
 
     private void OnBurningShutdown(Entity<DystopiaFleshBurningComponent> ent, ref ComponentShutdown args)

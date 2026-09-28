@@ -1,0 +1,4 @@
+- files: ["flamethrower.ogg"]
+  license: "CC-BY-SA-3.0"
+  copyright: "Taken from tgstation (sound/items/modsuit/flamethrower.ogg) at commit b405ba9bef03fc903172ebf7461a3c486303c63f"
+  source: "https://github.com/tgstation/tgstation/blob/b405ba9bef03fc903172ebf7461a3c486303c63f/sound/items/modsuit/flamethrower.ogg"

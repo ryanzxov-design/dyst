@@ -1,6 +1,7 @@
 using Content.Server.Popups;
 using Content.Server.Power.Components;
 using Content.Shared._Dystopia.FleshCult;
+using Content.Shared.Audio;
 using Content.Shared.Chat;
 using Content.Shared.Damage;
 using Content.Shared.Damage.Systems;
@@ -26,6 +27,7 @@ public sealed partial class DystopiaStabilizerSystem : EntitySystem
     [Dependency] private SharedChatSystem _chat = default!;
     [Dependency] private StationSystem _station = default!;
     [Dependency] private PopupSystem _popup = default!;
+    [Dependency] private SharedAmbientSoundSystem _ambient = default!;
 
     public override void Initialize()
     {
@@ -127,6 +129,7 @@ public sealed partial class DystopiaStabilizerSystem : EntitySystem
 
         _appearance.SetData(ent, DystopiaStabilizerVisuals.State, state);
         _light.SetEnabled(ent, comp.Working);
+        _ambient.SetAmbience(ent, comp.Working); // гудит, только пока работает
 
         if (!announce)
             return;

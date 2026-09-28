@@ -5,7 +5,7 @@ using Robust.Shared.Prototypes;
 
 namespace Content.Client._Dystopia.Visuals;
 
-/// <summary>Серый экран рядом со стабилизатором. Сила задаётся системой (StabilizerGraySystem).</summary>
+/// <summary>Серый экран, зерно и помехи рядом со стабилизатором. Сила задаётся системой (StabilizerGraySystem).</summary>
 public sealed partial class StabilizerGrayOverlay : Overlay
 {
     private static readonly ProtoId<ShaderPrototype> Shader = "DystopiaStabilizerGray";
@@ -17,6 +17,7 @@ public sealed partial class StabilizerGrayOverlay : Overlay
     private readonly ShaderInstance _shader;
 
     public float Amount;
+    public float Noise;
 
     public override OverlaySpace Space => OverlaySpace.WorldSpace;
     public override bool RequestScreenTexture => true;
@@ -30,7 +31,7 @@ public sealed partial class StabilizerGrayOverlay : Overlay
 
     protected override bool BeforeDraw(in OverlayDrawArgs args)
     {
-        return Amount > 0.01f &&
+        return (Amount > 0.01f || Noise > 0.01f) &&
                _entityManager.TryGetComponent(_playerManager.LocalEntity, out EyeComponent? eye) &&
                args.Viewport.Eye == eye.Eye;
     }
@@ -43,6 +44,7 @@ public sealed partial class StabilizerGrayOverlay : Overlay
         var handle = args.WorldHandle;
         _shader.SetParameter("SCREEN_TEXTURE", ScreenTexture);
         _shader.SetParameter("amount", Amount);
+        _shader.SetParameter("noise", Noise);
         handle.UseShader(_shader);
         handle.DrawRect(args.WorldBounds, Color.White);
         handle.UseShader(null);

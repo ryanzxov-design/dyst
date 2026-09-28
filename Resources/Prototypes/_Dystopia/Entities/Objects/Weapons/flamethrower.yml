@@ -77,12 +77,8 @@
     selectedMode: FullAuto
     availableModes:
     - FullAuto
-    soundGunshot:
-      path: /Audio/Effects/fire.ogg
-      params:
-        volume: 4
-        variation: 0.15
-        maxDistance: 12
+    # Звук выстрела выключен: рёв огнемёта играет DystopiaFleshIgniter струи (не чаще раза в 1.6 с)
+    soundGunshot: null
     soundEmpty:
       path: /Audio/Items/hiss.ogg
       params:
@@ -420,6 +416,13 @@
   # Поджигает плоть Культа на клетках, над которыми пролетает струя
   - type: DystopiaFleshIgniter
     wideAfter: 0.3
+    soundInterval: 1.6
+    sound:
+      path: /Audio/_Dystopia/Weapons/flamethrower.ogg
+      params:
+        volume: 2
+        variation: 0.08
+        maxDistance: 14
   - type: PointLight
     radius: 2
     energy: 3
