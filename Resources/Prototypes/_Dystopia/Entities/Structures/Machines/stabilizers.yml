@@ -1,0 +1,140 @@
+# Стабилизаторы Города — глушат Плоть. Самостоятельные сущности, без parent.
+#  - в радиусе 20 клеток Семя не приживается и кисты не появляются;
+#  - кисты у зоны растят наросты в 3 раза медленнее;
+#  - питание от сети; без сети — внутренний аккумулятор на 20 минут (заряжается от сети вдвое быстрее);
+#  - при 200 урона стабилизатор ломается; чинится сваркой (Ликвидаторы).
+# Омега-Стабилизатор (Консулат) неуязвим, пока работают не меньше 3 обычных стабилизаторов.
+# Его разрушение — победа Культа Плоти (этап К6).
+
+- type: entity
+  id: DystopiaStabilizer
+  name: стабилизатор
+  description: Гудящая колонна Сети стабилизаторов. Пока она работает, Плоть в округе не приживается.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.35,-0.4,0.35,0.4"
+        density: 300
+        mask:
+        - MachineMask
+        layer:
+        - MachineLayer
+  - type: Sprite
+    sprite: _Dystopia/Structures/Machines/stabilizer.rsi
+    noRot: true
+    layers:
+    - state: base
+    - state: on
+      map: ["status"]
+      shader: unshaded
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DystopiaStabilizerVisuals.State:
+        status:
+          on: { state: on, shader: unshaded }
+          battery: { state: battery, shader: unshaded }
+          off: { state: off }
+          broken: { state: broken, shader: unshaded }
+  - type: PointLight
+    radius: 2.5
+    energy: 1.4
+    color: "#78BEE1"
+    castShadows: false
+  - type: ApcPowerReceiver
+    powerLoad: 400
+  - type: ExtensionCableReceiver
+  - type: Damageable
+    damageModifierSet: StructuralMetallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Repairable
+    doAfterDelay: 10
+    fuelCost: 20
+  - type: DystopiaStabilizer
+    radius: 20
+    growthSlowdown: 3
+    batteryCapacity: 1200
+    rechargeRate: 2
+    breakDamage: 200
+
+- type: entity
+  id: DystopiaOmegaStabilizer
+  name: Омега-Стабилизатор
+  description: Сердце Сети стабилизаторов в Консулате. Пока держится Сеть, его не взять ничем.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.9,-0.9,0.9,0.9"
+        density: 1000
+        mask:
+        - MachineMask
+        layer:
+        - MachineLayer
+  - type: Sprite
+    sprite: _Dystopia/Structures/Machines/omega_stabilizer.rsi
+    noRot: true
+    drawdepth: Mobs
+    layers:
+    - state: base
+    - state: on
+      map: ["status"]
+      shader: unshaded
+    - state: shield
+      map: ["shield"]
+      shader: unshaded
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DystopiaStabilizerVisuals.State:
+        status:
+          on: { state: on, shader: unshaded }
+          battery: { state: battery, shader: unshaded }
+          off: { state: off }
+          destroyed: { state: destroyed, shader: unshaded }
+      enum.DystopiaStabilizerVisuals.Shielded:
+        shield:
+          True: { visible: true }
+          False: { visible: false }
+  - type: PointLight
+    radius: 4
+    energy: 2
+    color: "#78BEE1"
+    castShadows: false
+  - type: ApcPowerReceiver
+    powerLoad: 1500
+  - type: ExtensionCableReceiver
+  - type: Damageable
+    damageModifierSet: StructuralMetallicStrong
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: DystopiaStabilizer
+    isOmega: true
+    radius: 20
+    growthSlowdown: 3
+    batteryCapacity: 1800
+    rechargeRate: 2
+    breakDamage: 1500
+    omegaMinWorking: 3

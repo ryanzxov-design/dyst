@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Made for Dystopia",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "base"
+    },
+    {
+      "name": "on",
+      "delays": [
+        [
+          0.25,
+          0.25,
+          0.25
+        ]
+      ]
+    },
+    {
+      "name": "battery",
+      "delays": [
+        [
+          0.6,
+          0.6
+        ]
+      ]
+    },
+    {
+      "name": "off"
+    },
+    {
+      "name": "broken",
+      "delays": [
+        [
+          0.9,
+          0.12
+        ]
+      ]
+    }
+  ]
+}
