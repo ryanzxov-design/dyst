@@ -1,8 +1,10 @@
 # Стабилизаторы Города — глушат Плоть. Самостоятельные сущности, без parent.
-#  - в радиусе 20 клеток Семя не приживается и кисты не появляются;
+#  - обычный — 3x3 клетки, радиус 20; Омега — 5x5 клеток, радиус 40;
+#  - в радиусе Семя не приживается и кисты не появляются;
 #  - кисты у зоны растят наросты в 3 раза медленнее;
 #  - питание от сети; без сети — внутренний аккумулятор на 20 минут (заряжается от сети вдвое быстрее);
 #  - при 200 урона стабилизатор ломается; чинится сваркой (Ликвидаторы).
+# Рядом со стабилизатором экран сереет (обычный — с 5 клеток, Омега — с 20), вплотную — полностью серый.
 # Омега-Стабилизатор (Консулат) неуязвим, пока работают не меньше 3 обычных стабилизаторов.
 # Его разрушение — победа Культа Плоти (этап К6).
 
@@ -24,8 +26,8 @@
     fixtures:
       fix1:
         shape: !type:PhysShapeAabb
-          bounds: "-0.35,-0.4,0.35,0.4"
-        density: 300
+          bounds: "-1.45,-1.45,1.45,1.45"
+        density: 1000
         mask:
         - MachineMask
         layer:
@@ -33,6 +35,7 @@
   - type: Sprite
     sprite: _Dystopia/Structures/Machines/stabilizer.rsi
     noRot: true
+    drawdepth: Mobs
     layers:
     - state: base
     - state: on
@@ -48,8 +51,8 @@
           off: { state: off }
           broken: { state: broken, shader: unshaded }
   - type: PointLight
-    radius: 2.5
-    energy: 1.4
+    radius: 4
+    energy: 1.8
     color: "#78BEE1"
     castShadows: false
   - type: ApcPowerReceiver
@@ -68,6 +71,8 @@
     batteryCapacity: 1200
     rechargeRate: 2
     breakDamage: 200
+    grayRadius: 5
+    halfSize: 1.5
 
 - type: entity
   id: DystopiaOmegaStabilizer
@@ -87,8 +92,8 @@
     fixtures:
       fix1:
         shape: !type:PhysShapeAabb
-          bounds: "-0.9,-0.9,0.9,0.9"
-        density: 1000
+          bounds: "-2.45,-2.45,2.45,2.45"
+        density: 3000
         mask:
         - MachineMask
         layer:
@@ -119,8 +124,8 @@
           True: { visible: true }
           False: { visible: false }
   - type: PointLight
-    radius: 4
-    energy: 2
+    radius: 7
+    energy: 2.5
     color: "#78BEE1"
     castShadows: false
   - type: ApcPowerReceiver
@@ -132,7 +137,9 @@
     damageContainer: StructuralInorganic
   - type: DystopiaStabilizer
     isOmega: true
-    radius: 20
+    radius: 40
+    grayRadius: 20
+    halfSize: 2.5
     growthSlowdown: 3
     batteryCapacity: 1800
     rechargeRate: 2

@@ -3,8 +3,8 @@
   "license": "CC-BY-SA-3.0",
   "copyright": "Made for Dystopia",
   "size": {
-    "x": 32,
-    "y": 32
+    "x": 96,
+    "y": 96
   },
   "states": [
     {
@@ -14,9 +14,9 @@
       "name": "on",
       "delays": [
         [
-          0.25,
-          0.25,
-          0.25
+          0.3,
+          0.3,
+          0.3
         ]
       ]
     },

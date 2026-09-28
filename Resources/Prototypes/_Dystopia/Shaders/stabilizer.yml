@@ -1,0 +1,5 @@
+# Серость у стабилизаторов.
+- type: shader
+  id: DystopiaStabilizerGray
+  kind: source
+  path: "/Textures/Shaders/_Dystopia/stabilizer_gray.swsl"

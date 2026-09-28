@@ -41,6 +41,17 @@ public sealed partial class DystopiaStabilizerComponent : Component
     [DataField]
     public bool IsOmega;
 
+    /// <summary>
+    /// Экран игрока сереет у работающего стабилизатора: начинает сереть на таком расстоянии от края стабилизатора, клетки.
+    /// Вплотную — полностью серый. (Рисует клиент.)
+    /// </summary>
+    [DataField]
+    public float GrayRadius = 5f;
+
+    /// <summary>Половина размера стабилизатора, клетки (3x3 → 1.5): расстояние считается от края, а не от центра.</summary>
+    [DataField]
+    public float HalfSize = 1.5f;
+
     /// <summary>Омега неуязвим, пока работает не меньше стольких обычных стабилизаторов.</summary>
     [DataField]
     public int OmegaMinWorking = 3;

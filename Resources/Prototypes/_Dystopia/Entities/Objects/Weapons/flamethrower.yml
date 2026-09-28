@@ -80,8 +80,9 @@
     soundGunshot:
       path: /Audio/Effects/fire.ogg
       params:
-        volume: -8
+        volume: 4
         variation: 0.15
+        maxDistance: 12
     soundEmpty:
       path: /Audio/Items/hiss.ogg
       params:
