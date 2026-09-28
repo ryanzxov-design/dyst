@@ -77,13 +77,22 @@
     selectedMode: FullAuto
     availableModes:
     - FullAuto
-    # Звук выстрела выключен: рёв огнемёта играет DystopiaFleshIgniter струи (не чаще раза в 1.6 с)
+    # Обычный звук выстрела выключен — вместо него рёв огнемёта (DystopiaFlamethrowerSound ниже)
     soundGunshot: null
     soundEmpty:
       path: /Audio/Items/hiss.ogg
       params:
         volume: -6
   - type: Appearance
+  # Рёв огнемёта (tgstation modsuit/flamethrower.ogg): на оружии, не чаще раза в 1.5 с — непрерывно, пока зажата стрельба
+  - type: DystopiaFlamethrowerSound
+    interval: 1.5
+    sound:
+      path: /Audio/_Dystopia/Weapons/flamethrower.ogg
+      params:
+        volume: 10
+        variation: 0.06
+        maxDistance: 16
   - type: ClothingSlotAmmoProvider
   - type: SlotBasedConnectedContainer
     targetSlot: BACK
@@ -416,13 +425,6 @@
   # Поджигает плоть Культа на клетках, над которыми пролетает струя
   - type: DystopiaFleshIgniter
     wideAfter: 0.3
-    soundInterval: 1.6
-    sound:
-      path: /Audio/_Dystopia/Weapons/flamethrower.ogg
-      params:
-        volume: 2
-        variation: 0.08
-        maxDistance: 14
   - type: PointLight
     radius: 2
     energy: 3
