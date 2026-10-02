@@ -1,0 +1,783 @@
+# Деревянные протезы (хирургия S2). Самостоятельные сущности, без parent.
+# Детали — органы из ванильных частей тела человека с деревянными спрайтами; протез — «отделённое тело» с органами внутри,
+# его пришивают к вскрытой части тела так же, как отрезанную конечность.
+
+- type: entity
+  id: DystopiaWoodArmLeft
+  name: деревянная левая рука
+  description: Грубо выточенная деревянная деталь протеза. Лучше, чем ничего.
+  categories:
+  - HideSpawnMenu
+  components:
+  - type: Item
+    size: Small
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Mobs/Prosthetics/wood.rsi
+    state: l_arm
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Organ
+    category: ArmLeft
+  - type: VisualOrgan
+    data:
+      sprite: _Dystopia/Mobs/Prosthetics/wood.rsi
+      state: l_arm
+    layer: enum.HumanoidVisualLayers.LArm
+  - type: ChildOrgan
+  - type: DetachableOrgan
+    detachedBody: DetachedBody
+  - type: ParentOrgan
+
+- type: entity
+  id: DystopiaWoodHandLeft
+  name: деревянная левая кисть
+  description: Грубо выточенная деревянная деталь протеза. Лучше, чем ничего.
+  categories:
+  - HideSpawnMenu
+  components:
+  - type: Item
+    size: Small
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Mobs/Prosthetics/wood.rsi
+    state: l_hand
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Organ
+    category: HandLeft
+  - type: VisualOrgan
+    data:
+      sprite: _Dystopia/Mobs/Prosthetics/wood.rsi
+      state: l_hand
+    layer: enum.HumanoidVisualLayers.LHand
+  - type: ChildOrgan
+  - type: DetachableOrgan
+    detachedBody: DetachedBody
+  - type: HandOrgan
+    handID: left
+    data:
+      location: Left
+
+- type: entity
+  id: DystopiaWoodArmRight
+  name: деревянная правая рука
+  description: Грубо выточенная деревянная деталь протеза. Лучше, чем ничего.
+  categories:
+  - HideSpawnMenu
+  components:
+  - type: Item
+    size: Small
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Mobs/Prosthetics/wood.rsi
+    state: r_arm
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Organ
+    category: ArmRight
+  - type: VisualOrgan
+    data:
+      sprite: _Dystopia/Mobs/Prosthetics/wood.rsi
+      state: r_arm
+    layer: enum.HumanoidVisualLayers.RArm
+  - type: ChildOrgan
+  - type: DetachableOrgan
+    detachedBody: DetachedBody
+  - type: ParentOrgan
+
+- type: entity
+  id: DystopiaWoodHandRight
+  name: деревянная правая кисть
+  description: Грубо выточенная деревянная деталь протеза. Лучше, чем ничего.
+  categories:
+  - HideSpawnMenu
+  components:
+  - type: Item
+    size: Small
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Mobs/Prosthetics/wood.rsi
+    state: r_hand
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Organ
+    category: HandRight
+  - type: VisualOrgan
+    data:
+      sprite: _Dystopia/Mobs/Prosthetics/wood.rsi
+      state: r_hand
+    layer: enum.HumanoidVisualLayers.RHand
+  - type: ChildOrgan
+  - type: DetachableOrgan
+    detachedBody: DetachedBody
+  - type: HandOrgan
+    handID: right
+    data:
+      location: Right
+
+- type: entity
+  id: DystopiaWoodLegLeft
+  name: деревянная левая нога
+  description: Грубо выточенная деревянная деталь протеза. Лучше, чем ничего.
+  categories:
+  - HideSpawnMenu
+  components:
+  - type: Item
+    size: Small
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Mobs/Prosthetics/wood.rsi
+    state: l_leg
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Organ
+    category: LegLeft
+  - type: VisualOrgan
+    data:
+      sprite: _Dystopia/Mobs/Prosthetics/wood.rsi
+      state: l_leg
+    layer: enum.HumanoidVisualLayers.LLeg
+  - type: ChildOrgan
+  - type: DetachableOrgan
+    detachedBody: DetachedBody
+  - type: ParentOrgan
+  - type: SurgeryProsthetic
+    speedMultiplier: 0.85
+
+- type: entity
+  id: DystopiaWoodFootLeft
+  name: деревянная левая стопа
+  description: Грубо выточенная деревянная деталь протеза. Лучше, чем ничего.
+  categories:
+  - HideSpawnMenu
+  components:
+  - type: Item
+    size: Small
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Mobs/Prosthetics/wood.rsi
+    state: l_foot
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Organ
+    category: FootLeft
+  - type: VisualOrgan
+    data:
+      sprite: _Dystopia/Mobs/Prosthetics/wood.rsi
+      state: l_foot
+    layer: enum.HumanoidVisualLayers.LFoot
+  - type: ChildOrgan
+  - type: DetachableOrgan
+    detachedBody: DetachedBody
+  - type: SurgeryProsthetic
+    speedMultiplier: 0.95
+
+- type: entity
+  id: DystopiaWoodLegRight
+  name: деревянная правая нога
+  description: Грубо выточенная деревянная деталь протеза. Лучше, чем ничего.
+  categories:
+  - HideSpawnMenu
+  components:
+  - type: Item
+    size: Small
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Mobs/Prosthetics/wood.rsi
+    state: r_leg
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Organ
+    category: LegRight
+  - type: VisualOrgan
+    data:
+      sprite: _Dystopia/Mobs/Prosthetics/wood.rsi
+      state: r_leg
+    layer: enum.HumanoidVisualLayers.RLeg
+  - type: ChildOrgan
+  - type: DetachableOrgan
+    detachedBody: DetachedBody
+  - type: ParentOrgan
+  - type: SurgeryProsthetic
+    speedMultiplier: 0.85
+
+- type: entity
+  id: DystopiaWoodFootRight
+  name: деревянная правая стопа
+  description: Грубо выточенная деревянная деталь протеза. Лучше, чем ничего.
+  categories:
+  - HideSpawnMenu
+  components:
+  - type: Item
+    size: Small
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Mobs/Prosthetics/wood.rsi
+    state: r_foot
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Organ
+    category: FootRight
+  - type: VisualOrgan
+    data:
+      sprite: _Dystopia/Mobs/Prosthetics/wood.rsi
+      state: r_foot
+    layer: enum.HumanoidVisualLayers.RFoot
+  - type: ChildOrgan
+  - type: DetachableOrgan
+    detachedBody: DetachedBody
+  - type: SurgeryProsthetic
+    speedMultiplier: 0.95
+
+- type: entity
+  id: DystopiaProstheticArmLeft
+  name: деревянный протез левой руки
+  description: Протез руки с кистью. Пришивается хирургом к вскрытому плечу.
+  components:
+  - type: Sprite
+    layers:
+    - map: ["enum.HumanoidVisualLayers.Chest"]
+    - map: ["enum.HumanoidVisualLayers.Head"]
+    - map: ["enum.HumanoidVisualLayers.Snout"]
+    - map: ["enum.HumanoidVisualLayers.Eyes"]
+    - map: ["enum.HumanoidVisualLayers.RArm"]
+    - map: ["enum.HumanoidVisualLayers.LArm"]
+    - map: ["enum.HumanoidVisualLayers.RLeg"]
+    - map: ["enum.HumanoidVisualLayers.LLeg"]
+    - map: ["enum.HumanoidVisualLayers.UndergarmentBottom"]
+    - map: ["enum.HumanoidVisualLayers.UndergarmentTop"]
+    - map: ["jumpsuit"]
+    - map: ["enum.HumanoidVisualLayers.LFoot"]
+    - map: ["enum.HumanoidVisualLayers.RFoot"]
+    - map: ["enum.HumanoidVisualLayers.LHand"]
+    - map: ["enum.HumanoidVisualLayers.RHand"]
+    - map: ["enum.HumanoidVisualLayers.Overlay"]
+    - map: ["gloves"]
+    - map: ["shoes"]
+    - map: ["ears"]
+    - map: ["outerClothing"]
+    - map: ["eyes"]
+    - map: ["belt"]
+    - map: ["id"]
+    - map: ["back"]
+    - map: ["neck"]
+    - map: ["suitstorage"]
+    - map: ["enum.HumanoidVisualLayers.SnoutCover"]
+    - map: ["enum.HumanoidVisualLayers.FacialHair"]
+    - map: ["enum.HumanoidVisualLayers.Hair"]
+    - map: ["enum.HumanoidVisualLayers.HeadSide"]
+    - map: ["enum.HumanoidVisualLayers.HeadTop"]
+    - map: ["enum.HumanoidVisualLayers.Tail"]
+    - map: ["enum.HumanoidVisualLayers.TailOverlay"]
+    - map: ["mask"]
+    - map: ["head"]
+    - map: ["pocket1"]
+    - map: ["pocket2"]
+    - map: ["enum.HumanoidVisualLayers.Handcuffs"]
+      color: "#ffffff"
+      sprite: Objects/Misc/handcuffs.rsi
+      state: body-overlay-2
+      visible: false
+  - type: Clickable
+  - type: Body
+  - type: VisualBody
+  - type: ContainerContainer
+  - type: Appearance
+  - type: HideableHumanoidLayers
+  - type: Item
+  - type: InteractionOutline
+  - type: InputMover
+  - type: InitialBody
+    organs:
+      ArmLeft: DystopiaWoodArmLeft
+      HandLeft: DystopiaWoodHandLeft
+    relationships:
+      ArmLeft:
+      - HandLeft
+
+- type: entity
+  id: DystopiaProstheticArmRight
+  name: деревянный протез правой руки
+  description: Протез руки с кистью. Пришивается хирургом к вскрытому плечу.
+  components:
+  - type: Sprite
+    layers:
+    - map: ["enum.HumanoidVisualLayers.Chest"]
+    - map: ["enum.HumanoidVisualLayers.Head"]
+    - map: ["enum.HumanoidVisualLayers.Snout"]
+    - map: ["enum.HumanoidVisualLayers.Eyes"]
+    - map: ["enum.HumanoidVisualLayers.RArm"]
+    - map: ["enum.HumanoidVisualLayers.LArm"]
+    - map: ["enum.HumanoidVisualLayers.RLeg"]
+    - map: ["enum.HumanoidVisualLayers.LLeg"]
+    - map: ["enum.HumanoidVisualLayers.UndergarmentBottom"]
+    - map: ["enum.HumanoidVisualLayers.UndergarmentTop"]
+    - map: ["jumpsuit"]
+    - map: ["enum.HumanoidVisualLayers.LFoot"]
+    - map: ["enum.HumanoidVisualLayers.RFoot"]
+    - map: ["enum.HumanoidVisualLayers.LHand"]
+    - map: ["enum.HumanoidVisualLayers.RHand"]
+    - map: ["enum.HumanoidVisualLayers.Overlay"]
+    - map: ["gloves"]
+    - map: ["shoes"]
+    - map: ["ears"]
+    - map: ["outerClothing"]
+    - map: ["eyes"]
+    - map: ["belt"]
+    - map: ["id"]
+    - map: ["back"]
+    - map: ["neck"]
+    - map: ["suitstorage"]
+    - map: ["enum.HumanoidVisualLayers.SnoutCover"]
+    - map: ["enum.HumanoidVisualLayers.FacialHair"]
+    - map: ["enum.HumanoidVisualLayers.Hair"]
+    - map: ["enum.HumanoidVisualLayers.HeadSide"]
+    - map: ["enum.HumanoidVisualLayers.HeadTop"]
+    - map: ["enum.HumanoidVisualLayers.Tail"]
+    - map: ["enum.HumanoidVisualLayers.TailOverlay"]
+    - map: ["mask"]
+    - map: ["head"]
+    - map: ["pocket1"]
+    - map: ["pocket2"]
+    - map: ["enum.HumanoidVisualLayers.Handcuffs"]
+      color: "#ffffff"
+      sprite: Objects/Misc/handcuffs.rsi
+      state: body-overlay-2
+      visible: false
+  - type: Clickable
+  - type: Body
+  - type: VisualBody
+  - type: ContainerContainer
+  - type: Appearance
+  - type: HideableHumanoidLayers
+  - type: Item
+  - type: InteractionOutline
+  - type: InputMover
+  - type: InitialBody
+    organs:
+      ArmRight: DystopiaWoodArmRight
+      HandRight: DystopiaWoodHandRight
+    relationships:
+      ArmRight:
+      - HandRight
+
+- type: entity
+  id: DystopiaProstheticLegLeft
+  name: деревянный протез левой ноги
+  description: Протез ноги со стопой. Ходить медленнее, но ходить.
+  components:
+  - type: Sprite
+    layers:
+    - map: ["enum.HumanoidVisualLayers.Chest"]
+    - map: ["enum.HumanoidVisualLayers.Head"]
+    - map: ["enum.HumanoidVisualLayers.Snout"]
+    - map: ["enum.HumanoidVisualLayers.Eyes"]
+    - map: ["enum.HumanoidVisualLayers.RArm"]
+    - map: ["enum.HumanoidVisualLayers.LArm"]
+    - map: ["enum.HumanoidVisualLayers.RLeg"]
+    - map: ["enum.HumanoidVisualLayers.LLeg"]
+    - map: ["enum.HumanoidVisualLayers.UndergarmentBottom"]
+    - map: ["enum.HumanoidVisualLayers.UndergarmentTop"]
+    - map: ["jumpsuit"]
+    - map: ["enum.HumanoidVisualLayers.LFoot"]
+    - map: ["enum.HumanoidVisualLayers.RFoot"]
+    - map: ["enum.HumanoidVisualLayers.LHand"]
+    - map: ["enum.HumanoidVisualLayers.RHand"]
+    - map: ["enum.HumanoidVisualLayers.Overlay"]
+    - map: ["gloves"]
+    - map: ["shoes"]
+    - map: ["ears"]
+    - map: ["outerClothing"]
+    - map: ["eyes"]
+    - map: ["belt"]
+    - map: ["id"]
+    - map: ["back"]
+    - map: ["neck"]
+    - map: ["suitstorage"]
+    - map: ["enum.HumanoidVisualLayers.SnoutCover"]
+    - map: ["enum.HumanoidVisualLayers.FacialHair"]
+    - map: ["enum.HumanoidVisualLayers.Hair"]
+    - map: ["enum.HumanoidVisualLayers.HeadSide"]
+    - map: ["enum.HumanoidVisualLayers.HeadTop"]
+    - map: ["enum.HumanoidVisualLayers.Tail"]
+    - map: ["enum.HumanoidVisualLayers.TailOverlay"]
+    - map: ["mask"]
+    - map: ["head"]
+    - map: ["pocket1"]
+    - map: ["pocket2"]
+    - map: ["enum.HumanoidVisualLayers.Handcuffs"]
+      color: "#ffffff"
+      sprite: Objects/Misc/handcuffs.rsi
+      state: body-overlay-2
+      visible: false
+  - type: Clickable
+  - type: Body
+  - type: VisualBody
+  - type: ContainerContainer
+  - type: Appearance
+  - type: HideableHumanoidLayers
+  - type: Item
+  - type: InteractionOutline
+  - type: InputMover
+  - type: InitialBody
+    organs:
+      LegLeft: DystopiaWoodLegLeft
+      FootLeft: DystopiaWoodFootLeft
+    relationships:
+      LegLeft:
+      - FootLeft
+
+- type: entity
+  id: DystopiaProstheticLegRight
+  name: деревянный протез правой ноги
+  description: Протез ноги со стопой. Ходить медленнее, но ходить.
+  components:
+  - type: Sprite
+    layers:
+    - map: ["enum.HumanoidVisualLayers.Chest"]
+    - map: ["enum.HumanoidVisualLayers.Head"]
+    - map: ["enum.HumanoidVisualLayers.Snout"]
+    - map: ["enum.HumanoidVisualLayers.Eyes"]
+    - map: ["enum.HumanoidVisualLayers.RArm"]
+    - map: ["enum.HumanoidVisualLayers.LArm"]
+    - map: ["enum.HumanoidVisualLayers.RLeg"]
+    - map: ["enum.HumanoidVisualLayers.LLeg"]
+    - map: ["enum.HumanoidVisualLayers.UndergarmentBottom"]
+    - map: ["enum.HumanoidVisualLayers.UndergarmentTop"]
+    - map: ["jumpsuit"]
+    - map: ["enum.HumanoidVisualLayers.LFoot"]
+    - map: ["enum.HumanoidVisualLayers.RFoot"]
+    - map: ["enum.HumanoidVisualLayers.LHand"]
+    - map: ["enum.HumanoidVisualLayers.RHand"]
+    - map: ["enum.HumanoidVisualLayers.Overlay"]
+    - map: ["gloves"]
+    - map: ["shoes"]
+    - map: ["ears"]
+    - map: ["outerClothing"]
+    - map: ["eyes"]
+    - map: ["belt"]
+    - map: ["id"]
+    - map: ["back"]
+    - map: ["neck"]
+    - map: ["suitstorage"]
+    - map: ["enum.HumanoidVisualLayers.SnoutCover"]
+    - map: ["enum.HumanoidVisualLayers.FacialHair"]
+    - map: ["enum.HumanoidVisualLayers.Hair"]
+    - map: ["enum.HumanoidVisualLayers.HeadSide"]
+    - map: ["enum.HumanoidVisualLayers.HeadTop"]
+    - map: ["enum.HumanoidVisualLayers.Tail"]
+    - map: ["enum.HumanoidVisualLayers.TailOverlay"]
+    - map: ["mask"]
+    - map: ["head"]
+    - map: ["pocket1"]
+    - map: ["pocket2"]
+    - map: ["enum.HumanoidVisualLayers.Handcuffs"]
+      color: "#ffffff"
+      sprite: Objects/Misc/handcuffs.rsi
+      state: body-overlay-2
+      visible: false
+  - type: Clickable
+  - type: Body
+  - type: VisualBody
+  - type: ContainerContainer
+  - type: Appearance
+  - type: HideableHumanoidLayers
+  - type: Item
+  - type: InteractionOutline
+  - type: InputMover
+  - type: InitialBody
+    organs:
+      LegRight: DystopiaWoodLegRight
+      FootRight: DystopiaWoodFootRight
+    relationships:
+      LegRight:
+      - FootRight

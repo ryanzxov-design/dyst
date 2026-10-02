@@ -65,6 +65,19 @@ namespace Content.Client.Input
             human.AddFunction(ContentKeyFunctions.AltUseItemInHand);
             human.AddFunction(ContentKeyFunctions.OpenCharacterMenu);
             human.AddFunction(ContentKeyFunctions.OpenEmotesMenu);
+            // Dystopia-Health start
+            human.AddFunction(ContentKeyFunctions.TargetHead);
+            human.AddFunction(ContentKeyFunctions.TargetChest);
+            human.AddFunction(ContentKeyFunctions.TargetGroin);
+            human.AddFunction(ContentKeyFunctions.TargetLeftArm);
+            human.AddFunction(ContentKeyFunctions.TargetLeftHand);
+            human.AddFunction(ContentKeyFunctions.TargetRightArm);
+            human.AddFunction(ContentKeyFunctions.TargetRightHand);
+            human.AddFunction(ContentKeyFunctions.TargetLeftLeg);
+            human.AddFunction(ContentKeyFunctions.TargetLeftFoot);
+            human.AddFunction(ContentKeyFunctions.TargetRightLeg);
+            human.AddFunction(ContentKeyFunctions.TargetRightFoot);
+            // Dystopia-Health end
             human.AddFunction(ContentKeyFunctions.ActivateItemInWorld);
             human.AddFunction(ContentKeyFunctions.ThrowItemInHand);
             human.AddFunction(ContentKeyFunctions.AltActivateItemInWorld);

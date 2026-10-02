@@ -134,6 +134,7 @@
   - type: InitialBody
     organs:
       Torso: OrganVoxTorso
+      Groin: OrganGroin # Dystopia-Health
       Head: OrganVoxHead
       ArmLeft: OrganVoxArmLeft
       ArmRight: OrganVoxArmRight

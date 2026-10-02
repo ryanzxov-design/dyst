@@ -111,6 +111,7 @@
   - type: InitialBody
     organs:
       Torso: OrganMothTorso
+      Groin: OrganGroin # Dystopia-Health
       Head: OrganMothHead
       ArmLeft: OrganMothArmLeft
       ArmRight: OrganMothArmRight

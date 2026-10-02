@@ -1,0 +1,90 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Операции. requirement — операция, которая должна быть закончена раньше,
+# steps — шаги по порядку, SurgeryPartCondition — для каких частей тела.
+# Извлечение и вставка органов появляются в окне сами, когда у торса или головы раскрыты кости.
+
+- type: entity
+  id: SurgeryOpenIncision
+  name: Вскрыть
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Surgery
+    priority: 0
+    steps:
+    - SurgeryStepIncision
+    - SurgeryStepClampBleeders
+    - SurgeryStepRetractSkin
+  - type: SurgeryPartCondition
+    parts: [ Torso, Groin, Head, ArmLeft, ArmRight, HandLeft, HandRight, LegLeft, LegRight, FootLeft, FootRight ]
+
+- type: entity
+  id: SurgeryOpenRibcage
+  name: Вскрыть грудную клетку
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Surgery
+    priority: 1
+    requirement: SurgeryOpenIncision
+    steps:
+    - SurgeryStepSawBones
+    - SurgeryStepOpenBones
+  - type: SurgeryPartCondition
+    parts: [ Torso ]
+
+- type: entity
+  id: SurgeryOpenSkull
+  name: Вскрыть череп
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Surgery
+    priority: 1
+    requirement: SurgeryOpenIncision
+    steps:
+    - SurgeryStepSawBones
+    - SurgeryStepOpenBones
+  - type: SurgeryPartCondition
+    parts: [ Head ]
+
+- type: entity
+  id: SurgeryCloseIncision
+  name: Закрыть
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Surgery
+    priority: 10
+    requirement: SurgeryOpenIncision
+    steps:
+    - SurgeryStepCloseBones
+    - SurgeryStepCauterize
+  - type: SurgeryPartCondition
+    parts: [ Torso, Groin, Head, ArmLeft, ArmRight, HandLeft, HandRight, LegLeft, LegRight, FootLeft, FootRight ]
+
+# Ампутация: после отделения у родительской части тела остаётся открытая культя — её закрывают «Закрыть».
+# Пришить конечность (отрезанную или протез) можно к вскрытой части тела — кнопка «Пришить» в окне.
+- type: entity
+  id: SurgeryAmputate
+  name: Ампутировать
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Surgery
+    priority: 5
+    requirement: SurgeryOpenIncision
+    steps:
+    - SurgeryStepSawBones
+    - SurgeryStepSeverLimb
+  - type: SurgeryPartCondition
+    parts: [ ArmLeft, ArmRight, HandLeft, HandRight, LegLeft, LegRight, FootLeft, FootRight ]
+
+# Пах (живот): костей нет — полость раскрывают ретрактором. Внутри желудок, печень, почки, аппендикс.
+- type: entity
+  id: SurgeryOpenAbdomen
+  name: Вскрыть брюшную полость
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Surgery
+    priority: 1
+    requirement: SurgeryOpenIncision
+    steps:
+    - SurgeryStepOpenAbdomen
+  - type: SurgeryPartCondition
+    parts: [ Groin ]

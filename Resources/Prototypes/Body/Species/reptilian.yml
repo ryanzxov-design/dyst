@@ -108,6 +108,7 @@
   - type: InitialBody
     organs:
       Torso: OrganReptilianTorso
+      Groin: OrganGroin # Dystopia-Health
       Head: OrganReptilianHead
       ArmLeft: OrganReptilianArmLeft
       ArmRight: OrganReptilianArmRight

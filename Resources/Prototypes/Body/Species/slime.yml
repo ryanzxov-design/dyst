@@ -68,6 +68,7 @@
   - type: InitialBody
     organs:
       Torso: OrganSlimePersonTorso
+      Groin: OrganGroin # Dystopia-Health
       Head: OrganSlimePersonHead
       ArmLeft: OrganSlimePersonArmLeft
       ArmRight: OrganSlimePersonArmRight

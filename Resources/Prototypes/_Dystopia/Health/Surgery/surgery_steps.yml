@@ -1,0 +1,109 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Шаги операций: инструмент, время, какие состояния
+# появляются (add) и исчезают (remove) на части тела. Шаг выполнен, когда все add есть и ни одного remove нет.
+# Прототипы-данные: не спавнятся. Самостоятельные, без parent.
+
+- type: entity
+  id: SurgeryStepIncision
+  name: Сделать надрез
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: SurgeryStep
+    tools: [ Scalpel ]
+    duration: 3
+    bleed: 2
+    add:
+    - type: SurgeryIncisionOpen
+
+- type: entity
+  id: SurgeryStepClampBleeders
+  name: Пережать сосуды
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: SurgeryStep
+    tools: [ Hemostat ]
+    duration: 3
+    bleed: -2
+    add:
+    - type: SurgeryBleedersClamped
+
+- type: entity
+  id: SurgeryStepRetractSkin
+  name: Развести края раны
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: SurgeryStep
+    tools: [ Retractor ]
+    duration: 3
+    add:
+    - type: SurgerySkinRetracted
+
+- type: entity
+  id: SurgeryStepSawBones
+  name: Распилить кости
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: SurgeryStep
+    tools: [ Saw ]
+    duration: 5
+    add:
+    - type: SurgeryBonesSawed
+
+- type: entity
+  id: SurgeryStepOpenBones
+  name: Раскрыть кости
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: SurgeryStep
+    tools: [ Retractor ]
+    duration: 3
+    add:
+    - type: SurgeryBonesOpen
+
+- type: entity
+  id: SurgeryStepCloseBones
+  name: Свести кости
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: SurgeryStep
+    tools: [ Retractor ]
+    duration: 4
+    remove:
+    - type: SurgeryBonesOpen
+    - type: SurgeryBonesSawed
+
+- type: entity
+  id: SurgeryStepCauterize
+  name: Прижечь и закрыть рану
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: SurgeryStep
+    tools: [ Cautery ]
+    duration: 4
+    bleed: -10
+    remove:
+    - type: SurgeryIncisionOpen
+    - type: SurgerySkinRetracted
+    - type: SurgeryBleedersClamped
+
+# Отделить конечность (ампутация): часть тела отваливается вместе со всем, что к ней прикреплено.
+- type: entity
+  id: SurgeryStepSeverLimb
+  name: Отделить конечность
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: SurgeryStep
+    tools: [ Scalpel, Saw ]
+    duration: 6
+    amputate: true
+
+- type: entity
+  id: SurgeryStepOpenAbdomen
+  name: Раскрыть брюшную полость
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: SurgeryStep
+    tools: [ Retractor ]
+    duration: 4
+    add:
+    - type: SurgeryBonesOpen

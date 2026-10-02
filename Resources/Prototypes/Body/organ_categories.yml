@@ -57,3 +57,7 @@
 
 - type: organCategory
   id: Kidneys
+
+# Dystopia-Health: пах — отдельная часть тела (система здоровья, Ф1)
+- type: organCategory
+  id: Groin

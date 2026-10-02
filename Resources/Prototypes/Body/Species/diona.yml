@@ -49,6 +49,7 @@
   - type: InitialBody
     organs:
       Torso: OrganDionaTorso
+      Groin: OrganGroin # Dystopia-Health
       Head: OrganDionaHead
       ArmLeft: OrganDionaArmLeft
       ArmRight: OrganDionaArmRight

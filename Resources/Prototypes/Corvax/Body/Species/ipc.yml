@@ -64,6 +64,7 @@
   - type: InitialBody
     organs:
       Torso: OrganIpcTorso
+      Groin: OrganGroinInorganic # Dystopia-Health
       Head: OrganIpcHead
       ArmLeft: OrganIpcArmLeft
       ArmRight: OrganIpcArmRight

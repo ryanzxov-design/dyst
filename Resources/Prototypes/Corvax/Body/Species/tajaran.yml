@@ -67,6 +67,7 @@
   - type: InitialBody
     organs:
       Torso: OrganTajaranTorso
+      Groin: OrganGroin # Dystopia-Health
       Head: OrganTajaranHead
       ArmLeft: OrganTajaranArmLeft
       ArmRight: OrganTajaranArmRight

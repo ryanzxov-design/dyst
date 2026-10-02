@@ -45,6 +45,7 @@
   - type: InitialBody
     organs:
       Torso: OrganArachnidTorso
+      Groin: OrganGroin # Dystopia-Health
       Head: OrganArachnidHead
       ArmLeft: OrganArachnidArmLeft
       ArmRight: OrganArachnidArmRight

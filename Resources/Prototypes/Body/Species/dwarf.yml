@@ -75,6 +75,7 @@
   - type: InitialBody
     organs:
       Torso: OrganDwarfTorso
+      Groin: OrganGroin # Dystopia-Health
       Head: OrganDwarfHead
       ArmLeft: OrganDwarfArmLeft
       ArmRight: OrganDwarfArmRight

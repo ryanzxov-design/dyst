@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Cropped from space-station-14 Mobs/Species/Human/parts.rsi (torso_m) for Dystopia",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "groin"
+    }
+  ]
+}

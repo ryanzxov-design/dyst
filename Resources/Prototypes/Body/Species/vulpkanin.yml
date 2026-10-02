@@ -69,6 +69,7 @@
   - type: InitialBody
     organs:
       Torso: OrganVulpkaninTorso
+      Groin: OrganGroin # Dystopia-Health
       Head: OrganVulpkaninHead
       ArmLeft: OrganVulpkaninArmLeft
       ArmRight: OrganVulpkaninArmRight
