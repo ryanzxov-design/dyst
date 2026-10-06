@@ -193,6 +193,8 @@
       params:
         volume: 1.0
         variation: 0.125
+  - type: Hemostatic # Dystopia-Health: нитью сшивают края раны — останавливает даже глубокое кровотечение (вены не восстанавливает)
+    maxSeverity: 0
   - type: Stack
     stackType: MedicatedSuture
     count: 10

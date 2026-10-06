@@ -1,0 +1,80 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Made for Dystopia (ryanzxov-design/dyst) by Claude (Anthropic): splint, bone setter, bone gel, hemostatic sponge, lidocaine syringe, promedol syringe-tube; icons and in-hands.",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "splint"
+    },
+    {
+      "name": "splint-inhand-left",
+      "directions": 4
+    },
+    {
+      "name": "splint-inhand-right",
+      "directions": 4
+    },
+    {
+      "name": "bone_setter"
+    },
+    {
+      "name": "bone_setter-inhand-left",
+      "directions": 4
+    },
+    {
+      "name": "bone_setter-inhand-right",
+      "directions": 4
+    },
+    {
+      "name": "bone_gel"
+    },
+    {
+      "name": "bone_gel-inhand-left",
+      "directions": 4
+    },
+    {
+      "name": "bone_gel-inhand-right",
+      "directions": 4
+    },
+    {
+      "name": "hemostatic_sponge"
+    },
+    {
+      "name": "hemostatic_sponge-inhand-left",
+      "directions": 4
+    },
+    {
+      "name": "hemostatic_sponge-inhand-right",
+      "directions": 4
+    },
+    {
+      "name": "lidocaine"
+    },
+    {
+      "name": "lidocaine-inhand-left",
+      "directions": 4
+    },
+    {
+      "name": "lidocaine-inhand-right",
+      "directions": 4
+    },
+    {
+      "name": "promedol"
+    },
+    {
+      "name": "promedol_empty"
+    },
+    {
+      "name": "promedol-inhand-left",
+      "directions": 4
+    },
+    {
+      "name": "promedol-inhand-right",
+      "directions": 4
+    }
+  ]
+}

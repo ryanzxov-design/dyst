@@ -548,14 +548,18 @@
   description: Одноразовый армейский шприц-тюбик с сильным обезболивающим. Снимает боль за секунды. Вызывает привыкание.
   components:
   - type: Sprite
-    sprite: Objects/Specific/Medical/medipen.rsi
+    sprite: _Dystopia/Health/Objects/medical_tools.rsi
     layers:
-    - state: medipen
+    - state: promedol
       map: ["enum.SolutionContainerLayers.Fill"]
   - type: SolutionContainerVisuals
     maxFillLevels: 1
     changeColor: false
-    emptySpriteName: medipen_empty
+    emptySpriteName: promedol_empty
+  - type: Item
+    sprite: _Dystopia/Health/Objects/medical_tools.rsi
+    heldPrefix: promedol
+    inhandVisuals: {}
   - type: Solution
     solution:
       reagents:
@@ -570,9 +574,11 @@
   description: Пропитанная кровоостанавливающим составом губка. Останавливает кровь даже из глубокой раны, где марля бессильна.
   components:
   - type: Sprite
-    state: regenerative-mesh
+    sprite: _Dystopia/Health/Objects/medical_tools.rsi
+    state: hemostatic_sponge
   - type: Item
-    heldPrefix: regenerative-mesh
+    sprite: _Dystopia/Health/Objects/medical_tools.rsi
+    heldPrefix: hemostatic_sponge
   - type: Healing
     damageContainers:
     - Biological
@@ -593,10 +599,12 @@
   description: Одноразовый шприц местного обезболивания. Колют в часть тела — она перестаёт болеть на несколько минут, и её можно оперировать без наркоза.
   components:
   - type: Sprite
-    sprite: Objects/Specific/Chemistry/syringe.rsi
-    state: syringe_base0
+    sprite: _Dystopia/Health/Objects/medical_tools.rsi
+    state: lidocaine
   - type: Item
     size: Tiny
+    sprite: _Dystopia/Health/Objects/medical_tools.rsi
+    heldPrefix: lidocaine
   - type: LocalAnesthesiaInjector
     duration: 240
     injectTime: 2

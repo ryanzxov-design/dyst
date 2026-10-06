@@ -39,6 +39,13 @@ public sealed partial class BleedInflicterComponent : Component
     [ViewVariables, AutoNetworkedField]
     public float BleedingAmount;
 
+    /// <summary>
+    /// Рана слишком глубокая для повязки, но её туго забинтовали: кровь идёт слабее (доля от обычного).
+    /// 1 — не перевязана. Сбрасывается, когда рану разбередят.
+    /// </summary>
+    [ViewVariables, AutoNetworkedField]
+    public float PackedFactor = 1f;
+
     [ViewVariables]
     public TimeSpan BleedingStarted;
 }
@@ -85,9 +92,16 @@ public sealed partial class WoundBleedingComponent : Component
     [DataField]
     public DamageSpecifier NecrosisDamage = new() { DamageDict = { { "Cellular", 2 } } };
 
-    /// <summary>Обычная повязка (марля) останавливает только раны не тяжелее этого. Глубже — гемостатическая губка или жгут.</summary>
+    /// <summary>
+    /// Обычная повязка (марля, бинт) останавливает только раны не тяжелее этого. Глубже — лишь ослабляет кровотечение:
+    /// нужна медицинская нить, гемостатическая губка, жгут или операция.
+    /// </summary>
     [DataField]
     public float BandageMaxSeverity = 30f;
+
+    /// <summary>Глубокая рана под повязкой кровоточит с такой долей от обычного.</summary>
+    [DataField]
+    public float BandagePackedFactor = 0.35f;
 
     /// <summary>Повреждённые вены части: её раны кровоточат во столько раз сильнее и не сворачиваются сами.</summary>
     [DataField]

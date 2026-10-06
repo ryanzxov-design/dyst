@@ -8,10 +8,12 @@
   description: Жёсткая повязка для перелома. Сломанная кость под ней медленно срастается, а конечность снова держит вес.
   components:
   - type: Sprite
-    sprite: Objects/Specific/Medical/medical.rsi
-    state: cast
+    sprite: _Dystopia/Health/Objects/medical_tools.rsi
+    state: splint
   - type: Item
     size: Small
+    sprite: _Dystopia/Health/Objects/medical_tools.rsi
+    heldPrefix: splint
   - type: Splint
     applyTime: 4
     healPerSecond: 0.1

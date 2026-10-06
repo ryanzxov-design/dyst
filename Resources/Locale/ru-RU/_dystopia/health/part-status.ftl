@@ -227,8 +227,8 @@ reagent-name-ipidacrine = ипидакрин
 reagent-desc-ipidacrine = Постепенно восстанавливает повреждённые нервы.
 pill-label-paracetamol = Парацетамол (10 ед.)
 pill-label-tramadol = Трамадол (10 ед.)
-bleeding-bandaged-partial = Вы перевязываете: { $part }. Но одна из ран слишком глубокая — нужна гемостатическая губка или жгут.
-bleeding-too-deep = { $part }: рана слишком глубокая для повязки — нужна гемостатическая губка или жгут.
+bleeding-bandaged-partial = Вы перевязываете: { $part }. Одна из ран слишком глубокая — повязка лишь ослабила кровотечение. Нужна медицинская нить, гемостатическая губка или жгут.
+bleeding-too-deep = { $part }: рана слишком глубокая — повязка лишь ослабила кровотечение. Нужна медицинская нить, гемостатическая губка или жгут.
 local-anesthesia-applied = Вы обезболиваете: { $part }. Часть онемела.
 condition-local-anesthesia = • { $woundable }: местная анестезия.
 
@@ -239,3 +239,4 @@ condition-withdrawal = • Ломка ({ $group }), стадия { $stage }!
 addiction-withdrawal-1 = Тянет всё тело, хочется ещё дозу...
 addiction-withdrawal-2 = Ломит кости, бросает то в жар, то в холод!
 addiction-withdrawal-3 = Тело выворачивает от ломки!
+condition-part-packed = • { $woundable }: туго забинтовано, кровь сочится сквозь повязку.

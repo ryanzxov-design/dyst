@@ -398,6 +398,7 @@ public sealed partial class DystopiaHealthAnalyzerPanel : BoxContainer
             // Кровотечение, повязки, жгут
             var bleeding = 0f;
             var bandaged = false;
+            var packed = false;
             foreach (var wound in _wounds.GetWoundableWounds(traumaPart))
             {
                 if (!_entityManager.TryGetComponent<Content.Shared._Dystopia.Health.Medical.Bleeding.BleedInflicterComponent>(wound, out var bleed)
@@ -408,11 +409,16 @@ public sealed partial class DystopiaHealthAnalyzerPanel : BoxContainer
                     bandaged = true;
                 else
                     bleeding += bleed.BleedingAmount;
+
+                if (!bleed.Bandaged && bleed.PackedFactor < 1f)
+                    packed = true;
             }
 
             if (bleeding > 0)
                 AddCondition(Loc.GetString(bleeding >= HeavyBleeding(target) ? "condition-part-bleeding-heavy" : "condition-part-bleeding",
                     ("woundable", PartName(part))));
+            if (packed)
+                AddCondition(Loc.GetString("condition-part-packed", ("woundable", PartName(part))));
             else if (bandaged)
                 AddCondition(Loc.GetString("condition-body-bandaged", ("woundable", PartName(part))));
 

@@ -62,6 +62,7 @@ public sealed partial class WoundBleedingSystem : EntitySystem
         // Новая или разбереженная рана снова кровоточит, повязка не держит
         ent.Comp.IsBleeding = true;
         ent.Comp.Bandaged = false;
+        ent.Comp.PackedFactor = 1f;
         ent.Comp.BleedingStarted = _timing.CurTime;
         Dirty(ent);
     }
@@ -128,7 +129,8 @@ public sealed partial class WoundBleedingSystem : EntitySystem
                 var amount = bleed.Bandaged || underTourniquet
                     ? 0f
                     : wound.Comp.WoundSeverityPoint.Float() * bleed.BleedingCoefficient
-                      * (veinsDamaged ? body.Comp.VeinBleedMultiplier : 1f);
+                      * (veinsDamaged ? body.Comp.VeinBleedMultiplier : 1f)
+                      * bleed.PackedFactor;
 
                 if (MathF.Abs(amount - bleed.BleedingAmount) > 0.01f)
                 {
@@ -191,6 +193,7 @@ public sealed partial class WoundBleedingSystem : EntitySystem
 
             bleed.IsBleeding = false;
             bleed.Bandaged = false;
+            bleed.PackedFactor = 1f;
             bleed.BleedingAmount = 0;
             Dirty(wound, bleed);
             any = true;
@@ -317,13 +320,21 @@ public sealed partial class WoundBleedingSystem : EntitySystem
                 if (!TryComp<BleedInflicterComponent>(wound, out var bleed) || !bleed.IsBleeding || bleed.Bandaged)
                     continue;
 
+                // Слишком глубокая для этой повязки: туго забинтовать — кровь идёт слабее, но не останавливается
                 if (maxSeverity > 0 && wound.Comp.WoundSeverityPoint > maxSeverity)
                 {
+                    if (bleed.PackedFactor > ent.Comp.BandagePackedFactor)
+                    {
+                        bleed.PackedFactor = ent.Comp.BandagePackedFactor;
+                        Dirty(wound, bleed);
+                    }
+
                     tooDeep++;
                     continue;
                 }
 
                 bleed.Bandaged = true;
+                bleed.PackedFactor = 1f;
                 bleed.BleedingAmount = 0;
                 Dirty(wound, bleed);
                 stopped++;

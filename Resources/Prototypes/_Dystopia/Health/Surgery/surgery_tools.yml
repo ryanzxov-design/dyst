@@ -10,10 +10,11 @@
   - type: SurgeryTool
     kinds: [ BoneSetter ]
   - type: Sprite
-    sprite: Objects/Specific/Medical/Surgery/scissors.rsi
-    state: setter
+    sprite: _Dystopia/Health/Objects/medical_tools.rsi
+    state: bone_setter
   - type: Item
-    heldPrefix: setter
+    sprite: _Dystopia/Health/Objects/medical_tools.rsi
+    heldPrefix: bone_setter
     storedRotation: 90
 
 - type: entity
@@ -23,9 +24,11 @@
   description: Тюбик геля, который скрепляет вправленную кость за считанные минуты.
   components:
   - type: Sprite
-    sprite: Objects/Specific/Medical/medical.rsi
-    state: ointment
+    sprite: _Dystopia/Health/Objects/medical_tools.rsi
+    state: bone_gel
   - type: Item
     size: Small
+    sprite: _Dystopia/Health/Objects/medical_tools.rsi
+    heldPrefix: bone_gel
   - type: SurgeryTool
     kinds: [ BoneGel ]
