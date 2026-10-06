@@ -177,8 +177,47 @@ public sealed partial class PainSystem : EntitySystem
             total += partPain;
         }
 
+        total += SurgeryPainNow(ent);
+
         // Ломка болит всем телом
         return total + _addiction.GetWithdrawalPain(ent);
+    }
+
+    /// <summary>
+    /// Боль от шага операции: держится PainDuration и проходит. Части под местной анестезией не болят —
+    /// так можно оперировать в сознании.
+    /// </summary>
+    public void AddSurgeryPain(EntityUid body, EntityUid part, float amount, TimeSpan duration)
+    {
+        if (amount <= 0f || !TryComp<PainComponent>(body, out var pain))
+            return;
+
+        if (TryComp<LocalAnesthesiaComponent>(part, out var local) && _timing.CurTime < local.Until)
+            return;
+
+        pain.SurgeryPain.Add((part, amount, _timing.CurTime + duration));
+    }
+
+    private float SurgeryPainNow(Entity<PainComponent> ent)
+    {
+        var list = ent.Comp.SurgeryPain;
+        if (list.Count == 0)
+            return 0f;
+
+        var now = _timing.CurTime;
+        list.RemoveAll(entry => entry.Until <= now || TerminatingOrDeleted(entry.Part));
+
+        var total = 0f;
+        foreach (var entry in list)
+        {
+            // Обезболили часть уже посреди операции — дальше она не болит
+            if (TryComp<LocalAnesthesiaComponent>(entry.Part, out var local) && now < local.Until)
+                continue;
+
+            total += entry.Amount;
+        }
+
+        return MathF.Min(total, ent.Comp.MaxSurgeryPain);
     }
 
     private bool HasNerveDamage(EntityUid part, WoundableComponent woundable)

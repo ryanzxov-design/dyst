@@ -91,6 +91,14 @@ public sealed partial class PainComponent : Component
         { OrganSeverity.Destroyed, 25f },
     };
 
+    /// <summary>Временная боль от шагов операции: (часть, сколько, до какого времени).</summary>
+    [ViewVariables]
+    public List<(EntityUid Part, float Amount, TimeSpan Until)> SurgeryPain = new();
+
+    /// <summary>Больше этого операция одновременно не болит.</summary>
+    [DataField]
+    public float MaxSurgeryPain = 100f;
+
     /// <summary>Боль от конечности, которая отмирает под жгутом.</summary>
     [DataField]
     public float NecrosisPain = 15f;

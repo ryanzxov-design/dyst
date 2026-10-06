@@ -1,227 +1,134 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
-// Хирургия Dystopia под новую систему тела (органы — сущности в контейнере тела, связи родитель/ребёнок).
+// Хирургия Dystopia — перенос хирургии Shitmed из Goob-Station (space-syndicate/Goob-Station, AGPL-3.0),
+// адаптированный под нашу систему тела (органы — сущности с категориями) и наши раны, травмы и боль.
 
-using Robust.Shared.Audio;
-using Content.Shared._Dystopia.Health.Medical.Surgery.Traumas;
-using Content.Shared.Body;
+using Content.Shared.DoAfter;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 
 namespace Content.Shared._Dystopia.Health.Surgery;
 
-/// <summary>Вид хирургического инструмента.</summary>
-[Serializable, NetSerializable]
-public enum SurgeryToolKind : byte
-{
-    Scalpel,
-    Retractor,
-    Hemostat,
-    Saw,
-    Cautery,
-    BoneSetter,
-    BoneGel,
-}
-
-/// <summary>Лечебный эффект шага операции (выполняется, когда шаг сделан).</summary>
-[Serializable, NetSerializable]
-public enum SurgeryEffect : byte
-{
-    None,
-    /// <summary>Срастить кость части полностью (снимает перелом, шину).</summary>
-    MendBone,
-    /// <summary>Восстановить повреждённые органы части (и разрушенный мозг).</summary>
-    RepairOrgans,
-    /// <summary>Обработать раны части: снять тяжесть ран (мимо блокировок травм), остановить кровь.</summary>
-    TendWounds,
-    /// <summary>Сшить сосуды: снять травму вен, остановить кровотечение части.</summary>
-    RepairVessels,
-    /// <summary>Сшить нервы: снять травму нервов.</summary>
-    RepairNerves,
-}
-
-/// <summary>
-/// Когда показывать лечебную операцию: только если на части есть что лечить этим эффектом
-/// (или операция уже начата).
-/// </summary>
-[RegisterComponent]
-public sealed partial class SurgeryConditionComponent : Component
-{
-    [DataField(required: true)]
-    public SurgeryEffect Need;
-}
-
-/// <summary>Кость вправлена, ждёт костного геля.</summary>
-[RegisterComponent, NetworkedComponent]
-public sealed partial class SurgeryBoneSetComponent : Component;
-
-/// <summary>Сосуды пережаты, можно сшивать.</summary>
-[RegisterComponent, NetworkedComponent]
-public sealed partial class SurgeryVesselsClampedComponent : Component;
-
-/// <summary>Операция (прототип-сущность, не спавнится): список шагов и требование предыдущей операции.</summary>
-[RegisterComponent]
+/// <summary>Операция: прототип-сущность со списком шагов и операцией, которую нужно сделать раньше.</summary>
+[RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
+[EntityCategory("Surgeries")]
 public sealed partial class SurgeryComponent : Component
 {
-    /// <summary>Порядок в списке (меньше — выше).</summary>
-    [DataField]
+    [DataField, AutoNetworkedField]
     public int Priority;
 
-    /// <summary>Операция, которая должна быть полностью выполнена до этой.</summary>
-    [DataField]
+    [DataField, AutoNetworkedField]
     public EntProtoId? Requirement;
 
-    [DataField(required: true)]
+    [DataField(required: true), AutoNetworkedField]
     public List<EntProtoId> Steps = new();
 }
 
-/// <summary>Шаг операции: каким инструментом, сколько секунд, что добавить/убрать на части тела.</summary>
-[RegisterComponent]
-public sealed partial class SurgeryStepComponent : Component
+/// <summary>Можно оперировать (у пациента) и можно быть хирургом (у оператора).</summary>
+[RegisterComponent, NetworkedComponent]
+public sealed partial class SurgeryTargetComponent : Component
 {
-    /// <summary>Подходит любой из этих инструментов.</summary>
-    [DataField(required: true)]
-    public List<SurgeryToolKind> Tools = new();
-
     [DataField]
-    public float Duration = 3f;
+    public bool CanOperate = true;
 
-    /// <summary>Состояния, которые появятся на части тела (шаг выполнен, когда все они есть).</summary>
+    /// <summary>Нестерильная операция не вызывает заражения.</summary>
     [DataField]
-    public ComponentRegistry Add = new();
-
-    /// <summary>Состояния, которые исчезнут с части тела (шаг выполнен, когда ни одного нет).</summary>
-    [DataField]
-    public ComponentRegistry Remove = new();
-
-    /// <summary>Изменение кровотечения пациента после шага (+ — открыть, − — остановить).</summary>
-    [DataField]
-    public float Bleed;
-
-    /// <summary>Шаг отделяет эту часть тела от тела (ампутация).</summary>
-    [DataField]
-    public bool Amputate;
-
-    /// <summary>Лечебный эффект, когда шаг сделан.</summary>
-    [DataField]
-    public SurgeryEffect Effect = SurgeryEffect.None;
-
-    /// <summary>Сила эффекта (для «Обработать раны» — сколько тяжести ран снимается за раз).</summary>
-    [DataField]
-    public float EffectAmount = 40f;
+    public bool SepsisImmune;
 }
 
-/// <summary>Для каких частей тела доступна операция.</summary>
-[RegisterComponent]
-public sealed partial class SurgeryPartConditionComponent : Component
+/// <summary>Операционный стол: ускоряет операции.</summary>
+[RegisterComponent, NetworkedComponent]
+public sealed partial class OperatingTableComponent : Component
 {
-    [DataField(required: true)]
-    public List<ProtoId<OrganCategoryPrototype>> Parts = new();
+    [DataField]
+    public float SpeedModifier = 1f;
 }
 
-/// <summary>Хирургический инструмент.</summary>
-[RegisterComponent]
-public sealed partial class SurgeryToolComponent : Component
+/// <summary>Стерильная вещь: в руках или надетая, спасает пациента от заражения.</summary>
+[RegisterComponent, NetworkedComponent]
+public sealed partial class SanitizedComponent : Component
 {
-    [DataField(required: true)]
-    public List<SurgeryToolKind> Kinds = new();
-
-    /// <summary>Множитель скорости (больше — быстрее).</summary>
     [DataField]
-    public float Speed = 1f;
-
-    /// <summary>Собственный шанс ошибки инструмента.</summary>
-    [DataField]
-    public float FailChance = 0.03f;
+    public bool WorksInHands;
 }
 
-/// <summary>Операционный стол: быстрее и меньше ошибок.</summary>
-[RegisterComponent]
-public sealed partial class SurgeryOperatingTableComponent : Component
+/// <summary>Хирург работает быстрее (опыт, особые перчатки).</summary>
+[RegisterComponent, NetworkedComponent]
+public sealed partial class SurgerySpeedModifierComponent : Component
 {
     [DataField]
-    public float SpeedMultiplier = 1f;
+    public float SpeedModifier = 1.5f;
 }
 
-/// <summary>Пациент, у которого открыто окно операции (служебный).</summary>
-[RegisterComponent]
-public sealed partial class SurgeryPatientComponent : Component
+/// <summary>Можно оперировать, не снимая одежду.</summary>
+[RegisterComponent, NetworkedComponent]
+public sealed partial class SurgeryIgnoreClothingComponent : Component;
+
+[Serializable, NetSerializable]
+public enum SurgeryUIKey : byte
 {
-    [ViewVariables]
-    public TimeSpan NextRefresh;
+    Key,
 }
 
-// --- Состояния части тела во время операции (вешаются на сущность части тела: торс, голова, рука, нога) ---
-
-[RegisterComponent, NetworkedComponent]
-public sealed partial class SurgeryIncisionOpenComponent : Component;
-
-[RegisterComponent, NetworkedComponent]
-public sealed partial class SurgeryBleedersClampedComponent : Component;
-
-[RegisterComponent, NetworkedComponent]
-public sealed partial class SurgerySkinRetractedComponent : Component;
-
-[RegisterComponent, NetworkedComponent]
-public sealed partial class SurgeryBonesSawedComponent : Component;
-
-/// <summary>Кости вскрыты: органы части тела доступны (достать / вставить).</summary>
-[RegisterComponent, NetworkedComponent]
-public sealed partial class SurgeryBonesOpenComponent : Component;
-
-/// <summary>Деталь протеза: ходьба медленнее (множитель скорости для ноги или стопы).</summary>
-[RegisterComponent, NetworkedComponent]
-public sealed partial class SurgeryProstheticComponent : Component
+[Serializable, NetSerializable]
+public sealed class SurgeryBuiState(Dictionary<NetEntity, List<EntProtoId>> choices) : BoundUserInterfaceState
 {
-    [DataField]
-    public float SpeedMultiplier = 1f;
+    public readonly Dictionary<NetEntity, List<EntProtoId>> Choices = choices;
 }
 
-/// <summary>
-/// Тело, у которого менялись конечности: скорость зависит от ног и стоп (нет ноги — ползёт, протез — медленнее).
-/// Есть у всех видов (BaseSpeciesMob), так что работает при любой потере ноги, не только после операции.
-/// </summary>
-[RegisterComponent, NetworkedComponent]
-public sealed partial class SurgeryLimbLossComponent : Component
+[Serializable, NetSerializable]
+public sealed class SurgeryBuiRefreshMessage : BoundUserInterfaceMessage;
+
+[Serializable, NetSerializable]
+public sealed class SurgeryStepChosenBuiMsg(NetEntity part, EntProtoId surgery, EntProtoId step) : BoundUserInterfaceMessage
 {
-    /// <summary>Скорость стороны без стопы (хромота).</summary>
-    [DataField]
-    public float NoFootSpeed = 0.7f;
+    public readonly NetEntity Part = part;
+    public readonly EntProtoId Surgery = surgery;
+    public readonly EntProtoId Step = step;
+}
 
-    /// <summary>Нижний предел скорости от конечностей и переломов.</summary>
-    [DataField]
-    public float MinimumSpeed = 0.15f;
+[Serializable, NetSerializable]
+public sealed partial class SurgeryDoAfterEvent : SimpleDoAfterEvent
+{
+    public readonly EntProtoId Surgery;
+    public readonly EntProtoId Step;
+    public readonly bool ToolUsed;
 
-    /// <summary>Ниже этой доли скорости (из-за переломов ног) не устоять на ногах.</summary>
-    [DataField]
-    public float CrippledSpeed = 1f / 3.4f;
-
-    /// <summary>Доля, которую несёт нога с повреждённой костью (нет в списке — 1).</summary>
-    [DataField]
-    public Dictionary<BoneSeverity, float> LegBoneSpeed = new()
+    public SurgeryDoAfterEvent(EntProtoId surgery, EntProtoId step, bool toolUsed)
     {
-        { BoneSeverity.Damaged, 0.625f },
-        { BoneSeverity.Cracked, 0.5f },
-        { BoneSeverity.Broken, 0f },
-    };
+        Surgery = surgery;
+        Step = step;
+        ToolUsed = toolUsed;
+    }
+}
 
-    /// <summary>Множитель стопы с повреждённой костью.</summary>
-    [DataField]
-    public Dictionary<BoneSeverity, float> FootBoneSpeed = new()
-    {
-        { BoneSeverity.Damaged, 0.77f },
-        { BoneSeverity.Cracked, 0.66f },
-        { BoneSeverity.Broken, 0.55f },
-    };
+/// <summary>Шаг сделан. Вызывается на сущности шага и на хирурге.</summary>
+[ByRefEvent]
+public record struct SurgeryStepEvent(EntityUid User, EntityUid Body, EntityUid Part, EntityUid Tool, EntityUid Surgery, EntityUid Step, bool Complete);
 
-    /// <summary>Шанс, что рука дрогнет при ударе или выстреле, по худшей кости рук и кистей.</summary>
-    [DataField]
-    public Dictionary<BoneSeverity, float> FumbleChance = new()
-    {
-        { BoneSeverity.Cracked, 0.10f },
-        { BoneSeverity.Broken, 0.25f },
-    };
+/// <summary>Шаг не удался (прерван).</summary>
+[ByRefEvent]
+public record struct SurgeryStepFailedEvent(EntityUid User, EntityUid Body, EntProtoId SurgeryId, EntProtoId StepId);
 
-    [DataField]
-    public SoundSpecifier FumbleSound = new SoundPathSpecifier("/Audio/Effects/slip.ogg");
+/// <summary>Урон или лечение части от шага (вызывается на пациенте, применяет сервер).</summary>
+[ByRefEvent]
+public record struct SurgeryStepDamageEvent(EntityUid User, EntityUid Body, EntityUid Part, EntityUid Surgery, Content.Shared.Damage.DamageSpecifier Damage);
+
+/// <summary>Стерильность: Handled — заражения не будет.</summary>
+public sealed class SurgerySanitizationEvent : HandledEntityEventArgs;
+
+/// <summary>Хирург может пропускать предыдущие шаги (отладка).</summary>
+public sealed class SurgeryIgnorePreviousStepsEvent : HandledEntityEventArgs;
+
+public enum StepInvalidReason
+{
+    None,
+    NeedsOperatingTable,
+    Armor,
+    MissingTool,
+    SurgeryInvalid,
+    MissingPreviousSteps,
+    StepCompleted,
+    ToolInvalid,
+    DoAfterFailed,
 }

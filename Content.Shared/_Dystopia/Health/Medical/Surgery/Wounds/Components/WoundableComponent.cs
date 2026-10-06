@@ -46,8 +46,11 @@ public sealed partial class WoundableComponent : Component
         { "Slash", 0.1f },
         { "Blunt", 0.05f },
         { "Piercing", 0.003f },
-        { "Heat", 0.02f },
     };
+
+    /// <summary>Сколько своих прочностей урона может принять корневая часть (грудь) — чтобы тело можно было добить.</summary>
+    [DataField]
+    public float RootOverkill = 3f;
 
     [DataField]
     public bool RedirectOverflowDamage;

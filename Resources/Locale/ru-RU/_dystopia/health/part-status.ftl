@@ -178,15 +178,6 @@ organ-destroyer-destroy = Уничтожить
 organ-destroyer-restore = Восстановить
 organ-destroyer-entry = { $organ } ({ $part }) — { $percent }% ({ $integrity }/{ $cap }), { $severity }
 
-## Лечебная хирургия
-surgery-tool-BoneSetter = костоправ
-surgery-tool-BoneGel = костный гель
-surgery-effect-nothing = { CAPITALIZE($part) }: лечить нечего.
-surgery-effect-bone = { CAPITALIZE($part) }: кость срослась.
-surgery-effect-organs = { CAPITALIZE($part) }: органы восстановлены.
-surgery-effect-wounds = { CAPITALIZE($part) }: раны обработаны.
-surgery-effect-vessels = { CAPITALIZE($part) }: сосуды сшиты, кровотечение остановлено.
-surgery-effect-nerves = { CAPITALIZE($part) }: нервы сшиты.
 
 ## Наркоз
 reagent-name-propofol = пропофол
@@ -195,7 +186,6 @@ reagent-name-ketamine = кетамин
 reagent-desc-ketamine = Диссоциативный наркоз и сильное обезболивающее. Малая доза глушит боль, от 10 ед. — сон. От 30 ед. угнетает дыхание.
 reagent-name-midazolam = мидазолам
 reagent-desc-midazolam = Успокоительное долгого действия: сонливость и замедленность, от 15 ед. — сон. От 40 ед. угнетает дыхание.
-surgery-armor-blocks = Сначала снимите { $armor } — через броню не оперируют.
 
 ## Прижигание
 cauterize-verb = Прижечь рану: { $part }

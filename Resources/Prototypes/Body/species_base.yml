@@ -18,6 +18,7 @@
   - type: Addiction # Dystopia-Health: зависимость (опиоиды)
   - type: Targeting # Dystopia-Health: прицел по частям тела
   - type: SurgeryLimbLoss # Dystopia-Health: без ноги — ползком, протезы медленнее
+  - type: SurgeryTarget # Dystopia-Surgery: можно оперировать (и оперировать самому)
   - type: DamageVisuals
     thresholds: [ 10, 20, 30, 50, 70, 100 ]
     targetLayers:

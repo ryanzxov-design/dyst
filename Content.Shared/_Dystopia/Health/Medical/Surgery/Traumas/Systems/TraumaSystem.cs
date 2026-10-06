@@ -683,9 +683,10 @@ public sealed partial class TraumaSystem : EntitySystem
     /// Орган понемногу восстанавливается: снимаем часть накопленных повреждений.
     /// Когда орган цел, травмы органа с ран снимаются и раны могут зажить.
     /// </summary>
-    public void RecoverOrgan(EntityUid uid, FixedPoint2 amount, OrganIntegrityComponent organ)
+    /// <param name="allowDestroyed">Восстанавливать и разрушенный орган (хирургия; сам по себе он не заживает).</param>
+    public void RecoverOrgan(EntityUid uid, FixedPoint2 amount, OrganIntegrityComponent organ, bool allowDestroyed = false)
     {
-        if (amount <= 0 || organ.Modifiers.Count == 0 || organ.Severity == OrganSeverity.Destroyed)
+        if (amount <= 0 || organ.Modifiers.Count == 0 || organ.Severity == OrganSeverity.Destroyed && !allowDestroyed)
             return;
 
         var total = FixedPoint2.Zero;

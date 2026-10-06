@@ -81,6 +81,7 @@ public sealed partial class WoundSystem : EntitySystem
         // До того, как урон запишется в тело: тело получает ровно то, что легло на раны частей
         SubscribeLocalEvent<BodyComponent, DamageDealtEvent>(OnBodyDamageDealt, before: [typeof(DamageableSystem)]);
         SubscribeLocalEvent<BodyComponent, RejuvenateEvent>(OnBodyRejuvenate);
+        SubscribeLocalEvent<AreaDamageProjectileComponent, Content.Shared.Projectiles.BeforeProjectileHitEvent>(OnAreaProjectileHit);
 
         BuildDamageTypeToGroupCache();
         SubscribeLocalEvent<PrototypesReloadedEventArgs>(OnPrototypesReloaded);
@@ -200,7 +201,9 @@ public sealed partial class WoundSystem : EntitySystem
         if (!harm.Empty)
         {
             _lastDamaged[ent] = _timing.CurTime;
-            if (ChooseTargetPart(ent, args.Origin, harm) is { } part)
+            if (_forcedPart == null && IsAreaHit(ent, args.Origin, harm))
+                SpreadDamage(ent, harm);
+            else if (ChooseTargetPart(ent, args.Origin, harm) is { } part)
                 InduceWoundsFromDamage(part, harm);
         }
 
@@ -356,6 +359,95 @@ public sealed partial class WoundSystem : EntitySystem
     }
 
     /// <summary>Часть тела, в которую пришёлся удар.</summary>
+    // ===================== Урон по площади =====================
+
+    /// <summary>
+    /// Урон без источника этих видов бьёт по всему телу: огонь, жар и холод среды, взрывы, давление, падения.
+    /// Удары и выстрелы (у них есть источник) по-прежнему приходятся в одну часть.
+    /// </summary>
+    private static readonly HashSet<string> AreaDamageTypes = new() { "Heat", "Cold", "Blunt", "Piercing" };
+
+    private readonly Dictionary<EntityUid, GameTick> _areaHits = new();
+
+    /// <summary>Следующий урон этому телу в этот такт — по площади (огнемёт и подобное).</summary>
+    public void MarkAreaHit(EntityUid body)
+    {
+        _areaHits[body] = _timing.CurTick;
+    }
+
+    private void OnAreaProjectileHit(Entity<AreaDamageProjectileComponent> ent, ref Content.Shared.Projectiles.BeforeProjectileHitEvent args)
+    {
+        if (HasComp<BodyComponent>(args.Target))
+            MarkAreaHit(args.Target);
+    }
+
+    private bool IsAreaHit(EntityUid body, EntityUid? origin, DamageSpecifier harm)
+    {
+        if (_areaHits.Remove(body, out var tick) && tick == _timing.CurTick)
+            return true;
+
+        if (origin != null || !harm.DamageDict.Keys.All(t => AreaDamageTypes.Contains(t.Id)))
+            return false;
+
+        // То, на чём стоишь, бьёт по ногам (см. ChooseTargetPart)
+        return !(TryComp<DamagedByContactComponent>(body, out var contact) && contact.Damage is { } contactDamage
+                 && harm.DamageDict.Keys.All(t => contactDamage.DamageDict.ContainsKey(t)));
+    }
+
+    /// <summary>Разложить урон по всем частям тела пропорционально их размеру (прочности); остаток — в грудь.</summary>
+    private void SpreadDamage(EntityUid body, DamageSpecifier harm)
+    {
+        _pendingHits.Remove(body);
+        var parts = _body.GetBodyChildrenWithComponent<WoundableComponent>(body).ToList();
+        var total = 0f;
+        foreach (var part in parts)
+        {
+            total += part.Component.IntegrityCap.Float();
+        }
+
+        if (parts.Count == 0 || total <= 0f)
+            return;
+
+        EntityUid? root = _body.TryGetRootPart(body, out var rootPart) ? rootPart.Value.Owner : null;
+        var shares = new Dictionary<EntityUid, DamageSpecifier>();
+        var rest = new DamageSpecifier();
+        foreach (var (type, value) in harm.DamageDict)
+        {
+            var given = FixedPoint2.Zero;
+            foreach (var part in parts)
+            {
+                var piece = value * (part.Component.IntegrityCap.Float() / total);
+                if (piece <= 0)
+                    continue;
+
+                if (!shares.TryGetValue(part.Id, out var spec))
+                    shares[part.Id] = spec = new DamageSpecifier();
+                spec.DamageDict[type] = spec.DamageDict.GetValueOrDefault(type) + piece;
+                given += piece;
+            }
+
+            if (value - given > 0)
+                rest.DamageDict[type] = value - given;
+        }
+
+        if (!rest.Empty)
+        {
+            var target = root ?? parts[0].Id;
+            if (!shares.TryGetValue(target, out var spec))
+                shares[target] = spec = new DamageSpecifier();
+            foreach (var (type, value) in rest.DamageDict)
+            {
+                spec.DamageDict[type] = spec.DamageDict.GetValueOrDefault(type) + value;
+            }
+        }
+
+        foreach (var (part, spec) in shares)
+        {
+            if (!TerminatingOrDeleted(part))
+                InduceWoundsFromDamage(part, spec);
+        }
+    }
+
     /// <summary>Урон «изнутри»: яд, радиация, клеточный. Без прицела он ложится в грудь, а не в случайную часть.</summary>
     private static readonly HashSet<string> SystemicDamage = new() { "Poison", "Radiation", "Cellular" };
 
@@ -503,10 +595,20 @@ public sealed partial class WoundSystem : EntitySystem
     /// </summary>
     public FixedPoint2 TendWounds(EntityUid part, FixedPoint2 amount)
     {
+        return TendWounds(part, amount, null);
+    }
+
+    /// <summary>Как TendWounds, но только раны этих видов урона (null — все).</summary>
+    public FixedPoint2 TendWounds(EntityUid part, FixedPoint2 amount, IReadOnlyCollection<string>? damageTypes)
+    {
         if (_net.IsClient || amount <= 0 || !TryComp<WoundableComponent>(part, out var woundable))
             return FixedPoint2.Zero;
 
-        var types = GetWoundableWounds(part, woundable).Select(w => w.Comp.DamageType.Id).Distinct().ToList();
+        var types = GetWoundableWounds(part, woundable)
+            .Select(w => w.Comp.DamageType.Id)
+            .Where(t => damageTypes == null || damageTypes.Contains(t))
+            .Distinct()
+            .ToList();
         if (types.Count == 0)
             return FixedPoint2.Zero;
 

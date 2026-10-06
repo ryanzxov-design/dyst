@@ -13,4 +13,5 @@
     sprite: Structures/Furniture/Tables/optable.rsi
     state: operating_table
   - type: AmbientMusicMarkerMedical
-  - type: SurgeryOperatingTable # Dystopia-Surgery
+  - type: OperatingTable # Dystopia-Surgery: на столе оперируют быстрее
+    speedModifier: 1.25

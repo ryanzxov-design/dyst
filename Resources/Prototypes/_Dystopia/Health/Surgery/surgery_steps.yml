@@ -1,191 +1,584 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
-# Шаги операций: инструмент, время, какие состояния
-# появляются (add) и исчезают (remove) на части тела. Шаг выполнен, когда все add есть и ни одного remove нет.
-# Прототипы-данные: не спавнятся. Самостоятельные, без parent.
+# Шаги операций. Перенос Shitmed из Goob-Station (space-syndicate/Goob-Station, AGPL-3.0), адаптация Dystopia.
+# Шаг выполнен, когда на части тела есть компоненты из add и нет компонентов из remove (и особые проверки).
+# Боль шага (amount) держится painDuration секунд; во сне она умножается на sleepModifier.
+
+- type: entityCategory
+  id: Surgeries
+  name: entity-category-name-surgeries
+  hideSpawnMenu: true
+
+- type: entityCategory
+  id: SurgerySteps
+  name: entity-category-name-surgery-steps
+  hideSpawnMenu: true
 
 - type: entity
-  id: SurgeryStepIncision
-  name: Сделать надрез
-  categories: [ HideSpawnMenu ]
+  abstract: true
+  id: SurgeryStepBase
   components:
   - type: SurgeryStep
-    tools: [ Scalpel ]
-    duration: 3
-    bleed: 2
-    add:
-    - type: SurgeryIncisionOpen
+
+# ===================== Доступ =====================
 
 - type: entity
-  id: SurgeryStepClampBleeders
-  name: Пережать сосуды
-  categories: [ HideSpawnMenu ]
+  parent: SurgeryStepBase
+  id: SurgeryStepOpenIncisionScalpel
+  name: Сделать надрез скальпелем
   components:
   - type: SurgeryStep
-    tools: [ Hemostat ]
-    duration: 3
-    bleed: -2
+    tool:
+    - type: Scalpel
     add:
-    - type: SurgeryBleedersClamped
+    - type: IncisionOpen
+    duration: 2
+  - type: Sprite
+    sprite: _Dystopia/Health/Surgery/steps.rsi
+    state: scalpel
+  - type: SurgeryStepPainInflicter
+    amount: 34
+    painDuration: 30
+    sleepModifier: 0.12
+  - type: SurgeryStepEmoteEffect
 
 - type: entity
+  parent: SurgeryStepBase
   id: SurgeryStepRetractSkin
   name: Развести края раны
-  categories: [ HideSpawnMenu ]
   components:
   - type: SurgeryStep
-    tools: [ Retractor ]
-    duration: 3
+    tool:
+    - type: Retractor
     add:
-    - type: SurgerySkinRetracted
+    - type: SkinRetracted
+    duration: 2
+  - type: Sprite
+    sprite: _Dystopia/Health/Surgery/steps.rsi
+    state: retractor
+  - type: SurgeryStepPainInflicter
+    amount: 12
+    painDuration: 30
+    sleepModifier: 0.12
 
 - type: entity
-  id: SurgeryStepSawBones
-  name: Распилить кости
-  categories: [ HideSpawnMenu ]
+  parent: SurgeryStepBase
+  id: SurgeryStepClampBleeders
+  name: Пережать кровоточащие сосуды
   components:
   - type: SurgeryStep
-    tools: [ Saw ]
+    tool:
+    - type: Hemostat
+    add:
+    - type: BleedersClamped
+    duration: 4
+  - type: Sprite
+    sprite: _Dystopia/Health/Surgery/steps.rsi
+    state: hemostat
+  - type: SurgeryRepeatableStep
+  - type: SurgeryBleedsTreatmentStep
+
+- type: entity
+  parent: SurgeryStepBase
+  id: SurgeryStepCloseBloodOutputs
+  name: Сшить повреждённые сосуды
+  components:
+  - type: SurgeryStep
+    tool:
+    - type: Stitches
+    remove:
+    - type: BleedersClamped
     duration: 5
-    add:
-    - type: SurgeryBonesSawed
+  - type: Sprite
+    sprite: _Dystopia/Health/Surgery/steps.rsi
+    state: stitches
+  - type: SurgeryStepPainInflicter
+    amount: 34
+    painDuration: 30
+    sleepModifier: 0.12
 
 - type: entity
-  id: SurgeryStepOpenBones
-  name: Раскрыть кости
-  categories: [ HideSpawnMenu ]
+  parent: SurgeryStepBase
+  id: SurgeryStepClampInternalBleeders
+  name: Пережать внутренние сосуды
   components:
   - type: SurgeryStep
-    tools: [ Retractor ]
-    duration: 3
+    tool:
+    - type: Hemostat
     add:
-    - type: SurgeryBonesOpen
+    - type: InternalBleedersClamped
+    duration: 2
+  - type: Sprite
+    sprite: _Dystopia/Health/Surgery/steps.rsi
+    state: hemostat
 
 - type: entity
+  parent: SurgeryStepBase
+  id: SurgeryStepSawBones
+  name: Распилить кость
+  components:
+  - type: SurgeryStep
+    tool:
+    - type: BoneSaw
+    add:
+    - type: BonesSawed
+    duration: 4
+  - type: Sprite
+    sprite: _Dystopia/Health/Surgery/steps.rsi
+    state: saw
+  - type: SurgeryStepPainInflicter
+    amount: 34
+    painDuration: 40
+    sleepModifier: 0
+  - type: SurgeryStepEmoteEffect
+
+- type: entity
+  parent: SurgeryStepBase
+  id: SurgeryStepPriseOpenBones
+  name: Раскрыть кости
+  components:
+  - type: SurgeryStep
+    tool:
+    - type: Retractor
+    add:
+    - type: BonesOpen
+    duration: 2
+  - type: Sprite
+    sprite: _Dystopia/Health/Surgery/steps.rsi
+    state: retractor
+  - type: SurgeryStepPainInflicter
+    amount: 20
+    painDuration: 30
+    sleepModifier: 0.12
+
+# ===================== Закрытие =====================
+
+- type: entity
+  parent: SurgeryStepBase
   id: SurgeryStepCloseBones
   name: Свести кости
-  categories: [ HideSpawnMenu ]
   components:
   - type: SurgeryStep
-    tools: [ Retractor ]
-    duration: 4
+    tool:
+    - type: Retractor
     remove:
-    - type: SurgeryBonesOpen
-    - type: SurgeryBonesSawed
+    - type: BonesOpen
+    duration: 2
+  - type: Sprite
+    sprite: _Dystopia/Health/Surgery/steps.rsi
+    state: retractor
 
 - type: entity
-  id: SurgeryStepCauterize
-  name: Прижечь и закрыть рану
-  categories: [ HideSpawnMenu ]
+  parent: SurgeryStepBase
+  id: SurgeryStepSealBones
+  name: Скрепить кости гелем
   components:
   - type: SurgeryStep
-    tools: [ Cautery ]
-    duration: 4
-    bleed: -10
+    tool:
+    - type: BoneGel
     remove:
-    - type: SurgeryIncisionOpen
-    - type: SurgerySkinRetracted
-    - type: SurgeryBleedersClamped
-    - type: SurgeryBoneSet
-    - type: SurgeryVesselsClamped
+    - type: BonesSawed
+    duration: 2
+  - type: Sprite
+    sprite: _Dystopia/Health/Surgery/steps.rsi
+    state: bone-gel
 
-# Отделить конечность (ампутация): часть тела отваливается вместе со всем, что к ней прикреплено.
 - type: entity
-  id: SurgeryStepSeverLimb
-  name: Отделить конечность
-  categories: [ HideSpawnMenu ]
+  parent: SurgeryStepBase
+  id: SurgeryStepCloseIncision
+  name: Прижечь и закрыть разрез
   components:
   - type: SurgeryStep
-    tools: [ Scalpel, Saw ]
-    duration: 6
-    amputate: true
+    tool:
+    - type: Cautery
+    remove:
+    # Снимает и всё, что могло остаться от других операций
+    - type: SkinRetracted
+    - type: BleedersClamped
+    - type: IncisionOpen
+    - type: BodyPartReattached
+    - type: InternalBleedersClamped
+    - type: BoneSet
+    duration: 2
+  - type: Sprite
+    sprite: _Dystopia/Health/Surgery/steps.rsi
+    state: cautery
+  - type: SurgeryStepPainInflicter
+    amount: 9
+    painDuration: 20
+    sleepModifier: 0.34
+
+# ===================== Кости =====================
 
 - type: entity
-  id: SurgeryStepOpenAbdomen
-  name: Раскрыть брюшную полость
-  categories: [ HideSpawnMenu ]
-  components:
-  - type: SurgeryStep
-    tools: [ Retractor ]
-    duration: 4
-    add:
-    - type: SurgeryBonesOpen
-
-# ===================== Лечебная хирургия (Ф8) =====================
-# effect — что лечит шаг, когда сделан. Шаг без add/remove можно повторять (обработка ран).
-
-- type: entity
-  id: SurgeryStepSetBone
+  parent: SurgeryStepBase
+  id: SurgeryStepSetBones
   name: Вправить кость
-  categories: [ HideSpawnMenu ]
   components:
   - type: SurgeryStep
-    tools: [ BoneSetter ]
-    duration: 4
+    tool:
+    - type: BoneSetter
     add:
-    - type: SurgeryBoneSet
+    - type: BoneSet
+    duration: 4
+  - type: Sprite
+    sprite: _Dystopia/Health/Surgery/steps.rsi
+    state: bonesetter
+  - type: SurgeryStepPainInflicter
+    amount: 40
+    painDuration: 40
+    sleepModifier: 0
+  - type: SurgeryStepEmoteEffect
 
 - type: entity
-  id: SurgeryStepBoneGel
-  name: Скрепить костным гелем
-  categories: [ HideSpawnMenu ]
+  parent: SurgeryStepBase
+  id: SurgeryStepMendBones
+  name: Скрепить кость гелем
   components:
   - type: SurgeryStep
-    tools: [ BoneGel ]
-    duration: 3
-    effect: MendBone
-    remove:
-    - type: SurgeryBoneSet
+    tool:
+    - type: BoneGel
+    duration: 5
+  - type: Sprite
+    sprite: _Dystopia/Health/Surgery/steps.rsi
+    state: bone-gel
+  - type: SurgeryStepPainInflicter
+    amount: 12
+    painDuration: 10
+    sleepModifier: 0
+  - type: SurgeryRepeatableStep
+  - type: SurgeryTraumaTreatmentStep
+    traumaType: BoneDamage
+    amount: 17
+
+# ===================== Органы =====================
 
 - type: entity
-  id: SurgeryStepRepairOrgans
-  name: Восстановить ткани органов
-  categories: [ HideSpawnMenu ]
+  parent: SurgeryStepBase
+  id: SurgeryStepHealOrgans
+  name: Восстановить органы
   components:
   - type: SurgeryStep
-    tools: [ Hemostat ]
+    tool:
+    - type: Tending
     duration: 6
-    effect: RepairOrgans
+  - type: Sprite
+    sprite: _Dystopia/Health/Surgery/steps.rsi
+    state: hemostat
+  - type: SurgeryStepPainInflicter
+    amount: 24
+    painDuration: 10
+    sleepModifier: 0
+  - type: SurgeryRepeatableStep
+  - type: SurgeryTraumaTreatmentStep
+    traumaType: OrganDamage
+    amount: 30
 
 - type: entity
-  id: SurgeryStepTendWounds
-  name: Иссечь и ушить повреждённые ткани
-  categories: [ HideSpawnMenu ]
+  parent: SurgeryStepBase
+  id: SurgeryStepRepairBrain
+  name: Восстановить ткани мозга
   components:
   - type: SurgeryStep
-    tools: [ Hemostat, Cautery ]
-    duration: 4
-    effect: TendWounds
-    effectAmount: 40
+    tool:
+    - type: Tending
+    duration: 10
+  - type: Sprite
+    sprite: _Dystopia/Health/Surgery/steps.rsi
+    state: hemostat
+  - type: SurgeryStepPainInflicter
+    amount: 40
+    painDuration: 10
+    sleepModifier: 0
+  - type: SurgeryRepeatableStep
+  - type: SurgeryTraumaTreatmentStep
+    traumaType: OrganDamage
+    amount: 25
 
 - type: entity
-  id: SurgeryStepClampVessels
-  name: Пережать повреждённые сосуды
-  categories: [ HideSpawnMenu ]
+  parent: SurgeryStepBase
+  id: SurgeryStepRemoveOrgan
+  name: Извлечь орган
   components:
   - type: SurgeryStep
-    tools: [ Hemostat ]
-    duration: 3
+    tool:
+    - type: Tweezers
+    duration: 8
+  - type: Sprite
+    sprite: _Dystopia/Health/Surgery/steps.rsi
+    state: hemostat
+  - type: SurgeryRemoveOrganStep
+  - type: SurgeryStepPainInflicter
+    amount: 90
+    painDuration: 60
+    sleepModifier: 0
+  - type: SurgeryStepEmoteEffect
+
+- type: entity
+  parent: SurgeryStepBase
+  id: SurgeryStepInsertOrgan
+  name: Вставить орган
+  components:
+  - type: SurgeryStep
+    duration: 6
+  - type: Sprite
+    sprite: _Dystopia/Health/Surgery/steps.rsi
+    state: insertion
+  - type: SurgeryAddOrganStep
+  - type: SurgeryStepPainInflicter
+    amount: 90
+    painDuration: 60
+    sleepModifier: 0
+
+- type: entity
+  parent: SurgeryStepBase
+  id: SurgeryStepSealOrganWound
+  name: Закрепить орган
+  components:
+  - type: SurgeryStep
+    tool:
+    - type: Cautery
+    duration: 2
+  - type: SurgeryAffixOrganStep
+  - type: Sprite
+    sprite: _Dystopia/Health/Surgery/steps.rsi
+    state: cautery
+  - type: SurgeryStepPainInflicter
+    amount: 21
+    painDuration: 30
+    sleepModifier: 0.34
+
+# ===================== Конечности =====================
+
+- type: entity
+  parent: SurgeryStepBase
+  id: SurgeryStepSawFeature
+  name: Распилить кость конечности
+  components:
+  - type: SurgeryStep
+    tool:
+    - type: BoneSaw
     add:
-    - type: SurgeryVesselsClamped
+    - type: BodyPartSawed
+    duration: 4
+  - type: Sprite
+    sprite: _Dystopia/Health/Surgery/steps.rsi
+    state: saw
+  - type: SurgeryStepPainInflicter
+    amount: 26
+    painDuration: 40
+    sleepModifier: 0
+  - type: SurgeryStepEmoteEffect
 
 - type: entity
-  id: SurgeryStepSutureVessels
-  name: Сшить и прижечь сосуды
-  categories: [ HideSpawnMenu ]
+  parent: SurgeryStepBase
+  id: SurgeryStepRemoveFeature
+  name: Отделить конечность
   components:
   - type: SurgeryStep
-    tools: [ Cautery ]
-    duration: 4
-    effect: RepairVessels
+    tool:
+    - type: BoneSaw
     remove:
-    - type: SurgeryVesselsClamped
+    - type: SkinRetracted
+    - type: BleedersClamped
+    - type: InternalBleedersClamped
+    - type: IncisionOpen
+    duration: 8
+  - type: Sprite
+    sprite: _Dystopia/Health/Surgery/steps.rsi
+    state: saw
+  - type: SurgeryRemovePartStep
+  - type: SurgeryStepPainInflicter
+    amount: 50
+    painDuration: 60
+    sleepModifier: 0.14
+  - type: SurgeryStepEmoteEffect
 
 - type: entity
+  parent: SurgeryStepBase
+  id: SurgeryStepInsertFeature
+  name: Приложить конечность
+  components:
+  - type: SurgeryStep
+    duration: 6
+  - type: Sprite
+    sprite: _Dystopia/Health/Surgery/steps.rsi
+    state: insertion
+  - type: SurgeryAddPartStep
+
+- type: entity
+  parent: SurgeryStepBase
+  id: SurgeryStepSealWounds
+  name: Пришить и прижечь
+  components:
+  - type: SurgeryStep
+    tool:
+    - type: Cautery
+    remove:
+    - type: SkinRetracted
+    - type: BleedersClamped
+    - type: IncisionOpen
+    - type: InternalBleedersClamped
+    duration: 3
+  - type: SurgeryAffixPartStep
+  - type: Sprite
+    sprite: _Dystopia/Health/Surgery/steps.rsi
+    state: cautery
+  - type: SurgeryStepPainInflicter
+    amount: 12
+    painDuration: 60
+    sleepModifier: 0.34
+
+# ===================== Раны =====================
+
+- type: entity
+  parent: SurgeryStepBase
+  id: SurgeryStepCarefulIncisionScalpel
+  name: Аккуратно иссечь края раны
+  components:
+  - type: SurgeryStep
+    tool:
+    - type: Scalpel
+    add:
+    - type: IncisionOpen
+    duration: 3
+  - type: Sprite
+    sprite: _Dystopia/Health/Surgery/steps.rsi
+    state: scalpel
+  - type: SurgeryStepPainInflicter
+    amount: 17
+    painDuration: 30
+    sleepModifier: 0
+
+- type: entity
+  parent: SurgeryStepBase
+  id: SurgeryStepRepairBruteTissue
+  name: Восстановить повреждённые ткани
+  components:
+  - type: SurgeryStep
+    tool:
+    - type: Tending
+    duration: 1.5
+  - type: Sprite
+    sprite: _Dystopia/Health/Surgery/steps.rsi
+    state: hemostat
+  - type: SurgeryTendWoundsEffect
+    mainGroup: Brute
+    amount: 15
+  - type: SurgeryRepeatableStep
+
+- type: entity
+  parent: SurgeryStepBase
+  id: SurgeryStepRepairBurnTissue
+  name: Иссечь обожжённые ткани
+  components:
+  - type: SurgeryStep
+    tool:
+    - type: Tending
+    duration: 1.5
+  - type: Sprite
+    sprite: _Dystopia/Health/Surgery/steps.rsi
+    state: hemostat
+  - type: SurgeryTendWoundsEffect
+    mainGroup: Burn
+    amount: 20
+  - type: SurgeryRepeatableStep
+
+- type: entity
+  parent: SurgeryStepBase
+  id: SurgeryStepSealTendWound
+  name: Закрыть рану
+  components:
+  - type: SurgeryStep
+    tool:
+    - type: Cautery
+    remove:
+    - type: IncisionOpen
+    duration: 2
+  - type: Sprite
+    sprite: _Dystopia/Health/Surgery/steps.rsi
+    state: cautery
+  - type: SurgeryStepPainInflicter
+    amount: 21
+    painDuration: 40
+    sleepModifier: 0.34
+
+# ===================== Травмы =====================
+
+- type: entity
+  parent: SurgeryStepBase
+  id: SurgeryStepRepairVeins
+  name: Сшить вены
+  components:
+  - type: SurgeryStep
+    tool:
+    - type: Stitches
+    duration: 6
+  - type: Sprite
+    sprite: _Dystopia/Health/Surgery/steps.rsi
+    state: stitches
+  - type: SurgeryTraumaTreatmentStep
+    traumaType: VeinsDamage
+  - type: SurgeryStepPainInflicter
+    amount: 30
+    painDuration: 40
+    sleepModifier: 0.2
+
+- type: entity
+  parent: SurgeryStepBase
   id: SurgeryStepRepairNerves
   name: Сшить нервы
-  categories: [ HideSpawnMenu ]
   components:
   - type: SurgeryStep
-    tools: [ Scalpel ]
-    duration: 6
-    effect: RepairNerves
+    tool:
+    - type: Tweezers
+    duration: 8
+  - type: Sprite
+    sprite: _Dystopia/Health/Surgery/steps.rsi
+    state: hemostat
+  - type: SurgeryTraumaTreatmentStep
+    traumaType: NerveDamage
+  - type: SurgeryStepPainInflicter
+    amount: 45
+    painDuration: 40
+    sleepModifier: 0
+  - type: SurgeryStepEmoteEffect
+
+- type: entity
+  parent: SurgeryStepBase
+  id: SurgeryStepRemoveSeveredSkin
+  name: Иссечь омертвевшие ткани
+  components:
+  - type: SurgeryStep
+    tool:
+    - type: Scalpel
+    add:
+    - type: BodyPartSawed
+    duration: 4
+  - type: Sprite
+    sprite: _Dystopia/Health/Surgery/steps.rsi
+    state: scalpel
+  - type: SurgeryStepPainInflicter
+    amount: 45
+    painDuration: 60
+    sleepModifier: 0.07
+
+- type: entity
+  parent: SurgeryStepBase
+  id: SurgeryStepSealDismembermentWound
+  name: Ушить рваную рану
+  components:
+  - type: SurgeryStep
+    tool:
+    - type: Stitches
+    remove:
+    - type: BodyPartSawed
+    duration: 8
+  - type: Sprite
+    sprite: _Dystopia/Health/Surgery/steps.rsi
+    state: stitches
+  - type: SurgeryTraumaTreatmentStep
+    traumaType: Dismemberment
+  - type: SurgeryStepPainInflicter
+    amount: 34
+    painDuration: 60
+    sleepModifier: 0.25

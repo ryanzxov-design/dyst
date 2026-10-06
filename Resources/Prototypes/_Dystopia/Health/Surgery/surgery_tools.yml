@@ -2,13 +2,12 @@
 # Инструменты лечебной хирургии.
 
 - type: entity
-  parent: Retractor
+  parent: [BaseCorvaxContraband432DepartmentsMedical, BaseToolSurgery]
   id: HealthBoneSetter
   name: костоправ
   description: Хирургический инструмент, чтобы вправлять кости.
   components:
-  - type: SurgeryTool
-    kinds: [ BoneSetter ]
+  - type: BoneSetter
   - type: Sprite
     sprite: _Dystopia/Health/Objects/medical_tools.rsi
     state: bone_setter
@@ -31,4 +30,4 @@
     sprite: _Dystopia/Health/Objects/medical_tools.rsi
     heldPrefix: bone_gel
   - type: SurgeryTool
-    kinds: [ BoneGel ]
+  - type: BoneGel

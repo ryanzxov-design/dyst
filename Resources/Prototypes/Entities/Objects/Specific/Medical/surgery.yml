@@ -11,6 +11,7 @@
   - type: Tag
     tags:
     - SurgeryTool
+  - type: SurgeryTool # Dystopia-Surgery
 
 # Cautery
 
@@ -20,9 +21,8 @@
   parent: [BaseCorvaxContraband432DepartmentsMedical, BaseToolSurgery] # Corvax-Contraband
   description: A surgical tool used to cauterize open wounds.
   components:
-  # Dystopia-Surgery: хирургия (адаптация ), см. Content.Shared/_Dystopia/Health/Surgery
-  - type: SurgeryTool
-    kinds: [ Cautery ]
+  # Dystopia-Surgery: хирургия Shitmed, см. Content.Shared/_Dystopia/Health/Surgery
+  - type: Cautery
   - type: Sprite
     sprite: Objects/Specific/Medical/Surgery/cautery.rsi
     state: cautery
@@ -44,6 +44,8 @@
   parent: [BaseCorvaxContraband432DepartmentsMedical, BaseToolSurgery] # Corvax-Contraband
   description: A surgical drill for making holes into hard material.
   components:
+  # Dystopia-Surgery: хирургия Shitmed, см. Content.Shared/_Dystopia/Health/Surgery
+  - type: Drill
   - type: Sprite
     sprite: Objects/Specific/Medical/Surgery/drill.rsi
     state: drill
@@ -69,9 +71,8 @@
   parent: [BaseCorvaxContraband432DepartmentsMedical, BaseToolSurgery] # Corvax-Contraband
   description: A surgical tool used to make incisions into flesh.
   components:
-  # Dystopia-Surgery: хирургия (адаптация ), см. Content.Shared/_Dystopia/Health/Surgery
-  - type: SurgeryTool
-    kinds: [ Scalpel ]
+  # Dystopia-Surgery: хирургия Shitmed, см. Content.Shared/_Dystopia/Health/Surgery
+  - type: Scalpel
   - type: Tool
     qualities:
     - Slicing
@@ -101,10 +102,9 @@
   parent: Scalpel
   description: A pointy piece of glass, abraded to an edge and wrapped in tape for a handle. # Could become a decent tool or weapon with right tool mods.
   components:
-  # Dystopia-Surgery: хирургия (адаптация ), см. Content.Shared/_Dystopia/Health/Surgery
-  - type: SurgeryTool
+  # Dystopia-Surgery: хирургия Shitmed, см. Content.Shared/_Dystopia/Health/Surgery
+  - type: Scalpel
     speed: 0.7
-    failChance: 0.12
   - type: Sprite
     state: shiv
   - type: Item
@@ -127,10 +127,9 @@
   parent: Scalpel
   description: Made of more expensive materials, sharper and generally more reliable.
   components:
-  # Dystopia-Surgery: хирургия (адаптация ), см. Content.Shared/_Dystopia/Health/Surgery
-  - type: SurgeryTool
+  # Dystopia-Surgery: хирургия Shitmed, см. Content.Shared/_Dystopia/Health/Surgery
+  - type: Scalpel
     speed: 1.5
-    failChance: 0.01
   - type: Sprite
     state: advanced
   - type: Item
@@ -146,10 +145,11 @@
   parent: Scalpel
   description: A scalpel which uses a directed laser to slice instead of a blade, for more precise surgery while also cauterizing as it cuts.
   components:
-  # Dystopia-Surgery: хирургия (адаптация ), см. Content.Shared/_Dystopia/Health/Surgery
-  - type: SurgeryTool
+  # Dystopia-Surgery: хирургия Shitmed, см. Content.Shared/_Dystopia/Health/Surgery
+  - type: Scalpel
     speed: 1.5
-    failChance: 0.01
+  - type: Cautery # лазер прижигает, пока режет
+    speed: 1.2
   - type: Sprite
     state: laser
   - type: Item
@@ -163,9 +163,8 @@
   parent: [BaseCorvaxContraband432DepartmentsMedical, BaseToolSurgery] # Corvax-Contraband
   description: A surgical tool used to hold open incisions.
   components:
-  # Dystopia-Surgery: хирургия (адаптация ), см. Content.Shared/_Dystopia/Health/Surgery
-  - type: SurgeryTool
-    kinds: [ Retractor ]
+  # Dystopia-Surgery: хирургия Shitmed, см. Content.Shared/_Dystopia/Health/Surgery
+  - type: Retractor
   - type: Sprite
     sprite: Objects/Specific/Medical/Surgery/scissors.rsi
     state: retractor
@@ -176,15 +175,18 @@
 - type: entity
   name: hemostat
   id: Hemostat
-  parent: Retractor
+  parent: [BaseCorvaxContraband432DepartmentsMedical, BaseToolSurgery] # Dystopia-Surgery: не наследует ранорасширитель
   description: A surgical tool used to compress blood vessels to prevent bleeding.
   components:
-  # Dystopia-Surgery: хирургия (адаптация ), см. Content.Shared/_Dystopia/Health/Surgery
-  - type: SurgeryTool
-    kinds: [ Hemostat ]
+  # Dystopia-Surgery: хирургия Shitmed, см. Content.Shared/_Dystopia/Health/Surgery
+  - type: Hemostat
+  - type: Tweezers
+  - type: Tending
   - type: Sprite
+    sprite: Objects/Specific/Medical/Surgery/scissors.rsi
     state: hemostat
   - type: Item
+    sprite: Objects/Specific/Medical/Surgery/scissors.rsi
     heldPrefix: hemostat
     storedRotation: 90
 
@@ -202,9 +204,8 @@
   parent: [BaseCorvaxContraband432DepartmentsMedical, BaseToolSurgery] # Corvax-Contraband
   description: For cutting wood and other objects to pieces. Or sawing bones, in case of emergency.
   components:
-  # Dystopia-Surgery: хирургия (адаптация ), см. Content.Shared/_Dystopia/Health/Surgery
-  - type: SurgeryTool
-    kinds: [ Saw ]
+  # Dystopia-Surgery: хирургия Shitmed, см. Content.Shared/_Dystopia/Health/Surgery
+  - type: BoneSaw
   - type: Utensil
     types:
       - Knife
@@ -227,10 +228,9 @@
   parent: Saw
   description: A wicked serrated blade made of whatever nasty sharp things you could find. # It would make a pretty decent weapon, given there are more space for some tool mods too.
   components:
-  # Dystopia-Surgery: хирургия (адаптация ), см. Content.Shared/_Dystopia/Health/Surgery
-  - type: SurgeryTool
+  # Dystopia-Surgery: хирургия Shitmed, см. Content.Shared/_Dystopia/Health/Surgery
+  - type: BoneSaw
     speed: 0.7
-    failChance: 0.12
   - type: Sprite
     state: improv
   - type: Item
@@ -251,10 +251,9 @@
   parent: Saw
   description: For heavy duty cutting.
   components:
-  # Dystopia-Surgery: хирургия (адаптация ), см. Content.Shared/_Dystopia/Health/Surgery
-  - type: SurgeryTool
+  # Dystopia-Surgery: хирургия Shitmed, см. Content.Shared/_Dystopia/Health/Surgery
+  - type: BoneSaw
     speed: 1.5
-    failChance: 0.02
   - type: Sprite
     state: electric
   - type: Item
@@ -274,10 +273,9 @@
   parent: [ SawElectric, BaseSyndicateContraband ]
   description: Interdyne's state-of-the-art surgical saw. Guaranteed to stay spotless and sterile, no matter how messy the job.
   components:
-  # Dystopia-Surgery: хирургия (адаптация ), см. Content.Shared/_Dystopia/Health/Surgery
-  - type: SurgeryTool
+  # Dystopia-Surgery: хирургия Shitmed, см. Content.Shared/_Dystopia/Health/Surgery
+  - type: BoneSaw
     speed: 2
-    failChance: 0.01
   - type: Sprite
     state: advanced
   - type: Item

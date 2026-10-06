@@ -24,6 +24,25 @@ public sealed partial class WoundSystem
         new(WoundSeverity.Healed, 0),
     ];
 
+    /// <summary>
+    /// Сколько ещё раны может принять часть. Обычная часть — сколько осталось прочности (излишек уходит выше).
+    /// Грудь — корень, излишку идти некуда: она принимает урон и сверх прочности (до RootOverkill её прочностей),
+    /// иначе тело нельзя добить стрельбой в грудь.
+    /// </summary>
+    private FixedPoint2 Headroom(EntityUid part, WoundableComponent woundable)
+    {
+        if (!IsWoundableRoot(part, woundable))
+            return woundable.WoundableIntegrity;
+
+        var taken = FixedPoint2.Zero;
+        foreach (var wound in GetWoundableWounds(part, woundable))
+        {
+            taken += wound.Comp.WoundSeverityPoint;
+        }
+
+        return FixedPoint2.Max(FixedPoint2.Zero, woundable.IntegrityCap * woundable.RootOverkill - taken);
+    }
+
     public void SetWoundSeverity(EntityUid uid, FixedPoint2 severity, WoundComponent? wound = null, WoundableComponent? woundable = null)
     {
         if (!Resolve(uid, ref wound) || !Resolve(wound.HoldingWoundable, ref woundable))
@@ -31,7 +50,7 @@ public sealed partial class WoundSystem
 
         var old = wound.WoundSeverityPoint;
         var holding = wound.HoldingWoundable;
-        var upperLimit = wound.WoundSeverityPoint + woundable.WoundableIntegrity;
+        var upperLimit = wound.WoundSeverityPoint + Headroom(holding, woundable);
         wound.WoundSeverityPoint = FixedPoint2.Clamp(ApplySeverityModifiers(holding, severity), 0, upperLimit);
 
         if (wound.WoundSeverityPoint != old)
@@ -57,7 +76,7 @@ public sealed partial class WoundSystem
         var old = wound.WoundSeverityPoint;
         var holding = wound.HoldingWoundable;
         var rawValue = severity > 0 ? old + ApplySeverityModifiers(holding, severity) : old + severity;
-        var upperLimit = wound.WoundSeverityPoint + woundable.WoundableIntegrity;
+        var upperLimit = wound.WoundSeverityPoint + Headroom(holding, woundable);
         wound.WoundSeverityPoint = FixedPoint2.Clamp(rawValue, 0, upperLimit);
         Dirty(uid, wound);
 

@@ -166,6 +166,8 @@
   id: MedicatedSuture
   suffix: Full
   components:
+  - type: SurgeryTool # Dystopia-Surgery: нить — для швов в операциях
+  - type: Stitches # Dystopia-Surgery
   - type: Tag
     tags:
     - Brutepack

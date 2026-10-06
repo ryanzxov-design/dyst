@@ -1,73 +1,84 @@
-## Хирургия
+## Хирургия (перенос Shitmed из Goob-Station)
 
-surgery-window-title = Операция
-surgery-window-patient = Пациент: { $name }
-surgery-window-do = Выполнить
-surgery-window-organs = Органы
-surgery-window-remove = Извлечь
-surgery-window-insert = Вставить
-surgery-window-missing = Не хватает: { $organs }. Возьмите орган в руку.
-surgery-verb-operate = Оперировать
+entity-category-name-surgeries = Операции
+entity-category-name-surgery-steps = Шаги операций
 
-surgery-self = Оперировать себя нельзя.
-surgery-must-lie = Пациент должен лежать — на столе или на полу.
-surgery-need-tool = Нужен инструмент: { $tools }.
-surgery-need-organ = Возьмите в руку подходящий орган.
-surgery-start = { CAPITALIZE($user) } склоняется над { $patient } с инструментом.
-surgery-fail = Рука { $user } соскальзывает — { $patient } получает порез!
-surgery-step-done = { CAPITALIZE($user) }: «{ $step }» — { $part }, { $patient }.
-surgery-organ-removed = { CAPITALIZE($user) } извлекает { $organ } из тела { $patient }.
-surgery-organ-inserted = { CAPITALIZE($user) } вставляет { $organ } в тело { $patient }.
+surgery-verb-text = Оперировать
+surgery-verb-message = Открыть окно операции.
+surgery-error-self-surgery = Оперировать себя нельзя.
+surgery-error-laying = Пациент должен лежать — на столе, кровати или на полу.
 
-surgery-held-nothing = В руке: ничего.
-surgery-held-useless = В руке: { $item } — не хирургический инструмент.
-surgery-held-tool = В руке: { $item } ({ $kinds }).
-surgery-cond-table = на столе
-surgery-cond-floor = на полу (медленнее, больше ошибок)
-surgery-cond-asleep = пациент без сознания
-surgery-cond-awake = пациент в сознании (больше ошибок)
-surgery-cond-fail = шанс ошибки { $chance }%
+## Окно
+surgery-ui-window-title = Операция
+surgery-ui-window-parts = < Части тела
+surgery-ui-window-surgeries = < Операции
+surgery-ui-window-steps = < Шаги
+surgery-ui-window-require = Сначала
+surgery-ui-window-done = Операция завершена.
+surgery-ui-window-no-surgeries = Здесь нечего оперировать.
+surgery-ui-window-requirement-first = Сначала выполните предыдущую операцию (наверху).
+surgery-ui-window-steps-error-armor = Мешает { $item } — снимите.
+surgery-ui-window-steps-error-missing-tool = Нужен инструмент: { $tool }.
+surgery-ui-window-steps-error-table = Нужен операционный стол.
+surgery-ui-window-steps-error-missing-limb = Возьмите в руку подходящую конечность или протез.
+surgery-ui-window-steps-error-missing-organ = Возьмите в руку подходящий орган.
 
-surgery-status-closed = закрыто
-surgery-status-incision = вскрыто
-surgery-status-cavity = кости раскрыты
+## Инструменты
+surgery-tool-header = Этим можно оперировать:
+surgery-tool-used = - [color={ $color }]{ $tool }[/color] (одноразово, скорость { $speed })
+surgery-tool-unlimited = - [color={ $color }]{ $tool }[/color] (скорость { $speed })
+surgery-tool-examinable-verb-text = Хирургия
+surgery-tool-examinable-verb-message = Чем этот предмет служит в операциях.
+surgery-tool-turn-on = Сначала включите инструмент.
 
-surgery-tool-Scalpel = скальпель
-surgery-tool-Retractor = ретрактор
-surgery-tool-Hemostat = гемостат
-surgery-tool-Saw = пила
-surgery-tool-Cautery = прижигатель
+surgery-tool-name-scalpel = скальпель
+surgery-tool-name-retractor = ранорасширитель
+surgery-tool-name-hemostat = кровоостанавливающий зажим
+surgery-tool-name-bonesaw = пила для костей
+surgery-tool-name-cautery = прижигатель
+surgery-tool-name-drill = хирургическая дрель
+surgery-tool-name-bonesetter = костоправ
+surgery-tool-name-bonegel = костный гель
+surgery-tool-name-tweezers = пинцет
+surgery-tool-name-tending = инструмент для обработки тканей
+surgery-tool-name-stitches = хирургическая нить
 
-surgery-part-Torso = Торс
-surgery-part-Groin = Пах
-surgery-part-Head = Голова
-surgery-part-ArmLeft = Левая рука
-surgery-part-ArmRight = Правая рука
-surgery-part-HandLeft = Левая кисть
-surgery-part-HandRight = Правая кисть
-surgery-part-LegLeft = Левая нога
-surgery-part-LegRight = Правая нога
-surgery-part-FootLeft = Левая стопа
-surgery-part-FootRight = Правая стопа
+## Сообщения шагов
+surgery-popup-step-generic = { CAPITALIZE($user) } оперирует { $target }: { $step } ({ $part }).
+surgery-popup-step-SurgeryStepOpenIncisionScalpel = { CAPITALIZE($user) } делает надрез ({ $part }) у { $target }.
+surgery-popup-step-SurgeryStepRetractSkin = { CAPITALIZE($user) } разводит края раны ({ $part }) у { $target }.
+surgery-popup-step-SurgeryStepClampBleeders = { CAPITALIZE($user) } пережимает кровоточащие сосуды ({ $part }) у { $target }.
+surgery-popup-step-SurgeryStepCloseBloodOutputs = { CAPITALIZE($user) } сшивает повреждённые сосуды ({ $part }) у { $target }.
+surgery-popup-step-SurgeryStepClampInternalBleeders = { CAPITALIZE($user) } пережимает внутренние сосуды ({ $part }) у { $target }.
+surgery-popup-step-SurgeryStepSawBones = { CAPITALIZE($user) } пилит кость ({ $part }) у { $target }.
+surgery-popup-step-SurgeryStepPriseOpenBones = { CAPITALIZE($user) } раскрывает кости ({ $part }) у { $target }.
+surgery-popup-step-SurgeryStepCloseBones = { CAPITALIZE($user) } сводит кости ({ $part }) у { $target }.
+surgery-popup-step-SurgeryStepSealBones = { CAPITALIZE($user) } скрепляет кости гелем ({ $part }) у { $target }.
+surgery-popup-step-SurgeryStepCloseIncision = { CAPITALIZE($user) } прижигает и закрывает разрез ({ $part }) у { $target }.
+surgery-popup-step-SurgeryStepSetBones = { CAPITALIZE($user) } вправляет кость ({ $part }) у { $target }.
+surgery-popup-step-SurgeryStepMendBones = { CAPITALIZE($user) } скрепляет кость гелем ({ $part }) у { $target }.
+surgery-popup-step-SurgeryStepHealOrgans = { CAPITALIZE($user) } восстанавливает органы ({ $part }) у { $target }.
+surgery-popup-step-SurgeryStepRepairBrain = { CAPITALIZE($user) } восстанавливает ткани мозга { $target }.
+surgery-popup-step-SurgeryStepRemoveOrgan = { CAPITALIZE($user) } извлекает орган ({ $part }) у { $target }.
+surgery-popup-step-SurgeryStepRemoveOrgan-failed = Не удалось извлечь орган.
+surgery-popup-step-SurgeryStepInsertOrgan = { CAPITALIZE($user) } вставляет орган ({ $part }) в тело { $target }.
+surgery-popup-step-SurgeryStepSealOrganWound = { CAPITALIZE($user) } закрепляет орган ({ $part }) у { $target }.
+surgery-popup-step-SurgeryStepSawFeature = { CAPITALIZE($user) } пилит кость ({ $part }) у { $target }.
+surgery-popup-step-SurgeryStepRemoveFeature = { CAPITALIZE($user) } отделяет { $part } от тела { $target }!
+surgery-popup-step-SurgeryStepInsertFeature = { CAPITALIZE($user) } прикладывает конечность к телу { $target }.
+surgery-popup-step-SurgeryStepSealWounds = { CAPITALIZE($user) } пришивает конечность к телу { $target }.
+surgery-popup-step-SurgeryStepCarefulIncisionScalpel = { CAPITALIZE($user) } иссекает края раны ({ $part }) у { $target }.
+surgery-popup-step-SurgeryStepRepairBruteTissue = { CAPITALIZE($user) } обрабатывает раны ({ $part }) у { $target }.
+surgery-popup-step-SurgeryStepRepairBurnTissue = { CAPITALIZE($user) } иссекает обожжённые ткани ({ $part }) у { $target }.
+surgery-popup-step-SurgeryStepSealTendWound = { CAPITALIZE($user) } закрывает рану ({ $part }) у { $target }.
+surgery-popup-step-SurgeryStepRepairVeins = { CAPITALIZE($user) } сшивает вены ({ $part }) у { $target }.
+surgery-popup-step-SurgeryStepRepairNerves = { CAPITALIZE($user) } сшивает нервы ({ $part }) у { $target }.
+surgery-popup-step-SurgeryStepRemoveSeveredSkin = { CAPITALIZE($user) } иссекает омертвевшие ткани ({ $part }) у { $target }.
+surgery-popup-step-SurgeryStepSealDismembermentWound = { CAPITALIZE($user) } ушивает рваную рану ({ $part }) у { $target }.
 
-surgery-organ-Brain = мозг
-surgery-organ-Eyes = глаза
-surgery-organ-Tongue = язык
-surgery-organ-Ears = уши
-surgery-organ-Lungs = лёгкие
-surgery-organ-Heart = сердце
-surgery-organ-Stomach = желудок
-surgery-organ-Liver = печень
-surgery-organ-Kidneys = почки
-surgery-organ-Appendix = аппендикс
-
-## Конечности (S2)
-surgery-window-limbs = Конечности
-surgery-window-missing-limbs = Не хватает: { $limbs }. Возьмите конечность или протез в руку.
-surgery-window-attach = Пришить
-surgery-need-limb = Возьмите в руку подходящую конечность или протез.
-surgery-amputated = { CAPITALIZE($user) } отделяет { $part } от тела { $patient }!
-surgery-limb-attached = { CAPITALIZE($user) } пришивает { $limb } к телу { $patient }.
+## Конечности
+surgery-amputated = { CAPITALIZE($user) } отделяет конечность от тела { $patient }!
+surgery-limb-attached = { CAPITALIZE($user) } пришивает конечность к телу { $patient }.
 surgery-no-leg-stand = Без ноги не встать.
 surgery-severed-limb = { $part } ({ $patient })
 surgery-severed-ArmLeft = отрезанная левая рука
@@ -78,3 +89,15 @@ surgery-severed-LegLeft = отрезанная левая нога
 surgery-severed-LegRight = отрезанная правая нога
 surgery-severed-FootLeft = отрезанная левая стопа
 surgery-severed-FootRight = отрезанная правая стопа
+
+surgery-part-Torso = Торс
+surgery-part-Groin = Пах
+surgery-part-Head = Голова
+surgery-part-ArmLeft = левая рука
+surgery-part-ArmRight = правая рука
+surgery-part-HandLeft = левая кисть
+surgery-part-HandRight = правая кисть
+surgery-part-LegLeft = левая нога
+surgery-part-LegRight = правая нога
+surgery-part-FootLeft = левая стопа
+surgery-part-FootRight = правая стопа

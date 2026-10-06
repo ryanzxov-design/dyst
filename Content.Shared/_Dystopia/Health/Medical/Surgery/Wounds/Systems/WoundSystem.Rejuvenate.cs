@@ -3,7 +3,7 @@
 
 using System.Linq;
 using Content.Shared._Dystopia.Health.Medical.Surgery.Wounds.Components;
-using Content.Shared._Dystopia.Health.Surgery;
+using Content.Shared._Dystopia.Health.Surgery.Steps.Parts;
 using Content.Shared.Body;
 using Content.Shared.FixedPoint;
 using Content.Shared.Rejuvenate;
@@ -26,11 +26,15 @@ public sealed partial class WoundSystem
         foreach (var (part, _) in _body.GetBodyChildren(ent).ToList())
         {
             // Незакрытые операции тоже «заживают»
-            RemComp<SurgeryIncisionOpenComponent>(part);
-            RemComp<SurgeryBleedersClampedComponent>(part);
-            RemComp<SurgerySkinRetractedComponent>(part);
-            RemComp<SurgeryBonesSawedComponent>(part);
-            RemComp<SurgeryBonesOpenComponent>(part);
+            RemComp<IncisionOpenComponent>(part);
+            RemComp<SkinRetractedComponent>(part);
+            RemComp<BleedersClampedComponent>(part);
+            RemComp<InternalBleedersClampedComponent>(part);
+            RemComp<BonesSawedComponent>(part);
+            RemComp<BonesOpenComponent>(part);
+            RemComp<BodyPartSawedComponent>(part);
+            RemComp<BoneSetComponent>(part);
+            RemComp<BodyPartReattachedComponent>(part);
 
             if (!TryComp<WoundableComponent>(part, out var woundable))
                 continue;

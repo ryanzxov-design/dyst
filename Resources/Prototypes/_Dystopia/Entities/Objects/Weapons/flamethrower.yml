@@ -338,6 +338,7 @@
     modifier: 0
   - type: TimedDespawn
     lifetime: 0.55
+  - type: AreaDamageProjectile # Dystopia-Health: пламя обжигает всё тело, а не часть под прицелом
   - type: Projectile
     damage:
       types:

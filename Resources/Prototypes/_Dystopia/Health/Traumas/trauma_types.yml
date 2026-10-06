@@ -20,7 +20,7 @@
   traumaEntity: TraumaBoneDamage
   causes:
   - !type:WoundSeverityCause
-    damageTypes: [ Blunt, Piercing, Heat, Cellular ]
+    damageTypes: [ Blunt, Piercing ] # Dystopia: огонь и клеточный урон кости не ломают
     chance: !type:BoneFractureChance
 
 - type: traumaType

@@ -247,8 +247,7 @@ public sealed partial class WoundBleedingSystem : EntitySystem
     private void OnGetCauterizeVerbs(Entity<WoundBleedingComponent> ent, ref GetVerbsEvent<InteractionVerb> args)
     {
         if (!args.CanAccess || !args.CanInteract || args.Using is not { } used
-            || !TryComp<Content.Shared._Dystopia.Health.Surgery.SurgeryToolComponent>(used, out var tool)
-            || !tool.Kinds.Contains(Content.Shared._Dystopia.Health.Surgery.SurgeryToolKind.Cautery)
+            || !HasComp<Content.Shared._Dystopia.Health.Surgery.Tools.CauteryComponent>(used)
             || _wounds.GetAimedPart(ent, args.User) is not { } part)
             return;
 

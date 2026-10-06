@@ -1,205 +1,593 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
-# Операции. requirement — операция, которая должна быть закончена раньше,
-# steps — шаги по порядку, SurgeryPartCondition — для каких частей тела.
-# Извлечение и вставка органов появляются в окне сами, когда у торса или головы раскрыты кости.
+# Операции. Перенос Shitmed из Goob-Station (space-syndicate/Goob-Station, AGPL-3.0), адаптация Dystopia:
+# у нас органы и конечности — категории (Heart, ArmLeft...), а не слоты.
+# requirement — операция, которую нужно сделать сначала (обычно «Вскрыть»); её шаги идут первыми.
 
 - type: entity
+  abstract: true
+  id: SurgeryBase
+  components:
+  - type: Surgery
+
+- type: entity
+  abstract: true
+  parent: SurgeryBase
+  id: BasePartSurgery
+  components:
+  - type: SurgeryPartPresentCondition
+
+# ===================== Вскрытие и закрытие =====================
+
+- type: entity
+  parent: BasePartSurgery
   id: SurgeryOpenIncision
   name: Вскрыть
-  categories: [ HideSpawnMenu ]
   components:
   - type: Surgery
-    priority: 0
+    priority: -1
     steps:
-    - SurgeryStepIncision
-    - SurgeryStepClampBleeders
+    - SurgeryStepOpenIncisionScalpel
     - SurgeryStepRetractSkin
-  - type: SurgeryPartCondition
-    parts: [ Torso, Groin, Head, ArmLeft, ArmRight, HandLeft, HandRight, LegLeft, LegRight, FootLeft, FootRight ]
 
 - type: entity
-  id: SurgeryOpenRibcage
-  name: Вскрыть грудную клетку
-  categories: [ HideSpawnMenu ]
-  components:
-  - type: Surgery
-    priority: 1
-    requirement: SurgeryOpenIncision
-    steps:
-    - SurgeryStepSawBones
-    - SurgeryStepOpenBones
-  - type: SurgeryPartCondition
-    parts: [ Torso ]
-
-- type: entity
-  id: SurgeryOpenSkull
-  name: Вскрыть череп
-  categories: [ HideSpawnMenu ]
-  components:
-  - type: Surgery
-    priority: 1
-    requirement: SurgeryOpenIncision
-    steps:
-    - SurgeryStepSawBones
-    - SurgeryStepOpenBones
-  - type: SurgeryPartCondition
-    parts: [ Head ]
-
-- type: entity
+  parent: BasePartSurgery
   id: SurgeryCloseIncision
-  name: Закрыть
-  categories: [ HideSpawnMenu ]
+  name: Закрыть разрез
   components:
   - type: Surgery
     priority: 10
-    requirement: SurgeryOpenIncision
     steps:
     - SurgeryStepCloseBones
-    - SurgeryStepCauterize
-  - type: SurgeryPartCondition
-    parts: [ Torso, Groin, Head, ArmLeft, ArmRight, HandLeft, HandRight, LegLeft, LegRight, FootLeft, FootRight ]
+    - SurgeryStepSealBones
+    - SurgeryStepCloseIncision
+  - type: SurgeryPartComponentCondition
+    components:
+    - type: IncisionOpen
 
-# Ампутация: после отделения у родительской части тела остаётся открытая культя — её закрывают «Закрыть».
-# Пришить конечность (отрезанную или протез) можно к вскрытой части тела — кнопка «Пришить» в окне.
 - type: entity
-  id: SurgeryAmputate
+  parent: BasePartSurgery
+  id: SurgeryOpenRibcage
+  name: Вскрыть грудную клетку
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenIncision
+    steps:
+    - SurgeryStepSawBones
+    - SurgeryStepPriseOpenBones
+  - type: SurgeryPartCondition
+    parts: [ Chest ]
+
+- type: entity
+  parent: BasePartSurgery
+  id: SurgeryOpenSkull
+  name: Вскрыть череп
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenIncision
+    steps:
+    - SurgeryStepSawBones
+    - SurgeryStepPriseOpenBones
+  - type: SurgeryPartCondition
+    parts: [ Head ]
+
+# ===================== Кровотечение и раны =====================
+
+- type: entity
+  parent: BasePartSurgery
+  id: SurgeryStopBleeding
+  name: Остановить кровотечение
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenIncision
+    steps:
+    - SurgeryStepClampBleeders
+    - SurgeryStepCloseBloodOutputs
+  - type: SurgeryBleedsPresentCondition
+
+- type: entity
+  parent: BasePartSurgery
+  id: SurgeryTendWoundsBrute
+  name: Обработать раны
+  components:
+  - type: Surgery
+    steps:
+    - SurgeryStepCarefulIncisionScalpel
+    - SurgeryStepRepairBruteTissue
+    - SurgeryStepSealTendWound
+  - type: SurgeryWoundedCondition
+    damageGroup: Brute
+
+- type: entity
+  parent: BasePartSurgery
+  id: SurgeryTendWoundsBurn
+  name: Обработать ожоги
+  components:
+  - type: Surgery
+    steps:
+    - SurgeryStepCarefulIncisionScalpel
+    - SurgeryStepRepairBurnTissue
+    - SurgeryStepSealTendWound
+  - type: SurgeryWoundedCondition
+    damageGroup: Burn
+
+# ===================== Травмы =====================
+
+- type: entity
+  parent: BasePartSurgery
+  id: SurgeryMendBones
+  name: Восстановить кость
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenIncision
+    steps:
+    - SurgeryStepClampInternalBleeders
+    - SurgeryStepSetBones
+    - SurgeryStepMendBones
+  - type: SurgeryBleedsPresentCondition
+    inverted: true
+  - type: SurgeryBoneDamagedCondition
+
+- type: entity
+  parent: BasePartSurgery
+  id: SurgeryRepairVeins
+  name: Восстановить вены
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenIncision
+    steps:
+    - SurgeryStepClampInternalBleeders
+    - SurgeryStepRepairVeins
+  - type: SurgeryTraumaPresentCondition
+    trauma: VeinsDamage
+
+- type: entity
+  parent: BasePartSurgery
+  id: SurgeryRepairNerves
+  name: Восстановить нервы
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenIncision
+    steps:
+    - SurgeryStepClampInternalBleeders
+    - SurgeryStepRepairNerves
+  - type: SurgeryBleedsPresentCondition
+    inverted: true
+  - type: SurgeryTraumaPresentCondition
+    trauma: NerveDamage
+
+- type: entity
+  parent: BasePartSurgery
+  id: SurgeryFixDismemberment
+  name: Обработать культю
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenIncision
+    steps:
+    - SurgeryStepRemoveSeveredSkin
+    - SurgeryStepSealDismembermentWound
+  - type: SurgeryBleedsPresentCondition
+    inverted: true
+  - type: SurgeryTraumaPresentCondition
+    trauma: Dismemberment
+
+# ===================== Лечение органов =====================
+
+- type: entity
+  parent: BasePartSurgery
+  id: SurgeryHealOrgansChest
+  name: Восстановить органы
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenRibcage
+    steps:
+    - SurgeryStepClampInternalBleeders
+    - SurgeryStepHealOrgans
+  - type: SurgeryPartCondition
+    parts: [ Chest ]
+  - type: SurgeryBleedsPresentCondition
+    inverted: true
+  - type: SurgeryOrganDamagedCondition
+
+- type: entity
+  parent: BasePartSurgery
+  id: SurgeryHealOrgansGroin
+  name: Восстановить органы
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenIncision
+    steps:
+    - SurgeryStepClampInternalBleeders
+    - SurgeryStepHealOrgans
+  - type: SurgeryPartCondition
+    parts: [ Groin ]
+  - type: SurgeryBleedsPresentCondition
+    inverted: true
+  - type: SurgeryOrganDamagedCondition
+
+- type: entity
+  parent: BasePartSurgery
+  id: SurgeryRepairBrain
+  name: Восстановить мозг и органы головы
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenSkull
+    steps:
+    - SurgeryStepClampInternalBleeders
+    - SurgeryStepRepairBrain
+  - type: SurgeryPartCondition
+    parts: [ Head ]
+  - type: SurgeryBleedsPresentCondition
+    inverted: true
+  - type: SurgeryOrganDamagedCondition
+
+# ===================== Конечности =====================
+
+- type: entity
+  parent: BasePartSurgery
+  id: SurgeryRemovePart
   name: Ампутировать
-  categories: [ HideSpawnMenu ]
   components:
   - type: Surgery
     priority: 5
     requirement: SurgeryOpenIncision
     steps:
-    - SurgeryStepSawBones
-    - SurgeryStepSeverLimb
+    - SurgeryStepSawFeature
+    - SurgeryStepClampInternalBleeders
+    - SurgeryStepRemoveFeature
+  - type: SurgeryHasBodyCondition
   - type: SurgeryPartCondition
-    parts: [ ArmLeft, ArmRight, HandLeft, HandRight, LegLeft, LegRight, FootLeft, FootRight ]
+    parts: [ Arm, Hand, Leg, Foot ]
 
-# Пах (живот): костей нет — полость раскрывают ретрактором. Внутри желудок, печень, почки, аппендикс.
 - type: entity
-  id: SurgeryOpenAbdomen
-  name: Вскрыть брюшную полость
-  categories: [ HideSpawnMenu ]
+  abstract: true
+  parent: SurgeryBase
+  id: BaseSurgeryAttachLimb
   components:
   - type: Surgery
-    priority: 1
     requirement: SurgeryOpenIncision
     steps:
-    - SurgeryStepOpenAbdomen
-  - type: SurgeryPartCondition
-    parts: [ Groin ]
+    - SurgeryStepInsertFeature
+    - SurgeryStepSealWounds
+  - type: SurgeryPartPresentCondition
 
-# ===================== Лечебная хирургия (Ф8) =====================
-# SurgeryCondition — операция видна, только если на части есть что лечить (или она уже начата).
-
-# Перелом: вправить костоправом и скрепить костным гелем. Кость сразу целая, шина снимается.
 - type: entity
-  id: SurgeryMendBone
-  name: Срастить кость
-  categories: [ HideSpawnMenu ]
+  parent: BaseSurgeryAttachLimb
+  id: SurgeryAttachArmLeft
+  name: Пришить левую руку
   components:
-  - type: Surgery
-    priority: 2
-    requirement: SurgeryOpenIncision
-    steps:
-    - SurgeryStepSetBone
-    - SurgeryStepBoneGel
-  - type: SurgeryPartCondition
-    parts: [ Torso, Groin, Head, ArmLeft, ArmRight, HandLeft, HandRight, LegLeft, LegRight, FootLeft, FootRight ]
-  - type: SurgeryCondition
-    need: MendBone
+  - type: SurgeryPartRemovedCondition
+    connection: ArmLeft
 
-# Раны: снимает тяжесть ран части (мимо блокировки переломами и органами), останавливает кровь. Можно повторять.
 - type: entity
-  id: SurgeryTendWounds
-  name: Обработать раны
-  categories: [ HideSpawnMenu ]
+  parent: BaseSurgeryAttachLimb
+  id: SurgeryAttachArmRight
+  name: Пришить правую руку
   components:
-  - type: Surgery
-    priority: 2
-    requirement: SurgeryOpenIncision
-    steps:
-    - SurgeryStepTendWounds
-  - type: SurgeryPartCondition
-    parts: [ Torso, Groin, Head, ArmLeft, ArmRight, HandLeft, HandRight, LegLeft, LegRight, FootLeft, FootRight ]
-  - type: SurgeryCondition
-    need: TendWounds
+  - type: SurgeryPartRemovedCondition
+    connection: ArmRight
 
-# Повреждённые вены или кровотечение части.
 - type: entity
-  id: SurgeryRepairVessels
-  name: Сшить сосуды
-  categories: [ HideSpawnMenu ]
+  parent: BaseSurgeryAttachLimb
+  id: SurgeryAttachHandLeft
+  name: Пришить левую кисть
   components:
-  - type: Surgery
-    priority: 2
-    requirement: SurgeryOpenIncision
-    steps:
-    - SurgeryStepClampVessels
-    - SurgeryStepSutureVessels
-  - type: SurgeryPartCondition
-    parts: [ Torso, Groin, Head, ArmLeft, ArmRight, HandLeft, HandRight, LegLeft, LegRight, FootLeft, FootRight ]
-  - type: SurgeryCondition
-    need: RepairVessels
+  - type: SurgeryPartRemovedCondition
+    connection: HandLeft
 
-# Повреждённые нервы (часть болит сильнее).
 - type: entity
-  id: SurgeryRepairNerves
-  name: Сшить нервы
-  categories: [ HideSpawnMenu ]
+  parent: BaseSurgeryAttachLimb
+  id: SurgeryAttachHandRight
+  name: Пришить правую кисть
+  components:
+  - type: SurgeryPartRemovedCondition
+    connection: HandRight
+
+- type: entity
+  parent: BaseSurgeryAttachLimb
+  id: SurgeryAttachLegLeft
+  name: Пришить левую ногу
+  components:
+  - type: SurgeryPartRemovedCondition
+    connection: LegLeft
+
+- type: entity
+  parent: BaseSurgeryAttachLimb
+  id: SurgeryAttachLegRight
+  name: Пришить правую ногу
+  components:
+  - type: SurgeryPartRemovedCondition
+    connection: LegRight
+
+- type: entity
+  parent: BaseSurgeryAttachLimb
+  id: SurgeryAttachFootLeft
+  name: Пришить левую стопу
+  components:
+  - type: SurgeryPartRemovedCondition
+    connection: FootLeft
+
+- type: entity
+  parent: BaseSurgeryAttachLimb
+  id: SurgeryAttachFootRight
+  name: Пришить правую стопу
+  components:
+  - type: SurgeryPartRemovedCondition
+    connection: FootRight
+
+# ===================== Извлечение и пересадка органов =====================
+# Голова — через вскрытый череп, грудь — через вскрытую грудную клетку, живот — через разрез.
+
+- type: entity
+  abstract: true
+  parent: BasePartSurgery
+  id: BaseSurgeryRemoveOrgan
   components:
   - type: Surgery
     priority: 3
-    requirement: SurgeryOpenIncision
     steps:
-    - SurgeryStepRepairNerves
-  - type: SurgeryPartCondition
-    parts: [ Torso, Groin, Head, ArmLeft, ArmRight, HandLeft, HandRight, LegLeft, LegRight, FootLeft, FootRight ]
-  - type: SurgeryCondition
-    need: RepairNerves
-
-# Органы: восстанавливают повреждённые органы раскрытой полости (и разрушенный мозг). Разрушенный орган (кроме мозга) — пересадка.
-- type: entity
-  id: SurgeryRepairOrgansTorso
-  name: Восстановить органы
-  categories: [ HideSpawnMenu ]
-  components:
-  - type: Surgery
-    priority: 3
-    requirement: SurgeryOpenRibcage
-    steps:
-    - SurgeryStepRepairOrgans
-  - type: SurgeryPartCondition
-    parts: [ Torso ]
-  - type: SurgeryCondition
-    need: RepairOrgans
+    - SurgeryStepClampInternalBleeders
+    - SurgeryStepRemoveOrgan
 
 - type: entity
-  id: SurgeryRepairOrgansHead
-  name: Восстановить органы
-  categories: [ HideSpawnMenu ]
+  abstract: true
+  parent: BasePartSurgery
+  id: BaseSurgeryInsertOrgan
   components:
   - type: Surgery
-    priority: 3
+    priority: 2
+    steps:
+    - SurgeryStepClampInternalBleeders
+    - SurgeryStepInsertOrgan
+    - SurgeryStepSealOrganWound
+
+- type: entity
+  parent: BaseSurgeryRemoveOrgan
+  id: SurgeryRemoveBrain
+  name: Извлечь мозг
+  components:
+  - type: Surgery
     requirement: SurgeryOpenSkull
-    steps:
-    - SurgeryStepRepairOrgans
   - type: SurgeryPartCondition
     parts: [ Head ]
-  - type: SurgeryCondition
-    need: RepairOrgans
+  - type: SurgeryOrganCondition
+    organs: [ Brain ]
 
 - type: entity
-  id: SurgeryRepairOrgansGroin
-  name: Восстановить органы
-  categories: [ HideSpawnMenu ]
+  parent: BaseSurgeryInsertOrgan
+  id: SurgeryInsertBrain
+  name: Вставить мозг
   components:
   - type: Surgery
-    priority: 3
-    requirement: SurgeryOpenAbdomen
-    steps:
-    - SurgeryStepRepairOrgans
+    requirement: SurgeryOpenSkull
+  - type: SurgeryPartCondition
+    parts: [ Head ]
+  - type: SurgeryOrganSlotCondition
+    organSlot: Brain
+  - type: SurgeryOrganCondition
+    organs: [ Brain ]
+    inverse: true
+    reattaching: true
+
+- type: entity
+  parent: BaseSurgeryRemoveOrgan
+  id: SurgeryRemoveEyes
+  name: Извлечь глаза
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenIncision
+  - type: SurgeryPartCondition
+    parts: [ Head ]
+  - type: SurgeryOrganCondition
+    organs: [ Eyes ]
+
+- type: entity
+  parent: BaseSurgeryInsertOrgan
+  id: SurgeryInsertEyes
+  name: Вставить глаза
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenIncision
+  - type: SurgeryPartCondition
+    parts: [ Head ]
+  - type: SurgeryOrganSlotCondition
+    organSlot: Eyes
+  - type: SurgeryOrganCondition
+    organs: [ Eyes ]
+    inverse: true
+    reattaching: true
+
+- type: entity
+  parent: BaseSurgeryRemoveOrgan
+  id: SurgeryRemoveTongue
+  name: Извлечь язык
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenIncision
+  - type: SurgeryPartCondition
+    parts: [ Head ]
+  - type: SurgeryOrganCondition
+    organs: [ Tongue ]
+
+- type: entity
+  parent: BaseSurgeryInsertOrgan
+  id: SurgeryInsertTongue
+  name: Вставить язык
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenIncision
+  - type: SurgeryPartCondition
+    parts: [ Head ]
+  - type: SurgeryOrganSlotCondition
+    organSlot: Tongue
+  - type: SurgeryOrganCondition
+    organs: [ Tongue ]
+    inverse: true
+    reattaching: true
+
+- type: entity
+  parent: BaseSurgeryRemoveOrgan
+  id: SurgeryRemoveHeart
+  name: Извлечь сердце
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenRibcage
+  - type: SurgeryPartCondition
+    parts: [ Chest ]
+  - type: SurgeryOrganCondition
+    organs: [ Heart ]
+
+- type: entity
+  parent: BaseSurgeryInsertOrgan
+  id: SurgeryInsertHeart
+  name: Вставить сердце
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenRibcage
+  - type: SurgeryPartCondition
+    parts: [ Chest ]
+  - type: SurgeryOrganSlotCondition
+    organSlot: Heart
+  - type: SurgeryOrganCondition
+    organs: [ Heart ]
+    inverse: true
+    reattaching: true
+
+- type: entity
+  parent: BaseSurgeryRemoveOrgan
+  id: SurgeryRemoveLungs
+  name: Извлечь лёгкие
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenRibcage
+  - type: SurgeryPartCondition
+    parts: [ Chest ]
+  - type: SurgeryOrganCondition
+    organs: [ Lungs ]
+
+- type: entity
+  parent: BaseSurgeryInsertOrgan
+  id: SurgeryInsertLungs
+  name: Вставить лёгкие
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenRibcage
+  - type: SurgeryPartCondition
+    parts: [ Chest ]
+  - type: SurgeryOrganSlotCondition
+    organSlot: Lungs
+  - type: SurgeryOrganCondition
+    organs: [ Lungs ]
+    inverse: true
+    reattaching: true
+
+- type: entity
+  parent: BaseSurgeryRemoveOrgan
+  id: SurgeryRemoveLiver
+  name: Извлечь печень
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenIncision
   - type: SurgeryPartCondition
     parts: [ Groin ]
-  - type: SurgeryCondition
-    need: RepairOrgans
+  - type: SurgeryOrganCondition
+    organs: [ Liver ]
+
+- type: entity
+  parent: BaseSurgeryInsertOrgan
+  id: SurgeryInsertLiver
+  name: Вставить печень
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenIncision
+  - type: SurgeryPartCondition
+    parts: [ Groin ]
+  - type: SurgeryOrganSlotCondition
+    organSlot: Liver
+  - type: SurgeryOrganCondition
+    organs: [ Liver ]
+    inverse: true
+    reattaching: true
+
+- type: entity
+  parent: BaseSurgeryRemoveOrgan
+  id: SurgeryRemoveStomach
+  name: Извлечь желудок
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenIncision
+  - type: SurgeryPartCondition
+    parts: [ Groin ]
+  - type: SurgeryOrganCondition
+    organs: [ Stomach ]
+
+- type: entity
+  parent: BaseSurgeryInsertOrgan
+  id: SurgeryInsertStomach
+  name: Вставить желудок
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenIncision
+  - type: SurgeryPartCondition
+    parts: [ Groin ]
+  - type: SurgeryOrganSlotCondition
+    organSlot: Stomach
+  - type: SurgeryOrganCondition
+    organs: [ Stomach ]
+    inverse: true
+    reattaching: true
+
+- type: entity
+  parent: BaseSurgeryRemoveOrgan
+  id: SurgeryRemoveKidneys
+  name: Извлечь почки
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenIncision
+  - type: SurgeryPartCondition
+    parts: [ Groin ]
+  - type: SurgeryOrganCondition
+    organs: [ Kidneys ]
+
+- type: entity
+  parent: BaseSurgeryInsertOrgan
+  id: SurgeryInsertKidneys
+  name: Вставить почки
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenIncision
+  - type: SurgeryPartCondition
+    parts: [ Groin ]
+  - type: SurgeryOrganSlotCondition
+    organSlot: Kidneys
+  - type: SurgeryOrganCondition
+    organs: [ Kidneys ]
+    inverse: true
+    reattaching: true
+
+- type: entity
+  parent: BaseSurgeryRemoveOrgan
+  id: SurgeryRemoveAppendix
+  name: Извлечь аппендикс
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenIncision
+  - type: SurgeryPartCondition
+    parts: [ Groin ]
+  - type: SurgeryOrganCondition
+    organs: [ Appendix ]
+
+- type: entity
+  parent: BaseSurgeryInsertOrgan
+  id: SurgeryInsertAppendix
+  name: Вставить аппендикс
+  components:
+  - type: Surgery
+    requirement: SurgeryOpenIncision
+  - type: SurgeryPartCondition
+    parts: [ Groin ]
+  - type: SurgeryOrganSlotCondition
+    organSlot: Appendix
+  - type: SurgeryOrganCondition
+    organs: [ Appendix ]
+    inverse: true
+    reattaching: true

@@ -1,0 +1,22 @@
+<!--
+SPDX-License-Identifier: AGPL-3.0-or-later
+Перенос Shitmed (Goob-Station): кнопка выбора с иконкой.
+-->
+<ui:ChoiceControl
+    xmlns="https://spacestation14.io"
+    xmlns:ui="clr-namespace:Content.Client._Dystopia.Health.Surgery">
+    <BoxContainer Orientation="Horizontal">
+        <Button Name="Button" Access="Public"
+                HorizontalExpand="True" VerticalExpand="False"
+                StyleClasses="ButtonSquare" Margin="0">
+            <BoxContainer Orientation="Horizontal" Margin="0">
+                <TextureRect Name="Texture" Access="Public"
+                             HorizontalExpand="False" VerticalExpand="False"
+                             MinSize="32 32" Stretch="KeepCentered"
+                             Margin="1"/>
+                <Control MinWidth="5"/>
+                <RichTextLabel Name="NameLabel" Access="Public" VerticalAlignment="Center"/>
+            </BoxContainer>
+        </Button>
+    </BoxContainer>
+</ui:ChoiceControl>
