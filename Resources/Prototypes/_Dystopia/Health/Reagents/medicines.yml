@@ -40,7 +40,7 @@
         conditions:
         - !type:ReagentCondition
           reagent: Tramadol
-          min: 15
+          min: 25 # Dystopia: сонливость (с засыпаниями) — только у порога передозировки
         effectProto: StatusEffectDrowsiness
         time: 4
         type: Update
@@ -66,6 +66,10 @@
       metabolismRate: 0.1
       effects:
       - !type:ModifyStatusEffect
+        conditions:
+        - !type:ReagentCondition
+          reagent: Morphine
+          min: 22 # Dystopia: сонливость (с засыпаниями) — только у порога передозировки
         effectProto: StatusEffectDrowsiness
         time: 4
         type: Update
@@ -97,7 +101,7 @@
         conditions:
         - !type:ReagentCondition
           reagent: Promedol
-          min: 10
+          min: 17 # Dystopia: сонливость (с засыпаниями) — только у порога передозировки
         effectProto: StatusEffectDrowsiness
         time: 4
         type: Update
