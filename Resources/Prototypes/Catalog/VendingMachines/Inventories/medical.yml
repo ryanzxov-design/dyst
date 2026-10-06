@@ -18,6 +18,8 @@
   startingInventory:
     HandheldHealthAnalyzer: 1
     Tourniquet: 3
+    HealthSplint: 4 # Dystopia-Health: шина для переломов
+    PillCanisterParacetamol: 2 # Dystopia-Health
     Brutepack: 3
     AloeCream: 3 # Currently just a reskin of Ointment but it's something
     Bloodpack: 3
@@ -62,6 +64,21 @@
   startingInventory:
     HandheldHealthAnalyzer: 3
     Tourniquet: 5
+    HealthSplint: 8 # Dystopia-Health: шина для переломов
+    ChemistryBottlePropofol: 2 # Dystopia-Health: наркоз
+    ChemistryBottleKetamine: 2 # Dystopia-Health
+    ChemistryBottleMidazolam: 2 # Dystopia-Health
+    PillCanisterParacetamol: 4 # Dystopia-Health: лекарства
+    PillCanisterTramadol: 2 # Dystopia-Health
+    HealthHemostaticSponge: 4 # Dystopia-Health
+    HealthLidocaineSyringe: 4 # Dystopia-Health
+    ChemistryBottleNaloxone: 2 # Dystopia-Health
+    ChemistryBottleCalcitonin: 2 # Dystopia-Health
+    ChemistryBottleAdemetionine: 1 # Dystopia-Health
+    ChemistryBottleSalbutamol: 1 # Dystopia-Health
+    ChemistryBottleDigoxin: 1 # Dystopia-Health
+    ChemistryBottlePiracetam: 1 # Dystopia-Health
+    ChemistryBottleIpidacrine: 1 # Dystopia-Health
     Brutepack: 5
     AloeCream: 5
     Bloodpack: 5

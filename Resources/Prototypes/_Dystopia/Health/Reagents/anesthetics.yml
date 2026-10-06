@@ -1,0 +1,183 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: вкалываемый наркоз (по образцу реальных препаратов).
+# Сон — ванильный принудительный сон (как от закиси азота), пока вещества в крови достаточно.
+# Хирургия на спящем идёт без штрафа за «пациент в сознании»; кетамин к тому же сильно обезболивает (PainComponent).
+
+# Пропофол: быстрый внутривенный наркоз. Быстро вводит в сон и быстро выводится. Передозировка угнетает дыхание.
+- type: reagent
+  id: Propofol
+  name: reagent-name-propofol
+  desc: reagent-desc-propofol
+  group: Medicine
+  flavor: medicine
+  physicalDesc: reagent-physical-desc-milky
+  color: "#f2f2ec"
+  metabolisms:
+    Bloodstream:
+      metabolismRate: 0.1
+      effects:
+      - !type:ModifyStatusEffect
+        effectProto: StatusEffectDrowsiness
+        time: 4
+        type: Update
+      - !type:ModifyStatusEffect
+        conditions:
+        - !type:ReagentCondition
+          reagent: Propofol
+          min: 3
+        effectProto: StatusEffectForcedSleeping
+        time: 3
+        type: Update
+      - !type:HealthChange
+        conditions:
+        - !type:ReagentCondition
+          reagent: Propofol
+          min: 30
+        damage:
+          types:
+            Asphyxiation: 2
+
+# Кетамин: диссоциативный наркоз, сильное обезболивание. Усыпляет в большой дозе, малая — только глушит боль.
+- type: reagent
+  id: Ketamine
+  name: reagent-name-ketamine
+  desc: reagent-desc-ketamine
+  group: Medicine
+  flavor: bitter
+  physicalDesc: reagent-physical-desc-translucent
+  color: "#d7e6f0"
+  metabolisms:
+    Bloodstream:
+      metabolismRate: 0.15
+      effects:
+      - !type:MovementSpeedModifier
+        walkSpeedModifier: 0.8
+        sprintSpeedModifier: 0.8
+      - !type:ModifyStatusEffect
+        conditions:
+        - !type:ReagentCondition
+          reagent: Ketamine
+          min: 10
+        effectProto: StatusEffectForcedSleeping
+        time: 3
+        type: Update
+      - !type:HealthChange
+        conditions:
+        - !type:ReagentCondition
+          reagent: Ketamine
+          min: 30
+        damage:
+          types:
+            Asphyxiation: 1
+
+# Мидазолам: успокоительное. Долго держится: сонливость, в большой дозе — сон. Передозировка угнетает дыхание.
+- type: reagent
+  id: Midazolam
+  name: reagent-name-midazolam
+  desc: reagent-desc-midazolam
+  group: Medicine
+  flavor: bitter
+  physicalDesc: reagent-physical-desc-translucent
+  color: "#e8e4f7"
+  metabolisms:
+    Bloodstream:
+      metabolismRate: 0.05
+      effects:
+      - !type:MovementSpeedModifier
+        walkSpeedModifier: 0.7
+        sprintSpeedModifier: 0.7
+      - !type:ModifyStatusEffect
+        effectProto: StatusEffectDrowsiness
+        time: 4
+        type: Update
+      - !type:ModifyStatusEffect
+        conditions:
+        - !type:ReagentCondition
+          reagent: Midazolam
+          min: 15
+        effectProto: StatusEffectForcedSleeping
+        time: 3
+        type: Update
+      - !type:HealthChange
+        conditions:
+        - !type:ReagentCondition
+          reagent: Midazolam
+          min: 40
+        damage:
+          types:
+            Asphyxiation: 1.5
+
+- type: reaction
+  id: Propofol
+  reactants:
+    Phenol:
+      amount: 1
+    Ethanol:
+      amount: 1
+    Sodium:
+      amount: 1
+  products:
+    Propofol: 2
+
+- type: reaction
+  id: Ketamine
+  reactants:
+    Chlorine:
+      amount: 1
+    Ammonia:
+      amount: 1
+    Carbon:
+      amount: 1
+  products:
+    Ketamine: 3
+
+- type: reaction
+  id: Midazolam
+  reactants:
+    Diphenhydramine:
+      amount: 1
+    Chlorine:
+      amount: 1
+    Fluorine:
+      amount: 1
+  products:
+    Midazolam: 2
+
+- type: entity
+  id: ChemistryBottlePropofol
+  suffix: propofol
+  parent: BaseChemistryBottleFilled
+  components:
+  - type: Label
+    localizedLabel: reagent-name-propofol
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Propofol
+        Quantity: 30
+
+- type: entity
+  id: ChemistryBottleKetamine
+  suffix: ketamine
+  parent: BaseChemistryBottleFilled
+  components:
+  - type: Label
+    localizedLabel: reagent-name-ketamine
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Ketamine
+        Quantity: 30
+
+- type: entity
+  id: ChemistryBottleMidazolam
+  suffix: midazolam
+  parent: BaseChemistryBottleFilled
+  components:
+  - type: Label
+    localizedLabel: reagent-name-midazolam
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Midazolam
+        Quantity: 30

@@ -1,0 +1,15 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Рецепты лечебной хирургии (мед. лате, набор SurgeryStatic).
+
+- type: latheRecipe
+  parent: BaseSurgicalRecipe
+  id: HealthBoneSetter
+  result: HealthBoneSetter
+
+- type: latheRecipe
+  id: HealthBoneGel
+  result: HealthBoneGel
+  completetime: 2
+  materials:
+    Plastic: 100
+    Steel: 50

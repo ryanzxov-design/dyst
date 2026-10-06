@@ -1,0 +1,63 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Сущности травм (живут в ране) и кости частей тела. Самостоятельные, без parent.
+
+- type: entity
+  id: TraumaNerveDamage
+  name: повреждение нервов
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Trauma
+
+- type: entity
+  id: TraumaBoneDamage
+  name: перелом
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Trauma
+
+- type: entity
+  id: TraumaDismemberment
+  name: отрыв
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Trauma
+
+- type: entity
+  id: TraumaOrganDamage
+  name: повреждение органа
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Trauma
+
+- type: entity
+  id: TraumaVeinsDamage
+  name: повреждение вен
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Trauma
+
+- type: entity
+  id: HealthBone
+  name: кость
+  description: Настоящая кость. Много кальция.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Bone
+    integrityCap: 60
+    boneIntegrity: 60
+  - type: Sprite
+    sprite: Objects/Materials/materials.rsi
+    state: bones
+
+- type: entity
+  id: HealthBoneNeck
+  name: шейный позвонок
+  description: Настоящая кость. Много кальция.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Bone
+    integrityCap: 100
+    boneIntegrity: 100
+  - type: Sprite
+    sprite: Objects/Materials/materials.rsi
+    state: bones

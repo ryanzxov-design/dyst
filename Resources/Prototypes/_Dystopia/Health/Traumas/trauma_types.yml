@@ -1,0 +1,57 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Виды травм. Травма возможна, когда рана за раз потяжелела больше порога (severityGate).
+# Нервы (боль — Ф6) и вены (кровотечение — Ф5) пока только записываются, эффекта нет.
+
+- type: traumaType
+  id: NerveDamage
+  severityGate: 5
+  target: Woundable
+  traumaEntity: TraumaNerveDamage
+  causes:
+  - !type:WoundSeverityCause
+    damageTypes: [ Blunt, Piercing, Slash, Heat, Cold, Holy, Shock, Cellular, Caustic, Radiation, Poison ]
+    chance: !type:NerveTraumaChance
+
+- type: traumaType
+  id: BoneDamage
+  severityGate: 7
+  blocksHealing: true
+  target: Bone
+  traumaEntity: TraumaBoneDamage
+  causes:
+  - !type:WoundSeverityCause
+    damageTypes: [ Blunt, Piercing, Heat, Cellular ]
+    chance: !type:BoneFractureChance
+
+- type: traumaType
+  id: Dismemberment
+  severityGate: 10
+  blocksHealing: true
+  target: ParentWoundable
+  traumaEntity: TraumaDismemberment
+  causes:
+  - !type:WoundSeverityCause
+    damageTypes: [ Blunt, Piercing, Slash ]
+    chance: !type:DismembermentChance
+      damageTypeMultipliers:
+        Piercing: 0.05
+
+- type: traumaType
+  id: OrganDamage
+  severityGate: 6 # Dystopia: органы должны страдать от обычных ударов, а не только от огромных
+  blocksHealing: true
+  target: Organ
+  traumaEntity: TraumaOrganDamage
+  causes:
+  - !type:WoundSeverityCause
+    damageTypes: [ Blunt, Piercing, Slash, Heat, Shock, Cellular, Radiation, Poison ]
+    chance: !type:OrganTraumaChance
+
+- type: traumaType
+  id: VeinsDamage
+  severityGate: 10
+  target: Woundable
+  traumaEntity: TraumaVeinsDamage
+  causes:
+  - !type:WoundSeverityCause
+    damageTypes: [ Blunt, Piercing, Slash, Heat, Cold, Shock, Cellular, Caustic, Radiation, Poison ]

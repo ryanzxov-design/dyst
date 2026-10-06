@@ -11,7 +11,13 @@
   id: BaseSpeciesMob
   save: false
   components:
+  - type: WoundBleeding # Dystopia-Health
+  - type: Pain # Dystopia-Health: боль и болевой шок
+  - type: Consciousness # Dystopia-Health: обмороки от кровопотери и боли
+  - type: OrganFunction # Dystopia-Health: последствия повреждённых органов
+  - type: Addiction # Dystopia-Health: зависимость (опиоиды)
   - type: Targeting # Dystopia-Health: прицел по частям тела
+  - type: SurgeryLimbLoss # Dystopia-Health: без ноги — ползком, протезы медленнее
   - type: DamageVisuals
     thresholds: [ 10, 20, 30, 50, 70, 100 ]
     targetLayers:

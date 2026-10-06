@@ -36,6 +36,8 @@
   - Drill
   - Saw
   - Hemostat
+  - HealthBoneSetter # Dystopia-Health: лечебная хирургия
+  - HealthBoneGel # Dystopia-Health
 
 - type: latheRecipePack
   id: MedicalStatic

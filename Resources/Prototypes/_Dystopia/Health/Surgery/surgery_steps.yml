@@ -85,6 +85,8 @@
     - type: SurgeryIncisionOpen
     - type: SurgerySkinRetracted
     - type: SurgeryBleedersClamped
+    - type: SurgeryBoneSet
+    - type: SurgeryVesselsClamped
 
 # Отделить конечность (ампутация): часть тела отваливается вместе со всем, что к ней прикреплено.
 - type: entity
@@ -107,3 +109,83 @@
     duration: 4
     add:
     - type: SurgeryBonesOpen
+
+# ===================== Лечебная хирургия (Ф8) =====================
+# effect — что лечит шаг, когда сделан. Шаг без add/remove можно повторять (обработка ран).
+
+- type: entity
+  id: SurgeryStepSetBone
+  name: Вправить кость
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: SurgeryStep
+    tools: [ BoneSetter ]
+    duration: 4
+    add:
+    - type: SurgeryBoneSet
+
+- type: entity
+  id: SurgeryStepBoneGel
+  name: Скрепить костным гелем
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: SurgeryStep
+    tools: [ BoneGel ]
+    duration: 3
+    effect: MendBone
+    remove:
+    - type: SurgeryBoneSet
+
+- type: entity
+  id: SurgeryStepRepairOrgans
+  name: Восстановить ткани органов
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: SurgeryStep
+    tools: [ Hemostat ]
+    duration: 6
+    effect: RepairOrgans
+
+- type: entity
+  id: SurgeryStepTendWounds
+  name: Иссечь и ушить повреждённые ткани
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: SurgeryStep
+    tools: [ Hemostat, Cautery ]
+    duration: 4
+    effect: TendWounds
+    effectAmount: 40
+
+- type: entity
+  id: SurgeryStepClampVessels
+  name: Пережать повреждённые сосуды
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: SurgeryStep
+    tools: [ Hemostat ]
+    duration: 3
+    add:
+    - type: SurgeryVesselsClamped
+
+- type: entity
+  id: SurgeryStepSutureVessels
+  name: Сшить и прижечь сосуды
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: SurgeryStep
+    tools: [ Cautery ]
+    duration: 4
+    effect: RepairVessels
+    remove:
+    - type: SurgeryVesselsClamped
+
+- type: entity
+  id: SurgeryStepRepairNerves
+  name: Сшить нервы
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: SurgeryStep
+    tools: [ Scalpel ]
+    duration: 6
+    effect: RepairNerves

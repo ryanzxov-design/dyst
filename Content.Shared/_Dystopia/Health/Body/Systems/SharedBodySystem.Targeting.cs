@@ -86,7 +86,16 @@ public sealed partial class SharedBodySystem
         return GetRandomBodyPart(target);
     }
 
+    /// <summary>
+    /// Dystopia: удар всегда приходится туда, куда целились. Таблица шансов промаха (TargetOdds) пока отключена —
+    /// её вернём по другому принципу.
+    /// </summary>
     private TargetBodyPart Roll(TargetingComponent targetComp, TargetBodyPart aimed)
+    {
+        return aimed;
+    }
+
+    private TargetBodyPart RollByOdds(TargetingComponent targetComp, TargetBodyPart aimed)
     {
         if (!targetComp.TargetOdds.TryGetValue(aimed, out var odds))
             return aimed;

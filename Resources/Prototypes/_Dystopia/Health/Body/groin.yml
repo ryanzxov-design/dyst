@@ -58,6 +58,15 @@
   - type: BodyPart
     partType: Groin
     partComposition: Organic
+  - type: Woundable
+    integrity: 100
+    integrityCap: 100
+    thresholds:
+      Minor: 84
+      Moderate: 70
+      Severe: 55
+      Critical: 30
+      Mangled: 0
 
 - type: entity
   id: OrganGroinInorganic
@@ -115,3 +124,12 @@
   - type: BodyPart
     partType: Groin
     partComposition: Inorganic
+  - type: Woundable
+    integrity: 100
+    integrityCap: 100
+    thresholds:
+      Minor: 84
+      Moderate: 70
+      Severe: 55
+      Critical: 30
+      Mangled: 0

@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Dystopia: значок боли, нарисован для сборки",
+  "states": [
+    {
+      "name": "pain0"
+    },
+    {
+      "name": "pain1"
+    },
+    {
+      "name": "pain2"
+    },
+    {
+      "name": "pain3"
+    }
+  ]
+}

@@ -1,0 +1,602 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: лекарства новой медицины. Обезболивание, ускорение костей/органов/нервов, вред печени и сердцу
+# считает C# (PainComponent, OrganFunctionComponent, BoneSplint) по количеству вещества в крови — здесь только
+# простые эффекты: сонливость, замедление, передозировка. Зависимость — AddictionComponent (опиоиды).
+
+- type: reagent
+  id: Paracetamol
+  name: reagent-name-paracetamol
+  desc: reagent-desc-paracetamol
+  group: Medicine
+  flavor: bitter
+  physicalDesc: reagent-physical-desc-powdery
+  color: "#f5f5f0"
+  metabolisms:
+    Bloodstream:
+      metabolismRate: 0.05
+      effects:
+      - !type:HealthChange
+        conditions:
+        - !type:ReagentCondition
+          reagent: Paracetamol
+          min: 40
+        damage:
+          types:
+            Poison: 0.5
+
+- type: reagent
+  id: Tramadol
+  name: reagent-name-tramadol
+  desc: reagent-desc-tramadol
+  group: Medicine
+  flavor: medicine
+  physicalDesc: reagent-physical-desc-translucent
+  color: "#e8f0e8"
+  metabolisms:
+    Bloodstream:
+      metabolismRate: 0.1
+      effects:
+      - !type:ModifyStatusEffect
+        conditions:
+        - !type:ReagentCondition
+          reagent: Tramadol
+          min: 15
+        effectProto: StatusEffectDrowsiness
+        time: 4
+        type: Update
+      - !type:HealthChange
+        conditions:
+        - !type:ReagentCondition
+          reagent: Tramadol
+          min: 30
+        damage:
+          types:
+            Asphyxiation: 1
+
+- type: reagent
+  id: Morphine
+  name: reagent-name-morphine
+  desc: reagent-desc-morphine
+  group: Medicine
+  flavor: medicine
+  physicalDesc: reagent-physical-desc-translucent
+  color: "#f0f0ff"
+  metabolisms:
+    Bloodstream:
+      metabolismRate: 0.1
+      effects:
+      - !type:ModifyStatusEffect
+        effectProto: StatusEffectDrowsiness
+        time: 4
+        type: Update
+      - !type:MovementSpeedModifier
+        walkSpeedModifier: 0.85
+        sprintSpeedModifier: 0.85
+      - !type:HealthChange
+        conditions:
+        - !type:ReagentCondition
+          reagent: Morphine
+          min: 25
+        damage:
+          types:
+            Asphyxiation: 2
+
+- type: reagent
+  id: Promedol
+  name: reagent-name-promedol
+  desc: reagent-desc-promedol
+  group: Medicine
+  flavor: medicine
+  physicalDesc: reagent-physical-desc-translucent
+  color: "#fff6e8"
+  metabolisms:
+    Bloodstream:
+      metabolismRate: 0.15
+      effects:
+      - !type:ModifyStatusEffect
+        conditions:
+        - !type:ReagentCondition
+          reagent: Promedol
+          min: 10
+        effectProto: StatusEffectDrowsiness
+        time: 4
+        type: Update
+      - !type:HealthChange
+        conditions:
+        - !type:ReagentCondition
+          reagent: Promedol
+          min: 20
+        damage:
+          types:
+            Asphyxiation: 2
+
+- type: reagent
+  id: Naloxone
+  name: reagent-name-naloxone
+  desc: reagent-desc-naloxone
+  group: Medicine
+  flavor: medicine
+  physicalDesc: reagent-physical-desc-translucent
+  color: "#dff4ff"
+  metabolisms:
+    Bloodstream:
+      metabolismRate: 0.5
+      effects:
+      - !type:AdjustReagent
+        reagent: Morphine
+        amount: -4
+      - !type:AdjustReagent
+        reagent: Promedol
+        amount: -4
+      - !type:AdjustReagent
+        reagent: Tramadol
+        amount: -4
+
+- type: reagent
+  id: Calcitonin
+  name: reagent-name-calcitonin
+  desc: reagent-desc-calcitonin
+  group: Medicine
+  flavor: medicine
+  physicalDesc: reagent-physical-desc-translucent
+  color: "#fbe7d0"
+  metabolisms:
+    Bloodstream:
+      metabolismRate: 0.05
+      effects: []
+
+- type: reagent
+  id: Ademetionine
+  name: reagent-name-ademetionine
+  desc: reagent-desc-ademetionine
+  group: Medicine
+  flavor: medicine
+  physicalDesc: reagent-physical-desc-translucent
+  color: "#f6e7a8"
+  metabolisms:
+    Bloodstream:
+      metabolismRate: 0.05
+      effects: []
+
+- type: reagent
+  id: Salbutamol
+  name: reagent-name-salbutamol
+  desc: reagent-desc-salbutamol
+  group: Medicine
+  flavor: medicine
+  physicalDesc: reagent-physical-desc-translucent
+  color: "#d8f2ff"
+  metabolisms:
+    Bloodstream:
+      metabolismRate: 0.1
+      effects:
+      - !type:HealthChange
+        damage:
+          types:
+            Asphyxiation: -1
+
+- type: reagent
+  id: Digoxin
+  name: reagent-name-digoxin
+  desc: reagent-desc-digoxin
+  group: Medicine
+  flavor: medicine
+  physicalDesc: reagent-physical-desc-translucent
+  color: "#e6f5d0"
+  metabolisms:
+    Bloodstream:
+      metabolismRate: 0.05
+      effects:
+      - !type:HealthChange
+        conditions:
+        - !type:ReagentCondition
+          reagent: Digoxin
+          min: 20
+        damage:
+          types:
+            Asphyxiation: 1
+
+- type: reagent
+  id: Piracetam
+  name: reagent-name-piracetam
+  desc: reagent-desc-piracetam
+  group: Medicine
+  flavor: medicine
+  physicalDesc: reagent-physical-desc-powdery
+  color: "#ffffff"
+  metabolisms:
+    Bloodstream:
+      metabolismRate: 0.05
+      effects: []
+
+- type: reagent
+  id: Ipidacrine
+  name: reagent-name-ipidacrine
+  desc: reagent-desc-ipidacrine
+  group: Medicine
+  flavor: medicine
+  physicalDesc: reagent-physical-desc-translucent
+  color: "#efe4ff"
+  metabolisms:
+    Bloodstream:
+      metabolismRate: 0.05
+      effects: []
+
+# ===== Реакции =====
+
+- type: reaction
+  id: Paracetamol
+  reactants:
+    Phenol:
+      amount: 1
+    Nitrogen:
+      amount: 1
+    Oxygen:
+      amount: 1
+  products:
+    Paracetamol: 3
+
+- type: reaction
+  id: Tramadol
+  reactants:
+    Phenol:
+      amount: 1
+    Ammonia:
+      amount: 1
+    Hydrogen:
+      amount: 1
+  products:
+    Tramadol: 2
+
+- type: reaction
+  id: Morphine
+  minTemp: 370
+  reactants:
+    Phenol:
+      amount: 1
+    Carbon:
+      amount: 1
+    Potassium:
+      amount: 1
+  products:
+    Morphine: 2
+
+- type: reaction
+  id: Promedol
+  reactants:
+    Morphine:
+      amount: 1
+    Ethanol:
+      amount: 1
+    Hydrogen:
+      amount: 1
+  products:
+    Promedol: 2
+
+- type: reaction
+  id: Naloxone
+  reactants:
+    Morphine:
+      amount: 1
+    Oxygen:
+      amount: 1
+    Chlorine:
+      amount: 1
+  products:
+    Naloxone: 2
+
+- type: reaction
+  id: Calcitonin
+  reactants:
+    Lithium:
+      amount: 1
+    Nitrogen:
+      amount: 1
+    Oxygen:
+      amount: 1
+  products:
+    Calcitonin: 2
+
+- type: reaction
+  id: Ademetionine
+  reactants:
+    Sulfur:
+      amount: 1
+    Nitrogen:
+      amount: 1
+    Carbon:
+      amount: 1
+  products:
+    Ademetionine: 2
+
+- type: reaction
+  id: Salbutamol
+  reactants:
+    Ethanol:
+      amount: 1
+    Ammonia:
+      amount: 1
+    Oxygen:
+      amount: 1
+  products:
+    Salbutamol: 2
+
+- type: reaction
+  id: Digoxin
+  reactants:
+    Copper:
+      amount: 1
+    Carbon:
+      amount: 1
+    Oxygen:
+      amount: 1
+  products:
+    Digoxin: 2
+
+- type: reaction
+  id: Piracetam
+  reactants:
+    Ammonia:
+      amount: 1
+    Carbon:
+      amount: 1
+    Oxygen:
+      amount: 1
+  products:
+    Piracetam: 2
+
+- type: reaction
+  id: Ipidacrine
+  reactants:
+    Ammonia:
+      amount: 1
+    Phenol:
+      amount: 1
+    Silicon:
+      amount: 1
+  products:
+    Ipidacrine: 2
+
+# ===== Готовые формы =====
+
+- type: entity
+  id: ChemistryBottleTramadol
+  suffix: tramadol
+  parent: BaseChemistryBottleFilled
+  components:
+  - type: Label
+    localizedLabel: reagent-name-tramadol
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Tramadol
+        Quantity: 30
+
+- type: entity
+  id: ChemistryBottleMorphine
+  suffix: morphine
+  parent: BaseChemistryBottleFilled
+  components:
+  - type: Label
+    localizedLabel: reagent-name-morphine
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Morphine
+        Quantity: 30
+
+- type: entity
+  id: ChemistryBottleNaloxone
+  suffix: naloxone
+  parent: BaseChemistryBottleFilled
+  components:
+  - type: Label
+    localizedLabel: reagent-name-naloxone
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Naloxone
+        Quantity: 30
+
+- type: entity
+  id: ChemistryBottleCalcitonin
+  suffix: calcitonin
+  parent: BaseChemistryBottleFilled
+  components:
+  - type: Label
+    localizedLabel: reagent-name-calcitonin
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Calcitonin
+        Quantity: 30
+
+- type: entity
+  id: ChemistryBottleAdemetionine
+  suffix: ademetionine
+  parent: BaseChemistryBottleFilled
+  components:
+  - type: Label
+    localizedLabel: reagent-name-ademetionine
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Ademetionine
+        Quantity: 30
+
+- type: entity
+  id: ChemistryBottleSalbutamol
+  suffix: salbutamol
+  parent: BaseChemistryBottleFilled
+  components:
+  - type: Label
+    localizedLabel: reagent-name-salbutamol
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Salbutamol
+        Quantity: 30
+
+- type: entity
+  id: ChemistryBottleDigoxin
+  suffix: digoxin
+  parent: BaseChemistryBottleFilled
+  components:
+  - type: Label
+    localizedLabel: reagent-name-digoxin
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Digoxin
+        Quantity: 30
+
+- type: entity
+  id: ChemistryBottlePiracetam
+  suffix: piracetam
+  parent: BaseChemistryBottleFilled
+  components:
+  - type: Label
+    localizedLabel: reagent-name-piracetam
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Piracetam
+        Quantity: 30
+
+- type: entity
+  id: ChemistryBottleIpidacrine
+  suffix: ipidacrine
+  parent: BaseChemistryBottleFilled
+  components:
+  - type: Label
+    localizedLabel: reagent-name-ipidacrine
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Ipidacrine
+        Quantity: 30
+
+- type: entity
+  name: pill
+  suffix: Paracetamol 10u
+  parent: Pill
+  id: PillParacetamol
+  components:
+  - type: Pill
+    pillType: 0
+  - type: Sprite
+    state: pill1
+  - type: Label
+    localizedLabel: pill-label-paracetamol
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Paracetamol
+        Quantity: 10
+
+- type: entity
+  name: pill canister
+  parent: PillCanister
+  id: PillCanisterParacetamol
+  suffix: Paracetamol 10u, 10
+  components:
+  - type: Label
+    localizedLabel: pill-label-paracetamol
+  - type: EntityTableContainerFill
+    containers:
+      storagebase:
+        id: PillParacetamol
+        amount: 10
+
+- type: entity
+  name: pill
+  suffix: Tramadol 10u
+  parent: Pill
+  id: PillTramadol
+  components:
+  - type: Pill
+    pillType: 4
+  - type: Sprite
+    state: pill5
+  - type: Label
+    localizedLabel: pill-label-tramadol
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Tramadol
+        Quantity: 10
+
+- type: entity
+  name: pill canister
+  parent: PillCanister
+  id: PillCanisterTramadol
+  suffix: Tramadol 10u, 10
+  components:
+  - type: Label
+    localizedLabel: pill-label-tramadol
+  - type: EntityTableContainerFill
+    containers:
+      storagebase:
+        id: PillTramadol
+        amount: 10
+
+# Промедол: армейский шприц-тюбик для полевой помощи (одноразовый)
+- type: entity
+  parent: ChemicalMedipen
+  id: PromedolMedipen
+  name: шприц-тюбик промедола
+  description: Одноразовый армейский шприц-тюбик с сильным обезболивающим. Снимает боль за секунды. Вызывает привыкание.
+  components:
+  - type: Sprite
+    sprite: Objects/Specific/Medical/medipen.rsi
+    layers:
+    - state: medipen
+      map: ["enum.SolutionContainerLayers.Fill"]
+  - type: SolutionContainerVisuals
+    maxFillLevels: 1
+    changeColor: false
+    emptySpriteName: medipen_empty
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Promedol
+        Quantity: 10
+
+# Гемостатическая губка: повязка, которая останавливает даже глубокие раны (марля — только неглубокие)
+- type: entity
+  parent: BaseHealingItem
+  id: HealthHemostaticSponge
+  name: гемостатическая губка
+  description: Пропитанная кровоостанавливающим составом губка. Останавливает кровь даже из глубокой раны, где марля бессильна.
+  components:
+  - type: Sprite
+    state: regenerative-mesh
+  - type: Item
+    heldPrefix: regenerative-mesh
+  - type: Healing
+    damageContainers:
+    - Biological
+    damage:
+      types:
+        Slash: -2
+        Piercing: -2
+    bloodlossModifier: -15
+    delay: 3
+  - type: Hemostatic
+    maxSeverity: 0
+
+# Лидокаин: местная анестезия — укол в часть тела, куда целится врач
+- type: entity
+  parent: BaseItem
+  id: HealthLidocaineSyringe
+  name: шприц лидокаина
+  description: Одноразовый шприц местного обезболивания. Колют в часть тела — она перестаёт болеть на несколько минут, и её можно оперировать без наркоза.
+  components:
+  - type: Sprite
+    sprite: Objects/Specific/Chemistry/syringe.rsi
+    state: syringe_base0
+  - type: Item
+    size: Tiny
+  - type: LocalAnesthesiaInjector
+    duration: 240
+    injectTime: 2

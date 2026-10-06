@@ -198,6 +198,10 @@ public sealed partial class BloodstreamSystem : EntitySystem
         if (_timing.ApplyingState)
             return;
 
+        // Dystopia-Health: у тел с ранами кровотечение считается по ранам, а не по урону
+        if (HasComp<Content.Shared._Dystopia.Health.Medical.Bleeding.WoundBleedingComponent>(ent))
+            return;
+
         if (args.DamageDelta is null || !args.DamageIncreased)
         {
             return;

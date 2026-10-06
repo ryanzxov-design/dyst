@@ -1,0 +1,18 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Шина: лечение переломов без операции. Накладывается на часть, куда целится врач.
+
+- type: entity
+  parent: BaseItem
+  id: HealthSplint
+  name: шина
+  description: Жёсткая повязка для перелома. Сломанная кость под ней медленно срастается, а конечность снова держит вес.
+  components:
+  - type: Sprite
+    sprite: Objects/Specific/Medical/medical.rsi
+    state: cast
+  - type: Item
+    size: Small
+  - type: Splint
+    applyTime: 4
+    healPerSecond: 0.1
+    stabilizedSeverity: Cracked

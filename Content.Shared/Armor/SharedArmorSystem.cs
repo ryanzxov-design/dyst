@@ -15,6 +15,7 @@ namespace Content.Shared.Armor;
 public abstract partial class SharedArmorSystem : EntitySystem
 {
     [Dependency] private ExamineSystemShared _examine = default!;
+    [Dependency] private Content.Shared._Dystopia.Health.Armor.ArmorCoverageSystem _coverage = default!; // Dystopia-Health
 
     /// <inheritdoc />
     public override void Initialize()
@@ -46,6 +47,10 @@ public abstract partial class SharedArmorSystem : EntitySystem
     private void OnDamageModify(EntityUid uid, ArmorComponent component, InventoryRelayedEvent<DamageModifyEvent> args)
     {
         if (TryComp<MaskComponent>(uid, out var mask) && mask.IsToggled)
+            return;
+
+        // Dystopia-Health: броня защищает только закрытые ею части тела
+        if (!_coverage.ShouldApply(uid, args.Args))
             return;
 
         args.Args.Damage = DamageSpecifier.ApplyModifierSet(args.Args.Damage, component.Modifiers);

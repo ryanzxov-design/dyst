@@ -1,14 +1,17 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 using Content.Shared._Dystopia.Health.Medical.Surgery.Wounds;
+using Content.Shared._Dystopia.Health.Medical.Surgery.Wounds.Systems;
 using Content.Shared._Dystopia.Health.Targeting;
 using Content.Shared._Dystopia.Health.Targeting.Events;
 using Content.Shared.Mobs;
 
 namespace Content.Server._Dystopia.Health.Targeting;
 
-public sealed class TargetingSystem : SharedTargetingSystem
+public sealed partial class TargetingSystem : SharedTargetingSystem
 {
+    [Dependency] private WoundSystem _wounds = default!;
+
     public override void Initialize()
     {
         base.Initialize();
@@ -22,7 +25,11 @@ public sealed class TargetingSystem : SharedTargetingSystem
 
         // Менять цель можно только своему телу
         if (args.SenderSession.AttachedEntity != uid || !TryComp<TargetingComponent>(uid, out var target))
+        {
+            Log.Warning($"Смена прицела отклонена: {args.SenderSession.Name} управляет {ToPrettyString(args.SenderSession.AttachedEntity)}, " +
+                        $"а просит для {ToPrettyString(uid)} (прицел: {(HasComp<TargetingComponent>(uid) ? "есть" : "нет")}).");
             return;
+        }
 
         target.Target = message.BodyPart;
         Dirty(uid, target);
@@ -42,12 +49,7 @@ public sealed class TargetingSystem : SharedTargetingSystem
         }
         else if (args is { OldMobState: MobState.Dead, NewMobState: MobState.Alive or MobState.Critical })
         {
-            // Ф3: состояния частей будут браться из ран. Пока ран нет — после оживления все части целы.
-            foreach (var part in GetValidParts())
-            {
-                component.BodyStatus[part] = WoundableSeverity.Healthy;
-            }
-
+            component.BodyStatus = _wounds.GetWoundableStatesOnBody(uid);
             changed = true;
         }
 

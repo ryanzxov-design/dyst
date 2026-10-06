@@ -1,0 +1,18 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Значок боли: лёгкая → умеренная → сильная → болевой шок.
+
+- type: alert
+  id: DystopiaPain
+  icons:
+  - sprite: /Textures/_Dystopia/Health/Interface/Alerts/pain.rsi
+    state: pain0
+  - sprite: /Textures/_Dystopia/Health/Interface/Alerts/pain.rsi
+    state: pain1
+  - sprite: /Textures/_Dystopia/Health/Interface/Alerts/pain.rsi
+    state: pain2
+  - sprite: /Textures/_Dystopia/Health/Interface/Alerts/pain.rsi
+    state: pain3
+  name: alerts-dystopia-pain-name
+  description: alerts-dystopia-pain-desc
+  minSeverity: 0
+  maxSeverity: 3

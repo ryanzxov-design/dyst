@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 // Хирургия Dystopia под новую систему тела (органы — сущности в контейнере тела, связи родитель/ребёнок).
 
+using Robust.Shared.Audio;
+using Content.Shared._Dystopia.Health.Medical.Surgery.Traumas;
 using Content.Shared.Body;
 using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
@@ -17,7 +19,45 @@ public enum SurgeryToolKind : byte
     Hemostat,
     Saw,
     Cautery,
+    BoneSetter,
+    BoneGel,
 }
+
+/// <summary>Лечебный эффект шага операции (выполняется, когда шаг сделан).</summary>
+[Serializable, NetSerializable]
+public enum SurgeryEffect : byte
+{
+    None,
+    /// <summary>Срастить кость части полностью (снимает перелом, шину).</summary>
+    MendBone,
+    /// <summary>Восстановить повреждённые органы части (и разрушенный мозг).</summary>
+    RepairOrgans,
+    /// <summary>Обработать раны части: снять тяжесть ран (мимо блокировок травм), остановить кровь.</summary>
+    TendWounds,
+    /// <summary>Сшить сосуды: снять травму вен, остановить кровотечение части.</summary>
+    RepairVessels,
+    /// <summary>Сшить нервы: снять травму нервов.</summary>
+    RepairNerves,
+}
+
+/// <summary>
+/// Когда показывать лечебную операцию: только если на части есть что лечить этим эффектом
+/// (или операция уже начата).
+/// </summary>
+[RegisterComponent]
+public sealed partial class SurgeryConditionComponent : Component
+{
+    [DataField(required: true)]
+    public SurgeryEffect Need;
+}
+
+/// <summary>Кость вправлена, ждёт костного геля.</summary>
+[RegisterComponent, NetworkedComponent]
+public sealed partial class SurgeryBoneSetComponent : Component;
+
+/// <summary>Сосуды пережаты, можно сшивать.</summary>
+[RegisterComponent, NetworkedComponent]
+public sealed partial class SurgeryVesselsClampedComponent : Component;
 
 /// <summary>Операция (прототип-сущность, не спавнится): список шагов и требование предыдущей операции.</summary>
 [RegisterComponent]
@@ -61,6 +101,14 @@ public sealed partial class SurgeryStepComponent : Component
     /// <summary>Шаг отделяет эту часть тела от тела (ампутация).</summary>
     [DataField]
     public bool Amputate;
+
+    /// <summary>Лечебный эффект, когда шаг сделан.</summary>
+    [DataField]
+    public SurgeryEffect Effect = SurgeryEffect.None;
+
+    /// <summary>Сила эффекта (для «Обработать раны» — сколько тяжести ран снимается за раз).</summary>
+    [DataField]
+    public float EffectAmount = 40f;
 }
 
 /// <summary>Для каких частей тела доступна операция.</summary>
@@ -131,7 +179,49 @@ public sealed partial class SurgeryProstheticComponent : Component
 
 /// <summary>
 /// Тело, у которого менялись конечности: скорость зависит от ног и стоп (нет ноги — ползёт, протез — медленнее).
-/// Вешается хирургией при ампутации или пришивании.
+/// Есть у всех видов (BaseSpeciesMob), так что работает при любой потере ноги, не только после операции.
 /// </summary>
 [RegisterComponent, NetworkedComponent]
-public sealed partial class SurgeryLimbLossComponent : Component;
+public sealed partial class SurgeryLimbLossComponent : Component
+{
+    /// <summary>Скорость стороны без стопы (хромота).</summary>
+    [DataField]
+    public float NoFootSpeed = 0.7f;
+
+    /// <summary>Нижний предел скорости от конечностей и переломов.</summary>
+    [DataField]
+    public float MinimumSpeed = 0.15f;
+
+    /// <summary>Ниже этой доли скорости (из-за переломов ног) не устоять на ногах.</summary>
+    [DataField]
+    public float CrippledSpeed = 1f / 3.4f;
+
+    /// <summary>Доля, которую несёт нога с повреждённой костью (нет в списке — 1).</summary>
+    [DataField]
+    public Dictionary<BoneSeverity, float> LegBoneSpeed = new()
+    {
+        { BoneSeverity.Damaged, 0.625f },
+        { BoneSeverity.Cracked, 0.5f },
+        { BoneSeverity.Broken, 0f },
+    };
+
+    /// <summary>Множитель стопы с повреждённой костью.</summary>
+    [DataField]
+    public Dictionary<BoneSeverity, float> FootBoneSpeed = new()
+    {
+        { BoneSeverity.Damaged, 0.77f },
+        { BoneSeverity.Cracked, 0.66f },
+        { BoneSeverity.Broken, 0.55f },
+    };
+
+    /// <summary>Шанс, что рука дрогнет при ударе или выстреле, по худшей кости рук и кистей.</summary>
+    [DataField]
+    public Dictionary<BoneSeverity, float> FumbleChance = new()
+    {
+        { BoneSeverity.Cracked, 0.10f },
+        { BoneSeverity.Broken, 0.25f },
+    };
+
+    [DataField]
+    public SoundSpecifier FumbleSound = new SoundPathSpecifier("/Audio/Effects/slip.ogg");
+}

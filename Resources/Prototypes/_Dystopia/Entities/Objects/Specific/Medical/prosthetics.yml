@@ -9,6 +9,20 @@
   categories:
   - HideSpawnMenu
   components:
+  # Часть тела и раны (система здоровья)
+  - type: BodyPart
+    partType: Arm
+    symmetry: Left
+    partComposition: Inorganic
+  - type: Woundable
+    integrity: 80
+    integrityCap: 80
+    thresholds:
+      Minor: 70
+      Moderate: 50
+      Severe: 25
+      Critical: 10
+      Mangled: 0
   - type: Item
     size: Small
   - type: Animateable
@@ -72,6 +86,20 @@
   categories:
   - HideSpawnMenu
   components:
+  # Часть тела и раны (система здоровья)
+  - type: BodyPart
+    partType: Hand
+    symmetry: Left
+    partComposition: Inorganic
+  - type: Woundable
+    integrity: 50
+    integrityCap: 50
+    thresholds:
+      Minor: 42
+      Moderate: 36
+      Severe: 26
+      Critical: 15
+      Mangled: 0
   - type: Item
     size: Small
   - type: Animateable
@@ -138,6 +166,20 @@
   categories:
   - HideSpawnMenu
   components:
+  # Часть тела и раны (система здоровья)
+  - type: BodyPart
+    partType: Arm
+    symmetry: Right
+    partComposition: Inorganic
+  - type: Woundable
+    integrity: 80
+    integrityCap: 80
+    thresholds:
+      Minor: 70
+      Moderate: 50
+      Severe: 25
+      Critical: 10
+      Mangled: 0
   - type: Item
     size: Small
   - type: Animateable
@@ -201,6 +243,20 @@
   categories:
   - HideSpawnMenu
   components:
+  # Часть тела и раны (система здоровья)
+  - type: BodyPart
+    partType: Hand
+    symmetry: Right
+    partComposition: Inorganic
+  - type: Woundable
+    integrity: 60
+    integrityCap: 60
+    thresholds:
+      Minor: 50
+      Moderate: 40
+      Severe: 30
+      Critical: 18
+      Mangled: 0
   - type: Item
     size: Small
   - type: Animateable
@@ -267,6 +323,20 @@
   categories:
   - HideSpawnMenu
   components:
+  # Часть тела и раны (система здоровья)
+  - type: BodyPart
+    partType: Leg
+    symmetry: Left
+    partComposition: Inorganic
+  - type: Woundable
+    integrity: 80
+    integrityCap: 80
+    thresholds:
+      Minor: 70
+      Moderate: 50
+      Severe: 25
+      Critical: 10
+      Mangled: 0
   - type: Item
     size: Small
   - type: Animateable
@@ -332,6 +402,20 @@
   categories:
   - HideSpawnMenu
   components:
+  # Часть тела и раны (система здоровья)
+  - type: BodyPart
+    partType: Foot
+    symmetry: Left
+    partComposition: Inorganic
+  - type: Woundable
+    integrity: 60
+    integrityCap: 60
+    thresholds:
+      Minor: 50
+      Moderate: 40
+      Severe: 30
+      Critical: 18
+      Mangled: 0
   - type: Item
     size: Small
   - type: Animateable
@@ -396,6 +480,20 @@
   categories:
   - HideSpawnMenu
   components:
+  # Часть тела и раны (система здоровья)
+  - type: BodyPart
+    partType: Leg
+    symmetry: Right
+    partComposition: Inorganic
+  - type: Woundable
+    integrity: 80
+    integrityCap: 80
+    thresholds:
+      Minor: 70
+      Moderate: 50
+      Severe: 25
+      Critical: 10
+      Mangled: 0
   - type: Item
     size: Small
   - type: Animateable
@@ -461,6 +559,20 @@
   categories:
   - HideSpawnMenu
   components:
+  # Часть тела и раны (система здоровья)
+  - type: BodyPart
+    partType: Foot
+    symmetry: Right
+    partComposition: Inorganic
+  - type: Woundable
+    integrity: 60
+    integrityCap: 60
+    thresholds:
+      Minor: 50
+      Moderate: 40
+      Severe: 30
+      Critical: 18
+      Mangled: 0
   - type: Item
     size: Small
   - type: Animateable

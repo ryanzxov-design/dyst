@@ -88,3 +88,118 @@
     - SurgeryStepOpenAbdomen
   - type: SurgeryPartCondition
     parts: [ Groin ]
+
+# ===================== Лечебная хирургия (Ф8) =====================
+# SurgeryCondition — операция видна, только если на части есть что лечить (или она уже начата).
+
+# Перелом: вправить костоправом и скрепить костным гелем. Кость сразу целая, шина снимается.
+- type: entity
+  id: SurgeryMendBone
+  name: Срастить кость
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Surgery
+    priority: 2
+    requirement: SurgeryOpenIncision
+    steps:
+    - SurgeryStepSetBone
+    - SurgeryStepBoneGel
+  - type: SurgeryPartCondition
+    parts: [ Torso, Groin, Head, ArmLeft, ArmRight, HandLeft, HandRight, LegLeft, LegRight, FootLeft, FootRight ]
+  - type: SurgeryCondition
+    need: MendBone
+
+# Раны: снимает тяжесть ран части (мимо блокировки переломами и органами), останавливает кровь. Можно повторять.
+- type: entity
+  id: SurgeryTendWounds
+  name: Обработать раны
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Surgery
+    priority: 2
+    requirement: SurgeryOpenIncision
+    steps:
+    - SurgeryStepTendWounds
+  - type: SurgeryPartCondition
+    parts: [ Torso, Groin, Head, ArmLeft, ArmRight, HandLeft, HandRight, LegLeft, LegRight, FootLeft, FootRight ]
+  - type: SurgeryCondition
+    need: TendWounds
+
+# Повреждённые вены или кровотечение части.
+- type: entity
+  id: SurgeryRepairVessels
+  name: Сшить сосуды
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Surgery
+    priority: 2
+    requirement: SurgeryOpenIncision
+    steps:
+    - SurgeryStepClampVessels
+    - SurgeryStepSutureVessels
+  - type: SurgeryPartCondition
+    parts: [ Torso, Groin, Head, ArmLeft, ArmRight, HandLeft, HandRight, LegLeft, LegRight, FootLeft, FootRight ]
+  - type: SurgeryCondition
+    need: RepairVessels
+
+# Повреждённые нервы (часть болит сильнее).
+- type: entity
+  id: SurgeryRepairNerves
+  name: Сшить нервы
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Surgery
+    priority: 3
+    requirement: SurgeryOpenIncision
+    steps:
+    - SurgeryStepRepairNerves
+  - type: SurgeryPartCondition
+    parts: [ Torso, Groin, Head, ArmLeft, ArmRight, HandLeft, HandRight, LegLeft, LegRight, FootLeft, FootRight ]
+  - type: SurgeryCondition
+    need: RepairNerves
+
+# Органы: восстанавливают повреждённые органы раскрытой полости (и разрушенный мозг). Разрушенный орган (кроме мозга) — пересадка.
+- type: entity
+  id: SurgeryRepairOrgansTorso
+  name: Восстановить органы
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Surgery
+    priority: 3
+    requirement: SurgeryOpenRibcage
+    steps:
+    - SurgeryStepRepairOrgans
+  - type: SurgeryPartCondition
+    parts: [ Torso ]
+  - type: SurgeryCondition
+    need: RepairOrgans
+
+- type: entity
+  id: SurgeryRepairOrgansHead
+  name: Восстановить органы
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Surgery
+    priority: 3
+    requirement: SurgeryOpenSkull
+    steps:
+    - SurgeryStepRepairOrgans
+  - type: SurgeryPartCondition
+    parts: [ Head ]
+  - type: SurgeryCondition
+    need: RepairOrgans
+
+- type: entity
+  id: SurgeryRepairOrgansGroin
+  name: Восстановить органы
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Surgery
+    priority: 3
+    requirement: SurgeryOpenAbdomen
+    steps:
+    - SurgeryStepRepairOrgans
+  - type: SurgeryPartCondition
+    parts: [ Groin ]
+  - type: SurgeryCondition
+    need: RepairOrgans

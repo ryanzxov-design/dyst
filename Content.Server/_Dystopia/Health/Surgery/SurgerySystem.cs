@@ -80,13 +80,14 @@ public sealed partial class SurgerySystem : EntitySystem
 
     private readonly List<SurgeryDef> _surgeries = new();
 
-    private sealed record SurgeryDef(EntProtoId Id, string Name, SurgeryComponent Surgery, HashSet<string> Parts);
+    private sealed record SurgeryDef(EntProtoId Id, string Name, SurgeryComponent Surgery, HashSet<string> Parts, SurgeryEffect Need);
 
     public override void Initialize()
     {
         base.Initialize();
         LoadSurgeries();
         SubscribeLocalEvent<PrototypesReloadedEventArgs>(_ => LoadSurgeries());
+        InitializeDismemberment();
 
         SubscribeLocalEvent<SurgeryToolComponent, AfterInteractEvent>(OnToolAfterInteract);
         SubscribeLocalEvent<GetVerbsEvent<InteractionVerb>>(OnGetVerbs);
@@ -115,7 +116,8 @@ public sealed partial class SurgerySystem : EntitySystem
                 }
             }
 
-            _surgeries.Add(new SurgeryDef(proto.ID, proto.Name, surgery, parts));
+            var need = proto.TryComp<SurgeryConditionComponent>(out var condition, _factory) ? condition.Need : SurgeryEffect.None;
+            _surgeries.Add(new SurgeryDef(proto.ID, proto.Name, surgery, parts, need));
         }
 
         _surgeries.Sort((a, b) => a.Surgery.Priority.CompareTo(b.Surgery.Priority));
@@ -223,12 +225,14 @@ public sealed partial class SurgerySystem : EntitySystem
         return kinds.Count == 0 ? null : new ToolInfo(kinds, ImprovisedSpeed, ImprovisedFail, true);
     }
 
-    private float FailChance(EntityUid patient, ToolInfo tool)
+    private float FailChance(EntityUid patient, ToolInfo tool, EntityUid? part = null)
     {
         var chance = tool.Fail;
         if (!OnTable(patient))
             chance += FloorFail;
-        if (!HasComp<SleepingComponent>(patient) && !_mobState.IsIncapacitated(patient))
+        // Местная анестезия части заменяет наркоз для операции на ней
+        if (!HasComp<SleepingComponent>(patient) && !_mobState.IsIncapacitated(patient)
+            && !(part is { } numbPart && _treatLocal.IsNumb(numbPart)))
             chance += AwakeFail;
         return Math.Clamp(chance, 0f, 0.95f);
     }
@@ -286,11 +290,26 @@ public sealed partial class SurgerySystem : EntitySystem
         if (surgery.Parts.Count > 0 && !surgery.Parts.Contains(category))
             return false;
 
+        // Лечебная операция видна, только если есть что лечить — или она уже начата
+        if (surgery.Need != SurgeryEffect.None && !NeedsTreatment(part, surgery.Need) && !IsStarted(part, surgery))
+            return false;
+
         if (surgery.Surgery.Requirement is not { } req)
             return true;
 
         var required = _surgeries.FirstOrDefault(s => s.Id == req);
         return required != null && IsComplete(part, required);
+    }
+
+    private bool IsStarted(EntityUid part, SurgeryDef surgery)
+    {
+        foreach (var id in surgery.Surgery.Steps)
+        {
+            if (Step(id) is { } step && step.Add.Count > 0 && IsStepDone(part, step))
+                return true;
+        }
+
+        return false;
     }
 
     /// <summary>Текущий (первый невыполненный) шаг операции.</summary>
@@ -525,6 +544,14 @@ public sealed partial class SurgerySystem : EntitySystem
             return;
         }
 
+        // Через броню не оперируют: сначала снять то, что закрывает часть
+        if (TryComp<Content.Shared.Body.Part.BodyPartComponent>(part, out var operatedPart)
+            && _treatArmor.GetCoveringArmor(ent, operatedPart.PartType) is { } armor)
+        {
+            _popup.PopupEntity(Loc.GetString("surgery-armor-blocks", ("armor", armor)), ent, user, PopupType.SmallCaution);
+            return;
+        }
+
         var time = step.Duration / MathF.Max(0.1f, tool.Speed) * (OnTable(ent) ? 1f : FloorSlowdown);
         StartDoAfter(user, ent, item, time, new SurgeryDoAfterEvent(SurgeryActionType.Step, args.Part, surgeryId, stepId));
     }
@@ -651,9 +678,9 @@ public sealed partial class SurgerySystem : EntitySystem
     }
 
     /// <summary>Провал шага: рука соскальзывает — порез и кровь.</summary>
-    private bool RollFail(EntityUid user, EntityUid patient, EntityUid tool)
+    private bool RollFail(EntityUid user, EntityUid patient, EntityUid tool, EntityUid? part = null)
     {
-        if (GetTool(tool) is not { } info || !_random.Prob(FailChance(patient, info)))
+        if (GetTool(tool) is not { } info || !_random.Prob(FailChance(patient, info, part)))
             return false;
 
         var damage = new DamageSpecifier(_proto.Index(FailDamageType), 5);
@@ -674,7 +701,7 @@ public sealed partial class SurgerySystem : EntitySystem
             return;
         }
 
-        if (RollFail(user, patient, tool))
+        if (RollFail(user, patient, tool, part))
             return;
 
         EntityManager.RemoveComponents(part, step.Remove);
@@ -691,6 +718,9 @@ public sealed partial class SurgerySystem : EntitySystem
         var stepName = _proto.TryIndex(current, out var sp) ? sp.Name : stepId;
         _popup.PopupEntity(Loc.GetString("surgery-step-done", ("user", user), ("step", stepName),
             ("part", Loc.GetString($"surgery-part-{category}")), ("patient", patient)), patient, PopupType.Small);
+
+        if (step.Effect != SurgeryEffect.None && ApplyTreatment(patient, part, step) is { } result)
+            _popup.PopupEntity(Loc.GetString(result, ("part", Loc.GetString($"surgery-part-{category}"))), patient, user);
     }
 
     /// <summary>
@@ -772,7 +802,7 @@ public sealed partial class SurgerySystem : EntitySystem
         if (!HasComp<SurgeryBonesOpenComponent>(part) || !InternalOrgans(part).Contains(organ))
             return;
 
-        if (RollFail(user, patient, tool))
+        if (RollFail(user, patient, tool, part))
             return;
 
         if (!_container.TryGetContainer(patient, BodyComponent.ContainerID, out var container))

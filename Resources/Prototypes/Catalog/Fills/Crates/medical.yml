@@ -65,6 +65,14 @@
         - id: Drill
         - id: Saw
         - id: Hemostat
+        - id: HealthBoneSetter # Dystopia-Health: лечебная хирургия
+        - id: HealthBoneGel # Dystopia-Health
+        - id: ChemistryBottlePropofol # Dystopia-Health: наркоз
+        - id: ChemistryBottleMorphine # Dystopia-Health: сильное обезболивающее (только в хирургии)
+        - id: PromedolMedipen # Dystopia-Health
+          amount: 2
+        - id: HealthLidocaineSyringe # Dystopia-Health
+          amount: 2
         - id: ClothingMaskSterile
 
 - type: entity

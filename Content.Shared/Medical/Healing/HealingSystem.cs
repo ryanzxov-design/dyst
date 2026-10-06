@@ -62,8 +62,13 @@ public sealed partial class HealingSystem : EntitySystem
 
         TryComp<BloodstreamComponent>(target, out var bloodstream);
 
+        // Dystopia-Health: повязка/жгут останавливают кровотечение ран той части, куда целится лечащий
+        var bandage = new Content.Shared._Dystopia.Health.Medical.Bleeding.BandageAppliedEvent(args.User, args.Used.Value, healing.BloodlossModifier);
+        if (healing.BloodlossModifier != 0)
+            RaiseLocalEvent(target, ref bandage);
+
         // Heal some bloodloss damage.
-        if (healing.BloodlossModifier != 0 && bloodstream != null)
+        if (!bandage.Handled && healing.BloodlossModifier != 0 && bloodstream != null)
         {
             var isBleeding = bloodstream.BleedAmount > 0;
             _bloodstreamSystem.TryModifyBleedAmount((target.Owner, bloodstream), healing.BloodlossModifier);

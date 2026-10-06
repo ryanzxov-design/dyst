@@ -1,0 +1,255 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Раны по типам урона. Прототип раны — "Wound" + тип урона (WoundBlunt, WoundHeat...).
+# Шрамы, травмы (переломы, органы, нервы), кровотечение и боль от ран — в следующих фазах.
+# Самостоятельные сущности, без parent.
+
+- type: entity
+  id: WoundBlunt
+  name: рана (Blunt)
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Wound
+    damageType: Blunt
+    woundType: External
+    woundVisibility: Always
+    mangleSeverity: Severe
+  - type: TraumaInflicter
+    severityThreshold: 7 # Dystopia: удар битой/дубинкой должен успевать ломать кость
+    allowArmourDeduction:
+    - Dismemberment
+    - OrganDamage
+    - BoneDamage
+    - VeinsDamage
+    - NerveDamage
+    traumasChances:
+      Dismemberment: -0.4
+      OrganDamage: 0.17
+      BoneDamage: 0.8
+      VeinsDamage: 0
+      NerveDamage: 0
+    mangledMultipliers:
+      BoneDamage: 1
+  - type: BleedInflicter
+    severityThreshold: 20
+    bleedingCoefficient: 0.04
+    clotTime: 60
+    clotSeverityLimit: 40
+
+- type: entity
+  id: WoundPiercing
+  name: рана (Piercing)
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Wound
+    damageType: Piercing
+    woundType: External
+    woundVisibility: Always
+    mangleSeverity: Severe
+  - type: TraumaInflicter
+    severityThreshold: 9
+    allowArmourDeduction:
+    - Dismemberment
+    - OrganDamage
+    - BoneDamage
+    - VeinsDamage
+    - NerveDamage
+    traumasChances:
+      Dismemberment: 0
+      OrganDamage: 0.08
+      BoneDamage: -0.1
+      VeinsDamage: -0.4
+      NerveDamage: -0.4
+    mangledMultipliers:
+      BoneDamage: 0.1
+  - type: BleedInflicter
+    severityThreshold: 4
+    bleedingCoefficient: 0.1
+    clotTime: 150
+    clotSeverityLimit: 20
+
+- type: entity
+  id: WoundSlash
+  name: рана (Slash)
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Wound
+    damageType: Slash
+    woundType: External
+    woundVisibility: Always
+    mangleSeverity: Severe
+  - type: TraumaInflicter
+    severityThreshold: 9
+    allowArmourDeduction:
+    - OrganDamage # Dystopia: порез тоже задевает органы — броня защищает
+    - BoneDamage
+    - Dismemberment
+    - VeinsDamage
+    - NerveDamage
+    traumasChances:
+      Dismemberment: 0 # Dystopia: отрыв крайне редок
+      OrganDamage: 0
+      BoneDamage: 0
+      VeinsDamage: 0.27
+      NerveDamage: 0.27
+    mangledMultipliers:
+      BoneDamage: 0.2
+  - type: BleedInflicter
+    severityThreshold: 3
+    bleedingCoefficient: 0.08
+    clotTime: 120
+    clotSeverityLimit: 25
+
+- type: entity
+  id: WoundHeat
+  name: рана (Heat)
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: CauterizingWound # Dystopia: сильный ожог прижигает и останавливает кровь части
+    threshold: 5
+  - type: Wound
+    damageType: Heat
+    woundType: External
+    woundVisibility: Always
+  - type: TraumaInflicter
+    severityThreshold: 17
+    allowArmourDeduction:
+    - OrganDamage
+    - BoneDamage
+    - VeinsDamage
+    - NerveDamage
+    traumasChances:
+      Dismemberment: 0
+      OrganDamage: -0.12
+      BoneDamage: -0.21
+      VeinsDamage: 0.34
+      NerveDamage: 0.34
+
+- type: entity
+  id: WoundCold
+  name: рана (Cold)
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Wound
+    damageType: Cold
+    woundType: External
+    woundVisibility: Always
+  - type: TraumaInflicter
+    severityThreshold: 12
+    traumasChances:
+      Dismemberment: 0
+      OrganDamage: 0
+      BoneDamage: 0
+      VeinsDamage: 0.5
+      NerveDamage: 0.5
+
+- type: entity
+  id: WoundHoly
+  name: рана (Holy)
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Wound
+    damageType: Holy
+    woundType: Internal
+    woundVisibility: AdvancedScanner
+  - type: TraumaInflicter
+    severityThreshold: 0
+    traumasChances:
+      Dismemberment: 0
+      OrganDamage: 0
+      BoneDamage: 0
+      VeinsDamage: 0
+      NerveDamage: 0.777
+
+- type: entity
+  id: WoundShock
+  name: рана (Shock)
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Wound
+    damageType: Shock
+    woundType: Internal
+    woundVisibility: HandScanner
+  - type: TraumaInflicter
+    severityThreshold: 9
+    traumasChances:
+      Dismemberment: 0
+      OrganDamage: 0
+      BoneDamage: 0
+      VeinsDamage: 0.34
+      NerveDamage: 0.34
+
+- type: entity
+  id: WoundCellular
+  name: рана (Cellular)
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Wound
+    damageType: Cellular
+    woundType: Internal
+    woundVisibility: AdvancedScanner
+    selfHealMultiplier: 0.0
+  - type: TraumaInflicter
+    severityThreshold: 0
+    traumasChances:
+      Dismemberment: 0
+      OrganDamage: 0
+      BoneDamage: 0
+      VeinsDamage: 0.17
+      NerveDamage: 0.17
+
+- type: entity
+  id: WoundCaustic
+  name: рана (Caustic)
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Wound
+    damageType: Caustic
+    woundType: Internal
+    woundVisibility: AdvancedScanner
+  - type: TraumaInflicter
+    severityThreshold: 12
+    traumasChances:
+      Dismemberment: 0
+      OrganDamage: 0
+      BoneDamage: 0
+      VeinsDamage: 0.5
+      NerveDamage: 0.5
+
+- type: entity
+  id: WoundRadiation
+  name: рана (Radiation)
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Wound
+    damageType: Radiation
+    woundType: Internal
+    woundVisibility: HandScanner
+    selfHealMultiplier: 0.0
+  - type: TraumaInflicter
+    severityThreshold: 11
+    allowArmourDeduction:
+    - OrganDamage
+    traumasChances:
+      Dismemberment: 0
+      OrganDamage: 0.34
+      BoneDamage: 0
+      VeinsDamage: 0.34
+      NerveDamage: 0.34
+
+- type: entity
+  id: WoundPoison
+  name: рана (Poison)
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Wound
+    damageType: Poison
+    woundType: Internal
+    woundVisibility: HandScanner
+  - type: TraumaInflicter
+    severityThreshold: 7
+    traumasChances:
+      Dismemberment: 0
+      OrganDamage: -0.34
+      BoneDamage: 0
+      VeinsDamage: 0.12
+      NerveDamage: 0.12

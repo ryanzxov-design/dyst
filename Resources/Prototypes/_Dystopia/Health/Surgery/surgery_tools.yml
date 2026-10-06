@@ -1,0 +1,31 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Инструменты лечебной хирургии.
+
+- type: entity
+  parent: Retractor
+  id: HealthBoneSetter
+  name: костоправ
+  description: Хирургический инструмент, чтобы вправлять кости.
+  components:
+  - type: SurgeryTool
+    kinds: [ BoneSetter ]
+  - type: Sprite
+    sprite: Objects/Specific/Medical/Surgery/scissors.rsi
+    state: setter
+  - type: Item
+    heldPrefix: setter
+    storedRotation: 90
+
+- type: entity
+  parent: BaseItem
+  id: HealthBoneGel
+  name: костный гель
+  description: Тюбик геля, который скрепляет вправленную кость за считанные минуты.
+  components:
+  - type: Sprite
+    sprite: Objects/Specific/Medical/medical.rsi
+    state: ointment
+  - type: Item
+    size: Small
+  - type: SurgeryTool
+    kinds: [ BoneGel ]

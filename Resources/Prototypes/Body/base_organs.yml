@@ -54,6 +54,16 @@
   # Dystopia-Health: часть тела для системы здоровья
   - type: BodyPart
     partType: Chest
+  # Dystopia-Health: целостность части и раны
+  - type: Woundable
+    integrity: 200
+    integrityCap: 200
+    thresholds:
+      Minor: 180
+      Moderate: 120
+      Severe: 60
+      Critical: 30
+      Mangled: 0
   - type: Organ
     category: Torso
   - type: Sprite
@@ -85,6 +95,17 @@
   # Dystopia-Health: часть тела для системы здоровья
   - type: BodyPart
     partType: Head
+  # Dystopia-Health: целостность части и раны
+  - type: Woundable
+    boneEntity: HealthBoneNeck # Dystopia-Health
+    integrity: 125
+    integrityCap: 125
+    thresholds:
+      Minor: 110
+      Moderate: 70
+      Severe: 50
+      Critical: 20
+      Mangled: 0
   - type: Organ
     category: Head
   - type: Sprite
@@ -122,6 +143,16 @@
   - type: BodyPart
     partType: Arm
     symmetry: Left
+  # Dystopia-Health: целостность части и раны
+  - type: Woundable
+    integrity: 80
+    integrityCap: 80
+    thresholds:
+      Minor: 70
+      Moderate: 50
+      Severe: 25
+      Critical: 10
+      Mangled: 0
   - type: Organ
     category: ArmLeft
   - type: Sprite
@@ -148,6 +179,16 @@
   - type: BodyPart
     partType: Arm
     symmetry: Right
+  # Dystopia-Health: целостность части и раны
+  - type: Woundable
+    integrity: 80
+    integrityCap: 80
+    thresholds:
+      Minor: 70
+      Moderate: 50
+      Severe: 25
+      Critical: 10
+      Mangled: 0
   - type: Organ
     category: ArmRight
   - type: Sprite
@@ -173,6 +214,16 @@
   - type: BodyPart
     partType: Hand
     symmetry: Left
+  # Dystopia-Health: целостность части и раны
+  - type: Woundable
+    integrity: 50
+    integrityCap: 50
+    thresholds:
+      Minor: 42
+      Moderate: 36
+      Severe: 26
+      Critical: 15
+      Mangled: 0
   - type: Organ
     category: HandLeft
   - type: HandOrgan
@@ -202,6 +253,16 @@
   - type: BodyPart
     partType: Hand
     symmetry: Right
+  # Dystopia-Health: целостность части и раны
+  - type: Woundable
+    integrity: 60
+    integrityCap: 60
+    thresholds:
+      Minor: 50
+      Moderate: 40
+      Severe: 30
+      Critical: 18
+      Mangled: 0
   - type: Organ
     category: HandRight
   - type: HandOrgan
@@ -232,6 +293,16 @@
   - type: BodyPart
     partType: Leg
     symmetry: Left
+  # Dystopia-Health: целостность части и раны
+  - type: Woundable
+    integrity: 80
+    integrityCap: 80
+    thresholds:
+      Minor: 70
+      Moderate: 50
+      Severe: 25
+      Critical: 10
+      Mangled: 0
   - type: Organ
     category: LegLeft
   - type: Sprite
@@ -258,6 +329,16 @@
   - type: BodyPart
     partType: Leg
     symmetry: Right
+  # Dystopia-Health: целостность части и раны
+  - type: Woundable
+    integrity: 80
+    integrityCap: 80
+    thresholds:
+      Minor: 70
+      Moderate: 50
+      Severe: 25
+      Critical: 10
+      Mangled: 0
   - type: Organ
     category: LegRight
   - type: Sprite
@@ -283,6 +364,16 @@
   - type: BodyPart
     partType: Foot
     symmetry: Left
+  # Dystopia-Health: целостность части и раны
+  - type: Woundable
+    integrity: 60
+    integrityCap: 60
+    thresholds:
+      Minor: 50
+      Moderate: 40
+      Severe: 30
+      Critical: 18
+      Mangled: 0
   - type: Organ
     category: FootLeft
   - type: Sprite
@@ -308,6 +399,16 @@
   - type: BodyPart
     partType: Foot
     symmetry: Right
+  # Dystopia-Health: целостность части и раны
+  - type: Woundable
+    integrity: 60
+    integrityCap: 60
+    thresholds:
+      Minor: 50
+      Moderate: 40
+      Severe: 30
+      Critical: 18
+      Mangled: 0
   - type: Organ
     category: FootRight
   - type: Sprite

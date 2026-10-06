@@ -1,15 +1,10 @@
+<!-- Dystopia-Health: окно анализатора — кукла частей тела и вкладки «Тело / Органы / Химикаты».
+     Ванильный HealthAnalyzerControl остаётся для криокапсулы. -->
 <controls:FancyWindow
     xmlns="https://spacestation14.io"
     xmlns:controls="clr-namespace:Content.Client.UserInterface.Controls"
-    xmlns:ui="clr-namespace:Content.Client.HealthAnalyzer.UI"
-    MaxHeight="525"
-    MinWidth="300">
-    <ScrollContainer
-        Margin="5 5 5 5"
-        ReturnMeasure="True"
-        VerticalExpand="True">
-
-        <ui:HealthAnalyzerControl
-            Name="HealthAnalyzer"/>
-    </ScrollContainer>
+    xmlns:health="clr-namespace:Content.Client._Dystopia.Health.UserInterface.HealthAnalyzer"
+    MinWidth="800"
+    MinHeight="525">
+    <health:DystopiaHealthAnalyzerPanel Name="HealthAnalyzer" />
 </controls:FancyWindow>
