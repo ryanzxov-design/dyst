@@ -1,0 +1,605 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: готовые формы лекарств — бутылочка 30 ед., таблетка, баночка на 10 таблеток.
+# Русские названия и суффиксы для меню спавна — Locale/*/_dystopia/health/medicine-forms.ftl
+
+- type: entity
+  parent: BaseChemistryBottleFilled
+  id: ChemistryBottleParacetamol
+  suffix: Paracetamol
+  components:
+  - type: Label
+    localizedLabel: reagent-name-paracetamol
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Paracetamol
+        Quantity: 30
+
+- type: entity
+  parent: Pill
+  id: PillParacetamol
+  suffix: Paracetamol 10u
+  components:
+  - type: Pill
+    pillType: 0
+  - type: Sprite
+    state: pill1
+  - type: Label
+    localizedLabel: pill-label-paracetamol
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Paracetamol
+        Quantity: 10
+
+- type: entity
+  parent: PillCanister
+  id: PillCanisterParacetamol
+  suffix: Paracetamol 10u, 10
+  components:
+  - type: Label
+    localizedLabel: pill-label-paracetamol
+  - type: EntityTableContainerFill
+    containers:
+      storagebase:
+        id: PillParacetamol
+        amount: 10
+
+- type: entity
+  parent: BaseChemistryBottleFilled
+  id: ChemistryBottleTramadol
+  suffix: Tramadol
+  components:
+  - type: Label
+    localizedLabel: reagent-name-tramadol
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Tramadol
+        Quantity: 30
+
+- type: entity
+  parent: Pill
+  id: PillTramadol
+  suffix: Tramadol 10u
+  components:
+  - type: Pill
+    pillType: 4
+  - type: Sprite
+    state: pill5
+  - type: Label
+    localizedLabel: pill-label-tramadol
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Tramadol
+        Quantity: 10
+
+- type: entity
+  parent: PillCanister
+  id: PillCanisterTramadol
+  suffix: Tramadol 10u, 10
+  components:
+  - type: Label
+    localizedLabel: pill-label-tramadol
+  - type: EntityTableContainerFill
+    containers:
+      storagebase:
+        id: PillTramadol
+        amount: 10
+
+- type: entity
+  parent: BaseChemistryBottleFilled
+  id: ChemistryBottleMorphine
+  suffix: Morphine
+  components:
+  - type: Label
+    localizedLabel: reagent-name-morphine
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Morphine
+        Quantity: 30
+
+- type: entity
+  parent: Pill
+  id: PillMorphine
+  suffix: Morphine 10u
+  components:
+  - type: Pill
+    pillType: 9
+  - type: Sprite
+    state: pill10
+  - type: Label
+    localizedLabel: pill-label-morphine
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Morphine
+        Quantity: 10
+
+- type: entity
+  parent: PillCanister
+  id: PillCanisterMorphine
+  suffix: Morphine 10u, 10
+  components:
+  - type: Label
+    localizedLabel: pill-label-morphine
+  - type: EntityTableContainerFill
+    containers:
+      storagebase:
+        id: PillMorphine
+        amount: 10
+
+- type: entity
+  parent: BaseChemistryBottleFilled
+  id: ChemistryBottlePromedol
+  suffix: Promedol
+  components:
+  - type: Label
+    localizedLabel: reagent-name-promedol
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Promedol
+        Quantity: 30
+
+- type: entity
+  parent: Pill
+  id: PillPromedol
+  suffix: Promedol 10u
+  components:
+  - type: Pill
+    pillType: 11
+  - type: Sprite
+    state: pill12
+  - type: Label
+    localizedLabel: pill-label-promedol
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Promedol
+        Quantity: 10
+
+- type: entity
+  parent: PillCanister
+  id: PillCanisterPromedol
+  suffix: Promedol 10u, 10
+  components:
+  - type: Label
+    localizedLabel: pill-label-promedol
+  - type: EntityTableContainerFill
+    containers:
+      storagebase:
+        id: PillPromedol
+        amount: 10
+
+- type: entity
+  parent: BaseChemistryBottleFilled
+  id: ChemistryBottleNaloxone
+  suffix: Naloxone
+  components:
+  - type: Label
+    localizedLabel: reagent-name-naloxone
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Naloxone
+        Quantity: 30
+
+- type: entity
+  parent: Pill
+  id: PillNaloxone
+  suffix: Naloxone 5u
+  components:
+  - type: Pill
+    pillType: 13
+  - type: Sprite
+    state: pill14
+  - type: Label
+    localizedLabel: pill-label-naloxone
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Naloxone
+        Quantity: 5
+
+- type: entity
+  parent: PillCanister
+  id: PillCanisterNaloxone
+  suffix: Naloxone 5u, 10
+  components:
+  - type: Label
+    localizedLabel: pill-label-naloxone
+  - type: EntityTableContainerFill
+    containers:
+      storagebase:
+        id: PillNaloxone
+        amount: 10
+
+- type: entity
+  parent: BaseChemistryBottleFilled
+  id: ChemistryBottleCalcitonin
+  suffix: Calcitonin
+  components:
+  - type: Label
+    localizedLabel: reagent-name-calcitonin
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Calcitonin
+        Quantity: 30
+
+- type: entity
+  parent: Pill
+  id: PillCalcitonin
+  suffix: Calcitonin 10u
+  components:
+  - type: Pill
+    pillType: 15
+  - type: Sprite
+    state: pill16
+  - type: Label
+    localizedLabel: pill-label-calcitonin
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Calcitonin
+        Quantity: 10
+
+- type: entity
+  parent: PillCanister
+  id: PillCanisterCalcitonin
+  suffix: Calcitonin 10u, 10
+  components:
+  - type: Label
+    localizedLabel: pill-label-calcitonin
+  - type: EntityTableContainerFill
+    containers:
+      storagebase:
+        id: PillCalcitonin
+        amount: 10
+
+- type: entity
+  parent: BaseChemistryBottleFilled
+  id: ChemistryBottleAdemetionine
+  suffix: Ademetionine
+  components:
+  - type: Label
+    localizedLabel: reagent-name-ademetionine
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Ademetionine
+        Quantity: 30
+
+- type: entity
+  parent: Pill
+  id: PillAdemetionine
+  suffix: Ademetionine 10u
+  components:
+  - type: Pill
+    pillType: 16
+  - type: Sprite
+    state: pill17
+  - type: Label
+    localizedLabel: pill-label-ademetionine
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Ademetionine
+        Quantity: 10
+
+- type: entity
+  parent: PillCanister
+  id: PillCanisterAdemetionine
+  suffix: Ademetionine 10u, 10
+  components:
+  - type: Label
+    localizedLabel: pill-label-ademetionine
+  - type: EntityTableContainerFill
+    containers:
+      storagebase:
+        id: PillAdemetionine
+        amount: 10
+
+- type: entity
+  parent: BaseChemistryBottleFilled
+  id: ChemistryBottleSalbutamol
+  suffix: Salbutamol
+  components:
+  - type: Label
+    localizedLabel: reagent-name-salbutamol
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Salbutamol
+        Quantity: 30
+
+- type: entity
+  parent: Pill
+  id: PillSalbutamol
+  suffix: Salbutamol 10u
+  components:
+  - type: Pill
+    pillType: 6
+  - type: Sprite
+    state: pill7
+  - type: Label
+    localizedLabel: pill-label-salbutamol
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Salbutamol
+        Quantity: 10
+
+- type: entity
+  parent: PillCanister
+  id: PillCanisterSalbutamol
+  suffix: Salbutamol 10u, 10
+  components:
+  - type: Label
+    localizedLabel: pill-label-salbutamol
+  - type: EntityTableContainerFill
+    containers:
+      storagebase:
+        id: PillSalbutamol
+        amount: 10
+
+- type: entity
+  parent: BaseChemistryBottleFilled
+  id: ChemistryBottleDigoxin
+  suffix: Digoxin
+  components:
+  - type: Label
+    localizedLabel: reagent-name-digoxin
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Digoxin
+        Quantity: 30
+
+- type: entity
+  parent: Pill
+  id: PillDigoxin
+  suffix: Digoxin 5u
+  components:
+  - type: Pill
+    pillType: 18
+  - type: Sprite
+    state: pill19
+  - type: Label
+    localizedLabel: pill-label-digoxin
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Digoxin
+        Quantity: 5
+
+- type: entity
+  parent: PillCanister
+  id: PillCanisterDigoxin
+  suffix: Digoxin 5u, 10
+  components:
+  - type: Label
+    localizedLabel: pill-label-digoxin
+  - type: EntityTableContainerFill
+    containers:
+      storagebase:
+        id: PillDigoxin
+        amount: 10
+
+- type: entity
+  parent: BaseChemistryBottleFilled
+  id: ChemistryBottlePiracetam
+  suffix: Piracetam
+  components:
+  - type: Label
+    localizedLabel: reagent-name-piracetam
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Piracetam
+        Quantity: 30
+
+- type: entity
+  parent: Pill
+  id: PillPiracetam
+  suffix: Piracetam 10u
+  components:
+  - type: Pill
+    pillType: 1
+  - type: Sprite
+    state: pill2
+  - type: Label
+    localizedLabel: pill-label-piracetam
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Piracetam
+        Quantity: 10
+
+- type: entity
+  parent: PillCanister
+  id: PillCanisterPiracetam
+  suffix: Piracetam 10u, 10
+  components:
+  - type: Label
+    localizedLabel: pill-label-piracetam
+  - type: EntityTableContainerFill
+    containers:
+      storagebase:
+        id: PillPiracetam
+        amount: 10
+
+- type: entity
+  parent: BaseChemistryBottleFilled
+  id: ChemistryBottleIpidacrine
+  suffix: Ipidacrine
+  components:
+  - type: Label
+    localizedLabel: reagent-name-ipidacrine
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Ipidacrine
+        Quantity: 30
+
+- type: entity
+  parent: Pill
+  id: PillIpidacrine
+  suffix: Ipidacrine 10u
+  components:
+  - type: Pill
+    pillType: 14
+  - type: Sprite
+    state: pill15
+  - type: Label
+    localizedLabel: pill-label-ipidacrine
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Ipidacrine
+        Quantity: 10
+
+- type: entity
+  parent: PillCanister
+  id: PillCanisterIpidacrine
+  suffix: Ipidacrine 10u, 10
+  components:
+  - type: Label
+    localizedLabel: pill-label-ipidacrine
+  - type: EntityTableContainerFill
+    containers:
+      storagebase:
+        id: PillIpidacrine
+        amount: 10
+
+- type: entity
+  parent: BaseChemistryBottleFilled
+  id: ChemistryBottlePropofol
+  suffix: Propofol
+  components:
+  - type: Label
+    localizedLabel: reagent-name-propofol
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Propofol
+        Quantity: 30
+
+- type: entity
+  parent: Pill
+  id: PillPropofol
+  suffix: Propofol 5u
+  components:
+  - type: Pill
+    pillType: 19
+  - type: Sprite
+    state: pill20
+  - type: Label
+    localizedLabel: pill-label-propofol
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Propofol
+        Quantity: 5
+
+- type: entity
+  parent: PillCanister
+  id: PillCanisterPropofol
+  suffix: Propofol 5u, 10
+  components:
+  - type: Label
+    localizedLabel: pill-label-propofol
+  - type: EntityTableContainerFill
+    containers:
+      storagebase:
+        id: PillPropofol
+        amount: 10
+
+- type: entity
+  parent: BaseChemistryBottleFilled
+  id: ChemistryBottleKetamine
+  suffix: Ketamine
+  components:
+  - type: Label
+    localizedLabel: reagent-name-ketamine
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Ketamine
+        Quantity: 30
+
+- type: entity
+  parent: Pill
+  id: PillKetamine
+  suffix: Ketamine 10u
+  components:
+  - type: Pill
+    pillType: 20
+  - type: Sprite
+    state: pill21
+  - type: Label
+    localizedLabel: pill-label-ketamine
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Ketamine
+        Quantity: 10
+
+- type: entity
+  parent: PillCanister
+  id: PillCanisterKetamine
+  suffix: Ketamine 10u, 10
+  components:
+  - type: Label
+    localizedLabel: pill-label-ketamine
+  - type: EntityTableContainerFill
+    containers:
+      storagebase:
+        id: PillKetamine
+        amount: 10
+
+- type: entity
+  parent: BaseChemistryBottleFilled
+  id: ChemistryBottleMidazolam
+  suffix: Midazolam
+  components:
+  - type: Label
+    localizedLabel: reagent-name-midazolam
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Midazolam
+        Quantity: 30
+
+- type: entity
+  parent: Pill
+  id: PillMidazolam
+  suffix: Midazolam 10u
+  components:
+  - type: Pill
+    pillType: 12
+  - type: Sprite
+    state: pill13
+  - type: Label
+    localizedLabel: pill-label-midazolam
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Midazolam
+        Quantity: 10
+
+- type: entity
+  parent: PillCanister
+  id: PillCanisterMidazolam
+  suffix: Midazolam 10u, 10
+  components:
+  - type: Label
+    localizedLabel: pill-label-midazolam
+  - type: EntityTableContainerFill
+    containers:
+      storagebase:
+        id: PillMidazolam
+        amount: 10

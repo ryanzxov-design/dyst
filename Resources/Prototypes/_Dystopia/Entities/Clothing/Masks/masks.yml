@@ -100,6 +100,14 @@
   - type: FlashImmunity
   - type: EyeProtection
     protectionTime: 5
+  # Слабое ночное зрение окуляров: тьма чуть светлее, яркие места не пересвечиваются (свет складывается и упирается в предел)
+  - type: NightVision
+    relayOverlay: true
+    prioritized: false # настоящие ПНВ важнее
+    lightingColor: "#C4D8FF2C" # альфа 2C ≈ 17% — сила подсветки; у мобов-«ночников» 15, у призрака 20
+    overlayColor: "#FFFFFF00"
+    noiseAmount: 0
+    noiseMultiplier: 0
   - type: DystopiaVisor
     tint: "#2F86FF"
     centerStrength: 0
