@@ -34,9 +34,17 @@ public sealed partial class PainComponent : Component
     [ViewVariables, AutoNetworkedField]
     public float RawPain;
 
-    /// <summary>Сколько боли сейчас глушат лекарства.</summary>
+    /// <summary>Сила обезболивания в крови (сумма «количество × сила» лекарств).</summary>
     [ViewVariables, AutoNetworkedField]
     public float Suppression;
+
+    /// <summary>Какую долю боли сейчас глушат лекарства (0..MaxAnalgesia).</summary>
+    [ViewVariables, AutoNetworkedField]
+    public float Analgesia;
+
+    /// <summary>Обезболивание достаточно сильное, чтобы не было болевого шока.</summary>
+    [ViewVariables, AutoNetworkedField]
+    public bool ShockBlocked;
 
     [ViewVariables, AutoNetworkedField]
     public PainLevel Level = PainLevel.None;
@@ -95,7 +103,7 @@ public sealed partial class PainComponent : Component
     [DataField]
     public float SplintPainMultiplier = 0.5f;
 
-    /// <summary>Обезболивание: сколько боли глушит единица вещества в крови.</summary>
+    /// <summary>Сила обезболивания единицы вещества в крови.</summary>
     [DataField]
     public Dictionary<ProtoId<ReagentPrototype>, float> Painkillers = new()
     {
@@ -115,8 +123,23 @@ public sealed partial class PainComponent : Component
         { "Midazolam", 0.5f },
     };
 
+    /// <summary>
+    /// Обезболивание глушит долю боли, а не фиксированное число: доля = сила / (сила + AnalgesiaHalfStrength),
+    /// не больше MaxAnalgesia. Сила 30 — половина боли, 75 (15 ед. промедола) — около 70%.
+    /// </summary>
     [DataField]
-    public float MaxSuppression = 90f;
+    public float AnalgesiaHalfStrength = 30f;
+
+    /// <summary>Сильнее этого лекарства боль не глушат: что-то человек чувствует всегда.</summary>
+    [DataField]
+    public float MaxAnalgesia = 0.9f;
+
+    /// <summary>
+    /// С такой силы обезболивания болевого шока нет (уровень боли не выше «сильной») — как противошоковое
+    /// действие промедола и морфина. 30 — это 6 ед. промедола, 8 ед. морфина, 15 ед. трамадола.
+    /// </summary>
+    [DataField]
+    public float ShockBlockStrength = 30f;
 
     /// <summary>Растворы тела, в которых ищем обезболивающее.</summary>
     [DataField]

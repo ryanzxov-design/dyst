@@ -29,12 +29,9 @@
   blocksHealing: true
   target: ParentWoundable
   traumaEntity: TraumaDismemberment
-  causes:
-  - !type:WoundSeverityCause
-    damageTypes: [ Blunt, Piercing, Slash ]
-    chance: !type:DismembermentChance
-      damageTypeMultipliers:
-        Piercing: 0.05
+  # Dystopia: случайного отрыва травмой нет. У разрушенной части со сломанной костью шанс этой травмы
+  # выходил ~100% за удар, и меч отрывал руку за 3–4 удара. Отрыв — только WoundSystem.TryDismemberDestroyed:
+  # шанс за удар = WoundableComponent.DismemberChances (порез 10%, ушиб 5%...) × сила удара / 25 × (1 − броня).
 
 - type: traumaType
   id: OrganDamage

@@ -339,8 +339,9 @@ public sealed partial class DystopiaHealthAnalyzerPanel : BoxContainer
         {
             if (pain.Level != Content.Shared._Dystopia.Health.Medical.Pain.PainLevel.None)
                 AddCondition(Loc.GetString($"condition-pain-{pain.Level}", ("pain", (int) pain.Pain)));
-            if (pain.Suppression >= 5f)
-                AddCondition(Loc.GetString("condition-pain-suppressed", ("amount", (int) pain.Suppression)));
+            if (pain.Analgesia >= 0.05f)
+                AddCondition(Loc.GetString(pain.ShockBlocked ? "condition-pain-suppressed-shock" : "condition-pain-suppressed",
+                    ("percent", (int) MathF.Round(pain.Analgesia * 100f))));
         }
 
         // Зависимость и ломка

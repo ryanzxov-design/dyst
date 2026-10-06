@@ -69,8 +69,12 @@ public sealed partial class PainSystem : EntitySystem
     {
         var comp = ent.Comp;
         var raw = _mobState.IsDead(ent) ? 0f : CalculateRawPain(ent);
-        var suppression = MathF.Min(CalculateSuppression(ent), comp.MaxSuppression);
-        var target = MathF.Max(0f, raw - suppression);
+        var suppression = CalculateSuppression(ent);
+        var analgesia = suppression <= 0f
+            ? 0f
+            : MathF.Min(comp.MaxAnalgesia, suppression / (suppression + comp.AnalgesiaHalfStrength));
+        var shockBlocked = suppression >= comp.ShockBlockStrength;
+        var target = raw * (1f - analgesia);
 
         // Ощущаемая боль плавно догоняет настоящую
         var step = comp.AdjustRate * dt;
@@ -83,13 +87,20 @@ public sealed partial class PainSystem : EntitySystem
                 level = candidate;
         }
 
+        // Сильное обезболивание снимает болевой шок: боль остаётся сильной, но человек в сознании
+        if (shockBlocked && level > PainLevel.Severe)
+            level = PainLevel.Severe;
+
         var changed = MathF.Abs(pain - comp.Pain) > 0.05f || MathF.Abs(raw - comp.RawPain) > 0.05f
-            || MathF.Abs(suppression - comp.Suppression) > 0.05f || level != comp.Level;
+            || MathF.Abs(suppression - comp.Suppression) > 0.05f || level != comp.Level
+            || MathF.Abs(analgesia - comp.Analgesia) > 0.005f || shockBlocked != comp.ShockBlocked;
         var oldLevel = comp.Level;
 
         comp.Pain = pain;
         comp.RawPain = raw;
         comp.Suppression = suppression;
+        comp.Analgesia = analgesia;
+        comp.ShockBlocked = shockBlocked;
         comp.Level = level;
         if (changed)
             Dirty(ent);

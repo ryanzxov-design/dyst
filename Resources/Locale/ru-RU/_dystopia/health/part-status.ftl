@@ -146,7 +146,8 @@ condition-pain-Mild = • Лёгкая боль ({ $pain }).
 condition-pain-Moderate = • Умеренная боль ({ $pain }).
 condition-pain-Severe = • Сильная боль ({ $pain })!
 condition-pain-Shock = • Болевой шок ({ $pain })!
-condition-pain-suppressed = • Действует обезболивание (−{ $amount }).
+condition-pain-suppressed = • Действует обезболивание: глушит { $percent }% боли.
+condition-pain-suppressed-shock = • Действует обезболивание: глушит { $percent }% боли, болевого шока не будет.
 
 ## Сознание
 consciousness-dizzy = Голова кружится, в глазах темнеет...
