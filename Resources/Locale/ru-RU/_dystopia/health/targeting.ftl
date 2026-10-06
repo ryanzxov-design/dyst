@@ -2,7 +2,7 @@
 ui-options-header-targeting = Прицеливание
 ui-options-function-target-head = Целиться в голову
 ui-options-function-target-chest = Целиться в грудь
-ui-options-function-target-groin = Целиться в пах
+ui-options-function-target-groin = Целиться в живот
 ui-options-function-target-left-arm = Целиться в левую руку
 ui-options-function-target-right-arm = Целиться в правую руку
 ui-options-function-target-left-hand = Целиться в левую кисть

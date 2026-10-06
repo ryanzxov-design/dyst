@@ -1,6 +1,7 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 # Шаги операций. Перенос Shitmed из Goob-Station (space-syndicate/Goob-Station, AGPL-3.0), адаптация Dystopia.
 # Шаг выполнен, когда на части тела есть компоненты из add и нет компонентов из remove (и особые проверки).
+# Иконка шага — спрайт предмета, которым его делают.
 # Боль шага (amount) держится painDuration секунд; во сне она умножается на sleepModifier.
 
 - type: entityCategory
@@ -33,7 +34,7 @@
     - type: IncisionOpen
     duration: 2
   - type: Sprite
-    sprite: _Dystopia/Health/Surgery/steps.rsi
+    sprite: _Dystopia/Health/Surgery/Tools/scalpel.rsi
     state: scalpel
   - type: SurgeryStepPainInflicter
     amount: 34
@@ -53,7 +54,7 @@
     - type: SkinRetracted
     duration: 2
   - type: Sprite
-    sprite: _Dystopia/Health/Surgery/steps.rsi
+    sprite: _Dystopia/Health/Surgery/Tools/retractor.rsi
     state: retractor
   - type: SurgeryStepPainInflicter
     amount: 12
@@ -72,7 +73,7 @@
     - type: BleedersClamped
     duration: 4
   - type: Sprite
-    sprite: _Dystopia/Health/Surgery/steps.rsi
+    sprite: _Dystopia/Health/Surgery/Tools/hemostat.rsi
     state: hemostat
   - type: SurgeryRepeatableStep
   - type: SurgeryBleedsTreatmentStep
@@ -89,8 +90,8 @@
     - type: BleedersClamped
     duration: 5
   - type: Sprite
-    sprite: _Dystopia/Health/Surgery/steps.rsi
-    state: stitches
+    sprite: Objects/Specific/Medical/medical.rsi
+    state: medicated-suture
   - type: SurgeryStepPainInflicter
     amount: 34
     painDuration: 30
@@ -108,7 +109,7 @@
     - type: InternalBleedersClamped
     duration: 2
   - type: Sprite
-    sprite: _Dystopia/Health/Surgery/steps.rsi
+    sprite: _Dystopia/Health/Surgery/Tools/hemostat.rsi
     state: hemostat
 
 - type: entity
@@ -123,8 +124,8 @@
     - type: BonesSawed
     duration: 4
   - type: Sprite
-    sprite: _Dystopia/Health/Surgery/steps.rsi
-    state: saw
+    sprite: _Dystopia/Health/Surgery/Tools/circular-saw.rsi
+    state: circular-saw
   - type: SurgeryStepPainInflicter
     amount: 34
     painDuration: 40
@@ -143,7 +144,7 @@
     - type: BonesOpen
     duration: 2
   - type: Sprite
-    sprite: _Dystopia/Health/Surgery/steps.rsi
+    sprite: _Dystopia/Health/Surgery/Tools/retractor.rsi
     state: retractor
   - type: SurgeryStepPainInflicter
     amount: 20
@@ -164,7 +165,7 @@
     - type: BonesOpen
     duration: 2
   - type: Sprite
-    sprite: _Dystopia/Health/Surgery/steps.rsi
+    sprite: _Dystopia/Health/Surgery/Tools/retractor.rsi
     state: retractor
 
 - type: entity
@@ -179,8 +180,8 @@
     - type: BonesSawed
     duration: 2
   - type: Sprite
-    sprite: _Dystopia/Health/Surgery/steps.rsi
-    state: bone-gel
+    sprite: _Dystopia/Health/Objects/medical_tools.rsi
+    state: bone_gel
 
 - type: entity
   parent: SurgeryStepBase
@@ -200,7 +201,7 @@
     - type: BoneSet
     duration: 2
   - type: Sprite
-    sprite: _Dystopia/Health/Surgery/steps.rsi
+    sprite: _Dystopia/Health/Surgery/Tools/cautery.rsi
     state: cautery
   - type: SurgeryStepPainInflicter
     amount: 9
@@ -221,8 +222,8 @@
     - type: BoneSet
     duration: 4
   - type: Sprite
-    sprite: _Dystopia/Health/Surgery/steps.rsi
-    state: bonesetter
+    sprite: _Dystopia/Health/Objects/medical_tools.rsi
+    state: bone_setter
   - type: SurgeryStepPainInflicter
     amount: 40
     painDuration: 40
@@ -239,8 +240,8 @@
     - type: BoneGel
     duration: 5
   - type: Sprite
-    sprite: _Dystopia/Health/Surgery/steps.rsi
-    state: bone-gel
+    sprite: _Dystopia/Health/Objects/medical_tools.rsi
+    state: bone_gel
   - type: SurgeryStepPainInflicter
     amount: 12
     painDuration: 10
@@ -262,7 +263,7 @@
     - type: Tending
     duration: 6
   - type: Sprite
-    sprite: _Dystopia/Health/Surgery/steps.rsi
+    sprite: _Dystopia/Health/Surgery/Tools/hemostat.rsi
     state: hemostat
   - type: SurgeryStepPainInflicter
     amount: 24
@@ -283,7 +284,7 @@
     - type: Tending
     duration: 10
   - type: Sprite
-    sprite: _Dystopia/Health/Surgery/steps.rsi
+    sprite: _Dystopia/Health/Surgery/Tools/hemostat.rsi
     state: hemostat
   - type: SurgeryStepPainInflicter
     amount: 40
@@ -304,7 +305,7 @@
     - type: Tweezers
     duration: 8
   - type: Sprite
-    sprite: _Dystopia/Health/Surgery/steps.rsi
+    sprite: _Dystopia/Health/Surgery/Tools/hemostat.rsi
     state: hemostat
   - type: SurgeryRemoveOrganStep
   - type: SurgeryStepPainInflicter
@@ -321,7 +322,7 @@
   - type: SurgeryStep
     duration: 6
   - type: Sprite
-    sprite: _Dystopia/Health/Surgery/steps.rsi
+    sprite: _Dystopia/Health/Surgery/Tools/manipulation.rsi
     state: insertion
   - type: SurgeryAddOrganStep
   - type: SurgeryStepPainInflicter
@@ -340,7 +341,7 @@
     duration: 2
   - type: SurgeryAffixOrganStep
   - type: Sprite
-    sprite: _Dystopia/Health/Surgery/steps.rsi
+    sprite: _Dystopia/Health/Surgery/Tools/cautery.rsi
     state: cautery
   - type: SurgeryStepPainInflicter
     amount: 21
@@ -361,8 +362,8 @@
     - type: BodyPartSawed
     duration: 4
   - type: Sprite
-    sprite: _Dystopia/Health/Surgery/steps.rsi
-    state: saw
+    sprite: _Dystopia/Health/Surgery/Tools/circular-saw.rsi
+    state: circular-saw
   - type: SurgeryStepPainInflicter
     amount: 26
     painDuration: 40
@@ -384,8 +385,8 @@
     - type: IncisionOpen
     duration: 8
   - type: Sprite
-    sprite: _Dystopia/Health/Surgery/steps.rsi
-    state: saw
+    sprite: _Dystopia/Health/Surgery/Tools/circular-saw.rsi
+    state: circular-saw
   - type: SurgeryRemovePartStep
   - type: SurgeryStepPainInflicter
     amount: 50
@@ -401,7 +402,7 @@
   - type: SurgeryStep
     duration: 6
   - type: Sprite
-    sprite: _Dystopia/Health/Surgery/steps.rsi
+    sprite: _Dystopia/Health/Surgery/Tools/manipulation.rsi
     state: insertion
   - type: SurgeryAddPartStep
 
@@ -421,7 +422,7 @@
     duration: 3
   - type: SurgeryAffixPartStep
   - type: Sprite
-    sprite: _Dystopia/Health/Surgery/steps.rsi
+    sprite: _Dystopia/Health/Surgery/Tools/cautery.rsi
     state: cautery
   - type: SurgeryStepPainInflicter
     amount: 12
@@ -442,7 +443,7 @@
     - type: IncisionOpen
     duration: 3
   - type: Sprite
-    sprite: _Dystopia/Health/Surgery/steps.rsi
+    sprite: _Dystopia/Health/Surgery/Tools/scalpel.rsi
     state: scalpel
   - type: SurgeryStepPainInflicter
     amount: 17
@@ -459,7 +460,7 @@
     - type: Tending
     duration: 1.5
   - type: Sprite
-    sprite: _Dystopia/Health/Surgery/steps.rsi
+    sprite: _Dystopia/Health/Surgery/Tools/hemostat.rsi
     state: hemostat
   - type: SurgeryTendWoundsEffect
     mainGroup: Brute
@@ -476,7 +477,7 @@
     - type: Tending
     duration: 1.5
   - type: Sprite
-    sprite: _Dystopia/Health/Surgery/steps.rsi
+    sprite: _Dystopia/Health/Surgery/Tools/hemostat.rsi
     state: hemostat
   - type: SurgeryTendWoundsEffect
     mainGroup: Burn
@@ -495,7 +496,7 @@
     - type: IncisionOpen
     duration: 2
   - type: Sprite
-    sprite: _Dystopia/Health/Surgery/steps.rsi
+    sprite: _Dystopia/Health/Surgery/Tools/cautery.rsi
     state: cautery
   - type: SurgeryStepPainInflicter
     amount: 21
@@ -514,8 +515,8 @@
     - type: Stitches
     duration: 6
   - type: Sprite
-    sprite: _Dystopia/Health/Surgery/steps.rsi
-    state: stitches
+    sprite: Objects/Specific/Medical/medical.rsi
+    state: medicated-suture
   - type: SurgeryTraumaTreatmentStep
     traumaType: VeinsDamage
   - type: SurgeryStepPainInflicter
@@ -533,7 +534,7 @@
     - type: Tweezers
     duration: 8
   - type: Sprite
-    sprite: _Dystopia/Health/Surgery/steps.rsi
+    sprite: _Dystopia/Health/Surgery/Tools/hemostat.rsi
     state: hemostat
   - type: SurgeryTraumaTreatmentStep
     traumaType: NerveDamage
@@ -555,7 +556,7 @@
     - type: BodyPartSawed
     duration: 4
   - type: Sprite
-    sprite: _Dystopia/Health/Surgery/steps.rsi
+    sprite: _Dystopia/Health/Surgery/Tools/scalpel.rsi
     state: scalpel
   - type: SurgeryStepPainInflicter
     amount: 45
@@ -574,8 +575,8 @@
     - type: BodyPartSawed
     duration: 8
   - type: Sprite
-    sprite: _Dystopia/Health/Surgery/steps.rsi
-    state: stitches
+    sprite: Objects/Specific/Medical/medical.rsi
+    state: medicated-suture
   - type: SurgeryTraumaTreatmentStep
     traumaType: Dismemberment
   - type: SurgeryStepPainInflicter

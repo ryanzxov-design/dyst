@@ -26,6 +26,7 @@ public sealed partial class SurgeryToolExamineSystem : EntitySystem
             return;
 
         var msg = FormattedMessage.FromMarkupOrThrow(Loc.GetString("surgery-tool-header"));
+        _shown.Clear();
         AddTool<ScalpelComponent>(ent, msg);
         AddTool<RetractorComponent>(ent, msg);
         AddTool<HemostatComponent>(ent, msg);
@@ -43,9 +44,12 @@ public sealed partial class SurgeryToolExamineSystem : EntitySystem
             Loc.GetString("surgery-tool-examinable-verb-message"));
     }
 
+    /// <summary>Названия, уже выведенные в списке (зажим служит и пинцетом, и для тканей — одна строка).</summary>
+    private readonly HashSet<string> _shown = new();
+
     private void AddTool<T>(EntityUid uid, FormattedMessage msg) where T : IComponent, ISurgeryToolComponent
     {
-        if (!TryComp<T>(uid, out var comp))
+        if (!TryComp<T>(uid, out var comp) || !_shown.Add(Loc.GetString(comp.ToolName)))
             return;
 
         var color = comp.Speed switch

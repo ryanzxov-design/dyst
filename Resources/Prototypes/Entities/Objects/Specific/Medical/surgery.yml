@@ -23,11 +23,16 @@
   components:
   # Dystopia-Surgery: хирургия Shitmed, см. Content.Shared/_Dystopia/Health/Surgery
   - type: Cautery
-  - type: Sprite
-    sprite: Objects/Specific/Medical/Surgery/cautery.rsi
+  - type: SurgeryTool # Dystopia-Surgery: звуки инструмента (Shitmed)
+    startSound:
+      path: /Audio/_Dystopia/Health/Surgery/cautery1.ogg
+    endSound:
+      path: /Audio/_Dystopia/Health/Surgery/cautery2.ogg
+  - type: Sprite # Dystopia-Surgery: спрайт Shitmed
+    sprite: _Dystopia/Health/Surgery/Tools/cautery.rsi
     state: cautery
   - type: Item
-    sprite: Objects/Specific/Medical/Surgery/cautery.rsi
+    sprite: _Dystopia/Health/Surgery/Tools/cautery.rsi
     storedRotation: 90
   - type: MeleeWeapon
     damage:
@@ -46,11 +51,14 @@
   components:
   # Dystopia-Surgery: хирургия Shitmed, см. Content.Shared/_Dystopia/Health/Surgery
   - type: Drill
-  - type: Sprite
-    sprite: Objects/Specific/Medical/Surgery/drill.rsi
+  - type: SurgeryTool # Dystopia-Surgery: звуки инструмента (Shitmed)
+    startSound:
+      path: /Audio/_Dystopia/Health/Surgery/saw.ogg
+  - type: Sprite # Dystopia-Surgery: спрайт Shitmed
+    sprite: _Dystopia/Health/Surgery/Tools/drill.rsi
     state: drill
   - type: Item
-    sprite: Objects/Specific/Medical/Surgery/drill.rsi
+    sprite: _Dystopia/Health/Surgery/Tools/drill.rsi
     shape:
     - 0,0,1,0
     - 1,1,1,1
@@ -80,11 +88,16 @@
   - type: Utensil
     types:
       - Knife
-  - type: Sprite
-    sprite: Objects/Specific/Medical/Surgery/scalpel.rsi
+  - type: SurgeryTool # Dystopia-Surgery: звуки инструмента (Shitmed)
+    startSound:
+      path: /Audio/_Dystopia/Health/Surgery/scalpel1.ogg
+    endSound:
+      path: /Audio/_Dystopia/Health/Surgery/scalpel2.ogg
+  - type: Sprite # Dystopia-Surgery: спрайт Shitmed
+    sprite: _Dystopia/Health/Surgery/Tools/scalpel.rsi
     state: scalpel
   - type: Item
-    sprite: Objects/Specific/Medical/Surgery/scalpel.rsi
+    sprite: _Dystopia/Health/Surgery/Tools/scalpel.rsi
     storedRotation: 90
   - type: MeleeWeapon
     wideAnimationRotation: 90
@@ -106,8 +119,10 @@
   - type: Scalpel
     speed: 0.7
   - type: Sprite
+    sprite: Objects/Specific/Medical/Surgery/scalpel.rsi
     state: shiv
   - type: Item
+    sprite: Objects/Specific/Medical/Surgery/scalpel.rsi
     heldPrefix: shiv
   - type: Fixtures
     fixtures:
@@ -131,8 +146,10 @@
   - type: Scalpel
     speed: 1.5
   - type: Sprite
+    sprite: Objects/Specific/Medical/Surgery/scalpel.rsi
     state: advanced
   - type: Item
+    sprite: Objects/Specific/Medical/Surgery/scalpel.rsi
     heldPrefix: advanced
   - type: MeleeWeapon
     damage:
@@ -151,8 +168,10 @@
   - type: Cautery # лазер прижигает, пока режет
     speed: 1.2
   - type: Sprite
+    sprite: Objects/Specific/Medical/Surgery/scalpel.rsi
     state: laser
   - type: Item
+    sprite: Objects/Specific/Medical/Surgery/scalpel.rsi
     heldPrefix: laser
 
 # Scissors
@@ -165,11 +184,16 @@
   components:
   # Dystopia-Surgery: хирургия Shitmed, см. Content.Shared/_Dystopia/Health/Surgery
   - type: Retractor
-  - type: Sprite
-    sprite: Objects/Specific/Medical/Surgery/scissors.rsi
+  - type: SurgeryTool # Dystopia-Surgery: звуки инструмента (Shitmed)
+    startSound:
+      path: /Audio/_Dystopia/Health/Surgery/retractor1.ogg
+    endSound:
+      path: /Audio/_Dystopia/Health/Surgery/retractor2.ogg
+  - type: Sprite # Dystopia-Surgery: спрайт Shitmed
+    sprite: _Dystopia/Health/Surgery/Tools/retractor.rsi
     state: retractor
   - type: Item
-    sprite: Objects/Specific/Medical/Surgery/scissors.rsi
+    sprite: _Dystopia/Health/Surgery/Tools/retractor.rsi
     storedRotation: 90
 
 - type: entity
@@ -182,12 +206,16 @@
   - type: Hemostat
   - type: Tweezers
   - type: Tending
-  - type: Sprite
-    sprite: Objects/Specific/Medical/Surgery/scissors.rsi
+  - type: SurgeryTool # Dystopia-Surgery: звуки инструмента (Shitmed)
+    startSound:
+      path: /Audio/_Dystopia/Health/Surgery/retractor1.ogg
+    endSound:
+      path: /Audio/_Dystopia/Health/Surgery/hemostat1.ogg
+  - type: Sprite # Dystopia-Surgery: спрайт Shitmed
+    sprite: _Dystopia/Health/Surgery/Tools/hemostat.rsi
     state: hemostat
   - type: Item
-    sprite: Objects/Specific/Medical/Surgery/scissors.rsi
-    heldPrefix: hemostat
+    sprite: _Dystopia/Health/Surgery/Tools/hemostat.rsi
     storedRotation: 90
 
   # - type: entity
@@ -206,6 +234,9 @@
   components:
   # Dystopia-Surgery: хирургия Shitmed, см. Content.Shared/_Dystopia/Health/Surgery
   - type: BoneSaw
+  - type: SurgeryTool # Dystopia-Surgery: звуки инструмента (Shitmed)
+    startSound:
+      path: /Audio/_Dystopia/Health/Surgery/bone_saw.ogg
   - type: Utensil
     types:
       - Knife
@@ -254,10 +285,14 @@
   # Dystopia-Surgery: хирургия Shitmed, см. Content.Shared/_Dystopia/Health/Surgery
   - type: BoneSaw
     speed: 1.5
-  - type: Sprite
-    state: electric
+  - type: SurgeryTool # Dystopia-Surgery: звуки инструмента (Shitmed)
+    startSound:
+      path: /Audio/_Dystopia/Health/Surgery/saw.ogg
+  - type: Sprite # Dystopia-Surgery: спрайт Shitmed
+    sprite: _Dystopia/Health/Surgery/Tools/circular-saw.rsi
+    state: circular-saw
   - type: Item
-    heldPrefix: electric
+    sprite: _Dystopia/Health/Surgery/Tools/circular-saw.rsi
   - type: MeleeWeapon
     damage:
       types:
@@ -277,8 +312,10 @@
   - type: BoneSaw
     speed: 2
   - type: Sprite
+    sprite: Objects/Specific/Medical/Surgery/saw.rsi
     state: advanced
   - type: Item
+    sprite: Objects/Specific/Medical/Surgery/saw.rsi
     heldPrefix: advanced
   - type: MeleeWeapon
     attackRate: 1.5

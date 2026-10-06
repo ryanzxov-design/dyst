@@ -4,7 +4,7 @@
 
 - type: entity
   id: OrganGroin
-  name: пах
+  name: живот
   description: 'Нижняя часть туловища: к ней крепятся ноги, в ней желудок, печень и почки.'
   components:
   - type: ChildOrgan

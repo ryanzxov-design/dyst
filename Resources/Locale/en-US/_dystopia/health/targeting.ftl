@@ -2,7 +2,7 @@
 ui-options-header-targeting = Targeting
 ui-options-function-target-head = Target head
 ui-options-function-target-chest = Target chest
-ui-options-function-target-groin = Target groin
+ui-options-function-target-groin = Target abdomen
 ui-options-function-target-left-arm = Target left arm
 ui-options-function-target-right-arm = Target right arm
 ui-options-function-target-left-hand = Target left hand

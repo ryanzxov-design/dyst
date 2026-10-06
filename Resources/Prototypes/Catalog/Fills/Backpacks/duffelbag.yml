@@ -8,12 +8,22 @@
     containers:
       storagebase: !type:AllSelector
         children:
-        - id: Hemostat
-        - id: Saw
-        - id: Drill
-        - id: Cautery
-        - id: Retractor
+        # Dystopia-Surgery: полный набор для хирургии Shitmed
         - id: Scalpel
+        - id: Retractor
+        - id: Hemostat
+        - id: Cautery
+        - id: SawElectric
+        - id: Drill
+        - id: HealthBoneSetter
+        - id: HealthBoneGel
+        - id: MedicatedSuture
+        - id: ClothingHandsGlovesLatex # стерильность: перчатки и маска
+        - id: ClothingMaskSterile
+        - id: HealthLidocaineSyringe # местная анестезия
+          amount: 2
+        - id: ChemistryBottlePropofol # наркоз
+        - id: Syringe
 
 - type: entity
   parent: ClothingBackpackDuffelSyndicateMedicalBundle

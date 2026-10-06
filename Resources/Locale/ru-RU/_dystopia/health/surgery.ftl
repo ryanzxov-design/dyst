@@ -32,16 +32,16 @@ surgery-tool-examinable-verb-message = Чем этот предмет служи
 surgery-tool-turn-on = Сначала включите инструмент.
 
 surgery-tool-name-scalpel = скальпель
-surgery-tool-name-retractor = ранорасширитель
-surgery-tool-name-hemostat = кровоостанавливающий зажим
-surgery-tool-name-bonesaw = пила для костей
-surgery-tool-name-cautery = прижигатель
-surgery-tool-name-drill = хирургическая дрель
+surgery-tool-name-retractor = ретрактор
+surgery-tool-name-hemostat = гемостат
+surgery-tool-name-bonesaw = пила
+surgery-tool-name-cautery = прибор для прижигания
+surgery-tool-name-drill = дрель
 surgery-tool-name-bonesetter = костоправ
 surgery-tool-name-bonegel = костный гель
-surgery-tool-name-tweezers = пинцет
-surgery-tool-name-tending = инструмент для обработки тканей
-surgery-tool-name-stitches = хирургическая нить
+surgery-tool-name-tweezers = гемостат
+surgery-tool-name-tending = гемостат
+surgery-tool-name-stitches = медицинская нить
 
 ## Сообщения шагов
 surgery-popup-step-generic = { CAPITALIZE($user) } оперирует { $target }: { $step } ({ $part }).
@@ -91,7 +91,7 @@ surgery-severed-FootLeft = отрезанная левая стопа
 surgery-severed-FootRight = отрезанная правая стопа
 
 surgery-part-Torso = Торс
-surgery-part-Groin = Пах
+surgery-part-Groin = Живот
 surgery-part-Head = Голова
 surgery-part-ArmLeft = левая рука
 surgery-part-ArmRight = правая рука

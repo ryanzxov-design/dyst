@@ -8,6 +8,9 @@
   description: Хирургический инструмент, чтобы вправлять кости.
   components:
   - type: BoneSetter
+  - type: SurgeryTool
+    startSound:
+      path: /Audio/_Dystopia/Health/Surgery/bone_setter.ogg
   - type: Sprite
     sprite: _Dystopia/Health/Objects/medical_tools.rsi
     state: bone_setter

@@ -6,7 +6,7 @@ part-status-wound = { $type } ({ $severity })
 
 part-status-part-Head-None = Голова
 part-status-part-Chest-None = Грудь
-part-status-part-Groin-None = Пах
+part-status-part-Groin-None = Живот
 part-status-part-Arm-Left = Левая рука
 part-status-part-Arm-Right = Правая рука
 part-status-part-Hand-Left = Левая кисть
@@ -72,7 +72,7 @@ condition-target-symmetry-Left = левая
 condition-target-symmetry-Right = правая
 condition-target-type-Head = голова
 condition-target-type-Chest = грудь
-condition-target-type-Groin = пах
+condition-target-type-Groin = живот
 condition-target-type-Arm = рука
 condition-target-type-Hand = кисть
 condition-target-type-Leg = нога
