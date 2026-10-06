@@ -145,6 +145,11 @@ public sealed partial class WoundBleedingSystem : EntitySystem
         // Повреждённое сердце гонит кровь хуже — раны кровоточат сильнее
         total *= _organs.GetBleedMultiplier(body);
 
+        // Кровоточащий человек кровь не восстанавливает: компенсируем ванильное восстановление,
+        // иначе оно гасит кровотечение до 1 ед. за такт и рана «сильно кровоточит», а кровь не убывает
+        if (total > 0f && _bloodstream.GetBloodLevel((body, bloodstream)) < 1f)
+            total += body.Comp.RegenerationOffset;
+
         // Лекарства меняют кровотечение напрямую — запоминаем их вклад, а не затираем
         var comp = body.Comp;
         var external = bloodstream.BleedAmount - comp.LastSetBleed;

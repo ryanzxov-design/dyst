@@ -67,7 +67,14 @@ public sealed partial class WoundBleedingComponent : Component
 
     /// <summary>Как быстро действие лекарств на кровотечение сходит на нет (в секунду).</summary>
     [DataField]
-    public float ExternalDecay = 0.02f;
+    public float ExternalDecay = 0.1f;
+
+    /// <summary>
+    /// Пока раны кровоточат, кровь сама не восстанавливается: к кровотечению добавляется ванильное
+    /// восстановление крови (BloodRefreshAmount, 1 ед. за такт), иначе оно «съедает» слабое и среднее кровотечение.
+    /// </summary>
+    [DataField]
+    public float RegenerationOffset = 1f;
 
     /// <summary>Как часто пересчитывать кровотечение тела.</summary>
     [DataField]

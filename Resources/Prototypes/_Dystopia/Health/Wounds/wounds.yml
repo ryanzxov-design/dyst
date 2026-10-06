@@ -31,7 +31,7 @@
       BoneDamage: 1
   - type: BleedInflicter
     severityThreshold: 20
-    bleedingCoefficient: 0.04
+    bleedingCoefficient: 0.06 # Dystopia: тяжёлый ушиб/перелом заметно кровит (было 0.04 — кровь почти не убывала)
     clotTime: 60
     clotSeverityLimit: 40
 
