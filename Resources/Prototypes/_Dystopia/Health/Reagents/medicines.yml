@@ -367,6 +367,9 @@
   name: шприц-тюбик промедола
   description: Одноразовый армейский шприц-тюбик с сильным обезболивающим. Снимает боль за секунды. Вызывает привыкание.
   components:
+  - type: Tag
+    tags:
+    - DystopiaGuardMedkitItem # помещается в полевую аптечку Стражи
   - type: Sprite
     sprite: _Dystopia/Health/Objects/medical_tools.rsi
     layers:

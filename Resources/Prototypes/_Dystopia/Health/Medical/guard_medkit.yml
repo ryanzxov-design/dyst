@@ -1,0 +1,76 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: полевая аптечка Стражи — подсумок 2×2 на пояс или РПС.
+# Внутри (как армейская аптечка): два жгута, бинт, шприц-тюбик промедола и шприц-тюбик эпинефрина.
+# Положить в неё можно только то же самое (жгуты, бинты, эти шприц-тюбики).
+
+- type: Tag
+  id: DystopiaGuardMedkitItem
+
+- type: entity
+  parent: BaseStorageItem
+  id: DystopiaGuardFieldMedkit
+  name: полевая аптечка Стражи
+  description: "Синий подсумок с красным крестом. Носится на поясе или РПС: жгуты, бинты и обезболивающее для первой помощи под огнём."
+  components:
+  - type: Sprite
+    sprite: _Dystopia/Health/Objects/guard_medkit.rsi
+    state: icon
+  - type: Item
+    size: Normal
+    shape:
+    - 0,0,1,1
+    sprite: _Dystopia/Health/Objects/guard_medkit.rsi
+  - type: Storage
+    maxItemSize: Small
+    grid:
+    - 0,0,3,1
+    whitelist:
+      tags:
+      - Tourniquet
+      - Gauze
+      - DystopiaGuardMedkitItem
+  - type: Tag
+    tags:
+    - Medkit
+    - SecBeltEquip # помещается на пояс и РПС Стражи
+  - type: PhysicalComposition
+    materialComposition:
+      Cloth: 100
+
+- type: entity
+  parent: DystopiaGuardFieldMedkit
+  id: DystopiaGuardFieldMedkitFilled
+  suffix: Заполненная
+  components:
+  - type: StorageFill
+    contents:
+    - id: Tourniquet
+      amount: 2
+    - id: DystopiaGauze5
+    - id: PromedolMedipen
+    - id: DystopiaEpinephrineMedipen
+
+# Бинт на 5 перевязок
+- type: entity
+  parent: Gauze
+  id: DystopiaGauze5
+  suffix: 5
+  components:
+  - type: Stack
+    count: 5
+
+# Эпинефрин в шприц-тюбике: поднимает упавшего в крит, немного глушит боль
+- type: entity
+  parent: EmergencyMedipen
+  id: DystopiaEpinephrineMedipen
+  name: шприц-тюбик эпинефрина
+  description: Одноразовый шприц-тюбик с эпинефрином (адреналином). Поддерживает тяжелораненого, пока не подоспеет помощь. Осторожно с передозировкой.
+  components:
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Epinephrine
+        Quantity: 15
+  - type: Tag
+    tags:
+    - DystopiaGuardMedkitItem

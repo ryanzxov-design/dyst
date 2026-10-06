@@ -405,6 +405,7 @@
     - id: Handcuffs
       amount: 2
     - id: Tourniquet
+    - id: DystopiaGuardFieldMedkitFilled # Dystopia-Health: полевая аптечка
 # Самостоятельный предмет: все свойства выписаны явно (раньше: parent DystopiaClothingBeltGuardWebbing)
 
 - type: entity
@@ -545,3 +546,4 @@
     - id: Handcuffs
       amount: 2
     - id: Tourniquet
+    - id: DystopiaGuardFieldMedkitFilled # Dystopia-Health: полевая аптечка
