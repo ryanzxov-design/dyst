@@ -200,7 +200,7 @@ public sealed partial class WoundSystem : EntitySystem
         if (!harm.Empty)
         {
             _lastDamaged[ent] = _timing.CurTime;
-            if (ChooseTargetPart(ent, args.Origin) is { } part)
+            if (ChooseTargetPart(ent, args.Origin, harm) is { } part)
                 InduceWoundsFromDamage(part, harm);
         }
 
@@ -356,10 +356,38 @@ public sealed partial class WoundSystem : EntitySystem
     }
 
     /// <summary>Часть тела, в которую пришёлся удар.</summary>
-    private EntityUid? ChooseTargetPart(EntityUid body, EntityUid? origin)
+    /// <summary>Урон «изнутри»: яд, радиация, клеточный. Без прицела он ложится в грудь, а не в случайную часть.</summary>
+    private static readonly HashSet<string> SystemicDamage = new() { "Poison", "Radiation", "Cellular" };
+
+    private EntityUid? ChooseTargetPart(EntityUid body, EntityUid? origin, DamageSpecifier? harm = null)
     {
         if (_forcedPart is { } forced && HasComp<WoundableComponent>(forced))
             return forced;
+
+        // Без прицела (газ, споры, лучи, нарост на полу) удар не должен прилетать в случайную руку или голову
+        if (harm != null && (origin is not { } attacker || !HasComp<TargetingComponent>(attacker)))
+        {
+            if (harm.DamageDict.Keys.All(t => SystemicDamage.Contains(t.Id)) && _body.TryGetRootPart(body, out var root)
+                && HasComp<WoundableComponent>(root.Value.Owner))
+            {
+                _pendingHits.Remove(body);
+                return root.Value.Owner;
+            }
+
+            // Урон от того, на чём стоишь (наросты Плоти, осколки на полу) — в ноги и стопы
+            if (origin == null && TryComp<DamagedByContactComponent>(body, out var contact) && contact.Damage is { } contactDamage
+                && harm.DamageDict.Keys.All(t => contactDamage.DamageDict.ContainsKey(t)))
+            {
+                var legs = _body.GetBodyChildrenWithComponent<WoundableComponent>(body)
+                    .Where(p => TryComp<BodyPartComponent>(p.Id, out var bp) && bp.PartType is BodyPartType.Foot or BodyPartType.Leg)
+                    .ToList();
+                if (legs.Count > 0)
+                {
+                    _pendingHits.Remove(body);
+                    return _random.Pick(legs).Id;
+                }
+            }
+        }
 
         var target = PeekTargetPart(body, origin);
         _pendingHits.Remove(body);

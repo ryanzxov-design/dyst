@@ -1,7 +1,7 @@
 {
   "version": 1,
   "license": "CC-BY-SA-3.0",
-  "copyright": "Made for Dystopia (ryanzxov-design/dyst) by Claude (Anthropic): splint, bone setter, bone gel, hemostatic sponge, lidocaine syringe, promedol syringe-tube; icons and in-hands.",
+  "copyright": "Made for Dystopia (ryanzxov-design/dyst) by Claude (Anthropic): splint, bone setter, bone gel, hemostatic sponge, lidocaine syringe, promedol and epinephrine syringe-tubes; icons and in-hands.",
   "size": {
     "x": 32,
     "y": 32
@@ -74,6 +74,20 @@
     },
     {
       "name": "promedol-inhand-right",
+      "directions": 4
+    },
+    {
+      "name": "epinephrine"
+    },
+    {
+      "name": "epinephrine_empty"
+    },
+    {
+      "name": "epinephrine-inhand-left",
+      "directions": 4
+    },
+    {
+      "name": "epinephrine-inhand-right",
       "directions": 4
     }
   ]

@@ -244,6 +244,18 @@ public sealed partial class WoundSystem
             || !TryComp<Content.Shared.Body.Part.BodyPartComponent>(woundable, out var part) || part.Body is not { } body)
             return;
 
+        // Ломать и отрывать может только удар, который вообще способен оторвать (порез, ушиб, укол, ожог) —
+        // яд, едкая слизь, холод разрушенной части кость не ломают
+        var physical = false;
+        foreach (var (type, value) in hit.DamageDict)
+        {
+            if (value > 0 && component.DismemberChances.ContainsKey(type))
+                physical = true;
+        }
+
+        if (!physical)
+            return;
+
         // Сначала ломается кость: целую кость не оторвать, разрушенная часть с целой костью получает перелом
         if (_trauma.GetBone(component) is { } bone
             && TryComp<Content.Shared._Dystopia.Health.Medical.Surgery.Traumas.Components.BoneComponent>(bone, out var boneComp)

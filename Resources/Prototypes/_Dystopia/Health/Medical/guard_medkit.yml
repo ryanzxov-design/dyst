@@ -66,6 +66,19 @@
   name: шприц-тюбик эпинефрина
   description: Одноразовый шприц-тюбик с эпинефрином (адреналином). Поддерживает тяжелораненого, пока не подоспеет помощь. Осторожно с передозировкой.
   components:
+  - type: Sprite
+    sprite: _Dystopia/Health/Objects/medical_tools.rsi
+    layers:
+    - state: epinephrine
+      map: ["enum.SolutionContainerLayers.Fill"]
+  - type: SolutionContainerVisuals
+    maxFillLevels: 1
+    changeColor: false
+    emptySpriteName: epinephrine_empty
+  - type: Item
+    sprite: _Dystopia/Health/Objects/medical_tools.rsi
+    heldPrefix: epinephrine
+    inhandVisuals: {}
   - type: Solution
     solution:
       reagents:
