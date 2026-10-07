@@ -88,6 +88,8 @@
   - ChemMasterMachineCircuitboard
   - CondenserMachineCircuitBoard
   - HotplateMachineCircuitboard
+  - DiagnoserMachineCircuitboard # Goobstation-Disease
+  - VaccinatorMachineCircuitboard # Goobstation-Disease
 
 ## Dynamic
 

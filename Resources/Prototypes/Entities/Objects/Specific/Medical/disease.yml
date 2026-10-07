@@ -14,6 +14,7 @@
     - Recyclable
     - Trash
   - type: BotanySwab
+  - type: DiseaseSwab # Goobstation-Disease: мазок с больного для анализатора и вакцинатора
   - type: GuideHelp
     guides:
   # - Virology (when it's back)
@@ -50,6 +51,17 @@
   components:
   - type: Item
     size: Tiny
+  # Goobstation-Disease: вакцина из вакцинатора — укол даёт иммунитет к этому штамму
   - type: Sprite
     sprite: Objects/Specific/Medical/medipen.rsi
-    state: salpen
+    layers:
+    - state: salpen
+      map: [ "salpen" ]
+  - type: Appearance
+  - type: DiseasePen
+  - type: GenericVisualizer
+    visuals:
+      enum.DiseasePenVisuals.Used:
+        salpen:
+          True: { state: salpen_empty }
+          False: { state: salpen }

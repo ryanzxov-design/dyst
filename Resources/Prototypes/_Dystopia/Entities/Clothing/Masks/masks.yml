@@ -385,3 +385,14 @@
     edgeStrength: 0.6
     haze: 0.06
     darken: 0.1
+  - type: DiseaseProtection # Goobstation-Disease: как противогаз
+    incoming:
+      powerModifiers:
+        Aerial: -0.2
+      chanceMultipliers:
+        Aerial: 0.7
+    outgoing:
+      powerModifiers:
+        Aerial: -0.2
+      chanceMultipliers:
+        Aerial: 0.5

@@ -2118,6 +2118,15 @@
       Taco: RatTaco
       Burger: RatBurger
       Skewer: RatSkewer
+  # Goobstation-Disease: заражает укусом, только если сама носит болезнь (обычная мышь — нет)
+  - type: DiseaseOnHit
+    spreadParams:
+      chance: 0.05
+      power: 1
+      spreadType: Blood
+  - type: DiseaseCarrier
+    effectImmune: true
+  - type: ShowDiseaseIcons # чуют заражённых
   - type: Destructible
     thresholds:
     - trigger:

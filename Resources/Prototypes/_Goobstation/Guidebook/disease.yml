@@ -1,0 +1,7 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Перенос из Goob-Station: справочник по болезням (Dystopia: для патобиолога).
+
+- type: guideEntry
+  id: Virology
+  name: guide-entry-virology
+  text: "/ServerInfo/_Goobstation/Guidebook/Medical/Virology.xml"

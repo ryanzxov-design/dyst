@@ -361,6 +361,22 @@ public sealed partial class DystopiaHealthAnalyzerPanel : BoxContainer
             && consciousness.Unconscious)
             AddCondition(Loc.GetString("condition-unconscious-blood"));
 
+        // Goobstation-Disease: болезни (генотип, прогресс инфекции и иммунитета)
+        if (!isPart && _entityManager.TryGetComponent<Content.Shared._Goobstation.Disease.Components.DiseaseCarrierComponent>(target, out var carrier))
+        {
+            var diseases = carrier.Diseases.ContainedEntities;
+            foreach (var diseaseUid in diseases)
+            {
+                if (!_entityManager.TryGetComponent<Content.Shared._Goobstation.Disease.Components.DiseaseComponent>(diseaseUid, out var disease))
+                    continue;
+
+                AddCondition(Loc.GetString("health-analyzer-window-disease-line",
+                    ("genotype", disease.Genotype),
+                    ("infection", (int) MathF.Round(disease.InfectionProgress * 100f)),
+                    ("immunity", (int) MathF.Round(disease.ImmunityProgress * 100f))));
+            }
+        }
+
         if (!humanoid)
             return;
 

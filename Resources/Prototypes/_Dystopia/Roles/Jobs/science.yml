@@ -89,11 +89,13 @@
     shoes: ClothingShoesColorWhite
     id: DystopiaPathobiologistPDA
     ears: ClothingHeadsetDystopiaScience
+    eyes: ClothingEyesHudViro # Goobstation-Disease: видит заражённых (за вирусолога Goob)
   storage:
     back:
     - Syringe
     - Syringe
     - Beaker
+    - BoxMouthSwab # мазки для анализатора болезней и вакцинатора
 
 - type: job
   id: DystopiaResearcher

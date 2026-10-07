@@ -1,0 +1,34 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Рецепты лекарств от болезней. Перенос из Goob-Station.
+
+- type: reaction
+  id: Immurin
+  reactants:
+    Sugar:
+      amount: 1
+    Inaprovaline:
+      amount: 1
+    Iron:
+      amount: 1
+  products:
+    Immurin: 3
+
+- type: reaction
+  id: Spaceacilin
+  reactants:
+    Immurin:
+      amount: 2
+    Dylovene:
+      amount: 1
+  products:
+    Spaceacilin: 3
+
+- type: reaction
+  id: Devirate
+  reactants:
+    Immurin:
+      amount: 2
+    Copper:
+      amount: 1
+  products:
+    Devirate: 2

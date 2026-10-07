@@ -118,6 +118,11 @@ public partial class InventorySystem
         SubscribeLocalEvent<InventoryComponent, RefreshEquipmentHudEvent<ThermalSightComponent>>(RefRelayInventoryEvent);
         SubscribeLocalEvent<InventoryComponent, RefreshEquipmentHudEvent<ImageOverlayComponent>>(RefRelayInventoryEvent);
 
+        // Goobstation-Disease: защита от болезней в одежде и иконки болезней на визорах
+        SubscribeLocalEvent<InventoryComponent, Content.Shared._Goobstation.Disease.DiseaseOutgoingSpreadAttemptEvent>(RefRelayInventoryEvent);
+        SubscribeLocalEvent<InventoryComponent, Content.Shared._Goobstation.Disease.DiseaseIncomingSpreadAttemptEvent>(RefRelayInventoryEvent);
+        SubscribeLocalEvent<InventoryComponent, RefreshEquipmentHudEvent<Content.Shared._Goobstation.Disease.Components.ShowDiseaseIconsComponent>>(RefRelayInventoryEvent);
+
         SubscribeLocalEvent<InventoryComponent, GetVerbsEvent<EquipmentVerb>>(OnGetEquipmentVerbs);
         SubscribeLocalEvent<InventoryComponent, GetVerbsEvent<InnateVerb>>(OnGetInnateVerbs);
 

@@ -11,6 +11,13 @@
     slots: [mask]
   - type: StaticPrice
     price: 25
+  - type: DiseaseProtection # Goobstation-Disease: любая маска немного защищает
+    incoming:
+      chanceMultipliers:
+        Aerial: 0.8
+    outgoing:
+      chanceMultipliers:
+        Aerial: 0.6
 
 - type: entity
   abstract: true

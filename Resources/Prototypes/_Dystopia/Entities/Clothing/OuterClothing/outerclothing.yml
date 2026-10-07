@@ -258,3 +258,9 @@
   - type: ZombificationResistance
     zombificationResistanceCoefficient: 0.35
   - type: GroupExamine
+  - type: DiseaseProtection # Goobstation-Disease: как биокостюм — укусы не заражают
+    incoming:
+      powerModifiers:
+        Blood: -1
+      chanceMultipliers:
+        Blood: 0.5

@@ -1,0 +1,58 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Лекарства от болезней. Перенос из Goob-Station (space-syndicate/Goob-Station).
+# Dystopia: у нас ступень обмена — Bloodstream (в Goob — группа Medicine).
+
+- type: reagent
+  id: Immurin
+  name: reagent-name-immurin
+  group: Medicine
+  desc: reagent-desc-immurin
+  physicalDesc: reagent-physical-desc-powdery
+  flavor: terrible
+  color: "#A2AF8A"
+  metabolisms:
+    Bloodstream:
+      effects:
+      # дешёвое общее средство, поэтому слабое
+      - !type:ImmunityModifier # иммунитет растёт на 33% быстрее и сильнее на 50%
+        gainRateModifier: 0.000366666666666
+        strengthModifier: 0.0044444444444
+        statusLifetime: 3 # 3 с на 1 ед.
+
+- type: reagent
+  id: Spaceacilin
+  name: reagent-name-spaceacilin
+  group: Medicine
+  desc: reagent-desc-spaceacilin
+  physicalDesc: reagent-physical-desc-translucent
+  flavor: medicine
+  color: "#559955"
+  metabolisms:
+    Bloodstream:
+      effects:
+      - !type:DiseaseProgressChange
+        affectedType: Bacterial
+        progressModifier: -0.033333333333 # 15 ед. вылечивают и без иммунитета (30 с)
+      - !type:ImmunityModifier
+        gainRateModifier: -0.000555555555555 # иммунитет вдвое медленнее
+        strengthModifier: -0.0044444444444 # и вдвое слабее
+        statusLifetime: 1.5
+
+- type: reagent
+  id: Devirate
+  name: reagent-name-devirate
+  group: Medicine
+  desc: reagent-desc-devirate
+  physicalDesc: reagent-physical-desc-opaque
+  flavor: medicine
+  color: "#995555"
+  metabolisms:
+    Bloodstream:
+      effects:
+      - !type:DiseaseProgressChange
+        affectedType: Viral
+        progressModifier: -0.033333333333 # 15 ед. вылечивают и без иммунитета (30 с)
+      - !type:HealthChange
+        damage:
+          types:
+            Poison: 0.5

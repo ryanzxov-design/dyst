@@ -265,6 +265,12 @@
     sprite: Clothing/OuterClothing/Misc/plaguedoctorsuit.rsi
   - type: Clothing
     sprite: Clothing/OuterClothing/Misc/plaguedoctorsuit.rsi
+  - type: DiseaseProtection # Goobstation-Disease
+    incoming:
+      powerModifiers:
+        Blood: -0.8
+      chanceMultipliers:
+        Blood: 0.7
 
 - type: entity
   parent: ClothingOuterBase

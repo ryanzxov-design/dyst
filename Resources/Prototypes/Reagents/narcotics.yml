@@ -140,6 +140,10 @@
         key: Pacified
         component: Pacified
         time: 4
+      - !type:ImmunityModifier # Goobstation-Disease: подавляет иммунитет
+        gainRateModifier: -0.00111111111111
+        strengthModifier: -0.0088888888888
+        statusLifetime: 1.5
 
 - type: reagent
   id: Stimulants

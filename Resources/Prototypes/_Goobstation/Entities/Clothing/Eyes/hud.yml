@@ -1,0 +1,17 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Перенос из Goob-Station: визор вирусолога. Dystopia: его носит патобиолог.
+
+- type: entity
+  parent: ClothingEyesHudMedical
+  id: ClothingEyesHudViro
+  name: viro hud
+  description: A medical HUD upgraded with advanced disease scanning.
+  components:
+  - type: Sprite
+    sprite: _Goobstation/Clothing/Eyes/Hud/viro.rsi
+  - type: Clothing
+    sprite: _Goobstation/Clothing/Eyes/Hud/viro.rsi
+  - type: ShowDiseaseIcons
+    lowThreshold: 1 # очень чувствительный
+    mediumThreshold: 20
+    highThreshold: 40

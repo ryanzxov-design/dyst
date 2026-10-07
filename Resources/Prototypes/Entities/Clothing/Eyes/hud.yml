@@ -25,6 +25,7 @@
   components:
   - type: ShowHealthBars
   - type: ShowHealthIcons
+  - type: ShowDiseaseIcons # Goobstation-Disease: медицинский визор видит сильно больных
 
 - type: entity
   parent: [BaseCorvaxContraband431DepartmentsScience, ClothingEyesHudBase] # Corvax-Contraband

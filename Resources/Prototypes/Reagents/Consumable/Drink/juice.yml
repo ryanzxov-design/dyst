@@ -57,6 +57,11 @@
       metabolites:
         Oculine: 1
         Nutriment: 1
+      effects:
+      - !type:ImmunityModifier # Goobstation-Disease: соки и витамины чуть укрепляют иммунитет
+        gainRateModifier: 0.000211695098702
+        strengthModifier: 0.00256600119637
+        statusLifetime: 3
 
 - type: reagent
   id: JuiceGrape
@@ -81,6 +86,16 @@
   metamorphicMaxFillLevels: 5
   metamorphicFillBaseName: fill-
   metamorphicChangeColor: false
+  metabolisms: # Goobstation-Disease: как у BaseDrink, плюс укрепление иммунитета
+    Digestion:
+      effects:
+      - !type:Satiate
+        satiationType: Thirst
+        factor: 3
+      - !type:ImmunityModifier # Goobstation-Disease: соки и витамины чуть укрепляют иммунитет
+        gainRateModifier: 0.000211695098702
+        strengthModifier: 0.00256600119637
+        statusLifetime: 3
 
 - type: reagent
   id: JuiceLime
@@ -98,6 +113,16 @@
 
 # if(M.getToxLoss() && prob(20))
 # M.adjustToxLoss(-REM)
+  metabolisms: # Goobstation-Disease: как у BaseDrink, плюс укрепление иммунитета
+    Digestion:
+      effects:
+      - !type:Satiate
+        satiationType: Thirst
+        factor: 3
+      - !type:ImmunityModifier # Goobstation-Disease: соки и витамины чуть укрепляют иммунитет
+        gainRateModifier: 0.000211695098702
+        strengthModifier: 0.00256600119637
+        statusLifetime: 3
 
 - type: reagent
   id: JuiceOrange
@@ -113,6 +138,16 @@
   metamorphicMaxFillLevels: 5
   metamorphicFillBaseName: fill-
   metamorphicChangeColor: false
+  metabolisms: # Goobstation-Disease: как у BaseDrink, плюс укрепление иммунитета
+    Digestion:
+      effects:
+      - !type:Satiate
+        satiationType: Thirst
+        factor: 3
+      - !type:ImmunityModifier # Goobstation-Disease: соки и витамины чуть укрепляют иммунитет
+        gainRateModifier: 0.000211695098702
+        strengthModifier: 0.00256600119637
+        statusLifetime: 3
 
 - type: reagent
   id: JuicePineapple
@@ -122,6 +157,16 @@
   physicalDesc: reagent-physical-desc-tropical
   flavor: pineapple
   color: yellow
+  metabolisms: # Goobstation-Disease: как у BaseDrink, плюс укрепление иммунитета
+    Digestion:
+      effects:
+      - !type:Satiate
+        satiationType: Thirst
+        factor: 3
+      - !type:ImmunityModifier # Goobstation-Disease: соки и витамины чуть укрепляют иммунитет
+        gainRateModifier: 0.000211695098702
+        strengthModifier: 0.00256600119637
+        statusLifetime: 3
 
 - type: reagent
   id: JuiceTomato

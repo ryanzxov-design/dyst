@@ -213,11 +213,15 @@
     - sprite: Mobs/Animals/mouse.rsi
       state: icon-2
     - state: ai
-  - type: ConditionalSpawner
+  - type: RandomSpawner # Goobstation-Disease: иногда вместо обычной — чумная мышь
     prototypes:
     - MobMouse
     - MobMouse1
     - MobMouse2
+    rareChance: 0.06
+    offset: 0
+    rarePrototypes:
+    - MobMousePlague
 
 - type: entity
   parent: MarkerBase

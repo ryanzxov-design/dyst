@@ -19,6 +19,12 @@
   - type: Targeting # Dystopia-Health: прицел по частям тела
   - type: SurgeryLimbLoss # Dystopia-Health: без ноги — ползком, протезы медленнее
   - type: SurgeryTarget # Dystopia-Surgery: можно оперировать (и оперировать самому)
+  - type: DiseaseCarrier # Goobstation-Disease: болезни
+  - type: Immunity # Goobstation-Disease: иммунитет сам побеждает вирусы, бактерии и паразитов
+    affectedTypes:
+    - Viral
+    - Bacterial
+    - Parasite
   - type: DamageVisuals
     thresholds: [ 10, 20, 30, 50, 70, 100 ]
     targetLayers:

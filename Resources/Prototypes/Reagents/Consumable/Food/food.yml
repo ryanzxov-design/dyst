@@ -42,6 +42,10 @@
         amount: -0.25
       - !type:Satiate #Numbers are balanced with this in mind + it helps limit how much healing you can get from food
         satiationType: Hunger
+      - !type:ImmunityModifier # Goobstation-Disease: соки и витамины чуть укрепляют иммунитет
+        gainRateModifier: 0.000211695098702
+        strengthModifier: 0.00256600119637
+        statusLifetime: 3
   # Lets plants benefit too
   plantMetabolism:
   - !type:PlantAdjustNutrition
