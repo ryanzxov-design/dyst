@@ -121,6 +121,17 @@
     scanlines: 1
     linePeriod: 6
     lineStrength: 0.3
+  - type: DiseaseProtection # Goobstation-Disease: фильтр — средняя защита
+    incoming:
+      powerModifiers:
+        Aerial: -0.4
+      chanceMultipliers:
+        Aerial: 0.5
+    outgoing:
+      powerModifiers:
+        Aerial: -0.4
+      chanceMultipliers:
+        Aerial: 0.5
 # Самостоятельный предмет: все свойства выписаны явно (раньше: parent ClothingMaskGasMerc)
 
 - type: entity
@@ -209,6 +220,17 @@
     edgeStrength: 0.7
     haze: 0.12
     darken: 0.15
+  - type: DiseaseProtection # Goobstation-Disease: санитарный — как медицинская дыхательная маска
+    incoming:
+      powerModifiers:
+        Aerial: -0.4
+      chanceMultipliers:
+        Aerial: 0.5
+    outgoing:
+      powerModifiers:
+        Aerial: -0.6
+      chanceMultipliers:
+        Aerial: 0.5
 # Самостоятельный предмет: все свойства выписаны явно (раньше: parent ClothingMaskGasMerc)
 
 - type: entity
@@ -297,6 +319,17 @@
     edgeStrength: 0.75
     haze: 0.18
     darken: 0.2
+  - type: DiseaseProtection # Goobstation-Disease: для очагов заразы — сильная защита
+    incoming:
+      powerModifiers:
+        Aerial: -0.8
+      chanceMultipliers:
+        Aerial: 0.3
+    outgoing:
+      powerModifiers:
+        Aerial: -0.8
+      chanceMultipliers:
+        Aerial: 0.4
 # Самостоятельный предмет: все свойства выписаны явно (раньше: parent ClothingMaskGasExplorer)
 
 - type: entity
@@ -385,14 +418,14 @@
     edgeStrength: 0.6
     haze: 0.06
     darken: 0.1
-  - type: DiseaseProtection # Goobstation-Disease: как противогаз
+  - type: DiseaseProtection # Goobstation-Disease: лабораторный противогаз — как стерильная маска
     incoming:
       powerModifiers:
-        Aerial: -0.2
+        Aerial: -0.6
       chanceMultipliers:
-        Aerial: 0.7
+        Aerial: 0.4
     outgoing:
       powerModifiers:
-        Aerial: -0.2
+        Aerial: -0.6
       chanceMultipliers:
-        Aerial: 0.5
+        Aerial: 0.4

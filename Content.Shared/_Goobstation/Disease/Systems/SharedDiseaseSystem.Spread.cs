@@ -45,6 +45,11 @@ public partial class SharedDiseaseSystem
         if (!TryComp<DiseaseComponent>(disease, out var diseaseComp))
             return false;
 
+        // Dystopia: болеют только носители (люди, мыши). Кашель задевает и стены со столами — не клонируем
+        // болезнь ради них впустую
+        if (!HasComp<DiseaseCarrierComponent>(target))
+            return false;
+
         // prevent the disease mutating a new genotype in-transmission so if you cough at one person many times they can't get infected many times
         if (HasDisease(target, diseaseComp.Genotype))
             return false;

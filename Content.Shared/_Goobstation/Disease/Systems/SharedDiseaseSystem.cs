@@ -132,9 +132,12 @@ public abstract partial class SharedDiseaseSystem : EntitySystem
 
         if (!args.Ent.Comp.EffectImmune)
         {
-            foreach (var effectUid in ent.Comp.Effects.ContainedEntities)
+            // Dystopia: копия списка — эффект (быстрая мутация) может добавить или убрать симптомы прямо во время обхода,
+            // в Goob это роняло сервер «Collection was modified»
+            var effects = new List<EntityUid>(ent.Comp.Effects.ContainedEntities);
+            foreach (var effectUid in effects)
             {
-                if (!EffectQuery.TryComp(effectUid, out var effect))
+                if (TerminatingOrDeleted(effectUid) || !EffectQuery.TryComp(effectUid, out var effect))
                     continue;
 
                 if (!alive)

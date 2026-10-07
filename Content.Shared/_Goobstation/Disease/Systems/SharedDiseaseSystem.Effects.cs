@@ -1,7 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Content.Shared._Goobstation.Disease.Components;
-using Content.Shared.Damage.Components;
+using Content.Shared.Mobs.Components;
 using Content.Shared.Flash;
 using Content.Shared.Humanoid;
 using Content.Shared.Maps;
@@ -111,7 +111,9 @@ public partial class SharedDiseaseSystem
     private void OnDiseaseForceSpreadEffect(Entity<DiseaseForceSpreadEffectComponent> ent, ref DiseaseEffectEvent args)
     {
         var transform = _transform.GetMapCoordinates(args.Ent);
-        var targets = _lookup.GetEntitiesInRange<DamageableComponent>(transform, ent.Comp.Range);
+        // Dystopia: в Goob заражались все повреждаемые сущности — стены, столы, двери становились носителями
+        // и разрушались. Заражаем только живых существ
+        var targets = _lookup.GetEntitiesInRange<MobStateComponent>(transform, ent.Comp.Range);
 
         foreach (var target in targets)
         {

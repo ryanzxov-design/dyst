@@ -1,0 +1,22 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: отладочный инструмент «Болезни». Щелчок по цели (в руке — по себе) открывает окно:
+# заразить готовой или случайной болезнью, вылечить, сдвинуть прогресс, мутировать, сбросить иммунитет,
+# «чихнуть» — передать болезни всем рядом (маски и костюмы учитываются).
+
+- type: entity
+  parent: BaseItem
+  id: DebugDiseaseTool
+  name: болезни
+  suffix: DEBUG
+  description: Отладочный инструмент для проверки болезней, иммунитета и заражения.
+  components:
+  - type: Sprite
+    sprite: Objects/Specific/Medical/medipen.rsi
+    state: livepen
+  - type: Item
+    size: Tiny
+  - type: DiseaseDebugTool
+  - type: UserInterface
+    interfaces:
+      enum.DiseaseDebugUiKey.Key:
+        type: DiseaseDebugBoundUserInterface

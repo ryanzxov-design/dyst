@@ -125,7 +125,7 @@
       DiseaseBehaviorTurboBlunt: 0.5
       DiseaseBehaviorFightImmunity: 1
       DiseaseBehaviorForceSpreadDebug: 0.5
-      DiseaseBehaviorDeconstructFloor: 0.25
+      # Dystopia: без разборки пола — болезнь не должна ломать карту
 
 - type: entity
   id: MeleeDebugInfectTurboCancer
