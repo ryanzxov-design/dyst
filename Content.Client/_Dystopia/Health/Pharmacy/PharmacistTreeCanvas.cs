@@ -14,7 +14,7 @@ namespace Content.Client._Dystopia.Health.Pharmacy;
 
 public sealed class PharmacistTreeCanvas : LayoutContainer
 {
-    public const float NodeWidth = 176;
+    public const float NodeWidth = 204;
     public const float NodeHeight = 34;
     public const float ColumnGap = 56;
     public const float RowGap = 10;

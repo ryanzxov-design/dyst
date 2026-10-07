@@ -17,8 +17,8 @@ public sealed class PharmacistGuideWindow : CityWindow
         Subtitle = Loc.GetString("pharm-guide-subtitle");
         Slogan = Loc.GetString("pharm-guide-slogan");
         Resizable = true;
-        MinSize = new Vector2(1000, 600);
-        SetSize = new Vector2(1360, 820);
+        MinSize = new Vector2(960, 560);
+        SetSize = new Vector2(1280, 760);
 
         var data = IoCManager.Resolve<IEntityManager>().System<PharmacistGuideSystem>().GetData();
         Contents.AddChild(new PharmacistGuideControl(data));

@@ -87,6 +87,7 @@ public sealed class PharmacistGuideControl : BoxContainer
         left.AddChild(_searchEdit);
 
         _listCaption = CityUi.MakeLabel(string.Empty, CityUi.Muted, CityUi.Mono(10));
+        _listCaption.ClipText = true;
         left.AddChild(_listCaption);
 
         var listPanel = new PanelContainer
@@ -117,11 +118,15 @@ public sealed class PharmacistGuideControl : BoxContainer
         };
         toolbar.AddChild(CityUi.MakeLabel(Loc.GetString("pharm-guide-section-tree").ToUpperInvariant(), CityUi.Accent, CityUi.Bold(12)));
         toolbar.AddChild(CityUi.Separator());
+        var hint = CityUi.MakeLabel(Loc.GetString("pharm-guide-canvas-hint").ToUpperInvariant(), CityUi.Muted, CityUi.Regular(10));
+        hint.VerticalAlignment = VAlignment.Center;
+        toolbar.AddChild(hint);
         center.AddChild(toolbar);
 
         var controls = new BoxContainer { Orientation = LayoutOrientation.Horizontal, SeparationOverride = 8 };
         _stats = CityUi.MakeLabel(string.Empty, CityUi.Dim, CityUi.Mono(10));
         _stats.HorizontalExpand = true;
+        _stats.ClipText = true; // не распирает колонку: иначе карточка справа уезжает за край окна
         _stats.VerticalAlignment = VAlignment.Center;
         controls.AddChild(_stats);
         _onlyButton = CityUi.MakeButton(Loc.GetString("pharm-guide-only-chain-off"));
@@ -661,6 +666,8 @@ public sealed class PharmacistGuideControl : BoxContainer
 
         _details.AddChild(CityUi.MakeLabel(Loc.GetString(kind).ToUpperInvariant(), CityUi.Dim, CityUi.Regular(10)));
         var title = CityUi.MakeLabel(reagent.Name, CityUi.Glow, CityUi.Title(18));
+        title.ClipText = true;
+        title.ToolTip = reagent.Name;
         _details.AddChild(title);
         if (reagent.Description.Length > 0)
             _details.AddChild(Text(reagent.Description, CityUi.Text));
@@ -679,6 +686,7 @@ public sealed class PharmacistGuideControl : BoxContainer
             Loc.GetString("pharm-guide-out", ("amount", Amount(recipe.Output)), ("steps", CraftSteps(chain))).ToUpperInvariant(),
             CityUi.Accent,
             CityUi.Mono(10));
+        outLabel.ClipText = true;
         _details.AddChild(outLabel);
 
         // --- сырьё на одну реакцию ---
