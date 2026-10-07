@@ -149,8 +149,16 @@ public sealed partial class VirologyMachinesSystem : EntitySystem
         // build the report
         var report = new StringBuilder();
         report.AppendLine(Loc.GetString("disease-analyzer-report-title"));
+        // Dystopia: известная болезнь называется по имени, иначе — неизвестный штамм
+        if (disease.Strain is { } strain && _proto.TryIndex(strain, out var strainProto))
+            report.AppendLine(Loc.GetString("disease-analyzer-report-strain", ("name", strainProto.Name)));
+        else
+            report.AppendLine(Loc.GetString("disease-analyzer-report-strain-unknown"));
         report.AppendLine(Loc.GetString("disease-analyzer-report-genotype", ("genotype", disease.Genotype)));
         report.AppendLine(Loc.GetString("disease-analyzer-report-type", ("type", Loc.GetString(_proto.Index(disease.DiseaseType).LocalizedName))));
+        // Dystopia: подсказка, чем лечить этот тип
+        if (Loc.TryGetString($"disease-analyzer-report-treatment-{disease.DiseaseType.Id.ToLowerInvariant()}", out var treatment))
+            report.AppendLine(treatment);
         report.AppendLine(Loc.GetString("disease-analyzer-report-infection-rate", ("rate", disease.InfectionRate)));
         report.AppendLine(Loc.GetString("disease-analyzer-report-immunity-gain", ("rate", disease.ImmunityGainRate)));
         report.AppendLine(Loc.GetString("disease-analyzer-report-mutation-rate", ("rate", disease.MutationRate)));

@@ -3,6 +3,13 @@
   parent: [SolutionFood, SolutionToolSmall, Clothing]
   id: ClothingHandsBase
   components:
+  - type: DiseaseProtection # Dystopia-Disease: перчатки вдвое снижают передачу касанием (в обе стороны)
+    incoming:
+      chanceMultipliers:
+        Contact: 0.5
+    outgoing:
+      chanceMultipliers:
+        Contact: 0.5
   - type: Sprite
     state: icon
   - type: Clothing

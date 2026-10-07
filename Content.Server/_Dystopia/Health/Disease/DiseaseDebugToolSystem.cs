@@ -259,6 +259,9 @@ public sealed partial class DiseaseDebugToolSystem : EntitySystem
         }
 
         var name = Name(uid);
+        // копия, пришедшая от другого больного, без прототипа — название берём из штамма
+        if (disease.Strain is { } strain && _proto.TryIndex(strain, out var strainProto))
+            name = strainProto.Name;
         if (string.IsNullOrWhiteSpace(name))
             name = Loc.GetString("disease-debug-unnamed");
 

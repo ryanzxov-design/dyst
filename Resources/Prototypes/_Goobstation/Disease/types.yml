@@ -27,3 +27,8 @@
   id: Diseases
   name: entity-category-name-diseases
   hideSpawnMenu: true
+
+# Dystopia: грибковые болезни (аспергиллёз, лишай)
+- type: diseaseType
+  id: Fungal
+  name: disease-type-fungal

@@ -399,6 +399,7 @@
   id: BaseSyringe
   abstract: true
   components:
+  - type: DiseaseNeedle # Dystopia-Disease: игла уносит болезни, передающиеся через кровь (гепатит B)
   - type: Sprite
     sprite: Objects/Specific/Chemistry/syringe.rsi
     layers:

@@ -1,0 +1,370 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: реальные болезни. Мутируют медленно (mutationRate 0.05) и только в свои симптомы
+# (пулы *Pool ниже), чтобы корь оставалась корью. Сроки без лечения (иммунитет человека):
+#   корь ~14 мин, норовирус ~10 мин (до 60%), гепатит B ~30 мин, туберкулёз ~30 мин,
+#   чума ~25 мин (опасна), чесотка ~20 мин, цепень ~35 мин, аспергиллёз ~20 мин, лишай ~10 мин (до 45%).
+#   Без лечения не проходят: бешенство (подавляет иммунитет, смертельно), холера (обезвоживание),
+#   куру (прион — иммунитет бессилен, смертельно).
+# Бешенство: паралич дыхания через ~9 мин. Куру: разрушение мозга через ~18 мин.
+# Названия — Locale/*/_dystopia/health/disease.ftl
+
+# ===================== Вирусные =====================
+
+# Корь: самая заразная — чих разносит её на 3 метра. Вакцина защищает навсегда.
+- type: entity
+  id: DiseaseMeasles
+  parent: DiseaseBase
+  name: measles
+  description: Extremely contagious airborne virus.
+  components:
+  - type: Disease
+    diseaseType: Viral
+    infectionRate: 0.006
+    immunityGainRate: 1.5
+    mutationRate: 0.05
+    genotype: 2001
+    availableEffects: DiseaseMeaslesPool
+    effects:
+      DiseaseBehaviorSneeze: 1
+      DiseaseBehaviorFever: 0.6
+      DiseaseBehaviorRash: 1
+      DiseaseBehaviorDryCough: 0.6
+      DiseaseBehaviorFeelUnwell: 1
+
+# Норовирус: быстрый, короткий. Рвота и грязные руки — заражённые предметы, перила, двери.
+- type: entity
+  id: DiseaseNorovirus
+  parent: DiseaseBase
+  name: norovirus
+  description: Fast stomach virus. Spreads through vomit, hands and touched objects.
+  components:
+  - type: Disease
+    diseaseType: Viral
+    infectionRate: 0.0075
+    immunityGainRate: 5
+    mutationRate: 0.05
+    genotype: 2002
+    availableEffects: DiseaseNorovirusPool
+    effects:
+      DiseaseBehaviorVomit: 1
+      DiseaseBehaviorContact: 1
+      DiseaseBehaviorDehydration: 0.4
+      DiseaseBehaviorFeelUnwell: 1
+
+# Бешенство: укусы и удары заражённого передают его через кровь. Подавляет иммунитет — без
+# противовирусных смертельно.
+- type: entity
+  id: DiseaseRabies
+  parent: DiseaseBase
+  name: rabies
+  description: Deadly virus. Spreads through bites. The immune system can't beat it on its own.
+  components:
+  - type: Disease
+    diseaseType: Viral
+    infectionRate: 0.0015 # до паралича дыхания ~9 мин
+    immunityGainRate: 0.5
+    mutationRate: 0.03
+    genotype: 2003
+    availableEffects: DiseaseRabiesPool
+    effects:
+      DiseaseBehaviorFightImmunity: 1
+      DiseaseBehaviorHeadache: 0.4
+      DiseaseBehaviorHydrophobia: 1
+      DiseaseBehaviorRabidBite: 1
+      DiseaseBehaviorRage: 1
+      DiseaseBehaviorRespiratoryParalysis: 1
+
+# Гепатит B: через кровь — общие иглы шприцев, кровавые драки.
+- type: entity
+  id: DiseaseHepatitisB
+  parent: DiseaseBase
+  name: hepatitis B
+  description: Liver virus. Spreads through blood and shared needles.
+  components:
+  - type: Disease
+    diseaseType: Viral
+    infectionRate: 0.003
+    immunityGainRate: 0.3
+    mutationRate: 0.05
+    genotype: 2004
+    availableEffects: DiseaseHepatitisPool
+    effects:
+      DiseaseBehaviorBloodborne: 1
+      DiseaseBehaviorJaundice: 1
+      DiseaseBehaviorFatigue: 1
+      DiseaseBehaviorFeelUnwell: 1
+
+# ===================== Бактериальные =====================
+
+# Туберкулёз: медленный, хронический. Заразен при кашле, кашель с кровью разрушает лёгкие.
+- type: entity
+  id: DiseaseTuberculosis
+  parent: DiseaseBase
+  name: tuberculosis
+  description: Slow chronic lung infection. Spreads by coughing.
+  components:
+  - type: Disease
+    diseaseType: Bacterial
+    infectionRate: 0.003
+    immunityGainRate: 0.3
+    mutationRate: 0.05
+    genotype: 3001
+    availableEffects: DiseaseTuberculosisPool
+    effects:
+      DiseaseBehaviorCough: 0.6
+      DiseaseBehaviorBloodCough: 1
+      DiseaseBehaviorWasting: 0.5
+      DiseaseBehaviorFatigue: 1
+      DiseaseBehaviorFever: 0.3
+
+# Холера: обезвоживание убивает быстро. Передаётся через руки, рвоту и предметы.
+- type: entity
+  id: DiseaseCholera
+  parent: DiseaseBase
+  name: cholera
+  description: Severe intestinal infection. Deadly dehydration without treatment.
+  components:
+  - type: Disease
+    diseaseType: Bacterial
+    infectionRate: 0.01
+    immunityGainRate: 1.5
+    mutationRate: 0.05
+    genotype: 3002
+    availableEffects: DiseaseCholeraPool
+    effects:
+      DiseaseBehaviorDehydration: 1
+      DiseaseBehaviorVomit: 0.6
+      DiseaseBehaviorContact: 1
+      DiseaseBehaviorFatigue: 1
+
+# Чума: переносят чумные мыши. Бубоны отравляют, с 60% — лёгочная форма, заразная по воздуху.
+- type: entity
+  id: DiseasePlague
+  parent: DiseaseBase
+  name: plague
+  description: Carried by plague mice. Turns airborne in its pneumonic form.
+  components:
+  - type: Disease
+    diseaseType: Bacterial
+    infectionRate: 0.007
+    immunityGainRate: 0.8
+    mutationRate: 0.05
+    genotype: 3003
+    availableEffects: DiseasePlaguePool
+    effects:
+      DiseaseBehaviorBuboes: 1
+      DiseaseBehaviorFever: 1
+      DiseaseBehaviorPneumonic: 1
+      DiseaseBehaviorFatigue: 1
+
+# ===================== Паразитарные =====================
+
+# Свиной цепень: от сырого мяса. Не заразен, но ест вашу еду.
+- type: entity
+  id: DiseaseTapeworm
+  parent: DiseaseBase
+  name: tapeworm
+  description: Parasitic worm from raw meat. Eats your food.
+  components:
+  - type: Disease
+    diseaseType: Parasite
+    infectionRate: 0.003
+    immunityGainRate: 0.25
+    mutationRate: 0.02
+    genotype: 4001
+    availableEffects: DiseaseTapewormPool
+    effects:
+      DiseaseBehaviorWasting: 1
+      DiseaseBehaviorFeelUnwell: 1
+
+# Чесотка: клещ, передаётся касанием, объятиями, общей одеждой.
+- type: entity
+  id: DiseaseScabies
+  parent: DiseaseBase
+  name: scabies
+  description: Itch mite. Spreads through touch and shared clothes.
+  components:
+  - type: Disease
+    diseaseType: Parasite
+    infectionRate: 0.004
+    immunityGainRate: 0.6
+    mutationRate: 0.02
+    genotype: 4002
+    availableEffects: DiseaseScabiesPool
+    effects:
+      DiseaseBehaviorItch: 1
+      DiseaseBehaviorContact: 1
+      DiseaseBehaviorRash: 0.5
+
+# ===================== Грибковые =====================
+
+# Аспергиллёз: споры плесени в лёгких. От человека к человеку не передаётся.
+- type: entity
+  id: DiseaseAspergillosis
+  parent: DiseaseBase
+  name: aspergillosis
+  description: Mold spores in the lungs. Not contagious.
+  components:
+  - type: Disease
+    diseaseType: Fungal
+    infectionRate: 0.003
+    immunityGainRate: 0.5
+    mutationRate: 0.03
+    genotype: 5001
+    availableEffects: DiseaseAspergillosisPool
+    effects:
+      DiseaseBehaviorDryCough: 1
+      DiseaseBehaviorBreathless: 1
+      DiseaseBehaviorFatigue: 0.6
+
+# Стригущий лишай (дерматофития): от кошек и собак, касанием от человека к человеку.
+- type: entity
+  id: DiseaseRingworm
+  parent: DiseaseBase
+  name: ringworm
+  description: Skin fungus. Caught from cats and dogs or by touch.
+  components:
+  - type: Disease
+    diseaseType: Fungal
+    infectionRate: 0.003
+    immunityGainRate: 1
+    mutationRate: 0.02
+    genotype: 5002
+    availableEffects: DiseaseRingwormPool
+    effects:
+      DiseaseBehaviorRingRash: 1
+      DiseaseBehaviorItch: 0.5
+      DiseaseBehaviorContact: 0.6
+
+# ===================== Прионные =====================
+
+# Куру: от человечины и особенно мозгов. Иммунитет бессилен, прививки нет. Дрожь, падения, смех,
+# затем разрушение мозга. Замедляет и медленно обращает только пентозана полисульфат.
+- type: entity
+  id: DiseaseKuru
+  parent: DiseaseBase
+  name: kuru
+  description: Prion disease from eating human flesh. Incurable by immunity. Deadly.
+  components:
+  - type: Disease
+    diseaseType: Prion
+    infectionRate: 0.0008 # до разрушения мозга ~18 мин
+    canGainImmunity: false
+    mutationRate: 0
+    genotype: 6001
+    availableEffects: DiseaseKuruPool
+    effects:
+      DiseaseBehaviorTremor: 1
+      DiseaseBehaviorAtaxia: 1
+      DiseaseBehaviorLaughter: 1
+      DiseaseBehaviorNeurodegeneration: 1
+
+# ===================== Пулы мутаций =====================
+# Во что болезнь может мутировать при передаче: свои симптомы + немного общих.
+
+- type: weightedRandom
+  id: DiseaseMeaslesPool
+  weights:
+    DiseaseBehaviorSneeze: 1
+    DiseaseBehaviorFever: 1
+    DiseaseBehaviorRash: 1
+    DiseaseBehaviorDryCough: 1
+    DiseaseBehaviorCough: 0.5
+    DiseaseBehaviorFeelUnwell: 1
+    DiseaseBehaviorHeadache: 0.5
+
+- type: weightedRandom
+  id: DiseaseNorovirusPool
+  weights:
+    DiseaseBehaviorVomit: 1
+    DiseaseBehaviorContact: 1
+    DiseaseBehaviorDehydration: 1
+    DiseaseBehaviorFeelUnwell: 1
+    DiseaseBehaviorFatigue: 0.5
+
+- type: weightedRandom
+  id: DiseaseRabiesPool
+  weights:
+    DiseaseBehaviorFightImmunity: 1
+    DiseaseBehaviorHeadache: 1
+    DiseaseBehaviorHydrophobia: 1
+    DiseaseBehaviorRabidBite: 1
+    DiseaseBehaviorRage: 1
+    DiseaseBehaviorRespiratoryParalysis: 1
+    DiseaseBehaviorFever: 0.5
+
+- type: weightedRandom
+  id: DiseaseHepatitisPool
+  weights:
+    DiseaseBehaviorBloodborne: 1
+    DiseaseBehaviorJaundice: 1
+    DiseaseBehaviorFatigue: 1
+    DiseaseBehaviorFeelUnwell: 1
+    DiseaseBehaviorVomit: 0.3
+
+- type: weightedRandom
+  id: DiseaseTuberculosisPool
+  weights:
+    DiseaseBehaviorCough: 1
+    DiseaseBehaviorBloodCough: 1
+    DiseaseBehaviorWasting: 1
+    DiseaseBehaviorFatigue: 1
+    DiseaseBehaviorFever: 1
+    DiseaseBehaviorBreathless: 0.5
+
+- type: weightedRandom
+  id: DiseaseCholeraPool
+  weights:
+    DiseaseBehaviorDehydration: 1
+    DiseaseBehaviorVomit: 1
+    DiseaseBehaviorContact: 1
+    DiseaseBehaviorFatigue: 1
+    DiseaseBehaviorFeelUnwell: 0.5
+
+- type: weightedRandom
+  id: DiseasePlaguePool
+  weights:
+    DiseaseBehaviorBuboes: 1
+    DiseaseBehaviorFever: 1
+    DiseaseBehaviorPneumonic: 1
+    DiseaseBehaviorFatigue: 1
+    DiseaseBehaviorCough: 0.5
+    DiseaseBehaviorHeadache: 0.5
+
+- type: weightedRandom
+  id: DiseaseTapewormPool
+  weights:
+    DiseaseBehaviorWasting: 1
+    DiseaseBehaviorFeelUnwell: 1
+    DiseaseBehaviorFatigue: 0.5
+    DiseaseBehaviorVomit: 0.3
+
+- type: weightedRandom
+  id: DiseaseScabiesPool
+  weights:
+    DiseaseBehaviorItch: 1
+    DiseaseBehaviorContact: 1
+    DiseaseBehaviorRash: 1
+
+- type: weightedRandom
+  id: DiseaseAspergillosisPool
+  weights:
+    DiseaseBehaviorDryCough: 1
+    DiseaseBehaviorBreathless: 1
+    DiseaseBehaviorFatigue: 1
+    DiseaseBehaviorFever: 0.5
+
+- type: weightedRandom
+  id: DiseaseRingwormPool
+  weights:
+    DiseaseBehaviorRingRash: 1
+    DiseaseBehaviorItch: 1
+    DiseaseBehaviorContact: 1
+
+- type: weightedRandom
+  id: DiseaseKuruPool
+  weights:
+    DiseaseBehaviorTremor: 1
+    DiseaseBehaviorAtaxia: 1
+    DiseaseBehaviorLaughter: 1
+    DiseaseBehaviorNeurodegeneration: 1

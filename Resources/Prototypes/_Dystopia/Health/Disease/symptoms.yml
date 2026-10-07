@@ -1,0 +1,477 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: симптомы реальных болезней (diseases.yml). Сила симптома растёт с тяжестью (severity) и
+# прогрессом инфекции, если не указано иное. Названия и описания — Locale/*/_dystopia/health/disease.ftl
+
+# ===== Пути передачи (симптомы-метки, сами ничего не делают) =====
+
+- type: entity
+  id: DiseaseBehaviorContact
+  parent: DiseaseBehaviorBase
+  name: Contact transmission
+  description: Spreads by touch, hugs and touched objects. Gloves protect.
+  components:
+  - type: DiseaseEffect
+    complexity: 5
+  - type: DiseaseContactSpreadEffect
+    spreadParams:
+      power: 1
+      chance: 0.3
+      spreadType: Contact
+    surfaceChance: 0.5
+    surfaceLifetime: 300
+
+- type: entity
+  id: DiseaseBehaviorBloodborne
+  parent: DiseaseBehaviorBase
+  name: Bloodborne
+  description: Spreads through blood, including shared syringe needles.
+  components:
+  - type: DiseaseEffect
+    complexity: 5
+  - type: DiseaseBloodborneEffect
+    spreadParams:
+      power: 1
+      chance: 0.35
+      spreadType: Blood
+    needleLifetime: 600
+
+# ===== Дыхательные =====
+
+- type: entity
+  id: DiseaseBehaviorSneeze
+  parent: DiseaseBehaviorBase
+  name: Sneezing
+  description: Makes you sneeze. Very infective.
+  components:
+  - type: DiseaseEffect
+    complexity: 7
+  - type: DiseasePeriodicCondition
+    delayMin: 8
+    delayMax: 25
+  - type: DiseaseEmoteEffect
+    emote: Sneeze
+  - type: DiseaseSpreadEffect
+    arc: 120
+    range: 3
+    timeScale: false
+    spreadParams:
+      power: 1.2
+      chance: 0.7
+      spreadType: Aerial
+
+# сухой кашель без передачи (грибок, гепатит)
+- type: entity
+  id: DiseaseBehaviorDryCough
+  parent: DiseaseBehaviorBase
+  name: Dry cough
+  description: Makes you cough. Not infective.
+  components:
+  - type: DiseaseEffect
+    complexity: 4
+  - type: DiseasePeriodicCondition
+    delayMin: 10
+    delayMax: 30
+  - type: DiseaseEmoteEffect
+    emote: Cough
+
+- type: entity
+  id: DiseaseBehaviorBloodCough
+  parent: DiseaseBehaviorBase
+  name: Coughing blood
+  description: Violent cough with blood. Damages the lungs and spreads the disease through the air.
+  components:
+  - type: DiseaseEffect
+    complexity: 18
+  - type: DiseaseProgressCondition
+    minProgress: 0.5
+  - type: DiseasePeriodicCondition
+    delayMin: 15
+    delayMax: 40
+  - type: DiseaseEmoteEffect
+    emote: Cough
+  - type: DiseasePopupEffect
+    string: disease-effect-popup-blood-cough
+  - type: DiseaseReagentEffect
+    timeScale: false
+    effects:
+    - !type:HealthChange
+      damage:
+        types:
+          Asphyxiation: 3
+  - type: DiseaseSpreadEffect
+    arc: 180
+    range: 3
+    timeScale: false
+    spreadParams:
+      power: 1
+      chance: 0.4
+      spreadType: Aerial
+
+# лёгочная форма чумы: кашель становится заразным
+- type: entity
+  id: DiseaseBehaviorPneumonic
+  parent: DiseaseBehaviorBase
+  name: Pneumonic form
+  description: The infection reaches the lungs. Coughing becomes highly infective.
+  components:
+  - type: DiseaseEffect
+    complexity: 15
+  - type: DiseaseProgressCondition
+    minProgress: 0.6
+  - type: DiseasePeriodicCondition
+    delayMin: 8
+    delayMax: 25
+  - type: DiseaseEmoteEffect
+    emote: Cough
+  - type: DiseaseSpreadEffect
+    arc: 180
+    range: 3.5
+    timeScale: false
+    spreadParams:
+      power: 1.2
+      chance: 0.6
+      spreadType: Aerial
+
+- type: entity
+  id: DiseaseBehaviorBreathless
+  parent: DiseaseBehaviorBase
+  name: Shortness of breath
+  description: Damages the lungs. Causes suffocation over time.
+  components:
+  - type: DiseaseEffect
+    complexity: 15
+  - type: DiseaseReagentEffect
+    effects:
+    - !type:HealthChange
+      damage:
+        types:
+          Asphyxiation: 0.4
+  - type: DiseasePopupEffect
+    string: disease-effect-popup-breathless
+  - type: DiseasePeriodicCondition
+    delayMin: 30
+    delayMax: 60
+
+# ===== Общие =====
+
+- type: entity
+  id: DiseaseBehaviorFever
+  parent: DiseaseBehaviorBase
+  name: Fever
+  description: Raises body temperature up to 40 degrees.
+  components:
+  - type: DiseaseEffect
+    complexity: 12
+  - type: DiseaseReagentEffect
+    effects:
+    - !type:AdjustTemperature
+      conditions:
+      - !type:TemperatureCondition
+        max: 313.15 # до 40 °C
+      amount: 4000
+
+- type: entity
+  id: DiseaseBehaviorFatigue
+  parent: DiseaseBehaviorBase
+  name: Weakness
+  description: Makes you slower.
+  components:
+  - type: DiseaseEffect
+    complexity: 10
+  - type: DiseaseProgressCondition
+    minProgress: 0.3
+  - type: DiseaseReagentEffect
+    timeScale: false
+    progressScale: false
+    severityScale: false
+    effects:
+    - !type:MovementSpeedModifier
+      walkSpeedModifier: 0.85
+      sprintSpeedModifier: 0.85
+
+- type: entity
+  id: DiseaseBehaviorRash
+  parent: DiseaseBehaviorBase
+  name: Rash
+  description: Red spotted rash. Harmless but noticeable.
+  components:
+  - type: DiseaseEffect
+    complexity: 3
+  - type: DiseasePopupEffect
+    string: disease-effect-popup-rash
+  - type: DiseasePeriodicCondition
+    delayMin: 30
+    delayMax: 70
+  - type: DiseaseProgressCondition
+    minProgress: 0.2
+
+- type: entity
+  id: DiseaseBehaviorItch
+  parent: DiseaseBehaviorBase
+  name: Itching
+  description: Unbearable itching.
+  components:
+  - type: DiseaseEffect
+    complexity: 4
+  - type: DiseasePopupEffect
+    string: disease-effect-popup-itch
+  - type: DiseasePeriodicCondition
+    delayMin: 15
+    delayMax: 45
+
+- type: entity
+  id: DiseaseBehaviorRingRash
+  parent: DiseaseBehaviorBase
+  name: Ring-shaped rash
+  description: Itchy scaly rings on the skin.
+  components:
+  - type: DiseaseEffect
+    complexity: 3
+  - type: DiseasePopupEffect
+    string: disease-effect-popup-ring-rash
+  - type: DiseasePeriodicCondition
+    delayMin: 30
+    delayMax: 70
+
+# ===== Пищеварение =====
+
+- type: entity
+  id: DiseaseBehaviorDehydration
+  parent: DiseaseBehaviorBase
+  name: Dehydration
+  description: Severe diarrhea. You lose water fast.
+  components:
+  - type: DiseaseEffect
+    complexity: 15
+  - type: DiseaseReagentEffect
+    effects:
+    - !type:Satiate
+      satiationType: Thirst
+      factor: -2 # до 1 ед./с при полной болезни — 10 мин от нормы до смерти от жажды
+  - type: DiseasePopupEffect
+    string: disease-effect-popup-dehydration
+  - type: DiseasePeriodicCondition
+    delayMin: 25
+    delayMax: 50
+
+- type: entity
+  id: DiseaseBehaviorWasting
+  parent: DiseaseBehaviorBase
+  name: Wasting
+  description: Something eats your food from the inside.
+  components:
+  - type: DiseaseEffect
+    complexity: 12
+  - type: DiseaseReagentEffect
+    effects:
+    - !type:Satiate
+      satiationType: Hunger
+      factor: -1
+  - type: DiseasePopupEffect
+    string: disease-effect-popup-wasting
+  - type: DiseasePeriodicCondition
+    delayMin: 40
+    delayMax: 80
+
+- type: entity
+  id: DiseaseBehaviorJaundice
+  parent: DiseaseBehaviorBase
+  name: Jaundice
+  description: Yellow skin and eyes. Liver damage.
+  components:
+  - type: DiseaseEffect
+    complexity: 10
+  - type: DiseaseProgressCondition
+    minProgress: 0.3
+  - type: DiseasePopupEffect
+    string: disease-effect-popup-jaundice
+  - type: DiseasePeriodicCondition
+    delayMin: 40
+    delayMax: 80
+  - type: DiseaseReagentEffect
+    timeScale: false
+    effects:
+    - !type:HealthChange
+      damage:
+        types:
+          Poison: 2
+
+# ===== Чума =====
+
+- type: entity
+  id: DiseaseBehaviorBuboes
+  parent: DiseaseBehaviorBase
+  name: Buboes
+  description: Painfully swollen lymph nodes. Poisons the body.
+  components:
+  - type: DiseaseEffect
+    complexity: 25
+  - type: DiseaseReagentEffect
+    effects:
+    - !type:HealthChange
+      damage:
+        types:
+          Poison: 0.5
+  - type: DiseasePopupEffect
+    string: disease-effect-popup-buboes
+  - type: DiseasePeriodicCondition
+    delayMin: 30
+    delayMax: 60
+
+# ===== Бешенство =====
+
+- type: entity
+  id: DiseaseBehaviorHydrophobia
+  parent: DiseaseBehaviorBase
+  name: Hydrophobia
+  description: Fear of water and spasms of the throat.
+  components:
+  - type: DiseaseEffect
+    complexity: 4
+  - type: DiseaseProgressCondition
+    minProgress: 0.3
+  - type: DiseasePopupEffect
+    string: disease-effect-popup-hydrophobia
+    popupType: MediumCaution
+  - type: DiseasePeriodicCondition
+    delayMin: 25
+    delayMax: 50
+
+# ярость: бьёт и кусает, заражая через кровь (без условия «периодически» — иначе компонент снимается)
+- type: entity
+  id: DiseaseBehaviorRabidBite
+  parent: DiseaseBehaviorBase
+  name: Rabid aggression
+  description: Bites and blows of the infected spread the disease through blood.
+  components:
+  - type: DiseaseEffect
+    complexity: 15
+  - type: DiseaseProgressCondition
+    minProgress: 0.5
+  - type: DiseaseGrantComponentEffect
+    components:
+    - type: DiseaseOnHit
+      spreadParams:
+        power: 1
+        chance: 0.4
+        spreadType: Blood
+
+- type: entity
+  id: DiseaseBehaviorRage
+  parent: DiseaseBehaviorBase
+  name: Rage fits
+  description: Fits of rage and tremor.
+  components:
+  - type: DiseaseEffect
+    complexity: 6
+  - type: DiseaseProgressCondition
+    minProgress: 0.5
+  - type: DiseasePeriodicCondition
+    delayMin: 20
+    delayMax: 45
+  - type: DiseasePopupEffect
+    string: disease-effect-popup-rage
+    popupType: MediumCaution
+  - type: DiseaseReagentEffect
+    timeScale: false
+    progressScale: false
+    effects:
+    - !type:Jitter
+      time: 4
+
+- type: entity
+  id: DiseaseBehaviorRespiratoryParalysis
+  parent: DiseaseBehaviorBase
+  name: Respiratory paralysis
+  description: Final stage. The respiratory muscles fail.
+  components:
+  - type: DiseaseEffect
+    complexity: 40
+  - type: DiseaseProgressCondition
+    minProgress: 0.8
+  - type: DiseaseReagentEffect
+    effects:
+    - !type:HealthChange
+      damage:
+        types:
+          Asphyxiation: 1.5
+
+# ===== Прионы =====
+
+- type: entity
+  id: DiseaseBehaviorTremor
+  parent: DiseaseBehaviorBase
+  name: Tremor
+  description: Shaking hands and body.
+  components:
+  - type: DiseaseEffect
+    complexity: 6
+  - type: DiseaseProgressCondition
+    minProgress: 0.2
+  - type: DiseasePeriodicCondition
+    delayMin: 10
+    delayMax: 30
+  - type: DiseaseReagentEffect
+    timeScale: false
+    progressScale: false
+    effects:
+    - !type:Jitter
+      time: 5
+      amplitude: 6
+
+- type: entity
+  id: DiseaseBehaviorAtaxia
+  parent: DiseaseBehaviorBase
+  name: Ataxia
+  description: Loss of coordination. You stumble and fall.
+  components:
+  - type: DiseaseEffect
+    complexity: 20
+  - type: DiseaseProgressCondition
+    minProgress: 0.4
+  - type: DiseasePeriodicCondition
+    delayMin: 25
+    delayMax: 60
+  - type: DiseasePopupEffect
+    string: disease-effect-popup-ataxia
+  - type: DiseaseReagentEffect
+    timeScale: false
+    progressScale: false
+    severityScale: false
+    effects:
+    - !type:ModifyKnockdown
+      time: 2
+      type: Add
+
+- type: entity
+  id: DiseaseBehaviorLaughter
+  parent: DiseaseBehaviorBase
+  name: Pathological laughter
+  description: Fits of uncontrollable laughter.
+  components:
+  - type: DiseaseEffect
+    complexity: 4
+  - type: DiseaseProgressCondition
+    minProgress: 0.5
+  - type: DiseasePeriodicCondition
+    delayMin: 20
+    delayMax: 50
+  - type: DiseaseEmoteEffect
+    emote: Laugh
+
+- type: entity
+  id: DiseaseBehaviorNeurodegeneration
+  parent: DiseaseBehaviorBase
+  name: Neurodegeneration
+  description: Final stage. The brain is destroyed.
+  components:
+  - type: DiseaseEffect
+    complexity: 40
+  - type: DiseaseProgressCondition
+    minProgress: 0.85
+  - type: DiseaseReagentEffect
+    effects:
+    - !type:HealthChange
+      damage:
+        types:
+          Cellular: 0.6

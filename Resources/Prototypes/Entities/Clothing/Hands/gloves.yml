@@ -175,6 +175,13 @@
   name: latex gloves
   description: Thin sterile latex gloves. Basic PPE for any doctor.
   components:
+  - type: DiseaseProtection # Dystopia-Disease: медицинские перчатки полностью защищают от заразы при касании
+    incoming:
+      powerModifiers:
+        Contact: -1
+    outgoing:
+      powerModifiers:
+        Contact: -1
   - type: Sprite
     sprite: Clothing/Hands/Gloves/latex.rsi
   - type: Clothing
@@ -189,6 +196,13 @@
   name: nitrile gloves
   description: High-quality nitrile gloves. Expensive medical PPE.
   components:
+  - type: DiseaseProtection # Dystopia-Disease: медицинские перчатки полностью защищают от заразы при касании
+    incoming:
+      powerModifiers:
+        Contact: -1
+    outgoing:
+      powerModifiers:
+        Contact: -1
   - type: Sprite
     sprite: Clothing/Hands/Gloves/nitrile.rsi
   - type: Clothing

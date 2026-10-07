@@ -1,0 +1,28 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: тихая вспышка болезни — случайный живой игрок подхватывает болезнь (при 30+ игроках двое).
+# Без объявления. Редко: малый вес, не раньше 25 мин, не чаще раза в 40 мин, не больше 2 за раунд.
+# Логика — Content.Server/_Dystopia/Health/Disease/DiseaseOutbreakRule.cs
+
+- type: entity
+  id: DiseaseOutbreak
+  parent: BaseGameRule
+  components:
+  - type: StationEvent
+    weight: 4
+    earliestStart: 25
+    reoccurrenceDelay: 40
+    minimumPlayers: 5
+    maxOccurrences: 2
+    duration: 1
+  - type: DiseaseOutbreakRule
+    diseases:
+      DiseaseFlu: 3
+      DiseaseMeasles: 1.5
+      DiseaseNorovirus: 2
+      DiseaseScabies: 1.5
+      DiseaseRingworm: 1
+      DiseaseAspergillosis: 1
+      DiseaseTuberculosis: 1
+      DiseaseHepatitisB: 0.7
+      DiseaseCholera: 0.5
+      DiseaseRabies: 0.2

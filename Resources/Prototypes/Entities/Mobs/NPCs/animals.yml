@@ -3153,6 +3153,13 @@
   name: corgi
   description: Finally, a space corgi!
   components:
+  - type: DiseaseOnTouch # Dystopia-Disease: стригущий лишай от кошек и собак
+    diseases:
+    - disease: DiseaseRingworm
+      spreadParams:
+        chance: 0.03
+        power: 1
+        spreadType: Contact
   - type: Sprite
     drawdepth: Mobs
     sprite: Mobs/Pets/corgi.rsi
@@ -3334,6 +3341,13 @@
   id: MobCat
   description: Feline pet, very funny.
   components:
+  - type: DiseaseOnTouch # Dystopia-Disease: стригущий лишай от кошек и собак
+    diseases:
+    - disease: DiseaseRingworm
+      spreadParams:
+        chance: 0.03
+        power: 1
+        spreadType: Contact
   - type: Sprite
     drawdepth: Mobs
     sprite: Mobs/Pets/cat.rsi

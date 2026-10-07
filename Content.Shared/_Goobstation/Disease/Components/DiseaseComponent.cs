@@ -145,4 +145,12 @@ public sealed partial class DiseaseComponent : Component
     /// </summary>
     [DataField]
     public ProtoId<DiseaseTypePrototype> DiseaseType = "Debug";
+
+    /// <summary>
+    /// Dystopia: прототип болезни, от которой пошёл штамм (корь, чума...). Копия при передаче берётся с базовой
+    /// сущности и теряет прототип — название болезни держим здесь, его показывает анализатор болезней.
+    /// Пусто у случайных болезней.
+    /// </summary>
+    [DataField, AutoNetworkedField]
+    public EntProtoId? Strain;
 }

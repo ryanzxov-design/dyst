@@ -54,6 +54,13 @@
   id: FoodMeatRawBase
   abstract: true
   components:
+  - type: DiseaseOnIngest # Dystopia-Disease: сырое мясо — свиной цепень (шанс на каждый укус)
+    diseases:
+    - disease: DiseaseTapeworm
+      spreadParams:
+        chance: 0.04
+        power: 1
+        spreadType: Ingestion
   - type: Tag
     tags:
     - Raw
@@ -103,6 +110,18 @@
   name: raw human meat
   description: Gross.
   components:
+  - type: DiseaseOnIngest # Dystopia-Disease: сырая человечина — цепень и куру
+    diseases:
+    - disease: DiseaseTapeworm
+      spreadParams:
+        chance: 0.04
+        power: 1
+        spreadType: Ingestion
+    - disease: DiseaseKuru
+      spreadParams:
+        chance: 0.08
+        power: 1
+        spreadType: Ingestion
   - type: Sprite
     state: plain
   - type: ToolRefinable

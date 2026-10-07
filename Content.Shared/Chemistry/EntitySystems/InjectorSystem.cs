@@ -645,6 +645,9 @@ public sealed partial class InjectorSystem : EntitySystem
     {
         // Leave some DNA from the injectee on it
         _forensics.TransferDna(injector, target);
+        // Dystopia-Disease: игла побывала в крови — болезни через общие шприцы
+        var diseaseEv = new Content.Shared._Dystopia.Health.Disease.DiseaseInjectorContactEvent(user, target);
+        RaiseLocalEvent(injector, ref diseaseEv);
         // Reset the delay, if present.
 
         _useDelay.TryResetDelay(injector.Owner);
@@ -679,6 +682,9 @@ public sealed partial class InjectorSystem : EntitySystem
     {
         // Leave some DNA from the drawee on it
         _forensics.TransferDna(injector, target);
+        // Dystopia-Disease: игла побывала в крови — болезни через общие шприцы
+        var diseaseEv = new Content.Shared._Dystopia.Health.Disease.DiseaseInjectorContactEvent(user, target);
+        RaiseLocalEvent(injector, ref diseaseEv);
 
         // Automatically set the syringe to inject after completely filling it.
         if (!_solutionContainer.ResolveSolution(injector.Owner, injector.Comp.SolutionName, ref injector.Comp.Solution, out var solution)

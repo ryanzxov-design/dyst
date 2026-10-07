@@ -103,6 +103,10 @@ public abstract partial class SharedDiseaseSystem : EntitySystem
         if (ent.Comp.StartingEffects.Count == 0)
             return;
 
+        // Dystopia: запоминаем, какая это болезнь, — копии при передаче унаследуют название
+        if (ent.Comp.Strain == null && Prototype(ent.Owner) is { } diseaseProto)
+            ent.Comp.Strain = diseaseProto.ID;
+
         var complexity = 0f;
         foreach (var effectSpecifier in ent.Comp.StartingEffects)
         {

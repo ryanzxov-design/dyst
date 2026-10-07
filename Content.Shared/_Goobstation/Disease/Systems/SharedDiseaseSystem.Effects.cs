@@ -45,14 +45,10 @@ public partial class SharedDiseaseSystem
 
     private void OnGrantComponent(Entity<DiseaseGrantComponentEffectComponent> ent, ref DiseaseEffectEvent args)
     {
-        foreach (var (compName, _) in ent.Comp.Components)
-        {
-            if (!Factory.TryGetRegistration(compName, out var registration)
-                || EntityManager.HasComponent(args.Ent, registration.Type))
-                continue;
-            var component = _factory.GetComponent(registration.Type);
-            EntityManager.AddComponent(args.Ent, component);
-        }
+        // Dystopia: в Goob компонент выдавался с полями по умолчанию, а заданные в прототипе симптома терялись
+        // (у бешенства укус заражал бы через «Debug» со 100% шансом). Копируем вместе с полями; уже имеющиеся
+        // компоненты не трогаем.
+        EntityManager.AddComponents(args.Ent, ent.Comp.Components, removeExisting: false);
     }
 
     private void OnGrantComponentEffectFail(Entity<DiseaseGrantComponentEffectComponent> ent, ref DiseaseEffectFailedEvent args)

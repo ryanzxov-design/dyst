@@ -60,6 +60,7 @@ public sealed partial class DiseaseSystem : SharedDiseaseSystem
         ent.Comp.DeadInfectionRate = args.Source.Comp.DeadInfectionRate;
         ent.Comp.AvailableEffects = args.Source.Comp.AvailableEffects;
         ent.Comp.DiseaseType = args.Source.Comp.DiseaseType;
+        ent.Comp.Strain = args.Source.Comp.Strain; // Dystopia: название болезни
     }
 
     private void OnGrantDiseaseInit(Entity<GrantDiseaseComponent> ent, ref MapInitEvent args)

@@ -1,0 +1,337 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: реальные лекарства от болезней. Скорость обмена — 0,5 ед./с (по умолчанию), снижение инфекции
+# указано за секунду: при -0,025 полная болезнь (100%) уходит за ~20 ед. без помощи иммунитета.
+# Против какого типа — affectedType: Viral, Bacterial, Parasite, Fungal, Prion.
+# Названия — Locale/*/_dystopia/health/disease.ftl, таблетки и баночки — medicine_forms.yml рядом.
+
+# ===================== Противовирусные =====================
+
+- type: reagent
+  id: Oseltamivir
+  name: reagent-name-oseltamivir
+  desc: reagent-desc-oseltamivir
+  group: Medicine
+  flavor: bitter
+  physicalDesc: reagent-physical-desc-powdery
+  color: "#e9e4f5"
+  metabolisms:
+    Bloodstream:
+      effects:
+      - !type:DiseaseProgressChange
+        affectedType: Viral
+        progressModifier: -0.025 # мягкое, без побочек
+      - !type:HealthChange
+        conditions:
+        - !type:ReagentCondition
+          reagent: Oseltamivir
+          min: 30
+        damage:
+          types:
+            Poison: 1
+
+- type: reagent
+  id: Ribavirin
+  name: reagent-name-ribavirin
+  desc: reagent-desc-ribavirin
+  group: Medicine
+  flavor: bitter
+  physicalDesc: reagent-physical-desc-translucent
+  color: "#f2e27a"
+  metabolisms:
+    Bloodstream:
+      effects:
+      - !type:DiseaseProgressChange
+        affectedType: Viral
+        progressModifier: -0.05 # сильное, единственное надёжное от бешенства
+      - !type:HealthChange # разрушает эритроциты
+        damage:
+          types:
+            Bloodloss: 0.3
+
+# ===================== Антибиотики =====================
+
+- type: reagent
+  id: Amoxicillin
+  name: reagent-name-amoxicillin
+  desc: reagent-desc-amoxicillin
+  group: Medicine
+  flavor: medicine
+  physicalDesc: reagent-physical-desc-powdery
+  color: "#f7f0d0"
+  metabolisms:
+    Bloodstream:
+      effects:
+      - !type:DiseaseProgressChange
+        affectedType: Bacterial
+        progressModifier: -0.03
+      - !type:HealthChange
+        conditions:
+        - !type:ReagentCondition
+          reagent: Amoxicillin
+          min: 30
+        damage:
+          types:
+            Poison: 1
+
+- type: reagent
+  id: Doxycycline
+  name: reagent-name-doxycycline
+  desc: reagent-desc-doxycycline
+  group: Medicine
+  flavor: bitter
+  physicalDesc: reagent-physical-desc-chalky
+  color: "#e8d36a"
+  metabolisms:
+    Bloodstream:
+      effects:
+      - !type:DiseaseProgressChange
+        affectedType: Bacterial
+        progressModifier: -0.025
+      - !type:DiseaseProgressChange # слабо действует и на паразитов
+        affectedType: Parasite
+        progressModifier: -0.012
+
+- type: reagent
+  id: Isoniazid
+  name: reagent-name-isoniazid
+  desc: reagent-desc-isoniazid
+  group: Medicine
+  flavor: bitter
+  physicalDesc: reagent-physical-desc-crystalline
+  color: "#ffffff"
+  metabolisms:
+    Bloodstream:
+      effects:
+      - !type:DiseaseProgressChange
+        affectedType: Bacterial
+        progressModifier: -0.045 # сильнейший антибиотик, бьёт по печени
+      - !type:HealthChange
+        damage:
+          types:
+            Poison: 0.4
+
+# ===================== Противопаразитарные =====================
+
+- type: reagent
+  id: Albendazole
+  name: reagent-name-albendazole
+  desc: reagent-desc-albendazole
+  group: Medicine
+  flavor: chalky
+  physicalDesc: reagent-physical-desc-powdery
+  color: "#ece8dc"
+  metabolisms:
+    Bloodstream:
+      effects:
+      - !type:DiseaseProgressChange
+        affectedType: Parasite
+        progressModifier: -0.04
+
+- type: reagent
+  id: Ivermectin
+  name: reagent-name-ivermectin
+  desc: reagent-desc-ivermectin
+  group: Medicine
+  flavor: bitter
+  physicalDesc: reagent-physical-desc-oily
+  color: "#d9c79a"
+  metabolisms:
+    Bloodstream:
+      effects:
+      - !type:DiseaseProgressChange
+        affectedType: Parasite
+        progressModifier: -0.03
+      - !type:Jitter # передозировка — судороги
+        conditions:
+        - !type:ReagentCondition
+          reagent: Ivermectin
+          min: 20
+      - !type:HealthChange
+        conditions:
+        - !type:ReagentCondition
+          reagent: Ivermectin
+          min: 20
+        damage:
+          types:
+            Poison: 1.5
+
+# ===================== Противогрибковые =====================
+
+- type: reagent
+  id: Fluconazole
+  name: reagent-name-fluconazole
+  desc: reagent-desc-fluconazole
+  group: Medicine
+  flavor: medicine
+  physicalDesc: reagent-physical-desc-powdery
+  color: "#dfeef7"
+  metabolisms:
+    Bloodstream:
+      effects:
+      - !type:DiseaseProgressChange
+        affectedType: Fungal
+        progressModifier: -0.025
+
+- type: reagent
+  id: AmphotericinB
+  name: reagent-name-amphotericin-b
+  desc: reagent-desc-amphotericin-b
+  group: Medicine
+  flavor: terrible
+  physicalDesc: reagent-physical-desc-murky
+  color: "#f5c242"
+  metabolisms:
+    Bloodstream:
+      effects:
+      - !type:DiseaseProgressChange
+        affectedType: Fungal
+        progressModifier: -0.06 # очень сильное, но токсичное для почек
+      - !type:HealthChange
+        damage:
+          types:
+            Poison: 0.8
+
+# ===================== Против прионов =====================
+
+- type: reagent
+  id: PentosanPolysulfate
+  name: reagent-name-pentosan-polysulfate
+  desc: reagent-desc-pentosan-polysulfate
+  group: Medicine
+  flavor: medicine
+  physicalDesc: reagent-physical-desc-viscous
+  color: "#c9e3c4"
+  metabolisms:
+    Bloodstream:
+      effects:
+      - !type:DiseaseProgressChange
+        affectedType: Prion
+        progressModifier: -0.006 # куру отступает медленно: ~100 ед. на полный курс
+      - !type:HealthChange # разжижает кровь
+        damage:
+          types:
+            Bloodloss: 0.1
+
+# ===================== Рецепты =====================
+
+- type: reaction
+  id: Oseltamivir
+  reactants:
+    Immurin:
+      amount: 1
+    Ethanol:
+      amount: 1
+    Nitrogen:
+      amount: 1
+  products:
+    Oseltamivir: 3
+
+- type: reaction
+  id: Ribavirin
+  reactants:
+    Devirate:
+      amount: 1
+    Sugar: # рибоза
+      amount: 1
+    Nitrogen:
+      amount: 1
+  products:
+    Ribavirin: 2
+
+- type: reaction
+  id: Amoxicillin
+  reactants:
+    Phenol:
+      amount: 1
+    Ammonia:
+      amount: 1
+    Sulfur:
+      amount: 1
+  products:
+    Amoxicillin: 3
+
+- type: reaction
+  id: Doxycycline
+  reactants:
+    Spaceacilin:
+      amount: 1
+    Carbon:
+      amount: 1
+    Oxygen:
+      amount: 1
+  products:
+    Doxycycline: 2
+
+- type: reaction
+  id: Isoniazid
+  reactants:
+    Benzene:
+      amount: 1
+    Ammonia:
+      amount: 1
+    Hydrogen:
+      amount: 1
+  products:
+    Isoniazid: 2
+
+- type: reaction
+  id: Albendazole
+  reactants:
+    Benzene:
+      amount: 1
+    Sulfur:
+      amount: 1
+    Nitrogen:
+      amount: 1
+  products:
+    Albendazole: 3
+
+- type: reaction
+  id: Ivermectin
+  reactants:
+    Oil:
+      amount: 1
+    Sugar:
+      amount: 1
+    Nitrogen:
+      amount: 1
+  products:
+    Ivermectin: 2
+
+- type: reaction
+  id: Fluconazole
+  reactants:
+    Benzene:
+      amount: 1
+    Fluorine:
+      amount: 1
+    Ammonia:
+      amount: 1
+  products:
+    Fluconazole: 3
+
+- type: reaction
+  id: AmphotericinB
+  reactants:
+    Oil:
+      amount: 1
+    Sugar:
+      amount: 1
+    Ammonia:
+      amount: 1
+    Oxygen:
+      amount: 1
+  products:
+    AmphotericinB: 2
+
+- type: reaction
+  id: PentosanPolysulfate
+  reactants:
+    Sugar:
+      amount: 2
+    SulfuricAcid:
+      amount: 1
+    Sodium:
+      amount: 1
+  products:
+    PentosanPolysulfate: 2

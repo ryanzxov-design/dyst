@@ -52,6 +52,11 @@
     Defibrillator: 2 # Easily shared between several people
     Syringe: 4
     PillCanisterTricordrazine: 4
+    PillCanisterAmoxicillin: 2 # Dystopia-Disease: базовые лекарства от болезней
+    PillCanisterOseltamivir: 2 # Dystopia-Disease
+    PillCanisterAlbendazole: 1 # Dystopia-Disease
+    PillCanisterFluconazole: 1 # Dystopia-Disease
+    ChemistryBottleImmurin: 2 # Dystopia-Disease
     ClothingOuterHospitalGown: 2 # Not a popular item, so less stock
   contrabandInventory:
     PillCanisterRandom: 3

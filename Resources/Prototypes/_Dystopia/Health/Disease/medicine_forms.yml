@@ -1,0 +1,562 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: готовые формы лекарств от болезней — бутылочка 30 ед., таблетка 10 ед., баночка на 10 таблеток.
+# Как у обезболивающих (Health/Reagents/medicine_forms.yml). Названия — Locale/*/_dystopia/health/disease-medicine-forms.ftl
+
+- type: entity
+  parent: BaseChemistryBottleFilled
+  id: ChemistryBottleImmurin
+  suffix: Immurin
+  components:
+  - type: Label
+    localizedLabel: reagent-name-immurin
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Immurin
+        Quantity: 30
+
+- type: entity
+  parent: Pill
+  id: PillImmurin
+  suffix: Immurin 10u
+  components:
+  - type: Pill
+    pillType: 2
+  - type: Sprite
+    state: pill3
+  - type: Label
+    localizedLabel: pill-label-immurin
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Immurin
+        Quantity: 10
+
+- type: entity
+  parent: PillCanister
+  id: PillCanisterImmurin
+  suffix: Immurin 10u, 10
+  components:
+  - type: Label
+    localizedLabel: pill-label-immurin
+  - type: EntityTableContainerFill
+    containers:
+      storagebase:
+        id: PillImmurin
+        amount: 10
+
+- type: entity
+  parent: BaseChemistryBottleFilled
+  id: ChemistryBottleSpaceacilin
+  suffix: Spaceacilin
+  components:
+  - type: Label
+    localizedLabel: reagent-name-spaceacilin
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Spaceacilin
+        Quantity: 30
+
+- type: entity
+  parent: Pill
+  id: PillSpaceacilin
+  suffix: Spaceacilin 10u
+  components:
+  - type: Pill
+    pillType: 3
+  - type: Sprite
+    state: pill4
+  - type: Label
+    localizedLabel: pill-label-spaceacilin
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Spaceacilin
+        Quantity: 10
+
+- type: entity
+  parent: PillCanister
+  id: PillCanisterSpaceacilin
+  suffix: Spaceacilin 10u, 10
+  components:
+  - type: Label
+    localizedLabel: pill-label-spaceacilin
+  - type: EntityTableContainerFill
+    containers:
+      storagebase:
+        id: PillSpaceacilin
+        amount: 10
+
+- type: entity
+  parent: BaseChemistryBottleFilled
+  id: ChemistryBottleDevirate
+  suffix: Devirate
+  components:
+  - type: Label
+    localizedLabel: reagent-name-devirate
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Devirate
+        Quantity: 30
+
+- type: entity
+  parent: Pill
+  id: PillDevirate
+  suffix: Devirate 10u
+  components:
+  - type: Pill
+    pillType: 5
+  - type: Sprite
+    state: pill6
+  - type: Label
+    localizedLabel: pill-label-devirate
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Devirate
+        Quantity: 10
+
+- type: entity
+  parent: PillCanister
+  id: PillCanisterDevirate
+  suffix: Devirate 10u, 10
+  components:
+  - type: Label
+    localizedLabel: pill-label-devirate
+  - type: EntityTableContainerFill
+    containers:
+      storagebase:
+        id: PillDevirate
+        amount: 10
+
+- type: entity
+  parent: BaseChemistryBottleFilled
+  id: ChemistryBottleOseltamivir
+  suffix: Oseltamivir
+  components:
+  - type: Label
+    localizedLabel: reagent-name-oseltamivir
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Oseltamivir
+        Quantity: 30
+
+- type: entity
+  parent: Pill
+  id: PillOseltamivir
+  suffix: Oseltamivir 10u
+  components:
+  - type: Pill
+    pillType: 7
+  - type: Sprite
+    state: pill8
+  - type: Label
+    localizedLabel: pill-label-oseltamivir
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Oseltamivir
+        Quantity: 10
+
+- type: entity
+  parent: PillCanister
+  id: PillCanisterOseltamivir
+  suffix: Oseltamivir 10u, 10
+  components:
+  - type: Label
+    localizedLabel: pill-label-oseltamivir
+  - type: EntityTableContainerFill
+    containers:
+      storagebase:
+        id: PillOseltamivir
+        amount: 10
+
+- type: entity
+  parent: BaseChemistryBottleFilled
+  id: ChemistryBottleRibavirin
+  suffix: Ribavirin
+  components:
+  - type: Label
+    localizedLabel: reagent-name-ribavirin
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Ribavirin
+        Quantity: 30
+
+- type: entity
+  parent: Pill
+  id: PillRibavirin
+  suffix: Ribavirin 10u
+  components:
+  - type: Pill
+    pillType: 8
+  - type: Sprite
+    state: pill9
+  - type: Label
+    localizedLabel: pill-label-ribavirin
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Ribavirin
+        Quantity: 10
+
+- type: entity
+  parent: PillCanister
+  id: PillCanisterRibavirin
+  suffix: Ribavirin 10u, 10
+  components:
+  - type: Label
+    localizedLabel: pill-label-ribavirin
+  - type: EntityTableContainerFill
+    containers:
+      storagebase:
+        id: PillRibavirin
+        amount: 10
+
+- type: entity
+  parent: BaseChemistryBottleFilled
+  id: ChemistryBottleAmoxicillin
+  suffix: Amoxicillin
+  components:
+  - type: Label
+    localizedLabel: reagent-name-amoxicillin
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Amoxicillin
+        Quantity: 30
+
+- type: entity
+  parent: Pill
+  id: PillAmoxicillin
+  suffix: Amoxicillin 10u
+  components:
+  - type: Pill
+    pillType: 10
+  - type: Sprite
+    state: pill11
+  - type: Label
+    localizedLabel: pill-label-amoxicillin
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Amoxicillin
+        Quantity: 10
+
+- type: entity
+  parent: PillCanister
+  id: PillCanisterAmoxicillin
+  suffix: Amoxicillin 10u, 10
+  components:
+  - type: Label
+    localizedLabel: pill-label-amoxicillin
+  - type: EntityTableContainerFill
+    containers:
+      storagebase:
+        id: PillAmoxicillin
+        amount: 10
+
+- type: entity
+  parent: BaseChemistryBottleFilled
+  id: ChemistryBottleDoxycycline
+  suffix: Doxycycline
+  components:
+  - type: Label
+    localizedLabel: reagent-name-doxycycline
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Doxycycline
+        Quantity: 30
+
+- type: entity
+  parent: Pill
+  id: PillDoxycycline
+  suffix: Doxycycline 10u
+  components:
+  - type: Pill
+    pillType: 17
+  - type: Sprite
+    state: pill18
+  - type: Label
+    localizedLabel: pill-label-doxycycline
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Doxycycline
+        Quantity: 10
+
+- type: entity
+  parent: PillCanister
+  id: PillCanisterDoxycycline
+  suffix: Doxycycline 10u, 10
+  components:
+  - type: Label
+    localizedLabel: pill-label-doxycycline
+  - type: EntityTableContainerFill
+    containers:
+      storagebase:
+        id: PillDoxycycline
+        amount: 10
+
+- type: entity
+  parent: BaseChemistryBottleFilled
+  id: ChemistryBottleIsoniazid
+  suffix: Isoniazid
+  components:
+  - type: Label
+    localizedLabel: reagent-name-isoniazid
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Isoniazid
+        Quantity: 30
+
+- type: entity
+  parent: Pill
+  id: PillIsoniazid
+  suffix: Isoniazid 10u
+  components:
+  - type: Pill
+    pillType: 0
+  - type: Sprite
+    state: pill1
+  - type: Label
+    localizedLabel: pill-label-isoniazid
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Isoniazid
+        Quantity: 10
+
+- type: entity
+  parent: PillCanister
+  id: PillCanisterIsoniazid
+  suffix: Isoniazid 10u, 10
+  components:
+  - type: Label
+    localizedLabel: pill-label-isoniazid
+  - type: EntityTableContainerFill
+    containers:
+      storagebase:
+        id: PillIsoniazid
+        amount: 10
+
+- type: entity
+  parent: BaseChemistryBottleFilled
+  id: ChemistryBottleAlbendazole
+  suffix: Albendazole
+  components:
+  - type: Label
+    localizedLabel: reagent-name-albendazole
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Albendazole
+        Quantity: 30
+
+- type: entity
+  parent: Pill
+  id: PillAlbendazole
+  suffix: Albendazole 10u
+  components:
+  - type: Pill
+    pillType: 1
+  - type: Sprite
+    state: pill2
+  - type: Label
+    localizedLabel: pill-label-albendazole
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Albendazole
+        Quantity: 10
+
+- type: entity
+  parent: PillCanister
+  id: PillCanisterAlbendazole
+  suffix: Albendazole 10u, 10
+  components:
+  - type: Label
+    localizedLabel: pill-label-albendazole
+  - type: EntityTableContainerFill
+    containers:
+      storagebase:
+        id: PillAlbendazole
+        amount: 10
+
+- type: entity
+  parent: BaseChemistryBottleFilled
+  id: ChemistryBottleIvermectin
+  suffix: Ivermectin
+  components:
+  - type: Label
+    localizedLabel: reagent-name-ivermectin
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Ivermectin
+        Quantity: 30
+
+- type: entity
+  parent: Pill
+  id: PillIvermectin
+  suffix: Ivermectin 10u
+  components:
+  - type: Pill
+    pillType: 4
+  - type: Sprite
+    state: pill5
+  - type: Label
+    localizedLabel: pill-label-ivermectin
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Ivermectin
+        Quantity: 10
+
+- type: entity
+  parent: PillCanister
+  id: PillCanisterIvermectin
+  suffix: Ivermectin 10u, 10
+  components:
+  - type: Label
+    localizedLabel: pill-label-ivermectin
+  - type: EntityTableContainerFill
+    containers:
+      storagebase:
+        id: PillIvermectin
+        amount: 10
+
+- type: entity
+  parent: BaseChemistryBottleFilled
+  id: ChemistryBottleFluconazole
+  suffix: Fluconazole
+  components:
+  - type: Label
+    localizedLabel: reagent-name-fluconazole
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Fluconazole
+        Quantity: 30
+
+- type: entity
+  parent: Pill
+  id: PillFluconazole
+  suffix: Fluconazole 10u
+  components:
+  - type: Pill
+    pillType: 6
+  - type: Sprite
+    state: pill7
+  - type: Label
+    localizedLabel: pill-label-fluconazole
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Fluconazole
+        Quantity: 10
+
+- type: entity
+  parent: PillCanister
+  id: PillCanisterFluconazole
+  suffix: Fluconazole 10u, 10
+  components:
+  - type: Label
+    localizedLabel: pill-label-fluconazole
+  - type: EntityTableContainerFill
+    containers:
+      storagebase:
+        id: PillFluconazole
+        amount: 10
+
+- type: entity
+  parent: BaseChemistryBottleFilled
+  id: ChemistryBottleAmphotericinB
+  suffix: Amphotericin B
+  components:
+  - type: Label
+    localizedLabel: reagent-name-amphotericin-b
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: AmphotericinB
+        Quantity: 30
+
+- type: entity
+  parent: Pill
+  id: PillAmphotericinB
+  suffix: Amphotericin B 10u
+  components:
+  - type: Pill
+    pillType: 9
+  - type: Sprite
+    state: pill10
+  - type: Label
+    localizedLabel: pill-label-amphotericin-b
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: AmphotericinB
+        Quantity: 10
+
+- type: entity
+  parent: PillCanister
+  id: PillCanisterAmphotericinB
+  suffix: Amphotericin B 10u, 10
+  components:
+  - type: Label
+    localizedLabel: pill-label-amphotericin-b
+  - type: EntityTableContainerFill
+    containers:
+      storagebase:
+        id: PillAmphotericinB
+        amount: 10
+
+- type: entity
+  parent: BaseChemistryBottleFilled
+  id: ChemistryBottlePentosanPolysulfate
+  suffix: Pentosan
+  components:
+  - type: Label
+    localizedLabel: reagent-name-pentosan-polysulfate
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: PentosanPolysulfate
+        Quantity: 30
+
+- type: entity
+  parent: Pill
+  id: PillPentosanPolysulfate
+  suffix: Pentosan 10u
+  components:
+  - type: Pill
+    pillType: 11
+  - type: Sprite
+    state: pill12
+  - type: Label
+    localizedLabel: pill-label-pentosan-polysulfate
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: PentosanPolysulfate
+        Quantity: 10
+
+- type: entity
+  parent: PillCanister
+  id: PillCanisterPentosanPolysulfate
+  suffix: Pentosan 10u, 10
+  components:
+  - type: Label
+    localizedLabel: pill-label-pentosan-polysulfate
+  - type: EntityTableContainerFill
+    containers:
+      storagebase:
+        id: PillPentosanPolysulfate
+        amount: 10

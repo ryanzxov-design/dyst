@@ -305,6 +305,13 @@
   name: brain burger
   description: A strange looking burger. It looks almost sentient.
   components:
+  - type: DiseaseOnIngest # Dystopia-Disease: прионы не боятся готовки — куру
+    diseases:
+    - disease: DiseaseKuru
+      spreadParams:
+        chance: 0.15
+        power: 1
+        spreadType: Ingestion
   - type: Item
     storedOffset: 0,1
     inhandVisuals:
@@ -755,6 +762,13 @@
   id: FoodBurgerHuman
   description: You cant tell who this is made of...
   components:
+  - type: DiseaseOnIngest # Dystopia-Disease: прионы не боятся готовки — куру
+    diseases:
+    - disease: DiseaseKuru
+      spreadParams:
+        chance: 0.06
+        power: 1
+        spreadType: Ingestion
   - type: FlavorProfile
     flavors:
       - bun

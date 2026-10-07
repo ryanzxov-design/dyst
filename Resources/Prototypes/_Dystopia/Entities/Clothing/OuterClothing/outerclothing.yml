@@ -180,6 +180,7 @@
         Blood: -1
       chanceMultipliers:
         Blood: 0.5
+        Contact: 0.5 # Dystopia-Disease: закрытое тело — меньше контакта
 # Самостоятельный предмет: все свойства выписаны явно (раньше: parent ClothingOuterBioScientist)
 
 - type: entity
@@ -270,3 +271,4 @@
         Blood: -1
       chanceMultipliers:
         Blood: 0.5
+        Contact: 0.5 # Dystopia-Disease: закрытое тело — меньше контакта

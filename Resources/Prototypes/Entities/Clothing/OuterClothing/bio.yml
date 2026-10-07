@@ -28,6 +28,7 @@
         Blood: -1
       chanceMultipliers:
         Blood: 0.5
+        Contact: 0.5 # Dystopia-Disease: закрытое тело — меньше контакта
 
 - type: entity
   parent: ClothingOuterBioGeneral

@@ -243,6 +243,13 @@
   id: FoodCakeBrain
   description: A squishy cake-thing.
   components:
+  - type: DiseaseOnIngest # Dystopia-Disease: прионы не боятся готовки — куру
+    diseases:
+    - disease: DiseaseKuru
+      spreadParams:
+        chance: 0.1
+        power: 1
+        spreadType: Ingestion
   - type: Sprite
     state: brain
   - type: ToolRefinable
@@ -272,6 +279,13 @@
   id: FoodCakeBrainSlice
   description: Lemme tell you something about prions. THEY'RE DELICIOUS.
   components:
+  - type: DiseaseOnIngest # Dystopia-Disease: прионы не боятся готовки — куру
+    diseases:
+    - disease: DiseaseKuru
+      spreadParams:
+        chance: 0.1
+        power: 1
+        spreadType: Ingestion
   - type: Sprite
     state: brain-slice
   - type: Tag

@@ -184,6 +184,14 @@
 - type: entity
   parent: [ OrganBaseBrain, OrganHumanInternal ]
   id: OrganHumanBrain
+  components:
+  - type: DiseaseOnIngest # Dystopia-Disease: человеческий мозг — куру
+    diseases:
+    - disease: DiseaseKuru
+      spreadParams:
+        chance: 0.25
+        power: 1
+        spreadType: Ingestion
 
 - type: entity
   parent: [ OrganBaseEyes, OrganHumanInternal, OrganHumanExternal ]

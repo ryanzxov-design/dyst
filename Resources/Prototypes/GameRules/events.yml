@@ -9,6 +9,7 @@
     - id: BureaucraticError
     - id: ClericalError
     - id: CockroachMigration
+    - id: DiseaseOutbreak # Dystopia-Disease: редкая тихая вспышка болезни
     - id: GasLeak
     - id: GreytideVirus
     - id: IonStorm # its calm like 90% of the time smh
