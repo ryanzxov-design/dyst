@@ -1,0 +1,121 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: «Справочник фармацевта» — древо синтеза лекарств. Строится из прототипов реакций сам:
+# новый препарат с рецептом появится в справочнике без правок здесь.
+# Код — Content.Client/_Dystopia/Health/Pharmacy/
+
+# Настройки справочника
+- type: pharmacistGuide
+  id: Default
+  # всё, чем наполнены канистры раздатчика, — сырьё «из раздатчика»
+  dispensers:
+  - ChemDispenser
+  # группы реагентов, которые попадают в список препаратов
+  groups:
+  - Medicine
+  # всегда сырьё, даже если есть рецепт (воду наливают из крана, а не гонят из масла на центрифуге)
+  raw:
+  - Water
+  - Blood
+  # где взять вещества без рецепта
+  sources:
+    Water: pharm-guide-source-water
+    WeldingFuel: pharm-guide-source-welding-fuel
+    Plasma: pharm-guide-source-plasma
+    Blood: pharm-guide-source-blood
+    Aloe: pharm-guide-source-botany
+    Coffee: pharm-guide-source-coffee
+    CarpoToxin: pharm-guide-source-carp
+    Omnizine: pharm-guide-source-rare
+    Barozine: pharm-guide-source-rare
+    Stellibinin: pharm-guide-source-botany
+    PulpedBananaPeel: pharm-guide-source-banana
+
+# Предмет: открывает окно справочника
+- type: entity
+  parent: BaseItem
+  id: DystopiaPharmacistGuide
+  name: справочник фармацевта
+  description: Толстый справочник Санитарной службы с древом синтеза всех известных Городу лекарств.
+  components:
+  - type: Sprite
+    sprite: Objects/Misc/books.rsi
+    layers:
+    - state: paper
+    - state: cover_base
+      color: "#1B2C44"
+    - state: decor_wingette
+      color: "#78BEE1"
+    - state: icon_medical_cross
+  - type: Item
+    size: Small
+  - type: Tag
+    tags:
+    - Book
+  - type: ActivatableUI
+    key: enum.PharmacistGuideUiKey.Key
+    requiresComplex: false
+  - type: UserInterface
+    interfaces:
+      enum.PharmacistGuideUiKey.Key:
+        type: PharmacistGuideBoundUserInterface
+  - type: StaticPrice
+    price: 25
+
+# Программа КПК: открывает то же окно
+- type: entity
+  id: DystopiaPharmacistGuideCartridge
+  name: "картридж «Справочник фармацевта»"
+  description: "Программа с древом синтеза лекарств: рецепты, сырьё и порядок реакций."
+  components:
+  - type: Item
+    size: Small
+    storedRotation: -90
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Devices/cartridge.rsi
+    state: cart-chem
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: UIFragment
+    ui: !type:PharmacistGuideUi
+  - type: Cartridge
+    programName: pharm-guide-program-name
+    icon:
+      sprite: Interface/Misc/program_icons.rsi
+      state: news_read

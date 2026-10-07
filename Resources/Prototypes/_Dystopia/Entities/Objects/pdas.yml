@@ -2072,6 +2072,7 @@
     range: 500
   - type: CartridgeLoader
     uiKey: enum.PdaUiKey.Key
+    diskSpace: 10 # Dystopia-Pharmacy: место под справочник фармацевта и свои картриджи
     cartridgeSlot:
       priority: -1
       name: device-pda-slot-component-slot-name-cartridge
@@ -2133,6 +2134,7 @@
     programs:
     - DystopiaLawsCartridge
     - DystopiaBankCartridge
+    - DystopiaPharmacistGuideCartridge # Dystopia-Pharmacy: справочник фармацевта
 # Самостоятельный предмет: все свойства выписаны явно (раньше: parent MedicalPDA)
 
 - type: entity
@@ -2790,6 +2792,7 @@
     range: 500
   - type: CartridgeLoader
     uiKey: enum.PdaUiKey.Key
+    diskSpace: 10 # Dystopia-Pharmacy: место под справочник фармацевта и свои картриджи
     cartridgeSlot:
       priority: -1
       name: device-pda-slot-component-slot-name-cartridge
@@ -2850,6 +2853,7 @@
     programs:
     - DystopiaLawsCartridge
     - DystopiaBankCartridge
+    - DystopiaPharmacistGuideCartridge # Dystopia-Pharmacy: справочник фармацевта
 # Самостоятельный предмет: все свойства выписаны явно (раньше: parent MedicalInternPDA)
 
 - type: entity
@@ -3153,6 +3157,7 @@
     range: 500
   - type: CartridgeLoader
     uiKey: enum.PdaUiKey.Key
+    diskSpace: 10 # Dystopia-Pharmacy: место под справочник фармацевта и свои картриджи
     cartridgeSlot:
       priority: -1
       name: device-pda-slot-component-slot-name-cartridge
@@ -3213,6 +3218,7 @@
     programs:
     - DystopiaLawsCartridge
     - DystopiaBankCartridge
+    - DystopiaPharmacistGuideCartridge # Dystopia-Pharmacy: справочник фармацевта
 # Самостоятельный предмет: все свойства выписаны явно (раньше: parent SciencePDA)
 
 - type: entity
@@ -3508,6 +3514,7 @@
     range: 500
   - type: CartridgeLoader
     uiKey: enum.PdaUiKey.Key
+    diskSpace: 10 # Dystopia-Pharmacy: место под справочник фармацевта и свои картриджи
     cartridgeSlot:
       priority: -1
       name: device-pda-slot-component-slot-name-cartridge
@@ -3563,6 +3570,7 @@
     programs:
     - DystopiaLawsCartridge
     - DystopiaBankCartridge
+    - DystopiaPharmacistGuideCartridge # Dystopia-Pharmacy: справочник фармацевта
 # Самостоятельный предмет: все свойства выписаны явно (раньше: parent SciencePDA)
 
 - type: entity
