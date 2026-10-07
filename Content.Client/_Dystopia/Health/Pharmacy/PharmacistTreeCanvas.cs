@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 // Dystopia: полотно древа синтеза — сетка, линии «реагент → продукт» и узлы-кнопки веществ.
-// Полотно можно таскать мышью, как древо исследований.
+// Полотно можно таскать мышью, как древо исследований, и масштабировать колесом.
+// Координаты узлов и линий хранятся в масштабе 1, полотно умножает их на Zoom.
 
 using System.Numerics;
 using Content.Client._Dystopia.UserInterface;
@@ -22,8 +23,21 @@ public sealed class PharmacistTreeCanvas : LayoutContainer
     private const float GridStep = 24;
     private static readonly Color GridColor = CityUi.Line.WithAlpha(0.35f);
 
+    public const float MinZoom = 0.4f;
+    public const float MaxZoom = 1.6f;
+
     private readonly List<TreeEdge> _edges = new();
     private bool _dragging;
+
+    /// <summary>
+    /// Текущий масштаб полотна.
+    /// </summary>
+    public float Zoom = 1f;
+
+    /// <summary>
+    /// Колесо мыши над полотном: шаг (+1 — приблизить, -1 — отдалить) и точка под курсором на полотне.
+    /// </summary>
+    public event Action<int, Vector2>? Zoomed;
 
     /// <summary>
     /// Полотно тащат мышью: смещение мыши в виртуальных пикселях.
@@ -48,7 +62,7 @@ public sealed class PharmacistTreeCanvas : LayoutContainer
     {
         base.Draw(handle);
 
-        var scale = UIScale;
+        var scale = UIScale * Zoom;
         var size = PixelSize;
 
         // сетка «чертежа»
@@ -66,7 +80,7 @@ public sealed class PharmacistTreeCanvas : LayoutContainer
         // линии: от правого края реагента до левого края продукта, с изломом в промежутке перед продуктом
         foreach (var edge in _edges)
         {
-            var thickness = (edge.Highlighted ? 2f : 1f) * Math.Max(1f, scale);
+            var thickness = (edge.Highlighted ? 2f : 1f) * Math.Max(1f, UIScale);
             var color = edge.Highlighted ? CityUi.Accent : CityUi.Line;
             if (edge.Faded)
                 color = color.WithAlpha(0.35f);
@@ -104,6 +118,15 @@ public sealed class PharmacistTreeCanvas : LayoutContainer
         _dragging = false;
     }
 
+    protected override void MouseWheel(GUIMouseWheelEventArgs args)
+    {
+        base.MouseWheel(args);
+        // колесо масштабирует полотно; прокрутку списка-полотна не пускаем дальше
+        args.Handle();
+        if (args.Delta.Y != 0)
+            Zoomed?.Invoke(args.Delta.Y > 0 ? 1 : -1, args.RelativePosition);
+    }
+
     protected override void MouseMove(GUIMouseMoveEventArgs args)
     {
         base.MouseMove(args);
@@ -128,34 +151,53 @@ public sealed class PharmacistTreeNode : ContainerButton
 
     public string ReagentId { get; }
 
+    private readonly BoxContainer _row;
+    private bool _bold;
+    private float _zoom = 1f;
+
     public PharmacistTreeNode(string reagentId, string name)
     {
         ReagentId = reagentId;
-        SetSize = new Vector2(PharmacistTreeCanvas.NodeWidth, PharmacistTreeCanvas.NodeHeight);
 
-        var row = new BoxContainer
+        _row = new BoxContainer
         {
             Orientation = BoxContainer.LayoutOrientation.Horizontal,
-            SeparationOverride = 7,
-            Margin = new Thickness(8, 0, 6, 0),
             VerticalAlignment = VAlignment.Center,
         };
-        AddChild(row);
+        AddChild(_row);
 
-        _mark = new PanelContainer
-        {
-            SetSize = new Vector2(6, 6),
-            VerticalAlignment = VAlignment.Center,
-        };
-        row.AddChild(_mark);
+        _mark = new PanelContainer { VerticalAlignment = VAlignment.Center };
+        _row.AddChild(_mark);
 
         _name = CityUi.MakeLabel(name, CityUi.Text, CityUi.Regular(11));
         _name.HorizontalExpand = true;
         _name.ClipText = true;
-        row.AddChild(_name);
+        _row.AddChild(_name);
 
         _badge = CityUi.MakeLabel(string.Empty, CityUi.Dim, CityUi.Mono(9));
-        row.AddChild(_badge);
+        _row.AddChild(_badge);
+
+        SetZoom(1f);
+    }
+
+    /// <summary>
+    /// Размер узла, отступы и шрифты под масштаб полотна.
+    /// </summary>
+    public void SetZoom(float zoom)
+    {
+        _zoom = zoom;
+        SetSize = new Vector2(PharmacistTreeCanvas.NodeWidth, PharmacistTreeCanvas.NodeHeight) * zoom;
+        _row.SeparationOverride = (int) MathF.Round(7 * zoom);
+        _row.Margin = new Thickness(8 * zoom, 0, 6 * zoom, 0);
+        _mark.SetSize = new Vector2(6, 6) * zoom;
+        UpdateFonts();
+    }
+
+    private void UpdateFonts()
+    {
+        var nameSize = Math.Max(6, (int) MathF.Round(11 * _zoom));
+        _name.FontOverride = _bold ? CityUi.Bold(nameSize) : CityUi.Regular(nameSize);
+        _badge.FontOverride = CityUi.Mono(Math.Max(6, (int) MathF.Round(9 * _zoom)));
     }
 
     public void SetLook(Color fill, Color border, Color text, float thickness, bool bold, Color mark, string badge, float alpha)
@@ -165,7 +207,8 @@ public sealed class PharmacistTreeNode : ContainerButton
         _thickness = thickness;
         UpdateBox();
         _name.FontColorOverride = text;
-        _name.FontOverride = bold ? CityUi.Bold(11) : CityUi.Regular(11);
+        _bold = bold;
+        UpdateFonts();
         _mark.PanelOverride = new StyleBoxFlat { BackgroundColor = mark };
         _badge.Text = badge;
         Modulate = Color.White.WithAlpha(alpha);

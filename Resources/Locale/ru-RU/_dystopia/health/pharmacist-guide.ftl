@@ -13,15 +13,10 @@ pharm-guide-list-empty = Ничего не найдено. Проверьте н
 pharm-guide-steps-short = { $count } ш.
 
 pharm-guide-section-tree = Древо синтеза
-pharm-guide-legend-dispenser = Раздатчик
-pharm-guide-legend-other = Иной источник
-pharm-guide-legend-craft = Промежуточное
-pharm-guide-legend-medicine = Препарат
-pharm-guide-legend-chain = Цепочка
 pharm-guide-only-chain-on = Только цепочка: вкл
 pharm-guide-only-chain-off = Только цепочка: выкл
 pharm-guide-reset = Сброс
-pharm-guide-stats = ПРЕПАРАТОВ: { $meds }  ·  ВЕЩЕСТВ: { $nodes }  ·  РЕАКЦИЙ: { $crafts }  ·  ПОЛОТНО МОЖНО ТАЩИТЬ МЫШЬЮ
+pharm-guide-stats = ПРЕПАРАТОВ: { $meds }  ·  ВЕЩЕСТВ: { $nodes }  ·  РЕАКЦИЙ: { $crafts }  ·  ПОЛОТНО: ТАЩИТЬ МЫШЬЮ, МАСШТАБ КОЛЕСОМ
 pharm-guide-badge-dispenser = РЗД
 pharm-guide-badge-other = ИСТ
 pharm-guide-node-tip-recipe = Состав: { $inputs }
@@ -29,7 +24,6 @@ pharm-guide-node-tip-alts = Рецептов: { $count } — переключа�
 
 pharm-guide-card-title = Карточка препарата
 pharm-guide-card-hint = Выберите препарат в списке или любое вещество в древе. Подсветится вся цепочка: от сырья из раздатчика через промежуточные вещества до готового лекарства.
-pharm-guide-card-hint-dynamic = Справочник собирается из рецептов реакций автоматически: новый препарат появится здесь сам, вместе со всеми веществами, нужными для него.
 pharm-guide-kind-medicine = Препарат
 pharm-guide-kind-craft = Промежуточное вещество
 pharm-guide-kind-dispenser = Сырьё  ·  раздатчик

@@ -49,8 +49,13 @@ public sealed class PharmacistGuideControl : BoxContainer
     private Dictionary<string, int> _depth = new();
     private Dictionary<string, Vector2> _positions = new();
     private bool _scrollPending;
+    private Vector2? _scrollTarget;
     private Vector2 _canvasTarget;
     private int _scrollWait;
+
+    // масштаб полотна (колесо мыши) и размер полотна в масштабе 1
+    private float _zoom = 1f;
+    private Vector2 _baseSize;
 
     public PharmacistGuideControl(PharmacistGuideData data)
     {
@@ -112,11 +117,6 @@ public sealed class PharmacistGuideControl : BoxContainer
         };
         toolbar.AddChild(CityUi.MakeLabel(Loc.GetString("pharm-guide-section-tree").ToUpperInvariant(), CityUi.Accent, CityUi.Bold(12)));
         toolbar.AddChild(CityUi.Separator());
-        toolbar.AddChild(Legend(CityUi.Bg2, CityUi.Line, CityUi.Accent, "pharm-guide-legend-dispenser"));
-        toolbar.AddChild(Legend(CityUi.Bg2, CityUi.Muted, null, "pharm-guide-legend-other"));
-        toolbar.AddChild(Legend(CityUi.Panel, CityUi.Line, null, "pharm-guide-legend-craft"));
-        toolbar.AddChild(Legend(CityUi.Panel2, CityUi.Frame, null, "pharm-guide-legend-medicine"));
-        toolbar.AddChild(Legend(CityUi.ActiveFill, CityUi.Accent, null, "pharm-guide-legend-chain"));
         center.AddChild(toolbar);
 
         var controls = new BoxContainer { Orientation = LayoutOrientation.Horizontal, SeparationOverride = 8 };
@@ -153,6 +153,7 @@ public sealed class PharmacistGuideControl : BoxContainer
         _treeScroll = new ScrollContainer { VerticalExpand = true, HorizontalExpand = true };
         _canvas = new PharmacistTreeCanvas();
         _canvas.Dragged += delta => _treeScroll.SetScrollValue(_treeScroll.GetScrollValue() - delta);
+        _canvas.Zoomed += OnZoom;
         _treeScroll.AddChild(_canvas);
         treePanel.AddChild(_treeScroll);
         center.AddChild(treePanel);
@@ -377,20 +378,18 @@ public sealed class PharmacistGuideControl : BoxContainer
 
         _canvas.RemoveAllChildren();
         _nodes.Clear();
-        _canvas.MinSize = size;
-        _canvas.SetSize = size;
-        _canvasTarget = size;
-        _scrollWait = 0;
-        foreach (var (id, position) in _positions)
+        _baseSize = size;
+        foreach (var (id, _) in _positions)
         {
             var reagent = _data.Reagents[id];
             var node = new PharmacistTreeNode(id, reagent.Name);
             node.OnPressed += _ => Select(id);
             node.ToolTip = NodeTooltip(reagent);
             _canvas.AddChild(node);
-            LayoutContainer.SetPosition(node, position);
             _nodes[id] = node;
         }
+
+        ApplyZoom();
 
         _onlyButton.Text = Loc.GetString(_onlyChain ? "pharm-guide-only-chain-on" : "pharm-guide-only-chain-off").ToUpperInvariant();
         _stats.Text = Loc.GetString("pharm-guide-stats",
@@ -571,26 +570,72 @@ public sealed class PharmacistGuideControl : BoxContainer
         Rebuild();
     }
 
+    /// <summary>
+    /// Размеры и положения узлов под текущий масштаб.
+    /// </summary>
+    private void ApplyZoom()
+    {
+        var size = _baseSize * _zoom;
+        _canvas.Zoom = _zoom;
+        _canvas.MinSize = size;
+        _canvas.SetSize = size;
+        _canvasTarget = size;
+        _scrollWait = 0;
+
+        foreach (var (id, node) in _nodes)
+        {
+            node.SetZoom(_zoom);
+            LayoutContainer.SetPosition(node, _positions[id] * _zoom);
+        }
+    }
+
+    /// <summary>
+    /// Колесо мыши: масштаб вокруг точки под курсором.
+    /// </summary>
+    private void OnZoom(int step, Vector2 cursor)
+    {
+        var zoom = Math.Clamp(_zoom * (step > 0 ? 1.15f : 1f / 1.15f), PharmacistTreeCanvas.MinZoom, PharmacistTreeCanvas.MaxZoom);
+        if (MathF.Abs(zoom - _zoom) < 0.001f)
+            return;
+
+        var scroll = _treeScroll.GetScrollValue();
+        var inView = cursor - scroll;
+        var factor = zoom / _zoom;
+        _zoom = zoom;
+        ApplyZoom();
+
+        // точка под курсором остаётся на месте
+        _scrollTarget = cursor * factor - inView;
+        _scrollPending = false;
+    }
+
     protected override void FrameUpdate(FrameEventArgs args)
     {
         base.FrameUpdate(args);
 
-        // прокрутка к выбранному узлу — после того, как полотно получило новый размер
-        if (!_scrollPending)
+        if (!_scrollPending && _scrollTarget == null)
             return;
 
-        // FrameUpdate идёт до раскладки: ждём, пока полотно примет новый размер (не дольше нескольких кадров)
+        // FrameUpdate идёт до раскладки: ждём, пока полотно примет новый размер (не дольше нескольких кадров),
+        // иначе прокрутка упрётся в границы старого размера
         if (Vector2.Distance(_canvas.Size, _canvasTarget) > 1f && _scrollWait++ < 10)
             return;
 
+        if (_scrollTarget is { } target)
+        {
+            _scrollTarget = null;
+            _treeScroll.SetScrollValue(Vector2.Max(Vector2.Zero, target));
+            return;
+        }
+
+        // прокрутка к выбранному узлу
         _scrollPending = false;
         if (_selected == null || !_positions.TryGetValue(_selected, out var position))
             return;
 
         var view = _treeScroll.Size;
-        _treeScroll.SetScrollValue(new Vector2(
-            MathF.Max(0, position.X + PharmacistTreeCanvas.NodeWidth / 2 - view.X / 2),
-            MathF.Max(0, position.Y + PharmacistTreeCanvas.NodeHeight / 2 - view.Y / 2)));
+        var center = (position + new Vector2(PharmacistTreeCanvas.NodeWidth, PharmacistTreeCanvas.NodeHeight) / 2) * _zoom;
+        _treeScroll.SetScrollValue(Vector2.Max(Vector2.Zero, center - view / 2));
     }
 
     #endregion
@@ -605,7 +650,6 @@ public sealed class PharmacistGuideControl : BoxContainer
         {
             _details.AddChild(CityUi.MakeLabel(Loc.GetString("pharm-guide-card-title").ToUpperInvariant(), CityUi.Accent, CityUi.Bold(12)));
             _details.AddChild(Text(Loc.GetString("pharm-guide-card-hint"), CityUi.Text));
-            _details.AddChild(Text(Loc.GetString("pharm-guide-card-hint-dynamic"), CityUi.Dim));
             return;
         }
 
@@ -814,33 +858,6 @@ public sealed class PharmacistGuideControl : BoxContainer
         amountLabel.MinWidth = 56;
         amountLabel.Align = Label.AlignMode.Right;
         row.AddChild(amountLabel);
-        return row;
-    }
-
-    private static Control Legend(Color fill, Color border, Color? mark, string loc)
-    {
-        var row = new BoxContainer { Orientation = LayoutOrientation.Horizontal, SeparationOverride = 5 };
-        var swatch = new PanelContainer
-        {
-            PanelOverride = CityUi.Box(fill, border),
-            SetSize = new Vector2(12, 10),
-            VerticalAlignment = VAlignment.Center,
-        };
-        if (mark != null)
-        {
-            swatch.AddChild(new PanelContainer
-            {
-                PanelOverride = new StyleBoxFlat { BackgroundColor = mark.Value },
-                SetSize = new Vector2(4, 4),
-                HorizontalAlignment = HAlignment.Center,
-                VerticalAlignment = VAlignment.Center,
-            });
-        }
-
-        row.AddChild(swatch);
-        var label = CityUi.MakeLabel(Loc.GetString(loc).ToUpperInvariant(), CityUi.Dim, CityUi.Regular(10));
-        label.VerticalAlignment = VAlignment.Center;
-        row.AddChild(label);
         return row;
     }
 

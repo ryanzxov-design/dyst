@@ -13,15 +13,10 @@ pharm-guide-list-empty = Nothing found. Check the spelling.
 pharm-guide-steps-short = { $count } st.
 
 pharm-guide-section-tree = Synthesis tree
-pharm-guide-legend-dispenser = Dispenser
-pharm-guide-legend-other = Other source
-pharm-guide-legend-craft = Intermediate
-pharm-guide-legend-medicine = Medicine
-pharm-guide-legend-chain = Chain
 pharm-guide-only-chain-on = Chain only: on
 pharm-guide-only-chain-off = Chain only: off
 pharm-guide-reset = Reset
-pharm-guide-stats = MEDICINES: { $meds }  ·  SUBSTANCES: { $nodes }  ·  REACTIONS: { $crafts }  ·  DRAG THE CANVAS WITH THE MOUSE
+pharm-guide-stats = MEDICINES: { $meds }  ·  SUBSTANCES: { $nodes }  ·  REACTIONS: { $crafts }  ·  CANVAS: DRAG WITH THE MOUSE, ZOOM WITH THE WHEEL
 pharm-guide-badge-dispenser = DSP
 pharm-guide-badge-other = SRC
 pharm-guide-node-tip-recipe = Recipe: { $inputs }
@@ -29,7 +24,6 @@ pharm-guide-node-tip-alts = Recipes: { $count } — switch them in the card on t
 
 pharm-guide-card-title = Medicine card
 pharm-guide-card-hint = Pick a medicine in the list or any substance in the tree. The whole chain lights up: from dispenser chemicals through intermediates to the finished medicine.
-pharm-guide-card-hint-dynamic = The handbook is built from reaction recipes automatically: a new medicine appears here by itself, together with everything it needs.
 pharm-guide-kind-medicine = Medicine
 pharm-guide-kind-craft = Intermediate substance
 pharm-guide-kind-dispenser = Raw  ·  dispenser
