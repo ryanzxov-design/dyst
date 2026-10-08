@@ -1,7 +1,7 @@
 ent-ClothingUniformJumpsuitColorWhite = белый комбинезон
     .desc = Обычный белый комбинезон без знаков различия.
 ent-ClothingUniformJumpsuitColorGrey = серый комбинезон
-    .desc = Серый комбинезон, напоминающий вам о старых добрых временах.
+    .desc = Серый рабочий комбинезон. Такой выдают каждому пролетарию.
 ent-ClothingUniformJumpsuitColorBlack = чёрный комбинезон
     .desc = Обычный чёрный комбинезон без знаков различия.
 ent-ClothingUniformJumpsuitColorBlue = синий комбинезон

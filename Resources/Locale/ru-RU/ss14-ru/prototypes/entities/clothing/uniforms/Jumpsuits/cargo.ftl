@@ -1,5 +1,5 @@
-ent-ClothingUniformJumpsuitCargo = комбинезон грузчика
-    .desc = Прочный комбинезон, выдаваемый сотрудникам отдела снабжения.
+ent-ClothingUniformJumpsuitCargo = форма лавочника
+    .desc = Коричневая рабочая форма. Так одеваются торговцы с рынка.
 ent-ClothingUniformJumpsuitSalvageSpecialist = комбинезон специалиста по утилизации
     .desc = Удобный прочный комбинезон. Очень грязный.
 ent-ClothingUniformJumpsuitQM = комбинезон квартирмейстера

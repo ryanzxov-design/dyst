@@ -1,9 +1,9 @@
 ent-ClothingUniformJumpsuitCaptain = комбинезон капитана
     .desc = Синий комбинезон с золотыми нашивками, указывающими на звание капитана.
-ent-ClothingUniformJumpsuitHoP = комбинезон главы персонала
-    .desc = Довольно безвкусный и невзрачный. Идеально подходит для того, чтобы исчезнуть с лица Вселенной.
-ent-ClothingUniformJumpsuitCommandGeneric = комбинезон командования
-    .desc = Универсальный комбинезон цвета командования, не связанный с каким-либо конкретным отделом.
+ent-ClothingUniformJumpsuitHoP = китель гражданского инспектора
+    .desc = Серый китель без украшений. Инспектор в нём неприметен, пока не достанет бумаги.
+ent-ClothingUniformJumpsuitCommandGeneric = китель администрации
+    .desc = Тёмный китель с нашивками администрации Консула.
 ent-ClothingUniformJumpsuitNanotrasen = комбинезон Nanotrasen
     .desc = Статный синий комбинезон, символизирующий Nanotrasen.
 ent-ClothingUniformJumpsuitCapFormal = торжественный костюм капитана

@@ -1,7 +1,7 @@
 ent-ClothingShoesColorBlack = чёрные туфли
     .desc = Стильные чёрные туфли.
 ent-ClothingShoesColorWhite = белые туфли
-    .desc = Не снимайте их на рождественской вечеринке в офисе.
+    .desc = Белые туфли. Пачкаются быстрее, чем хотелось бы.
 ent-ClothingShoesColorBlue = синие туфли
     .desc = Стильные синие туфли.
 ent-ClothingShoesColorBrown = коричневые туфли
