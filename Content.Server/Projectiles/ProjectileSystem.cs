@@ -22,6 +22,7 @@ public sealed partial class ProjectileSystem : SharedProjectileSystem
     [Dependency] private DestructibleSystem _destructibleSystem = default!;
     [Dependency] private GunSystem _guns = default!;
     [Dependency] private SharedCameraRecoilSystem _sharedCameraRecoil = default!;
+    [Dependency] private Content.Shared._Dystopia.Health.Armor.Penetration.ArmorPenetrationSystem _armorPenetration = default!; // Dystopia-Health
 
     public override void Initialize()
     {
@@ -59,7 +60,20 @@ public sealed partial class ProjectileSystem : SharedProjectileSystem
             damageRequired = FixedPoint2.Max(damageRequired, FixedPoint2.Zero);
         }
 
-        if (_damageableSystem.TryChangeDamage((target, damageableComponent), ev.Damage, out var damage, component.IgnoreResistances, origin: component.Shooter))
+        // Dystopia-Health: броня считает пробитие этой пули (источник урона в событии — стрелок)
+        var previousSource = _armorPenetration.SetSource(uid);
+        bool damaged;
+        DamageSpecifier damage;
+        try
+        {
+            damaged = _damageableSystem.TryChangeDamage((target, damageableComponent), ev.Damage, out damage, component.IgnoreResistances, origin: component.Shooter);
+        }
+        finally
+        {
+            _armorPenetration.SetSource(previousSource);
+        }
+
+        if (damaged)
         {
             if (!Deleted(target))
             {

@@ -20,6 +20,7 @@ public sealed partial class DamageOtherOnHitSystem : SharedDamageOtherOnHitSyste
     [Dependency] private Shared.Damage.Systems.DamageableSystem _damageable = default!;
     [Dependency] private SharedCameraRecoilSystem _sharedCameraRecoil = default!;
     [Dependency] private SharedColorFlashEffectSystem _color = default!;
+    [Dependency] private Content.Shared._Dystopia.Health.Armor.Penetration.ArmorPenetrationSystem _armorPenetration = default!; // Dystopia-Health
 
     public override void Initialize()
     {
@@ -33,7 +34,17 @@ public sealed partial class DamageOtherOnHitSystem : SharedDamageOtherOnHitSyste
         if (TerminatingOrDeleted(args.Target))
             return;
 
-        var dmg = _damageable.ChangeDamage(args.Target, component.Damage * _damageable.UniversalThrownDamageModifier, component.IgnoreResistances, origin: args.Component.Thrower);
+        // Dystopia-Health: броня считает пробитие брошенного предмета
+        var previousSource = _armorPenetration.SetSource(uid);
+        DamageSpecifier dmg;
+        try
+        {
+            dmg = _damageable.ChangeDamage(args.Target, component.Damage * _damageable.UniversalThrownDamageModifier, component.IgnoreResistances, origin: args.Component.Thrower);
+        }
+        finally
+        {
+            _armorPenetration.SetSource(previousSource);
+        }
 
         // Log damage only for mobs. Useful for when people throw spears at each other, but also avoids log-spam when explosions send glass shards flying.
         if (HasComp<MobStateComponent>(args.Target))

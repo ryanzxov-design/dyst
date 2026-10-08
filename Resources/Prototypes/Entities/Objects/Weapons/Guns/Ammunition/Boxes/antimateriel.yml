@@ -28,7 +28,7 @@
 - type: entity
   parent: BaseMagazineBoxAntiMateriel
   id: MagazineBoxAntiMateriel
-  name: ammunition box (.60 anti-materiel)
+  name: ammunition box (.60 anti-materiel FMJ)
   description: A cardboard box of .60 anti-materiel rounds.
   components:
   - type: BallisticAmmoProvider

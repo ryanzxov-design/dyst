@@ -81,6 +81,7 @@ public sealed partial class WoundSystem : EntitySystem
         // До того, как урон запишется в тело: тело получает ровно то, что легло на раны частей
         SubscribeLocalEvent<BodyComponent, DamageDealtEvent>(OnBodyDamageDealt, before: [typeof(DamageableSystem)]);
         SubscribeLocalEvent<BodyComponent, RejuvenateEvent>(OnBodyRejuvenate);
+        SubscribeLocalEvent<BodyComponent, BeforeDamageChangedEvent>(OnBodyBeforeDamage);
         SubscribeLocalEvent<AreaDamageProjectileComponent, Content.Shared.Projectiles.BeforeProjectileHitEvent>(OnAreaProjectileHit);
 
         BuildDamageTypeToGroupCache();
@@ -183,6 +184,12 @@ public sealed partial class WoundSystem : EntitySystem
 
     // ===================== Урон по телу → раны =====================
 
+    /// <summary>Каждый урон начинается без предсказания: прошлый удар мог целиком уйти в броню и его не израсходовать.</summary>
+    private void OnBodyBeforeDamage(Entity<BodyComponent> ent, ref BeforeDamageChangedEvent args)
+    {
+        _predictedHits.Remove(ent);
+    }
+
     private void OnBodyDamageDealt(Entity<BodyComponent> ent, ref DamageDealtEvent args)
     {
         if (_net.IsClient || args.Damage.Empty)
@@ -201,9 +208,27 @@ public sealed partial class WoundSystem : EntitySystem
         if (!harm.Empty)
         {
             _lastDamaged[ent] = _timing.CurTime;
-            if (_forcedPart == null && IsAreaHit(ent, args.Origin, harm))
+            // Броня уже спросила, куда придётся удар (PredictHitPartType), и могла сменить виды урона
+            // (рикошет превращает пулю в тупой удар) — решение «по площади / в ноги / по прицелу» берём её
+            PredictedHit? predicted = null;
+            var area = false;
+            if (_forcedPart == null)
+            {
+                predicted = TakePredictedHit(ent, args.Origin);
+                if (predicted is { } kind)
+                {
+                    _areaHits.Remove(ent);
+                    area = kind == PredictedHit.Area;
+                }
+                else
+                {
+                    area = IsAreaHit(ent, args.Origin, harm);
+                }
+            }
+
+            if (area)
                 SpreadDamage(ent, harm);
-            else if (ChooseTargetPart(ent, args.Origin, harm) is { } part)
+            else if (ChooseTargetPart(ent, args.Origin, harm, predicted) is { } part)
                 InduceWoundsFromDamage(part, harm);
         }
 
@@ -383,15 +408,95 @@ public sealed partial class WoundSystem : EntitySystem
 
     private bool IsAreaHit(EntityUid body, EntityUid? origin, DamageSpecifier harm)
     {
-        if (_areaHits.Remove(body, out var tick) && tick == _timing.CurTick)
+        var area = WillBeAreaHit(body, origin, harm);
+        _areaHits.Remove(body);
+        return area;
+    }
+
+    /// <summary>То же, что IsAreaHit, но ничего не расходует: можно спрашивать заранее (броня).</summary>
+    private bool WillBeAreaHit(EntityUid body, EntityUid? origin, DamageSpecifier harm)
+    {
+        if (_areaHits.TryGetValue(body, out var tick) && tick == _timing.CurTick)
             return true;
 
         if (origin != null || !harm.DamageDict.Keys.All(t => AreaDamageTypes.Contains(t.Id)))
             return false;
 
         // То, на чём стоишь, бьёт по ногам (см. ChooseTargetPart)
-        return !(TryComp<DamagedByContactComponent>(body, out var contact) && contact.Damage is { } contactDamage
-                 && harm.DamageDict.Keys.All(t => contactDamage.DamageDict.ContainsKey(t)));
+        return !IsContactDamage(body, origin, harm);
+    }
+
+    private bool IsContactDamage(EntityUid body, EntityUid? origin, DamageSpecifier harm)
+    {
+        return origin == null && TryComp<DamagedByContactComponent>(body, out var contact) && contact.Damage is { } contactDamage
+               && harm.DamageDict.Keys.All(t => contactDamage.DamageDict.ContainsKey(t));
+    }
+
+    /// <summary>
+    /// Тип части тела, в которую придётся этот удар, или null — удар ляжет по всему телу (взрыв, пожар).
+    /// Бросок попадания делается тот же, что потом использует ChooseTargetPart, — броня и раны видят одну часть.
+    /// </summary>
+    public BodyPartType? PredictHitPartType(EntityUid body, EntityUid? origin, DamageSpecifier harm)
+    {
+        if (_forcedPart is { } forced)
+            return TryComp<BodyPartComponent>(forced, out var forcedPart) ? forcedPart.PartType : null;
+
+        if (WillBeAreaHit(body, origin, harm))
+        {
+            _predictedHits[body] = (_timing.CurTick, origin, PredictedHit.Area);
+            return null;
+        }
+
+        if ((origin is not { } attacker || !HasComp<TargetingComponent>(attacker)) && IsContactDamage(body, origin, harm)
+            && PeekContactPart(body) is { } legPart && TryComp<BodyPartComponent>(legPart, out var leg))
+        {
+            _predictedHits[body] = (_timing.CurTick, origin, PredictedHit.Contact);
+            return leg.PartType;
+        }
+
+        _predictedHits[body] = (_timing.CurTick, origin, PredictedHit.Aimed);
+        var target = PeekTargetPart(body, origin);
+        if (ResolveAimedPart(body, target) is { } part && TryComp<BodyPartComponent>(part, out var bodyPart))
+            return bodyPart.PartType;
+
+        return _body.ConvertTargetBodyPart(target).Type;
+    }
+
+    private enum PredictedHit : byte
+    {
+        Area,
+        Contact,
+        Aimed,
+    }
+
+    /// <summary>Как ляжет удар, по предсказанию для брони (живёт один такт, расходуется уроном).</summary>
+    private readonly Dictionary<EntityUid, (GameTick Tick, EntityUid? Origin, PredictedHit Kind)> _predictedHits = new();
+
+    private PredictedHit? TakePredictedHit(EntityUid body, EntityUid? origin)
+    {
+        if (!_predictedHits.Remove(body, out var predicted) || predicted.Tick != _timing.CurTick || predicted.Origin != origin)
+            return null;
+
+        return predicted.Kind;
+    }
+
+    /// <summary>Какая нога или стопа получит урон от того, на чём стоишь (один бросок на такт).</summary>
+    private readonly Dictionary<EntityUid, (GameTick Tick, EntityUid Part)> _pendingContact = new();
+
+    private EntityUid? PeekContactPart(EntityUid body)
+    {
+        if (_pendingContact.TryGetValue(body, out var pending) && pending.Tick == _timing.CurTick && !TerminatingOrDeleted(pending.Part))
+            return pending.Part;
+
+        var legs = _body.GetBodyChildrenWithComponent<WoundableComponent>(body)
+            .Where(p => TryComp<BodyPartComponent>(p.Id, out var bp) && bp.PartType is BodyPartType.Foot or BodyPartType.Leg)
+            .ToList();
+        if (legs.Count == 0)
+            return null;
+
+        var part = _random.Pick(legs).Id;
+        _pendingContact[body] = (_timing.CurTick, part);
+        return part;
     }
 
     /// <summary>Разложить урон по всем частям тела пропорционально их размеру (прочности); остаток — в грудь.</summary>
@@ -451,13 +556,25 @@ public sealed partial class WoundSystem : EntitySystem
     /// <summary>Урон «изнутри»: яд, радиация, клеточный. Без прицела он ложится в грудь, а не в случайную часть.</summary>
     private static readonly HashSet<string> SystemicDamage = new() { "Poison", "Radiation", "Cellular" };
 
-    private EntityUid? ChooseTargetPart(EntityUid body, EntityUid? origin, DamageSpecifier? harm = null)
+    private EntityUid? ChooseTargetPart(EntityUid body, EntityUid? origin, DamageSpecifier? harm = null, PredictedHit? predicted = null)
     {
         if (_forcedPart is { } forced && HasComp<WoundableComponent>(forced))
             return forced;
 
+        // Броня уже решила, что это урон от того, на чём стоишь: та же нога
+        if (predicted == PredictedHit.Contact)
+        {
+            var leg = PeekContactPart(body);
+            _pendingContact.Remove(body);
+            if (leg != null)
+            {
+                _pendingHits.Remove(body);
+                return leg;
+            }
+        }
+
         // Без прицела (газ, споры, лучи, нарост на полу) удар не должен прилетать в случайную руку или голову
-        if (harm != null && (origin is not { } attacker || !HasComp<TargetingComponent>(attacker)))
+        if (predicted != PredictedHit.Contact && harm != null && (origin is not { } attacker || !HasComp<TargetingComponent>(attacker)))
         {
             if (harm.DamageDict.Keys.All(t => SystemicDamage.Contains(t.Id)) && _body.TryGetRootPart(body, out var root)
                 && HasComp<WoundableComponent>(root.Value.Owner))
@@ -467,16 +584,14 @@ public sealed partial class WoundSystem : EntitySystem
             }
 
             // Урон от того, на чём стоишь (наросты Плоти, осколки на полу) — в ноги и стопы
-            if (origin == null && TryComp<DamagedByContactComponent>(body, out var contact) && contact.Damage is { } contactDamage
-                && harm.DamageDict.Keys.All(t => contactDamage.DamageDict.ContainsKey(t)))
+            if (predicted == null && IsContactDamage(body, origin, harm))
             {
-                var legs = _body.GetBodyChildrenWithComponent<WoundableComponent>(body)
-                    .Where(p => TryComp<BodyPartComponent>(p.Id, out var bp) && bp.PartType is BodyPartType.Foot or BodyPartType.Leg)
-                    .ToList();
-                if (legs.Count > 0)
+                var leg = PeekContactPart(body);
+                _pendingContact.Remove(body);
+                if (leg != null)
                 {
                     _pendingHits.Remove(body);
-                    return _random.Pick(legs).Id;
+                    return leg;
                 }
             }
         }
@@ -484,7 +599,19 @@ public sealed partial class WoundSystem : EntitySystem
         var target = PeekTargetPart(body, origin);
         _pendingHits.Remove(body);
 
-        // Нужной части нет (оторвана) — удар приходится в то, что от неё осталось выше: стопа → нога → пах → грудь
+        if (ResolveAimedPart(body, target) is { } aimed)
+            return aimed;
+
+        // Совсем ничего — в любую оставшуюся
+        var parts = _body.GetBodyChildrenWithComponent<WoundableComponent>(body).ToList();
+        return parts.Count == 0 ? null : _random.Pick(parts).Id;
+    }
+
+    /// <summary>
+    /// Часть по прицелу. Нужной части нет (оторвана) — то, что от неё осталось выше: стопа → нога → пах → грудь.
+    /// </summary>
+    private EntityUid? ResolveAimedPart(EntityUid body, TargetBodyPart target)
+    {
         TargetBodyPart? aim = target;
         while (aim is { } current)
         {
@@ -494,9 +621,7 @@ public sealed partial class WoundSystem : EntitySystem
             aim = ParentTarget(current);
         }
 
-        // Совсем ничего — в любую оставшуюся
-        var parts = _body.GetBodyChildrenWithComponent<WoundableComponent>(body).ToList();
-        return parts.Count == 0 ? null : _random.Pick(parts).Id;
+        return null;
     }
 
     /// <summary>Часть, в которую целится лечащий (у него есть прицел), или null.</summary>
@@ -657,8 +782,16 @@ public sealed partial class WoundSystem : EntitySystem
     public override void Update(float frameTime)
     {
         base.Update(frameTime);
+
+        // Броски попадания живут один такт
+        _pendingContact.Clear();
+        _predictedHits.Clear();
         if (_net.IsClient)
+        {
+            // На клиенте раны не считаются — броски от предсказания ближнего боя просто выбрасываем
+            _pendingHits.Clear();
             return;
+        }
 
         ProcessPendingBodySync();
         var now = _timing.CurTime;

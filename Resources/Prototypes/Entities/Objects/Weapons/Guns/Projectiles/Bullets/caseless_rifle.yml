@@ -8,6 +8,9 @@
     damage:
       types:
         Piercing: 19
+  - type: ArmorPenetration # Dystopia-Health: пробитие брони (мм / МПа)
+    sharp: 6
+    blunt: 28.5
 
 - type: entity
   parent: BaseBulletPractice

@@ -11,6 +11,7 @@ namespace Content.Shared.Weapons.Ranged.Systems;
 public abstract partial class SharedGunSystem
 {
     [Dependency] private DamageExamineSystem _damageExamine = default!;
+    [Dependency] private Content.Shared._Dystopia.Health.Armor.Penetration.ArmorPenetrationSystem _armorPenetration = default!; // Dystopia-Health
 
     // needed for server system
     protected virtual void InitializeCartridge()
@@ -34,6 +35,7 @@ public abstract partial class SharedGunSystem
             return;
 
         _damageExamine.AddDamageExamine(args.Message, Damageable.ApplyUniversalAllModifiers(damageSpec), Loc.GetString("damage-projectile"));
+        _armorPenetration.AddProjectileExamine(args.Message, ent.Comp.Prototype); // Dystopia-Health
     }
 
     private DamageSpecifier? GetProjectileDamage(EntProtoId proto)

@@ -20,7 +20,7 @@
 - type: entity
   parent: BaseCartridgeLightRifle
   id: CartridgeLightRifle
-  name: cartridge (.30 rifle)
+  name: cartridge (.30 rifle FMJ)
   description: A classic intermediate cartridge used by many combat rifles and LMGs. Standard kinetic ammunition is common and useful in most situations.
   components:
   - type: CartridgeAmmo
@@ -45,7 +45,7 @@
 - type: entity
   parent: BaseCartridgeLightRifle
   id: CartridgeLightRifleIncendiary
-  name: cartridge (.30 rifle incendiary)
+  name: cartridge (.30 rifle WP)
   description: A classic intermediate cartridge used by many combat rifles and LMGs. Incendiary ammunition contains a self-igniting compound that sets targets ablaze.
   components:
   - type: CartridgeAmmo

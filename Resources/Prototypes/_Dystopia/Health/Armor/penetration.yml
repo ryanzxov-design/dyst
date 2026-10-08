@@ -1,0 +1,61 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: пробитие брони по образцу Combat Extended. Код — Content.Shared/_Dystopia/Health/Armor/Penetration/
+#
+# Острое пробитие и острая броня — в мм, тупое — в МПа (числа в масштабе Combat Extended).
+# Пуля с ArmorPenetration: { sharp: 6, blunt: 34 } против жилета с ArmorRating: { sharp: 8, blunt: 9 }:
+#   6 < 8 — рикошет, урон пули превращается в тупой удар силой (34 × 10000)^(1/3) / 10 × 1.5 ≈ 10.5,
+#   который давит на 9 МПа жилета: проходит (34 − 9) / 34 ≈ 74% — около 7.7 тупого урона.
+# AP-пуля { sharp: 12 } против того же жилета: 12 > 8 — пробила, урон × (12 − 8) / 12 ≈ 33%,
+#   а потерянная часть даёт небольшой тупой удар.
+
+- type: armorPenetrationSettings
+  id: Default
+  sharpTypes: [ Piercing, Slash ]
+  bluntTypes: [ Blunt ]
+  # Жар (огонь, лазеры) — процентом, как огонь в CE: защита слоёв складывается. Число — пробитие (доля).
+  ambientTypes:
+    Heat: 0
+  deflectType: Blunt
+  deflectScale: 10000
+  deflectPower: 0.3333333
+  deflectDivisor: 10
+  # Урон рикошета в CE — в единицах RimWorld; у нас урон пуль примерно в полтора раза выше
+  deflectDamageMultiplier: 1.5
+  # Взрыв, пожар, падение (урон по всему телу) встречает броня груди
+  areaPart: Chest
+  # Слои от внешнего к внутреннему
+  layerOrder:
+  - outerClothing
+  - neck
+  - back
+  - head
+  - mask
+  - eyes
+  - ears
+  - gloves
+  - shoes
+  - belt
+  - jumpsuit
+  # Броня без ArmorRating: рейтинг из её коэффициентов. Коэффициент колющего 0.6 → (1 − 0.6) × 20 = 8 мм.
+  sharpRating:
+    damageType: Piercing
+    perProtection: 20
+  bluntRating:
+    damageType: Blunt
+    perProtection: 30
+  # Пробитие без ArmorPenetration — из урона.
+  # Ближний бой (и брошенные предметы): нож с 12 режущего — 2.4 мм, тупое 6 МПа; ящик с 12 тупого — 18 МПа.
+  melee:
+    sharpPerSharpDamage: 0.2
+    bluntPerBluntDamage: 1.5
+    bluntPerSharpDamage: 0.5
+  # Снаряды без своего пробития
+  projectile:
+    sharpPerSharpDamage: 0.3
+    bluntPerBluntDamage: 1.5
+    bluntPerSharpDamage: 1.5
+  # Источник неизвестен: осколки взрыва, хитскан и прочее
+  fallback:
+    sharpPerSharpDamage: 0.2
+    bluntPerBluntDamage: 1
+    bluntPerSharpDamage: 0.5

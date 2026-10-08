@@ -1,0 +1,815 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: виды патронов по образцу Combat Extended. Ванильные патроны — FMJ (цельнометаллическая оболочка),
+# ванильные зажигательные — WP (фосфорные). Здесь добавлены недостающие: JHP (экспансивные), AP (бронебойные),
+# WP и HE (разрывные) — только те, что существуют для калибра.
+# Пробитие: ArmorPenetration (мм / МПа), см. _Dystopia/Health/Armor/penetration.yml.
+# Сгенерировано по одной схеме: JHP — урон ×1.25, пробитие ×0.5; AP — урон ×0.65, пробитие ×2;
+# WP — как AP, плюс жар и поджог; HE — урон и пробитие FMJ, плюс маленький взрыв.
+# Названия на русском — Locale/ru-RU/_dystopia/ammunition.ftl
+
+# ===================== .35 auto =====================
+- type: entity
+  parent: BulletPistol
+  id: BulletPistolJHP
+  categories: [ HideSpawnMenu ]
+  name: bullet (.35 auto JHP)
+  components:
+  - type: Projectile
+    damage:
+      types:
+        Piercing: 20
+  - type: ArmorPenetration
+    sharp: 2
+    blunt: 9.7
+
+- type: entity
+  parent: BaseCartridgePistol
+  id: CartridgePistolJHP
+  name: cartridge (.35 auto JHP)
+  description: "Jacketed hollow point (JHP): expands on impact for more damage, but penetrates armor half as well."
+  components:
+  - type: CartridgeAmmo
+    proto: BulletPistolJHP
+  - type: Sprite
+    layers:
+    - state: base
+      map: [ "enum.AmmoVisualLayers.Base" ]
+    - state: tip
+      map: [ "enum.AmmoVisualLayers.Tip" ]
+      color: "#b5651d"
+
+- type: entity
+  parent: BaseMagazineBoxPistol
+  id: MagazineBoxPistolJHP
+  name: ammunition box (.35 auto JHP)
+  description: "A cardboard box of .35 auto rounds. Jacketed hollow point (JHP): expands on impact for more damage, but penetrates armor half as well."
+  components:
+  - type: BallisticAmmoProvider
+    proto: CartridgePistolJHP
+  - type: Sprite
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+    - sprite: _Dystopia/Objects/Weapons/ammo_marks.rsi
+      state: box-pistol
+      color: "#b5651d"
+
+- type: entity
+  parent: BulletPistol
+  id: BulletPistolAP
+  categories: [ HideSpawnMenu ]
+  name: bullet (.35 auto AP)
+  components:
+  - type: Sprite
+    sprite: Objects/Weapons/Guns/Projectiles/projectiles2.rsi
+    layers:
+    - state: piercing
+  - type: Projectile
+    damage:
+      types:
+        Piercing: 10
+  - type: ArmorPenetration
+    sharp: 8
+    blunt: 9.7
+
+- type: entity
+  parent: BaseCartridgePistol
+  id: CartridgePistolAP
+  name: cartridge (.35 auto AP)
+  description: "Armor-piercing (AP) with a hardened core: penetrates armor twice as well, but deals less damage to unarmored targets."
+  components:
+  - type: CartridgeAmmo
+    proto: BulletPistolAP
+  - type: Sprite
+    layers:
+    - state: base
+      map: [ "enum.AmmoVisualLayers.Base" ]
+    - state: tip
+      map: [ "enum.AmmoVisualLayers.Tip" ]
+      color: "#0a0a0a"
+
+- type: entity
+  parent: BaseMagazineBoxPistol
+  id: MagazineBoxPistolAP
+  name: ammunition box (.35 auto AP)
+  description: "A cardboard box of .35 auto rounds. Armor-piercing (AP) with a hardened core: penetrates armor twice as well, but deals less damage to unarmored targets."
+  components:
+  - type: BallisticAmmoProvider
+    proto: CartridgePistolAP
+  - type: Sprite
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+    - sprite: _Dystopia/Objects/Weapons/ammo_marks.rsi
+      state: box-pistol
+      color: "#0a0a0a"
+
+
+# ===================== .45 magnum =====================
+- type: entity
+  parent: BulletMagnum
+  id: BulletMagnumJHP
+  categories: [ HideSpawnMenu ]
+  name: bullet (.45 magnum JHP)
+  components:
+  - type: Projectile
+    damage:
+      types:
+        Piercing: 44
+  - type: ArmorPenetration
+    sharp: 3
+    blunt: 23.3
+
+- type: entity
+  parent: BaseCartridgeMagnum
+  id: CartridgeMagnumJHP
+  name: cartridge (.45 magnum JHP)
+  description: "Jacketed hollow point (JHP): expands on impact for more damage, but penetrates armor half as well."
+  components:
+  - type: CartridgeAmmo
+    proto: BulletMagnumJHP
+  - type: Sprite
+    layers:
+    - state: base
+      map: [ "enum.AmmoVisualLayers.Base" ]
+    - state: tip
+      map: [ "enum.AmmoVisualLayers.Tip" ]
+      color: "#b5651d"
+
+- type: entity
+  parent: BaseMagazineBoxMagnum
+  id: MagazineBoxMagnumJHP
+  name: ammunition box (.45 magnum JHP)
+  description: "A cardboard box of .45 magnum rounds. Jacketed hollow point (JHP): expands on impact for more damage, but penetrates armor half as well."
+  components:
+  - type: BallisticAmmoProvider
+    proto: CartridgeMagnumJHP
+  - type: Sprite
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+    - sprite: _Dystopia/Objects/Weapons/ammo_marks.rsi
+      state: box-magnum
+      color: "#b5651d"
+
+
+# ===================== .30 rifle =====================
+- type: entity
+  parent: BulletLightRifle
+  id: BulletLightRifleJHP
+  categories: [ HideSpawnMenu ]
+  name: bullet (.30 rifle JHP)
+  components:
+  - type: Projectile
+    damage:
+      types:
+        Piercing: 24
+  - type: ArmorPenetration
+    sharp: 2.8
+    blunt: 41.1
+
+- type: entity
+  parent: BaseCartridgeLightRifle
+  id: CartridgeLightRifleJHP
+  name: cartridge (.30 rifle JHP)
+  description: "Jacketed hollow point (JHP): expands on impact for more damage, but penetrates armor half as well."
+  components:
+  - type: CartridgeAmmo
+    proto: BulletLightRifleJHP
+  - type: Sprite
+    layers:
+    - state: base
+      map: [ "enum.AmmoVisualLayers.Base" ]
+    - state: tip
+      map: [ "enum.AmmoVisualLayers.Tip" ]
+      color: "#b5651d"
+
+- type: entity
+  parent: BaseMagazineBoxLightRifle
+  id: MagazineBoxLightRifleJHP
+  name: ammunition box (.30 rifle JHP)
+  description: "A cardboard box of .30 rifle rounds. Jacketed hollow point (JHP): expands on impact for more damage, but penetrates armor half as well."
+  components:
+  - type: BallisticAmmoProvider
+    proto: CartridgeLightRifleJHP
+  - type: Sprite
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+    - sprite: _Dystopia/Objects/Weapons/ammo_marks.rsi
+      state: box-light-rifle
+      color: "#b5651d"
+
+- type: entity
+  parent: BulletLightRifle
+  id: BulletLightRifleAP
+  categories: [ HideSpawnMenu ]
+  name: bullet (.30 rifle AP)
+  components:
+  - type: Sprite
+    sprite: Objects/Weapons/Guns/Projectiles/projectiles2.rsi
+    layers:
+    - state: piercing
+  - type: Projectile
+    damage:
+      types:
+        Piercing: 12
+  - type: ArmorPenetration
+    sharp: 11
+    blunt: 41.1
+
+- type: entity
+  parent: BaseCartridgeLightRifle
+  id: CartridgeLightRifleAP
+  name: cartridge (.30 rifle AP)
+  description: "Armor-piercing (AP) with a hardened core: penetrates armor twice as well, but deals less damage to unarmored targets."
+  components:
+  - type: CartridgeAmmo
+    proto: BulletLightRifleAP
+  - type: Sprite
+    layers:
+    - state: base
+      map: [ "enum.AmmoVisualLayers.Base" ]
+    - state: tip
+      map: [ "enum.AmmoVisualLayers.Tip" ]
+      color: "#0a0a0a"
+
+- type: entity
+  parent: BaseMagazineBoxLightRifle
+  id: MagazineBoxLightRifleAP
+  name: ammunition box (.30 rifle AP)
+  description: "A cardboard box of .30 rifle rounds. Armor-piercing (AP) with a hardened core: penetrates armor twice as well, but deals less damage to unarmored targets."
+  components:
+  - type: BallisticAmmoProvider
+    proto: CartridgeLightRifleAP
+  - type: Sprite
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+    - sprite: _Dystopia/Objects/Weapons/ammo_marks.rsi
+      state: box-light-rifle
+      color: "#0a0a0a"
+
+- type: entity
+  parent: BulletLightRifle
+  id: BulletLightRifleHE
+  categories: [ HideSpawnMenu ]
+  name: bullet (.30 rifle HE)
+  components:
+  - type: Projectile
+    damage:
+      types:
+        Piercing: 19
+  - type: TriggerOnCollide
+    fixtureID: projectile
+    maxTriggers: 1
+  - type: ExplodeOnTrigger
+  - type: Explosive
+    explosionType: Default
+    maxIntensity: 0.5
+    intensitySlope: 1
+    totalIntensity: 0.5
+    maxTileBreak: 0
+    canCreateVacuum: false
+  - type: ArmorPenetration
+    sharp: 5.5
+    blunt: 41.1
+
+- type: entity
+  parent: BaseCartridgeLightRifle
+  id: CartridgeLightRifleHE
+  name: cartridge (.30 rifle HE)
+  description: "High-explosive (HE): a small charge detonates on impact."
+  components:
+  - type: CartridgeAmmo
+    proto: BulletLightRifleHE
+  - type: Sprite
+    layers:
+    - state: base
+      map: [ "enum.AmmoVisualLayers.Base" ]
+    - state: tip
+      map: [ "enum.AmmoVisualLayers.Tip" ]
+      color: "#e5c100"
+
+- type: entity
+  parent: BaseMagazineBoxLightRifle
+  id: MagazineBoxLightRifleHE
+  name: ammunition box (.30 rifle HE)
+  description: "A cardboard box of .30 rifle rounds. High-explosive (HE): a small charge detonates on impact."
+  components:
+  - type: BallisticAmmoProvider
+    proto: CartridgeLightRifleHE
+  - type: Sprite
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+    - sprite: _Dystopia/Objects/Weapons/ammo_marks.rsi
+      state: box-light-rifle
+      color: "#e5c100"
+
+
+# ===================== .20 rifle =====================
+- type: entity
+  parent: BulletRifle
+  id: BulletRifleJHP
+  categories: [ HideSpawnMenu ]
+  name: bullet (.20 rifle JHP)
+  components:
+  - type: Projectile
+    damage:
+      types:
+        Piercing: 21
+  - type: ArmorPenetration
+    sharp: 3
+    blunt: 34.2
+
+- type: entity
+  parent: BaseCartridgeRifle
+  id: CartridgeRifleJHP
+  name: cartridge (.20 rifle JHP)
+  description: "Jacketed hollow point (JHP): expands on impact for more damage, but penetrates armor half as well."
+  components:
+  - type: CartridgeAmmo
+    proto: BulletRifleJHP
+  - type: Sprite
+    layers:
+    - state: base
+      map: [ "enum.AmmoVisualLayers.Base" ]
+    - state: tip
+      map: [ "enum.AmmoVisualLayers.Tip" ]
+      color: "#b5651d"
+
+- type: entity
+  parent: BaseMagazineBoxRifle
+  id: MagazineBoxRifleJHP
+  name: ammunition box (.20 rifle JHP)
+  description: "A cardboard box of .20 rifle rounds. Jacketed hollow point (JHP): expands on impact for more damage, but penetrates armor half as well."
+  components:
+  - type: BallisticAmmoProvider
+    proto: CartridgeRifleJHP
+  - type: Sprite
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+    - sprite: _Dystopia/Objects/Weapons/ammo_marks.rsi
+      state: box-rifle
+      color: "#b5651d"
+
+- type: entity
+  parent: BulletRifle
+  id: BulletRifleAP
+  categories: [ HideSpawnMenu ]
+  name: bullet (.20 rifle AP)
+  components:
+  - type: Sprite
+    sprite: Objects/Weapons/Guns/Projectiles/projectiles2.rsi
+    layers:
+    - state: piercing
+  - type: Projectile
+    damage:
+      types:
+        Piercing: 11
+  - type: ArmorPenetration
+    sharp: 12
+    blunt: 34.2
+
+- type: entity
+  parent: BaseCartridgeRifle
+  id: CartridgeRifleAP
+  name: cartridge (.20 rifle AP)
+  description: "Armor-piercing (AP) with a hardened core: penetrates armor twice as well, but deals less damage to unarmored targets."
+  components:
+  - type: CartridgeAmmo
+    proto: BulletRifleAP
+  - type: Sprite
+    layers:
+    - state: base
+      map: [ "enum.AmmoVisualLayers.Base" ]
+    - state: tip
+      map: [ "enum.AmmoVisualLayers.Tip" ]
+      color: "#0a0a0a"
+
+- type: entity
+  parent: BaseMagazineBoxRifle
+  id: MagazineBoxRifleAP
+  name: ammunition box (.20 rifle AP)
+  description: "A cardboard box of .20 rifle rounds. Armor-piercing (AP) with a hardened core: penetrates armor twice as well, but deals less damage to unarmored targets."
+  components:
+  - type: BallisticAmmoProvider
+    proto: CartridgeRifleAP
+  - type: Sprite
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+    - sprite: _Dystopia/Objects/Weapons/ammo_marks.rsi
+      state: box-rifle
+      color: "#0a0a0a"
+
+
+# ===================== .25 caseless =====================
+- type: entity
+  parent: BulletCaselessRifle
+  id: BulletCaselessRifleJHP
+  categories: [ HideSpawnMenu ]
+  name: bullet (.25 caseless JHP)
+  components:
+  - type: Projectile
+    damage:
+      types:
+        Piercing: 24
+  - type: ArmorPenetration
+    sharp: 3
+    blunt: 28.5
+
+- type: entity
+  parent: BaseCartridgeCaselessRifle
+  id: CartridgeCaselessRifleJHP
+  name: cartridge (.25 caseless JHP)
+  description: "Jacketed hollow point (JHP): expands on impact for more damage, but penetrates armor half as well."
+  components:
+  - type: CartridgeAmmo
+    proto: BulletCaselessRifleJHP
+  - type: Sprite
+    layers:
+    - state: base
+      map: [ "enum.AmmoVisualLayers.Base" ]
+    - state: tip
+      map: [ "enum.AmmoVisualLayers.Tip" ]
+      color: "#b5651d"
+
+- type: entity
+  parent: BaseMagazineBoxCaselessRifle
+  id: MagazineBoxCaselessRifleJHP
+  name: ammunition box (.25 caseless JHP)
+  description: "A cardboard box of .25 caseless rounds. Jacketed hollow point (JHP): expands on impact for more damage, but penetrates armor half as well."
+  components:
+  - type: BallisticAmmoProvider
+    proto: CartridgeCaselessRifleJHP
+  - type: Sprite
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+    - sprite: _Dystopia/Objects/Weapons/ammo_marks.rsi
+      state: box-caseless-rifle
+      color: "#b5651d"
+
+- type: entity
+  parent: BulletCaselessRifle
+  id: BulletCaselessRifleAP
+  categories: [ HideSpawnMenu ]
+  name: bullet (.25 caseless AP)
+  components:
+  - type: Sprite
+    sprite: Objects/Weapons/Guns/Projectiles/projectiles2.rsi
+    layers:
+    - state: piercing
+  - type: Projectile
+    damage:
+      types:
+        Piercing: 12
+  - type: ArmorPenetration
+    sharp: 12
+    blunt: 28.5
+
+- type: entity
+  parent: BaseCartridgeCaselessRifle
+  id: CartridgeCaselessRifleAP
+  name: cartridge (.25 caseless AP)
+  description: "Armor-piercing (AP) with a hardened core: penetrates armor twice as well, but deals less damage to unarmored targets."
+  components:
+  - type: CartridgeAmmo
+    proto: BulletCaselessRifleAP
+  - type: Sprite
+    layers:
+    - state: base
+      map: [ "enum.AmmoVisualLayers.Base" ]
+    - state: tip
+      map: [ "enum.AmmoVisualLayers.Tip" ]
+      color: "#0a0a0a"
+
+- type: entity
+  parent: BaseMagazineBoxCaselessRifle
+  id: MagazineBoxCaselessRifleAP
+  name: ammunition box (.25 caseless AP)
+  description: "A cardboard box of .25 caseless rounds. Armor-piercing (AP) with a hardened core: penetrates armor twice as well, but deals less damage to unarmored targets."
+  components:
+  - type: BallisticAmmoProvider
+    proto: CartridgeCaselessRifleAP
+  - type: Sprite
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+    - sprite: _Dystopia/Objects/Weapons/ammo_marks.rsi
+      state: box-caseless-rifle
+      color: "#0a0a0a"
+
+
+# ===================== .60 anti-materiel =====================
+- type: entity
+  parent: BulletAntiMateriel
+  id: BulletAntiMaterielAP
+  categories: [ HideSpawnMenu ]
+  name: bullet (.60 anti-materiel AP)
+  components:
+  - type: Sprite
+    sprite: Objects/Weapons/Guns/Projectiles/projectiles2.rsi
+    layers:
+    - state: piercing
+  - type: Projectile
+    damage:
+      types:
+        Piercing: 49
+        Structural: 100
+  - type: ArmorPenetration
+    sharp: 28
+    blunt: 360
+
+- type: entity
+  parent: CartridgeAntiMateriel
+  id: CartridgeAntiMaterielAP
+  name: cartridge (.60 anti-materiel AP)
+  description: "Armor-piercing (AP) with a hardened core: penetrates armor twice as well, but deals less damage to unarmored targets."
+  components:
+  - type: CartridgeAmmo
+    proto: BulletAntiMaterielAP
+  - type: Sprite
+    layers:
+    - state: base
+      map: [ "enum.AmmoVisualLayers.Base" ]
+    - sprite: _Dystopia/Objects/Weapons/ammo_marks.rsi
+      state: large-tip
+      map: [ "enum.AmmoVisualLayers.Tip" ]
+      color: "#0a0a0a"
+
+- type: entity
+  parent: BaseMagazineBoxAntiMateriel
+  id: MagazineBoxAntiMaterielAP
+  name: ammunition box (.60 anti-materiel AP)
+  description: "A cardboard box of .60 anti-materiel rounds. Armor-piercing (AP) with a hardened core: penetrates armor twice as well, but deals less damage to unarmored targets."
+  components:
+  - type: BallisticAmmoProvider
+    proto: CartridgeAntiMaterielAP
+  - type: Sprite
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+
+- type: entity
+  parent: BulletAntiMateriel
+  id: BulletAntiMaterielWP
+  categories: [ HideSpawnMenu ]
+  name: bullet (.60 anti-materiel WP)
+  components:
+  - type: Sprite
+    sprite: Objects/Weapons/Guns/Projectiles/projectiles2.rsi
+    layers:
+    - state: piercing
+  - type: Projectile
+    damage:
+      types:
+        Piercing: 49
+        Structural: 100
+        Heat: 20
+  - type: IgniteOnCollide
+    fireStacks: 0.5
+  - type: PointLight
+    enabled: true
+    color: "#ff4300"
+    radius: 2.0
+    energy: 7.0
+  - type: ArmorPenetration
+    sharp: 28
+    blunt: 360
+
+- type: entity
+  parent: CartridgeAntiMateriel
+  id: CartridgeAntiMaterielWP
+  name: cartridge (.60 anti-materiel WP)
+  description: "White phosphorus incendiary (WP) with an armor-piercing core: sets the target ablaze."
+  components:
+  - type: CartridgeAmmo
+    proto: BulletAntiMaterielWP
+  - type: Sprite
+    layers:
+    - state: base
+      map: [ "enum.AmmoVisualLayers.Base" ]
+    - sprite: _Dystopia/Objects/Weapons/ammo_marks.rsi
+      state: large-tip
+      map: [ "enum.AmmoVisualLayers.Tip" ]
+      color: "#ff6e52"
+
+- type: entity
+  parent: BaseMagazineBoxAntiMateriel
+  id: MagazineBoxAntiMaterielWP
+  name: ammunition box (.60 anti-materiel WP)
+  description: "A cardboard box of .60 anti-materiel rounds. White phosphorus incendiary (WP) with an armor-piercing core: sets the target ablaze."
+  components:
+  - type: BallisticAmmoProvider
+    proto: CartridgeAntiMaterielWP
+  - type: Sprite
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+
+- type: entity
+  parent: BulletAntiMateriel
+  id: BulletAntiMaterielHE
+  categories: [ HideSpawnMenu ]
+  name: bullet (.60 anti-materiel HE)
+  components:
+  - type: Projectile
+    damage:
+      types:
+        Piercing: 75
+        Structural: 100
+  - type: TriggerOnCollide
+    fixtureID: projectile
+    maxTriggers: 1
+  - type: ExplodeOnTrigger
+  - type: Explosive
+    explosionType: Default
+    maxIntensity: 2
+    intensitySlope: 1
+    totalIntensity: 2
+    maxTileBreak: 0
+    canCreateVacuum: false
+  - type: ArmorPenetration
+    sharp: 14
+    blunt: 360
+
+- type: entity
+  parent: CartridgeAntiMateriel
+  id: CartridgeAntiMaterielHE
+  name: cartridge (.60 anti-materiel HE)
+  description: "High-explosive (HE): a small charge detonates on impact."
+  components:
+  - type: CartridgeAmmo
+    proto: BulletAntiMaterielHE
+  - type: Sprite
+    layers:
+    - state: base
+      map: [ "enum.AmmoVisualLayers.Base" ]
+    - sprite: _Dystopia/Objects/Weapons/ammo_marks.rsi
+      state: large-tip
+      map: [ "enum.AmmoVisualLayers.Tip" ]
+      color: "#e5c100"
+
+- type: entity
+  parent: BaseMagazineBoxAntiMateriel
+  id: MagazineBoxAntiMaterielHE
+  name: ammunition box (.60 anti-materiel HE)
+  description: "A cardboard box of .60 anti-materiel rounds. High-explosive (HE): a small charge detonates on impact."
+  components:
+  - type: BallisticAmmoProvider
+    proto: CartridgeAntiMaterielHE
+  - type: Sprite
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-1
+      map: ["enum.GunVisualLayers.Mag"]
+
+
+# ===================== .50 shotgun =====================
+- type: entity
+  parent: PelletShotgunSlug
+  id: PelletShotgunSlugAP
+  categories: [ HideSpawnMenu ]
+  name: pellet (.50 AP)
+  components:
+  - type: Sprite
+    sprite: Objects/Weapons/Guns/Projectiles/projectiles2.rsi
+    layers:
+    - state: piercing
+  - type: Projectile
+    damage:
+      types:
+        Piercing: 29
+        Structural: 30
+  - type: ArmorPenetration
+    sharp: 12
+    blunt: 85.2
+
+- type: entity
+  parent: [ BaseShellShotgun, BaseSecurityContraband ]
+  id: ShellShotgunSlugAP
+  name: shell (.50 AP)
+  description: "Armor-piercing sabot slug (AP): a hardened subcaliber penetrator, less damage to unarmored targets."
+  components:
+  - type: Sprite
+    layers:
+    - state: slug
+      map: [ "enum.AmmoVisualLayers.Base" ]
+      color: "#0a0a0a"
+  - type: CartridgeAmmo
+    proto: PelletShotgunSlugAP
+  - type: SpentAmmoVisuals
+    state: "slug"
+
+- type: entity
+  parent: AmmoProviderShotgunShell
+  id: BoxShotgunSlugAP
+  name: ammunition box (.50 AP)
+  description: "A cardboard box of .50 shotgun shells. Armor-piercing sabot slug (AP): a hardened subcaliber penetrator, less damage to unarmored targets."
+  components:
+  - type: BallisticAmmoProvider
+    proto: ShellShotgunSlugAP
+  - type: MagazineVisuals
+    magState: mag-slug
+    steps: 5
+    zeroVisible: false
+  - type: Sprite
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-slug-1
+      map: ["enum.GunVisualLayers.Mag"]
+    - state: slug
+      color: "#0a0a0a"
+
+- type: entity
+  parent: PelletShotgunSlug
+  id: PelletShotgunFrag
+  categories: [ HideSpawnMenu ]
+  name: pellet (.50 HE)
+  components:
+  - type: Projectile
+    damage:
+      types:
+        Piercing: 10
+        Structural: 30
+  - type: TriggerOnCollide
+    fixtureID: projectile
+    maxTriggers: 1
+  - type: ExplodeOnTrigger
+  - type: Explosive
+    explosionType: Default
+    maxIntensity: 2
+    intensitySlope: 1
+    totalIntensity: 3
+    maxTileBreak: 0
+    canCreateVacuum: false
+  - type: ArmorPenetration
+    sharp: 3
+    blunt: 40
+
+- type: entity
+  parent: [ BaseShellShotgun, BaseSecurityContraband ]
+  id: ShellShotgunFrag
+  name: shell (.50 HE)
+  description: "FRAG-12 (HE): a fin-stabilized mini-grenade that detonates on impact."
+  components:
+  - type: Sprite
+    layers:
+    - state: slug
+      map: [ "enum.AmmoVisualLayers.Base" ]
+      color: "#e5c100"
+  - type: CartridgeAmmo
+    proto: PelletShotgunFrag
+  - type: SpentAmmoVisuals
+    state: "slug"
+
+- type: entity
+  parent: AmmoProviderShotgunShell
+  id: BoxShotgunFrag
+  name: ammunition box (.50 HE)
+  description: "A cardboard box of .50 shotgun shells. FRAG-12 (HE): a fin-stabilized mini-grenade that detonates on impact."
+  components:
+  - type: BallisticAmmoProvider
+    proto: ShellShotgunFrag
+  - type: MagazineVisuals
+    magState: mag-slug
+    steps: 5
+    zeroVisible: false
+  - type: Sprite
+    layers:
+    - state: base
+      map: ["enum.GunVisualLayers.Base"]
+    - state: mag-slug-1
+      map: ["enum.GunVisualLayers.Mag"]
+    - state: slug
+      color: "#e5c100"

@@ -20,7 +20,7 @@
 - type: entity
   parent: BaseCartridgePistol
   id: CartridgePistol
-  name: cartridge (.35 auto)
+  name: cartridge (.35 auto FMJ)
   description: Arguably the most popular caliber on the market, used by all manner of pistols and submachine guns. Standard kinetic ammunition is common and useful in most situations.
   components:
   - type: CartridgeAmmo
@@ -45,7 +45,7 @@
 - type: entity
   parent: BaseCartridgePistol
   id: CartridgePistolIncendiary
-  name: cartridge (.35 auto incendiary)
+  name: cartridge (.35 auto WP)
   description: Arguably the most popular caliber on the market, used by all manner of pistols and submachine guns. Incendiary ammunition contains a self-igniting compound that sets targets ablaze.
   components:
   - type: CartridgeAmmo

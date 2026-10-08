@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Box labels recolored from Objects/Weapons/Guns/Ammunition/Boxes/*.rsi practice (cev-eris, tweaked by Alekshhh); large-tip derived from Objects/Weapons/Guns/Ammunition/Casings/large_casing.rsi. Dystopia.",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "box-pistol"
+    },
+    {
+      "name": "box-light-rifle"
+    },
+    {
+      "name": "box-rifle"
+    },
+    {
+      "name": "box-caseless-rifle"
+    },
+    {
+      "name": "box-magnum"
+    },
+    {
+      "name": "large-tip"
+    }
+  ]
+}

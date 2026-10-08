@@ -67,6 +67,7 @@ public abstract partial class SharedMeleeWeaponSystem : EntitySystem
     [Dependency] protected SharedTransformSystem TransformSystem = default!;
     [Dependency] private SharedStaminaSystem _stamina = default!;
     [Dependency] private DamageExamineSystem _damageExamine = default!;
+    [Dependency] private Content.Shared._Dystopia.Health.Armor.Penetration.ArmorPenetrationSystem _armorPenetration = default!; // Dystopia-Health
     [Dependency] private SharedEntityEffectsSystem _effects = default!;
 
     [Dependency] private EntityQuery<DamageableComponent> _damageQuery = default!;
@@ -150,6 +151,7 @@ public abstract partial class SharedMeleeWeaponSystem : EntitySystem
             return;
 
         _damageExamine.AddDamageExamine(args.Message, Damageable.ApplyUniversalAllModifiers(damageSpec), Loc.GetString("damage-melee"));
+        _armorPenetration.AddMeleeExamine(args.Message, uid, damageSpec); // Dystopia-Health
     }
     private void OnMeleeSelected(EntityUid uid, MeleeWeaponComponent component, HandSelectedEvent args)
     {
@@ -562,7 +564,20 @@ public abstract partial class SharedMeleeWeaponSystem : EntitySystem
 
         var modifiedDamage = DamageSpecifier.ApplyModifierSets(damage + hitEvent.BonusDamage + attackedEvent.BonusDamage, hitEvent.ModifiersList);
 
-        if (Damageable.TryChangeDamage(target.Value, modifiedDamage, out var damageResult, origin:user, ignoreResistances:resistanceBypass))
+        // Dystopia-Health: броня считает пробитие этого оружия (или удара без оружия)
+        var previousSource = _armorPenetration.SetSource(meleeUid);
+        bool damaged;
+        DamageSpecifier damageResult;
+        try
+        {
+            damaged = Damageable.TryChangeDamage(target.Value, modifiedDamage, out damageResult, origin:user, ignoreResistances:resistanceBypass);
+        }
+        finally
+        {
+            _armorPenetration.SetSource(previousSource);
+        }
+
+        if (damaged)
         {
             // If the target has stamina and is taking blunt damage, they should also take stamina damage based on their blunt to stamina factor
             if (damageResult.DamageDict.TryGetValue("Blunt", out var bluntDamage))
@@ -728,7 +743,17 @@ public abstract partial class SharedMeleeWeaponSystem : EntitySystem
             RaiseLocalEvent(entity, attackedEvent);
             var modifiedDamage = DamageSpecifier.ApplyModifierSets(damage + hitEvent.BonusDamage + attackedEvent.BonusDamage, hitEvent.ModifiersList);
 
-            var damageResult = Damageable.ChangeDamage(entity, modifiedDamage, origin: user, ignoreResistances: resistanceBypass);
+            // Dystopia-Health: броня считает пробитие этого оружия
+            var previousSource = _armorPenetration.SetSource(meleeUid);
+            DamageSpecifier damageResult;
+            try
+            {
+                damageResult = Damageable.ChangeDamage(entity, modifiedDamage, origin: user, ignoreResistances: resistanceBypass);
+            }
+            finally
+            {
+                _armorPenetration.SetSource(previousSource);
+            }
 
             if (damageResult.GetTotal() > FixedPoint2.Zero)
             {

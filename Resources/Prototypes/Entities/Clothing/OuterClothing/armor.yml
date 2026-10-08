@@ -32,6 +32,9 @@
   - type: Tag
     tags:
     - WhitelistChameleon
+  # Dystopia-Health: бронежилет закрывает только грудь и живот
+  - type: ArmorCoverage
+    coverage: [ Chest, Groin ]
 
 #Alternate / slim basic armor vest, allowed for security and bartenders
 - type: entity
@@ -69,6 +72,10 @@
         Slash: 0.9
         Piercing: 0.4
         Heat: 0.9
+  # Dystopia-Health: бронеплиты класса III — держат винтовочную FMJ, тупой удар рикошета гасят лучше лёгкого жилета
+  - type: ArmorRating
+    sharp: 12
+    blunt: 12
   - type: ExplosionResistance
     damageCoefficient: 0.80
 
@@ -112,6 +119,9 @@
   id: ClothingOuterArmorBaseCarapace
   abstract: true
   components:
+  # Dystopia-Health: бронежилет закрывает только грудь и живот
+  - type: ArmorCoverage
+    coverage: [ Chest, Groin ]
   - type: Armor
     modifiers:
       coefficients:
@@ -164,6 +174,9 @@
     sprite: Clothing/OuterClothing/Vests/webvest.rsi
   - type: Clothing
     sprite: Clothing/OuterClothing/Vests/webvest.rsi
+  # Dystopia-Health: бронежилет закрывает только грудь и живот
+  - type: ArmorCoverage
+    coverage: [ Chest, Groin ]
   - type: Armor
     modifiers:
       coefficients:
@@ -494,6 +507,9 @@
     modifiers:
       coefficients:
         Blunt: 0.9
+  # Dystopia-Health: бронежилет закрывает только грудь и живот
+  - type: ArmorCoverage
+    coverage: [ Chest, Groin ]
   - type: Construction
     graph: cardArmour
     node: cardarmour

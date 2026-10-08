@@ -16,6 +16,7 @@ public abstract partial class SharedArmorSystem : EntitySystem
 {
     [Dependency] private ExamineSystemShared _examine = default!;
     [Dependency] private Content.Shared._Dystopia.Health.Armor.ArmorCoverageSystem _coverage = default!; // Dystopia-Health
+    [Dependency] private Content.Shared._Dystopia.Health.Armor.Penetration.ArmorPenetrationSystem _penetration = default!; // Dystopia-Health
 
     /// <inheritdoc />
     public override void Initialize()
@@ -53,7 +54,10 @@ public abstract partial class SharedArmorSystem : EntitySystem
         if (!_coverage.ShouldApply(uid, args.Args))
             return;
 
+        // Dystopia-Health: острый, тупой урон и жар по телу считает пробитие брони (как в Combat Extended)
+        var before = args.Args.Damage;
         args.Args.Damage = DamageSpecifier.ApplyModifierSet(args.Args.Damage, component.Modifiers);
+        _penetration.RestoreHandled(args.Owner, before, args.Args.Damage);
     }
 
     private void OnBorgDamageModify(EntityUid uid, ArmorComponent component,
@@ -87,6 +91,10 @@ public abstract partial class SharedArmorSystem : EntitySystem
 
         foreach (var coefficientArmor in armorModifiers.Coefficients)
         {
+            // Dystopia-Health: острый и тупой урон броня держит в мм/МПа (см. ArmorPenetrationSystem)
+            if (_penetration.IsRatedType(coefficientArmor.Key))
+                continue;
+
             msg.PushNewline();
 
             // TODO: probably make these prototype fields or have a test that they all exist
@@ -99,6 +107,9 @@ public abstract partial class SharedArmorSystem : EntitySystem
 
         foreach (var flatArmor in armorModifiers.FlatReductions)
         {
+            if (_penetration.IsRatedType(flatArmor.Key)) // Dystopia-Health
+                continue;
+
             msg.PushNewline();
 
             var armorType = Loc.GetString("armor-damage-type-" + flatArmor.Key.Id.ToLower());

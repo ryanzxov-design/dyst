@@ -2,6 +2,7 @@
 // Dystopia: броня защищает только те части тела, которые закрывает.
 
 using System.Linq;
+using Content.Shared._Dystopia.Health.Armor.Penetration;
 using Content.Shared._Dystopia.Health.Medical.Surgery.Wounds.Systems;
 using Content.Shared._Dystopia.Health.Targeting;
 using Content.Shared.Armor;
@@ -20,6 +21,7 @@ public sealed partial class ArmorCoverageSystem : EntitySystem
     [Dependency] private SharedBodySystem _body = default!;
     [Dependency] private WoundSystem _wounds = default!;
     [Dependency] private InventorySystem _inventory = default!;
+    [Dependency] private ArmorPenetrationSystem _penetration = default!;
 
     private static readonly BodyPartType[] Torso = { BodyPartType.Chest, BodyPartType.Groin, BodyPartType.Arm, BodyPartType.Leg };
 
@@ -95,10 +97,12 @@ public sealed partial class ArmorCoverageSystem : EntitySystem
     /// Насколько броня на части гасит этот вид урона: 0 — никак, 0.9 — почти полностью.
     /// Берётся из коэффициентов самой брони (бронежилет с ушибами 0.6 — защита 0.4). Несколько слоёв складываются.
     /// Используется для шанса травм (перелом, органы, вены, нервы) и отрыва.
+    /// Острый, тупой урон и жар броня уже погасила пробитием (ArmorPenetrationSystem) — для них 0,
+    /// иначе броня считалась бы дважды.
     /// </summary>
     public float GetPartProtection(EntityUid body, BodyPartType part, string damageType)
     {
-        if (!_inventory.TryGetContainerSlotEnumerator(body, out var slots))
+        if (_penetration.IsHandledType(damageType) || !_inventory.TryGetContainerSlotEnumerator(body, out var slots))
             return 0f;
 
         var passThrough = 1f;
@@ -119,6 +123,8 @@ public sealed partial class ArmorCoverageSystem : EntitySystem
 
     private void OnArmorExamine(Entity<ArmorComponent> ent, ref ArmorExamineEvent args)
     {
+        _penetration.AddArmorExamine(ent, args.Msg);
+
         foreach (var type in GetCoverage(ent))
         {
             args.Msg.PushNewline();

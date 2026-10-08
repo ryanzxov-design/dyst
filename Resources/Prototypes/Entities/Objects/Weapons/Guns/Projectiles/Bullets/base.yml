@@ -118,7 +118,7 @@
     damage:
       types:
         Piercing: 11 # 20% decrease
-    ignoreResistances: true
+    ignoreResistances: false # Dystopia-Health: AP не игнорирует броню, а пробивает её (ArmorPenetration)
 
 - type: entity
   parent: BaseBullet

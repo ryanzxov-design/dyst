@@ -166,6 +166,9 @@
         Heat: 0.5
         Cold: 0.8
         Caustic: 0.5
+  # Костюм вместе с капюшоном закрывает всё тело
+  - type: ArmorCoverage
+    coverage: [ Head, Chest, Groin, Arm, Hand, Leg, Foot ]
   - type: GroupExamine
   - type: ProtectedFromStepTriggers
     slots: WITHOUT_POCKET
