@@ -15,6 +15,9 @@
           Slash: 0.7
           Piercing: 0.4
           Heat: 0.7
+    # Dystopia-Health: класс защиты (_Dystopia/Health/Armor/armor_classes.yml)
+    - type: ArmorRating
+      armorClass: Br3
 
 - type: entity
   parent: ClothingOuterCoatDetectiveLoadout
@@ -69,6 +72,9 @@
           Slash: 0.8
           Piercing: 0.6
           Heat: 0.9
+    # Dystopia-Health: класс защиты (_Dystopia/Health/Armor/armor_classes.yml)
+    - type: ArmorRating
+      armorClass: Br1
 
 - type: entity
   parent: [BaseCorvaxContraband431JobsBrigmedic, ClothingOuterStorageBase] # Corvax-Contraband

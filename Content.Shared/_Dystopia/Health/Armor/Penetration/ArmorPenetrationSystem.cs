@@ -200,7 +200,7 @@ public sealed partial class ArmorPenetrationSystem : EntitySystem
             var penMulti = originalPen > 0f ? pen / originalPen : 0f;
             var deflectPen = sourceBluntPen * penMulti;
             var deflectDamage = GetDeflectDamage(deflectPen, settings) * share;
-            return (0f, ApplyBlunt(deflectDamage, deflectPen, layers, i));
+            return (0f, ApplyDeflectBlunt(deflectDamage, deflectPen, layers, i, settings));
         }
 
         // Частичное пробитие: потерянное на броне превращается в тупой удар по всем слоям
@@ -209,10 +209,19 @@ public sealed partial class ArmorPenetrationSystem : EntitySystem
         {
             var penMulti = (originalPen - pen) * (originalDamage - damage) / originalDamage / originalPen;
             var partialPen = sourceBluntPen * penMulti;
-            partial = ApplyBlunt(GetDeflectDamage(partialPen, settings) * share, partialPen, layers, 0);
+            partial = ApplyDeflectBlunt(GetDeflectDamage(partialPen, settings) * share, partialPen, layers, 0, settings);
         }
 
         return (damage, partial);
+    }
+
+    /// <summary>
+    /// Тупой удар остановленной пули: не меньше заданной доли, сколько бы тупой брони ни было.
+    /// </summary>
+    private static float ApplyDeflectBlunt(float damage, float pen, List<Layer> layers, int start,
+        ArmorPenetrationSettingsPrototype settings)
+    {
+        return Math.Max(ApplyBlunt(damage, pen, layers, start), damage * Math.Clamp(settings.DeflectMinPass, 0f, 1f));
     }
 
     private static float ApplyBlunt(float damage, float pen, List<Layer> layers, int start)
@@ -326,8 +335,8 @@ public sealed partial class ArmorPenetrationSystem : EntitySystem
         var layers = _layerBuffer.OrderBy(l => l.Order).Select(l => l.Layer).ToList();
         if (TryComp<ArmorRatingComponent>(body, out var natural))
         {
-            var multiplier = natural.PartMultipliers.GetValueOrDefault(part, 1f);
-            layers.Add(new Layer((natural.Sharp ?? 0f) * multiplier, (natural.Blunt ?? 0f) * multiplier, null));
+            var (sharp, blunt) = GetRating(null, natural, part, settings);
+            layers.Add(new Layer(sharp, blunt, null));
         }
 
         return layers;
@@ -346,11 +355,15 @@ public sealed partial class ArmorPenetrationSystem : EntitySystem
         return GetRating(armor, rating, part, settings);
     }
 
-    private static (float Sharp, float Blunt) GetRating(ArmorComponent? armor, ArmorRatingComponent? rating, BodyPartType? part,
+    private (float Sharp, float Blunt) GetRating(ArmorComponent? armor, ArmorRatingComponent? rating, BodyPartType? part,
         ArmorPenetrationSettingsPrototype settings)
     {
-        var sharp = rating?.Sharp ?? DeriveRating(armor, settings.SharpRating);
-        var blunt = rating?.Blunt ?? DeriveRating(armor, settings.BluntRating);
+        ArmorClassPrototype? armorClass = null;
+        if (rating?.ArmorClass is { } classId)
+            _proto.TryIndex(classId, out armorClass);
+
+        var sharp = rating?.Sharp ?? armorClass?.Sharp ?? DeriveRating(armor, settings.SharpRating);
+        var blunt = rating?.Blunt ?? armorClass?.Blunt ?? DeriveRating(armor, settings.BluntRating);
         var multiplier = 1f;
         if (part is { } partType && rating != null)
             multiplier = rating.PartMultipliers.GetValueOrDefault(partType, 1f);
@@ -464,6 +477,17 @@ public sealed partial class ArmorPenetrationSystem : EntitySystem
         var (sharp, blunt) = GetRating(armor, rating, null, settings);
         if (sharp <= 0f && blunt <= 0f)
             return;
+
+        if (rating?.ArmorClass is { } classId && _proto.TryIndex(classId, out var armorClass))
+        {
+            message.PushNewline();
+            message.AddMarkupOrThrow(Loc.GetString("armor-class-examine", ("class", Loc.GetString(armorClass.Name))));
+            if (armorClass.Threat is { } threat)
+            {
+                message.PushNewline();
+                message.AddMarkupOrThrow(Loc.GetString("armor-class-threat-examine", ("threat", Loc.GetString(threat))));
+            }
+        }
 
         message.PushNewline();
         message.AddMarkupOrThrow(Loc.GetString("armor-rating-examine",

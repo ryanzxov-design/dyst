@@ -45,7 +45,7 @@
 - type: entity
   parent: BaseCartridgePistol
   id: CartridgePistolIncendiary
-  name: cartridge (.35 auto WP)
+  name: cartridge (.35 auto incendiary)
   description: Arguably the most popular caliber on the market, used by all manner of pistols and submachine guns. Incendiary ammunition contains a self-igniting compound that sets targets ablaze.
   components:
   - type: CartridgeAmmo

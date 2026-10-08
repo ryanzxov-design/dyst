@@ -10,7 +10,7 @@
         Piercing: 16
   - type: ArmorPenetration # Dystopia-Health: пробитие брони (мм / МПа)
     sharp: 4
-    blunt: 9.7
+    blunt: 10.4
 
 - type: entity
   parent: BaseBulletPractice
@@ -35,8 +35,8 @@
         Piercing: 12
         Heat: 4
   - type: ArmorPenetration # Dystopia-Health: пробитие брони (мм / МПа)
-    sharp: 8
-    blunt: 9.7
+    sharp: 4
+    blunt: 10.4
 
 - type: entity
   parent: BaseBulletUranium
@@ -50,5 +50,5 @@
         Radiation: 6
         Piercing: 10
   - type: ArmorPenetration # Dystopia-Health: пробитие брони (мм / МПа)
-    sharp: 4
-    blunt: 9.7
+    sharp: 7
+    blunt: 10.4

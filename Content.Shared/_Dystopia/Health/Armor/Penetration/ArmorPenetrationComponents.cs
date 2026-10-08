@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 using Content.Shared.Body.Part;
+using Robust.Shared.Prototypes;
 
 namespace Content.Shared._Dystopia.Health.Armor.Penetration;
 
@@ -26,11 +27,17 @@ public sealed partial class ArmorPenetrationComponent : Component
 
 /// <summary>
 /// Рейтинг брони. На одежде — броня закрытых ею частей тела, на самом теле — естественная броня
-/// (последний слой). Не задано — для одежды считается из её обычных коэффициентов.
+/// (последний слой). Обычно задаётся классом защиты; не задано — для одежды считается из её обычных коэффициентов.
 /// </summary>
 [RegisterComponent]
 public sealed partial class ArmorRatingComponent : Component
 {
+    /// <summary>
+    /// Класс защиты (Бр1–Бр6): острая и тупая броня берутся из него. Sharp/Blunt, если заданы, важнее класса.
+    /// </summary>
+    [DataField]
+    public ProtoId<ArmorClassPrototype>? ArmorClass;
+
     /// <summary>
     /// Острая броня, мм.
     /// </summary>

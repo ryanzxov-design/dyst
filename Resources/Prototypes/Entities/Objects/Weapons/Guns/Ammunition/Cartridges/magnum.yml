@@ -45,7 +45,7 @@
 - type: entity
   parent: BaseCartridgeMagnum
   id: CartridgeMagnumIncendiary
-  name: cartridge (.45 magnum WP)
+  name: cartridge (.45 magnum incendiary)
   description: Heavy magnum cartridge mostly used by revolvers. Incendiary ammunition contains a self-igniting compound that sets targets ablaze.
   components:
   - type: CartridgeAmmo

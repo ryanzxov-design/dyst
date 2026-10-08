@@ -79,7 +79,7 @@
 - type: entity
   id: MagazineBoxRifleIncendiary
   parent: BaseMagazineBoxRifle
-  name: ammunition box (.20 rifle WP)
+  name: ammunition box (.20 rifle incendiary)
   description: A cardboard box of .20 rifle rounds. Intended to hold self-igniting incendiary ammunition.
   components:
   - type: BallisticAmmoProvider

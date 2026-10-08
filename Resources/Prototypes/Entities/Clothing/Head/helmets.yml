@@ -26,6 +26,9 @@
         Slash: 0.9
         Piercing: 0.9
         Heat: 0.9
+  # Dystopia-Health: класс защиты (_Dystopia/Health/Armor/armor_classes.yml)
+  - type: ArmorRating
+    armorClass: Br1
 
 #Security Helmet
 - type: entity
@@ -99,6 +102,9 @@
   - type: HideLayerClothing
     layers:
       Hair: HEAD
+  # Dystopia-Health: класс защиты (_Dystopia/Health/Armor/armor_classes.yml)
+  - type: ArmorRating
+    armorClass: Br2
 
 #Syndicate SWAT Helmet
 - type: entity
@@ -154,6 +160,10 @@
   - type: HideLayerClothing
     layers:
       Hair: HEAD
+  # Dystopia-Health: класс защиты (_Dystopia/Health/Armor/armor_classes.yml)
+  - type: ArmorRating
+    armorClass: Br1
+    blunt: 15
 
 #Bombsuit Helmet
 - type: entity
@@ -495,6 +505,9 @@
   - type: HideLayerClothing
     layers:
       Hair: HEAD
+  # Dystopia-Health: класс защиты (_Dystopia/Health/Armor/armor_classes.yml)
+  - type: ArmorRating
+    armorClass: Br2
 
 #Bone Helmet
 #No need to hide the hair on this one

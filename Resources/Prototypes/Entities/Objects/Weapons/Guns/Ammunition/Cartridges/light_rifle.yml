@@ -45,7 +45,7 @@
 - type: entity
   parent: BaseCartridgeLightRifle
   id: CartridgeLightRifleIncendiary
-  name: cartridge (.30 rifle WP)
+  name: cartridge (.30 rifle incendiary)
   description: A classic intermediate cartridge used by many combat rifles and LMGs. Incendiary ammunition contains a self-igniting compound that sets targets ablaze.
   components:
   - type: CartridgeAmmo

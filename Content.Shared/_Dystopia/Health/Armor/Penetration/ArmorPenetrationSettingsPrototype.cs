@@ -60,10 +60,17 @@ public sealed partial class ArmorPenetrationSettingsPrototype : IPrototype
     public float DeflectDivisor = 10f;
 
     /// <summary>
-    /// Перевод урона рикошета из единиц RimWorld в единицы нашего урона.
+    /// Перевод урона рикошета в наш урон.
     /// </summary>
     [DataField]
     public float DeflectDamageMultiplier = 1f;
+
+    /// <summary>
+    /// Какая доля тупого удара от остановленной пули доходит до тела в любом случае, даже если тупая броня
+    /// его погасила бы целиком: пуля, застрявшая в жилете, всё равно оставляет ушиб.
+    /// </summary>
+    [DataField]
+    public float DeflectMinPass;
 
     /// <summary>
     /// Куда считать удар, который пришёлся по всему телу (взрыв, пожар, падение): броня какой части его встречает.

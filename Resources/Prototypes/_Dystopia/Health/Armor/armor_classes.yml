@@ -1,0 +1,66 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: классы защиты брони Бр1–Бр6. Броня указывает класс: ArmorRating: { armorClass: Br4 }. Числа меняются здесь.
+#
+# Класс держит патроны своего уровня и всё, что слабее; патрон уровнем выше его пробивает.
+# Пробитие патронов — _Dystopia/Entities/Objects/Weapons/ammunition.yml и ванильные Bullets/*.yml (ArmorPenetration).
+#
+# Класс | Острая, мм | Тупая, МПа | Держит
+# Бр1   | 3          | 5          | ружейную дробь, пистолетные JHP
+# Бр2   | 5          | 8          | .35 авто FMJ, картечь
+# Бр3   | 8          | 12         | .35 авто AP, .45 магнум FMJ, ружейную пулю
+# Бр4   | 13         | 20         | винтовочные FMJ (.30, .20, .25), .45 магнум AP, подкалиберную пулю
+# Бр5   | 19         | 28         | винтовочные AP
+# Бр6   | 30         | 45         | .60 FMJ и бронебойно-зажигательные .60
+#
+# Пробитие патронов, мм:
+#   .35 авто            JHP 2 · FMJ 4 · AP 7
+#   .45 магнум          JHP 4 · FMJ 6.5 · AP 10
+#   .30 винтовочный     JHP 10 · FMJ/зажиг./WP/HE 12 · AP 17
+#   .20 винтовочный     JHP 9.5 · FMJ/зажиг./WP 11.5 · AP 17
+#   .25 безгильзовый    JHP 9.5 · FMJ 11.5 · AP 17
+#   .60 крупнокалиб.    FMJ/WP/HE 24 · БЗ 29 · AP 36
+#   .50 ружьё           резина 0 · дробь 1.5 · картечь 2.5 · FRAG-12 3.5 · флешетты 6 · пуля 6 · подкалиберная 10
+# Пробил класс — урон уменьшается на долю потерянного пробития: .30 FMJ (12 мм) через Бр1 (3 мм) — 75% урона,
+# через Бр3 (8 мм) — 33% и тупой удар. Не пробил — пуля застревает, остаётся только тупой удар (ушиб).
+
+- type: armorClass
+  id: Br1
+  name: armor-class-br1
+  threat: armor-class-br1-threat
+  sharp: 3
+  blunt: 5
+
+- type: armorClass
+  id: Br2
+  name: armor-class-br2
+  threat: armor-class-br2-threat
+  sharp: 5
+  blunt: 8
+
+- type: armorClass
+  id: Br3
+  name: armor-class-br3
+  threat: armor-class-br3-threat
+  sharp: 8
+  blunt: 12
+
+- type: armorClass
+  id: Br4
+  name: armor-class-br4
+  threat: armor-class-br4-threat
+  sharp: 13
+  blunt: 20
+
+- type: armorClass
+  id: Br5
+  name: armor-class-br5
+  threat: armor-class-br5-threat
+  sharp: 19
+  blunt: 28
+
+- type: armorClass
+  id: Br6
+  name: armor-class-br6
+  threat: armor-class-br6-threat
+  sharp: 30
+  blunt: 45

@@ -15,5 +15,5 @@
   - type: StaminaDamageOnCollide
     damage: 60
   - type: ArmorPenetration # Dystopia-Health: пробитие брони (мм / МПа)
-    sharp: 14
-    blunt: 360
+    sharp: 24
+    blunt: 330

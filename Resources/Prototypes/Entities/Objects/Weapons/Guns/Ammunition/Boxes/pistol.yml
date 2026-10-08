@@ -59,7 +59,7 @@
 - type: entity
   id: MagazineBoxPistolIncendiary
   parent: BaseMagazineBoxPistol
-  name: ammunition box (.35 auto WP)
+  name: ammunition box (.35 auto incendiary)
   description: A cardboard box of .35 auto rounds. Intended to hold self-igniting incendiary ammunition.
   components:
   - type: BallisticAmmoProvider

@@ -58,7 +58,7 @@
 - type: entity
   id: MagazineBoxMagnumIncendiary
   parent: BaseMagazineBoxMagnum
-  name: ammunition box (.45 magnum WP)
+  name: ammunition box (.45 magnum incendiary)
   description: A cardboard box of .45 magnum rounds. Intended to hold self-igniting incendiary ammunition.
   components:
   - type: BallisticAmmoProvider

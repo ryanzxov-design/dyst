@@ -85,6 +85,9 @@
         Slash: 0.5
         Piercing: 0.6
         Heat: 0.5
+  # Dystopia-Health: класс защиты (_Dystopia/Health/Armor/armor_classes.yml)
+  - type: ArmorRating
+    armorClass: Br2
 # Самостоятельный предмет: все свойства выписаны явно (раньше: parent ClothingOuterSuitFire)
 
 - type: entity

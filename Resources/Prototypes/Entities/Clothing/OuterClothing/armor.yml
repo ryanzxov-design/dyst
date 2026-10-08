@@ -35,6 +35,9 @@
   # Dystopia-Health: бронежилет закрывает только грудь и живот
   - type: ArmorCoverage
     coverage: [ Chest, Groin ]
+  # Dystopia-Health: класс защиты (_Dystopia/Health/Armor/armor_classes.yml)
+  - type: ArmorRating
+    armorClass: Br2
 
 #Alternate / slim basic armor vest, allowed for security and bartenders
 - type: entity
@@ -54,6 +57,9 @@
     sprite: Clothing/OuterClothing/Armor/security_slim.rsi
   - type: Clothing
     sprite: Clothing/OuterClothing/Armor/security_slim.rsi
+  # Dystopia-Health: класс защиты (_Dystopia/Health/Armor/armor_classes.yml)
+  - type: ArmorRating
+    armorClass: Br1
 
 - type: entity
   parent: ClothingOuterArmorBasic
@@ -72,12 +78,11 @@
         Slash: 0.9
         Piercing: 0.4
         Heat: 0.9
-  # Dystopia-Health: бронеплиты класса III — держат винтовочную FMJ, тупой удар рикошета гасят лучше лёгкого жилета
-  - type: ArmorRating
-    sharp: 12
-    blunt: 12
   - type: ExplosionResistance
     damageCoefficient: 0.80
+  # Dystopia-Health: класс защиты (_Dystopia/Health/Armor/armor_classes.yml)
+  - type: ArmorRating
+    armorClass: Br4
 
 - type: entity
   parent: ClothingOuterArmorBasic
@@ -101,6 +106,9 @@
     reflects:
       - Energy
     reflectingInHands: false
+  # Dystopia-Health: класс защиты (_Dystopia/Health/Armor/armor_classes.yml)
+  - type: ArmorRating
+    armorClass: Br1
 
 #Detective's vest
 - type: entity
@@ -113,6 +121,9 @@
     sprite: Clothing/OuterClothing/Vests/detvest.rsi
   - type: Clothing
     sprite: Clothing/OuterClothing/Vests/detvest.rsi
+  # Dystopia-Health: класс защиты (_Dystopia/Health/Armor/armor_classes.yml)
+  - type: ArmorRating
+    armorClass: Br1
 
 - type: entity
   parent: [ ClothingOuterBaseMedium, AllowSuitStorageClothing ]
@@ -131,6 +142,9 @@
         Heat: 0.5
         Caustic: 0.9
   - type: GroupExamine
+  # Dystopia-Health: класс защиты (_Dystopia/Health/Armor/armor_classes.yml)
+  - type: ArmorRating
+    armorClass: Br3
 
 - type: entity
   parent: [ClothingOuterArmorBaseCarapace, BaseCommandContraband]
@@ -186,6 +200,9 @@
         Heat: 0.9
   - type: StaticPrice
     price: 1500
+  # Dystopia-Health: класс защиты (_Dystopia/Health/Armor/armor_classes.yml)
+  - type: ArmorRating
+    armorClass: Br4
 
 #Elite web vest
 - type: entity
@@ -230,6 +247,9 @@
         Slash: 0.7
         Piercing: 0.5
         Heat: 0.9
+  # Dystopia-Health: класс защиты (_Dystopia/Health/Armor/armor_classes.yml)
+  - type: ArmorRating
+    armorClass: Br3
 
 
 # Armor covering multiple body parts including limbs
@@ -306,6 +326,9 @@
     autoRechargeRate: 2
   - type: Item
     size: Normal
+  # Dystopia-Health: класс защиты (_Dystopia/Health/Armor/armor_classes.yml)
+  - type: ArmorRating
+    armorClass: Br4
 
 - type: entity
   parent: [BaseCorvaxContraband432DepartmentsSecurity, ClothingOuterBaseLarge, AllowSuitStorageClothing, BaseSecurityContraband] # Corvax-Contraband
@@ -328,6 +351,10 @@
   - type: ExplosionResistance
     damageCoefficient: 0.9
   - type: GroupExamine
+  # Dystopia-Health: класс защиты (_Dystopia/Health/Armor/armor_classes.yml)
+  - type: ArmorRating
+    armorClass: Br2
+    blunt: 20
 
 - type: entity
   parent: [BaseCorvaxContraband432DepartmentsSecurity, ClothingOuterBaseLarge, BaseMajorContraband, AllowSuitStorageClothing] # Corvax-Contraband
@@ -370,6 +397,9 @@
   - type: GroupExamine
   - type: ProtectedFromStepTriggers
     slots: WITHOUT_POCKET
+  # Dystopia-Health: класс защиты (_Dystopia/Health/Armor/armor_classes.yml)
+  - type: ArmorRating
+    armorClass: Br5
 
 - type: entity
   parent: ClothingOuterArmorHeavy

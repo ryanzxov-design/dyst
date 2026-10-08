@@ -14,7 +14,7 @@
         Structural: 30
   - type: ArmorPenetration # Dystopia-Health: пробитие брони (мм / МПа)
     sharp: 6
-    blunt: 85.2
+    blunt: 54
 
 - type: entity
   parent: BaseBullet
@@ -45,8 +45,8 @@
         Piercing: 10
         Structural: 6
   - type: ArmorPenetration # Dystopia-Health: пробитие брони (мм / МПа)
-    sharp: 4
-    blunt: 4.5
+    sharp: 2.5
+    blunt: 12
 
 - type: entity
   parent: PelletShotgun
@@ -72,8 +72,8 @@
   - type: IgnitionSource
     ignited: true
   - type: ArmorPenetration # Dystopia-Health: пробитие брони (мм / МПа)
-    sharp: 4
-    blunt: 4.5
+    sharp: 2.5
+    blunt: 12
 
 - type: entity
   parent: PelletShotgunIncendiary
@@ -123,8 +123,8 @@
         Piercing: 3
         Slash: 3
   - type: ArmorPenetration # Dystopia-Health: пробитие брони (мм / МПа)
-    sharp: 2
-    blunt: 3
+    sharp: 1.5
+    blunt: 4
 
 - type: entity
   parent: PelletShotgunImprovised
@@ -210,7 +210,7 @@
         Piercing: 5
   - type: ArmorPenetration # Dystopia-Health: пробитие брони (мм / МПа)
     sharp: 4
-    blunt: 4.5
+    blunt: 12
 
 - type: entity
   parent: PelletShotgunUranium

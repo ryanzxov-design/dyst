@@ -15,3 +15,19 @@ armor-coverage-type-vital = жизненно важных частей
 armor-rating-examine = - Бронирование: острое [color=lightblue]{ $sharp } мм[/color], тупое [color=lightblue]{ $blunt } МПа[/color].
 armor-rating-part-examine = - Защита { $type }: [color=lightblue]{ $percent }%[/color] от бронирования.
 armor-penetration-examine = - Пробитие брони: острое [color=orange]{ $sharp } мм[/color], тупое [color=orange]{ $blunt } МПа[/color].
+armor-class-examine = - Класс защиты: [color=lightblue]{ $class }[/color].
+armor-class-threat-examine = - Держит { $threat }.
+
+## Классы защиты
+armor-class-br1 = Бр1
+armor-class-br1-threat = дробь и пистолетные пули с мягким наконечником
+armor-class-br2 = Бр2
+armor-class-br2-threat = обычные пистолетные пули и картечь
+armor-class-br3 = Бр3
+armor-class-br3-threat = бронебойные пистолетные пули, магнум и ружейную пулю
+armor-class-br4 = Бр4
+armor-class-br4-threat = обычные винтовочные пули
+armor-class-br5 = Бр5
+armor-class-br5-threat = бронебойные винтовочные пули
+armor-class-br6 = Бр6
+armor-class-br6-threat = крупнокалиберные пули

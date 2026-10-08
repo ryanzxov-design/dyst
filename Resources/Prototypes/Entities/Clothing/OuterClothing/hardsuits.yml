@@ -247,6 +247,9 @@
     tags:
     - Hardsuit
     - WhitelistChameleon
+  # Dystopia-Health: класс защиты (_Dystopia/Health/Armor/armor_classes.yml)
+  - type: ArmorRating
+    armorClass: Br3
 
 #Brigmedic Hardsuit
 - type: entity
@@ -567,6 +570,9 @@
     - ScurretWearable
   - type: StaticPrice
     price: 5000
+  # Dystopia-Health: класс защиты (_Dystopia/Health/Armor/armor_classes.yml)
+  - type: ArmorRating
+    armorClass: Br4
 
 # Syndicate Medic Hardsuit
 - type: entity
@@ -704,6 +710,9 @@
     - MonkeyWearable
     - Hardsuit
     - WhitelistChameleon
+  # Dystopia-Health: класс защиты (_Dystopia/Health/Armor/armor_classes.yml)
+  - type: ArmorRating
+    armorClass: Br5
 
 #Wizard Hardsuit
 - type: entity
@@ -999,6 +1008,9 @@
   - type: HeldSpeedModifier
   - type: ToggleableClothing
     clothingPrototype: ClothingHeadHelmetHardsuitDeathsquad
+  # Dystopia-Health: класс защиты (_Dystopia/Health/Armor/armor_classes.yml)
+  - type: ArmorRating
+    armorClass: Br5
 
 #CBURN Hardsuit
 - type: entity
