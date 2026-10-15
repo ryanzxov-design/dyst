@@ -1,21 +1,23 @@
 ent-SheetMetalBase = { ent-BaseSheet }
     .desc = Металлический лист, широко применяемый на станции в различных целях.
-ent-SheetSteel = сталь
+# Dystopia-Metals
+ent-SheetSteel = стальной лист
     .desc = { ent-SheetMetalBase.desc }
     .suffix = Полный
-ent-SheetSteel10 = сталь
+ent-SheetSteel10 = стальной лист
     .desc = { ent-SheetSteel.desc }
     .suffix = 10
-ent-SheetSteel1 = сталь
+ent-SheetSteel1 = стальной лист
     .desc = { ent-SheetSteel.desc }
     .suffix = Один
-ent-SheetBrass = латунь
+# Dystopia-Metals
+ent-SheetBrass = латунный лист
     .desc = Лист латуни, в основном используемый любителями часовых механизмов и остатками культа Ратвара.
     .suffix = Полный
-ent-SheetBrass10 = латунь
+ent-SheetBrass10 = латунный лист
     .desc = { ent-SheetBrass.desc }
     .suffix = 10
-ent-SheetBrass1 = латунь
+ent-SheetBrass1 = латунный лист
     .desc = { ent-SheetBrass.desc }
     .suffix = Один
 ent-SheetPlasteel = пласталь

@@ -1,0 +1,110 @@
+{
+    "version": 1,
+    "license": "CC-BY-SA-3.0",
+    "copyright": "Iron, gold, coal by Alekshhh, silver taken from vgstation13 at commit f2ef221849675915a78fd92fe622c32ab740e085, salt by an anonymous contributor. Inhands by mubururu_ (github). Recolored for Dystopia.",
+    "size": {
+        "x": 32,
+        "y": 32
+    },
+    "states": [
+        {
+            "name": "chalcopyrite"
+        },
+        {
+            "name": "chalcopyrite-inhand-left",
+            "directions": 4
+        },
+        {
+            "name": "chalcopyrite-inhand-right",
+            "directions": 4
+        },
+        {
+            "name": "bauxite"
+        },
+        {
+            "name": "bauxite-inhand-left",
+            "directions": 4
+        },
+        {
+            "name": "bauxite-inhand-right",
+            "directions": 4
+        },
+        {
+            "name": "sphalerite"
+        },
+        {
+            "name": "sphalerite-inhand-left",
+            "directions": 4
+        },
+        {
+            "name": "sphalerite-inhand-right",
+            "directions": 4
+        },
+        {
+            "name": "cassiterite"
+        },
+        {
+            "name": "cassiterite-inhand-left",
+            "directions": 4
+        },
+        {
+            "name": "cassiterite-inhand-right",
+            "directions": 4
+        },
+        {
+            "name": "galena"
+        },
+        {
+            "name": "galena-inhand-left",
+            "directions": 4
+        },
+        {
+            "name": "galena-inhand-right",
+            "directions": 4
+        },
+        {
+            "name": "chromite"
+        },
+        {
+            "name": "chromite-inhand-left",
+            "directions": 4
+        },
+        {
+            "name": "chromite-inhand-right",
+            "directions": 4
+        },
+        {
+            "name": "sylvite"
+        },
+        {
+            "name": "sylvite-inhand-left",
+            "directions": 4
+        },
+        {
+            "name": "sylvite-inhand-right",
+            "directions": 4
+        },
+        {
+            "name": "spodumene"
+        },
+        {
+            "name": "spodumene-inhand-left",
+            "directions": 4
+        },
+        {
+            "name": "spodumene-inhand-right",
+            "directions": 4
+        },
+        {
+            "name": "cinnabar"
+        },
+        {
+            "name": "cinnabar-inhand-left",
+            "directions": 4
+        },
+        {
+            "name": "cinnabar-inhand-right",
+            "directions": 4
+        }
+    ]
+}

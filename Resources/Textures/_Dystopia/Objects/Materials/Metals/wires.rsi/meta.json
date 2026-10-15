@@ -1,0 +1,96 @@
+{
+    "version": 1,
+    "license": "CC-BY-SA-3.0",
+    "copyright": "Taken from tgstation and modified by SweptWasTaken at commit https://github.com/tgstation/tgstation/commit/77608a9f46b06a46f0f6b1be061755f68cc255a3. Recolored for Dystopia.",
+    "size": {
+        "x": 32,
+        "y": 32
+    },
+    "states": [
+        {
+            "name": "copper-10"
+        },
+        {
+            "name": "copper-20"
+        },
+        {
+            "name": "copper-30"
+        },
+        {
+            "name": "copper-inhand-left",
+            "directions": 4
+        },
+        {
+            "name": "copper-inhand-right",
+            "directions": 4
+        },
+        {
+            "name": "aluminium-10"
+        },
+        {
+            "name": "aluminium-20"
+        },
+        {
+            "name": "aluminium-30"
+        },
+        {
+            "name": "aluminium-inhand-left",
+            "directions": 4
+        },
+        {
+            "name": "aluminium-inhand-right",
+            "directions": 4
+        },
+        {
+            "name": "gold-10"
+        },
+        {
+            "name": "gold-20"
+        },
+        {
+            "name": "gold-30"
+        },
+        {
+            "name": "gold-inhand-left",
+            "directions": 4
+        },
+        {
+            "name": "gold-inhand-right",
+            "directions": 4
+        },
+        {
+            "name": "silver-10"
+        },
+        {
+            "name": "silver-20"
+        },
+        {
+            "name": "silver-30"
+        },
+        {
+            "name": "silver-inhand-left",
+            "directions": 4
+        },
+        {
+            "name": "silver-inhand-right",
+            "directions": 4
+        },
+        {
+            "name": "solder-10"
+        },
+        {
+            "name": "solder-20"
+        },
+        {
+            "name": "solder-30"
+        },
+        {
+            "name": "solder-inhand-left",
+            "directions": 4
+        },
+        {
+            "name": "solder-inhand-right",
+            "directions": 4
+        }
+    ]
+}

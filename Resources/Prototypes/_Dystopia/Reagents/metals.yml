@@ -1,0 +1,377 @@
+# Dystopia: металлы и сплавы Города (этап «Промышленность: вещества»). Самостоятельные сущности, без parent.
+# Олово и хром — порошки-элементы (их нет в ванили). Расплавы — жидкие формы металлов и сплавов:
+# пока только обжигают при касании; застывание и литьё — этап «Промышленность: переработка».
+
+- type: reagent
+  id: DystopiaTin
+  name: reagent-name-dystopia-tin
+  group: Elements
+  desc: reagent-desc-dystopia-tin
+  physicalDesc: reagent-physical-desc-metallic
+  flavor: metallic
+  color: "#c8c8be"
+  meltingPoint: 231.9
+  boilingPoint: 2602.0
+
+- type: reagent
+  id: DystopiaChromium
+  name: reagent-name-dystopia-chromium
+  group: Elements
+  desc: reagent-desc-dystopia-chromium
+  physicalDesc: reagent-physical-desc-metallic
+  flavor: metallic
+  color: "#8a8f99"
+  meltingPoint: 1907.0
+  boilingPoint: 2671.0
+
+- type: reagent
+  id: DystopiaMoltenIron
+  name: reagent-name-dystopia-molten-iron
+  group: Metals
+  desc: reagent-desc-dystopia-molten-iron
+  physicalDesc: reagent-physical-desc-dystopia-molten
+  flavor: metallic
+  color: "#ff7a2a"
+  meltingPoint: 1538.0
+  boilingPoint: 2862.0
+  reactiveEffects:
+    Acidic:
+      methods: [ Touch, Ingestion ]
+      effects:
+      - !type:HealthChange
+        damage:
+          types:
+            Heat: 3
+      - !type:Emote
+        emote: Scream
+        probability: 0.4
+
+- type: reagent
+  id: DystopiaMoltenCastIron
+  name: reagent-name-dystopia-molten-cast-iron
+  group: Metals
+  desc: reagent-desc-dystopia-molten-cast-iron
+  physicalDesc: reagent-physical-desc-dystopia-molten
+  flavor: metallic
+  color: "#ff6a20"
+  meltingPoint: 1200.0
+  boilingPoint: 2862.0
+  reactiveEffects:
+    Acidic:
+      methods: [ Touch, Ingestion ]
+      effects:
+      - !type:HealthChange
+        damage:
+          types:
+            Heat: 3
+      - !type:Emote
+        emote: Scream
+        probability: 0.4
+
+- type: reagent
+  id: DystopiaMoltenSteel
+  name: reagent-name-dystopia-molten-steel
+  group: Metals
+  desc: reagent-desc-dystopia-molten-steel
+  physicalDesc: reagent-physical-desc-dystopia-molten
+  flavor: metallic
+  color: "#ff8c34"
+  meltingPoint: 1450.0
+  boilingPoint: 2862.0
+  reactiveEffects:
+    Acidic:
+      methods: [ Touch, Ingestion ]
+      effects:
+      - !type:HealthChange
+        damage:
+          types:
+            Heat: 3
+      - !type:Emote
+        emote: Scream
+        probability: 0.4
+
+- type: reagent
+  id: DystopiaMoltenCopper
+  name: reagent-name-dystopia-molten-copper
+  group: Metals
+  desc: reagent-desc-dystopia-molten-copper
+  physicalDesc: reagent-physical-desc-dystopia-molten
+  flavor: metallic
+  color: "#ff6a3a"
+  meltingPoint: 1085.0
+  boilingPoint: 2562.0
+  reactiveEffects:
+    Acidic:
+      methods: [ Touch, Ingestion ]
+      effects:
+      - !type:HealthChange
+        damage:
+          types:
+            Heat: 3
+      - !type:Emote
+        emote: Scream
+        probability: 0.4
+
+- type: reagent
+  id: DystopiaMoltenAluminium
+  name: reagent-name-dystopia-molten-aluminium
+  group: Metals
+  desc: reagent-desc-dystopia-molten-aluminium
+  physicalDesc: reagent-physical-desc-dystopia-molten
+  flavor: metallic
+  color: "#d8b4a0"
+  meltingPoint: 660.0
+  boilingPoint: 2470.0
+  reactiveEffects:
+    Acidic:
+      methods: [ Touch, Ingestion ]
+      effects:
+      - !type:HealthChange
+        damage:
+          types:
+            Heat: 3
+      - !type:Emote
+        emote: Scream
+        probability: 0.4
+
+- type: reagent
+  id: DystopiaMoltenZinc
+  name: reagent-name-dystopia-molten-zinc
+  group: Metals
+  desc: reagent-desc-dystopia-molten-zinc
+  physicalDesc: reagent-physical-desc-dystopia-molten
+  flavor: metallic
+  color: "#c8ac9c"
+  meltingPoint: 420.0
+  boilingPoint: 907.0
+  reactiveEffects:
+    Acidic:
+      methods: [ Touch, Ingestion ]
+      effects:
+      - !type:HealthChange
+        damage:
+          types:
+            Heat: 3
+      - !type:Emote
+        emote: Scream
+        probability: 0.4
+
+- type: reagent
+  id: DystopiaMoltenTin
+  name: reagent-name-dystopia-molten-tin
+  group: Metals
+  desc: reagent-desc-dystopia-molten-tin
+  physicalDesc: reagent-physical-desc-dystopia-molten
+  flavor: metallic
+  color: "#d2cac2"
+  meltingPoint: 232.0
+  boilingPoint: 2602.0
+  reactiveEffects:
+    Acidic:
+      methods: [ Touch, Ingestion ]
+      effects:
+      - !type:HealthChange
+        damage:
+          types:
+            Heat: 3
+      - !type:Emote
+        emote: Scream
+        probability: 0.4
+
+- type: reagent
+  id: DystopiaMoltenLead
+  name: reagent-name-dystopia-molten-lead
+  group: Metals
+  desc: reagent-desc-dystopia-molten-lead
+  physicalDesc: reagent-physical-desc-dystopia-molten
+  flavor: metallic
+  color: "#aaa2aa"
+  meltingPoint: 327.0
+  boilingPoint: 1749.0
+  reactiveEffects:
+    Acidic:
+      methods: [ Touch, Ingestion ]
+      effects:
+      - !type:HealthChange
+        damage:
+          types:
+            Heat: 3
+      - !type:Emote
+        emote: Scream
+        probability: 0.4
+
+- type: reagent
+  id: DystopiaMoltenGold
+  name: reagent-name-dystopia-molten-gold
+  group: Metals
+  desc: reagent-desc-dystopia-molten-gold
+  physicalDesc: reagent-physical-desc-dystopia-molten
+  flavor: metallic
+  color: "#ffb030"
+  meltingPoint: 1064.0
+  boilingPoint: 2856.0
+  reactiveEffects:
+    Acidic:
+      methods: [ Touch, Ingestion ]
+      effects:
+      - !type:HealthChange
+        damage:
+          types:
+            Heat: 3
+      - !type:Emote
+        emote: Scream
+        probability: 0.4
+
+- type: reagent
+  id: DystopiaMoltenSilver
+  name: reagent-name-dystopia-molten-silver
+  group: Metals
+  desc: reagent-desc-dystopia-molten-silver
+  physicalDesc: reagent-physical-desc-dystopia-molten
+  flavor: metallic
+  color: "#f2e2d2"
+  meltingPoint: 962.0
+  boilingPoint: 2162.0
+  reactiveEffects:
+    Acidic:
+      methods: [ Touch, Ingestion ]
+      effects:
+      - !type:HealthChange
+        damage:
+          types:
+            Heat: 3
+      - !type:Emote
+        emote: Scream
+        probability: 0.4
+
+- type: reagent
+  id: DystopiaMoltenUranium
+  name: reagent-name-dystopia-molten-uranium
+  group: Metals
+  desc: reagent-desc-dystopia-molten-uranium
+  physicalDesc: reagent-physical-desc-dystopia-molten
+  flavor: metallic
+  color: "#ff7040"
+  meltingPoint: 1132.0
+  boilingPoint: 4131.0
+  reactiveEffects:
+    Acidic:
+      methods: [ Touch, Ingestion ]
+      effects:
+      - !type:HealthChange
+        damage:
+          types:
+            Heat: 3
+      - !type:Emote
+        emote: Scream
+        probability: 0.4
+
+- type: reagent
+  id: DystopiaMoltenBrass
+  name: reagent-name-dystopia-molten-brass
+  group: Metals
+  desc: reagent-desc-dystopia-molten-brass
+  physicalDesc: reagent-physical-desc-dystopia-molten
+  flavor: metallic
+  color: "#ffb048"
+  meltingPoint: 930.0
+  boilingPoint: 2562.0
+  reactiveEffects:
+    Acidic:
+      methods: [ Touch, Ingestion ]
+      effects:
+      - !type:HealthChange
+        damage:
+          types:
+            Heat: 3
+      - !type:Emote
+        emote: Scream
+        probability: 0.4
+
+- type: reagent
+  id: DystopiaMoltenBronze
+  name: reagent-name-dystopia-molten-bronze
+  group: Metals
+  desc: reagent-desc-dystopia-molten-bronze
+  physicalDesc: reagent-physical-desc-dystopia-molten
+  flavor: metallic
+  color: "#ff9040"
+  meltingPoint: 950.0
+  boilingPoint: 2562.0
+  reactiveEffects:
+    Acidic:
+      methods: [ Touch, Ingestion ]
+      effects:
+      - !type:HealthChange
+        damage:
+          types:
+            Heat: 3
+      - !type:Emote
+        emote: Scream
+        probability: 0.4
+
+- type: reagent
+  id: DystopiaMoltenSolder
+  name: reagent-name-dystopia-molten-solder
+  group: Metals
+  desc: reagent-desc-dystopia-molten-solder
+  physicalDesc: reagent-physical-desc-dystopia-molten
+  flavor: metallic
+  color: "#ccc6c0"
+  meltingPoint: 183.0
+  boilingPoint: 1749.0
+  reactiveEffects:
+    Acidic:
+      methods: [ Touch, Ingestion ]
+      effects:
+      - !type:HealthChange
+        damage:
+          types:
+            Heat: 3
+      - !type:Emote
+        emote: Scream
+        probability: 0.4
+
+- type: reagent
+  id: DystopiaMoltenStainlessSteel
+  name: reagent-name-dystopia-molten-stainless-steel
+  group: Metals
+  desc: reagent-desc-dystopia-molten-stainless-steel
+  physicalDesc: reagent-physical-desc-dystopia-molten
+  flavor: metallic
+  color: "#ff9a40"
+  meltingPoint: 1450.0
+  boilingPoint: 2862.0
+  reactiveEffects:
+    Acidic:
+      methods: [ Touch, Ingestion ]
+      effects:
+      - !type:HealthChange
+        damage:
+          types:
+            Heat: 3
+      - !type:Emote
+        emote: Scream
+        probability: 0.4
+
+- type: reagent
+  id: DystopiaMoltenFerrochrome
+  name: reagent-name-dystopia-molten-ferrochrome
+  group: Metals
+  desc: reagent-desc-dystopia-molten-ferrochrome
+  physicalDesc: reagent-physical-desc-dystopia-molten
+  flavor: metallic
+  color: "#ff7030"
+  meltingPoint: 1600.0
+  boilingPoint: 2671.0
+  reactiveEffects:
+    Acidic:
+      methods: [ Touch, Ingestion ]
+      effects:
+      - !type:HealthChange
+        damage:
+          types:
+            Heat: 3
+      - !type:Emote
+        emote: Scream
+        probability: 0.4

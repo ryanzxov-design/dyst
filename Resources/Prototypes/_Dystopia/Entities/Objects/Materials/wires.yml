@@ -1,0 +1,861 @@
+# Dystopia: металлы и сплавы Города (этап «Промышленность: вещества»). Самостоятельные сущности, без parent.
+# Проволока (мотки).
+
+- type: entity
+  id: DystopiaWireCopper
+  name: copper wire
+  description: A coil of copper wire.
+  suffix: Full
+  components:
+  - type: Solution
+    solution:
+      canReact: false
+      maxVol: 2.5
+      reagents:
+      - ReagentId: Copper
+        Quantity: 2.5
+    id: composite
+  - type: Item
+    size: Small
+    sprite: _Dystopia/Objects/Materials/Metals/wires.rsi
+    heldPrefix: copper
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/wires.rsi
+    state: copper-30
+    layers:
+    - state: copper-30
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+    damageModifierSet: FlimsyMetallic
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Extractable
+    grindableSolutionName: composite
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaCopper: 25
+  - type: Stack
+    stackType: DystopiaWireCopper
+    baseLayer: base
+    layerStates: [ copper-10, copper-20, copper-30 ]
+
+- type: entity
+  id: DystopiaWireCopper1
+  name: copper wire
+  description: A coil of copper wire.
+  suffix: Single
+  components:
+  - type: Solution
+    solution:
+      canReact: false
+      maxVol: 2.5
+      reagents:
+      - ReagentId: Copper
+        Quantity: 2.5
+    id: composite
+  - type: Item
+    size: Small
+    sprite: _Dystopia/Objects/Materials/Metals/wires.rsi
+    heldPrefix: copper
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/wires.rsi
+    state: copper-10
+    layers:
+    - state: copper-10
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+    damageModifierSet: FlimsyMetallic
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Extractable
+    grindableSolutionName: composite
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaCopper: 25
+  - type: Stack
+    stackType: DystopiaWireCopper
+    baseLayer: base
+    layerStates: [ copper-10, copper-20, copper-30 ]
+    count: 1
+
+- type: entity
+  id: DystopiaWireAluminium
+  name: aluminium wire
+  description: A coil of aluminium wire.
+  suffix: Full
+  components:
+  - type: Solution
+    solution:
+      canReact: false
+      maxVol: 2.5
+      reagents:
+      - ReagentId: Aluminium
+        Quantity: 2.5
+    id: composite
+  - type: Item
+    size: Small
+    sprite: _Dystopia/Objects/Materials/Metals/wires.rsi
+    heldPrefix: aluminium
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/wires.rsi
+    state: aluminium-30
+    layers:
+    - state: aluminium-30
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+    damageModifierSet: FlimsyMetallic
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Extractable
+    grindableSolutionName: composite
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaAluminium: 25
+  - type: Stack
+    stackType: DystopiaWireAluminium
+    baseLayer: base
+    layerStates: [ aluminium-10, aluminium-20, aluminium-30 ]
+
+- type: entity
+  id: DystopiaWireAluminium1
+  name: aluminium wire
+  description: A coil of aluminium wire.
+  suffix: Single
+  components:
+  - type: Solution
+    solution:
+      canReact: false
+      maxVol: 2.5
+      reagents:
+      - ReagentId: Aluminium
+        Quantity: 2.5
+    id: composite
+  - type: Item
+    size: Small
+    sprite: _Dystopia/Objects/Materials/Metals/wires.rsi
+    heldPrefix: aluminium
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/wires.rsi
+    state: aluminium-10
+    layers:
+    - state: aluminium-10
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+    damageModifierSet: FlimsyMetallic
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Extractable
+    grindableSolutionName: composite
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaAluminium: 25
+  - type: Stack
+    stackType: DystopiaWireAluminium
+    baseLayer: base
+    layerStates: [ aluminium-10, aluminium-20, aluminium-30 ]
+    count: 1
+
+- type: entity
+  id: DystopiaWireGold
+  name: gold wire
+  description: A coil of gold wire.
+  suffix: Full
+  components:
+  - type: Solution
+    solution:
+      canReact: false
+      maxVol: 2.5
+      reagents:
+      - ReagentId: Gold
+        Quantity: 2.5
+    id: composite
+  - type: Item
+    size: Small
+    sprite: _Dystopia/Objects/Materials/Metals/wires.rsi
+    heldPrefix: gold
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/wires.rsi
+    state: gold-30
+    layers:
+    - state: gold-30
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+    damageModifierSet: FlimsyMetallic
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Extractable
+    grindableSolutionName: composite
+  - type: PhysicalComposition
+    materialComposition:
+      Gold: 25
+  - type: Stack
+    stackType: DystopiaWireGold
+    baseLayer: base
+    layerStates: [ gold-10, gold-20, gold-30 ]
+
+- type: entity
+  id: DystopiaWireGold1
+  name: gold wire
+  description: A coil of gold wire.
+  suffix: Single
+  components:
+  - type: Solution
+    solution:
+      canReact: false
+      maxVol: 2.5
+      reagents:
+      - ReagentId: Gold
+        Quantity: 2.5
+    id: composite
+  - type: Item
+    size: Small
+    sprite: _Dystopia/Objects/Materials/Metals/wires.rsi
+    heldPrefix: gold
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/wires.rsi
+    state: gold-10
+    layers:
+    - state: gold-10
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+    damageModifierSet: FlimsyMetallic
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Extractable
+    grindableSolutionName: composite
+  - type: PhysicalComposition
+    materialComposition:
+      Gold: 25
+  - type: Stack
+    stackType: DystopiaWireGold
+    baseLayer: base
+    layerStates: [ gold-10, gold-20, gold-30 ]
+    count: 1
+
+- type: entity
+  id: DystopiaWireSilver
+  name: silver wire
+  description: A coil of silver wire.
+  suffix: Full
+  components:
+  - type: Solution
+    solution:
+      canReact: false
+      maxVol: 2.5
+      reagents:
+      - ReagentId: Silver
+        Quantity: 2.5
+    id: composite
+  - type: Item
+    size: Small
+    sprite: _Dystopia/Objects/Materials/Metals/wires.rsi
+    heldPrefix: silver
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/wires.rsi
+    state: silver-30
+    layers:
+    - state: silver-30
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+    damageModifierSet: FlimsyMetallic
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Extractable
+    grindableSolutionName: composite
+  - type: PhysicalComposition
+    materialComposition:
+      Silver: 25
+  - type: Stack
+    stackType: DystopiaWireSilver
+    baseLayer: base
+    layerStates: [ silver-10, silver-20, silver-30 ]
+
+- type: entity
+  id: DystopiaWireSilver1
+  name: silver wire
+  description: A coil of silver wire.
+  suffix: Single
+  components:
+  - type: Solution
+    solution:
+      canReact: false
+      maxVol: 2.5
+      reagents:
+      - ReagentId: Silver
+        Quantity: 2.5
+    id: composite
+  - type: Item
+    size: Small
+    sprite: _Dystopia/Objects/Materials/Metals/wires.rsi
+    heldPrefix: silver
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/wires.rsi
+    state: silver-10
+    layers:
+    - state: silver-10
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+    damageModifierSet: FlimsyMetallic
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Extractable
+    grindableSolutionName: composite
+  - type: PhysicalComposition
+    materialComposition:
+      Silver: 25
+  - type: Stack
+    stackType: DystopiaWireSilver
+    baseLayer: base
+    layerStates: [ silver-10, silver-20, silver-30 ]
+    count: 1
+
+- type: entity
+  id: DystopiaWireSolder
+  name: solder wire
+  description: A coil of solder wire.
+  suffix: Full
+  components:
+  - type: Solution
+    solution:
+      canReact: false
+      maxVol: 2.5
+      reagents:
+      - ReagentId: DystopiaTin
+        Quantity: 1.5
+      - ReagentId: Lead
+        Quantity: 1.0
+    id: composite
+  - type: Item
+    size: Small
+    sprite: _Dystopia/Objects/Materials/Metals/wires.rsi
+    heldPrefix: solder
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/wires.rsi
+    state: solder-30
+    layers:
+    - state: solder-30
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+    damageModifierSet: FlimsyMetallic
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Extractable
+    grindableSolutionName: composite
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaSolder: 25
+  - type: Stack
+    stackType: DystopiaWireSolder
+    baseLayer: base
+    layerStates: [ solder-10, solder-20, solder-30 ]
+
+- type: entity
+  id: DystopiaWireSolder1
+  name: solder wire
+  description: A coil of solder wire.
+  suffix: Single
+  components:
+  - type: Solution
+    solution:
+      canReact: false
+      maxVol: 2.5
+      reagents:
+      - ReagentId: DystopiaTin
+        Quantity: 1.5
+      - ReagentId: Lead
+        Quantity: 1.0
+    id: composite
+  - type: Item
+    size: Small
+    sprite: _Dystopia/Objects/Materials/Metals/wires.rsi
+    heldPrefix: solder
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/wires.rsi
+    state: solder-10
+    layers:
+    - state: solder-10
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+    damageModifierSet: FlimsyMetallic
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Extractable
+    grindableSolutionName: composite
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaSolder: 25
+  - type: Stack
+    stackType: DystopiaWireSolder
+    baseLayer: base
+    layerStates: [ solder-10, solder-20, solder-30 ]
+    count: 1

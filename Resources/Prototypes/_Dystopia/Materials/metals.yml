@@ -1,0 +1,183 @@
+# Dystopia: металлы и сплавы Города (этап «Промышленность: вещества»). Самостоятельные сущности, без parent.
+# Материалы новых руд и металлов. Сталь, латунь, золото, серебро, уран — ванильные материалы.
+# 100 единиц материала = 1 слиток = 1 лист = 2 прута = 4 мотка проволоки = 10 ед. расплава.
+
+- type: material
+  id: DystopiaRawChalcopyrite
+  stackEntity: DystopiaOreChalcopyrite1
+  name: materials-dystopia-raw-chalcopyrite
+  unit: materials-unit-chunk
+  icon: { sprite: _Dystopia/Objects/Materials/Metals/ore.rsi, state: chalcopyrite }
+  color: "#c8a838"
+  price: 0.05
+
+- type: material
+  id: DystopiaRawBauxite
+  stackEntity: DystopiaOreBauxite1
+  name: materials-dystopia-raw-bauxite
+  unit: materials-unit-chunk
+  icon: { sprite: _Dystopia/Objects/Materials/Metals/ore.rsi, state: bauxite }
+  color: "#b04a26"
+  price: 0.05
+
+- type: material
+  id: DystopiaRawSphalerite
+  stackEntity: DystopiaOreSphalerite1
+  name: materials-dystopia-raw-sphalerite
+  unit: materials-unit-chunk
+  icon: { sprite: _Dystopia/Objects/Materials/Metals/ore.rsi, state: sphalerite }
+  color: "#6a4a1a"
+  price: 0.05
+
+- type: material
+  id: DystopiaRawCassiterite
+  stackEntity: DystopiaOreCassiterite1
+  name: materials-dystopia-raw-cassiterite
+  unit: materials-unit-chunk
+  icon: { sprite: _Dystopia/Objects/Materials/Metals/ore.rsi, state: cassiterite }
+  color: "#332620"
+  price: 0.05
+
+- type: material
+  id: DystopiaRawGalena
+  stackEntity: DystopiaOreGalena1
+  name: materials-dystopia-raw-galena
+  unit: materials-unit-chunk
+  icon: { sprite: _Dystopia/Objects/Materials/Metals/ore.rsi, state: galena }
+  color: "#5c6274"
+  price: 0.05
+
+- type: material
+  id: DystopiaRawChromite
+  stackEntity: DystopiaOreChromite1
+  name: materials-dystopia-raw-chromite
+  unit: materials-unit-chunk
+  icon: { sprite: _Dystopia/Objects/Materials/Metals/ore.rsi, state: chromite }
+  color: "#3a3438"
+  price: 0.05
+
+- type: material
+  id: DystopiaRawSylvite
+  stackEntity: DystopiaOreSylvite1
+  name: materials-dystopia-raw-sylvite
+  unit: materials-unit-chunk
+  icon: { sprite: _Dystopia/Objects/Materials/Metals/ore.rsi, state: sylvite }
+  color: "#d49a86"
+  price: 0.05
+
+- type: material
+  id: DystopiaRawSpodumene
+  stackEntity: DystopiaOreSpodumene1
+  name: materials-dystopia-raw-spodumene
+  unit: materials-unit-chunk
+  icon: { sprite: _Dystopia/Objects/Materials/Metals/ore.rsi, state: spodumene }
+  color: "#a690b8"
+  price: 0.05
+
+- type: material
+  id: DystopiaRawCinnabar
+  stackEntity: DystopiaOreCinnabar1
+  name: materials-dystopia-raw-cinnabar
+  unit: materials-unit-chunk
+  icon: { sprite: _Dystopia/Objects/Materials/Metals/ore.rsi, state: cinnabar }
+  color: "#b0201a"
+  price: 0.05
+
+- type: material
+  id: DystopiaIron
+  stackEntity: DystopiaIngotIron1
+  name: materials-dystopia-iron
+  unit: materials-unit-bar
+  icon: { sprite: _Dystopia/Objects/Materials/Metals/ingots.rsi, state: iron }
+  color: "#ff7a2a"
+  price: 0.1
+
+- type: material
+  id: DystopiaCastIron
+  stackEntity: DystopiaIngotCastIron1
+  name: materials-dystopia-castiron
+  unit: materials-unit-bar
+  icon: { sprite: _Dystopia/Objects/Materials/Metals/ingots.rsi, state: cast_iron }
+  color: "#ff6a20"
+  price: 0.08
+
+- type: material
+  id: DystopiaCopper
+  stackEntity: DystopiaIngotCopper1
+  name: materials-dystopia-copper
+  unit: materials-unit-bar
+  icon: { sprite: _Dystopia/Objects/Materials/Metals/ingots.rsi, state: copper }
+  color: "#ff6a3a"
+  price: 0.2
+
+- type: material
+  id: DystopiaAluminium
+  stackEntity: DystopiaIngotAluminium1
+  name: materials-dystopia-aluminium
+  unit: materials-unit-bar
+  icon: { sprite: _Dystopia/Objects/Materials/Metals/ingots.rsi, state: aluminium }
+  color: "#d8b4a0"
+  price: 0.2
+
+- type: material
+  id: DystopiaZinc
+  stackEntity: DystopiaIngotZinc1
+  name: materials-dystopia-zinc
+  unit: materials-unit-bar
+  icon: { sprite: _Dystopia/Objects/Materials/Metals/ingots.rsi, state: zinc }
+  color: "#c8ac9c"
+  price: 0.12
+
+- type: material
+  id: DystopiaTin
+  stackEntity: DystopiaIngotTin1
+  name: materials-dystopia-tin
+  unit: materials-unit-bar
+  icon: { sprite: _Dystopia/Objects/Materials/Metals/ingots.rsi, state: tin }
+  color: "#d2cac2"
+  price: 0.15
+
+- type: material
+  id: DystopiaLead
+  stackEntity: DystopiaIngotLead1
+  name: materials-dystopia-lead
+  unit: materials-unit-bar
+  icon: { sprite: _Dystopia/Objects/Materials/Metals/ingots.rsi, state: lead }
+  color: "#aaa2aa"
+  price: 0.1
+
+- type: material
+  id: DystopiaBronze
+  stackEntity: DystopiaIngotBronze1
+  name: materials-dystopia-bronze
+  unit: materials-unit-bar
+  icon: { sprite: _Dystopia/Objects/Materials/Metals/ingots.rsi, state: bronze }
+  color: "#ff9040"
+  price: 0.3
+
+- type: material
+  id: DystopiaSolder
+  stackEntity: DystopiaWireSolder1
+  name: materials-dystopia-solder
+  unit: materials-unit-dystopia-coil
+  icon: { sprite: _Dystopia/Objects/Materials/Metals/wires.rsi, state: solder-10 }
+  color: "#ccc6c0"
+  price: 0.2
+
+- type: material
+  id: DystopiaStainlessSteel
+  stackEntity: DystopiaIngotStainlessSteel1
+  name: materials-dystopia-stainlesssteel
+  unit: materials-unit-bar
+  icon: { sprite: _Dystopia/Objects/Materials/Metals/ingots.rsi, state: stainless }
+  color: "#ff9a40"
+  price: 0.35
+
+- type: material
+  id: DystopiaFerrochrome
+  stackEntity: DystopiaIngotFerrochrome1
+  name: materials-dystopia-ferrochrome
+  unit: materials-unit-bar
+  icon: { sprite: _Dystopia/Objects/Materials/Metals/ingots.rsi, state: ferrochrome }
+  color: "#ff7030"
+  price: 0.3

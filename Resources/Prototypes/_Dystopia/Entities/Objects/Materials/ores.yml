@@ -1,0 +1,1449 @@
+# Dystopia: металлы и сплавы Города (этап «Промышленность: вещества»). Самостоятельные сущности, без parent.
+# Куски руды (выпадают из жил).
+
+- type: entity
+  id: DystopiaOreChalcopyrite
+  name: chalcopyrite
+  description: "Copper ore: brassy yellow crystals with an iridescent tarnish."
+  suffix: Copper, Full
+  components:
+  - type: Solution
+    solution:
+      canReact: false
+      maxVol: 1
+    id: composite
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/ore.rsi
+    heldPrefix: chalcopyrite
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/ore.rsi
+    state: chalcopyrite
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Extractable
+    grindableSolutionName: composite
+  - type: Stack
+    stackType: DystopiaOreChalcopyrite
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaRawChalcopyrite: 100
+
+- type: entity
+  id: DystopiaOreChalcopyrite1
+  name: chalcopyrite
+  description: "Copper ore: brassy yellow crystals with an iridescent tarnish."
+  suffix: Copper, Single
+  components:
+  - type: Solution
+    solution:
+      canReact: false
+      maxVol: 1
+    id: composite
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/ore.rsi
+    heldPrefix: chalcopyrite
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/ore.rsi
+    state: chalcopyrite
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Extractable
+    grindableSolutionName: composite
+  - type: Stack
+    stackType: DystopiaOreChalcopyrite
+    count: 1
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaRawChalcopyrite: 100
+
+- type: entity
+  id: DystopiaOreBauxite
+  name: bauxite
+  description: "Aluminium ore: a rusty, clay-like rock."
+  suffix: Aluminium, Full
+  components:
+  - type: Solution
+    solution:
+      canReact: false
+      maxVol: 1
+    id: composite
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/ore.rsi
+    heldPrefix: bauxite
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/ore.rsi
+    state: bauxite
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Extractable
+    grindableSolutionName: composite
+  - type: Stack
+    stackType: DystopiaOreBauxite
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaRawBauxite: 100
+
+- type: entity
+  id: DystopiaOreBauxite1
+  name: bauxite
+  description: "Aluminium ore: a rusty, clay-like rock."
+  suffix: Aluminium, Single
+  components:
+  - type: Solution
+    solution:
+      canReact: false
+      maxVol: 1
+    id: composite
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/ore.rsi
+    heldPrefix: bauxite
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/ore.rsi
+    state: bauxite
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Extractable
+    grindableSolutionName: composite
+  - type: Stack
+    stackType: DystopiaOreBauxite
+    count: 1
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaRawBauxite: 100
+
+- type: entity
+  id: DystopiaOreSphalerite
+  name: sphalerite
+  description: "Zinc ore: resinous brown crystals."
+  suffix: Zinc, Full
+  components:
+  - type: Solution
+    solution:
+      canReact: false
+      maxVol: 1
+    id: composite
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/ore.rsi
+    heldPrefix: sphalerite
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/ore.rsi
+    state: sphalerite
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Extractable
+    grindableSolutionName: composite
+  - type: Stack
+    stackType: DystopiaOreSphalerite
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaRawSphalerite: 100
+
+- type: entity
+  id: DystopiaOreSphalerite1
+  name: sphalerite
+  description: "Zinc ore: resinous brown crystals."
+  suffix: Zinc, Single
+  components:
+  - type: Solution
+    solution:
+      canReact: false
+      maxVol: 1
+    id: composite
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/ore.rsi
+    heldPrefix: sphalerite
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/ore.rsi
+    state: sphalerite
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Extractable
+    grindableSolutionName: composite
+  - type: Stack
+    stackType: DystopiaOreSphalerite
+    count: 1
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaRawSphalerite: 100
+
+- type: entity
+  id: DystopiaOreCassiterite
+  name: cassiterite
+  description: "Tin ore: heavy black crystals with an adamantine lustre."
+  suffix: Tin, Full
+  components:
+  - type: Solution
+    solution:
+      canReact: false
+      maxVol: 1
+    id: composite
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/ore.rsi
+    heldPrefix: cassiterite
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/ore.rsi
+    state: cassiterite
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Extractable
+    grindableSolutionName: composite
+  - type: Stack
+    stackType: DystopiaOreCassiterite
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaRawCassiterite: 100
+
+- type: entity
+  id: DystopiaOreCassiterite1
+  name: cassiterite
+  description: "Tin ore: heavy black crystals with an adamantine lustre."
+  suffix: Tin, Single
+  components:
+  - type: Solution
+    solution:
+      canReact: false
+      maxVol: 1
+    id: composite
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/ore.rsi
+    heldPrefix: cassiterite
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/ore.rsi
+    state: cassiterite
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Extractable
+    grindableSolutionName: composite
+  - type: Stack
+    stackType: DystopiaOreCassiterite
+    count: 1
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaRawCassiterite: 100
+
+- type: entity
+  id: DystopiaOreGalena
+  name: galena
+  description: "Lead ore: grey metallic cubes. Often carries silver."
+  suffix: Lead, Full
+  components:
+  - type: Solution
+    solution:
+      canReact: false
+      maxVol: 1
+    id: composite
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/ore.rsi
+    heldPrefix: galena
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/ore.rsi
+    state: galena
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Extractable
+    grindableSolutionName: composite
+  - type: Stack
+    stackType: DystopiaOreGalena
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaRawGalena: 100
+
+- type: entity
+  id: DystopiaOreGalena1
+  name: galena
+  description: "Lead ore: grey metallic cubes. Often carries silver."
+  suffix: Lead, Single
+  components:
+  - type: Solution
+    solution:
+      canReact: false
+      maxVol: 1
+    id: composite
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/ore.rsi
+    heldPrefix: galena
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/ore.rsi
+    state: galena
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Extractable
+    grindableSolutionName: composite
+  - type: Stack
+    stackType: DystopiaOreGalena
+    count: 1
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaRawGalena: 100
+
+- type: entity
+  id: DystopiaOreChromite
+  name: chromite
+  description: "Chromium ore: black grains with a metallic sheen."
+  suffix: Chromium, Full
+  components:
+  - type: Solution
+    solution:
+      canReact: false
+      maxVol: 1
+    id: composite
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/ore.rsi
+    heldPrefix: chromite
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/ore.rsi
+    state: chromite
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Extractable
+    grindableSolutionName: composite
+  - type: Stack
+    stackType: DystopiaOreChromite
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaRawChromite: 100
+
+- type: entity
+  id: DystopiaOreChromite1
+  name: chromite
+  description: "Chromium ore: black grains with a metallic sheen."
+  suffix: Chromium, Single
+  components:
+  - type: Solution
+    solution:
+      canReact: false
+      maxVol: 1
+    id: composite
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/ore.rsi
+    heldPrefix: chromite
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/ore.rsi
+    state: chromite
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Extractable
+    grindableSolutionName: composite
+  - type: Stack
+    stackType: DystopiaOreChromite
+    count: 1
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaRawChromite: 100
+
+- type: entity
+  id: DystopiaOreSylvite
+  name: sylvite
+  description: "Potassium ore: pinkish salty crystals."
+  suffix: Potassium, Full
+  components:
+  - type: Solution
+    solution:
+      canReact: false
+      maxVol: 10
+      reagents:
+      - ReagentId: Potassium
+        Quantity: 5
+      - ReagentId: Chlorine
+        Quantity: 5
+    id: composite
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/ore.rsi
+    heldPrefix: sylvite
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/ore.rsi
+    state: sylvite
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Extractable
+    grindableSolutionName: composite
+  - type: Stack
+    stackType: DystopiaOreSylvite
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaRawSylvite: 100
+
+- type: entity
+  id: DystopiaOreSylvite1
+  name: sylvite
+  description: "Potassium ore: pinkish salty crystals."
+  suffix: Potassium, Single
+  components:
+  - type: Solution
+    solution:
+      canReact: false
+      maxVol: 10
+      reagents:
+      - ReagentId: Potassium
+        Quantity: 5
+      - ReagentId: Chlorine
+        Quantity: 5
+    id: composite
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/ore.rsi
+    heldPrefix: sylvite
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/ore.rsi
+    state: sylvite
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Extractable
+    grindableSolutionName: composite
+  - type: Stack
+    stackType: DystopiaOreSylvite
+    count: 1
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaRawSylvite: 100
+
+- type: entity
+  id: DystopiaOreSpodumene
+  name: spodumene
+  description: "Lithium ore: pale lilac prisms."
+  suffix: Lithium, Full
+  components:
+  - type: Solution
+    solution:
+      canReact: false
+      maxVol: 10
+      reagents:
+      - ReagentId: Lithium
+        Quantity: 3
+      - ReagentId: Aluminium
+        Quantity: 2
+      - ReagentId: Silicon
+        Quantity: 5
+    id: composite
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/ore.rsi
+    heldPrefix: spodumene
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/ore.rsi
+    state: spodumene
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Extractable
+    grindableSolutionName: composite
+  - type: Stack
+    stackType: DystopiaOreSpodumene
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaRawSpodumene: 100
+
+- type: entity
+  id: DystopiaOreSpodumene1
+  name: spodumene
+  description: "Lithium ore: pale lilac prisms."
+  suffix: Lithium, Single
+  components:
+  - type: Solution
+    solution:
+      canReact: false
+      maxVol: 10
+      reagents:
+      - ReagentId: Lithium
+        Quantity: 3
+      - ReagentId: Aluminium
+        Quantity: 2
+      - ReagentId: Silicon
+        Quantity: 5
+    id: composite
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/ore.rsi
+    heldPrefix: spodumene
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/ore.rsi
+    state: spodumene
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Extractable
+    grindableSolutionName: composite
+  - type: Stack
+    stackType: DystopiaOreSpodumene
+    count: 1
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaRawSpodumene: 100
+
+- type: entity
+  id: DystopiaOreCinnabar
+  name: cinnabar
+  description: "Mercury ore: blood-red grains. Poisonous when roasted."
+  suffix: Mercury, Full
+  components:
+  - type: Solution
+    solution:
+      canReact: false
+      maxVol: 10.0
+      reagents:
+      - ReagentId: Mercury
+        Quantity: 8.5
+      - ReagentId: Sulfur
+        Quantity: 1.5
+    id: composite
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/ore.rsi
+    heldPrefix: cinnabar
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/ore.rsi
+    state: cinnabar
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Extractable
+    grindableSolutionName: composite
+  - type: Stack
+    stackType: DystopiaOreCinnabar
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaRawCinnabar: 100
+
+- type: entity
+  id: DystopiaOreCinnabar1
+  name: cinnabar
+  description: "Mercury ore: blood-red grains. Poisonous when roasted."
+  suffix: Mercury, Single
+  components:
+  - type: Solution
+    solution:
+      canReact: false
+      maxVol: 10.0
+      reagents:
+      - ReagentId: Mercury
+        Quantity: 8.5
+      - ReagentId: Sulfur
+        Quantity: 1.5
+    id: composite
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/ore.rsi
+    heldPrefix: cinnabar
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/ore.rsi
+    state: cinnabar
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Extractable
+    grindableSolutionName: composite
+  - type: Stack
+    stackType: DystopiaOreCinnabar
+    count: 1
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaRawCinnabar: 100

@@ -1,0 +1,225 @@
+# Dystopia: металлы и сплавы Города (этап «Промышленность: вещества»). Самостоятельные сущности, без parent.
+
+- type: stack
+  id: DystopiaOreChalcopyrite
+  name: stack-dystopia-ore-chalcopyrite
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/ore.rsi, state: chalcopyrite }
+  spawn: DystopiaOreChalcopyrite1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaOreBauxite
+  name: stack-dystopia-ore-bauxite
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/ore.rsi, state: bauxite }
+  spawn: DystopiaOreBauxite1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaOreSphalerite
+  name: stack-dystopia-ore-sphalerite
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/ore.rsi, state: sphalerite }
+  spawn: DystopiaOreSphalerite1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaOreCassiterite
+  name: stack-dystopia-ore-cassiterite
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/ore.rsi, state: cassiterite }
+  spawn: DystopiaOreCassiterite1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaOreGalena
+  name: stack-dystopia-ore-galena
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/ore.rsi, state: galena }
+  spawn: DystopiaOreGalena1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaOreChromite
+  name: stack-dystopia-ore-chromite
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/ore.rsi, state: chromite }
+  spawn: DystopiaOreChromite1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaOreSylvite
+  name: stack-dystopia-ore-sylvite
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/ore.rsi, state: sylvite }
+  spawn: DystopiaOreSylvite1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaOreSpodumene
+  name: stack-dystopia-ore-spodumene
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/ore.rsi, state: spodumene }
+  spawn: DystopiaOreSpodumene1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaOreCinnabar
+  name: stack-dystopia-ore-cinnabar
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/ore.rsi, state: cinnabar }
+  spawn: DystopiaOreCinnabar1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaIngotIron
+  name: stack-dystopia-ingot-iron
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/ingots.rsi, state: iron }
+  spawn: DystopiaIngotIron1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaIngotCastIron
+  name: stack-dystopia-ingot-cast-iron
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/ingots.rsi, state: cast_iron }
+  spawn: DystopiaIngotCastIron1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaIngotSteel
+  name: stack-dystopia-ingot-steel
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/ingots.rsi, state: steel }
+  spawn: DystopiaIngotSteel1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaIngotCopper
+  name: stack-dystopia-ingot-copper
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/ingots.rsi, state: copper }
+  spawn: DystopiaIngotCopper1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaIngotAluminium
+  name: stack-dystopia-ingot-aluminium
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/ingots.rsi, state: aluminium }
+  spawn: DystopiaIngotAluminium1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaIngotZinc
+  name: stack-dystopia-ingot-zinc
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/ingots.rsi, state: zinc }
+  spawn: DystopiaIngotZinc1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaIngotTin
+  name: stack-dystopia-ingot-tin
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/ingots.rsi, state: tin }
+  spawn: DystopiaIngotTin1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaIngotLead
+  name: stack-dystopia-ingot-lead
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/ingots.rsi, state: lead }
+  spawn: DystopiaIngotLead1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaIngotBrass
+  name: stack-dystopia-ingot-brass
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/ingots.rsi, state: brass }
+  spawn: DystopiaIngotBrass1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaIngotBronze
+  name: stack-dystopia-ingot-bronze
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/ingots.rsi, state: bronze }
+  spawn: DystopiaIngotBronze1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaIngotStainlessSteel
+  name: stack-dystopia-ingot-stainless
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/ingots.rsi, state: stainless }
+  spawn: DystopiaIngotStainlessSteel1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaIngotFerrochrome
+  name: stack-dystopia-ingot-ferrochrome
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/ingots.rsi, state: ferrochrome }
+  spawn: DystopiaIngotFerrochrome1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaSheetCopper
+  name: stack-dystopia-sheet-copper
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/sheets.rsi, state: copper }
+  spawn: DystopiaSheetCopper1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaSheetAluminium
+  name: stack-dystopia-sheet-aluminium
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/sheets.rsi, state: aluminium }
+  spawn: DystopiaSheetAluminium1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaSheetLead
+  name: stack-dystopia-sheet-lead
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/sheets.rsi, state: lead }
+  spawn: DystopiaSheetLead1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaSheetBronze
+  name: stack-dystopia-sheet-bronze
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/sheets.rsi, state: bronze }
+  spawn: DystopiaSheetBronze1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaSheetStainlessSteel
+  name: stack-dystopia-sheet-stainless
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/sheets.rsi, state: stainless }
+  spawn: DystopiaSheetStainlessSteel1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaRodCopper
+  name: stack-dystopia-rod-copper
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/rods.rsi, state: copper }
+  spawn: DystopiaRodCopper1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaWireCopper
+  name: stack-dystopia-wire-copper
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/wires.rsi, state: copper-10 }
+  spawn: DystopiaWireCopper1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaWireAluminium
+  name: stack-dystopia-wire-aluminium
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/wires.rsi, state: aluminium-10 }
+  spawn: DystopiaWireAluminium1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaWireGold
+  name: stack-dystopia-wire-gold
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/wires.rsi, state: gold-10 }
+  spawn: DystopiaWireGold1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaWireSilver
+  name: stack-dystopia-wire-silver
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/wires.rsi, state: silver-10 }
+  spawn: DystopiaWireSilver1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaWireSolder
+  name: stack-dystopia-wire-solder
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/wires.rsi, state: solder-10 }
+  spawn: DystopiaWireSolder1
+  maxCount: 30

@@ -48,10 +48,11 @@ stack-plasma-glass = { $amount ->
     [few] листа
     *[other] листов
 } плазменного стекла
+# Dystopia-Metals
 stack-uranium = { $amount ->
-    [1] лист
-    [few] листа
-    *[other] листов
+    [1] слиток
+    [few] слитка
+    *[other] слитков
 } урана
 stack-uranium-glass = { $amount ->
     [1] лист
@@ -123,11 +124,12 @@ stack-durathread = { $amount ->
     [few] рулона
     *[other] рулонов
 }  дюраткани
+# Dystopia-Metals
 stack-rods = { $amount ->
-    [1] стержень
-    [few] стержня
-    *[other] стержней
-}
+    [1] прут
+    [few] прута
+    *[other] прутьев
+} стали
 stack-meat-sheet = { $amount ->
     [1] лист
     [few] листа
@@ -233,14 +235,15 @@ stack-goliath-hide = { $amount ->
 stack-telecrystal = телекристалл
 stack-gold-ore = золотая руда
 stack-rough-diamond = сырой алмаз
-stack-iron-ore = железная руда
+# Dystopia-Metals
+stack-iron-ore = гематит
 stack-plasma-ore = плазменная руда
-stack-silver-ore = серебряная руда
+stack-silver-ore = аргентит
 stack-space-quartz = космический кварц
-stack-uranium-ore = урановая руда
+stack-uranium-ore = уранинит
 stack-bananium-ore = бананиумовая руда
 stack-coal = уголь
-stack-salt = соль
+stack-salt = каменная соль
 stack-inflatable-wall = надувная стена
 stack-inflatable-door = надувная дверь
 stack-ointment = мазь

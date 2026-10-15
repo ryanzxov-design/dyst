@@ -24,10 +24,11 @@ ent-SheetPlastic10 = пластик
 ent-SheetPlastic1 = пластик
     .desc = { ent-SheetPlastic.desc }
     .suffix = Один
-ent-SheetUranium = уран
+# Dystopia-Metals
+ent-SheetUranium = слиток урана
     .desc = { ent-SheetOtherBase.desc }
     .suffix = Полный
-ent-SheetUranium1 = уран
+ent-SheetUranium1 = слиток урана
     .desc = { ent-SheetUranium.desc }
     .suffix = Один
 ent-MaterialSheetMeat = мясо

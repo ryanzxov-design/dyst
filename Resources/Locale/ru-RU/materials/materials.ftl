@@ -33,12 +33,13 @@ materials-cotton = хлопок
 materials-xenoborg-crystal = кристалл ксеноборгов
 
 # Ores
-materials-raw-iron = руда железа
+# Dystopia-Metals
+materials-raw-iron = гематит
 materials-raw-quartz = руда кварца
 materials-raw-gold = руда золота
-materials-raw-silver = руда серебра
+materials-raw-silver = аргентит
 materials-raw-plasma = руда плазмы
-materials-raw-uranium = руда урана
+materials-raw-uranium = уранинит
 materials-raw-bananium = руда бананиума
 materials-raw-salt = каменная соль
 materials-raw-diamond = необработанные алмазы

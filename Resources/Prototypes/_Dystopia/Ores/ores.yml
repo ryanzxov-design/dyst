@@ -1,0 +1,56 @@
+# Dystopia: металлы и сплавы Города (этап «Промышленность: вещества»). Самостоятельные сущности, без parent.
+# Что выпадает из рудной жилы при добыче.
+
+- type: ore
+  id: DystopiaChalcopyrite
+  oreEntity: DystopiaOreChalcopyrite1
+  minOreYield: 1
+  maxOreYield: 4
+
+- type: ore
+  id: DystopiaBauxite
+  oreEntity: DystopiaOreBauxite1
+  minOreYield: 1
+  maxOreYield: 4
+
+- type: ore
+  id: DystopiaSphalerite
+  oreEntity: DystopiaOreSphalerite1
+  minOreYield: 1
+  maxOreYield: 4
+
+- type: ore
+  id: DystopiaCassiterite
+  oreEntity: DystopiaOreCassiterite1
+  minOreYield: 1
+  maxOreYield: 3
+
+- type: ore
+  id: DystopiaGalena
+  oreEntity: DystopiaOreGalena1
+  minOreYield: 1
+  maxOreYield: 4
+
+- type: ore
+  id: DystopiaChromite
+  oreEntity: DystopiaOreChromite1
+  minOreYield: 1
+  maxOreYield: 3
+
+- type: ore
+  id: DystopiaSylvite
+  oreEntity: DystopiaOreSylvite1
+  minOreYield: 1
+  maxOreYield: 3
+
+- type: ore
+  id: DystopiaSpodumene
+  oreEntity: DystopiaOreSpodumene1
+  minOreYield: 1
+  maxOreYield: 2
+
+- type: ore
+  id: DystopiaCinnabar
+  oreEntity: DystopiaOreCinnabar1
+  minOreYield: 1
+  maxOreYield: 2

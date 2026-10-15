@@ -21,17 +21,18 @@ ent-BaseVeinQuartz = { "" }
     .desc = Рудная жила, богатая кварцем.
     .suffix = Кварц
 ent-BaseVeinSilver = { "" }
-    .desc = Рудная жила, богатая серебром.
-    .suffix = Серебро
+    .desc = Рудная жила, богатая аргентитом.
+    .suffix = Серебро (аргентит)
+# Dystopia-Metals: в суффиксе и металл, и минерал — для поиска в меню спавна
 ent-BaseVeinSteel = { "" }
-    .desc = Рудная жила, богатая железом.
-    .suffix = Железо
+    .desc = Рудная жила, богатая гематитом.
+    .suffix = Железо (гематит)
 ent-BaseVeinUranium = { "" }
-    .desc = Рудная жила, богатая ураном.
-    .suffix = Уран
+    .desc = Рудная жила, богатая уранинитом.
+    .suffix = Уран (уранинит)
 ent-BaseVeinSalt = { "" }
-    .desc = Рудная жила, богатая солью.
-    .suffix = Соль
+    .desc = Рудная жила, богатая каменной солью.
+    .suffix = Натрий (каменная соль)
 ent-BaseVeinArtifactFragment = { "" }
     .desc = Жила, богатая странными артефактами.
     .suffix = Фрагмент артефакта
@@ -241,7 +242,8 @@ ent-WallRockSandSalt = { ent-WallRockSand }
     .desc = { ent-BaseVeinSalt.desc }
     .suffix = { ent-BaseVeinSalt.suffix }
 
-ent-WallRockChromite = хромит
+# Dystopia-Metals
+ent-WallRockChromite = перидотит
     .desc = { ent-WallRock.desc }
     .suffix = { ent-WallRock.suffix }
 ent-WallRockChromiteCoal = { ent-WallRockChromite }

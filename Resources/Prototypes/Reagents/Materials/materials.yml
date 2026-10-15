@@ -71,7 +71,8 @@
   id: Uranium
   stackEntity: SheetUranium1
   name: materials-uranium
-  icon: { sprite: Objects/Materials/Sheets/other.rsi, state: uranium }
+  unit: materials-unit-bar # Dystopia-Metals
+  icon: { sprite: Objects/Materials/ingots.rsi, state: uranium } # Dystopia-Metals
   color: "#32a852"
   price: 0.85 # $85 for 1 unit
 

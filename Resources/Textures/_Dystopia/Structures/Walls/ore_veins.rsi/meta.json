@@ -1,0 +1,38 @@
+{
+    "version": 1,
+    "license": "CC-BY-SA-3.0",
+    "copyright": "Sourced from https://github.com/Citadel-Station-13/Citadel-Station-13-RP/blob/817e7c1f225876b45891e3f06908e6d032f0a8bc/icons/turf/walls.dmi; salt by an anonymous contributor. Some states recolored for Dystopia.",
+    "size": {
+        "x": 32,
+        "y": 32
+    },
+    "states": [
+        {
+            "name": "chalcopyrite"
+        },
+        {
+            "name": "bauxite"
+        },
+        {
+            "name": "sphalerite"
+        },
+        {
+            "name": "cassiterite"
+        },
+        {
+            "name": "galena"
+        },
+        {
+            "name": "chromite"
+        },
+        {
+            "name": "sylvite"
+        },
+        {
+            "name": "spodumene"
+        },
+        {
+            "name": "cinnabar"
+        }
+    ]
+}

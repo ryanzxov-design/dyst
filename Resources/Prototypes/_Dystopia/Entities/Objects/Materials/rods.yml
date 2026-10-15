@@ -1,0 +1,173 @@
+# Dystopia: металлы и сплавы Города (этап «Промышленность: вещества»). Самостоятельные сущности, без parent.
+# Прутья. Стальной — ванильный металлический стержень.
+
+- type: entity
+  id: DystopiaRodCopper
+  name: copper rod
+  description: A drawn rod of copper.
+  suffix: Full
+  components:
+  - type: Solution
+    solution:
+      canReact: false
+      maxVol: 5.0
+      reagents:
+      - ReagentId: Copper
+        Quantity: 5.0
+    id: composite
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/rods.rsi
+    heldPrefix: copper
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/rods.rsi
+    state: copper_5
+    layers:
+    - state: copper_5
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+    damageModifierSet: FlimsyMetallic
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Extractable
+    grindableSolutionName: composite
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaCopper: 50
+  - type: Stack
+    stackType: DystopiaRodCopper
+    baseLayer: base
+    layerStates: [ copper, copper_2, copper_3, copper_4, copper_5 ]
+
+- type: entity
+  id: DystopiaRodCopper1
+  name: copper rod
+  description: A drawn rod of copper.
+  suffix: Single
+  components:
+  - type: Solution
+    solution:
+      canReact: false
+      maxVol: 5.0
+      reagents:
+      - ReagentId: Copper
+        Quantity: 5.0
+    id: composite
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/rods.rsi
+    heldPrefix: copper
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/rods.rsi
+    state: copper
+    layers:
+    - state: copper
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+    damageModifierSet: FlimsyMetallic
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Extractable
+    grindableSolutionName: composite
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaCopper: 50
+  - type: Stack
+    stackType: DystopiaRodCopper
+    baseLayer: base
+    layerStates: [ copper, copper_2, copper_3, copper_4, copper_5 ]
+    count: 1

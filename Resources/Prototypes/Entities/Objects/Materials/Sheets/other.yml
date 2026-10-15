@@ -178,11 +178,13 @@
     - uranium_2
     - uranium_3
   - type: Sprite
+    sprite: Objects/Materials/ingots.rsi # Dystopia-Metals: уран — слиток, а не лист
     state: uranium_3
     layers:
     - state: uranium_3
       map: ["base"]
   - type: Item
+    sprite: Objects/Materials/ingots.rsi # Dystopia-Metals
     heldPrefix: uranium
   - type: Solution
     solution:

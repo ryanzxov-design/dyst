@@ -218,7 +218,7 @@
     currentOre: OreSteel
   - type: Sprite
     layers:
-    - state: rock_tin
+    - state: rock_hematite # Dystopia-Metals: гематит (картинка олова отдана касситериту)
       sprite: Structures/Walls/stone-ore.rsi
       map: [ "enum.MiningScannerVisualLayers.Overlay" ]
 
