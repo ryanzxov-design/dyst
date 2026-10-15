@@ -29,7 +29,13 @@ Space Station 14 это ремейк SS13, который работает на 
 
 ## Лицензия
 
-Весь код репозитория лицензирован под [MIT](https://github.com/space-syndicate/space-station-14/blob/master/LICENSE.TXT).
+Проект «Город» в целом распространяется под [GNU AGPL v3.0 или более поздней версии](LICENSE-AGPLv3.txt).
+Исходный код сервера открыт: https://github.com/ryanzxov-design/dyst
+
+- Код, унаследованный от Space Wizards и Corvax, лицензирован под [MIT](LICENSE.TXT); уведомления об авторстве сохранены.
+- Файлы с заголовком `SPDX-License-Identifier: AGPL-3.0-or-later` (в том числе перенесённые из Goob-Station
+  системы здоровья, хирургии и болезней) — под [AGPL-3.0-or-later](LICENSE-AGPLv3.txt).
+- Файлы без такого заголовка — под MIT.
 
 Большинство ассетов лицензированы под [CC-BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/), если не указано иное. Ассеты имеют свою лицензию и авторские права в файле метаданных. [Пример](https://github.com/space-syndicate/space-station-14/blob/master/Resources/Textures/Objects/Tools/crowbar.rsi/meta.json).
 
