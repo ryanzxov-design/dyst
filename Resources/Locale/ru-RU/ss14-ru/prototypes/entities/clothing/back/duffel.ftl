@@ -1,6 +1,6 @@
 ent-ClothingBackpackDuffel = вещмешок
     .desc = Большой вещмешок. Влезает много, носить тяжело.
-ent-ClothingBackpackDuffelEngineering = вещмешок ликвидатора
+ent-ClothingBackpackDuffelEngineering = вещмешок инженера
     .desc = Большой прорезиненный вещмешок для инструмента и запчастей.
 ent-ClothingBackpackDuffelAtmospherics = вещмешок атмос-инженера
     .desc = Большой вещмешок из огнестойких волокон. Пахнет плазмой.

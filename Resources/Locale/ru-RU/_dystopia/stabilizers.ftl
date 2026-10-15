@@ -1,7 +1,7 @@
 ## Стабилизаторы Города
 
 dystopia-stabilizer-sender = Сеть стабилизаторов
-dystopia-stabilizer-broken = Внимание: { $name } выведен из строя. Ликвидаторам — немедленно устранить повреждения.
+dystopia-stabilizer-broken = Внимание: { $name } выведен из строя. Инженерам Промслужбы — немедленно устранить повреждения.
 dystopia-stabilizer-repaired = { $name } восстановлен и вновь работает.
 dystopia-stabilizer-on-battery = { $name } потерял внешнее питание и работает от аккумулятора. Восстановите питание.
 dystopia-stabilizer-depleted = { $name } разрядился и отключился. Зона не защищена.

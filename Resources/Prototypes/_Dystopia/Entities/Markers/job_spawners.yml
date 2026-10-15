@@ -367,8 +367,34 @@
 # Самостоятельный предмет: все свойства выписаны явно (раньше: parent SpawnPointJobBase)
 
 - type: entity
-  id: SpawnPointDystopiaLiquidator
-  name: ликвидатор
+  id: SpawnPointDystopiaChiefIndustrial
+  name: глава Промышленной Службы
+  suffix: Job Spawn
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+  - type: Marker
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Tag
+    tags:
+    - ForceFixRotations
+  - type: Sprite
+    drawdepth: Overdoors
+    sprite: Markers/jobs.rsi
+    layers:
+    - state: green
+    - state: ce
+  - type: SpawnPoint
+    spawn_type: Job
+    job_id: DystopiaChiefIndustrial
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent SpawnPointJobBase)
+
+- type: entity
+  id: SpawnPointDystopiaEngineer
+  name: инженер
   suffix: Job Spawn
   placement:
     mode: SnapgridCenter
@@ -389,7 +415,33 @@
     - state: engineer
   - type: SpawnPoint
     spawn_type: Job
-    job_id: DystopiaLiquidator
+    job_id: DystopiaEngineer
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent SpawnPointJobBase)
+
+- type: entity
+  id: SpawnPointDystopiaJuniorTechnician
+  name: младший технический специалист
+  suffix: Job Spawn
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+  - type: Marker
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Tag
+    tags:
+    - ForceFixRotations
+  - type: Sprite
+    drawdepth: Overdoors
+    sprite: Markers/jobs.rsi
+    layers:
+    - state: green
+    - state: technicalassistant
+  - type: SpawnPoint
+    spawn_type: Job
+    job_id: DystopiaJuniorTechnician
 # Самостоятельный предмет: все свойства выписаны явно (раньше: parent SpawnPointJobBase)
 
 - type: entity

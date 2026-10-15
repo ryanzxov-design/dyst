@@ -1151,8 +1151,90 @@
 # Самостоятельный предмет: все свойства выписаны явно (раньше: parent IDCardStandard)
 
 - type: entity
-  id: DystopiaLiquidatorIDCard
-  name: ID-карта (ликвидатор)
+  id: DystopiaChiefIndustrialIDCard
+  name: ID-карта (глава Промышленной Службы)
+  description: A card necessary to access various areas aboard the station.
+  components:
+  - type: Item
+    size: Small
+    heldPrefix: silver
+    storedRotation: -90
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Misc/id_cards.rsi
+    layers:
+    - state: silver
+    - state: stripe_top
+      color: "#B5652B"
+    - state: stripe_bottom
+      color: "#6E3D1A"
+    - sprite: _Dystopia/Interface/job_icons.rsi
+      offset: -0.09375, 0.0625
+      state: ChiefIndustrial
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Tag
+    tags:
+    - DoorBumpOpener
+    - WhitelistChameleon
+    - WhitelistChameleonIdCard
+  - type: StaticPrice
+    price: 10
+  - type: FlavorProfile
+    flavors:
+    - fiber
+  - type: Clothing
+    slots:
+    - idcard
+    sprite: _Dystopia/Objects/Misc/id_cards.rsi
+  - type: Access
+  - type: IdCard
+  - type: StationRecordKeyStorage
+  - type: StealTarget
+    stealGroup: IDCard
+  - type: PresetIdCard
+    job: DystopiaChiefIndustrial
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent IDCardStandard)
+
+- type: entity
+  id: DystopiaEngineerIDCard
+  name: ID-карта (инженер)
   description: A card necessary to access various areas aboard the station.
   components:
   - type: Item
@@ -1199,12 +1281,12 @@
     layers:
     - state: default
     - state: stripe_top
-      color: "#4F8A3C"
+      color: "#B5652B"
     - state: stripe_bottom
-      color: "#305525"
+      color: "#6E3D1A"
     - sprite: _Dystopia/Interface/job_icons.rsi
       offset: -0.09375, 0.0625
-      state: Liquidator
+      state: Engineer
   - type: Pullable
   - type: DamageExaminable
   - type: Rotatable
@@ -1229,7 +1311,89 @@
   - type: StealTarget
     stealGroup: IDCard
   - type: PresetIdCard
-    job: DystopiaLiquidator
+    job: DystopiaEngineer
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent IDCardStandard)
+
+- type: entity
+  id: DystopiaJuniorTechnicianIDCard
+  name: ID-карта (младший технический специалист)
+  description: A card necessary to access various areas aboard the station.
+  components:
+  - type: Item
+    size: Small
+    heldPrefix: default
+    storedRotation: -90
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Misc/id_cards.rsi
+    layers:
+    - state: default
+    - state: stripe_top
+      color: "#B5652B"
+    - state: stripe_bottom
+      color: "#6E3D1A"
+    - sprite: _Dystopia/Interface/job_icons.rsi
+      offset: -0.09375, 0.0625
+      state: JuniorTechnician
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Tag
+    tags:
+    - DoorBumpOpener
+    - WhitelistChameleon
+    - WhitelistChameleonIdCard
+  - type: StaticPrice
+    price: 10
+  - type: FlavorProfile
+    flavors:
+    - fiber
+  - type: Clothing
+    slots:
+    - idcard
+    sprite: _Dystopia/Objects/Misc/id_cards.rsi
+  - type: Access
+  - type: IdCard
+  - type: StationRecordKeyStorage
+  - type: StealTarget
+    stealGroup: IDCard
+  - type: PresetIdCard
+    job: DystopiaJuniorTechnician
 # Самостоятельный предмет: все свойства выписаны явно (раньше: parent IDCardStandard)
 
 - type: entity

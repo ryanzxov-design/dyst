@@ -108,7 +108,19 @@
   - MedicalBackpack
 
 - type: roleLoadout
-  id: JobDystopiaLiquidator
+  id: JobDystopiaChiefIndustrial
+  groups:
+  - Inventory # Corvax-Loadouts
+  - StationEngineerBackpack
+
+- type: roleLoadout
+  id: JobDystopiaEngineer
+  groups:
+  - Inventory # Corvax-Loadouts
+  - StationEngineerBackpack
+
+- type: roleLoadout
+  id: JobDystopiaJuniorTechnician
   groups:
   - Inventory # Corvax-Loadouts
   - StationEngineerBackpack

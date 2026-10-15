@@ -18,9 +18,11 @@
     DystopiaChiefSanitaryDoctor: 20
     DystopiaHealer: 0
     DystopiaDisinfector: 0
-    DystopiaLiquidator: 0
     DystopiaPharmacist: 0
     DystopiaJuniorOrderly: 0
+    DystopiaChiefIndustrial: 20
+    DystopiaEngineer: 0
+    DystopiaJuniorTechnician: 0
     DystopiaScienceDirector: 20
     DystopiaAugmentologist: 0
     DystopiaPathobiologist: 0

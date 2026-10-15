@@ -45,9 +45,19 @@
   - DystopiaChiefSanitaryDoctor
   - DystopiaHealer
   - DystopiaDisinfector
-  - DystopiaLiquidator
   - DystopiaPharmacist
   - DystopiaJuniorOrderly
+
+- type: department
+  id: DystopiaIndustry
+  name: department-DystopiaIndustry
+  description: department-DystopiaIndustry-description
+  color: "#B5652B"
+  weight: 25
+  roles:
+  - DystopiaChiefIndustrial
+  - DystopiaEngineer
+  - DystopiaJuniorTechnician
 
 - type: department
   id: DystopiaScience

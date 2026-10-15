@@ -22,10 +22,10 @@
 
 - type: radioChannel
   id: Engineering
-  name: chat-radio-engineering
+  name: chat-radio-dystopia-industry # Dystopia-Radio
   keycode: 'и' # Corvax-Localization
   frequency: 135.7
-  color: "#ff733c"
+  color: "#E0874A" # Dystopia-Radio
 
 - type: radioChannel
   id: Medical

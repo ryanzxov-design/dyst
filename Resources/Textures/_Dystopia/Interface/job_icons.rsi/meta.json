@@ -50,7 +50,13 @@
       "name": "Disinfector"
     },
     {
-      "name": "Liquidator"
+      "name": "ChiefIndustrial"
+    },
+    {
+      "name": "Engineer"
+    },
+    {
+      "name": "JuniorTechnician"
     },
     {
       "name": "Pharmacist"

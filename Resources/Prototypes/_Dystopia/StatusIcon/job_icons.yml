@@ -114,11 +114,27 @@
 
 - type: jobIcon
   parent: JobIcon
-  id: JobIconDystopiaLiquidator
+  id: JobIconDystopiaChiefIndustrial
   icon:
     sprite: /Textures/_Dystopia/Interface/job_icons.rsi
-    state: Liquidator
-  jobName: job-name-dystopia-liquidator
+    state: ChiefIndustrial
+  jobName: job-name-dystopia-chief-industrial
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDystopiaEngineer
+  icon:
+    sprite: /Textures/_Dystopia/Interface/job_icons.rsi
+    state: Engineer
+  jobName: job-name-dystopia-engineer
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDystopiaJuniorTechnician
+  icon:
+    sprite: /Textures/_Dystopia/Interface/job_icons.rsi
+    state: JuniorTechnician
+  jobName: job-name-dystopia-junior-technician
 
 - type: jobIcon
   parent: JobIcon

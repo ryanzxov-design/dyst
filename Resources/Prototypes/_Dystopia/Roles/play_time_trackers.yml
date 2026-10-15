@@ -43,7 +43,13 @@
   id: JobDystopiaDisinfector
 
 - type: playTimeTracker
-  id: JobDystopiaLiquidator
+  id: JobDystopiaChiefIndustrial
+
+- type: playTimeTracker
+  id: JobDystopiaEngineer
+
+- type: playTimeTracker
+  id: JobDystopiaJuniorTechnician
 
 - type: playTimeTracker
   id: JobDystopiaPharmacist

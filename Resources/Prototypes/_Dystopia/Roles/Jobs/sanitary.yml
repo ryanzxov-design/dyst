@@ -103,38 +103,6 @@
     - BodyBagFolded
 
 - type: job
-  id: DystopiaLiquidator
-  name: job-name-dystopia-liquidator
-  description: job-description-dystopia-liquidator
-  playTimeTracker: JobDystopiaLiquidator
-  startingGear: DystopiaLiquidatorGear
-  icon: "JobIconDystopiaLiquidator"
-  supervisors: dystopia-job-supervisors-sanitary-chief
-  accessGroups:
-  # ВРЕМЕННО: ванильные доступы для дверей тестовой карты Terra. Убрать вместе с Terra.
-  - Engineering
-  access:
-  - DystopiaSanitary
-  - DystopiaTechnical
-  - DystopiaGates
-  # ВРЕМЕННО: ванильные доступы для дверей тестовой карты Terra. Убрать вместе с Terra.
-  - Medical
-  - Maintenance
-  - External
-
-- type: startingGear
-  id: DystopiaLiquidatorGear
-  equipment:
-    jumpsuit: ClothingUniformJumpsuitEngineeringHazard
-    head: ClothingHeadHatWelding
-    mask: DystopiaClothingMaskGasField
-    gloves: ClothingHandsGlovesColorYellow
-    shoes: ClothingShoesBootsWork
-    belt: ClothingBeltUtilityFilled
-    id: DystopiaLiquidatorPDA
-    ears: ClothingHeadsetDystopiaSanitary
-
-- type: job
   id: DystopiaPharmacist
   name: job-name-dystopia-pharmacist
   description: job-description-dystopia-pharmacist

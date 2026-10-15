@@ -156,6 +156,7 @@
     - DystopiaInspection
     - DystopiaGuardCaptain
     - DystopiaChiefSanitary
+    - DystopiaChiefIndustry
     - DystopiaScienceDirector
     - DystopiaGuard
     - DystopiaGuardArmory
@@ -167,6 +168,7 @@
     - DystopiaPharmacy
     - DystopiaCrematorium
     - DystopiaTechnical
+    - DystopiaIndustry
     - DystopiaScience
     - DystopiaAugmentation
     - DystopiaIsolationLab

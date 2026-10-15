@@ -1,0 +1,99 @@
+# Роли: Промышленная Служба Города — промышленность и инженерия: заводы, печи, электросеть, трубы, стены.
+# На заводе работают пролетарии-чернорабочие (доступ DystopiaFactory), Служба ими руководит.
+# Сумки выдаются через выбор снаряжения — см. Loadouts/loadouts.yml.
+
+- type: job
+  id: DystopiaChiefIndustrial
+  name: job-name-dystopia-chief-industrial
+  description: job-description-dystopia-chief-industrial
+  playTimeTracker: JobDystopiaChiefIndustrial
+  startingGear: DystopiaChiefIndustrialGear
+  icon: "JobIconDystopiaChiefIndustrial"
+  supervisors: dystopia-job-supervisors-consul
+  joinNotifyCrew: true
+  accessGroups:
+  # ВРЕМЕННО: ванильные доступы для дверей тестовой карты Terra. Убрать вместе с Terra.
+  - Engineering
+  access:
+  - DystopiaAdministration
+  - DystopiaChiefIndustry
+  - DystopiaIndustry
+  - DystopiaTechnical
+  - DystopiaFactory
+  - DystopiaGates
+  # ВРЕМЕННО: ванильные доступы для дверей тестовой карты Terra. Убрать вместе с Terra.
+  - Command
+  - ChiefEngineer
+  - Maintenance
+  - External
+
+- type: startingGear
+  id: DystopiaChiefIndustrialGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitChiefEngineer
+    head: ClothingHeadHatHardhatWhite
+    mask: DystopiaClothingMaskGasField
+    gloves: ClothingHandsGlovesColorYellow
+    shoes: ClothingShoesBootsWork
+    belt: ClothingBeltUtilityFilled
+    id: DystopiaChiefIndustrialPDA
+    ears: ClothingHeadsetAltDystopiaChiefIndustry
+
+- type: job
+  id: DystopiaEngineer
+  name: job-name-dystopia-engineer
+  description: job-description-dystopia-engineer
+  playTimeTracker: JobDystopiaEngineer
+  startingGear: DystopiaEngineerGear
+  icon: "JobIconDystopiaEngineer"
+  supervisors: dystopia-job-supervisors-industry-chief
+  accessGroups:
+  # ВРЕМЕННО: ванильные доступы для дверей тестовой карты Terra. Убрать вместе с Terra.
+  - Engineering
+  access:
+  - DystopiaIndustry
+  - DystopiaTechnical
+  - DystopiaFactory
+  - DystopiaGates
+  # ВРЕМЕННО: ванильные доступы для дверей тестовой карты Terra. Убрать вместе с Terra.
+  - Maintenance
+  - External
+
+- type: startingGear
+  id: DystopiaEngineerGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitEngineeringHazard
+    head: ClothingHeadHatWelding
+    mask: DystopiaClothingMaskGasField
+    gloves: ClothingHandsGlovesColorYellow
+    shoes: ClothingShoesBootsWork
+    belt: ClothingBeltUtilityFilled
+    id: DystopiaEngineerPDA
+    ears: ClothingHeadsetDystopiaIndustry
+
+- type: job
+  id: DystopiaJuniorTechnician
+  name: job-name-dystopia-junior-technician
+  description: job-description-dystopia-junior-technician
+  playTimeTracker: JobDystopiaJuniorTechnician
+  startingGear: DystopiaJuniorTechnicianGear
+  icon: "JobIconDystopiaJuniorTechnician"
+  supervisors: dystopia-job-supervisors-industry
+  access:
+  - DystopiaIndustry
+  - DystopiaTechnical
+  - DystopiaFactory
+  # ВРЕМЕННО: ванильные доступы для дверей тестовой карты Terra. Убрать вместе с Terra.
+  - Maintenance
+
+- type: startingGear
+  id: DystopiaJuniorTechnicianGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitEngineering
+    head: ClothingHeadHatHardhatYellow
+    mask: DystopiaClothingMaskGasField
+    gloves: ClothingHandsGlovesColorYellowBudget
+    shoes: ClothingShoesBootsWork
+    belt: ClothingBeltUtilityFilled
+    id: DystopiaJuniorTechnicianPDA
+    ears: ClothingHeadsetDystopiaIndustry

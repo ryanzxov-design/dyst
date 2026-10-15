@@ -54,9 +54,12 @@
         DystopiaChiefSanitaryDoctor: 200
         DystopiaHealer: 130
         DystopiaDisinfector: 130
-        DystopiaLiquidator: 120
         DystopiaPharmacist: 120
         DystopiaJuniorOrderly: 70
+        # Промышленная Служба
+        DystopiaChiefIndustrial: 200
+        DystopiaEngineer: 130
+        DystopiaJuniorTechnician: 70
         # Научная Служба
         DystopiaScienceDirector: 200
         DystopiaAugmentologist: 150
@@ -86,9 +89,12 @@
         DystopiaChiefSanitaryDoctor: 10
         DystopiaHealer: 10
         DystopiaDisinfector: 10
-        DystopiaLiquidator: 10
         DystopiaPharmacist: 10
         DystopiaJuniorOrderly: 10
+        # Промышленная Служба
+        DystopiaChiefIndustrial: 10
+        DystopiaEngineer: 10
+        DystopiaJuniorTechnician: 10
         # Научная Служба
         DystopiaScienceDirector: 10
         DystopiaAugmentologist: 10

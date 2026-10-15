@@ -3156,6 +3156,400 @@
   - type: Paintable
     group: AirlockStandard
   - type: PryUnpowered
+# Самостоятельный предмет: все свойства выписаны явно
+
+- type: entity
+  id: AirlockDystopiaIndustryLocked
+  name: maintenance access
+  description: It opens, it closes, and maybe crushes you.
+  suffix: Город, Промслужба, Locked
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 200
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalSlam
+  - type: Damageable
+    damageModifierSet: SteelStaticMod
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Transform
+    anchored: true
+  - type: Clickable
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        layer:
+        - AirlockLayer
+  - type: Pullable
+  - type: Tag
+    tags:
+    - Airlock
+    - DoorRemoteWhitelist
+  - type: Anchorable
+    flags:
+    - Anchorable
+  - type: Rotatable
+  - type: StationAiWhitelist
+  - type: MeleeSound
+    soundGroups:
+      Brute:
+        path: "/Audio/Weapons/smash.ogg"
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _Dystopia/Structures/Doors/Airlocks/technical.rsi
+    layers:
+    - state: closed
+      map: ["enum.DoorVisualLayers.Base"]
+    - state: closed_unlit
+      shader: unshaded
+      sprite: Structures/Doors/Airlocks/Effects/airlock-effects.rsi
+      map: ["enum.DoorVisualLayers.BaseUnlit"]
+      visible: true
+    - state: welded
+      sprite: Structures/Doors/Airlocks/Effects/airlock-effects.rsi
+      map: ["enum.WeldableLayers.BaseWelded"]
+    - state: bolted_unlit
+      shader: unshaded
+      sprite: Structures/Doors/Airlocks/Effects/airlock-effects.rsi
+      map: ["enum.DoorVisualLayers.BaseBolted"]
+    - state: emergency_unlit
+      sprite: Structures/Doors/Airlocks/Effects/airlock-effects.rsi
+      map: ["enum.DoorVisualLayers.BaseEmergencyAccess"]
+      shader: unshaded
+    - state: panel_open
+      sprite: Structures/Doors/Airlocks/Effects/airlock-effects.rsi
+      map: ["enum.WiresVisualLayers.MaintenancePanel"]
+    - state: electrified_ai
+      sprite: Interface/Misc/ai_hud.rsi
+      shader: unshaded
+      visible: false
+      map: ["enum.ElectrifiedLayers.HUD"]
+    - state: electrified
+      sprite: Effects/electricity.rsi
+      shader: unshaded
+      visible: false
+      map: ["enum.ElectrifiedLayers.Sparks"]
+    - state: sparks
+      sprite: Structures/Doors/Airlocks/Effects/airlock-effects.rsi
+      map: ["enum.DoorVisualLayers.BaseEmagging"]
+      shader: unshaded
+      visible: false
+  - type: IconSmooth
+    key: walls
+    mode: NoSprite
+  - type: AnimationPlayer
+  - type: ContainerFill
+    containers:
+      board: [DoorElectronicsDystopiaIndustry]
+  - type: ContainerContainer
+    containers:
+      board: !type:Container
+  - type: AccessReader
+    containerAccessProvider: board
+  - type: Door
+    crushDamage:
+      types:
+        Blunt: 15
+    openSound:
+      path: /Audio/Machines/airlock_open.ogg
+    closeSound:
+      path: /Audio/Machines/airlock_close.ogg
+    denySound:
+      path: /Audio/Machines/airlock_deny.ogg
+  - type: Weldable
+    fuel: 5
+    time: 3
+  - type: Airlock
+    openUnlitVisible: true
+  - type: NavMapDoor
+  - type: DoorBolt
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.ElectrifiedVisuals.ShowSparks:
+        enum.ElectrifiedLayers.Sparks:
+          true: {visible: true}
+          false: {visible: false}
+  - type: WiresVisuals
+  - type: ElectrocutionHUDVisuals
+  - type: ApcPowerReceiver
+    powerLoad: 20
+  - type: ExtensionCableReceiver
+  - type: Electrified
+    enabled: false
+    usesApcPower: true
+    onActivateInWorld: true
+  - type: WiresPanel
+  - type: WiresPanelSecurity
+  - type: Wires
+    boardName: wires-board-name-airlock
+    layoutId: Airlock
+  - type: UserInterface
+    interfaces:
+      enum.AiUi.Key:
+        type: StationAiBoundUserInterface
+      enum.WiresUiKey.Key:
+        type: WiresBoundUserInterface
+  - type: Airtight
+    noAirWhenFullyAirBlocked: false
+  - type: RadiationBlocker
+    resistance: 3
+  - type: Occluder
+  - type: Construction
+    graph: Airlock
+    node: airlock
+    containers:
+    - board
+  - type: PlacementReplacement
+    key: walls
+  - type: LightningTarget
+    priority: 1
+  - type: BlockWeather
+  - type: GuideHelp
+    guides:
+    - Airlocks
+    - WirePanels
+    - Networking
+  - type: StaticPrice
+    price: 150
+  - type: StructureAligner
+  - type: StructureAlignerPylon
+  - type: LayerChangeOnWeld
+    unWeldedLayer: AirlockLayer
+    weldedLayer: WallLayer
+  - type: DoorSignalControl
+  - type: DeviceNetwork
+    deviceNetId: Wireless
+    receiveFrequencyId: BasicDevice
+  - type: WirelessNetworkConnection
+    range: 200
+  - type: DeviceLinkSink
+    ports:
+    - Open
+    - Close
+    - Toggle
+    - AutoClose
+    - DoorBolt
+  - type: DeviceLinkSource
+    ports:
+    - DoorStatus
+    lastSignals:
+      DoorStatus: false
+  - type: SoundOnOverload
+  - type: SpawnOnOverload
+  - type: RCDDeconstructable
+    cost: 6
+    delay: 8
+    fx: EffectRCDDeconstruct8
+  - type: Paintable
+    group: AirlockStandard
+  - type: PryUnpowered
+# Самостоятельный предмет: все свойства выписаны явно
+
+- type: entity
+  id: AirlockDystopiaChiefIndustryLocked
+  name: maintenance access
+  description: It opens, it closes, and maybe crushes you.
+  suffix: Город, Глава Промслужбы, Locked
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 200
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalSlam
+  - type: Damageable
+    damageModifierSet: SteelStaticMod
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Transform
+    anchored: true
+  - type: Clickable
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        layer:
+        - AirlockLayer
+  - type: Pullable
+  - type: Tag
+    tags:
+    - Airlock
+    - DoorRemoteWhitelist
+  - type: Anchorable
+    flags:
+    - Anchorable
+  - type: Rotatable
+  - type: StationAiWhitelist
+  - type: MeleeSound
+    soundGroups:
+      Brute:
+        path: "/Audio/Weapons/smash.ogg"
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _Dystopia/Structures/Doors/Airlocks/technical.rsi
+    layers:
+    - state: closed
+      map: ["enum.DoorVisualLayers.Base"]
+    - state: closed_unlit
+      shader: unshaded
+      sprite: Structures/Doors/Airlocks/Effects/airlock-effects.rsi
+      map: ["enum.DoorVisualLayers.BaseUnlit"]
+      visible: true
+    - state: welded
+      sprite: Structures/Doors/Airlocks/Effects/airlock-effects.rsi
+      map: ["enum.WeldableLayers.BaseWelded"]
+    - state: bolted_unlit
+      shader: unshaded
+      sprite: Structures/Doors/Airlocks/Effects/airlock-effects.rsi
+      map: ["enum.DoorVisualLayers.BaseBolted"]
+    - state: emergency_unlit
+      sprite: Structures/Doors/Airlocks/Effects/airlock-effects.rsi
+      map: ["enum.DoorVisualLayers.BaseEmergencyAccess"]
+      shader: unshaded
+    - state: panel_open
+      sprite: Structures/Doors/Airlocks/Effects/airlock-effects.rsi
+      map: ["enum.WiresVisualLayers.MaintenancePanel"]
+    - state: electrified_ai
+      sprite: Interface/Misc/ai_hud.rsi
+      shader: unshaded
+      visible: false
+      map: ["enum.ElectrifiedLayers.HUD"]
+    - state: electrified
+      sprite: Effects/electricity.rsi
+      shader: unshaded
+      visible: false
+      map: ["enum.ElectrifiedLayers.Sparks"]
+    - state: sparks
+      sprite: Structures/Doors/Airlocks/Effects/airlock-effects.rsi
+      map: ["enum.DoorVisualLayers.BaseEmagging"]
+      shader: unshaded
+      visible: false
+  - type: IconSmooth
+    key: walls
+    mode: NoSprite
+  - type: AnimationPlayer
+  - type: ContainerFill
+    containers:
+      board: [DoorElectronicsDystopiaChiefIndustry]
+  - type: ContainerContainer
+    containers:
+      board: !type:Container
+  - type: AccessReader
+    containerAccessProvider: board
+  - type: Door
+    crushDamage:
+      types:
+        Blunt: 15
+    openSound:
+      path: /Audio/Machines/airlock_open.ogg
+    closeSound:
+      path: /Audio/Machines/airlock_close.ogg
+    denySound:
+      path: /Audio/Machines/airlock_deny.ogg
+  - type: Weldable
+    fuel: 5
+    time: 3
+  - type: Airlock
+    openUnlitVisible: true
+  - type: NavMapDoor
+  - type: DoorBolt
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.ElectrifiedVisuals.ShowSparks:
+        enum.ElectrifiedLayers.Sparks:
+          true: {visible: true}
+          false: {visible: false}
+  - type: WiresVisuals
+  - type: ElectrocutionHUDVisuals
+  - type: ApcPowerReceiver
+    powerLoad: 20
+  - type: ExtensionCableReceiver
+  - type: Electrified
+    enabled: false
+    usesApcPower: true
+    onActivateInWorld: true
+  - type: WiresPanel
+  - type: WiresPanelSecurity
+  - type: Wires
+    boardName: wires-board-name-airlock
+    layoutId: Airlock
+  - type: UserInterface
+    interfaces:
+      enum.AiUi.Key:
+        type: StationAiBoundUserInterface
+      enum.WiresUiKey.Key:
+        type: WiresBoundUserInterface
+  - type: Airtight
+    noAirWhenFullyAirBlocked: false
+  - type: RadiationBlocker
+    resistance: 3
+  - type: Occluder
+  - type: Construction
+    graph: Airlock
+    node: airlock
+    containers:
+    - board
+  - type: PlacementReplacement
+    key: walls
+  - type: LightningTarget
+    priority: 1
+  - type: BlockWeather
+  - type: GuideHelp
+    guides:
+    - Airlocks
+    - WirePanels
+    - Networking
+  - type: StaticPrice
+    price: 150
+  - type: StructureAligner
+  - type: StructureAlignerPylon
+  - type: LayerChangeOnWeld
+    unWeldedLayer: AirlockLayer
+    weldedLayer: WallLayer
+  - type: DoorSignalControl
+  - type: DeviceNetwork
+    deviceNetId: Wireless
+    receiveFrequencyId: BasicDevice
+  - type: WirelessNetworkConnection
+    range: 200
+  - type: DeviceLinkSink
+    ports:
+    - Open
+    - Close
+    - Toggle
+    - AutoClose
+    - DoorBolt
+  - type: DeviceLinkSource
+    ports:
+    - DoorStatus
+    lastSignals:
+      DoorStatus: false
+  - type: SoundOnOverload
+  - type: SpawnOnOverload
+  - type: RCDDeconstructable
+    cost: 6
+    delay: 8
+    fx: EffectRCDDeconstruct8
+  - type: Paintable
+    group: AirlockStandard
+  - type: PryUnpowered
 # Самостоятельный предмет: все свойства выписаны явно (раньше: parent AirlockScience)
 
 - type: entity
