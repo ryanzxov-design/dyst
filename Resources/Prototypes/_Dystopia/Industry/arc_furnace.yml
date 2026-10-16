@@ -1,0 +1,138 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: дуговая сталеплавильная печь (ДСП), 3×3. Плавит как тигель (DystopiaCrucible), греется от сети,
+# сама снимает шлак и разливает в подведённый к корпусу литейный желоб только выбранный в меню сплав.
+# Самостоятельная сущность, без parent. Числа — в полях компонентов (Content.Shared/_Dystopia/Industry/).
+
+- type: entity
+  id: DystopiaArcFurnace
+  name: electric arc furnace
+  description: "A big steel-making furnace: three graphite electrodes strike arcs into the charge. Load ore and scrap, switch it on, choose the alloy to tap: it skims the slag itself and pours only that alloy into the attached casting channel."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-1.45,-1.45,1.45,1.45"   # 3×3 клетки
+        density: 3000
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]
+  - type: Tag
+    tags: [ Structure ]
+  - type: Sprite
+    sprite: _Dystopia/Structures/Industry/arc_furnace.rsi
+    noRot: true
+    drawdepth: Objects
+    layers:
+    - state: base
+    - state: arcs
+      map: [ "enum.DystopiaArcFurnaceVisuals.Working" ]
+      shader: unshaded
+      visible: false
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DystopiaArcFurnaceVisuals.Working:
+        enum.DystopiaArcFurnaceVisuals.Working:
+          True: { visible: true }
+          False: { visible: false }
+  - type: PointLight
+    enabled: false
+    radius: 6
+    energy: 3
+    color: "#C8E0FF"
+  - type: AmbientSound
+    enabled: false
+    volume: -4
+    range: 8
+    sound:
+      path: /Audio/Ambience/Objects/emf_buzz.ogg
+  - type: ApcPowerReceiver
+    powerLoad: 200
+  - type: ExtensionCableReceiver
+  - type: ActivatableUI
+    key: enum.DystopiaArcFurnaceUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.DystopiaArcFurnaceUiKey.Key:
+        type: DystopiaArcFurnaceBoundUserInterface
+  - type: Solution
+    id: crucible
+    solution:
+      maxVol: 1500
+      canReact: true
+  - type: ContainerContainer
+    containers:
+      dystopia_crucible_charge: !type:Container {}
+      dystopia_arc_slag: !type:Container {}
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 800
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:EmptyAllContainersBehaviour
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 10
+            max: 15
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: DystopiaCrucible
+    solution: crucible
+    chargeContainer: dystopia_crucible_charge
+    maxCharge: 10000     # 100 кусков
+    meltRate: 500        # пять кусков в секунду
+    heatMultiplier: 1
+    coolingRate: 0.002
+    fallbackAmbient: 293.15
+    hotThreshold: 333.15
+    glowThreshold: 873.15
+    foreignSlag: DystopiaMoltenSlag
+    foreignSlagPer100: 5
+    slagReagent: DystopiaMoltenSlag
+    slagLump: DystopiaSlag1
+    slagPerLump: 5
+    updateInterval: 0.5
+  - type: DystopiaArcFurnace
+    maxTemperature: 2073.15   # 1800 °C
+    heatRate: 30
+    powerLoad: 15000
+    idlePowerLoad: 200
+    updateInterval: 1
+    pourAmount: 100           # за раз
+    slagContainer: dystopia_arc_slag
+    slagCapacity: 120
+    footprint: 1              # 3×3
+    castable:
+    - DystopiaMoltenSteel
+    - DystopiaMoltenIron
+    - DystopiaMoltenCastIron
+    - DystopiaMoltenStainlessSteel
+    - DystopiaMoltenFerrochrome
+    - DystopiaMoltenCopper
+    - DystopiaMoltenBrass
+    - DystopiaMoltenBronze
+    - DystopiaMoltenAluminium
+    - DystopiaMoltenZinc
+    - DystopiaMoltenTin
+    - DystopiaMoltenLead
+    - DystopiaMoltenSolder
+    - DystopiaMoltenGold
+    - DystopiaMoltenSilver
+    - DystopiaMoltenUranium

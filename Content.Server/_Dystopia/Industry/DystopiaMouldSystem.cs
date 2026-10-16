@@ -8,6 +8,10 @@ using Content.Shared._Dystopia.Industry;
 using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Containers.ItemSlots;
 using Content.Shared.Examine;
+using Content.Shared.Interaction;
+using Content.Shared.Popups;
+using Content.Shared.Verbs;
+using Robust.Shared.Containers;
 using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
@@ -24,6 +28,8 @@ public sealed partial class DystopiaMouldSystem : EntitySystem
     [Dependency] private DystopiaQuenchSystem _quench = default!;
     [Dependency] private ItemSlotsSystem _itemSlots = default!;
     [Dependency] private StackSystem _stack = default!;
+    [Dependency] private SharedContainerSystem _container = default!;
+    [Dependency] private SharedPopupSystem _popup = default!;
 
     public override void Initialize()
     {
@@ -31,6 +37,10 @@ public sealed partial class DystopiaMouldSystem : EntitySystem
         SubscribeLocalEvent<DystopiaMouldComponent, ExaminedEvent>(OnExamined);
         SubscribeLocalEvent<DystopiaMouldComponent, DystopiaGetTemperatureEvent>(OnGetTemperature);
         SubscribeLocalEvent<DystopiaMouldComponent, DystopiaCoolEvent>(OnCool);
+        SubscribeLocalEvent<DystopiaMouldComponent, ComponentInit>(OnInit);
+        SubscribeLocalEvent<DystopiaMouldComponent, InteractHandEvent>(OnInteractHand);
+        SubscribeLocalEvent<DystopiaMouldComponent, GetVerbsEvent<AlternativeVerb>>(OnGetVerbs);
+        SubscribeLocalEvent<DystopiaMouldComponent, DystopiaConveyorExtractEvent>(OnConveyorExtract);
     }
 
     private float GetAmbient(Entity<DystopiaMouldComponent> ent)
@@ -115,14 +125,14 @@ public sealed partial class DystopiaMouldSystem : EntitySystem
                 : shape.Defect;
 
             _solution.SplitSolution(soln.Value, shape.Volume);
-            SpawnCasting(product, coords);
+            SpawnCasting(ent, product, coords);
         }
 
         // Недолив застыл комом — брак.
         if (solution.Volume > 0)
         {
             _solution.RemoveAllSolution(soln.Value);
-            SpawnCasting(shape.Defect, coords);
+            SpawnCasting(ent, shape.Defect, coords);
         }
 
         _hot.SetHot(ent.Owner, false);
@@ -143,11 +153,102 @@ public sealed partial class DystopiaMouldSystem : EntitySystem
         return ent.Comp.Shape is { } own && _proto.TryIndex(own, out var shape) ? shape : null;
     }
 
-    // Отливки одного вида складываются в стопку (слитки ×10 — одной стопкой).
-    private void SpawnCasting(EntProtoId product, EntityCoordinates coords)
+    // Отливки одного вида складываются в стопку (слитки ×10 — одной стопкой). У стола — в его контейнер.
+    private void SpawnCasting(Entity<DystopiaMouldComponent> ent, EntProtoId product, EntityCoordinates coords)
     {
         var spawned = Spawn(product, coords);
-        _stack.TryMergeToContacts(spawned);
+        if (ent.Comp.OutputContainer is not { } id || !_container.TryGetContainer(ent, id, out var output))
+        {
+            _stack.TryMergeToContacts(spawned);
+            return;
+        }
+
+        foreach (var existing in output.ContainedEntities)
+        {
+            if (EntityManager.IsQueuedForDeletion(spawned))
+                return;
+
+            _stack.TryMergeStacks(spawned, existing, out _);
+        }
+
+        if (!EntityManager.IsQueuedForDeletion(spawned))
+            _container.Insert(spawned, output);
+    }
+
+    private void OnInit(Entity<DystopiaMouldComponent> ent, ref ComponentInit args)
+    {
+        if (ent.Comp.OutputContainer is { } id)
+            _container.EnsureContainer<Container>(ent, id);
+    }
+
+    private int CastingsInside(Entity<DystopiaMouldComponent> ent)
+    {
+        if (ent.Comp.OutputContainer is not { } id || !_container.TryGetContainer(ent, id, out var output))
+            return 0;
+
+        var total = 0;
+        foreach (var item in output.ContainedEntities)
+        {
+            if (!EntityManager.IsQueuedForDeletion(item))
+                total += _stack.GetCount(item);
+        }
+
+        return total;
+    }
+
+    /// <summary>Достать готовые отливки из стола — к ногам того, кто достаёт.</summary>
+    public void TakeCastings(Entity<DystopiaMouldComponent> ent, EntityUid user)
+    {
+        if (ent.Comp.OutputContainer is not { } id || !_container.TryGetContainer(ent, id, out var output) ||
+            output.ContainedEntities.Count == 0)
+        {
+            _popup.PopupEntity(Loc.GetString("dystopia-casting-table-nothing"), ent, user);
+            return;
+        }
+
+        _container.EmptyContainer(output, destination: Transform(user).Coordinates);
+        _popup.PopupEntity(Loc.GetString("dystopia-casting-table-taken"), ent, user);
+    }
+
+    private void OnInteractHand(Entity<DystopiaMouldComponent> ent, ref InteractHandEvent args)
+    {
+        if (args.Handled || ent.Comp.OutputContainer == null)
+            return;
+
+        args.Handled = true;
+        TakeCastings(ent, args.User);
+    }
+
+    private void OnGetVerbs(Entity<DystopiaMouldComponent> ent, ref GetVerbsEvent<AlternativeVerb> args)
+    {
+        if (!args.CanAccess || !args.CanInteract || args.Hands == null || CastingsInside(ent) <= 0)
+            return;
+
+        var user = args.User;
+        args.Verbs.Add(new AlternativeVerb
+        {
+            Text = Loc.GetString("dystopia-casting-table-take-verb"),
+            Act = () => TakeCastings(ent, user),
+            Priority = 2,
+        });
+    }
+
+    // Конвейерный извлекатель забирает готовые отливки.
+    private void OnConveyorExtract(Entity<DystopiaMouldComponent> ent, ref DystopiaConveyorExtractEvent args)
+    {
+        if (args.Handled || ent.Comp.OutputContainer is not { } id || !_container.TryGetContainer(ent, id, out var output))
+            return;
+
+        args.Handled = true;
+        foreach (var item in output.ContainedEntities)
+        {
+            if (EntityManager.IsQueuedForDeletion(item) || !args.Accept(item))
+                continue;
+
+            if (_container.Remove(item, output))
+                args.Item = item;
+            return;
+        }
     }
 
     private void OnExamined(Entity<DystopiaMouldComponent> ent, ref ExaminedEvent args)
@@ -164,6 +265,9 @@ public sealed partial class DystopiaMouldSystem : EntitySystem
         {
             args.PushMarkup(Loc.GetString("dystopia-casting-table-no-form"));
         }
+
+        if (CastingsInside(ent) is var castings and > 0)
+            args.PushMarkup(Loc.GetString("dystopia-casting-table-inside", ("count", castings)));
 
         if (!_solution.TryGetSolution(ent.Owner, ent.Comp.Solution, out _, out var solution))
             return;

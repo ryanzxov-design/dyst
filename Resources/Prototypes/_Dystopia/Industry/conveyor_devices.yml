@@ -45,6 +45,12 @@
         enum.DystopiaConveyorDeviceVisuals.Working:
           True: { state: working }
           False: { state: icon }
+  - type: ActivatableUI   # клик — меню настройки
+    key: enum.DystopiaConveyorUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.DystopiaConveyorUiKey.Key:
+        type: DystopiaConveyorBoundUserInterface
   - type: ApcPowerReceiver
     powerLoad: 150
   - type: ExtensionCableReceiver
@@ -115,6 +121,12 @@
         enum.DystopiaConveyorDeviceVisuals.Working:
           True: { state: working }
           False: { state: icon }
+  - type: ActivatableUI   # клик — меню настройки
+    key: enum.DystopiaConveyorUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.DystopiaConveyorUiKey.Key:
+        type: DystopiaConveyorBoundUserInterface
   - type: ApcPowerReceiver
     powerLoad: 150
   - type: ExtensionCableReceiver
@@ -185,6 +197,12 @@
         enum.DystopiaConveyorDeviceVisuals.Working:
           True: { state: working }
           False: { state: icon }
+  - type: ActivatableUI   # клик — меню настройки
+    key: enum.DystopiaConveyorUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.DystopiaConveyorUiKey.Key:
+        type: DystopiaConveyorBoundUserInterface
   - type: ApcPowerReceiver
     powerLoad: 150
   - type: ExtensionCableReceiver

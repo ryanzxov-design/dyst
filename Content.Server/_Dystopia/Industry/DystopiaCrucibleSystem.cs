@@ -203,6 +203,10 @@ public sealed partial class DystopiaCrucibleSystem : EntitySystem
 
     private bool IsForgeItem(DystopiaForgeComponent forge, EntityUid item)
     {
+        // Электрическому горну огонь и топливо не нужны — уголь идёт прямо в тигель.
+        if (forge.Electric)
+            return false;
+
         var hot = new IsHotEvent();
         RaiseLocalEvent(item, hot);
         return hot.IsHot ||
@@ -396,7 +400,8 @@ public sealed partial class DystopiaCrucibleSystem : EntitySystem
 
         _hot.SetHot(ent.Owner, comp.Temperature > comp.HotThreshold);
         // Свечение — у тигля-предмета; у горна с тиглем светом управляет огонь горна.
-        if (!HasComp<DystopiaForgeComponent>(ent) && _light.TryGetLight(ent, out var light))
+        if (!HasComp<DystopiaForgeComponent>(ent) && !HasComp<DystopiaArcFurnaceComponent>(ent) &&
+            _light.TryGetLight(ent, out var light))
             _light.SetEnabled(ent, comp.Temperature > comp.GlowThreshold, light);
     }
 

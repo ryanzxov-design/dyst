@@ -134,10 +134,36 @@ public sealed partial class DystopiaForgeComponent : Component
     [DataField]
     public float UpdateInterval = 0.5f;
 
+    /// <summary>
+    /// Электрический горн: без топлива и огня — греет, пока включён (действие) и есть ток. Предел жара —
+    /// <see cref="BaseMaxTemperature"/>, меха не нужны.
+    /// </summary>
+    [DataField]
+    public bool Electric;
+
+    /// <summary>Потребление электрического горна, когда включён и когда выключен, Вт.</summary>
+    [DataField]
+    public float PowerLoad = 4000f;
+
+    [DataField]
+    public float IdlePowerLoad = 50f;
+
+    /// <summary>Во что превращается горн, когда в него ставят большой тигель.</summary>
+    [DataField]
+    public EntProtoId? MountedPrototype;
+
+    /// <summary>Во что превращается горн, когда на нём ставят комплект ТЭНов (электрический горн).</summary>
+    [DataField]
+    public EntProtoId? UpgradeTo;
+
     [ViewVariables]
     public TimeSpan NextUpdate;
 
     // --- состояние ---
+
+    /// <summary>Электрический горн включён.</summary>
+    [DataField]
+    public bool On;
 
     [DataField]
     public float Fuel;
@@ -164,6 +190,13 @@ public sealed partial class DystopiaMouldComponent : Component
     /// <summary>Слот сменной формы (ItemSlots) у литейного стола.</summary>
     [DataField]
     public string? FormSlot;
+
+    /// <summary>
+    /// Контейнер для готовых отливок (у литейного стола): достаются рукой/действием или конвейерным извлекателем.
+    /// Нет — отливка падает на пол (изложница-предмет).
+    /// </summary>
+    [DataField]
+    public string? OutputContainer;
 
     [DataField]
     public string Solution = "mould";

@@ -70,8 +70,36 @@ dystopia-conveyor-examine-green = [color=#50c050]Зелёный[/color] выхо
 dystopia-conveyor-examine-blue = [color=#5080e0]Синий[/color] выход: { $items }.
 
 ent-DystopiaConveyorExtractor = конвейерный извлекатель
-    .desc = Рука на шарнире: вынимает предметы из машины, ящика или шкафа позади и кладёт на конвейер впереди. Фильтр — ПКМ с предметом в руке.
+    .desc = Рука на шарнире: вынимает предметы из машины, ящика или шкафа позади и кладёт на конвейер впереди. Настройка фильтра — клик по устройству.
 ent-DystopiaConveyorInserter = конвейерный вставщик
-    .desc = Рука на шарнире: берёт предметы с конвейера позади и кладёт в машину, ящик или шкаф впереди. Фильтр — ПКМ с предметом в руке.
+    .desc = Рука на шарнире: берёт предметы с конвейера позади и кладёт в машину, ящик или шкаф впереди. Настройка фильтра — клик по устройству.
 ent-DystopiaConveyorSorter = конвейерный сортировщик
-    .desc = Разводит предметы с конвейера позади по трём выходам: зелёному, синему и жёлтому (всё остальное). Настройка — ПКМ с предметом в руке.
+    .desc = Разводит предметы с конвейера позади по трём выходам: зелёному, синему и жёлтому (всё остальное). Настройка — клик по устройству.
+
+# Меню конвейерных устройств
+dystopia-industry-ui-sub = Промышленная Служба Города  ·  Заводское оборудование
+dystopia-industry-ui-slogan = План — закон. Норма — долг.
+dystopia-conveyor-ui-title = Конвейерное устройство
+dystopia-conveyor-ui-extract-hint = Вынимает из хранилища позади и кладёт на клетку по стрелке.
+dystopia-conveyor-ui-insert-hint = Берёт с клетки позади и кладёт в хранилище по стрелке.
+dystopia-conveyor-ui-sort-hint = Берёт с клетки позади и разводит по выходам: зелёный — налево, синий — направо, жёлтый — вперёд.
+dystopia-conveyor-ui-whitelist = Белый список
+dystopia-conveyor-ui-blacklist = Чёрный список
+dystopia-conveyor-ui-list-white = Пропускать только
+dystopia-conveyor-ui-list-black = Пропускать всё, кроме
+dystopia-conveyor-ui-green = Зелёный выход (налево)
+dystopia-conveyor-ui-blue = Синий выход (направо)
+dystopia-conveyor-ui-yellow = Жёлтый выход (вперёд)
+dystopia-conveyor-ui-yellow-hint = Всё, что не попало в зелёный и синий.
+dystopia-conveyor-ui-add-held = Добавить то, что в руке
+dystopia-conveyor-ui-clear = Очистить
+dystopia-conveyor-ui-empty = Пусто.
+dystopia-conveyor-ui-remove = Убрать
+dystopia-conveyor-ui-search = Поиск предметов
+dystopia-conveyor-ui-search-placeholder = Название предмета…
+dystopia-conveyor-ui-search-hint = Введите хотя бы две буквы названия.
+dystopia-conveyor-ui-nothing = Ничего не найдено.
+dystopia-conveyor-ui-add = Добавить
+dystopia-conveyor-ui-to-green = В зелёный
+dystopia-conveyor-ui-to-blue = В синий
+dystopia-conveyor-ui-hand-empty = В руке ничего нет.

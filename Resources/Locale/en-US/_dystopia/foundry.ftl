@@ -79,3 +79,48 @@ dystopia-mould-shape-rod = rod
 
 stack-dystopia-slag = slag
 construction-category-dystopia-industry = Industry
+
+# Casting table: castings stay inside
+dystopia-casting-table-nothing = There are no finished castings.
+dystopia-casting-table-taken = You take the castings out of the table.
+dystopia-casting-table-take-verb = Take castings
+dystopia-casting-table-inside = Finished castings inside: { $count } (take with an empty hand or the verb).
+
+# Electric forge
+dystopia-forge-electric-on-verb = Switch on forge
+dystopia-forge-electric-off-verb = Switch off forge
+dystopia-forge-electric-turned-on = You switch the forge on; the heaters start to glow.
+dystopia-forge-electric-turned-off = You switch the forge off.
+dystopia-forge-electric-examine-working = The forge is [color=#ff8a30]on[/color] and heating.
+dystopia-forge-electric-examine-unpowered = The forge is on, but there is [color=#d05050]no power[/color].
+dystopia-forge-electric-examine-off = The forge is off (verb to switch it on).
+dystopia-forge-electric-examine-max = Heat: up to { $max } °C, no bellows needed.
+dystopia-forge-upgrade-already = This forge is already electric.
+dystopia-forge-upgraded = You fit the heaters; the forge is electric now.
+dystopia-forge-mounted-electric-examine = Anything that melts goes into the crucible on click (coal too). Switch on with the verb. "Tilt crucible" pours into a channel leading to the forge.
+
+# Electric arc furnace
+dystopia-arc-furnace-slag-ejected = You unload the slag from the furnace.
+dystopia-arc-furnace-examine-on = The furnace is [color=#a0c8ff]on[/color].
+dystopia-arc-furnace-examine-off = The furnace is off.
+dystopia-arc-furnace-examine-selected = Tapping: { $alloy }.
+dystopia-arc-furnace-examine-slag = Skimmed slag: { $count }.
+dystopia-arc-furnace-ui-title = Electric arc furnace
+dystopia-arc-furnace-ui-turn-on = Switch on
+dystopia-arc-furnace-ui-turn-off = Switch off
+dystopia-arc-furnace-ui-status-off = Furnace is off
+dystopia-arc-furnace-ui-status-on = Arc is burning
+dystopia-arc-furnace-ui-status-unpowered = No power
+dystopia-arc-furnace-ui-temperature = Temperature: { $temperature } °C of { $max } °C
+dystopia-arc-furnace-ui-charge = Charge: { $charge } of { $max } chunks. Melt: { $volume } of { $maxVolume } u.
+dystopia-arc-furnace-ui-channel-yes = A casting channel is attached.
+dystopia-arc-furnace-ui-channel-no = No casting channel attached: nowhere to pour.
+dystopia-arc-furnace-ui-melt = Melt
+dystopia-arc-furnace-ui-empty = Empty.
+dystopia-arc-furnace-ui-amount = { $amount } u
+dystopia-arc-furnace-ui-pour = Tapping
+dystopia-arc-furnace-ui-pour-hint = The furnace pours only the selected alloy, and only while it is liquid; everything else stays inside.
+dystopia-arc-furnace-ui-no-pour = Don't pour
+dystopia-arc-furnace-ui-slag = Slag
+dystopia-arc-furnace-ui-slag-count = Skimmed lumps: { $count } of { $max }.
+dystopia-arc-furnace-ui-eject-slag = Unload slag

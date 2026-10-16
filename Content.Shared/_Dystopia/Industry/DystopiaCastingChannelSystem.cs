@@ -4,12 +4,15 @@
 // и по порядку (ближние первыми) заполняет литейные столы и изложницы, к которым подходит отверстие желоба.
 
 using Content.Shared.Chemistry.Components;
+using Content.Shared.Chemistry;
 using Content.Shared.Chemistry.EntitySystems;
+using Content.Shared.Chemistry.Reagent;
 using Content.Shared.FixedPoint;
 using Content.Shared.Popups;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Network;
+using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 
 namespace Content.Shared._Dystopia.Industry;
@@ -75,16 +78,31 @@ public sealed partial class DystopiaCastingChannelSystem : EntitySystem
         }
     }
 
-    /// <summary>Желоб на соседней клетке, у которого есть отверстие к <paramref name="source"/>.</summary>
-    public Entity<DystopiaCastingChannelComponent>? FindAttachedChannel(EntityUid source)
+    /// <summary>
+    /// Желоб на соседней клетке, у которого есть отверстие к <paramref name="source"/>. Для больших конструкций
+    /// <paramref name="radius"/> — полуразмер корпуса в клетках (1 — конструкция 3×3): желоб ищется вокруг всего корпуса.
+    /// </summary>
+    public Entity<DystopiaCastingChannelComponent>? FindAttachedChannel(EntityUid source, int radius = 0)
     {
-        if (!TryGetTile(source, out var grid, out var tile))
+        if (!TryGetTile(source, out var grid, out var center))
             return null;
 
-        foreach (var side in Sides)
+        for (var dx = -radius; dx <= radius; dx++)
         {
-            if (ChannelAt(grid, tile.Offset(side)) is { } channel && HasOpening(channel, side.GetOpposite()))
-                return channel;
+            for (var dy = -radius; dy <= radius; dy++)
+            {
+                var tile = center + new Vector2i(dx, dy);
+                foreach (var side in Sides)
+                {
+                    var next = tile.Offset(side);
+                    // Сосед внутри корпуса — не край
+                    if (Math.Abs(next.X - center.X) <= radius && Math.Abs(next.Y - center.Y) <= radius)
+                        continue;
+
+                    if (ChannelAt(grid, next) is { } channel && HasOpening(channel, side.GetOpposite()))
+                        return channel;
+                }
+            }
         }
 
         return null;
@@ -157,9 +175,56 @@ public sealed partial class DystopiaCastingChannelSystem : EntitySystem
         }
 
         var poured = PourInto(user, source, sourceSolution, moulds);
-        if (poured <= FixedPoint2.Zero)
-            return poured;
+        if (poured > FixedPoint2.Zero)
+            ShowFlow(channel, path);
 
+        return poured;
+    }
+
+    /// <summary>
+    /// Разлить по сети желобов только один реагент (дуговая печь льёт только выбранный сплав), не больше
+    /// <paramref name="max"/>. Возвращает, сколько разлито.
+    /// </summary>
+    public FixedPoint2 PourReagent(EntityUid source, Entity<SolutionComponent> sourceSolution,
+        ProtoId<ReagentPrototype> reagent, FixedPoint2 max, Entity<DystopiaCastingChannelComponent> channel)
+    {
+        var path = new List<EntityUid>();
+        var moulds = GetMoulds(channel, path);
+        var total = FixedPoint2.Zero;
+        var temperature = sourceSolution.Comp.Solution.Temperature;
+
+        foreach (var mould in moulds)
+        {
+            var left = FixedPoint2.Min(max - total, sourceSolution.Comp.Solution.GetTotalPrototypeQuantity(reagent));
+            if (left <= FixedPoint2.Zero)
+                break;
+
+            if (!TryComp<DystopiaMouldComponent>(mould, out var comp) ||
+                !_solution.TryGetSolution(mould, comp.Solution, out var target, out var targetSolution))
+            {
+                continue;
+            }
+
+            var amount = FixedPoint2.Min(left, targetSolution.AvailableVolume);
+            if (amount <= FixedPoint2.Zero)
+                continue;
+
+            _solution.RemoveReagent(sourceSolution, reagent.Id, amount);
+            _solution.TryAddReagent(target.Value, reagent.Id, amount, out var accepted, temperature);
+            total += accepted;
+
+            var ev = new SolutionTransferredEvent(source, mould, source, accepted);
+            RaiseLocalEvent(mould, ref ev);
+        }
+
+        if (total > FixedPoint2.Zero)
+            ShowFlow(channel, path);
+
+        return total;
+    }
+
+    private void ShowFlow(Entity<DystopiaCastingChannelComponent> channel, List<EntityUid> path)
+    {
         var until = _timing.CurTime + TimeSpan.FromSeconds(channel.Comp.FlowVisualTime);
         foreach (var uid in path)
         {
@@ -172,7 +237,6 @@ public sealed partial class DystopiaCastingChannelSystem : EntitySystem
         }
 
         _audio.PlayPvs(channel.Comp.FlowSound, channel);
-        return poured;
     }
 
     /// <summary>Разлить по столам и изложницам по порядку, каждой — сколько влезет. Возвращает, сколько разлито.</summary>

@@ -133,3 +133,58 @@ ent-DystopiaCastingFormRod1 = литейная форма: прут ×1
 ent-DystopiaCastingFormRod10 = литейная форма: прут ×10
     .desc = Чугунная форма для литейного стола: 100 ед. расплава, двадцать прутьев за заливку.
 construction-category-dystopia-industry = Промышленность
+
+# Литейный стол: отливки внутри
+dystopia-casting-table-nothing = Готовых отливок нет.
+dystopia-casting-table-taken = Вы достаёте отливки из стола.
+dystopia-casting-table-take-verb = Достать отливки
+dystopia-casting-table-inside = Готовых отливок внутри: { $count } (достать — клик рукой или ПКМ).
+
+# Электрический горн
+dystopia-forge-electric-on-verb = Включить горн
+dystopia-forge-electric-off-verb = Выключить горн
+dystopia-forge-electric-turned-on = Вы включаете горн: ТЭНы наливаются жаром.
+dystopia-forge-electric-turned-off = Вы выключаете горн.
+dystopia-forge-electric-examine-working = Горн [color=#ff8a30]включён[/color] и греет.
+dystopia-forge-electric-examine-unpowered = Горн включён, но [color=#d05050]нет питания[/color].
+dystopia-forge-electric-examine-off = Горн выключен (ПКМ — включить).
+dystopia-forge-electric-examine-max = Жар: до { $max } °C, мехов не нужно.
+dystopia-forge-upgrade-already = Этот горн уже электрический.
+dystopia-forge-upgraded = Вы ставите ТЭНы — горн стал электрическим.
+dystopia-forge-mounted-electric-examine = Всё, что плавится, — кликом в тигель (уголь тоже). Включение — ПКМ. Разлив — «Наклонить тигель»: в желоб, подведённый к горну.
+
+ent-DystopiaForgeElectric = электрический горн
+    .desc = Горн с трубчатыми электронагревателями (ТЭНами). Ни топлива, ни огня: включите — и он быстро раскалится, пока есть ток. Сверху ставится малый тигель, кликом большим тиглем — встанет большой.
+ent-DystopiaForgeElectricLargeCrucible = электрический горн с большим тиглем
+    .desc = Электрический горн со вставленным большим тиглем. Включите, загрузите тигель и наклоните его — расплав пойдёт в подведённый литейный желоб.
+ent-DystopiaForgeHeaterKit = комплект ТЭНов
+    .desc = Связка трубчатых электронагревателей с клеммами. Кликните им по горну (или горну с большим тиглем) — горн станет электрическим.
+
+# Дуговая сталеплавильная печь
+dystopia-arc-furnace-slag-ejected = Вы выгружаете шлак из печи.
+dystopia-arc-furnace-examine-on = Печь [color=#a0c8ff]включена[/color].
+dystopia-arc-furnace-examine-off = Печь выключена.
+dystopia-arc-furnace-examine-selected = Разливает: { $alloy }.
+dystopia-arc-furnace-examine-slag = Снятого шлака: { $count }.
+dystopia-arc-furnace-ui-title = Дуговая сталеплавильная печь
+dystopia-arc-furnace-ui-turn-on = Включить
+dystopia-arc-furnace-ui-turn-off = Выключить
+dystopia-arc-furnace-ui-status-off = Печь выключена
+dystopia-arc-furnace-ui-status-on = Дуга горит
+dystopia-arc-furnace-ui-status-unpowered = Нет питания
+dystopia-arc-furnace-ui-temperature = Температура: { $temperature } °C из { $max } °C
+dystopia-arc-furnace-ui-charge = Загрузка: { $charge } из { $max } кусков. Расплав: { $volume } из { $maxVolume } ед.
+dystopia-arc-furnace-ui-channel-yes = Литейный желоб подведён.
+dystopia-arc-furnace-ui-channel-no = Литейный желоб не подведён — разливать некуда.
+dystopia-arc-furnace-ui-melt = Расплав
+dystopia-arc-furnace-ui-empty = Пусто.
+dystopia-arc-furnace-ui-amount = { $amount } ед.
+dystopia-arc-furnace-ui-pour = Разлив
+dystopia-arc-furnace-ui-pour-hint = Печь льёт в желоб только выбранный сплав и только жидкий; остальное остаётся в печи.
+dystopia-arc-furnace-ui-no-pour = Не разливать
+dystopia-arc-furnace-ui-slag = Шлак
+dystopia-arc-furnace-ui-slag-count = Снято кусков: { $count } из { $max }.
+dystopia-arc-furnace-ui-eject-slag = Выгрузить шлак
+
+ent-DystopiaArcFurnace = дуговая сталеплавильная печь
+    .desc = Большая печь: три графитовых электрода бьют дугой в шихту. Загрузите руду и лом, включите, выберите сплав для разлива — шлак печь снимает сама и льёт в подведённый желоб только этот сплав.

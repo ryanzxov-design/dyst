@@ -105,6 +105,8 @@
     heatRate: 12            # K в секунду
     bellowsFuelMultiplier: 2
     updateInterval: 0.5
+    mountedPrototype: DystopiaForgeLargeCrucible   # клик большим тиглем
+    upgradeTo: DystopiaForgeElectric               # клик комплектом ТЭНов
 
 - type: entity
   id: DystopiaBellows

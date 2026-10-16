@@ -3,12 +3,13 @@
 // Вставщик: с клетки позади (с конвейера) — в хранилище впереди. Сортировщик: с клетки позади — в зелёный выход
 // (налево), синий (направо) или жёлтый (вперёд, всё остальное). Хранилища: машины переработки, тигли и горны
 // (их системы отвечают на события), ящики и шкафы (закрытые — можно, запертые или заваренные — нет), латы.
-// Настройка — ПКМ с предметом в руке (добавить/убрать из фильтра) и без (режим, очистка); осмотр показывает всё.
+// Настройка — меню (клик по устройству): поиск предметов, списки, режим; плюс ПКМ с предметом в руке.
 
 using Content.Server.Materials;
 using Content.Server.Power.EntitySystems;
 using Content.Shared._Dystopia.Industry;
 using Content.Shared.Examine;
+using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Item;
 using Content.Shared.Lock;
 using Content.Shared.Maps;
@@ -43,12 +44,107 @@ public sealed partial class DystopiaConveyorDeviceSystem : EntitySystem
     [Dependency] private SharedAppearanceSystem _appearance = default!;
     [Dependency] private SharedPopupSystem _popup = default!;
     [Dependency] private SharedTransformSystem _xform = default!;
+    [Dependency] private SharedUserInterfaceSystem _ui = default!;
+    [Dependency] private SharedHandsSystem _hands = default!;
 
     public override void Initialize()
     {
         base.Initialize();
         SubscribeLocalEvent<DystopiaConveyorDeviceComponent, GetVerbsEvent<AlternativeVerb>>(OnGetVerbs);
         SubscribeLocalEvent<DystopiaConveyorDeviceComponent, ExaminedEvent>(OnExamined);
+        SubscribeLocalEvent<DystopiaConveyorDeviceComponent, BoundUIOpenedEvent>(OnUiOpened);
+
+        Subs.BuiEvents<DystopiaConveyorDeviceComponent>(DystopiaConveyorUiKey.Key, subs =>
+        {
+            subs.Event<DystopiaConveyorSetWhitelistMessage>(OnSetWhitelist);
+            subs.Event<DystopiaConveyorAddMessage>(OnAdd);
+            subs.Event<DystopiaConveyorRemoveMessage>(OnRemove);
+            subs.Event<DystopiaConveyorAddHeldMessage>(OnAddHeld);
+            subs.Event<DystopiaConveyorClearMessage>(OnClear);
+        });
+    }
+
+    // ------------------------------------------------------------------ меню
+
+    private HashSet<string> GetList(DystopiaConveyorDeviceComponent comp, DystopiaConveyorList list)
+    {
+        return list switch
+        {
+            DystopiaConveyorList.Green => comp.SortGreen,
+            DystopiaConveyorList.Blue => comp.SortBlue,
+            _ => comp.Filter,
+        };
+    }
+
+    /// <summary>Добавить ключ в список. В сортировщике предмет идёт только в один выход.</summary>
+    private void AddKey(DystopiaConveyorDeviceComponent comp, DystopiaConveyorList list, string key)
+    {
+        GetList(comp, list).Add(key);
+        if (list == DystopiaConveyorList.Green)
+            comp.SortBlue.Remove(key);
+        else if (list == DystopiaConveyorList.Blue)
+            comp.SortGreen.Remove(key);
+    }
+
+    private void UpdateUi(Entity<DystopiaConveyorDeviceComponent> ent)
+    {
+        static List<string> Sorted(HashSet<string> set)
+        {
+            var list = new List<string>(set);
+            list.Sort(StringComparer.Ordinal);
+            return list;
+        }
+
+        _ui.SetUiState(ent.Owner, DystopiaConveyorUiKey.Key, new DystopiaConveyorUiState(ent.Comp.Mode,
+            ent.Comp.Whitelist, Sorted(ent.Comp.Filter), Sorted(ent.Comp.SortGreen), Sorted(ent.Comp.SortBlue)));
+    }
+
+    private void OnUiOpened(Entity<DystopiaConveyorDeviceComponent> ent, ref BoundUIOpenedEvent args)
+    {
+        UpdateUi(ent);
+    }
+
+    private void OnSetWhitelist(Entity<DystopiaConveyorDeviceComponent> ent, ref DystopiaConveyorSetWhitelistMessage args)
+    {
+        ent.Comp.Whitelist = args.Whitelist;
+        UpdateUi(ent);
+    }
+
+    private void OnAdd(Entity<DystopiaConveyorDeviceComponent> ent, ref DystopiaConveyorAddMessage args)
+    {
+        // Ключ должен быть настоящим прототипом или стопкой — клиенту на слово не верим.
+        var valid = args.Key.StartsWith(DystopiaConveyorKeys.StackPrefix, StringComparison.Ordinal)
+            ? _proto.HasIndex<StackPrototype>(args.Key[DystopiaConveyorKeys.StackPrefix.Length..])
+            : _proto.HasIndex<EntityPrototype>(args.Key);
+        if (!valid)
+            return;
+
+        AddKey(ent.Comp, args.List, args.Key);
+        UpdateUi(ent);
+    }
+
+    private void OnRemove(Entity<DystopiaConveyorDeviceComponent> ent, ref DystopiaConveyorRemoveMessage args)
+    {
+        GetList(ent.Comp, args.List).Remove(args.Key);
+        UpdateUi(ent);
+    }
+
+    private void OnAddHeld(Entity<DystopiaConveyorDeviceComponent> ent, ref DystopiaConveyorAddHeldMessage args)
+    {
+        if (_hands.GetActiveItem(args.Actor) is not { } held || FilterKey(held) is not { } key)
+        {
+            _popup.PopupEntity(Loc.GetString("dystopia-conveyor-ui-hand-empty"), ent, args.Actor);
+            return;
+        }
+
+        AddKey(ent.Comp, args.List, key);
+        UpdateUi(ent);
+    }
+
+    private void OnClear(Entity<DystopiaConveyorDeviceComponent> ent, ref DystopiaConveyorClearMessage args)
+    {
+        GetList(ent.Comp, args.List).Clear();
+        UpdateUi(ent);
     }
 
     // ------------------------------------------------------------------ геометрия
@@ -123,17 +219,14 @@ public sealed partial class DystopiaConveyorDeviceSystem : EntitySystem
     public string? FilterKey(EntityUid item)
     {
         if (TryComp<StackComponent>(item, out var stack))
-            return "stack:" + stack.StackTypeId.Id;
+            return DystopiaConveyorKeys.StackPrefix + stack.StackTypeId.Id;
 
         return MetaData(item).EntityPrototype?.ID;
     }
 
     private string KeyName(string key)
     {
-        if (key.StartsWith("stack:", StringComparison.Ordinal) && _proto.TryIndex<StackPrototype>(key[6..], out var stack))
-            return Loc.GetString(stack.Name, ("amount", 1));
-
-        return _proto.TryIndex<EntityPrototype>(key, out var proto) ? proto.Name : key;
+        return DystopiaConveyorKeys.Name(_proto, key);
     }
 
     private bool PassesFilter(DystopiaConveyorDeviceComponent comp, EntityUid item)
@@ -150,7 +243,10 @@ public sealed partial class DystopiaConveyorDeviceSystem : EntitySystem
                TryComp<WeldableComponent>(uid, out var weld) && weld.IsWelded;
     }
 
-    /// <summary>Хранилища на клетке: машины, тигли/горны, ящики, шкафы, латы (не предметы на полу).</summary>
+    /// <summary>
+    /// Хранилища на клетке: машины переработки, горны, дуговая печь, литейные столы, ящики, шкафы, латы
+    /// (не предметы на полу). Большие конструкции (печь 3×3) находятся с любой клетки корпуса.
+    /// </summary>
     private List<EntityUid> StoragesOn(Entity<MapGridComponent> grid, Vector2i tile)
     {
         var result = new List<EntityUid>();
@@ -158,6 +254,8 @@ public sealed partial class DystopiaConveyorDeviceSystem : EntitySystem
         {
             if (HasComp<DystopiaProcessorComponent>(uid) ||
                 HasComp<DystopiaForgeComponent>(uid) ||
+                HasComp<DystopiaArcFurnaceComponent>(uid) ||
+                HasComp<DystopiaMouldComponent>(uid) && !HasComp<ItemComponent>(uid) ||
                 HasComp<EntityStorageComponent>(uid) ||
                 HasComp<MaterialStorageComponent>(uid) ||
                 HasComp<StorageComponent>(uid) && !HasComp<ItemComponent>(uid))
@@ -354,6 +452,7 @@ public sealed partial class DystopiaConveyorDeviceSystem : EntitySystem
                     {
                         ent.Comp.SortGreen.Clear();
                         ent.Comp.SortBlue.Clear();
+                        UpdateUi(ent);
                         _popup.PopupEntity(Loc.GetString("dystopia-conveyor-cleared"), ent, user);
                     },
                 });
@@ -372,6 +471,7 @@ public sealed partial class DystopiaConveyorDeviceSystem : EntitySystem
             Act = () =>
             {
                 ent.Comp.Whitelist = !ent.Comp.Whitelist;
+                UpdateUi(ent);
                 _popup.PopupEntity(Loc.GetString(ent.Comp.Whitelist
                     ? "dystopia-conveyor-mode-whitelist"
                     : "dystopia-conveyor-mode-blacklist"), ent, user);
@@ -386,6 +486,7 @@ public sealed partial class DystopiaConveyorDeviceSystem : EntitySystem
                 Act = () =>
                 {
                     ent.Comp.Filter.Clear();
+                    UpdateUi(ent);
                     _popup.PopupEntity(Loc.GetString("dystopia-conveyor-cleared"), ent, user);
                 },
             });
@@ -412,6 +513,7 @@ public sealed partial class DystopiaConveyorDeviceSystem : EntitySystem
                     other?.Remove(key); // в сортировщике предмет идёт только в один выход
                 }
 
+                UpdateUi(ent);
                 _popup.PopupEntity(Loc.GetString(listed ? removeLoc : addLoc, ("item", name)), ent, user);
             },
         });

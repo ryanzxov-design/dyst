@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 // Dystopia: горн — топливо, розжиг, нагрев стоящего на нём тигля. Раздувают его отдельные меха (DystopiaBellowsSystem).
+// Электрический горн (после комплекта ТЭНов): без топлива и огня, греет, пока включён и есть ток.
 
+using Content.Server.Power.EntitySystems;
 using Content.Shared._Dystopia.Industry;
 using Content.Shared.Audio;
 using Content.Shared.Examine;
@@ -10,6 +12,7 @@ using Content.Shared.Placeable;
 using Content.Shared.Popups;
 using Content.Shared.Stacks;
 using Content.Shared.Temperature;
+using Content.Shared.Verbs;
 using Robust.Shared.Timing;
 
 namespace Content.Server._Dystopia.Industry;
@@ -24,6 +27,7 @@ public sealed partial class DystopiaForgeSystem : EntitySystem
     [Dependency] private SharedAmbientSoundSystem _ambient = default!;
     [Dependency] private DystopiaCrucibleSystem _crucible = default!;
     [Dependency] private DystopiaForgeMountSystem _mount = default!;
+    [Dependency] private PowerReceiverSystem _power = default!;
 
     public override void Initialize()
     {
@@ -34,17 +38,47 @@ public sealed partial class DystopiaForgeSystem : EntitySystem
         SubscribeLocalEvent<DystopiaForgeComponent, InteractUsingEvent>(OnInteractUsing);
         SubscribeLocalEvent<DystopiaForgeComponent, ExaminedEvent>(OnExamined);
         SubscribeLocalEvent<DystopiaForgeComponent, DystopiaConveyorInsertEvent>(OnConveyorInsert);
+        SubscribeLocalEvent<DystopiaForgeComponent, GetVerbsEvent<AlternativeVerb>>(OnGetVerbs);
     }
 
     private void OnMapInit(Entity<DystopiaForgeComponent> ent, ref MapInitEvent args)
     {
         UpdateVisuals(ent, false);
+        if (ent.Comp.Electric)
+            _power.SetLoad(ent.Owner, ent.Comp.On ? ent.Comp.PowerLoad : ent.Comp.IdlePowerLoad);
+    }
+
+    // ------------------------------------------------------------------ электрический: включить/выключить
+
+    private void OnGetVerbs(Entity<DystopiaForgeComponent> ent, ref GetVerbsEvent<AlternativeVerb> args)
+    {
+        if (!ent.Comp.Electric || !args.CanAccess || !args.CanInteract || args.Hands == null)
+            return;
+
+        var user = args.User;
+        args.Verbs.Add(new AlternativeVerb
+        {
+            Text = Loc.GetString(ent.Comp.On ? "dystopia-forge-electric-off-verb" : "dystopia-forge-electric-on-verb"),
+            Act = () => SetOn(ent, !ent.Comp.On, user),
+            Priority = 3,
+        });
+    }
+
+    public void SetOn(Entity<DystopiaForgeComponent> ent, bool on, EntityUid? user)
+    {
+        ent.Comp.On = on;
+        _power.SetLoad(ent.Owner, on ? ent.Comp.PowerLoad : ent.Comp.IdlePowerLoad);
+        if (user != null)
+        {
+            _popup.PopupEntity(Loc.GetString(on ? "dystopia-forge-electric-turned-on" : "dystopia-forge-electric-turned-off"),
+                ent, user.Value);
+        }
     }
 
     /// <summary>Меха раздули горн: seconds секунд он держит жар до BellowsMaxTemperature.</summary>
     public bool Blow(Entity<DystopiaForgeComponent> ent, float seconds)
     {
-        if (!ent.Comp.Lit)
+        if (!ent.Comp.Lit || ent.Comp.Electric) // электрическому меха ни к чему
             return false;
 
         var until = _timing.CurTime + TimeSpan.FromSeconds(seconds);
@@ -69,6 +103,18 @@ public sealed partial class DystopiaForgeSystem : EntitySystem
             _mount.TryStartMount(ent, args.Used, args.User);
             return;
         }
+
+        // Комплект ТЭНов — горн станет электрическим.
+        if (HasComp<DystopiaForgeUpgradeComponent>(args.Used))
+        {
+            args.Handled = true;
+            _mount.TryStartUpgrade(ent, args.Used, args.User);
+            return;
+        }
+
+        // Электрическому горну ни огонь, ни топливо не нужны.
+        if (ent.Comp.Electric)
+            return;
 
         // Огонь (зажигалка, спичка, горелка) — разжечь.
         var hot = new IsHotEvent();
@@ -102,7 +148,8 @@ public sealed partial class DystopiaForgeSystem : EntitySystem
     // Конвейерный вставщик подкидывает топливо в обычный горн (в горн с тиглем всё идёт в тигель).
     private void OnConveyorInsert(Entity<DystopiaForgeComponent> ent, ref DystopiaConveyorInsertEvent args)
     {
-        if (args.Handled || HasComp<DystopiaCrucibleComponent>(ent) || GetFuelValue(ent.Comp, args.Item) <= 0)
+        if (args.Handled || ent.Comp.Electric || HasComp<DystopiaCrucibleComponent>(ent) ||
+            GetFuelValue(ent.Comp, args.Item) <= 0)
             return;
 
         args.Handled = true;
@@ -170,23 +217,46 @@ public sealed partial class DystopiaForgeSystem : EntitySystem
         var query = EntityQueryEnumerator<DystopiaForgeComponent>();
         while (query.MoveNext(out var uid, out var forge))
         {
-            if (!forge.Lit || now < forge.NextUpdate)
+            if (now < forge.NextUpdate)
                 continue;
 
-            forge.NextUpdate = now + TimeSpan.FromSeconds(forge.UpdateInterval);
-            var bellows = now < forge.BellowsUntil;
-            forge.Fuel -= forge.UpdateInterval * (bellows ? forge.BellowsFuelMultiplier : 1f);
-            if (forge.Fuel <= 0)
+            float target;
+            if (forge.Electric)
             {
-                forge.Fuel = 0;
-                forge.Lit = false;
-                UpdateVisuals((uid, forge), false);
-                continue;
+                // Греет, пока включён и есть ток.
+                var lit = forge.On && _power.IsPowered(uid);
+                if (lit != forge.Lit)
+                {
+                    forge.Lit = lit;
+                    UpdateVisuals((uid, forge), false);
+                }
+
+                if (!lit)
+                    continue;
+
+                forge.NextUpdate = now + TimeSpan.FromSeconds(forge.UpdateInterval);
+                target = forge.BaseMaxTemperature;
+            }
+            else
+            {
+                if (!forge.Lit)
+                    continue;
+
+                forge.NextUpdate = now + TimeSpan.FromSeconds(forge.UpdateInterval);
+                var bellows = now < forge.BellowsUntil;
+                forge.Fuel -= forge.UpdateInterval * (bellows ? forge.BellowsFuelMultiplier : 1f);
+                if (forge.Fuel <= 0)
+                {
+                    forge.Fuel = 0;
+                    forge.Lit = false;
+                    UpdateVisuals((uid, forge), false);
+                    continue;
+                }
+
+                UpdateVisuals((uid, forge), bellows);
+                target = bellows ? forge.BellowsMaxTemperature : forge.BaseMaxTemperature;
             }
 
-            UpdateVisuals((uid, forge), bellows);
-
-            var target = bellows ? forge.BellowsMaxTemperature : forge.BaseMaxTemperature;
             var until = now + TimeSpan.FromSeconds(forge.UpdateInterval * 2);
             // Тигель, поставленный на горн, и тигель, встроенный в горн (горн с большим тиглем).
             if (TryComp<ItemPlacerComponent>(uid, out var placer))
@@ -218,6 +288,16 @@ public sealed partial class DystopiaForgeSystem : EntitySystem
     {
         if (!args.IsInDetailsRange)
             return;
+
+        if (ent.Comp.Electric)
+        {
+            args.PushMarkup(Loc.GetString(ent.Comp.Lit ? "dystopia-forge-electric-examine-working"
+                : ent.Comp.On ? "dystopia-forge-electric-examine-unpowered"
+                : "dystopia-forge-electric-examine-off"));
+            args.PushMarkup(Loc.GetString("dystopia-forge-electric-examine-max",
+                ("max", MathF.Round(ent.Comp.BaseMaxTemperature - DystopiaCrucibleSystem.KelvinOffset))));
+            return;
+        }
 
         var bellows = ent.Comp.Lit && _timing.CurTime < ent.Comp.BellowsUntil;
         args.PushMarkup(Loc.GetString(ent.Comp.Lit ? "dystopia-forge-examine-lit" : "dystopia-forge-examine-cold"));

@@ -3,6 +3,7 @@
 // конструкцией «горн с большим тиглем». Действие «Снять тигель» (ПКМ) — обратно горн и тигель-предмет.
 // Топливо, огонь, жар, загруженные куски и расплав переносятся в обе стороны.
 
+using Content.Server.Power.EntitySystems;
 using Content.Shared._Dystopia.Industry;
 using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.DoAfter;
@@ -23,11 +24,13 @@ public sealed partial class DystopiaForgeMountSystem : EntitySystem
     [Dependency] private SharedSolutionContainerSystem _solution = default!;
     [Dependency] private SharedHandsSystem _hands = default!;
     [Dependency] private DystopiaHotItemSystem _hot = default!;
+    [Dependency] private PowerReceiverSystem _power = default!;
 
     public override void Initialize()
     {
         base.Initialize();
         SubscribeLocalEvent<DystopiaForgeComponent, DystopiaForgeMountDoAfterEvent>(OnMountDoAfter);
+        SubscribeLocalEvent<DystopiaForgeComponent, DystopiaForgeUpgradeDoAfterEvent>(OnUpgradeDoAfter);
         SubscribeLocalEvent<DystopiaMountedCrucibleComponent, GetVerbsEvent<AlternativeVerb>>(OnGetVerbs);
         SubscribeLocalEvent<DystopiaMountedCrucibleComponent, DystopiaForgeUnmountDoAfterEvent>(OnUnmountDoAfter);
         SubscribeLocalEvent<DystopiaMountedCrucibleComponent, ExaminedEvent>(OnExamined);
@@ -41,7 +44,7 @@ public sealed partial class DystopiaForgeMountSystem : EntitySystem
         if (!TryComp<DystopiaForgeMountableComponent>(crucible, out var mountable))
             return;
 
-        if (HasComp<DystopiaMountedCrucibleComponent>(forge))
+        if (forge.Comp.MountedPrototype == null)
         {
             _popup.PopupEntity(Loc.GetString("dystopia-forge-mount-occupied"), forge, user);
             return;
@@ -67,19 +70,67 @@ public sealed partial class DystopiaForgeMountSystem : EntitySystem
     {
         if (args.Handled || args.Cancelled || args.Used is not { } crucible ||
             TerminatingOrDeleted(crucible) ||
-            !TryComp<DystopiaForgeMountableComponent>(crucible, out var mountable))
+            !HasComp<DystopiaForgeMountableComponent>(crucible) ||
+            forge.Comp.MountedPrototype is not { } mountedProto)
         {
             return;
         }
 
         args.Handled = true;
-        var mounted = Spawn(mountable.Mounted, Transform(forge).Coordinates);
+        var mounted = Spawn(mountedProto, Transform(forge).Coordinates);
         CopyForge(forge, mounted);
         MoveCrucible(crucible, mounted);
 
         QueueDel(crucible);
         QueueDel(forge);
         _popup.PopupEntity(Loc.GetString("dystopia-forge-mounted"), mounted, args.User);
+    }
+
+    // ------------------------------------------------------------------ комплект ТЭНов
+
+    /// <summary>Начать ставить комплект ТЭНов. Зовёт горн, когда по нему кликнули комплектом.</summary>
+    public void TryStartUpgrade(Entity<DystopiaForgeComponent> forge, EntityUid kit, EntityUid user)
+    {
+        if (!TryComp<DystopiaForgeUpgradeComponent>(kit, out var upgrade))
+            return;
+
+        if (forge.Comp.UpgradeTo == null)
+        {
+            _popup.PopupEntity(Loc.GetString("dystopia-forge-upgrade-already"), forge, user);
+            return;
+        }
+
+        if (TryComp<ItemPlacerComponent>(forge, out var placer) && placer.PlacedEntities.Count > 0)
+        {
+            _popup.PopupEntity(Loc.GetString("dystopia-forge-mount-clear"), forge, user);
+            return;
+        }
+
+        var doAfter = new DoAfterArgs(EntityManager, user, upgrade.Delay, new DystopiaForgeUpgradeDoAfterEvent(),
+            forge.Owner, target: forge.Owner, used: kit)
+        {
+            BreakOnMove = true,
+            NeedHand = true,
+            BreakOnDropItem = true,
+        };
+        _doAfter.TryStartDoAfter(doAfter);
+    }
+
+    private void OnUpgradeDoAfter(Entity<DystopiaForgeComponent> forge, ref DystopiaForgeUpgradeDoAfterEvent args)
+    {
+        if (args.Handled || args.Cancelled || args.Used is not { } kit || TerminatingOrDeleted(kit) ||
+            forge.Comp.UpgradeTo is not { } upgradeProto)
+        {
+            return;
+        }
+
+        args.Handled = true;
+        var upgraded = Spawn(upgradeProto, Transform(forge).Coordinates);
+        MoveCrucible(forge, upgraded); // горн с большим тиглем — тигель со всем содержимым остаётся
+
+        QueueDel(kit);
+        QueueDel(forge);
+        _popup.PopupEntity(Loc.GetString("dystopia-forge-upgraded"), upgraded, args.User);
     }
 
     // ------------------------------------------------------------------ снятие
@@ -137,6 +188,9 @@ public sealed partial class DystopiaForgeMountSystem : EntitySystem
         dst.Fuel = src.Fuel;
         dst.Lit = src.Lit;
         dst.BellowsUntil = src.BellowsUntil;
+        dst.On = src.On;
+        if (dst.Electric)
+            _power.SetLoad(to, dst.On ? dst.PowerLoad : dst.IdlePowerLoad);
     }
 
     /// <summary>Перенести из тигля в тигель загруженные куски, расплав и жар.</summary>
@@ -170,7 +224,10 @@ public sealed partial class DystopiaForgeMountSystem : EntitySystem
 
     private void OnExamined(Entity<DystopiaMountedCrucibleComponent> ent, ref ExaminedEvent args)
     {
-        if (args.IsInDetailsRange)
-            args.PushMarkup(Loc.GetString("dystopia-forge-mounted-examine"));
+        if (!args.IsInDetailsRange)
+            return;
+
+        var electric = TryComp<DystopiaForgeComponent>(ent, out var forge) && forge.Electric;
+        args.PushMarkup(Loc.GetString(electric ? "dystopia-forge-mounted-electric-examine" : "dystopia-forge-mounted-examine"));
     }
 }

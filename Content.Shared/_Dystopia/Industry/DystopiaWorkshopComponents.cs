@@ -55,18 +55,25 @@ public sealed partial class DystopiaTiltPourComponent : Component
 
 /// <summary>
 /// Тигель-предмет, который ставят на горн: клик им по горну — установка (DoAfter), горн превращается
-/// в <see cref="Mounted"/>.
+/// в свой MountedPrototype (обычный горн — в горн с большим тиглем, электрический — в электрический с тиглем).
 /// </summary>
 [RegisterComponent]
 public sealed partial class DystopiaForgeMountableComponent : Component
 {
-    /// <summary>Конструкция «горн с этим тиглем».</summary>
-    [DataField(required: true)]
-    public EntProtoId Mounted;
-
     /// <summary>Сколько секунд ставить.</summary>
     [DataField]
     public float Delay = 4f;
+}
+
+/// <summary>
+/// Комплект ТЭНов: клик им по горну — установка (DoAfter), горн становится электрическим (его UpgradeTo).
+/// Комплект расходуется.
+/// </summary>
+[RegisterComponent]
+public sealed partial class DystopiaForgeUpgradeComponent : Component
+{
+    [DataField]
+    public float Delay = 6f;
 }
 
 /// <summary>
@@ -130,5 +137,10 @@ public sealed partial class DystopiaForgeMountDoAfterEvent : SimpleDoAfterEvent
 
 [Serializable, NetSerializable]
 public sealed partial class DystopiaForgeUnmountDoAfterEvent : SimpleDoAfterEvent
+{
+}
+
+[Serializable, NetSerializable]
+public sealed partial class DystopiaForgeUpgradeDoAfterEvent : SimpleDoAfterEvent
 {
 }

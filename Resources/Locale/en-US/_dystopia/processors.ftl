@@ -47,3 +47,31 @@ dystopia-conveyor-examine-blacklist = Blacklist, everything except: { $items }.
 dystopia-conveyor-examine-sort = Takes from the tile behind it. Everything else goes to the [color=#e0c040]yellow[/color] output (forward).
 dystopia-conveyor-examine-green = [color=#50c050]Green[/color] output: { $items }.
 dystopia-conveyor-examine-blue = [color=#5080e0]Blue[/color] output: { $items }.
+
+# Conveyor device menu
+dystopia-industry-ui-sub = City Industrial Service  ·  Factory equipment
+dystopia-industry-ui-slogan = The plan is law. The quota is duty.
+dystopia-conveyor-ui-title = Conveyor device
+dystopia-conveyor-ui-extract-hint = Takes out of the storage behind it and puts on the tile the arrow points to.
+dystopia-conveyor-ui-insert-hint = Takes from the tile behind it and puts into the storage the arrow points to.
+dystopia-conveyor-ui-sort-hint = Takes from the tile behind it and splits into outputs: green is left, blue is right, yellow is forward.
+dystopia-conveyor-ui-whitelist = Whitelist
+dystopia-conveyor-ui-blacklist = Blacklist
+dystopia-conveyor-ui-list-white = Let through only
+dystopia-conveyor-ui-list-black = Let through everything except
+dystopia-conveyor-ui-green = Green output (left)
+dystopia-conveyor-ui-blue = Blue output (right)
+dystopia-conveyor-ui-yellow = Yellow output (forward)
+dystopia-conveyor-ui-yellow-hint = Everything not sent to green or blue.
+dystopia-conveyor-ui-add-held = Add held item
+dystopia-conveyor-ui-clear = Clear
+dystopia-conveyor-ui-empty = Empty.
+dystopia-conveyor-ui-remove = Remove
+dystopia-conveyor-ui-search = Item search
+dystopia-conveyor-ui-search-placeholder = Item name…
+dystopia-conveyor-ui-search-hint = Type at least two letters of the name.
+dystopia-conveyor-ui-nothing = Nothing found.
+dystopia-conveyor-ui-add = Add
+dystopia-conveyor-ui-to-green = To green
+dystopia-conveyor-ui-to-blue = To blue
+dystopia-conveyor-ui-hand-empty = Your hand is empty.

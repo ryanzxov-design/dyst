@@ -70,8 +70,7 @@
       types:
         Heat: 6
     checkInterval: 1
-  - type: DystopiaForgeMountable
-    mounted: DystopiaForgeLargeCrucible
+  - type: DystopiaForgeMountable   # во что превратится горн — решает сам горн (mountedPrototype)
     delay: 4
   - type: Solution
     id: crucible
@@ -118,7 +117,7 @@
 - type: entity
   id: DystopiaForgeLargeCrucible
   name: forge with a large crucible
-  description: A brick forge with a large crucible set into it. Feed the firebox, light it, load the crucible, tilt it to pour into the attached casting channel.
+  description: "A brick forge with a large crucible set into it. Feed the firebox, light it, load the crucible, tilt it to pour into the attached casting channel."
   placement:
     mode: SnapgridCenter
   components:
@@ -216,6 +215,7 @@
     heatRate: 12
     bellowsFuelMultiplier: 2
     updateInterval: 0.5
+    upgradeTo: DystopiaForgeElectricLargeCrucible
   - type: DystopiaMountedCrucible
     forge: DystopiaForge
     item: DystopiaCrucibleLarge
@@ -265,6 +265,297 @@
     slagLump: DystopiaSlag1
     slagPerLump: 5
     updateInterval: 0.5
+
+- type: entity
+  id: DystopiaForgeElectric
+  name: electric forge
+  description: "A forge fitted with tubular electric heaters. No fuel, no fire: switch it on and it heats fast while there is power."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.35"
+        density: 1000
+        mask: [ TableMask ]
+        layer: [ TableLayer ]
+      # Нежёсткая область сверху: по ней ItemPlacer замечает поставленный тигель
+      itemcollide:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.35,-0.3,0.35,0.45"
+        layer: [ HighImpassable ]
+        hard: false
+  - type: Tag
+    tags: [ Structure ]
+  - type: Sprite
+    noRot: true
+    drawdepth: Objects
+    layers:
+    - sprite: _Dystopia/Structures/Industry/forge_electric.rsi
+      state: base
+    - sprite: _Dystopia/Structures/Industry/forge_electric.rsi
+      state: coils
+      map: [ "enum.DystopiaForgeVisuals.Lit" ]
+      shader: unshaded
+      visible: false
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DystopiaForgeVisuals.Lit:
+        enum.DystopiaForgeVisuals.Lit:
+          True: { visible: true }
+          False: { visible: false }
+  - type: PointLight
+    enabled: false
+    radius: 4
+    energy: 2.5
+    color: "#FF8A30"
+  - type: AmbientSound
+    enabled: false
+    volume: -6
+    range: 5
+    sound:
+      path: /Audio/Ambience/Objects/emf_buzz.ogg
+  - type: ApcPowerReceiver
+    powerLoad: 50
+  - type: ExtensionCableReceiver
+  - type: ItemPlacer
+    maxEntities: 1
+    whitelist:
+      components: [ DystopiaCrucible ]
+  - type: PlaceableSurface
+    placeCentered: true
+    positionOffset: 0, 0.3
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 300
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/Effects/break_stone.ogg
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: DystopiaForge
+    electric: true
+    fuelMaterials: {}
+    baseMaxTemperature: 1973.15   # 1700 °C без мехов
+    bellowsMaxTemperature: 1973.15
+    heatRate: 36            # K в секунду — втрое быстрее угольного
+    powerLoad: 4000         # Вт, пока включён
+    idlePowerLoad: 50
+    updateInterval: 0.5
+    mountedPrototype: DystopiaForgeElectricLargeCrucible
+
+- type: entity
+  id: DystopiaForgeElectricLargeCrucible
+  name: electric forge with a large crucible
+  description: "An electric forge with a large crucible set into it. Switch it on, load the crucible, tilt it to pour into the attached casting channel."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.35"
+        density: 1000
+        mask: [ TableMask ]
+        layer: [ TableLayer ]
+  - type: Tag
+    tags: [ Structure ]
+  - type: Sprite
+    noRot: true
+    drawdepth: Objects
+    layers:
+    - sprite: _Dystopia/Structures/Industry/forge_electric.rsi
+      state: base
+    - sprite: _Dystopia/Structures/Industry/forge_electric.rsi
+      state: coils
+      map: [ "enum.DystopiaForgeVisuals.Lit" ]
+      shader: unshaded
+      visible: false
+    - sprite: _Dystopia/Objects/Industry/crucible_large.rsi
+      state: icon
+      offset: "0,0.25"
+    - sprite: _Dystopia/Objects/Industry/crucible_large.rsi
+      state: fill-1
+      offset: "0,0.25"
+      map: [ "enum.SolutionContainerLayers.Fill" ]
+      visible: false
+      shader: unshaded
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DystopiaForgeVisuals.Lit:
+        enum.DystopiaForgeVisuals.Lit:
+          True: { visible: true }
+          False: { visible: false }
+  - type: PointLight
+    enabled: false
+    radius: 4
+    energy: 2.5
+    color: "#FF8A30"
+  - type: AmbientSound
+    enabled: false
+    volume: -6
+    range: 5
+    sound:
+      path: /Audio/Ambience/Objects/emf_buzz.ogg
+  - type: ApcPowerReceiver
+    powerLoad: 50
+  - type: ExtensionCableReceiver
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 300
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/Effects/break_stone.ogg
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          DystopiaCrucibleLarge:
+            min: 1
+            max: 1
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: DystopiaForge
+    electric: true
+    fuelMaterials: {}
+    baseMaxTemperature: 1973.15   # 1700 °C без мехов
+    bellowsMaxTemperature: 1973.15
+    heatRate: 36            # K в секунду — втрое быстрее угольного
+    powerLoad: 4000         # Вт, пока включён
+    idlePowerLoad: 50
+    updateInterval: 0.5
+  - type: DystopiaMountedCrucible
+    forge: DystopiaForgeElectric
+    item: DystopiaCrucibleLarge
+    delay: 4
+  - type: DystopiaTiltPour
+    delay: 2
+    pourSound:
+      path: /Audio/Effects/Fluids/glug.ogg
+  - type: Solution
+    id: crucible
+    solution:
+      maxVol: 400
+      canReact: true
+  - type: RefillableSolution
+    solution: crucible
+  - type: DrainableSolution
+    solution: crucible
+  - type: SolutionContainerVisuals
+    maxFillLevels: 4
+    fillBaseName: fill-
+  - type: ContainerContainer
+    containers:
+      dystopia_crucible_charge: !type:Container {}
+  - type: Reactive   # вода в боевом режиме — закалка
+    groups:
+      Extinguish: [ Touch ]
+  - type: DystopiaQuenchable
+    solution: crucible
+    coolants:
+      Water: 4      # K на единицу: большой тигель держит жар дольше малого
+      Ice: 6
+    sound:
+      path: /Audio/Effects/sizzle.ogg
+  - type: DystopiaCrucible
+    solution: crucible
+    chargeContainer: dystopia_crucible_charge
+    maxCharge: 3000      # 30 кусков: втрое больше малого
+    meltRate: 200        # плавит два куска в секунду
+    heatMultiplier: 0.5  # греется вдвое дольше малого
+    coolingRate: 0.003
+    fallbackAmbient: 293.15
+    hotThreshold: 333.15
+    glowThreshold: 873.15
+    foreignSlag: DystopiaMoltenSlag
+    foreignSlagPer100: 5
+    slagReagent: DystopiaMoltenSlag
+    slagLump: DystopiaSlag1
+    slagPerLump: 5
+    updateInterval: 0.5
+
+- type: entity
+  id: DystopiaForgeHeaterKit
+  name: tubular heater kit
+  description: A bundle of tubular electric heaters with terminals. Click a forge with it to turn it into an electric forge.
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Industry/heater_kit.rsi
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Industry/heater_kit.rsi
+    state: icon
+  - type: Pullable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Appearance
+  - type: PhysicalComposition
+    materialComposition:
+      Steel: 200
+      DystopiaCopper: 100
+  - type: StaticPrice
+    price: 120
+  - type: DystopiaForgeUpgrade
+    delay: 6
 
 - type: entity
   id: DystopiaCastingChannelStraight
@@ -557,6 +848,7 @@
   - type: ContainerContainer
     containers:
       dystopia_casting_form: !type:ContainerSlot {}
+      dystopia_casting_output: !type:Container {}
   - type: Reactive   # вода в боевом режиме — закалка
     groups:
       Extinguish: [ Touch ]
@@ -587,6 +879,7 @@
         acts: [ Destruction ]
   - type: DystopiaMould
     formSlot: dystopia_casting_form
+    outputContainer: dystopia_casting_output   # отливки — внутри стола (рукой, ПКМ или извлекателем)
     solution: mould
     coolingRate: 0.006   # больше металла — остывает дольше
     fallbackAmbient: 293.15
