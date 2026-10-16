@@ -97,7 +97,7 @@ public sealed partial class DystopiaCrucibleComponent : Component
 
 /// <summary>
 /// Горн: на него ставят тигель, внутрь кидают топливо, разжигают огнём. Без мехов тянет до BaseMaxTemperature,
-/// пока качают меха — до BellowsMaxTemperature (железо и сталь).
+/// пока качают меха рядом (<see cref="DystopiaBellowsComponent"/>) — до BellowsMaxTemperature (железо и сталь).
 /// </summary>
 [RegisterComponent]
 public sealed partial class DystopiaForgeComponent : Component
@@ -121,13 +121,6 @@ public sealed partial class DystopiaForgeComponent : Component
     /// <summary>Скорость нагрева тигля на горне, K в секунду.</summary>
     [DataField]
     public float HeatRate = 12f;
-
-    /// <summary>Один качок мехов: сколько длится и сколько времени качать.</summary>
-    [DataField]
-    public float BellowsDuration = 5f;
-
-    [DataField]
-    public float BellowsDelay = 1f;
 
     /// <summary>С мехами топливо горит во столько раз быстрее.</summary>
     [DataField]

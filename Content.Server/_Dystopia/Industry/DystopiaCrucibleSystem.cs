@@ -30,6 +30,7 @@ public sealed partial class DystopiaCrucibleSystem : EntitySystem
     [Dependency] private SharedPointLightSystem _light = default!;
     [Dependency] private AtmosphereSystem _atmosphere = default!;
     [Dependency] private DystopiaHotItemSystem _hot = default!;
+    [Dependency] private DystopiaQuenchSystem _quench = default!;
 
     public const float KelvinOffset = 273.15f;
 
@@ -41,6 +42,22 @@ public sealed partial class DystopiaCrucibleSystem : EntitySystem
         SubscribeLocalEvent<DystopiaCrucibleComponent, GetVerbsEvent<AlternativeVerb>>(OnGetVerbs);
         SubscribeLocalEvent<DystopiaCrucibleComponent, ExaminedEvent>(OnExamined);
         SubscribeLocalEvent<DystopiaCrucibleComponent, SolutionTransferAttemptEvent>(OnTransferAttempt);
+        SubscribeLocalEvent<DystopiaCrucibleComponent, DystopiaGetTemperatureEvent>(OnGetTemperature);
+        SubscribeLocalEvent<DystopiaCrucibleComponent, DystopiaCoolEvent>(OnCool);
+    }
+
+    private void OnGetTemperature(Entity<DystopiaCrucibleComponent> ent, ref DystopiaGetTemperatureEvent args)
+    {
+        args.Temperature = ent.Comp.Temperature;
+    }
+
+    // Закалка водой: тигель остывает сразу, но не ниже окружения.
+    private void OnCool(Entity<DystopiaCrucibleComponent> ent, ref DystopiaCoolEvent args)
+    {
+        var ambient = GetAmbient(ent, ent.Comp.FallbackAmbient);
+        ent.Comp.Temperature = MathF.Max(ambient, ent.Comp.Temperature - args.Kelvin);
+        SyncSolutionTemperature(ent);
+        _hot.SetHot(ent.Owner, ent.Comp.Temperature > ent.Comp.HotThreshold);
     }
 
     // Застывший металл из тигля не льётся: сначала разогреть.
@@ -239,15 +256,16 @@ public sealed partial class DystopiaCrucibleSystem : EntitySystem
         if (!_solution.TryGetSolution(ent.Owner, ent.Comp.Solution, out var soln, out var solution))
             return;
 
+        // Снимается весь шлак: остаток в расплаве — брак в изложнице.
         var slag = solution.GetTotalPrototypeQuantity(ent.Comp.SlagReagent);
-        var lumps = (int) MathF.Floor((float) (slag / ent.Comp.SlagPerLump));
-        if (lumps <= 0)
+        if (slag <= FixedPoint2.Zero)
         {
             _popup.PopupEntity(Loc.GetString("dystopia-crucible-skim-too-little"), ent, user);
             return;
         }
 
-        _solution.RemoveReagent(soln.Value, ent.Comp.SlagReagent.Id, ent.Comp.SlagPerLump * lumps);
+        var lumps = Math.Max(1, (int) MathF.Round((float) (slag / ent.Comp.SlagPerLump)));
+        _solution.RemoveReagent(soln.Value, ent.Comp.SlagReagent.Id, slag);
         var coords = Transform(ent).Coordinates;
         for (var i = 0; i < lumps; i++)
         {
@@ -307,43 +325,51 @@ public sealed partial class DystopiaCrucibleSystem : EntitySystem
         }
 
         Melt(ent, dt);
-
-        if (_solution.TryGetSolution(ent.Owner, comp.Solution, out var soln, out var solution) &&
-            solution.Volume > 0 &&
-            MathF.Abs(solution.Temperature - comp.Temperature) > 0.5f)
-        {
-            _solution.SetTemperature(soln.Value, comp.Temperature);
-        }
+        SyncSolutionTemperature(ent);
+        _quench.TryEvaporate(ent.Owner); // налитая заранее вода выкипает, когда тигель нагреют
 
         _hot.SetHot(ent.Owner, comp.Temperature > comp.HotThreshold);
         if (_light.TryGetLight(ent, out var light))
             _light.SetEnabled(ent, comp.Temperature > comp.GlowThreshold, light);
     }
 
+    private void SyncSolutionTemperature(Entity<DystopiaCrucibleComponent> ent)
+    {
+        if (_solution.TryGetSolution(ent.Owner, ent.Comp.Solution, out var soln, out var solution) &&
+            solution.Volume > 0 &&
+            MathF.Abs(solution.Temperature - ent.Comp.Temperature) > 0.5f)
+        {
+            _solution.SetTemperature(soln.Value, ent.Comp.Temperature);
+        }
+    }
+
     private void Melt(Entity<DystopiaCrucibleComponent> ent, float dt)
     {
         var comp = ent.Comp;
         if (!_container.TryGetContainer(ent, comp.ChargeContainer, out var container) ||
-            container.ContainedEntities.Count == 0)
+            container.ContainedEntities.Count == 0 ||
+            !_solution.TryGetSolution(ent.Owner, comp.Solution, out var soln, out var solution))
         {
             comp.MeltProgress = 0;
             return;
         }
 
-        if (!_solution.TryGetSolution(ent.Owner, comp.Solution, out var soln, out var solution))
-            return;
-
+        // Прогресс плавки копится между обновлениями, пока есть что плавить при этой температуре:
+        // кусок (100 ед. материала) плавится за 100 / MeltRate секунд.
         var budget = comp.MeltProgress + comp.MeltRate * dt;
-        var meltedAny = false;
+        var largestUnit = 0;
 
         foreach (var item in new List<EntityUid>(container.ContainedEntities))
         {
-            if (!TryGetSmelt(item, comp.ForeignSlagPer100, out var products, out var meltTemp, out var perUnit, comp.ForeignSlag) ||
+            if (TerminatingOrDeleted(item) ||
+                !TryGetSmelt(item, comp.ForeignSlagPer100, out var products, out var meltTemp, out var perUnit, comp.ForeignSlag) ||
                 perUnit <= 0 ||
                 comp.Temperature < meltTemp)
             {
                 continue;
             }
+
+            largestUnit = Math.Max(largestUnit, perUnit);
 
             var unitVolume = FixedPoint2.Zero;
             foreach (var amount in products.Values)
@@ -371,7 +397,6 @@ public sealed partial class DystopiaCrucibleSystem : EntitySystem
 
                 budget -= perUnit;
                 melted++;
-                meltedAny = true;
             }
 
             if (melted > 0)
@@ -387,10 +412,13 @@ public sealed partial class DystopiaCrucibleSystem : EntitySystem
                 comp.MeltProgress = 0;
                 return;
             }
+
+            if (budget < perUnit)
+                break; // остальное — в следующие обновления
         }
 
-        // Если ничего не плавится (холодно), прогресс не копится.
-        comp.MeltProgress = meltedAny ? MathF.Min(budget, comp.MeltRate * dt) : 0;
+        // Холодно или нечего плавить — прогресс не копится.
+        comp.MeltProgress = largestUnit > 0 ? MathF.Min(budget, largestUnit) : 0;
     }
 
     // ------------------------------------------------------------------ осмотр
@@ -406,8 +434,24 @@ public sealed partial class DystopiaCrucibleSystem : EntitySystem
         if (_container.TryGetContainer(ent, ent.Comp.ChargeContainer, out var container) &&
             container.ContainedEntities.Count > 0)
         {
+            // Какой жар нужен, чтобы расплавилось всё, что лежит
+            var needed = 0f;
+            foreach (var item in container.ContainedEntities)
+            {
+                if (TryGetSmelt(item, ent.Comp.ForeignSlagPer100, out _, out var meltTemp, out _, ent.Comp.ForeignSlag))
+                    needed = MathF.Max(needed, meltTemp);
+            }
+
             args.PushMarkup(Loc.GetString("dystopia-crucible-charge",
-                ("material", ChargeMaterial(ent)), ("max", ent.Comp.MaxCharge)));
+                ("material", ChargeMaterial(ent)), ("max", ent.Comp.MaxCharge),
+                ("temperature", MathF.Round(needed - KelvinOffset))));
+        }
+
+        if (_solution.TryGetSolution(ent.Owner, ent.Comp.Solution, out _, out var solution))
+        {
+            DystopiaFoundryExamine.PushContents(args, solution, ent.Comp.Temperature, _proto);
+            if (solution.GetTotalPrototypeQuantity(ent.Comp.SlagReagent) > FixedPoint2.Zero)
+                args.PushMarkup(Loc.GetString("dystopia-crucible-has-slag"));
         }
     }
 }

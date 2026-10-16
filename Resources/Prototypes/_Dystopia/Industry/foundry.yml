@@ -1,12 +1,12 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 # Dystopia: ручное литьё (Промышленность, этап 3, ручной уровень ×1).
-# Горн, малый тигель, клещи, изложницы, шлак. Самостоятельные сущности, без parent.
+# Горн, меха, малый тигель, клещи, изложницы, шлак. Самостоятельные сущности, без parent.
 # Числа — в полях компонентов (Content.Server/_Dystopia/Industry/DystopiaFoundryComponents.cs).
 
 - type: entity
   id: DystopiaForge
   name: forge
-  description: A brick hearth with leather bellows. Put a crucible on top, feed it coal or wood, light it.
+  description: A brick hearth. Put a crucible on top, feed it coal or wood, light it. Bellows set next to it make it hotter.
   placement:
     mode: SnapgridCenter
   components:
@@ -100,10 +100,81 @@
     baseMaxTemperature: 1373.15  # 1100 °C: олово, свинец, цинк, алюминий, медь, бронза, латунь, серебро
     bellowsMaxTemperature: 1973.15  # 1700 °C, пока качают меха: железо, сталь, золото, феррохром
     heatRate: 12            # K в секунду
-    bellowsDuration: 5
-    bellowsDelay: 1
     bellowsFuelMultiplier: 2
     updateInterval: 0.5
+
+- type: entity
+  id: DystopiaBellows
+  name: bellows
+  description: Leather blacksmith bellows. Set them right next to a forge, bolt them down and pump by hand.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.45,-0.3,0.45,0.2"
+        density: 60
+        mask: [ MachineMask ]
+        layer: [ MidImpassable, LowImpassable ]
+  - type: Pullable
+  - type: Tag
+    tags: [ Structure ]
+  - type: Anchorable
+    delay: 1
+  - type: Rotatable
+    rotateWhileAnchored: false
+  - type: Sprite
+    sprite: _Dystopia/Structures/Industry/bellows.rsi
+    noRot: false
+    drawdepth: Objects
+    layers:
+    - state: bellows
+      map: [ "enum.DystopiaBellowsVisuals.Pumping" ]
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DystopiaBellowsVisuals.Pumping:
+        enum.DystopiaBellowsVisuals.Pumping:
+          True: { state: bellows_pump }
+          False: { state: bellows }
+  - type: Damageable
+    damageModifierSet: Wood
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 60
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: WoodDestroy
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          MaterialWoodPlank1:
+            min: 1
+            max: 2
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: DystopiaBellows
+    range: 1.5           # горн в соседней клетке (и по диагонали)
+    pumpDelay: 1         # секунда на качок, повторяется, пока не отойдёшь
+    blowDuration: 3      # столько горн держит жар после качка
+    requireAnchored: true
+    pumpVisualTime: 0.5
+    pumpSound:
+      path: /Audio/Items/candle_blowing.ogg
+      params:
+        volume: -4
 
 - type: entity
   id: DystopiaCrucibleSmall
@@ -172,9 +243,6 @@
     solution: crucible
   - type: DrainableSolution
     solution: crucible
-  - type: ExaminableSolution
-    solution: crucible
-    exactVolume: true
   - type: SolutionItemStatus
     solution: crucible
   - type: SolutionContainerVisuals
@@ -201,6 +269,16 @@
       types:
         Heat: 4
     checkInterval: 1
+  - type: Reactive   # вода в боевом режиме (плеснуть, как на человека) — закалка
+    groups:
+      Extinguish: [ Touch ]
+  - type: DystopiaQuenchable
+    solution: crucible
+    coolants:
+      Water: 10     # K на единицу: стакан воды (50) остужает тигель на 500 °C
+      Ice: 15
+    sound:
+      path: /Audio/Effects/sizzle.ogg
   - type: DystopiaCrucible
     solution: crucible
     chargeContainer: dystopia_crucible_charge
@@ -220,10 +298,10 @@
 - type: entity
   id: DystopiaTongs
   name: tongs
-  description: Long blacksmith tongs. Hold them in the other hand to carry a red-hot crucible or mould.
+  description: Long blacksmith tongs. Poke a red-hot crucible or mould to grip it; poke a mould with the gripped crucible to pour.
   components:
   - type: Item
-    size: Small
+    size: Normal
     sprite: _Dystopia/Objects/Industry/tongs.rsi
     storedRotation: -90
   - type: Animateable
@@ -262,7 +340,21 @@
     drawdepth: Items
     noRot: false
     sprite: _Dystopia/Objects/Industry/tongs.rsi
-    state: icon
+    layers:
+    - state: icon
+    - state: icon-held
+      map: [ "enum.DystopiaTongsVisuals.Holding" ]
+      visible: false
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DystopiaTongsVisuals.Holding:
+        enum.DystopiaTongsVisuals.Holding:
+          True: { visible: true }
+          False: { visible: false }
+  - type: ContainerContainer
+    containers:
+      dystopia_tongs_grip: !type:ContainerSlot {}
   - type: Pullable
   - type: DamageExaminable
   - type: Rotatable
@@ -279,6 +371,13 @@
   - type: StaticPrice
     price: 15
   - type: DystopiaTongs
+    slot: dystopia_tongs_grip
+    gripSound:
+      path: /Audio/Items/wirecutter.ogg
+    releaseSound:
+      path: /Audio/Effects/drop.ogg
+    pourSound:
+      path: /Audio/Effects/Fluids/glug.ogg
 
 - type: entity
   id: DystopiaMouldIngot
@@ -342,9 +441,6 @@
     increment: 30
   - type: RefillableSolution
     solution: mould
-  - type: ExaminableSolution
-    solution: mould
-    exactVolume: true
   - type: SolutionContainerVisuals
     maxFillLevels: 1
     fillBaseName: ingot-fill-
@@ -360,6 +456,18 @@
       types:
         Heat: 4
     checkInterval: 1
+  - type: Anchorable   # прикручивается к полу ключом
+    delay: 1
+  - type: Reactive   # вода в боевом режиме (плеснуть, как на человека) — закалка
+    groups:
+      Extinguish: [ Touch ]
+  - type: DystopiaQuenchable
+    solution: mould
+    coolants:
+      Water: 40     # K на единицу: изложница маленькая, остывает быстро
+      Ice: 60
+    sound:
+      path: /Audio/Effects/sizzle.ogg
   - type: DystopiaMould
     shape: DystopiaIngot
     solution: mould
@@ -430,9 +538,6 @@
     increment: 30
   - type: RefillableSolution
     solution: mould
-  - type: ExaminableSolution
-    solution: mould
-    exactVolume: true
   - type: SolutionContainerVisuals
     maxFillLevels: 1
     fillBaseName: sheet-fill-
@@ -448,6 +553,18 @@
       types:
         Heat: 4
     checkInterval: 1
+  - type: Anchorable   # прикручивается к полу ключом
+    delay: 1
+  - type: Reactive   # вода в боевом режиме (плеснуть, как на человека) — закалка
+    groups:
+      Extinguish: [ Touch ]
+  - type: DystopiaQuenchable
+    solution: mould
+    coolants:
+      Water: 40     # K на единицу: изложница маленькая, остывает быстро
+      Ice: 60
+    sound:
+      path: /Audio/Effects/sizzle.ogg
   - type: DystopiaMould
     shape: DystopiaSheet
     solution: mould
@@ -518,9 +635,6 @@
     increment: 30
   - type: RefillableSolution
     solution: mould
-  - type: ExaminableSolution
-    solution: mould
-    exactVolume: true
   - type: SolutionContainerVisuals
     maxFillLevels: 1
     fillBaseName: rod-fill-
@@ -536,6 +650,18 @@
       types:
         Heat: 4
     checkInterval: 1
+  - type: Anchorable   # прикручивается к полу ключом
+    delay: 1
+  - type: Reactive   # вода в боевом режиме (плеснуть, как на человека) — закалка
+    groups:
+      Extinguish: [ Touch ]
+  - type: DystopiaQuenchable
+    solution: mould
+    coolants:
+      Water: 40     # K на единицу: изложница маленькая, остывает быстро
+      Ice: 60
+    sound:
+      path: /Audio/Effects/sizzle.ogg
   - type: DystopiaMould
     shape: DystopiaRod
     solution: mould

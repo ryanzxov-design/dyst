@@ -1,9 +1,8 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
-// Dystopia: горн — топливо, розжиг, меха, нагрев стоящего на нём тигля.
+// Dystopia: горн — топливо, розжиг, нагрев стоящего на нём тигля. Раздувают его отдельные меха (DystopiaBellowsSystem).
 
 using Content.Shared._Dystopia.Industry;
 using Content.Shared.Audio;
-using Content.Shared.DoAfter;
 using Content.Shared.Examine;
 using Content.Shared.Interaction;
 using Content.Shared.Materials;
@@ -20,7 +19,6 @@ public sealed partial class DystopiaForgeSystem : EntitySystem
     [Dependency] private IGameTiming _timing = default!;
     [Dependency] private SharedPopupSystem _popup = default!;
     [Dependency] private SharedStackSystem _stack = default!;
-    [Dependency] private SharedDoAfterSystem _doAfter = default!;
     [Dependency] private SharedAppearanceSystem _appearance = default!;
     [Dependency] private SharedPointLightSystem _light = default!;
     [Dependency] private SharedAmbientSoundSystem _ambient = default!;
@@ -31,14 +29,26 @@ public sealed partial class DystopiaForgeSystem : EntitySystem
         base.Initialize();
         SubscribeLocalEvent<DystopiaForgeComponent, MapInitEvent>(OnMapInit);
         SubscribeLocalEvent<DystopiaForgeComponent, InteractUsingEvent>(OnInteractUsing);
-        SubscribeLocalEvent<DystopiaForgeComponent, InteractHandEvent>(OnInteractHand);
-        SubscribeLocalEvent<DystopiaForgeComponent, DystopiaForgeBellowsDoAfterEvent>(OnBellows);
         SubscribeLocalEvent<DystopiaForgeComponent, ExaminedEvent>(OnExamined);
     }
 
     private void OnMapInit(Entity<DystopiaForgeComponent> ent, ref MapInitEvent args)
     {
         UpdateVisuals(ent, false);
+    }
+
+    /// <summary>Меха раздули горн: seconds секунд он держит жар до BellowsMaxTemperature.</summary>
+    public bool Blow(Entity<DystopiaForgeComponent> ent, float seconds)
+    {
+        if (!ent.Comp.Lit)
+            return false;
+
+        var until = _timing.CurTime + TimeSpan.FromSeconds(seconds);
+        if (until > ent.Comp.BellowsUntil)
+            ent.Comp.BellowsUntil = until;
+
+        UpdateVisuals(ent, true);
+        return true;
     }
 
     // ------------------------------------------------------------------ топливо и розжиг
@@ -108,40 +118,6 @@ public sealed partial class DystopiaForgeSystem : EntitySystem
         }
 
         return total;
-    }
-
-    // ------------------------------------------------------------------ меха
-
-    private void OnInteractHand(Entity<DystopiaForgeComponent> ent, ref InteractHandEvent args)
-    {
-        if (args.Handled)
-            return;
-
-        args.Handled = true;
-        if (!ent.Comp.Lit)
-        {
-            _popup.PopupEntity(Loc.GetString("dystopia-forge-not-lit"), ent, args.User);
-            return;
-        }
-
-        var doAfter = new DoAfterArgs(EntityManager, args.User, ent.Comp.BellowsDelay,
-            new DystopiaForgeBellowsDoAfterEvent(), ent.Owner, target: ent.Owner)
-        {
-            BreakOnMove = true,
-            NeedHand = true,
-        };
-        _doAfter.TryStartDoAfter(doAfter);
-    }
-
-    private void OnBellows(Entity<DystopiaForgeComponent> ent, ref DystopiaForgeBellowsDoAfterEvent args)
-    {
-        if (args.Handled || args.Cancelled || !ent.Comp.Lit)
-            return;
-
-        args.Handled = true;
-        ent.Comp.BellowsUntil = _timing.CurTime + TimeSpan.FromSeconds(ent.Comp.BellowsDuration);
-        UpdateVisuals(ent, true);
-        args.Repeat = true; // качают, пока не отойдут
     }
 
     // ------------------------------------------------------------------ горение
