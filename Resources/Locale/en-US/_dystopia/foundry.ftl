@@ -51,9 +51,31 @@ dystopia-tongs-poured = You pour { $amount } u into { THE($target) }.
 dystopia-tongs-pour-empty = The crucible is empty.
 dystopia-tongs-pour-full = It won't hold any more.
 
+dystopia-tongs-too-heavy = { CAPITALIZE(THE($item)) } is too heavy for tongs. It gets set right into the forge.
+
+# Workshop: forge with a large crucible, casting channels, casting table.
+dystopia-tilt-pour-verb = Tilt crucible
+dystopia-tilt-pour-no-target = No casting channel leads to the forge, and there is no casting table next to it.
+dystopia-tilt-pour-done = You tilt the crucible and pour out { $amount } u.
+dystopia-channel-no-moulds = The channels lead nowhere: none of their ends reaches a casting table.
+dystopia-channel-moulds-full = The forms are already full (or the tables have no forms).
+dystopia-crucible-load-verb = Load into crucible
+dystopia-forge-mount-occupied = There is already a crucible set into the forge.
+dystopia-forge-mount-clear = Take the small crucible off the forge first.
+dystopia-forge-mounted = You set the large crucible into the forge.
+dystopia-forge-unmounted = You take the large crucible out of the forge.
+dystopia-forge-unmount-verb = Remove large crucible
+dystopia-forge-mounted-examine = Coal or planks go into the firebox; ore and scrap go into the crucible; to put coal into the crucible (for steel) use "Load into crucible". "Tilt crucible" pours into a channel leading to the forge.
+dystopia-casting-table-slot = casting form
+dystopia-casting-table-no-form = No form. Insert a casting form.
+dystopia-casting-table-form-busy = There is metal in the form. Wait for the casting to come out.
+
 dystopia-quench-hiss = { CAPITALIZE(THE($item)) } hisses as the water flashes to steam.
 
 dystopia-mould-shape = Shape: { $shape }, { $volume } u of molten metal per casting.
 dystopia-mould-shape-ingot = ingot
 dystopia-mould-shape-sheet = sheet
 dystopia-mould-shape-rod = rod
+
+stack-dystopia-slag = slag
+construction-category-dystopia-industry = Industry

@@ -1,0 +1,58 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: дроблёная руда — ступень ×2 переработки металлов (дробилка → тигель 1:1).
+
+- type: stack
+  id: DystopiaCrushedHematite
+  name: stack-dystopia-crushed-hematite
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/crushed.rsi, state: hematite }
+  spawn: DystopiaCrushedHematite1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaCrushedChalcopyrite
+  name: stack-dystopia-crushed-chalcopyrite
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/crushed.rsi, state: chalcopyrite }
+  spawn: DystopiaCrushedChalcopyrite1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaCrushedSphalerite
+  name: stack-dystopia-crushed-sphalerite
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/crushed.rsi, state: sphalerite }
+  spawn: DystopiaCrushedSphalerite1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaCrushedCassiterite
+  name: stack-dystopia-crushed-cassiterite
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/crushed.rsi, state: cassiterite }
+  spawn: DystopiaCrushedCassiterite1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaCrushedGalena
+  name: stack-dystopia-crushed-galena
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/crushed.rsi, state: galena }
+  spawn: DystopiaCrushedGalena1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaCrushedGoldOre
+  name: stack-dystopia-crushed-gold-ore
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/crushed.rsi, state: gold_ore }
+  spawn: DystopiaCrushedGoldOre1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaCrushedArgentite
+  name: stack-dystopia-crushed-argentite
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/crushed.rsi, state: argentite }
+  spawn: DystopiaCrushedArgentite1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaCrushedChromite
+  name: stack-dystopia-crushed-chromite
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/crushed.rsi, state: chromite }
+  spawn: DystopiaCrushedChromite1
+  maxCount: 30

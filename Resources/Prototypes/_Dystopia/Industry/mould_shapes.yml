@@ -1,13 +1,14 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 # Dystopia: ручное литьё (Промышленность, этап 3, ручной уровень ×1).
 # Формы отливки: сколько расплава на одну отливку и что выходит. Грязный металл (<95%) или
-# недолив — брак (кусок шлака).
+# недолив — брак (кусок шлака). Любой литейный металл льётся в любую форму: залили не в ту — получите
+# годные лист или прутья, их можно переплавить обратно.
 
 - type: dystopiaMouldShape
   id: DystopiaIngot
   name: dystopia-mould-shape-ingot
   volume: 10
-  defect: DystopiaSlag
+  defect: DystopiaSlag1
   minPurity: 0.95
   products:
     DystopiaMoltenIron: DystopiaIngotIron1
@@ -20,6 +21,7 @@
     DystopiaMoltenLead: DystopiaIngotLead1
     DystopiaMoltenBrass: DystopiaIngotBrass1
     DystopiaMoltenBronze: DystopiaIngotBronze1
+    DystopiaMoltenSolder: DystopiaIngotSolder1
     DystopiaMoltenStainlessSteel: DystopiaIngotStainlessSteel1
     DystopiaMoltenFerrochrome: DystopiaIngotFerrochrome1
     DystopiaMoltenGold: IngotGold1
@@ -30,7 +32,7 @@
   id: DystopiaSheet
   name: dystopia-mould-shape-sheet
   volume: 10
-  defect: DystopiaSlag
+  defect: DystopiaSlag1
   minPurity: 0.95
   products:
     DystopiaMoltenSteel: SheetSteel1
@@ -40,13 +42,36 @@
     DystopiaMoltenLead: DystopiaSheetLead1
     DystopiaMoltenBronze: DystopiaSheetBronze1
     DystopiaMoltenStainlessSteel: DystopiaSheetStainlessSteel1
+    DystopiaMoltenIron: DystopiaSheetIron1
+    DystopiaMoltenCastIron: DystopiaSheetCastIron1
+    DystopiaMoltenZinc: DystopiaSheetZinc1
+    DystopiaMoltenTin: DystopiaSheetTin1
+    DystopiaMoltenGold: DystopiaSheetGold1
+    DystopiaMoltenSilver: DystopiaSheetSilver1
+    DystopiaMoltenUranium: DystopiaSheetUranium1
+    DystopiaMoltenSolder: DystopiaSheetSolder1
+    DystopiaMoltenFerrochrome: DystopiaSheetFerrochrome1
 
 - type: dystopiaMouldShape
   id: DystopiaRod
   name: dystopia-mould-shape-rod
   volume: 5
-  defect: DystopiaSlag
+  defect: DystopiaSlag1
   minPurity: 0.95
   products:
     DystopiaMoltenSteel: PartRodMetal1
     DystopiaMoltenCopper: DystopiaRodCopper1
+    DystopiaMoltenIron: DystopiaRodIron1
+    DystopiaMoltenCastIron: DystopiaRodCastIron1
+    DystopiaMoltenAluminium: DystopiaRodAluminium1
+    DystopiaMoltenZinc: DystopiaRodZinc1
+    DystopiaMoltenTin: DystopiaRodTin1
+    DystopiaMoltenLead: DystopiaRodLead1
+    DystopiaMoltenGold: DystopiaRodGold1
+    DystopiaMoltenSilver: DystopiaRodSilver1
+    DystopiaMoltenUranium: DystopiaRodUranium1
+    DystopiaMoltenBrass: DystopiaRodBrass1
+    DystopiaMoltenBronze: DystopiaRodBronze1
+    DystopiaMoltenSolder: DystopiaRodSolder1
+    DystopiaMoltenStainlessSteel: DystopiaRodStainlessSteel1
+    DystopiaMoltenFerrochrome: DystopiaRodFerrochrome1

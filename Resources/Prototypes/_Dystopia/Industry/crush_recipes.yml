@@ -1,0 +1,52 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: дроблёная руда — ступень ×2 переработки металлов (дробилка → тигель 1:1).
+# Рецепты дробилки: кусок руды (стек input) → amount горстей (output). Дробятся только руды, которые
+# плавятся в тигле; боксит, уранинит и химические руды пойдут своими цепочками.
+
+- type: dystopiaCrushRecipe
+  id: DystopiaCrushedHematite
+  input: SteelOre
+  output: DystopiaCrushedHematite1
+  amount: 2
+
+- type: dystopiaCrushRecipe
+  id: DystopiaCrushedChalcopyrite
+  input: DystopiaOreChalcopyrite
+  output: DystopiaCrushedChalcopyrite1
+  amount: 2
+
+- type: dystopiaCrushRecipe
+  id: DystopiaCrushedSphalerite
+  input: DystopiaOreSphalerite
+  output: DystopiaCrushedSphalerite1
+  amount: 2
+
+- type: dystopiaCrushRecipe
+  id: DystopiaCrushedCassiterite
+  input: DystopiaOreCassiterite
+  output: DystopiaCrushedCassiterite1
+  amount: 2
+
+- type: dystopiaCrushRecipe
+  id: DystopiaCrushedGalena
+  input: DystopiaOreGalena
+  output: DystopiaCrushedGalena1
+  amount: 2
+
+- type: dystopiaCrushRecipe
+  id: DystopiaCrushedGoldOre
+  input: GoldOre
+  output: DystopiaCrushedGoldOre1
+  amount: 2
+
+- type: dystopiaCrushRecipe
+  id: DystopiaCrushedArgentite
+  input: SilverOre
+  output: DystopiaCrushedArgentite1
+  amount: 2
+
+- type: dystopiaCrushRecipe
+  id: DystopiaCrushedChromite
+  input: DystopiaOreChromite
+  output: DystopiaCrushedChromite1
+  amount: 2

@@ -156,3 +156,61 @@
   products:
     DystopiaMoltenSteel: 7
     DystopiaMoltenSlag: 3
+
+# Дроблёная руда (×2): горсть плавится как целый кусок руды.
+- type: dystopiaSmeltable
+  id: DystopiaCrushedHematite
+  meltTemperature: 1823.15  # 1550 °C, как у целой руды
+  products:
+    DystopiaMoltenIron: 10
+    DystopiaMoltenSlag: 5
+
+- type: dystopiaSmeltable
+  id: DystopiaCrushedChalcopyrite
+  meltTemperature: 1473.15  # 1200 °C, как у целой руды
+  products:
+    DystopiaMoltenCopper: 10
+    DystopiaMoltenSlag: 5
+
+- type: dystopiaSmeltable
+  id: DystopiaCrushedSphalerite
+  meltTemperature: 1273.15  # 1000 °C, как у целой руды
+  products:
+    DystopiaMoltenZinc: 10
+    DystopiaMoltenSlag: 5
+
+- type: dystopiaSmeltable
+  id: DystopiaCrushedCassiterite
+  meltTemperature: 1273.15  # 1000 °C, как у целой руды
+  products:
+    DystopiaMoltenTin: 10
+    DystopiaMoltenSlag: 5
+
+- type: dystopiaSmeltable
+  id: DystopiaCrushedGalena
+  meltTemperature: 1073.15  # 800 °C, как у целой руды
+  products:
+    DystopiaMoltenLead: 10
+    DystopiaMoltenSilver: 0.5
+    DystopiaMoltenSlag: 5
+
+- type: dystopiaSmeltable
+  id: DystopiaCrushedGoldOre
+  meltTemperature: 1343.15  # 1070 °C, как у целой руды
+  products:
+    DystopiaMoltenGold: 10
+    DystopiaMoltenSlag: 5
+
+- type: dystopiaSmeltable
+  id: DystopiaCrushedArgentite
+  meltTemperature: 1273.15  # 1000 °C, как у целой руды
+  products:
+    DystopiaMoltenSilver: 10
+    DystopiaMoltenSlag: 5
+
+- type: dystopiaSmeltable
+  id: DystopiaCrushedChromite
+  meltTemperature: 1823.15  # 1550 °C, как у целой руды
+  products:
+    DystopiaMoltenFerrochrome: 10
+    DystopiaMoltenSlag: 8

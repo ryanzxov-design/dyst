@@ -29,6 +29,328 @@
         {
             "name": "copper-inhand-right",
             "directions": 4
+        },
+        {
+            "name": "iron"
+        },
+        {
+            "name": "iron_2"
+        },
+        {
+            "name": "iron_3"
+        },
+        {
+            "name": "iron_4"
+        },
+        {
+            "name": "iron_5"
+        },
+        {
+            "name": "iron-inhand-left",
+            "directions": 4
+        },
+        {
+            "name": "iron-inhand-right",
+            "directions": 4
+        },
+        {
+            "name": "cast_iron"
+        },
+        {
+            "name": "cast_iron_2"
+        },
+        {
+            "name": "cast_iron_3"
+        },
+        {
+            "name": "cast_iron_4"
+        },
+        {
+            "name": "cast_iron_5"
+        },
+        {
+            "name": "cast_iron-inhand-left",
+            "directions": 4
+        },
+        {
+            "name": "cast_iron-inhand-right",
+            "directions": 4
+        },
+        {
+            "name": "aluminium"
+        },
+        {
+            "name": "aluminium_2"
+        },
+        {
+            "name": "aluminium_3"
+        },
+        {
+            "name": "aluminium_4"
+        },
+        {
+            "name": "aluminium_5"
+        },
+        {
+            "name": "aluminium-inhand-left",
+            "directions": 4
+        },
+        {
+            "name": "aluminium-inhand-right",
+            "directions": 4
+        },
+        {
+            "name": "zinc"
+        },
+        {
+            "name": "zinc_2"
+        },
+        {
+            "name": "zinc_3"
+        },
+        {
+            "name": "zinc_4"
+        },
+        {
+            "name": "zinc_5"
+        },
+        {
+            "name": "zinc-inhand-left",
+            "directions": 4
+        },
+        {
+            "name": "zinc-inhand-right",
+            "directions": 4
+        },
+        {
+            "name": "tin"
+        },
+        {
+            "name": "tin_2"
+        },
+        {
+            "name": "tin_3"
+        },
+        {
+            "name": "tin_4"
+        },
+        {
+            "name": "tin_5"
+        },
+        {
+            "name": "tin-inhand-left",
+            "directions": 4
+        },
+        {
+            "name": "tin-inhand-right",
+            "directions": 4
+        },
+        {
+            "name": "lead"
+        },
+        {
+            "name": "lead_2"
+        },
+        {
+            "name": "lead_3"
+        },
+        {
+            "name": "lead_4"
+        },
+        {
+            "name": "lead_5"
+        },
+        {
+            "name": "lead-inhand-left",
+            "directions": 4
+        },
+        {
+            "name": "lead-inhand-right",
+            "directions": 4
+        },
+        {
+            "name": "gold"
+        },
+        {
+            "name": "gold_2"
+        },
+        {
+            "name": "gold_3"
+        },
+        {
+            "name": "gold_4"
+        },
+        {
+            "name": "gold_5"
+        },
+        {
+            "name": "gold-inhand-left",
+            "directions": 4
+        },
+        {
+            "name": "gold-inhand-right",
+            "directions": 4
+        },
+        {
+            "name": "silver"
+        },
+        {
+            "name": "silver_2"
+        },
+        {
+            "name": "silver_3"
+        },
+        {
+            "name": "silver_4"
+        },
+        {
+            "name": "silver_5"
+        },
+        {
+            "name": "silver-inhand-left",
+            "directions": 4
+        },
+        {
+            "name": "silver-inhand-right",
+            "directions": 4
+        },
+        {
+            "name": "uranium"
+        },
+        {
+            "name": "uranium_2"
+        },
+        {
+            "name": "uranium_3"
+        },
+        {
+            "name": "uranium_4"
+        },
+        {
+            "name": "uranium_5"
+        },
+        {
+            "name": "uranium-inhand-left",
+            "directions": 4
+        },
+        {
+            "name": "uranium-inhand-right",
+            "directions": 4
+        },
+        {
+            "name": "brass"
+        },
+        {
+            "name": "brass_2"
+        },
+        {
+            "name": "brass_3"
+        },
+        {
+            "name": "brass_4"
+        },
+        {
+            "name": "brass_5"
+        },
+        {
+            "name": "brass-inhand-left",
+            "directions": 4
+        },
+        {
+            "name": "brass-inhand-right",
+            "directions": 4
+        },
+        {
+            "name": "bronze"
+        },
+        {
+            "name": "bronze_2"
+        },
+        {
+            "name": "bronze_3"
+        },
+        {
+            "name": "bronze_4"
+        },
+        {
+            "name": "bronze_5"
+        },
+        {
+            "name": "bronze-inhand-left",
+            "directions": 4
+        },
+        {
+            "name": "bronze-inhand-right",
+            "directions": 4
+        },
+        {
+            "name": "solder"
+        },
+        {
+            "name": "solder_2"
+        },
+        {
+            "name": "solder_3"
+        },
+        {
+            "name": "solder_4"
+        },
+        {
+            "name": "solder_5"
+        },
+        {
+            "name": "solder-inhand-left",
+            "directions": 4
+        },
+        {
+            "name": "solder-inhand-right",
+            "directions": 4
+        },
+        {
+            "name": "stainless"
+        },
+        {
+            "name": "stainless_2"
+        },
+        {
+            "name": "stainless_3"
+        },
+        {
+            "name": "stainless_4"
+        },
+        {
+            "name": "stainless_5"
+        },
+        {
+            "name": "stainless-inhand-left",
+            "directions": 4
+        },
+        {
+            "name": "stainless-inhand-right",
+            "directions": 4
+        },
+        {
+            "name": "ferrochrome"
+        },
+        {
+            "name": "ferrochrome_2"
+        },
+        {
+            "name": "ferrochrome_3"
+        },
+        {
+            "name": "ferrochrome_4"
+        },
+        {
+            "name": "ferrochrome_5"
+        },
+        {
+            "name": "ferrochrome-inhand-left",
+            "directions": 4
+        },
+        {
+            "name": "ferrochrome-inhand-right",
+            "directions": 4
         }
     ]
 }

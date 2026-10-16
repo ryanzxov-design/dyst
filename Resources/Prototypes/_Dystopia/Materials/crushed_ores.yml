@@ -1,0 +1,75 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: дроблёная руда — ступень ×2 переработки металлов (дробилка → тигель 1:1).
+# Материал дроблёной руды: 100 единиц = одна горсть.
+
+- type: material
+  id: DystopiaCrushedHematite
+  stackEntity: DystopiaCrushedHematite1
+  name: materials-dystopia-crushed-hematite
+  unit: materials-unit-dystopia-handful
+  icon: { sprite: _Dystopia/Objects/Materials/Metals/crushed.rsi, state: hematite }
+  color: "#7a3e30"
+  price: 0.05
+
+- type: material
+  id: DystopiaCrushedChalcopyrite
+  stackEntity: DystopiaCrushedChalcopyrite1
+  name: materials-dystopia-crushed-chalcopyrite
+  unit: materials-unit-dystopia-handful
+  icon: { sprite: _Dystopia/Objects/Materials/Metals/crushed.rsi, state: chalcopyrite }
+  color: "#b89a2a"
+  price: 0.05
+
+- type: material
+  id: DystopiaCrushedSphalerite
+  stackEntity: DystopiaCrushedSphalerite1
+  name: materials-dystopia-crushed-sphalerite
+  unit: materials-unit-dystopia-handful
+  icon: { sprite: _Dystopia/Objects/Materials/Metals/crushed.rsi, state: sphalerite }
+  color: "#6a4a1a"
+  price: 0.05
+
+- type: material
+  id: DystopiaCrushedCassiterite
+  stackEntity: DystopiaCrushedCassiterite1
+  name: materials-dystopia-crushed-cassiterite
+  unit: materials-unit-dystopia-handful
+  icon: { sprite: _Dystopia/Objects/Materials/Metals/crushed.rsi, state: cassiterite }
+  color: "#4a3a32"
+  price: 0.05
+
+- type: material
+  id: DystopiaCrushedGalena
+  stackEntity: DystopiaCrushedGalena1
+  name: materials-dystopia-crushed-galena
+  unit: materials-unit-dystopia-handful
+  icon: { sprite: _Dystopia/Objects/Materials/Metals/crushed.rsi, state: galena }
+  color: "#5c6274"
+  price: 0.05
+
+- type: material
+  id: DystopiaCrushedGoldOre
+  stackEntity: DystopiaCrushedGoldOre1
+  name: materials-dystopia-crushed-gold-ore
+  unit: materials-unit-dystopia-handful
+  icon: { sprite: _Dystopia/Objects/Materials/Metals/crushed.rsi, state: gold_ore }
+  color: "#9a7a30"
+  price: 0.05
+
+- type: material
+  id: DystopiaCrushedArgentite
+  stackEntity: DystopiaCrushedArgentite1
+  name: materials-dystopia-crushed-argentite
+  unit: materials-unit-dystopia-handful
+  icon: { sprite: _Dystopia/Objects/Materials/Metals/crushed.rsi, state: argentite }
+  color: "#5e5e68"
+  price: 0.05
+
+- type: material
+  id: DystopiaCrushedChromite
+  stackEntity: DystopiaCrushedChromite1
+  name: materials-dystopia-crushed-chromite
+  unit: materials-unit-dystopia-handful
+  icon: { sprite: _Dystopia/Objects/Materials/Metals/crushed.rsi, state: chromite }
+  color: "#4a4248"
+  price: 0.05

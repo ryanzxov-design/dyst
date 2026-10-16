@@ -1,0 +1,35 @@
+{
+    "version": 1,
+    "license": "CC-BY-SA-3.0",
+    "copyright": "Drawn for Dystopia (ryanzxov-design/dyst).",
+    "size": {
+        "x": 32,
+        "y": 32
+    },
+    "states": [
+        {
+            "name": "base"
+        },
+        {
+            "name": "form-ingot1"
+        },
+        {
+            "name": "form-ingot10"
+        },
+        {
+            "name": "form-sheet1"
+        },
+        {
+            "name": "form-sheet10"
+        },
+        {
+            "name": "form-rod1"
+        },
+        {
+            "name": "form-rod10"
+        },
+        {
+            "name": "fill-1"
+        }
+    ]
+}

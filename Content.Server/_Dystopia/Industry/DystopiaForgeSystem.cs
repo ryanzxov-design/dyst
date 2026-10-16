@@ -23,11 +23,14 @@ public sealed partial class DystopiaForgeSystem : EntitySystem
     [Dependency] private SharedPointLightSystem _light = default!;
     [Dependency] private SharedAmbientSoundSystem _ambient = default!;
     [Dependency] private DystopiaCrucibleSystem _crucible = default!;
+    [Dependency] private DystopiaForgeMountSystem _mount = default!;
 
     public override void Initialize()
     {
         base.Initialize();
         SubscribeLocalEvent<DystopiaForgeComponent, MapInitEvent>(OnMapInit);
+        // InteractUsing идёт раньше, чем горн-поверхность ставит предмет на себя (AfterInteractUsing):
+        // большой тигель ставится установкой, топливо уходит в топку.
         SubscribeLocalEvent<DystopiaForgeComponent, InteractUsingEvent>(OnInteractUsing);
         SubscribeLocalEvent<DystopiaForgeComponent, ExaminedEvent>(OnExamined);
     }
@@ -57,6 +60,14 @@ public sealed partial class DystopiaForgeSystem : EntitySystem
     {
         if (args.Handled)
             return;
+
+        // Большой тигель — установка на горн.
+        if (HasComp<DystopiaForgeMountableComponent>(args.Used))
+        {
+            args.Handled = true;
+            _mount.TryStartMount(ent, args.Used, args.User);
+            return;
+        }
 
         // Огонь (зажигалка, спичка, горелка) — разжечь.
         var hot = new IsHotEvent();
@@ -107,9 +118,12 @@ public sealed partial class DystopiaForgeSystem : EntitySystem
     /// <summary>Секунд горения в одной единице предмета (одном куске стопки).</summary>
     private float GetFuelValue(DystopiaForgeComponent forge, EntityUid item)
     {
-        if (!TryComp<PhysicalCompositionComponent>(item, out var composition))
-            return 0f;
+        return TryComp<PhysicalCompositionComponent>(item, out var composition) ? FuelValue(forge, composition) : 0f;
+    }
 
+    /// <summary>Секунд горения на единицу предмета такого состава (0 — не топливо).</summary>
+    public static float FuelValue(DystopiaForgeComponent forge, PhysicalCompositionComponent composition)
+    {
         var total = 0f;
         foreach (var (material, amount) in composition.MaterialComposition)
         {
@@ -127,8 +141,8 @@ public sealed partial class DystopiaForgeSystem : EntitySystem
         base.Update(frameTime);
 
         var now = _timing.CurTime;
-        var query = EntityQueryEnumerator<DystopiaForgeComponent, ItemPlacerComponent>();
-        while (query.MoveNext(out var uid, out var forge, out var placer))
+        var query = EntityQueryEnumerator<DystopiaForgeComponent>();
+        while (query.MoveNext(out var uid, out var forge))
         {
             if (!forge.Lit || now < forge.NextUpdate)
                 continue;
@@ -148,11 +162,18 @@ public sealed partial class DystopiaForgeSystem : EntitySystem
 
             var target = bellows ? forge.BellowsMaxTemperature : forge.BaseMaxTemperature;
             var until = now + TimeSpan.FromSeconds(forge.UpdateInterval * 2);
-            foreach (var placed in placer.PlacedEntities)
+            // Тигель, поставленный на горн, и тигель, встроенный в горн (горн с большим тиглем).
+            if (TryComp<ItemPlacerComponent>(uid, out var placer))
             {
-                if (TryComp<DystopiaCrucibleComponent>(placed, out var crucible))
-                    _crucible.ApplyHeat((placed, crucible), target, forge.HeatRate, until);
+                foreach (var placed in placer.PlacedEntities)
+                {
+                    if (TryComp<DystopiaCrucibleComponent>(placed, out var crucible))
+                        _crucible.ApplyHeat((placed, crucible), target, forge.HeatRate, until);
+                }
             }
+
+            if (TryComp<DystopiaCrucibleComponent>(uid, out var own))
+                _crucible.ApplyHeat((uid, own), target, forge.HeatRate, until);
         }
     }
 

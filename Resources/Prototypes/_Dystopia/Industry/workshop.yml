@@ -1,0 +1,960 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: мастерская (Промышленность, этап 3): горн с большим тиглем, литейные желоба, литейный стол со сменными
+# формами ×1/×10. Выход по-прежнему 1:1 — мастерская даёт объём и скорость. Самостоятельные сущности, без parent.
+# Числа — в полях компонентов (Content.Shared/_Dystopia/Industry/).
+
+- type: entity
+  id: DystopiaCrucibleLarge
+  name: large crucible
+  description: A heavy graphite crucible with trunnions and a tilting lever. Click a forge with it to set it in; tongs can't lift it.
+  components:
+  - type: Item
+    size: Huge
+    sprite: _Dystopia/Objects/Industry/crucible_large.rsi
+  - type: MultiHandedItem   # холодный — носят двумя руками
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/metal_thud1.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 10
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.35,-0.35,0.35,0.35"
+        density: 80
+        mask: [ ItemMask ]
+        restitution: 0.1
+        friction: 0.6
+  - type: Sprite
+    drawdepth: Items
+    noRot: true
+    sprite: _Dystopia/Objects/Industry/crucible_large.rsi
+    layers:
+    - state: icon
+    - state: fill-1
+      map:
+      - enum.SolutionContainerLayers.Fill
+      visible: false
+      shader: unshaded
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Appearance
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaCastIron: 200
+  - type: PointLight
+    enabled: false
+    radius: 2
+    energy: 2
+    color: "#FF7A2A"
+  - type: DystopiaHotItem
+    burnDamage:
+      types:
+        Heat: 6
+    checkInterval: 1
+  - type: DystopiaForgeMountable
+    mounted: DystopiaForgeLargeCrucible
+    delay: 4
+  - type: Solution
+    id: crucible
+    solution:
+      maxVol: 400
+      canReact: true
+  - type: RefillableSolution
+    solution: crucible
+  - type: DrainableSolution
+    solution: crucible
+  - type: SolutionContainerVisuals
+    maxFillLevels: 4
+    fillBaseName: fill-
+  - type: ContainerContainer
+    containers:
+      dystopia_crucible_charge: !type:Container {}
+  - type: Reactive   # вода в боевом режиме — закалка
+    groups:
+      Extinguish: [ Touch ]
+  - type: DystopiaQuenchable
+    solution: crucible
+    coolants:
+      Water: 4      # K на единицу: большой тигель держит жар дольше малого
+      Ice: 6
+    sound:
+      path: /Audio/Effects/sizzle.ogg
+  - type: DystopiaCrucible
+    solution: crucible
+    chargeContainer: dystopia_crucible_charge
+    maxCharge: 3000      # 30 кусков: втрое больше малого
+    meltRate: 200        # плавит два куска в секунду
+    heatMultiplier: 0.5  # греется вдвое дольше малого
+    coolingRate: 0.003
+    fallbackAmbient: 293.15
+    hotThreshold: 333.15
+    glowThreshold: 873.15
+    foreignSlag: DystopiaMoltenSlag
+    foreignSlagPer100: 5
+    slagReagent: DystopiaMoltenSlag
+    slagLump: DystopiaSlag1
+    slagPerLump: 5
+    updateInterval: 0.5
+
+- type: entity
+  id: DystopiaForgeLargeCrucible
+  name: forge with a large crucible
+  description: A brick forge with a large crucible set into it. Feed the firebox, light it, load the crucible, tilt it to pour into the attached casting channel.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.35"
+        density: 1000
+        mask: [ TableMask ]
+        layer: [ TableLayer ]
+  - type: Tag
+    tags: [ Structure ]
+  - type: Sprite
+    noRot: true
+    drawdepth: Objects
+    layers:
+    - sprite: _Dystopia/Structures/Industry/forge.rsi
+      state: base
+    - sprite: _Dystopia/Structures/Industry/forge.rsi
+      state: fire
+      map: [ "enum.DystopiaForgeVisuals.Lit" ]
+      shader: unshaded
+      visible: false
+    - sprite: _Dystopia/Structures/Industry/forge.rsi
+      state: fire_bellows
+      map: [ "enum.DystopiaForgeVisuals.Bellows" ]
+      shader: unshaded
+      visible: false
+    - sprite: _Dystopia/Objects/Industry/crucible_large.rsi
+      state: icon
+      offset: "0,0.25"
+    - sprite: _Dystopia/Objects/Industry/crucible_large.rsi
+      state: fill-1
+      offset: "0,0.25"
+      map: [ "enum.SolutionContainerLayers.Fill" ]
+      visible: false
+      shader: unshaded
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DystopiaForgeVisuals.Lit:
+        enum.DystopiaForgeVisuals.Lit:
+          True: { visible: true }
+          False: { visible: false }
+      enum.DystopiaForgeVisuals.Bellows:
+        enum.DystopiaForgeVisuals.Bellows:
+          True: { visible: true }
+          False: { visible: false }
+  - type: PointLight
+    enabled: false
+    radius: 4
+    energy: 2.5
+    color: "#FF8A30"
+  - type: AmbientSound
+    enabled: false
+    volume: -6
+    range: 5
+    sound:
+      path: /Audio/Ambience/Objects/fireplace.ogg
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 300
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/Effects/break_stone.ogg
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          DystopiaCrucibleLarge:
+            min: 1
+            max: 1
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: DystopiaForge
+    fuelMaterials:
+      Coal: 120
+      Wood: 45
+    maxFuel: 900
+    baseMaxTemperature: 1373.15
+    bellowsMaxTemperature: 1973.15
+    heatRate: 12
+    bellowsFuelMultiplier: 2
+    updateInterval: 0.5
+  - type: DystopiaMountedCrucible
+    forge: DystopiaForge
+    item: DystopiaCrucibleLarge
+    delay: 4
+  - type: DystopiaTiltPour
+    delay: 2
+    pourSound:
+      path: /Audio/Effects/Fluids/glug.ogg
+  - type: Solution
+    id: crucible
+    solution:
+      maxVol: 400
+      canReact: true
+  - type: RefillableSolution
+    solution: crucible
+  - type: DrainableSolution
+    solution: crucible
+  - type: SolutionContainerVisuals
+    maxFillLevels: 4
+    fillBaseName: fill-
+  - type: ContainerContainer
+    containers:
+      dystopia_crucible_charge: !type:Container {}
+  - type: Reactive   # вода в боевом режиме — закалка
+    groups:
+      Extinguish: [ Touch ]
+  - type: DystopiaQuenchable
+    solution: crucible
+    coolants:
+      Water: 4      # K на единицу: большой тигель держит жар дольше малого
+      Ice: 6
+    sound:
+      path: /Audio/Effects/sizzle.ogg
+  - type: DystopiaCrucible
+    solution: crucible
+    chargeContainer: dystopia_crucible_charge
+    maxCharge: 3000      # 30 кусков: втрое больше малого
+    meltRate: 200        # плавит два куска в секунду
+    heatMultiplier: 0.5  # греется вдвое дольше малого
+    coolingRate: 0.003
+    fallbackAmbient: 293.15
+    hotThreshold: 333.15
+    glowThreshold: 873.15
+    foreignSlag: DystopiaMoltenSlag
+    foreignSlagPer100: 5
+    slagReagent: DystopiaMoltenSlag
+    slagLump: DystopiaSlag1
+    slagPerLump: 5
+    updateInterval: 0.5
+
+- type: entity
+  id: DystopiaCastingChannelStraight
+  name: casting channel
+  description: A clay-lined runner for molten metal. Molten metal poured into the network runs to the casting tables its openings lead to.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Physics
+    bodyType: Static
+  - type: Sprite
+    sprite: _Dystopia/Structures/Industry/casting_channel.rsi
+    noRot: false   # поворачивается вместе с желобом
+    drawdepth: FloorObjects
+    layers:
+    - state: straight
+    - state: straight-flow
+      map: [ "enum.DystopiaCastingChannelVisuals.Flowing" ]
+      shader: unshaded
+      visible: false
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DystopiaCastingChannelVisuals.Flowing:
+        enum.DystopiaCastingChannelVisuals.Flowing:
+          True: { visible: true }
+          False: { visible: false }
+  - type: Construction
+    graph: DystopiaCastingChannel
+    node: straight
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 80
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/Effects/break_stone.ogg
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: DystopiaCastingChannel
+    openings: [ North, South ]   # при повороте 0: North — вверх, South — вниз
+    maxSegments: 64
+    flowVisualTime: 2
+    flowSound:
+      path: /Audio/Effects/Fluids/glug.ogg
+      params:
+        volume: -2
+
+- type: entity
+  id: DystopiaCastingChannelCorner
+  name: casting channel corner
+  description: A clay-lined runner that turns a corner. Molten metal poured into the network runs to the casting tables its openings lead to.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Physics
+    bodyType: Static
+  - type: Sprite
+    sprite: _Dystopia/Structures/Industry/casting_channel.rsi
+    noRot: false   # поворачивается вместе с желобом
+    drawdepth: FloorObjects
+    layers:
+    - state: corner
+    - state: corner-flow
+      map: [ "enum.DystopiaCastingChannelVisuals.Flowing" ]
+      shader: unshaded
+      visible: false
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DystopiaCastingChannelVisuals.Flowing:
+        enum.DystopiaCastingChannelVisuals.Flowing:
+          True: { visible: true }
+          False: { visible: false }
+  - type: Construction
+    graph: DystopiaCastingChannel
+    node: corner
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 80
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/Effects/break_stone.ogg
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: DystopiaCastingChannel
+    openings: [ South, East ]   # при повороте 0: North — вверх, South — вниз
+    maxSegments: 64
+    flowVisualTime: 2
+    flowSound:
+      path: /Audio/Effects/Fluids/glug.ogg
+      params:
+        volume: -2
+
+- type: entity
+  id: DystopiaCastingChannelTee
+  name: casting channel tee
+  description: A clay-lined runner that splits three ways. Molten metal poured into the network runs to the casting tables its openings lead to.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Physics
+    bodyType: Static
+  - type: Sprite
+    sprite: _Dystopia/Structures/Industry/casting_channel.rsi
+    noRot: false   # поворачивается вместе с желобом
+    drawdepth: FloorObjects
+    layers:
+    - state: tee
+    - state: tee-flow
+      map: [ "enum.DystopiaCastingChannelVisuals.Flowing" ]
+      shader: unshaded
+      visible: false
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DystopiaCastingChannelVisuals.Flowing:
+        enum.DystopiaCastingChannelVisuals.Flowing:
+          True: { visible: true }
+          False: { visible: false }
+  - type: Construction
+    graph: DystopiaCastingChannel
+    node: tee
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 80
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/Effects/break_stone.ogg
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: DystopiaCastingChannel
+    openings: [ South, East, West ]   # при повороте 0: North — вверх, South — вниз
+    maxSegments: 64
+    flowVisualTime: 2
+    flowSound:
+      path: /Audio/Effects/Fluids/glug.ogg
+      params:
+        volume: -2
+
+- type: entity
+  id: DystopiaCastingChannelCross
+  name: casting channel cross
+  description: A clay-lined runner crossing four ways. Molten metal poured into the network runs to the casting tables its openings lead to.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Physics
+    bodyType: Static
+  - type: Sprite
+    sprite: _Dystopia/Structures/Industry/casting_channel.rsi
+    noRot: false   # поворачивается вместе с желобом
+    drawdepth: FloorObjects
+    layers:
+    - state: cross
+    - state: cross-flow
+      map: [ "enum.DystopiaCastingChannelVisuals.Flowing" ]
+      shader: unshaded
+      visible: false
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DystopiaCastingChannelVisuals.Flowing:
+        enum.DystopiaCastingChannelVisuals.Flowing:
+          True: { visible: true }
+          False: { visible: false }
+  - type: Construction
+    graph: DystopiaCastingChannel
+    node: cross
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 80
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/Effects/break_stone.ogg
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: DystopiaCastingChannel
+    openings: [ North, South, East, West ]   # при повороте 0: North — вверх, South — вниз
+    maxSegments: 64
+    flowVisualTime: 2
+    flowSound:
+      path: /Audio/Effects/Fluids/glug.ogg
+      params:
+        volume: -2
+
+- type: entity
+  id: DystopiaCastingTable
+  name: casting table
+  description: A cast-iron table with a sand bed and a sprue cup. Put a casting form in it and pour metal through a casting channel or straight from a crucible.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.35"
+        density: 500
+        mask: [ TableMask ]
+        layer: [ TableLayer ]
+  - type: Sprite
+    sprite: _Dystopia/Structures/Industry/casting_table.rsi
+    noRot: true
+    drawdepth: Objects
+    layers:
+    - state: base
+    - state: form-ingot1
+      map: [ "enum.DystopiaCastingTableVisuals.Form" ]
+      visible: false
+    - state: fill-1
+      map: [ "enum.SolutionContainerLayers.Fill" ]
+      visible: false
+      shader: unshaded
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DystopiaCastingTableVisuals.Form:
+        enum.DystopiaCastingTableVisuals.Form:
+          none: { visible: false }
+          ingot1: { visible: true, state: form-ingot1 }
+          ingot10: { visible: true, state: form-ingot10 }
+          sheet1: { visible: true, state: form-sheet1 }
+          sheet10: { visible: true, state: form-sheet10 }
+          rod1: { visible: true, state: form-rod1 }
+          rod10: { visible: true, state: form-rod10 }
+  - type: Solution
+    id: mould
+    solution:
+      maxVol: 0      # вместимость задаёт вставленная форма
+      canReact: true
+  - type: RefillableSolution
+    solution: mould
+  - type: SolutionContainerVisuals
+    maxFillLevels: 1
+    fillBaseName: fill-
+  - type: ItemSlots
+    slots:
+      dystopia_casting_form:
+        name: dystopia-casting-table-slot
+        swap: false
+        whitelist:
+          components: [ DystopiaCastingForm ]
+  - type: ContainerContainer
+    containers:
+      dystopia_casting_form: !type:ContainerSlot {}
+  - type: Reactive   # вода в боевом режиме — закалка
+    groups:
+      Extinguish: [ Touch ]
+  - type: DystopiaQuenchable
+    solution: mould
+    coolants:
+      Water: 20     # K на единицу: стол массивнее изложницы
+      Ice: 30
+    sound:
+      path: /Audio/Effects/sizzle.ogg
+  - type: Construction
+    graph: DystopiaCastingTable
+    node: table
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 200
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:EmptyAllContainersBehaviour
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: DystopiaMould
+    formSlot: dystopia_casting_form
+    solution: mould
+    coolingRate: 0.006   # больше металла — остывает дольше
+    fallbackAmbient: 293.15
+    hotThreshold: 333.15
+    updateInterval: 0.5
+
+- type: entity
+  id: DystopiaCastingFormIngot1
+  name: ingot casting form x1
+  description: A cast-iron form for the casting table. Holds 10 u of molten metal, 1 ingot per pour.
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Industry/casting_forms.rsi
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.3,-0.25,0.3,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Industry/casting_forms.rsi
+    state: ingot1
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Appearance
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaCastIron: 100
+  - type: DystopiaCastingForm
+    shape: DystopiaIngot
+    volume: 10
+    visual: ingot1
+
+- type: entity
+  id: DystopiaCastingFormIngot10
+  name: ingot casting form x10
+  description: A cast-iron form for the casting table. Holds 100 u of molten metal, 10 ingots per pour.
+  components:
+  - type: Item
+    size: Large
+    sprite: _Dystopia/Objects/Industry/casting_forms.rsi
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.3,-0.25,0.3,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Industry/casting_forms.rsi
+    state: ingot10
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Appearance
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaCastIron: 500
+  - type: DystopiaCastingForm
+    shape: DystopiaIngot
+    volume: 100
+    visual: ingot10
+
+- type: entity
+  id: DystopiaCastingFormSheet1
+  name: sheet casting form x1
+  description: A cast-iron form for the casting table. Holds 10 u of molten metal, 1 sheet per pour.
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Industry/casting_forms.rsi
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.3,-0.25,0.3,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Industry/casting_forms.rsi
+    state: sheet1
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Appearance
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaCastIron: 100
+  - type: DystopiaCastingForm
+    shape: DystopiaSheet
+    volume: 10
+    visual: sheet1
+
+- type: entity
+  id: DystopiaCastingFormSheet10
+  name: sheet casting form x10
+  description: A cast-iron form for the casting table. Holds 100 u of molten metal, 10 sheets per pour.
+  components:
+  - type: Item
+    size: Large
+    sprite: _Dystopia/Objects/Industry/casting_forms.rsi
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.3,-0.25,0.3,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Industry/casting_forms.rsi
+    state: sheet10
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Appearance
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaCastIron: 500
+  - type: DystopiaCastingForm
+    shape: DystopiaSheet
+    volume: 100
+    visual: sheet10
+
+- type: entity
+  id: DystopiaCastingFormRod1
+  name: rod casting form x1
+  description: A cast-iron form for the casting table. Holds 10 u of molten metal, 2 rods per pour.
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Industry/casting_forms.rsi
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.3,-0.25,0.3,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Industry/casting_forms.rsi
+    state: rod1
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Appearance
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaCastIron: 100
+  - type: DystopiaCastingForm
+    shape: DystopiaRod
+    volume: 10
+    visual: rod1
+
+- type: entity
+  id: DystopiaCastingFormRod10
+  name: rod casting form x10
+  description: A cast-iron form for the casting table. Holds 100 u of molten metal, 20 rods per pour.
+  components:
+  - type: Item
+    size: Large
+    sprite: _Dystopia/Objects/Industry/casting_forms.rsi
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.3,-0.25,0.3,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Industry/casting_forms.rsi
+    state: rod10
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Appearance
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaCastIron: 500
+  - type: DystopiaCastingForm
+    shape: DystopiaRod
+    volume: 100
+    visual: rod10

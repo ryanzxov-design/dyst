@@ -1,0 +1,173 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: строительство мастерской — литейные желоба и литейный стол. Строятся из чугунных слитков,
+# разбираются ломом (не откручиваются и в руки не берутся).
+
+- type: constructionGraph
+  id: DystopiaCastingChannel
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: straight
+      steps:
+      - material: DystopiaIngotCastIron
+        amount: 1
+        doAfter: 2
+    - to: corner
+      steps:
+      - material: DystopiaIngotCastIron
+        amount: 1
+        doAfter: 2
+    - to: tee
+      steps:
+      - material: DystopiaIngotCastIron
+        amount: 1
+        doAfter: 2
+    - to: cross
+      steps:
+      - material: DystopiaIngotCastIron
+        amount: 1
+        doAfter: 2
+
+  - node: straight
+    entity: DystopiaCastingChannelStraight
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaIngotCastIron1
+        amount: 1
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: corner
+    entity: DystopiaCastingChannelCorner
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaIngotCastIron1
+        amount: 1
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: tee
+    entity: DystopiaCastingChannelTee
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaIngotCastIron1
+        amount: 1
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: cross
+    entity: DystopiaCastingChannelCross
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaIngotCastIron1
+        amount: 1
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+- type: constructionGraph
+  id: DystopiaCastingTable
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: table
+      steps:
+      - material: DystopiaIngotCastIron
+        amount: 4
+        doAfter: 4
+
+  - node: table
+    entity: DystopiaCastingTable
+    edges:
+    - to: start
+      completed:
+      - !type:EmptyAllContainers
+      - !type:SpawnPrototype
+        prototype: DystopiaIngotCastIron1
+        amount: 4
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 4
+
+- type: construction
+  id: DystopiaCastingChannelStraight
+  graph: DystopiaCastingChannel
+  startNode: start
+  targetNode: straight
+  category: construction-category-dystopia-industry
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: false
+  conditions:
+  - !type:TileNotBlocked
+
+- type: construction
+  id: DystopiaCastingChannelCorner
+  graph: DystopiaCastingChannel
+  startNode: start
+  targetNode: corner
+  category: construction-category-dystopia-industry
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: false
+  conditions:
+  - !type:TileNotBlocked
+
+- type: construction
+  id: DystopiaCastingChannelTee
+  graph: DystopiaCastingChannel
+  startNode: start
+  targetNode: tee
+  category: construction-category-dystopia-industry
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: false
+  conditions:
+  - !type:TileNotBlocked
+
+- type: construction
+  id: DystopiaCastingChannelCross
+  graph: DystopiaCastingChannel
+  startNode: start
+  targetNode: cross
+  category: construction-category-dystopia-industry
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: false
+  conditions:
+  - !type:TileNotBlocked
+
+- type: construction
+  id: DystopiaCastingTable
+  graph: DystopiaCastingTable
+  startNode: start
+  targetNode: table
+  category: construction-category-dystopia-industry
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: false
+  canBuildInImpassable: false
+  conditions:
+  - !type:TileNotBlocked

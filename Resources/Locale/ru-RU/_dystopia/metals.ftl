@@ -482,3 +482,269 @@ ent-DystopiaWallRockSnowCinnabar = сугроб
 ent-DystopiaWallRockChromiteCinnabar = перидотит
     .desc = Рудная жила, богатая киноварью.
     .suffix = Ртуть (киноварь)
+
+# Литые листы и прутья всех металлов, слиток припоя.
+stack-dystopia-ingot-solder = { $amount ->
+    [1] слиток
+    [few] слитка
+    *[other] слитков
+} припоя
+ent-DystopiaIngotSolder = слиток припоя
+    .desc = Тяжёлый брусок припоя, отлитый в изложницу.
+    .suffix = Полный
+ent-DystopiaIngotSolder1 = слиток припоя
+    .desc = Тяжёлый брусок припоя, отлитый в изложницу.
+    .suffix = Один
+stack-dystopia-sheet-iron = { $amount ->
+    [1] лист
+    [few] листа
+    *[other] листов
+} железа
+ent-DystopiaSheetIron = лист железа
+    .desc = Лист железа, отлитый в изложницу.
+    .suffix = Полный
+ent-DystopiaSheetIron1 = лист железа
+    .desc = Лист железа, отлитый в изложницу.
+    .suffix = Один
+stack-dystopia-sheet-cast-iron = { $amount ->
+    [1] лист
+    [few] листа
+    *[other] листов
+} чугуна
+ent-DystopiaSheetCastIron = лист чугуна
+    .desc = Лист чугуна, отлитый в изложницу.
+    .suffix = Полный
+ent-DystopiaSheetCastIron1 = лист чугуна
+    .desc = Лист чугуна, отлитый в изложницу.
+    .suffix = Один
+stack-dystopia-sheet-zinc = { $amount ->
+    [1] лист
+    [few] листа
+    *[other] листов
+} цинка
+ent-DystopiaSheetZinc = лист цинка
+    .desc = Лист цинка, отлитый в изложницу.
+    .suffix = Полный
+ent-DystopiaSheetZinc1 = лист цинка
+    .desc = Лист цинка, отлитый в изложницу.
+    .suffix = Один
+stack-dystopia-sheet-tin = { $amount ->
+    [1] лист
+    [few] листа
+    *[other] листов
+} олова
+ent-DystopiaSheetTin = лист олова
+    .desc = Лист олова, отлитый в изложницу.
+    .suffix = Полный
+ent-DystopiaSheetTin1 = лист олова
+    .desc = Лист олова, отлитый в изложницу.
+    .suffix = Один
+stack-dystopia-sheet-gold = { $amount ->
+    [1] лист
+    [few] листа
+    *[other] листов
+} золота
+ent-DystopiaSheetGold = лист золота
+    .desc = Лист золота, отлитый в изложницу.
+    .suffix = Полный
+ent-DystopiaSheetGold1 = лист золота
+    .desc = Лист золота, отлитый в изложницу.
+    .suffix = Один
+stack-dystopia-sheet-silver = { $amount ->
+    [1] лист
+    [few] листа
+    *[other] листов
+} серебра
+ent-DystopiaSheetSilver = лист серебра
+    .desc = Лист серебра, отлитый в изложницу.
+    .suffix = Полный
+ent-DystopiaSheetSilver1 = лист серебра
+    .desc = Лист серебра, отлитый в изложницу.
+    .suffix = Один
+stack-dystopia-sheet-uranium = { $amount ->
+    [1] лист
+    [few] листа
+    *[other] листов
+} урана
+ent-DystopiaSheetUranium = лист урана
+    .desc = Лист урана, отлитый в изложницу.
+    .suffix = Полный
+ent-DystopiaSheetUranium1 = лист урана
+    .desc = Лист урана, отлитый в изложницу.
+    .suffix = Один
+stack-dystopia-sheet-solder = { $amount ->
+    [1] лист
+    [few] листа
+    *[other] листов
+} припоя
+ent-DystopiaSheetSolder = лист припоя
+    .desc = Лист припоя, отлитый в изложницу.
+    .suffix = Полный
+ent-DystopiaSheetSolder1 = лист припоя
+    .desc = Лист припоя, отлитый в изложницу.
+    .suffix = Один
+stack-dystopia-sheet-ferrochrome = { $amount ->
+    [1] лист
+    [few] листа
+    *[other] листов
+} феррохрома
+ent-DystopiaSheetFerrochrome = лист феррохрома
+    .desc = Лист феррохрома, отлитый в изложницу.
+    .suffix = Полный
+ent-DystopiaSheetFerrochrome1 = лист феррохрома
+    .desc = Лист феррохрома, отлитый в изложницу.
+    .suffix = Один
+stack-dystopia-rod-iron = { $amount ->
+    [1] прут
+    [few] прута
+    *[other] прутьев
+} железа
+ent-DystopiaRodIron = прут железа
+    .desc = Пруток железа, отлитый в изложницу.
+    .suffix = Полный
+ent-DystopiaRodIron1 = прут железа
+    .desc = Пруток железа, отлитый в изложницу.
+    .suffix = Один
+stack-dystopia-rod-cast-iron = { $amount ->
+    [1] прут
+    [few] прута
+    *[other] прутьев
+} чугуна
+ent-DystopiaRodCastIron = прут чугуна
+    .desc = Пруток чугуна, отлитый в изложницу.
+    .suffix = Полный
+ent-DystopiaRodCastIron1 = прут чугуна
+    .desc = Пруток чугуна, отлитый в изложницу.
+    .suffix = Один
+stack-dystopia-rod-aluminium = { $amount ->
+    [1] прут
+    [few] прута
+    *[other] прутьев
+} алюминия
+ent-DystopiaRodAluminium = прут алюминия
+    .desc = Пруток алюминия, отлитый в изложницу.
+    .suffix = Полный
+ent-DystopiaRodAluminium1 = прут алюминия
+    .desc = Пруток алюминия, отлитый в изложницу.
+    .suffix = Один
+stack-dystopia-rod-zinc = { $amount ->
+    [1] прут
+    [few] прута
+    *[other] прутьев
+} цинка
+ent-DystopiaRodZinc = прут цинка
+    .desc = Пруток цинка, отлитый в изложницу.
+    .suffix = Полный
+ent-DystopiaRodZinc1 = прут цинка
+    .desc = Пруток цинка, отлитый в изложницу.
+    .suffix = Один
+stack-dystopia-rod-tin = { $amount ->
+    [1] прут
+    [few] прута
+    *[other] прутьев
+} олова
+ent-DystopiaRodTin = прут олова
+    .desc = Пруток олова, отлитый в изложницу.
+    .suffix = Полный
+ent-DystopiaRodTin1 = прут олова
+    .desc = Пруток олова, отлитый в изложницу.
+    .suffix = Один
+stack-dystopia-rod-lead = { $amount ->
+    [1] прут
+    [few] прута
+    *[other] прутьев
+} свинца
+ent-DystopiaRodLead = прут свинца
+    .desc = Пруток свинца, отлитый в изложницу.
+    .suffix = Полный
+ent-DystopiaRodLead1 = прут свинца
+    .desc = Пруток свинца, отлитый в изложницу.
+    .suffix = Один
+stack-dystopia-rod-gold = { $amount ->
+    [1] прут
+    [few] прута
+    *[other] прутьев
+} золота
+ent-DystopiaRodGold = прут золота
+    .desc = Пруток золота, отлитый в изложницу.
+    .suffix = Полный
+ent-DystopiaRodGold1 = прут золота
+    .desc = Пруток золота, отлитый в изложницу.
+    .suffix = Один
+stack-dystopia-rod-silver = { $amount ->
+    [1] прут
+    [few] прута
+    *[other] прутьев
+} серебра
+ent-DystopiaRodSilver = прут серебра
+    .desc = Пруток серебра, отлитый в изложницу.
+    .suffix = Полный
+ent-DystopiaRodSilver1 = прут серебра
+    .desc = Пруток серебра, отлитый в изложницу.
+    .suffix = Один
+stack-dystopia-rod-uranium = { $amount ->
+    [1] прут
+    [few] прута
+    *[other] прутьев
+} урана
+ent-DystopiaRodUranium = прут урана
+    .desc = Пруток урана, отлитый в изложницу.
+    .suffix = Полный
+ent-DystopiaRodUranium1 = прут урана
+    .desc = Пруток урана, отлитый в изложницу.
+    .suffix = Один
+stack-dystopia-rod-brass = { $amount ->
+    [1] прут
+    [few] прута
+    *[other] прутьев
+} латуни
+ent-DystopiaRodBrass = прут латуни
+    .desc = Пруток латуни, отлитый в изложницу.
+    .suffix = Полный
+ent-DystopiaRodBrass1 = прут латуни
+    .desc = Пруток латуни, отлитый в изложницу.
+    .suffix = Один
+stack-dystopia-rod-bronze = { $amount ->
+    [1] прут
+    [few] прута
+    *[other] прутьев
+} бронзы
+ent-DystopiaRodBronze = прут бронзы
+    .desc = Пруток бронзы, отлитый в изложницу.
+    .suffix = Полный
+ent-DystopiaRodBronze1 = прут бронзы
+    .desc = Пруток бронзы, отлитый в изложницу.
+    .suffix = Один
+stack-dystopia-rod-solder = { $amount ->
+    [1] прут
+    [few] прута
+    *[other] прутьев
+} припоя
+ent-DystopiaRodSolder = прут припоя
+    .desc = Пруток припоя, отлитый в изложницу.
+    .suffix = Полный
+ent-DystopiaRodSolder1 = прут припоя
+    .desc = Пруток припоя, отлитый в изложницу.
+    .suffix = Один
+stack-dystopia-rod-stainless = { $amount ->
+    [1] прут
+    [few] прута
+    *[other] прутьев
+} нержавеющей стали
+ent-DystopiaRodStainlessSteel = прут нержавеющей стали
+    .desc = Пруток нержавеющей стали, отлитый в изложницу.
+    .suffix = Полный
+ent-DystopiaRodStainlessSteel1 = прут нержавеющей стали
+    .desc = Пруток нержавеющей стали, отлитый в изложницу.
+    .suffix = Один
+stack-dystopia-rod-ferrochrome = { $amount ->
+    [1] прут
+    [few] прута
+    *[other] прутьев
+} феррохрома
+ent-DystopiaRodFerrochrome = прут феррохрома
+    .desc = Пруток феррохрома, отлитый в изложницу.
+    .suffix = Полный
+ent-DystopiaRodFerrochrome1 = прут феррохрома
+    .desc = Пруток феррохрома, отлитый в изложницу.
+    .suffix = Один

@@ -1,10 +1,14 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
-// Dystopia: изложница — остывание залитого расплава и выход отливки. Водой остужается быстрее (DystopiaQuenchSystem).
+// Dystopia: изложница и литейный стол — остывание залитого расплава и выход отливки. Водой остужается быстрее
+// (DystopiaQuenchSystem). У стола форма сменная (слот), отливки ×10 выходят одной стопкой.
 
 using Content.Server.Atmos.EntitySystems;
+using Content.Server.Stack;
 using Content.Shared._Dystopia.Industry;
 using Content.Shared.Chemistry.EntitySystems;
+using Content.Shared.Containers.ItemSlots;
 using Content.Shared.Examine;
+using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 
@@ -18,6 +22,8 @@ public sealed partial class DystopiaMouldSystem : EntitySystem
     [Dependency] private AtmosphereSystem _atmosphere = default!;
     [Dependency] private DystopiaHotItemSystem _hot = default!;
     [Dependency] private DystopiaQuenchSystem _quench = default!;
+    [Dependency] private ItemSlotsSystem _itemSlots = default!;
+    [Dependency] private StackSystem _stack = default!;
 
     public override void Initialize()
     {
@@ -95,7 +101,7 @@ public sealed partial class DystopiaMouldSystem : EntitySystem
             !_proto.TryIndex(primary.Prototype, out var reagent) ||
             reagent.MeltingPoint is not { } melting ||
             temperature > melting + DystopiaCrucibleSystem.KelvinOffset ||
-            !_proto.TryIndex(comp.Shape, out var shape))
+            GetShape(ent) is not { } shape)
         {
             return;
         }
@@ -109,17 +115,39 @@ public sealed partial class DystopiaMouldSystem : EntitySystem
                 : shape.Defect;
 
             _solution.SplitSolution(soln.Value, shape.Volume);
-            Spawn(product, coords);
+            SpawnCasting(product, coords);
         }
 
         // Недолив застыл комом — брак.
         if (solution.Volume > 0)
         {
             _solution.RemoveAllSolution(soln.Value);
-            Spawn(shape.Defect, coords);
+            SpawnCasting(shape.Defect, coords);
         }
 
         _hot.SetHot(ent.Owner, false);
+    }
+
+    /// <summary>Форма отливки: своя у изложницы, у литейного стола — из вставленной формы. Null — формы нет.</summary>
+    public DystopiaMouldShapePrototype? GetShape(Entity<DystopiaMouldComponent> ent)
+    {
+        if (ent.Comp.FormSlot is { } slot)
+        {
+            return _itemSlots.GetItemOrNull(ent.Owner, slot) is { } form &&
+                   TryComp<DystopiaCastingFormComponent>(form, out var formComp) &&
+                   _proto.TryIndex(formComp.Shape, out var formShape)
+                ? formShape
+                : null;
+        }
+
+        return ent.Comp.Shape is { } own && _proto.TryIndex(own, out var shape) ? shape : null;
+    }
+
+    // Отливки одного вида складываются в стопку (слитки ×10 — одной стопкой).
+    private void SpawnCasting(EntProtoId product, EntityCoordinates coords)
+    {
+        var spawned = Spawn(product, coords);
+        _stack.TryMergeToContacts(spawned);
     }
 
     private void OnExamined(Entity<DystopiaMouldComponent> ent, ref ExaminedEvent args)
@@ -127,10 +155,14 @@ public sealed partial class DystopiaMouldSystem : EntitySystem
         if (!args.IsInDetailsRange)
             return;
 
-        if (_proto.TryIndex(ent.Comp.Shape, out var shape))
+        if (GetShape(ent) is { } shape)
         {
             args.PushMarkup(Loc.GetString("dystopia-mould-shape",
                 ("shape", Loc.GetString(shape.Name)), ("volume", shape.Volume)));
+        }
+        else if (ent.Comp.FormSlot != null)
+        {
+            args.PushMarkup(Loc.GetString("dystopia-casting-table-no-form"));
         }
 
         if (!_solution.TryGetSolution(ent.Owner, ent.Comp.Solution, out _, out var solution))

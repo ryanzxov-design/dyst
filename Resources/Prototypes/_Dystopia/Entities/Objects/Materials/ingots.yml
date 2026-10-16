@@ -2128,3 +2128,182 @@
     baseLayer: base
     layerStates: [ ferrochrome, ferrochrome_2, ferrochrome_3 ]
     count: 1
+
+- type: entity
+  id: DystopiaIngotSolder
+  name: solder ingot
+  description: A heavy bar of solder, cast in a mould.
+  suffix: Full
+  components:
+  - type: Solution
+    solution:
+      canReact: false
+      maxVol: 10.0
+      reagents:
+      - ReagentId: DystopiaTin
+        Quantity: 6.0
+      - ReagentId: Lead
+        Quantity: 4.0
+    id: composite
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/ingots.rsi
+    heldPrefix: solder
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/ingots.rsi
+    state: solder_3
+    layers:
+    - state: solder_3
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ingot ]
+  - type: Extractable
+    grindableSolutionName: composite
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaSolder: 100
+  - type: Stack
+    stackType: DystopiaIngotSolder
+    baseLayer: base
+    layerStates: [ solder, solder_2, solder_3 ]
+
+- type: entity
+  id: DystopiaIngotSolder1
+  name: solder ingot
+  description: A heavy bar of solder, cast in a mould.
+  suffix: Single
+  components:
+  - type: Solution
+    solution:
+      canReact: false
+      maxVol: 10.0
+      reagents:
+      - ReagentId: DystopiaTin
+        Quantity: 6.0
+      - ReagentId: Lead
+        Quantity: 4.0
+    id: composite
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/ingots.rsi
+    heldPrefix: solder
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/ingots.rsi
+    state: solder
+    layers:
+    - state: solder
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ingot ]
+  - type: Extractable
+    grindableSolutionName: composite
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaSolder: 100
+  - type: Stack
+    stackType: DystopiaIngotSolder
+    baseLayer: base
+    layerStates: [ solder, solder_2, solder_3 ]
+    count: 1

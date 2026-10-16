@@ -2,6 +2,7 @@
 // Dystopia: тигель — плавка по материалу, нагрев и остывание, снятие шлака.
 
 using Content.Server.Atmos.EntitySystems;
+using Content.Server.Stack;
 using Content.Shared._Dystopia.Industry;
 using Content.Shared.Chemistry.Components;
 using Content.Shared.Chemistry.EntitySystems;
@@ -12,6 +13,7 @@ using Content.Shared.Interaction;
 using Content.Shared.Materials;
 using Content.Shared.Popups;
 using Content.Shared.Stacks;
+using Content.Shared.Temperature;
 using Content.Shared.Verbs;
 using Robust.Shared.Containers;
 using Robust.Shared.Prototypes;
@@ -25,7 +27,7 @@ public sealed partial class DystopiaCrucibleSystem : EntitySystem
     [Dependency] private IPrototypeManager _proto = default!;
     [Dependency] private SharedContainerSystem _container = default!;
     [Dependency] private SharedSolutionContainerSystem _solution = default!;
-    [Dependency] private SharedStackSystem _stack = default!;
+    [Dependency] private StackSystem _stack = default!;
     [Dependency] private SharedPopupSystem _popup = default!;
     [Dependency] private SharedPointLightSystem _light = default!;
     [Dependency] private AtmosphereSystem _atmosphere = default!;
@@ -40,6 +42,7 @@ public sealed partial class DystopiaCrucibleSystem : EntitySystem
         SubscribeLocalEvent<DystopiaCrucibleComponent, MapInitEvent>(OnMapInit);
         SubscribeLocalEvent<DystopiaCrucibleComponent, InteractUsingEvent>(OnInteractUsing);
         SubscribeLocalEvent<DystopiaCrucibleComponent, GetVerbsEvent<AlternativeVerb>>(OnGetVerbs);
+        SubscribeLocalEvent<DystopiaCrucibleComponent, GetVerbsEvent<InteractionVerb>>(OnGetInteractionVerbs);
         SubscribeLocalEvent<DystopiaCrucibleComponent, ExaminedEvent>(OnExamined);
         SubscribeLocalEvent<DystopiaCrucibleComponent, SolutionTransferAttemptEvent>(OnTransferAttempt);
         SubscribeLocalEvent<DystopiaCrucibleComponent, DystopiaGetTemperatureEvent>(OnGetTemperature);
@@ -169,33 +172,78 @@ public sealed partial class DystopiaCrucibleSystem : EntitySystem
 
     private void OnInteractUsing(Entity<DystopiaCrucibleComponent> ent, ref InteractUsingEvent args)
     {
-        // Клещи, изложницы, другие тигли и всё, чем переливают, — не загрузка в тигель
-        if (args.Handled ||
-            HasComp<DystopiaTongsComponent>(args.Used) ||
-            HasComp<DystopiaMouldComponent>(args.Used) ||
-            HasComp<DystopiaCrucibleComponent>(args.Used) ||
-            HasComp<SolutionTransferComponent>(args.Used))
+        if (args.Handled || !CanLoad(ent, args.Used))
+            return;
+
+        // Тигель, встроенный в горн: огонь и топливо — горну (уголь в тигель — действием «Засыпать в тигель»).
+        if (TryComp<DystopiaForgeComponent>(ent, out var forge) && IsForgeItem(forge, args.Used))
+            return;
+
+        args.Handled = true;
+        TryLoad(ent, args.Used, args.User);
+    }
+
+    // В горн с большим тиглем уголь по клику идёт в топку; в тигель — этим действием.
+    private void OnGetInteractionVerbs(Entity<DystopiaCrucibleComponent> ent, ref GetVerbsEvent<InteractionVerb> args)
+    {
+        if (!args.CanAccess || !args.CanInteract || args.Using is not { } used ||
+            !HasComp<DystopiaForgeComponent>(ent) || !CanLoad(ent, used))
         {
             return;
         }
 
-        if (!TryGetSmelt(args.Used, ent.Comp.ForeignSlagPer100, out _, out _, out var perUnit, ent.Comp.ForeignSlag) ||
+        var user = args.User;
+        args.Verbs.Add(new InteractionVerb
+        {
+            Text = Loc.GetString("dystopia-crucible-load-verb"),
+            Act = () => TryLoad(ent, used, user),
+        });
+    }
+
+    private bool IsForgeItem(DystopiaForgeComponent forge, EntityUid item)
+    {
+        var hot = new IsHotEvent();
+        RaiseLocalEvent(item, hot);
+        return hot.IsHot ||
+               TryComp<PhysicalCompositionComponent>(item, out var composition) &&
+               DystopiaForgeSystem.FuelValue(forge, composition) > 0f;
+    }
+
+    /// <summary>Можно ли это загрузить в тигель (плавится и это не литейный инвентарь).</summary>
+    private bool CanLoad(Entity<DystopiaCrucibleComponent> ent, EntityUid item)
+    {
+        // Клещи, изложницы, формы, другие тигли и всё, чем переливают, — не загрузка в тигель
+        if (HasComp<DystopiaTongsComponent>(item) ||
+            HasComp<DystopiaMouldComponent>(item) ||
+            HasComp<DystopiaCastingFormComponent>(item) ||
+            HasComp<DystopiaCrucibleComponent>(item) ||
+            HasComp<SolutionTransferComponent>(item))
+        {
+            return false;
+        }
+
+        return TryGetSmelt(item, ent.Comp.ForeignSlagPer100, out _, out _, out var perUnit, ent.Comp.ForeignSlag) &&
+               perUnit > 0;
+    }
+
+    /// <summary>Загрузить предмет (или сколько влезет из стопки) в тигель.</summary>
+    public void TryLoad(Entity<DystopiaCrucibleComponent> ent, EntityUid used, EntityUid user)
+    {
+        if (!TryGetSmelt(used, ent.Comp.ForeignSlagPer100, out _, out _, out var perUnit, ent.Comp.ForeignSlag) ||
             perUnit <= 0)
         {
             return;
         }
 
-        args.Handled = true;
-
         // Не плавим вместе с содержимым: ящик с инструментами сначала опустошить.
-        if (TryComp<ContainerManagerComponent>(args.Used, out var manager))
+        if (TryComp<ContainerManagerComponent>(used, out var manager))
         {
             foreach (var inner in manager.Containers.Values)
             {
                 if (inner.ContainedEntities.Count == 0)
                     continue;
 
-                _popup.PopupEntity(Loc.GetString("dystopia-crucible-not-empty-item", ("item", args.Used)), ent, args.User);
+                _popup.PopupEntity(Loc.GetString("dystopia-crucible-not-empty-item", ("item", used)), ent, user);
                 return;
             }
         }
@@ -207,21 +255,21 @@ public sealed partial class DystopiaCrucibleSystem : EntitySystem
         var fits = free / perUnit;
         if (fits <= 0)
         {
-            _popup.PopupEntity(Loc.GetString("dystopia-crucible-full"), ent, args.User);
+            _popup.PopupEntity(Loc.GetString("dystopia-crucible-full"), ent, user);
             return;
         }
 
-        var item = args.Used;
+        var item = used;
         if (TryComp<StackComponent>(item, out var stack) && stack.Count > fits)
         {
-            if (_stack.Split((item, stack), fits, Transform(ent).Coordinates, args.User) is not { } split)
+            if (_stack.Split((item, stack), fits, Transform(ent).Coordinates, user) is not { } split)
                 return;
 
             item = split;
         }
 
         _container.Insert(item, container);
-        _popup.PopupEntity(Loc.GetString("dystopia-crucible-loaded", ("item", item)), ent, args.User);
+        _popup.PopupEntity(Loc.GetString("dystopia-crucible-loaded", ("item", item)), ent, user);
     }
 
     // ------------------------------------------------------------------ шлак
@@ -266,10 +314,11 @@ public sealed partial class DystopiaCrucibleSystem : EntitySystem
 
         var lumps = Math.Max(1, (int) MathF.Round((float) (slag / ent.Comp.SlagPerLump)));
         _solution.RemoveReagent(soln.Value, ent.Comp.SlagReagent.Id, slag);
-        var coords = Transform(ent).Coordinates;
-        for (var i = 0; i < lumps; i++)
+
+        // Шлак — стопкой (и в стопку, что уже лежит рядом).
+        foreach (var spawned in _stack.SpawnMultipleAtPosition(ent.Comp.SlagLump, lumps, Transform(ent).Coordinates))
         {
-            Spawn(ent.Comp.SlagLump, coords);
+            _stack.TryMergeToContacts(spawned);
         }
 
         _popup.PopupEntity(Loc.GetString("dystopia-crucible-skimmed", ("count", lumps)), ent, user);
@@ -281,7 +330,7 @@ public sealed partial class DystopiaCrucibleSystem : EntitySystem
     public void ApplyHeat(Entity<DystopiaCrucibleComponent> ent, float target, float rate, TimeSpan until)
     {
         ent.Comp.HeatTarget = target;
-        ent.Comp.HeatRate = rate;
+        ent.Comp.HeatRate = rate * ent.Comp.HeatMultiplier;
         ent.Comp.HeatedUntil = until;
     }
 
@@ -329,7 +378,8 @@ public sealed partial class DystopiaCrucibleSystem : EntitySystem
         _quench.TryEvaporate(ent.Owner); // налитая заранее вода выкипает, когда тигель нагреют
 
         _hot.SetHot(ent.Owner, comp.Temperature > comp.HotThreshold);
-        if (_light.TryGetLight(ent, out var light))
+        // Свечение — у тигля-предмета; у горна с тиглем светом управляет огонь горна.
+        if (!HasComp<DystopiaForgeComponent>(ent) && _light.TryGetLight(ent, out var light))
             _light.SetEnabled(ent, comp.Temperature > comp.GlowThreshold, light);
     }
 

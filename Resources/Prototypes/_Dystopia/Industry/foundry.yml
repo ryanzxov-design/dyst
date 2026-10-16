@@ -1,12 +1,15 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 # Dystopia: ручное литьё (Промышленность, этап 3, ручной уровень ×1).
 # Горн, меха, малый тигель, клещи, изложницы, шлак. Самостоятельные сущности, без parent.
-# Числа — в полях компонентов (Content.Server/_Dystopia/Industry/DystopiaFoundryComponents.cs).
+# Числа — в полях компонентов (Content.Shared/_Dystopia/Industry/DystopiaFoundryComponents.cs).
+
+- type: Tag
+  id: DystopiaTongsGrip   # что можно зажать клещами (большой тигель — нельзя, его наклоняют)
 
 - type: entity
   id: DystopiaForge
   name: forge
-  description: A brick hearth. Put a crucible on top, feed it coal or wood, light it. Bellows set next to it make it hotter.
+  description: A brick hearth. Put a small crucible on top or set a large crucible into it, feed it coal or wood, light it. Bellows set next to it make it hotter.
   placement:
     mode: SnapgridCenter
   components:
@@ -264,6 +267,8 @@
     radius: 1.5
     energy: 1.5
     color: "#FF7A2A"
+  - type: Tag
+    tags: [ DystopiaTongsGrip ]  # берётся клещами
   - type: DystopiaHotItem
     burnDamage:
       types:
@@ -291,14 +296,14 @@
     foreignSlag: DystopiaMoltenSlag
     foreignSlagPer100: 5
     slagReagent: DystopiaMoltenSlag
-    slagLump: DystopiaSlag
+    slagLump: DystopiaSlag1
     slagPerLump: 5
     updateInterval: 0.5
 
 - type: entity
   id: DystopiaTongs
   name: tongs
-  description: Long blacksmith tongs. Poke a red-hot crucible or mould to grip it; poke a mould with the gripped crucible to pour.
+  description: Long blacksmith tongs. Poke a red-hot crucible or mould to grip it; poke a mould or a casting channel with the gripped crucible to pour.
   components:
   - type: Item
     size: Normal
@@ -372,6 +377,8 @@
     price: 15
   - type: DystopiaTongs
     slot: dystopia_tongs_grip
+    whitelist:
+      tags: [ DystopiaTongsGrip ]
     gripSound:
       path: /Audio/Items/wirecutter.ogg
     releaseSound:
@@ -451,6 +458,8 @@
   - type: PhysicalComposition
     materialComposition:
       DystopiaCastIron: 100
+  - type: Tag
+    tags: [ DystopiaTongsGrip ]  # берётся клещами
   - type: DystopiaHotItem
     burnDamage:
       types:
@@ -548,6 +557,8 @@
   - type: PhysicalComposition
     materialComposition:
       DystopiaCastIron: 100
+  - type: Tag
+    tags: [ DystopiaTongsGrip ]  # берётся клещами
   - type: DystopiaHotItem
     burnDamage:
       types:
@@ -645,6 +656,8 @@
   - type: PhysicalComposition
     materialComposition:
       DystopiaCastIron: 100
+  - type: Tag
+    tags: [ DystopiaTongsGrip ]  # берётся клещами
   - type: DystopiaHotItem
     burnDamage:
       types:
@@ -670,10 +683,18 @@
     hotThreshold: 333.15
     updateInterval: 0.5
 
+- type: stack
+  id: DystopiaSlag
+  name: stack-dystopia-slag
+  icon: { sprite: /Textures/_Dystopia/Objects/Industry/slag.rsi, state: icon }
+  spawn: DystopiaSlag1
+  maxCount: 30
+
 - type: entity
   id: DystopiaSlag
   name: slag
   description: A glassy lump of slag skimmed off molten metal. Useless, unless someone finds a use for it.
+  suffix: Full
   components:
   - type: Item
     size: Small
@@ -734,3 +755,74 @@
     tags: [ Trash ]
   - type: PhysicalComposition
     materialComposition: {}
+  - type: Stack
+    stackType: DystopiaSlag
+
+- type: entity
+  id: DystopiaSlag1
+  name: slag
+  description: A glassy lump of slag skimmed off molten metal. Useless, unless someone finds a use for it.
+  suffix: Single
+  components:
+  - type: Item
+    size: Small
+    sprite: _Dystopia/Objects/Industry/slag.rsi
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Industry/slag.rsi
+    state: icon
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Tag
+    tags: [ Trash ]
+  - type: PhysicalComposition
+    materialComposition: {}
+  - type: Stack
+    stackType: DystopiaSlag
+    count: 1

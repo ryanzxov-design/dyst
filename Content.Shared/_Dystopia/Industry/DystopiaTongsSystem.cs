@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 // Dystopia: кузнечные клещи. Ткнул в раскалённый тигель/изложницу — зажал; зажатым тиглем в изложницу — разлил,
-// в горн или стол — поставил, в пол — положил. Z или действие — разжать.
+// в литейный желоб — разлил по изложницам под ним, в горн или стол — поставил, в пол — положил. Z или действие — разжать.
 // Решение «обработано» принимается и на клиенте (чтобы клиент не предсказывал постановку клещей на горн),
 // сами действия — только на сервере.
 
@@ -33,6 +33,7 @@ public sealed partial class DystopiaTongsSystem : EntitySystem
     [Dependency] private SharedSolutionContainerSystem _solution = default!;
     [Dependency] private SolutionTransferSystem _transfer = default!;
     [Dependency] private SharedTransformSystem _xform = default!;
+    [Dependency] private DystopiaCastingChannelSystem _channel = default!;
 
     public override void Initialize()
     {
@@ -92,11 +93,23 @@ public sealed partial class DystopiaTongsSystem : EntitySystem
                         target = placed;
                         break;
                     }
+
+                    if (HasComp<DystopiaForgeMountableComponent>(placed))
+                        target = placed; // скажем, что большой тигель не поднять
                 }
             }
 
             if (!CanGrip(ent, target))
+            {
+                // Большой тигель клещами не поднять — его ставят на горн.
+                if (HasComp<DystopiaForgeMountableComponent>(target))
+                {
+                    args.Handled = true;
+                    _popup.PopupEntity(Loc.GetString("dystopia-tongs-too-heavy", ("item", target)), target, args.User);
+                }
+
                 return;
+            }
 
             args.Handled = true;
             if (Transform(target).Anchored)
@@ -169,6 +182,31 @@ public sealed partial class DystopiaTongsSystem : EntitySystem
     {
         if (!TryComp<DystopiaCrucibleComponent>(held, out var source))
             return false;
+
+        // В литейный желоб — расплав разойдётся по изложницам под ним.
+        if (TryComp<DystopiaCastingChannelComponent>(target, out var channel))
+        {
+            if (!_solution.TryGetSolution(held, source.Solution, out var fromSoln, out var fromSolution))
+                return true;
+
+            if (fromSolution.Volume <= FixedPoint2.Zero)
+            {
+                _popup.PopupEntity(Loc.GetString("dystopia-tongs-pour-empty"), target, user);
+                return true;
+            }
+
+            var poured = _channel.Pour(user, held, fromSoln.Value, (target, channel));
+            if (poured > FixedPoint2.Zero)
+            {
+                if (TryComp<DystopiaTongsComponent>(Transform(held).ParentUid, out var gripping))
+                    _audio.PlayPvs(gripping.PourSound, target);
+
+                _popup.PopupEntity(Loc.GetString("dystopia-tongs-poured", ("amount", poured), ("target", target)),
+                    target, user);
+            }
+
+            return true;
+        }
 
         string? targetSolution = null;
         if (TryComp<DystopiaMouldComponent>(target, out var mould))

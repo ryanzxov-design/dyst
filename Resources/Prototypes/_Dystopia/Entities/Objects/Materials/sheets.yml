@@ -883,3 +883,1598 @@
     baseLayer: base
     layerStates: [ stainless, stainless_2, stainless_3 ]
     count: 1
+
+- type: entity
+  id: DystopiaSheetIron
+  name: iron sheet
+  description: A sheet of iron, cast in a mould.
+  suffix: Full
+  components:
+  - type: Solution
+    solution:
+      canReact: false
+      maxVol: 10.0
+      reagents:
+      - ReagentId: Iron
+        Quantity: 10.0
+    id: composite
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/sheets.rsi
+    heldPrefix: iron
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/sheets.rsi
+    state: iron_3
+    layers:
+    - state: iron_3
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Sheet ]
+  - type: Extractable
+    grindableSolutionName: composite
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaIron: 100
+  - type: Stack
+    stackType: DystopiaSheetIron
+    baseLayer: base
+    layerStates: [ iron, iron_2, iron_3 ]
+
+- type: entity
+  id: DystopiaSheetIron1
+  name: iron sheet
+  description: A sheet of iron, cast in a mould.
+  suffix: Single
+  components:
+  - type: Solution
+    solution:
+      canReact: false
+      maxVol: 10.0
+      reagents:
+      - ReagentId: Iron
+        Quantity: 10.0
+    id: composite
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/sheets.rsi
+    heldPrefix: iron
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/sheets.rsi
+    state: iron
+    layers:
+    - state: iron
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Sheet ]
+  - type: Extractable
+    grindableSolutionName: composite
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaIron: 100
+  - type: Stack
+    stackType: DystopiaSheetIron
+    baseLayer: base
+    layerStates: [ iron, iron_2, iron_3 ]
+    count: 1
+
+- type: entity
+  id: DystopiaSheetCastIron
+  name: cast iron sheet
+  description: A sheet of cast iron, cast in a mould.
+  suffix: Full
+  components:
+  - type: Solution
+    solution:
+      canReact: false
+      maxVol: 10.0
+      reagents:
+      - ReagentId: Iron
+        Quantity: 9.6
+      - ReagentId: Carbon
+        Quantity: 0.4
+    id: composite
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/sheets.rsi
+    heldPrefix: cast_iron
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/sheets.rsi
+    state: cast_iron_3
+    layers:
+    - state: cast_iron_3
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Sheet ]
+  - type: Extractable
+    grindableSolutionName: composite
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaCastIron: 100
+  - type: Stack
+    stackType: DystopiaSheetCastIron
+    baseLayer: base
+    layerStates: [ cast_iron, cast_iron_2, cast_iron_3 ]
+
+- type: entity
+  id: DystopiaSheetCastIron1
+  name: cast iron sheet
+  description: A sheet of cast iron, cast in a mould.
+  suffix: Single
+  components:
+  - type: Solution
+    solution:
+      canReact: false
+      maxVol: 10.0
+      reagents:
+      - ReagentId: Iron
+        Quantity: 9.6
+      - ReagentId: Carbon
+        Quantity: 0.4
+    id: composite
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/sheets.rsi
+    heldPrefix: cast_iron
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/sheets.rsi
+    state: cast_iron
+    layers:
+    - state: cast_iron
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Sheet ]
+  - type: Extractable
+    grindableSolutionName: composite
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaCastIron: 100
+  - type: Stack
+    stackType: DystopiaSheetCastIron
+    baseLayer: base
+    layerStates: [ cast_iron, cast_iron_2, cast_iron_3 ]
+    count: 1
+
+- type: entity
+  id: DystopiaSheetZinc
+  name: zinc sheet
+  description: A sheet of zinc, cast in a mould.
+  suffix: Full
+  components:
+  - type: Solution
+    solution:
+      canReact: false
+      maxVol: 10.0
+      reagents:
+      - ReagentId: Zinc
+        Quantity: 10.0
+    id: composite
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/sheets.rsi
+    heldPrefix: zinc
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/sheets.rsi
+    state: zinc_3
+    layers:
+    - state: zinc_3
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Sheet ]
+  - type: Extractable
+    grindableSolutionName: composite
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaZinc: 100
+  - type: Stack
+    stackType: DystopiaSheetZinc
+    baseLayer: base
+    layerStates: [ zinc, zinc_2, zinc_3 ]
+
+- type: entity
+  id: DystopiaSheetZinc1
+  name: zinc sheet
+  description: A sheet of zinc, cast in a mould.
+  suffix: Single
+  components:
+  - type: Solution
+    solution:
+      canReact: false
+      maxVol: 10.0
+      reagents:
+      - ReagentId: Zinc
+        Quantity: 10.0
+    id: composite
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/sheets.rsi
+    heldPrefix: zinc
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/sheets.rsi
+    state: zinc
+    layers:
+    - state: zinc
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Sheet ]
+  - type: Extractable
+    grindableSolutionName: composite
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaZinc: 100
+  - type: Stack
+    stackType: DystopiaSheetZinc
+    baseLayer: base
+    layerStates: [ zinc, zinc_2, zinc_3 ]
+    count: 1
+
+- type: entity
+  id: DystopiaSheetTin
+  name: tin sheet
+  description: A sheet of tin, cast in a mould.
+  suffix: Full
+  components:
+  - type: Solution
+    solution:
+      canReact: false
+      maxVol: 10.0
+      reagents:
+      - ReagentId: DystopiaTin
+        Quantity: 10.0
+    id: composite
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/sheets.rsi
+    heldPrefix: tin
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/sheets.rsi
+    state: tin_3
+    layers:
+    - state: tin_3
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Sheet ]
+  - type: Extractable
+    grindableSolutionName: composite
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaTin: 100
+  - type: Stack
+    stackType: DystopiaSheetTin
+    baseLayer: base
+    layerStates: [ tin, tin_2, tin_3 ]
+
+- type: entity
+  id: DystopiaSheetTin1
+  name: tin sheet
+  description: A sheet of tin, cast in a mould.
+  suffix: Single
+  components:
+  - type: Solution
+    solution:
+      canReact: false
+      maxVol: 10.0
+      reagents:
+      - ReagentId: DystopiaTin
+        Quantity: 10.0
+    id: composite
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/sheets.rsi
+    heldPrefix: tin
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/sheets.rsi
+    state: tin
+    layers:
+    - state: tin
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Sheet ]
+  - type: Extractable
+    grindableSolutionName: composite
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaTin: 100
+  - type: Stack
+    stackType: DystopiaSheetTin
+    baseLayer: base
+    layerStates: [ tin, tin_2, tin_3 ]
+    count: 1
+
+- type: entity
+  id: DystopiaSheetGold
+  name: gold sheet
+  description: A sheet of gold, cast in a mould.
+  suffix: Full
+  components:
+  - type: Solution
+    solution:
+      canReact: false
+      maxVol: 10.0
+      reagents:
+      - ReagentId: Gold
+        Quantity: 10.0
+    id: composite
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/sheets.rsi
+    heldPrefix: gold
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/sheets.rsi
+    state: gold_3
+    layers:
+    - state: gold_3
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Sheet ]
+  - type: Extractable
+    grindableSolutionName: composite
+  - type: PhysicalComposition
+    materialComposition:
+      Gold: 100
+  - type: Stack
+    stackType: DystopiaSheetGold
+    baseLayer: base
+    layerStates: [ gold, gold_2, gold_3 ]
+
+- type: entity
+  id: DystopiaSheetGold1
+  name: gold sheet
+  description: A sheet of gold, cast in a mould.
+  suffix: Single
+  components:
+  - type: Solution
+    solution:
+      canReact: false
+      maxVol: 10.0
+      reagents:
+      - ReagentId: Gold
+        Quantity: 10.0
+    id: composite
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/sheets.rsi
+    heldPrefix: gold
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/sheets.rsi
+    state: gold
+    layers:
+    - state: gold
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Sheet ]
+  - type: Extractable
+    grindableSolutionName: composite
+  - type: PhysicalComposition
+    materialComposition:
+      Gold: 100
+  - type: Stack
+    stackType: DystopiaSheetGold
+    baseLayer: base
+    layerStates: [ gold, gold_2, gold_3 ]
+    count: 1
+
+- type: entity
+  id: DystopiaSheetSilver
+  name: silver sheet
+  description: A sheet of silver, cast in a mould.
+  suffix: Full
+  components:
+  - type: Solution
+    solution:
+      canReact: false
+      maxVol: 10.0
+      reagents:
+      - ReagentId: Silver
+        Quantity: 10.0
+    id: composite
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/sheets.rsi
+    heldPrefix: silver
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/sheets.rsi
+    state: silver_3
+    layers:
+    - state: silver_3
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Sheet ]
+  - type: Extractable
+    grindableSolutionName: composite
+  - type: PhysicalComposition
+    materialComposition:
+      Silver: 100
+  - type: Stack
+    stackType: DystopiaSheetSilver
+    baseLayer: base
+    layerStates: [ silver, silver_2, silver_3 ]
+
+- type: entity
+  id: DystopiaSheetSilver1
+  name: silver sheet
+  description: A sheet of silver, cast in a mould.
+  suffix: Single
+  components:
+  - type: Solution
+    solution:
+      canReact: false
+      maxVol: 10.0
+      reagents:
+      - ReagentId: Silver
+        Quantity: 10.0
+    id: composite
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/sheets.rsi
+    heldPrefix: silver
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/sheets.rsi
+    state: silver
+    layers:
+    - state: silver
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Sheet ]
+  - type: Extractable
+    grindableSolutionName: composite
+  - type: PhysicalComposition
+    materialComposition:
+      Silver: 100
+  - type: Stack
+    stackType: DystopiaSheetSilver
+    baseLayer: base
+    layerStates: [ silver, silver_2, silver_3 ]
+    count: 1
+
+- type: entity
+  id: DystopiaSheetUranium
+  name: uranium sheet
+  description: A sheet of uranium, cast in a mould.
+  suffix: Full
+  components:
+  - type: Solution
+    solution:
+      canReact: false
+      maxVol: 10.0
+      reagents:
+      - ReagentId: Uranium
+        Quantity: 8.0
+      - ReagentId: Radium
+        Quantity: 2.0
+    id: composite
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/sheets.rsi
+    heldPrefix: uranium
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/sheets.rsi
+    state: uranium_3
+    layers:
+    - state: uranium_3
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Sheet ]
+  - type: Extractable
+    grindableSolutionName: composite
+  - type: PhysicalComposition
+    materialComposition:
+      Uranium: 100
+  - type: Stack
+    stackType: DystopiaSheetUranium
+    baseLayer: base
+    layerStates: [ uranium, uranium_2, uranium_3 ]
+
+- type: entity
+  id: DystopiaSheetUranium1
+  name: uranium sheet
+  description: A sheet of uranium, cast in a mould.
+  suffix: Single
+  components:
+  - type: Solution
+    solution:
+      canReact: false
+      maxVol: 10.0
+      reagents:
+      - ReagentId: Uranium
+        Quantity: 8.0
+      - ReagentId: Radium
+        Quantity: 2.0
+    id: composite
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/sheets.rsi
+    heldPrefix: uranium
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/sheets.rsi
+    state: uranium
+    layers:
+    - state: uranium
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Sheet ]
+  - type: Extractable
+    grindableSolutionName: composite
+  - type: PhysicalComposition
+    materialComposition:
+      Uranium: 100
+  - type: Stack
+    stackType: DystopiaSheetUranium
+    baseLayer: base
+    layerStates: [ uranium, uranium_2, uranium_3 ]
+    count: 1
+
+- type: entity
+  id: DystopiaSheetSolder
+  name: solder sheet
+  description: A sheet of solder, cast in a mould.
+  suffix: Full
+  components:
+  - type: Solution
+    solution:
+      canReact: false
+      maxVol: 10.0
+      reagents:
+      - ReagentId: DystopiaTin
+        Quantity: 6.0
+      - ReagentId: Lead
+        Quantity: 4.0
+    id: composite
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/sheets.rsi
+    heldPrefix: solder
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/sheets.rsi
+    state: solder_3
+    layers:
+    - state: solder_3
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Sheet ]
+  - type: Extractable
+    grindableSolutionName: composite
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaSolder: 100
+  - type: Stack
+    stackType: DystopiaSheetSolder
+    baseLayer: base
+    layerStates: [ solder, solder_2, solder_3 ]
+
+- type: entity
+  id: DystopiaSheetSolder1
+  name: solder sheet
+  description: A sheet of solder, cast in a mould.
+  suffix: Single
+  components:
+  - type: Solution
+    solution:
+      canReact: false
+      maxVol: 10.0
+      reagents:
+      - ReagentId: DystopiaTin
+        Quantity: 6.0
+      - ReagentId: Lead
+        Quantity: 4.0
+    id: composite
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/sheets.rsi
+    heldPrefix: solder
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/sheets.rsi
+    state: solder
+    layers:
+    - state: solder
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Sheet ]
+  - type: Extractable
+    grindableSolutionName: composite
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaSolder: 100
+  - type: Stack
+    stackType: DystopiaSheetSolder
+    baseLayer: base
+    layerStates: [ solder, solder_2, solder_3 ]
+    count: 1
+
+- type: entity
+  id: DystopiaSheetFerrochrome
+  name: ferrochrome sheet
+  description: A sheet of ferrochrome, cast in a mould.
+  suffix: Full
+  components:
+  - type: Solution
+    solution:
+      canReact: false
+      maxVol: 10.0
+      reagents:
+      - ReagentId: DystopiaChromium
+        Quantity: 6.5
+      - ReagentId: Iron
+        Quantity: 3.0
+      - ReagentId: Carbon
+        Quantity: 0.5
+    id: composite
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/sheets.rsi
+    heldPrefix: ferrochrome
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/sheets.rsi
+    state: ferrochrome_3
+    layers:
+    - state: ferrochrome_3
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Sheet ]
+  - type: Extractable
+    grindableSolutionName: composite
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaFerrochrome: 100
+  - type: Stack
+    stackType: DystopiaSheetFerrochrome
+    baseLayer: base
+    layerStates: [ ferrochrome, ferrochrome_2, ferrochrome_3 ]
+
+- type: entity
+  id: DystopiaSheetFerrochrome1
+  name: ferrochrome sheet
+  description: A sheet of ferrochrome, cast in a mould.
+  suffix: Single
+  components:
+  - type: Solution
+    solution:
+      canReact: false
+      maxVol: 10.0
+      reagents:
+      - ReagentId: DystopiaChromium
+        Quantity: 6.5
+      - ReagentId: Iron
+        Quantity: 3.0
+      - ReagentId: Carbon
+        Quantity: 0.5
+    id: composite
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/sheets.rsi
+    heldPrefix: ferrochrome
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/sheets.rsi
+    state: ferrochrome
+    layers:
+    - state: ferrochrome
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Sheet ]
+  - type: Extractable
+    grindableSolutionName: composite
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaFerrochrome: 100
+  - type: Stack
+    stackType: DystopiaSheetFerrochrome
+    baseLayer: base
+    layerStates: [ ferrochrome, ferrochrome_2, ferrochrome_3 ]
+    count: 1

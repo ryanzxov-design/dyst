@@ -35,6 +35,10 @@ public sealed partial class DystopiaCrucibleComponent : Component
     [DataField]
     public float CoolingRate = 0.005f;
 
+    /// <summary>Множитель скорости нагрева от горна: большой тигель греется дольше.</summary>
+    [DataField]
+    public float HeatMultiplier = 1f;
+
     /// <summary>Температура окружения, если вокруг нет атмосферы, K.</summary>
     [DataField]
     public float FallbackAmbient = 293.15f;
@@ -147,13 +151,19 @@ public sealed partial class DystopiaForgeComponent : Component
 
 /// <summary>
 /// Изложница: в неё льют расплав, он остывает; ниже точки плавления основного металла и при наборе объёма формы
-/// выходит отливка (или брак, если металл грязный или недолили).
+/// выходит отливка (или брак, если металл грязный или недолили). Литейный стол — та же изложница, только форма
+/// у него сменная: вставляется в слот <see cref="FormSlot"/> (<see cref="DystopiaCastingFormComponent"/>).
 /// </summary>
 [RegisterComponent]
 public sealed partial class DystopiaMouldComponent : Component
 {
-    [DataField(required: true)]
-    public ProtoId<DystopiaMouldShapePrototype> Shape;
+    /// <summary>Своя форма (у изложницы-предмета). У литейного стола — пусто, форма берётся из слота.</summary>
+    [DataField]
+    public ProtoId<DystopiaMouldShapePrototype>? Shape;
+
+    /// <summary>Слот сменной формы (ItemSlots) у литейного стола.</summary>
+    [DataField]
+    public string? FormSlot;
 
     [DataField]
     public string Solution = "mould";

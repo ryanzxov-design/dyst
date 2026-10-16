@@ -210,6 +210,23 @@
         {
             "name": "ferrochrome-inhand-right",
             "directions": 4
+        },
+        {
+            "name": "solder"
+        },
+        {
+            "name": "solder_2"
+        },
+        {
+            "name": "solder_3"
+        },
+        {
+            "name": "solder-inhand-left",
+            "directions": 4
+        },
+        {
+            "name": "solder-inhand-right",
+            "directions": 4
         }
     ]
 }

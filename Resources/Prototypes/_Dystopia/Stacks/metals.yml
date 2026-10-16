@@ -223,3 +223,171 @@
   icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/wires.rsi, state: solder-10 }
   spawn: DystopiaWireSolder1
   maxCount: 30
+
+- type: stack
+  id: DystopiaIngotSolder
+  name: stack-dystopia-ingot-solder
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/ingots.rsi, state: solder }
+  spawn: DystopiaIngotSolder1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaSheetIron
+  name: stack-dystopia-sheet-iron
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/sheets.rsi, state: iron }
+  spawn: DystopiaSheetIron1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaSheetCastIron
+  name: stack-dystopia-sheet-cast-iron
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/sheets.rsi, state: cast_iron }
+  spawn: DystopiaSheetCastIron1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaSheetZinc
+  name: stack-dystopia-sheet-zinc
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/sheets.rsi, state: zinc }
+  spawn: DystopiaSheetZinc1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaSheetTin
+  name: stack-dystopia-sheet-tin
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/sheets.rsi, state: tin }
+  spawn: DystopiaSheetTin1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaSheetGold
+  name: stack-dystopia-sheet-gold
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/sheets.rsi, state: gold }
+  spawn: DystopiaSheetGold1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaSheetSilver
+  name: stack-dystopia-sheet-silver
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/sheets.rsi, state: silver }
+  spawn: DystopiaSheetSilver1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaSheetUranium
+  name: stack-dystopia-sheet-uranium
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/sheets.rsi, state: uranium }
+  spawn: DystopiaSheetUranium1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaSheetSolder
+  name: stack-dystopia-sheet-solder
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/sheets.rsi, state: solder }
+  spawn: DystopiaSheetSolder1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaSheetFerrochrome
+  name: stack-dystopia-sheet-ferrochrome
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/sheets.rsi, state: ferrochrome }
+  spawn: DystopiaSheetFerrochrome1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaRodIron
+  name: stack-dystopia-rod-iron
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/rods.rsi, state: iron }
+  spawn: DystopiaRodIron1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaRodCastIron
+  name: stack-dystopia-rod-cast-iron
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/rods.rsi, state: cast_iron }
+  spawn: DystopiaRodCastIron1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaRodAluminium
+  name: stack-dystopia-rod-aluminium
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/rods.rsi, state: aluminium }
+  spawn: DystopiaRodAluminium1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaRodZinc
+  name: stack-dystopia-rod-zinc
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/rods.rsi, state: zinc }
+  spawn: DystopiaRodZinc1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaRodTin
+  name: stack-dystopia-rod-tin
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/rods.rsi, state: tin }
+  spawn: DystopiaRodTin1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaRodLead
+  name: stack-dystopia-rod-lead
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/rods.rsi, state: lead }
+  spawn: DystopiaRodLead1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaRodGold
+  name: stack-dystopia-rod-gold
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/rods.rsi, state: gold }
+  spawn: DystopiaRodGold1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaRodSilver
+  name: stack-dystopia-rod-silver
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/rods.rsi, state: silver }
+  spawn: DystopiaRodSilver1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaRodUranium
+  name: stack-dystopia-rod-uranium
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/rods.rsi, state: uranium }
+  spawn: DystopiaRodUranium1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaRodBrass
+  name: stack-dystopia-rod-brass
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/rods.rsi, state: brass }
+  spawn: DystopiaRodBrass1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaRodBronze
+  name: stack-dystopia-rod-bronze
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/rods.rsi, state: bronze }
+  spawn: DystopiaRodBronze1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaRodSolder
+  name: stack-dystopia-rod-solder
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/rods.rsi, state: solder }
+  spawn: DystopiaRodSolder1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaRodStainlessSteel
+  name: stack-dystopia-rod-stainless
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/rods.rsi, state: stainless }
+  spawn: DystopiaRodStainlessSteel1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaRodFerrochrome
+  name: stack-dystopia-rod-ferrochrome
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/rods.rsi, state: ferrochrome }
+  spawn: DystopiaRodFerrochrome1
+  maxCount: 30
