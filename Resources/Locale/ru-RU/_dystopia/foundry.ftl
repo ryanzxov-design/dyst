@@ -16,7 +16,12 @@ dystopia-crucible-solidified = Металл в тигле застыл — сн�
 dystopia-crucible-full = Тигель полон: больше не влезет.
 dystopia-crucible-loaded = Вы кладёте { $item } в тигель.
 dystopia-crucible-not-empty-item = Сначала опустошите { $item }.
-dystopia-crucible-charge = Ждёт плавки: { $material } из { $max } единиц, плавится при { $temperature } °C.
+dystopia-crucible-inside = [bold]Внутри[/bold] ({ $pieces } из { $max } кусков, плавится при { $temperature } °C):
+dystopia-crucible-inside-entry = — { $name } × { $count }
+dystopia-crucible-inside-empty = [bold]Внутри:[/bold] пусто.
+dystopia-crucible-molten = [bold]Расплавленное[/bold] ({ $volume } из { $max } ед.):
+dystopia-crucible-solid = [bold]Застывшее[/bold] ({ $volume } из { $max } ед.) — разогрейте, чтобы разлить:
+dystopia-crucible-melt-none = [bold]Расплавленное:[/bold] пока нет.
 dystopia-crucible-skim-verb = Снять шлак
 dystopia-crucible-skim-need-tongs = Шлак снимают клещами.
 dystopia-crucible-skim-too-little = Шлака нет.
@@ -188,3 +193,6 @@ dystopia-arc-furnace-ui-eject-slag = Выгрузить шлак
 
 ent-DystopiaArcFurnace = дуговая сталеплавильная печь
     .desc = Большая печь: три графитовых электрода бьют дугой в шихту. Загрузите руду и лом, включите, выберите сплав для разлива — шлак печь снимает сама и льёт в подведённый желоб только этот сплав.
+
+dystopia-forge-examine-need-bellows = [color=#e0a040]Для плавки нужно { $temperature } °C — без мехов горн столько не даст: поставьте рядом меха и качайте.[/color]
+dystopia-forge-examine-too-cold = [color=#d05050]Для плавки нужно { $temperature } °C — этот горн так не раскалится.[/color]

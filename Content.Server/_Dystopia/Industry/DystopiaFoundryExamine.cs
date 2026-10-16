@@ -15,11 +15,12 @@ public static class DystopiaFoundryExamine
     /// «Внутри 35 из 160 ед., жидкое:» и по строке на каждый реагент. Жидкое — если температура не ниже
     /// точки плавления основного вещества.
     /// </summary>
-    public static void PushContents(ExaminedEvent args, Solution solution, float temperature, IPrototypeManager proto)
+    public static void PushContents(ExaminedEvent args, Solution solution, float temperature, IPrototypeManager proto,
+        string emptyKey = "dystopia-foundry-contents-empty", int priority = 0)
     {
         if (solution.Volume <= 0)
         {
-            args.PushMarkup(Loc.GetString("dystopia-foundry-contents-empty"));
+            args.PushMarkup(Loc.GetString(emptyKey), priority);
             return;
         }
 
@@ -32,14 +33,14 @@ public static class DystopiaFoundryExamine
         }
 
         args.PushMarkup(Loc.GetString(molten ? "dystopia-foundry-contents-liquid" : "dystopia-foundry-contents-solid",
-            ("volume", solution.Volume), ("max", solution.MaxVolume)));
+            ("volume", solution.Volume), ("max", solution.MaxVolume)), priority);
 
         foreach (var (reagent, quantity) in solution.GetReagentPrototypes(proto).OrderByDescending(pair => pair.Value.Value))
         {
             args.PushMarkup(Loc.GetString("dystopia-foundry-contents-entry",
                 ("color", reagent.SubstanceColor.ToHexNoAlpha()),
                 ("name", reagent.LocalizedName),
-                ("amount", quantity)));
+                ("amount", quantity)), priority);
         }
     }
 }

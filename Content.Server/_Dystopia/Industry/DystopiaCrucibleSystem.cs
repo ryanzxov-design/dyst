@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 // Dystopia: тигель — плавка по материалу, нагрев и остывание, снятие шлака.
 
+using System.Linq;
 using Content.Server.Atmos.EntitySystems;
 using Content.Server.Stack;
 using Content.Shared._Dystopia.Industry;
@@ -495,35 +496,97 @@ public sealed partial class DystopiaCrucibleSystem : EntitySystem
 
     // ------------------------------------------------------------------ осмотр
 
+    /// <summary>Какой жар нужен, чтобы расплавилось всё, что лежит в тигле (K). Null — плавить нечего.</summary>
+    public float? RequiredTemperature(Entity<DystopiaCrucibleComponent> ent)
+    {
+        if (!_container.TryGetContainer(ent, ent.Comp.ChargeContainer, out var container) ||
+            container.ContainedEntities.Count == 0)
+        {
+            return null;
+        }
+
+        var needed = 0f;
+        foreach (var item in container.ContainedEntities)
+        {
+            if (TryGetSmelt(item, ent.Comp.ForeignSlagPer100, out _, out var meltTemp, out _, ent.Comp.ForeignSlag))
+                needed = MathF.Max(needed, meltTemp);
+        }
+
+        return needed > 0 ? needed : null;
+    }
+
+    // Порядок строк осмотра: жар → «Внутри:» (куски) → «Расплавленное:» → шлак; строки горна и подсказки — ниже.
+    public const int ExamineTemperature = 40;
+    public const int ExamineCharge = 39;
+    public const int ExamineMelt = 30;
+
     private void OnExamined(Entity<DystopiaCrucibleComponent> ent, ref ExaminedEvent args)
     {
         if (!args.IsInDetailsRange)
             return;
 
         args.PushMarkup(Loc.GetString("dystopia-foundry-temperature",
-            ("temperature", MathF.Round(ent.Comp.Temperature - KelvinOffset))));
+            ("temperature", MathF.Round(ent.Comp.Temperature - KelvinOffset))), ExamineTemperature);
 
-        if (_container.TryGetContainer(ent, ent.Comp.ChargeContainer, out var container) &&
-            container.ContainedEntities.Count > 0)
+        // Внутри: что лежит кусками и ждёт плавки
+        var charge = new Dictionary<string, int>();
+        if (_container.TryGetContainer(ent, ent.Comp.ChargeContainer, out var container))
         {
-            // Какой жар нужен, чтобы расплавилось всё, что лежит
-            var needed = 0f;
             foreach (var item in container.ContainedEntities)
             {
-                if (TryGetSmelt(item, ent.Comp.ForeignSlagPer100, out _, out var meltTemp, out _, ent.Comp.ForeignSlag))
-                    needed = MathF.Max(needed, meltTemp);
+                if (EntityManager.IsQueuedForDeletion(item))
+                    continue;
+
+                var name = Name(item);
+                charge[name] = charge.GetValueOrDefault(name) + (TryComp<StackComponent>(item, out var stack) ? stack.Count : 1);
             }
-
-            args.PushMarkup(Loc.GetString("dystopia-crucible-charge",
-                ("material", ChargeMaterial(ent)), ("max", ent.Comp.MaxCharge),
-                ("temperature", MathF.Round(needed - KelvinOffset))));
         }
 
-        if (_solution.TryGetSolution(ent.Owner, ent.Comp.Solution, out _, out var solution))
+        if (charge.Count == 0)
         {
-            DystopiaFoundryExamine.PushContents(args, solution, ent.Comp.Temperature, _proto);
-            if (solution.GetTotalPrototypeQuantity(ent.Comp.SlagReagent) > FixedPoint2.Zero)
-                args.PushMarkup(Loc.GetString("dystopia-crucible-has-slag"));
+            args.PushMarkup(Loc.GetString("dystopia-crucible-inside-empty"), ExamineCharge);
         }
+        else
+        {
+            var needed = RequiredTemperature(ent) ?? 0f;
+            args.PushMarkup(Loc.GetString("dystopia-crucible-inside",
+                ("pieces", ChargeMaterial(ent) / 100), ("max", ent.Comp.MaxCharge / 100),
+                ("temperature", MathF.Round(needed - KelvinOffset))), ExamineCharge);
+
+            var priority = ExamineCharge - 1;
+            foreach (var (name, count) in charge.OrderByDescending(pair => pair.Value))
+            {
+                args.PushMarkup(Loc.GetString("dystopia-crucible-inside-entry", ("name", name), ("count", count)), priority);
+            }
+        }
+
+        // Расплавленное
+        if (!_solution.TryGetSolution(ent.Owner, ent.Comp.Solution, out _, out var solution))
+            return;
+
+        if (solution.Volume <= FixedPoint2.Zero)
+        {
+            args.PushMarkup(Loc.GetString("dystopia-crucible-melt-none"), ExamineMelt);
+            return;
+        }
+
+        var molten = solution.GetPrimaryReagentId() is not { } primary ||
+                     !_proto.TryIndex<ReagentPrototype>(primary.Prototype, out var main) ||
+                     main.MeltingPoint is not { } melting ||
+                     ent.Comp.Temperature >= melting + KelvinOffset;
+
+        args.PushMarkup(Loc.GetString(molten ? "dystopia-crucible-molten" : "dystopia-crucible-solid",
+            ("volume", solution.Volume), ("max", solution.MaxVolume)), ExamineMelt);
+
+        foreach (var (reagent, quantity) in solution.GetReagentPrototypes(_proto).OrderByDescending(pair => pair.Value.Value))
+        {
+            args.PushMarkup(Loc.GetString("dystopia-foundry-contents-entry",
+                ("color", reagent.SubstanceColor.ToHexNoAlpha()),
+                ("name", reagent.LocalizedName),
+                ("amount", quantity)), ExamineMelt - 1);
+        }
+
+        if (solution.GetTotalPrototypeQuantity(ent.Comp.SlagReagent) > FixedPoint2.Zero)
+            args.PushMarkup(Loc.GetString("dystopia-crucible-has-slag"), ExamineMelt - 2);
     }
 }

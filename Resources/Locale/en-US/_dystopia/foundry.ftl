@@ -16,7 +16,12 @@ dystopia-crucible-solidified = The metal in the crucible has solidified. Heat it
 dystopia-crucible-full = The crucible is full.
 dystopia-crucible-loaded = You put { THE($item) } into the crucible.
 dystopia-crucible-not-empty-item = Empty { THE($item) } first.
-dystopia-crucible-charge = Waiting to melt: { $material } of { $max } units, melts at { $temperature } °C.
+dystopia-crucible-inside = [bold]Inside[/bold] ({ $pieces } of { $max } chunks, melts at { $temperature } °C):
+dystopia-crucible-inside-entry = — { $name } × { $count }
+dystopia-crucible-inside-empty = [bold]Inside:[/bold] empty.
+dystopia-crucible-molten = [bold]Molten[/bold] ({ $volume } of { $max } u):
+dystopia-crucible-solid = [bold]Solidified[/bold] ({ $volume } of { $max } u), heat it up to pour:
+dystopia-crucible-melt-none = [bold]Molten:[/bold] nothing yet.
 dystopia-crucible-skim-verb = Skim slag
 dystopia-crucible-skim-need-tongs = Slag is skimmed with tongs.
 dystopia-crucible-skim-too-little = There is no slag.
@@ -124,3 +129,6 @@ dystopia-arc-furnace-ui-no-pour = Don't pour
 dystopia-arc-furnace-ui-slag = Slag
 dystopia-arc-furnace-ui-slag-count = Skimmed lumps: { $count } of { $max }.
 dystopia-arc-furnace-ui-eject-slag = Unload slag
+
+dystopia-forge-examine-need-bellows = [color=#e0a040]Melting needs { $temperature } °C, more than the forge gives without bellows: put bellows next to it and pump.[/color]
+dystopia-forge-examine-too-cold = [color=#d05050]Melting needs { $temperature } °C; this forge can't get that hot.[/color]

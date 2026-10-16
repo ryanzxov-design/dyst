@@ -284,28 +284,70 @@ public sealed partial class DystopiaForgeSystem : EntitySystem
         _ambient.SetAmbience(ent, ent.Comp.Lit);
     }
 
+    private const int ExamineForge = 20;
+    private const int ExamineWarning = 25;
+
     private void OnExamined(Entity<DystopiaForgeComponent> ent, ref ExaminedEvent args)
     {
         if (!args.IsInDetailsRange)
             return;
 
+        ExamineHeatWarning(ent, ref args);
+
         if (ent.Comp.Electric)
         {
             args.PushMarkup(Loc.GetString(ent.Comp.Lit ? "dystopia-forge-electric-examine-working"
                 : ent.Comp.On ? "dystopia-forge-electric-examine-unpowered"
-                : "dystopia-forge-electric-examine-off"));
+                : "dystopia-forge-electric-examine-off"), ExamineForge);
             args.PushMarkup(Loc.GetString("dystopia-forge-electric-examine-max",
-                ("max", MathF.Round(ent.Comp.BaseMaxTemperature - DystopiaCrucibleSystem.KelvinOffset))));
+                ("max", MathF.Round(ent.Comp.BaseMaxTemperature - DystopiaCrucibleSystem.KelvinOffset))), ExamineForge - 1);
             return;
         }
 
         var bellows = ent.Comp.Lit && _timing.CurTime < ent.Comp.BellowsUntil;
-        args.PushMarkup(Loc.GetString(ent.Comp.Lit ? "dystopia-forge-examine-lit" : "dystopia-forge-examine-cold"));
-        args.PushMarkup(Loc.GetString("dystopia-forge-examine-fuel", ("seconds", (int) MathF.Round(ent.Comp.Fuel))));
+        args.PushMarkup(Loc.GetString(ent.Comp.Lit ? "dystopia-forge-examine-lit" : "dystopia-forge-examine-cold"),
+            ExamineForge);
+        args.PushMarkup(Loc.GetString("dystopia-forge-examine-fuel", ("seconds", (int) MathF.Round(ent.Comp.Fuel))),
+            ExamineForge - 1);
         args.PushMarkup(Loc.GetString("dystopia-forge-examine-max",
             ("base", MathF.Round(ent.Comp.BaseMaxTemperature - DystopiaCrucibleSystem.KelvinOffset)),
-            ("bellows", MathF.Round(ent.Comp.BellowsMaxTemperature - DystopiaCrucibleSystem.KelvinOffset))));
+            ("bellows", MathF.Round(ent.Comp.BellowsMaxTemperature - DystopiaCrucibleSystem.KelvinOffset))),
+            ExamineForge - 2);
         if (bellows)
-            args.PushMarkup(Loc.GetString("dystopia-forge-examine-bellows"));
+            args.PushMarkup(Loc.GetString("dystopia-forge-examine-bellows"), ExamineForge - 3);
+    }
+
+    /// <summary>Тигель на горне (или в горне) ждёт жара, которого горн сам не даст, — подсказать, что делать.</summary>
+    private void ExamineHeatWarning(Entity<DystopiaForgeComponent> ent, ref ExaminedEvent args)
+    {
+        float? needed = null;
+        if (TryComp<DystopiaCrucibleComponent>(ent, out var own))
+            needed = _crucible.RequiredTemperature((ent.Owner, own));
+
+        if (TryComp<ItemPlacerComponent>(ent, out var placer))
+        {
+            foreach (var placed in placer.PlacedEntities)
+            {
+                if (TryComp<DystopiaCrucibleComponent>(placed, out var crucible) &&
+                    _crucible.RequiredTemperature((placed, crucible)) is { } t)
+                {
+                    needed = MathF.Max(needed ?? 0f, t);
+                }
+            }
+        }
+
+        if (needed is not { } need)
+            return;
+
+        var max = ent.Comp.Electric ? ent.Comp.BaseMaxTemperature : ent.Comp.BellowsMaxTemperature;
+        var celsius = MathF.Round(need - DystopiaCrucibleSystem.KelvinOffset);
+        if (need > max)
+        {
+            args.PushMarkup(Loc.GetString("dystopia-forge-examine-too-cold", ("temperature", celsius)), ExamineWarning);
+        }
+        else if (!ent.Comp.Electric && need > ent.Comp.BaseMaxTemperature)
+        {
+            args.PushMarkup(Loc.GetString("dystopia-forge-examine-need-bellows", ("temperature", celsius)), ExamineWarning);
+        }
     }
 }
