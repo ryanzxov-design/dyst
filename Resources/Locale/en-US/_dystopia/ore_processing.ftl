@@ -1,0 +1,36 @@
+# Dystopia: ground ore, concentrate, sand.
+
+materials-dystopia-ground-hematite = ground hematite
+stack-dystopia-ground-hematite = ground hematite
+materials-dystopia-concentrate-hematite = hematite concentrate
+stack-dystopia-concentrate-hematite = hematite concentrate
+materials-dystopia-ground-chalcopyrite = ground chalcopyrite
+stack-dystopia-ground-chalcopyrite = ground chalcopyrite
+materials-dystopia-concentrate-chalcopyrite = chalcopyrite concentrate
+stack-dystopia-concentrate-chalcopyrite = chalcopyrite concentrate
+materials-dystopia-ground-sphalerite = ground sphalerite
+stack-dystopia-ground-sphalerite = ground sphalerite
+materials-dystopia-concentrate-sphalerite = sphalerite concentrate
+stack-dystopia-concentrate-sphalerite = sphalerite concentrate
+materials-dystopia-ground-cassiterite = ground cassiterite
+stack-dystopia-ground-cassiterite = ground cassiterite
+materials-dystopia-concentrate-cassiterite = cassiterite concentrate
+stack-dystopia-concentrate-cassiterite = cassiterite concentrate
+materials-dystopia-ground-galena = ground galena
+stack-dystopia-ground-galena = ground galena
+materials-dystopia-concentrate-galena = galena concentrate
+stack-dystopia-concentrate-galena = galena concentrate
+materials-dystopia-ground-gold-ore = ground gold ore
+stack-dystopia-ground-gold-ore = ground gold ore
+materials-dystopia-concentrate-gold-ore = gold ore concentrate
+stack-dystopia-concentrate-gold-ore = gold ore concentrate
+materials-dystopia-ground-argentite = ground argentite
+stack-dystopia-ground-argentite = ground argentite
+materials-dystopia-concentrate-argentite = argentite concentrate
+stack-dystopia-concentrate-argentite = argentite concentrate
+materials-dystopia-ground-chromite = ground chromite
+stack-dystopia-ground-chromite = ground chromite
+materials-dystopia-concentrate-chromite = chromite concentrate
+stack-dystopia-concentrate-chromite = chromite concentrate
+materials-dystopia-sand = sand
+stack-dystopia-sand = sand

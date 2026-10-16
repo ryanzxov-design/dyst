@@ -1,52 +1,60 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 # Dystopia: дроблёная руда — ступень ×2 переработки металлов (дробилка → тигель 1:1).
-# Рецепты дробилки: кусок руды (стек input) → amount горстей (output). Дробятся только руды, которые
+# Рецепты дробилок (группа Crusher): кусок руды (стек input) → amount горстей (output). Дробятся только руды, которые
 # плавятся в тигле; боксит, уранинит и химические руды пойдут своими цепочками.
 
-- type: dystopiaCrushRecipe
+- type: dystopiaProcessRecipe
   id: DystopiaCrushedHematite
+  group: Crusher
   input: SteelOre
   output: DystopiaCrushedHematite1
   amount: 2
 
-- type: dystopiaCrushRecipe
+- type: dystopiaProcessRecipe
   id: DystopiaCrushedChalcopyrite
+  group: Crusher
   input: DystopiaOreChalcopyrite
   output: DystopiaCrushedChalcopyrite1
   amount: 2
 
-- type: dystopiaCrushRecipe
+- type: dystopiaProcessRecipe
   id: DystopiaCrushedSphalerite
+  group: Crusher
   input: DystopiaOreSphalerite
   output: DystopiaCrushedSphalerite1
   amount: 2
 
-- type: dystopiaCrushRecipe
+- type: dystopiaProcessRecipe
   id: DystopiaCrushedCassiterite
+  group: Crusher
   input: DystopiaOreCassiterite
   output: DystopiaCrushedCassiterite1
   amount: 2
 
-- type: dystopiaCrushRecipe
+- type: dystopiaProcessRecipe
   id: DystopiaCrushedGalena
+  group: Crusher
   input: DystopiaOreGalena
   output: DystopiaCrushedGalena1
   amount: 2
 
-- type: dystopiaCrushRecipe
+- type: dystopiaProcessRecipe
   id: DystopiaCrushedGoldOre
+  group: Crusher
   input: GoldOre
   output: DystopiaCrushedGoldOre1
   amount: 2
 
-- type: dystopiaCrushRecipe
+- type: dystopiaProcessRecipe
   id: DystopiaCrushedArgentite
+  group: Crusher
   input: SilverOre
   output: DystopiaCrushedArgentite1
   amount: 2
 
-- type: dystopiaCrushRecipe
+- type: dystopiaProcessRecipe
   id: DystopiaCrushedChromite
+  group: Crusher
   input: DystopiaOreChromite
   output: DystopiaCrushedChromite1
   amount: 2

@@ -33,6 +33,7 @@ public sealed partial class DystopiaForgeSystem : EntitySystem
         // большой тигель ставится установкой, топливо уходит в топку.
         SubscribeLocalEvent<DystopiaForgeComponent, InteractUsingEvent>(OnInteractUsing);
         SubscribeLocalEvent<DystopiaForgeComponent, ExaminedEvent>(OnExamined);
+        SubscribeLocalEvent<DystopiaForgeComponent, DystopiaConveyorInsertEvent>(OnConveyorInsert);
     }
 
     private void OnMapInit(Entity<DystopiaForgeComponent> ent, ref MapInitEvent args)
@@ -91,28 +92,53 @@ public sealed partial class DystopiaForgeSystem : EntitySystem
         }
 
         // Топливо — по материалу (уголь, доски...).
-        var perUnit = GetFuelValue(ent.Comp, args.Used);
-        if (perUnit <= 0)
+        if (GetFuelValue(ent.Comp, args.Used) <= 0)
             return; // не топливо: пусть поставят на горн (PlaceableSurface)
 
         args.Handled = true;
+        TryAddFuel(ent, args.Used, args.User);
+    }
+
+    // Конвейерный вставщик подкидывает топливо в обычный горн (в горн с тиглем всё идёт в тигель).
+    private void OnConveyorInsert(Entity<DystopiaForgeComponent> ent, ref DystopiaConveyorInsertEvent args)
+    {
+        if (args.Handled || HasComp<DystopiaCrucibleComponent>(ent) || GetFuelValue(ent.Comp, args.Item) <= 0)
+            return;
+
+        args.Handled = true;
+        args.Inserted = TryAddFuel(ent, args.Item, null);
+    }
+
+    /// <summary>Закинуть топливо (сколько влезет из стопки). Возвращает, закинуто ли.</summary>
+    public bool TryAddFuel(Entity<DystopiaForgeComponent> ent, EntityUid item, EntityUid? user)
+    {
+        var perUnit = GetFuelValue(ent.Comp, item);
+        if (perUnit <= 0)
+            return false;
+
         var space = ent.Comp.MaxFuel - ent.Comp.Fuel;
-        var count = TryComp<StackComponent>(args.Used, out var stack) ? stack.Count : 1;
+        var count = TryComp<StackComponent>(item, out var stack) ? stack.Count : 1;
         var take = Math.Min(count, (int) MathF.Floor(space / perUnit));
         if (take <= 0)
         {
-            _popup.PopupEntity(Loc.GetString("dystopia-forge-fuel-full"), ent, args.User);
-            return;
+            if (user != null)
+                _popup.PopupEntity(Loc.GetString("dystopia-forge-fuel-full"), ent, user.Value);
+            return false;
         }
 
         if (stack != null && take < count)
-            _stack.SetCount((args.Used, stack), count - take);
+            _stack.SetCount((item, stack), count - take);
         else
-            QueueDel(args.Used);
+            QueueDel(item);
 
         ent.Comp.Fuel += take * perUnit;
-        _popup.PopupEntity(Loc.GetString("dystopia-forge-fuel-added",
-            ("seconds", (int) MathF.Round(ent.Comp.Fuel))), ent, args.User);
+        if (user != null)
+        {
+            _popup.PopupEntity(Loc.GetString("dystopia-forge-fuel-added",
+                ("seconds", (int) MathF.Round(ent.Comp.Fuel))), ent, user.Value);
+        }
+
+        return true;
     }
 
     /// <summary>Секунд горения в одной единице предмета (одном куске стопки).</summary>

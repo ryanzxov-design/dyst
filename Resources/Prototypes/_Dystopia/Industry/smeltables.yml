@@ -214,3 +214,118 @@
   products:
     DystopiaMoltenFerrochrome: 10
     DystopiaMoltenSlag: 8
+
+# Ступень ×3: молотая руда плавится как руда; концентрат — с малым шлаком.
+- type: dystopiaSmeltable
+  id: DystopiaGroundHematite
+  meltTemperature: 1823.15  # как у руды
+  products:
+    DystopiaMoltenIron: 10
+    DystopiaMoltenSlag: 5
+
+- type: dystopiaSmeltable
+  id: DystopiaConcentrateHematite
+  meltTemperature: 1823.15  # как у руды
+  products:
+    DystopiaMoltenIron: 10
+    DystopiaMoltenSlag: 2
+
+- type: dystopiaSmeltable
+  id: DystopiaGroundChalcopyrite
+  meltTemperature: 1473.15  # как у руды
+  products:
+    DystopiaMoltenCopper: 10
+    DystopiaMoltenSlag: 5
+
+- type: dystopiaSmeltable
+  id: DystopiaConcentrateChalcopyrite
+  meltTemperature: 1473.15  # как у руды
+  products:
+    DystopiaMoltenCopper: 10
+    DystopiaMoltenSlag: 2
+
+- type: dystopiaSmeltable
+  id: DystopiaGroundSphalerite
+  meltTemperature: 1273.15  # как у руды
+  products:
+    DystopiaMoltenZinc: 10
+    DystopiaMoltenSlag: 5
+
+- type: dystopiaSmeltable
+  id: DystopiaConcentrateSphalerite
+  meltTemperature: 1273.15  # как у руды
+  products:
+    DystopiaMoltenZinc: 10
+    DystopiaMoltenSlag: 2
+
+- type: dystopiaSmeltable
+  id: DystopiaGroundCassiterite
+  meltTemperature: 1273.15  # как у руды
+  products:
+    DystopiaMoltenTin: 10
+    DystopiaMoltenSlag: 5
+
+- type: dystopiaSmeltable
+  id: DystopiaConcentrateCassiterite
+  meltTemperature: 1273.15  # как у руды
+  products:
+    DystopiaMoltenTin: 10
+    DystopiaMoltenSlag: 2
+
+- type: dystopiaSmeltable
+  id: DystopiaGroundGalena
+  meltTemperature: 1073.15  # как у руды
+  products:
+    DystopiaMoltenLead: 10
+    DystopiaMoltenSilver: 0.5
+    DystopiaMoltenSlag: 5
+
+- type: dystopiaSmeltable
+  id: DystopiaConcentrateGalena
+  meltTemperature: 1073.15  # как у руды
+  products:
+    DystopiaMoltenLead: 10
+    DystopiaMoltenSilver: 0.5
+    DystopiaMoltenSlag: 2
+
+- type: dystopiaSmeltable
+  id: DystopiaGroundGoldOre
+  meltTemperature: 1343.15  # как у руды
+  products:
+    DystopiaMoltenGold: 10
+    DystopiaMoltenSlag: 5
+
+- type: dystopiaSmeltable
+  id: DystopiaConcentrateGoldOre
+  meltTemperature: 1343.15  # как у руды
+  products:
+    DystopiaMoltenGold: 10
+    DystopiaMoltenSlag: 2
+
+- type: dystopiaSmeltable
+  id: DystopiaGroundArgentite
+  meltTemperature: 1273.15  # как у руды
+  products:
+    DystopiaMoltenSilver: 10
+    DystopiaMoltenSlag: 5
+
+- type: dystopiaSmeltable
+  id: DystopiaConcentrateArgentite
+  meltTemperature: 1273.15  # как у руды
+  products:
+    DystopiaMoltenSilver: 10
+    DystopiaMoltenSlag: 2
+
+- type: dystopiaSmeltable
+  id: DystopiaGroundChromite
+  meltTemperature: 1823.15  # как у руды
+  products:
+    DystopiaMoltenFerrochrome: 10
+    DystopiaMoltenSlag: 8
+
+- type: dystopiaSmeltable
+  id: DystopiaConcentrateChromite
+  meltTemperature: 1823.15  # как у руды
+  products:
+    DystopiaMoltenFerrochrome: 10
+    DystopiaMoltenSlag: 3

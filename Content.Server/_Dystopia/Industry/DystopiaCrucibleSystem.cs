@@ -43,6 +43,7 @@ public sealed partial class DystopiaCrucibleSystem : EntitySystem
         SubscribeLocalEvent<DystopiaCrucibleComponent, InteractUsingEvent>(OnInteractUsing);
         SubscribeLocalEvent<DystopiaCrucibleComponent, GetVerbsEvent<AlternativeVerb>>(OnGetVerbs);
         SubscribeLocalEvent<DystopiaCrucibleComponent, GetVerbsEvent<InteractionVerb>>(OnGetInteractionVerbs);
+        SubscribeLocalEvent<DystopiaCrucibleComponent, DystopiaConveyorInsertEvent>(OnConveyorInsert);
         SubscribeLocalEvent<DystopiaCrucibleComponent, ExaminedEvent>(OnExamined);
         SubscribeLocalEvent<DystopiaCrucibleComponent, SolutionTransferAttemptEvent>(OnTransferAttempt);
         SubscribeLocalEvent<DystopiaCrucibleComponent, DystopiaGetTemperatureEvent>(OnGetTemperature);
@@ -226,13 +227,23 @@ public sealed partial class DystopiaCrucibleSystem : EntitySystem
                perUnit > 0;
     }
 
-    /// <summary>Загрузить предмет (или сколько влезет из стопки) в тигель.</summary>
-    public void TryLoad(Entity<DystopiaCrucibleComponent> ent, EntityUid used, EntityUid user)
+    // Конвейерный вставщик: в тигель (и в горн с тиглем) — всё, что плавится, уголь тоже идёт в тигель.
+    private void OnConveyorInsert(Entity<DystopiaCrucibleComponent> ent, ref DystopiaConveyorInsertEvent args)
+    {
+        if (args.Handled || !CanLoad(ent, args.Item))
+            return;
+
+        args.Handled = true;
+        args.Inserted = TryLoad(ent, args.Item, null);
+    }
+
+    /// <summary>Загрузить предмет (или сколько влезет из стопки) в тигель. Возвращает, загружено ли.</summary>
+    public bool TryLoad(Entity<DystopiaCrucibleComponent> ent, EntityUid used, EntityUid? user)
     {
         if (!TryGetSmelt(used, ent.Comp.ForeignSlagPer100, out _, out _, out var perUnit, ent.Comp.ForeignSlag) ||
             perUnit <= 0)
         {
-            return;
+            return false;
         }
 
         // Не плавим вместе с содержимым: ящик с инструментами сначала опустошить.
@@ -243,33 +254,39 @@ public sealed partial class DystopiaCrucibleSystem : EntitySystem
                 if (inner.ContainedEntities.Count == 0)
                     continue;
 
-                _popup.PopupEntity(Loc.GetString("dystopia-crucible-not-empty-item", ("item", used)), ent, user);
-                return;
+                if (user != null)
+                    _popup.PopupEntity(Loc.GetString("dystopia-crucible-not-empty-item", ("item", used)), ent, user.Value);
+                return false;
             }
         }
 
         if (!_container.TryGetContainer(ent, ent.Comp.ChargeContainer, out var container))
-            return;
+            return false;
 
         var free = ent.Comp.MaxCharge - ChargeMaterial(ent);
         var fits = free / perUnit;
         if (fits <= 0)
         {
-            _popup.PopupEntity(Loc.GetString("dystopia-crucible-full"), ent, user);
-            return;
+            if (user != null)
+                _popup.PopupEntity(Loc.GetString("dystopia-crucible-full"), ent, user.Value);
+            return false;
         }
 
         var item = used;
         if (TryComp<StackComponent>(item, out var stack) && stack.Count > fits)
         {
             if (_stack.Split((item, stack), fits, Transform(ent).Coordinates, user) is not { } split)
-                return;
+                return false;
 
             item = split;
         }
 
-        _container.Insert(item, container);
-        _popup.PopupEntity(Loc.GetString("dystopia-crucible-loaded", ("item", item)), ent, user);
+        if (!_container.Insert(item, container))
+            return false;
+
+        if (user != null)
+            _popup.PopupEntity(Loc.GetString("dystopia-crucible-loaded", ("item", item)), ent, user.Value);
+        return true;
     }
 
     // ------------------------------------------------------------------ шлак

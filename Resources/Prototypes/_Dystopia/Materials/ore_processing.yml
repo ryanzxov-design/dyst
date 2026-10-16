@@ -1,0 +1,157 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: ступень ×3 переработки металлов — мельница (дроблёная → молотая руда 1:1) и обогащение с водой
+# (2 горсти молотой → 3 горсти гравитационного концентрата + 1 горсть песка). Концентрат плавится 1:1 с малым шлаком.
+# Материалы: 100 единиц = одна горсть.
+
+- type: material
+  id: DystopiaGroundHematite
+  stackEntity: DystopiaGroundHematite1
+  name: materials-dystopia-ground-hematite
+  unit: materials-unit-dystopia-handful
+  icon: { sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi, state: ground_hematite }
+  color: "#7a3e30"
+  price: 0.05
+
+- type: material
+  id: DystopiaConcentrateHematite
+  stackEntity: DystopiaConcentrateHematite1
+  name: materials-dystopia-concentrate-hematite
+  unit: materials-unit-dystopia-handful
+  icon: { sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi, state: concentrate_hematite }
+  color: "#c88a70"
+  price: 0.1
+
+- type: material
+  id: DystopiaGroundChalcopyrite
+  stackEntity: DystopiaGroundChalcopyrite1
+  name: materials-dystopia-ground-chalcopyrite
+  unit: materials-unit-dystopia-handful
+  icon: { sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi, state: ground_chalcopyrite }
+  color: "#b89a2a"
+  price: 0.05
+
+- type: material
+  id: DystopiaConcentrateChalcopyrite
+  stackEntity: DystopiaConcentrateChalcopyrite1
+  name: materials-dystopia-concentrate-chalcopyrite
+  unit: materials-unit-dystopia-handful
+  icon: { sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi, state: concentrate_chalcopyrite }
+  color: "#f0e07a"
+  price: 0.1
+
+- type: material
+  id: DystopiaGroundSphalerite
+  stackEntity: DystopiaGroundSphalerite1
+  name: materials-dystopia-ground-sphalerite
+  unit: materials-unit-dystopia-handful
+  icon: { sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi, state: ground_sphalerite }
+  color: "#6a4a1a"
+  price: 0.05
+
+- type: material
+  id: DystopiaConcentrateSphalerite
+  stackEntity: DystopiaConcentrateSphalerite1
+  name: materials-dystopia-concentrate-sphalerite
+  unit: materials-unit-dystopia-handful
+  icon: { sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi, state: concentrate_sphalerite }
+  color: "#e8b84e"
+  price: 0.1
+
+- type: material
+  id: DystopiaGroundCassiterite
+  stackEntity: DystopiaGroundCassiterite1
+  name: materials-dystopia-ground-cassiterite
+  unit: materials-unit-dystopia-handful
+  icon: { sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi, state: ground_cassiterite }
+  color: "#4a3a32"
+  price: 0.05
+
+- type: material
+  id: DystopiaConcentrateCassiterite
+  stackEntity: DystopiaConcentrateCassiterite1
+  name: materials-dystopia-concentrate-cassiterite
+  unit: materials-unit-dystopia-handful
+  icon: { sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi, state: concentrate_cassiterite }
+  color: "#b09482"
+  price: 0.1
+
+- type: material
+  id: DystopiaGroundGalena
+  stackEntity: DystopiaGroundGalena1
+  name: materials-dystopia-ground-galena
+  unit: materials-unit-dystopia-handful
+  icon: { sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi, state: ground_galena }
+  color: "#5c6274"
+  price: 0.05
+
+- type: material
+  id: DystopiaConcentrateGalena
+  stackEntity: DystopiaConcentrateGalena1
+  name: materials-dystopia-concentrate-galena
+  unit: materials-unit-dystopia-handful
+  icon: { sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi, state: concentrate_galena }
+  color: "#c2c8d8"
+  price: 0.1
+
+- type: material
+  id: DystopiaGroundGoldOre
+  stackEntity: DystopiaGroundGoldOre1
+  name: materials-dystopia-ground-gold-ore
+  unit: materials-unit-dystopia-handful
+  icon: { sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi, state: ground_gold_ore }
+  color: "#9a7a30"
+  price: 0.05
+
+- type: material
+  id: DystopiaConcentrateGoldOre
+  stackEntity: DystopiaConcentrateGoldOre1
+  name: materials-dystopia-concentrate-gold-ore
+  unit: materials-unit-dystopia-handful
+  icon: { sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi, state: concentrate_gold_ore }
+  color: "#f4d870"
+  price: 0.1
+
+- type: material
+  id: DystopiaGroundArgentite
+  stackEntity: DystopiaGroundArgentite1
+  name: materials-dystopia-ground-argentite
+  unit: materials-unit-dystopia-handful
+  icon: { sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi, state: ground_argentite }
+  color: "#5e5e68"
+  price: 0.05
+
+- type: material
+  id: DystopiaConcentrateArgentite
+  stackEntity: DystopiaConcentrateArgentite1
+  name: materials-dystopia-concentrate-argentite
+  unit: materials-unit-dystopia-handful
+  icon: { sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi, state: concentrate_argentite }
+  color: "#c0c0cc"
+  price: 0.1
+
+- type: material
+  id: DystopiaGroundChromite
+  stackEntity: DystopiaGroundChromite1
+  name: materials-dystopia-ground-chromite
+  unit: materials-unit-dystopia-handful
+  icon: { sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi, state: ground_chromite }
+  color: "#4a4248"
+  price: 0.05
+
+- type: material
+  id: DystopiaConcentrateChromite
+  stackEntity: DystopiaConcentrateChromite1
+  name: materials-dystopia-concentrate-chromite
+  unit: materials-unit-dystopia-handful
+  icon: { sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi, state: concentrate_chromite }
+  color: "#958a90"
+  price: 0.1
+
+- type: material
+  id: DystopiaSand
+  stackEntity: DystopiaSand1
+  name: materials-dystopia-sand
+  unit: materials-unit-dystopia-handful
+  icon: { sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi, state: sand }
+  color: "#c8a874"
+  price: 0.01

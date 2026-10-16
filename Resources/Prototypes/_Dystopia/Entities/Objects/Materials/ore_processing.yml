@@ -1,0 +1,2431 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: ступень ×3 переработки металлов — мельница (дроблёная → молотая руда 1:1) и обогащение с водой
+# (2 горсти молотой → 3 горсти гравитационного концентрата + 1 горсть песка). Концентрат плавится 1:1 с малым шлаком.
+# Самостоятельные сущности, без parent.
+
+- type: entity
+  id: DystopiaGroundHematite
+  name: ground hematite
+  description: Ore milled to flour. Wash it on a concentrating table to get concentrate.
+  suffix: Iron, Full
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi
+    heldPrefix: ground_hematite
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi
+    state: ground_hematite
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Stack
+    stackType: DystopiaGroundHematite
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaGroundHematite: 100
+
+- type: entity
+  id: DystopiaGroundHematite1
+  name: ground hematite
+  description: Ore milled to flour. Wash it on a concentrating table to get concentrate.
+  suffix: Iron, Single
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi
+    heldPrefix: ground_hematite
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi
+    state: ground_hematite
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Stack
+    stackType: DystopiaGroundHematite
+    count: 1
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaGroundHematite: 100
+
+- type: entity
+  id: DystopiaConcentrateHematite
+  name: hematite concentrate
+  description: Heavy ore grains washed free of waste rock. Melts into an ingot with little slag.
+  suffix: Iron, Full
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi
+    heldPrefix: concentrate_hematite
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi
+    state: concentrate_hematite
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Stack
+    stackType: DystopiaConcentrateHematite
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaConcentrateHematite: 100
+
+- type: entity
+  id: DystopiaConcentrateHematite1
+  name: hematite concentrate
+  description: Heavy ore grains washed free of waste rock. Melts into an ingot with little slag.
+  suffix: Iron, Single
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi
+    heldPrefix: concentrate_hematite
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi
+    state: concentrate_hematite
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Stack
+    stackType: DystopiaConcentrateHematite
+    count: 1
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaConcentrateHematite: 100
+
+- type: entity
+  id: DystopiaGroundChalcopyrite
+  name: ground chalcopyrite
+  description: Ore milled to flour. Wash it on a concentrating table to get concentrate.
+  suffix: Copper, Full
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi
+    heldPrefix: ground_chalcopyrite
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi
+    state: ground_chalcopyrite
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Stack
+    stackType: DystopiaGroundChalcopyrite
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaGroundChalcopyrite: 100
+
+- type: entity
+  id: DystopiaGroundChalcopyrite1
+  name: ground chalcopyrite
+  description: Ore milled to flour. Wash it on a concentrating table to get concentrate.
+  suffix: Copper, Single
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi
+    heldPrefix: ground_chalcopyrite
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi
+    state: ground_chalcopyrite
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Stack
+    stackType: DystopiaGroundChalcopyrite
+    count: 1
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaGroundChalcopyrite: 100
+
+- type: entity
+  id: DystopiaConcentrateChalcopyrite
+  name: chalcopyrite concentrate
+  description: Heavy ore grains washed free of waste rock. Melts into an ingot with little slag.
+  suffix: Copper, Full
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi
+    heldPrefix: concentrate_chalcopyrite
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi
+    state: concentrate_chalcopyrite
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Stack
+    stackType: DystopiaConcentrateChalcopyrite
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaConcentrateChalcopyrite: 100
+
+- type: entity
+  id: DystopiaConcentrateChalcopyrite1
+  name: chalcopyrite concentrate
+  description: Heavy ore grains washed free of waste rock. Melts into an ingot with little slag.
+  suffix: Copper, Single
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi
+    heldPrefix: concentrate_chalcopyrite
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi
+    state: concentrate_chalcopyrite
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Stack
+    stackType: DystopiaConcentrateChalcopyrite
+    count: 1
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaConcentrateChalcopyrite: 100
+
+- type: entity
+  id: DystopiaGroundSphalerite
+  name: ground sphalerite
+  description: Ore milled to flour. Wash it on a concentrating table to get concentrate.
+  suffix: Zinc, Full
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi
+    heldPrefix: ground_sphalerite
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi
+    state: ground_sphalerite
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Stack
+    stackType: DystopiaGroundSphalerite
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaGroundSphalerite: 100
+
+- type: entity
+  id: DystopiaGroundSphalerite1
+  name: ground sphalerite
+  description: Ore milled to flour. Wash it on a concentrating table to get concentrate.
+  suffix: Zinc, Single
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi
+    heldPrefix: ground_sphalerite
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi
+    state: ground_sphalerite
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Stack
+    stackType: DystopiaGroundSphalerite
+    count: 1
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaGroundSphalerite: 100
+
+- type: entity
+  id: DystopiaConcentrateSphalerite
+  name: sphalerite concentrate
+  description: Heavy ore grains washed free of waste rock. Melts into an ingot with little slag.
+  suffix: Zinc, Full
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi
+    heldPrefix: concentrate_sphalerite
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi
+    state: concentrate_sphalerite
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Stack
+    stackType: DystopiaConcentrateSphalerite
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaConcentrateSphalerite: 100
+
+- type: entity
+  id: DystopiaConcentrateSphalerite1
+  name: sphalerite concentrate
+  description: Heavy ore grains washed free of waste rock. Melts into an ingot with little slag.
+  suffix: Zinc, Single
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi
+    heldPrefix: concentrate_sphalerite
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi
+    state: concentrate_sphalerite
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Stack
+    stackType: DystopiaConcentrateSphalerite
+    count: 1
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaConcentrateSphalerite: 100
+
+- type: entity
+  id: DystopiaGroundCassiterite
+  name: ground cassiterite
+  description: Ore milled to flour. Wash it on a concentrating table to get concentrate.
+  suffix: Tin, Full
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi
+    heldPrefix: ground_cassiterite
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi
+    state: ground_cassiterite
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Stack
+    stackType: DystopiaGroundCassiterite
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaGroundCassiterite: 100
+
+- type: entity
+  id: DystopiaGroundCassiterite1
+  name: ground cassiterite
+  description: Ore milled to flour. Wash it on a concentrating table to get concentrate.
+  suffix: Tin, Single
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi
+    heldPrefix: ground_cassiterite
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi
+    state: ground_cassiterite
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Stack
+    stackType: DystopiaGroundCassiterite
+    count: 1
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaGroundCassiterite: 100
+
+- type: entity
+  id: DystopiaConcentrateCassiterite
+  name: cassiterite concentrate
+  description: Heavy ore grains washed free of waste rock. Melts into an ingot with little slag.
+  suffix: Tin, Full
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi
+    heldPrefix: concentrate_cassiterite
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi
+    state: concentrate_cassiterite
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Stack
+    stackType: DystopiaConcentrateCassiterite
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaConcentrateCassiterite: 100
+
+- type: entity
+  id: DystopiaConcentrateCassiterite1
+  name: cassiterite concentrate
+  description: Heavy ore grains washed free of waste rock. Melts into an ingot with little slag.
+  suffix: Tin, Single
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi
+    heldPrefix: concentrate_cassiterite
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi
+    state: concentrate_cassiterite
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Stack
+    stackType: DystopiaConcentrateCassiterite
+    count: 1
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaConcentrateCassiterite: 100
+
+- type: entity
+  id: DystopiaGroundGalena
+  name: ground galena
+  description: Ore milled to flour. Wash it on a concentrating table to get concentrate.
+  suffix: Lead, Full
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi
+    heldPrefix: ground_galena
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi
+    state: ground_galena
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Stack
+    stackType: DystopiaGroundGalena
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaGroundGalena: 100
+
+- type: entity
+  id: DystopiaGroundGalena1
+  name: ground galena
+  description: Ore milled to flour. Wash it on a concentrating table to get concentrate.
+  suffix: Lead, Single
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi
+    heldPrefix: ground_galena
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi
+    state: ground_galena
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Stack
+    stackType: DystopiaGroundGalena
+    count: 1
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaGroundGalena: 100
+
+- type: entity
+  id: DystopiaConcentrateGalena
+  name: galena concentrate
+  description: Heavy ore grains washed free of waste rock. Melts into an ingot with little slag.
+  suffix: Lead, Full
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi
+    heldPrefix: concentrate_galena
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi
+    state: concentrate_galena
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Stack
+    stackType: DystopiaConcentrateGalena
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaConcentrateGalena: 100
+
+- type: entity
+  id: DystopiaConcentrateGalena1
+  name: galena concentrate
+  description: Heavy ore grains washed free of waste rock. Melts into an ingot with little slag.
+  suffix: Lead, Single
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi
+    heldPrefix: concentrate_galena
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi
+    state: concentrate_galena
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Stack
+    stackType: DystopiaConcentrateGalena
+    count: 1
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaConcentrateGalena: 100
+
+- type: entity
+  id: DystopiaGroundGoldOre
+  name: ground gold ore
+  description: Ore milled to flour. Wash it on a concentrating table to get concentrate.
+  suffix: Gold, Full
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi
+    heldPrefix: ground_gold_ore
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi
+    state: ground_gold_ore
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Stack
+    stackType: DystopiaGroundGoldOre
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaGroundGoldOre: 100
+
+- type: entity
+  id: DystopiaGroundGoldOre1
+  name: ground gold ore
+  description: Ore milled to flour. Wash it on a concentrating table to get concentrate.
+  suffix: Gold, Single
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi
+    heldPrefix: ground_gold_ore
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi
+    state: ground_gold_ore
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Stack
+    stackType: DystopiaGroundGoldOre
+    count: 1
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaGroundGoldOre: 100
+
+- type: entity
+  id: DystopiaConcentrateGoldOre
+  name: gold ore concentrate
+  description: Heavy ore grains washed free of waste rock. Melts into an ingot with little slag.
+  suffix: Gold, Full
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi
+    heldPrefix: concentrate_gold_ore
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi
+    state: concentrate_gold_ore
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Stack
+    stackType: DystopiaConcentrateGoldOre
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaConcentrateGoldOre: 100
+
+- type: entity
+  id: DystopiaConcentrateGoldOre1
+  name: gold ore concentrate
+  description: Heavy ore grains washed free of waste rock. Melts into an ingot with little slag.
+  suffix: Gold, Single
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi
+    heldPrefix: concentrate_gold_ore
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi
+    state: concentrate_gold_ore
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Stack
+    stackType: DystopiaConcentrateGoldOre
+    count: 1
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaConcentrateGoldOre: 100
+
+- type: entity
+  id: DystopiaGroundArgentite
+  name: ground argentite
+  description: Ore milled to flour. Wash it on a concentrating table to get concentrate.
+  suffix: Silver, Full
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi
+    heldPrefix: ground_argentite
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi
+    state: ground_argentite
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Stack
+    stackType: DystopiaGroundArgentite
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaGroundArgentite: 100
+
+- type: entity
+  id: DystopiaGroundArgentite1
+  name: ground argentite
+  description: Ore milled to flour. Wash it on a concentrating table to get concentrate.
+  suffix: Silver, Single
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi
+    heldPrefix: ground_argentite
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi
+    state: ground_argentite
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Stack
+    stackType: DystopiaGroundArgentite
+    count: 1
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaGroundArgentite: 100
+
+- type: entity
+  id: DystopiaConcentrateArgentite
+  name: argentite concentrate
+  description: Heavy ore grains washed free of waste rock. Melts into an ingot with little slag.
+  suffix: Silver, Full
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi
+    heldPrefix: concentrate_argentite
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi
+    state: concentrate_argentite
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Stack
+    stackType: DystopiaConcentrateArgentite
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaConcentrateArgentite: 100
+
+- type: entity
+  id: DystopiaConcentrateArgentite1
+  name: argentite concentrate
+  description: Heavy ore grains washed free of waste rock. Melts into an ingot with little slag.
+  suffix: Silver, Single
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi
+    heldPrefix: concentrate_argentite
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi
+    state: concentrate_argentite
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Stack
+    stackType: DystopiaConcentrateArgentite
+    count: 1
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaConcentrateArgentite: 100
+
+- type: entity
+  id: DystopiaGroundChromite
+  name: ground chromite
+  description: Ore milled to flour. Wash it on a concentrating table to get concentrate.
+  suffix: Chromium, Full
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi
+    heldPrefix: ground_chromite
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi
+    state: ground_chromite
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Stack
+    stackType: DystopiaGroundChromite
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaGroundChromite: 100
+
+- type: entity
+  id: DystopiaGroundChromite1
+  name: ground chromite
+  description: Ore milled to flour. Wash it on a concentrating table to get concentrate.
+  suffix: Chromium, Single
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi
+    heldPrefix: ground_chromite
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi
+    state: ground_chromite
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Stack
+    stackType: DystopiaGroundChromite
+    count: 1
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaGroundChromite: 100
+
+- type: entity
+  id: DystopiaConcentrateChromite
+  name: chromite concentrate
+  description: Heavy ore grains washed free of waste rock. Melts into an ingot with little slag.
+  suffix: Chromium, Full
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi
+    heldPrefix: concentrate_chromite
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi
+    state: concentrate_chromite
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Stack
+    stackType: DystopiaConcentrateChromite
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaConcentrateChromite: 100
+
+- type: entity
+  id: DystopiaConcentrateChromite1
+  name: chromite concentrate
+  description: Heavy ore grains washed free of waste rock. Melts into an ingot with little slag.
+  suffix: Chromium, Single
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi
+    heldPrefix: concentrate_chromite
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi
+    state: concentrate_chromite
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Stack
+    stackType: DystopiaConcentrateChromite
+    count: 1
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaConcentrateChromite: 100
+
+- type: entity
+  id: DystopiaSand
+  name: sand
+  description: "Washed-out waste rock: fine sand."
+  suffix: Full
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi
+    heldPrefix: sand
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi
+    state: sand
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Stack
+    stackType: DystopiaSand
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaSand: 100
+
+- type: entity
+  id: DystopiaSand1
+  name: sand
+  description: "Washed-out waste rock: fine sand."
+  suffix: Single
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi
+    heldPrefix: sand
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/ore_processing.rsi
+    state: sand
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Stack
+    stackType: DystopiaSand
+    count: 1
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaSand: 100

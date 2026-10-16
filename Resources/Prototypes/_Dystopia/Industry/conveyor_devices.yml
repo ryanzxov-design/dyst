@@ -1,0 +1,214 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: конвейерные устройства — извлекатель, вставщик, сортировщик (DystopiaConveyorDevice). Вход — позади,
+# выход — впереди (куда повёрнуто; при повороте 0 — вниз). Поворачиваются, пока не прикручены. Нужен ток.
+# Самостоятельные сущности, без parent.
+
+- type: entity
+  id: DystopiaConveyorExtractor
+  name: conveyor extractor
+  description: "An arm on a hinge: takes items out of the machine, crate or locker behind it and puts them onto the conveyor in front."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.35,-0.35,0.35,0.35"
+        density: 100
+        mask: [ TableMask ]
+        layer: [ TableLayer ]   # предметы с конвейера проезжают на устройство и забираются с него
+  - type: Pullable
+  - type: Anchorable
+    delay: 1
+  - type: Rotatable
+    rotateWhileAnchored: false
+  - type: Tag
+    tags: [ Structure ]
+  - type: Sprite
+    sprite: _Dystopia/Structures/Industry/conveyor_extractor.rsi
+    noRot: false   # поворачивается вместе с устройством: стрелки показывают вход и выходы
+    drawdepth: Objects
+    layers:
+    - state: icon
+      map: [ "enum.DystopiaConveyorDeviceVisuals.Working" ]
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DystopiaConveyorDeviceVisuals.Working:
+        enum.DystopiaConveyorDeviceVisuals.Working:
+          True: { state: working }
+          False: { state: icon }
+  - type: ApcPowerReceiver
+    powerLoad: 150
+  - type: ExtensionCableReceiver
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 100
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 1
+            max: 2
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: DystopiaConveyorDevice
+    mode: Extract
+    interval: 1    # секунд на один перенос
+    maxItemsOnTile: 8
+    requireAnchored: true
+
+- type: entity
+  id: DystopiaConveyorInserter
+  name: conveyor inserter
+  description: "An arm on a hinge: takes items off the conveyor behind it and puts them into the machine, crate or locker in front."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.35,-0.35,0.35,0.35"
+        density: 100
+        mask: [ TableMask ]
+        layer: [ TableLayer ]   # предметы с конвейера проезжают на устройство и забираются с него
+  - type: Pullable
+  - type: Anchorable
+    delay: 1
+  - type: Rotatable
+    rotateWhileAnchored: false
+  - type: Tag
+    tags: [ Structure ]
+  - type: Sprite
+    sprite: _Dystopia/Structures/Industry/conveyor_inserter.rsi
+    noRot: false   # поворачивается вместе с устройством: стрелки показывают вход и выходы
+    drawdepth: Objects
+    layers:
+    - state: icon
+      map: [ "enum.DystopiaConveyorDeviceVisuals.Working" ]
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DystopiaConveyorDeviceVisuals.Working:
+        enum.DystopiaConveyorDeviceVisuals.Working:
+          True: { state: working }
+          False: { state: icon }
+  - type: ApcPowerReceiver
+    powerLoad: 150
+  - type: ExtensionCableReceiver
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 100
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 1
+            max: 2
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: DystopiaConveyorDevice
+    mode: Insert
+    interval: 1    # секунд на один перенос
+    maxItemsOnTile: 8
+    requireAnchored: true
+
+- type: entity
+  id: DystopiaConveyorSorter
+  name: conveyor sorter
+  description: "Splits items coming from behind into three outputs: green, blue and yellow (everything else)."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.35,-0.35,0.35,0.35"
+        density: 100
+        mask: [ TableMask ]
+        layer: [ TableLayer ]   # предметы с конвейера проезжают на устройство и забираются с него
+  - type: Pullable
+  - type: Anchorable
+    delay: 1
+  - type: Rotatable
+    rotateWhileAnchored: false
+  - type: Tag
+    tags: [ Structure ]
+  - type: Sprite
+    sprite: _Dystopia/Structures/Industry/conveyor_sorter.rsi
+    noRot: false   # поворачивается вместе с устройством: стрелки показывают вход и выходы
+    drawdepth: Objects
+    layers:
+    - state: icon
+      map: [ "enum.DystopiaConveyorDeviceVisuals.Working" ]
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DystopiaConveyorDeviceVisuals.Working:
+        enum.DystopiaConveyorDeviceVisuals.Working:
+          True: { state: working }
+          False: { state: icon }
+  - type: ApcPowerReceiver
+    powerLoad: 150
+  - type: ExtensionCableReceiver
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 100
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 1
+            max: 2
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: DystopiaConveyorDevice
+    mode: Sort
+    interval: 0.5    # секунд на один перенос
+    maxItemsOnTile: 8
+    requireAnchored: true

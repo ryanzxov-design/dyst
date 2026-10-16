@@ -1,0 +1,122 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: ступень ×3 переработки металлов — мельница (дроблёная → молотая руда 1:1) и обогащение с водой
+# (2 горсти молотой → 3 горсти гравитационного концентрата + 1 горсть песка). Концентрат плавится 1:1 с малым шлаком.
+
+- type: stack
+  id: DystopiaGroundHematite
+  name: stack-dystopia-ground-hematite
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/ore_processing.rsi, state: ground_hematite }
+  spawn: DystopiaGroundHematite1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaConcentrateHematite
+  name: stack-dystopia-concentrate-hematite
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/ore_processing.rsi, state: concentrate_hematite }
+  spawn: DystopiaConcentrateHematite1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaGroundChalcopyrite
+  name: stack-dystopia-ground-chalcopyrite
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/ore_processing.rsi, state: ground_chalcopyrite }
+  spawn: DystopiaGroundChalcopyrite1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaConcentrateChalcopyrite
+  name: stack-dystopia-concentrate-chalcopyrite
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/ore_processing.rsi, state: concentrate_chalcopyrite }
+  spawn: DystopiaConcentrateChalcopyrite1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaGroundSphalerite
+  name: stack-dystopia-ground-sphalerite
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/ore_processing.rsi, state: ground_sphalerite }
+  spawn: DystopiaGroundSphalerite1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaConcentrateSphalerite
+  name: stack-dystopia-concentrate-sphalerite
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/ore_processing.rsi, state: concentrate_sphalerite }
+  spawn: DystopiaConcentrateSphalerite1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaGroundCassiterite
+  name: stack-dystopia-ground-cassiterite
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/ore_processing.rsi, state: ground_cassiterite }
+  spawn: DystopiaGroundCassiterite1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaConcentrateCassiterite
+  name: stack-dystopia-concentrate-cassiterite
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/ore_processing.rsi, state: concentrate_cassiterite }
+  spawn: DystopiaConcentrateCassiterite1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaGroundGalena
+  name: stack-dystopia-ground-galena
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/ore_processing.rsi, state: ground_galena }
+  spawn: DystopiaGroundGalena1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaConcentrateGalena
+  name: stack-dystopia-concentrate-galena
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/ore_processing.rsi, state: concentrate_galena }
+  spawn: DystopiaConcentrateGalena1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaGroundGoldOre
+  name: stack-dystopia-ground-gold-ore
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/ore_processing.rsi, state: ground_gold_ore }
+  spawn: DystopiaGroundGoldOre1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaConcentrateGoldOre
+  name: stack-dystopia-concentrate-gold-ore
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/ore_processing.rsi, state: concentrate_gold_ore }
+  spawn: DystopiaConcentrateGoldOre1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaGroundArgentite
+  name: stack-dystopia-ground-argentite
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/ore_processing.rsi, state: ground_argentite }
+  spawn: DystopiaGroundArgentite1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaConcentrateArgentite
+  name: stack-dystopia-concentrate-argentite
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/ore_processing.rsi, state: concentrate_argentite }
+  spawn: DystopiaConcentrateArgentite1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaGroundChromite
+  name: stack-dystopia-ground-chromite
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/ore_processing.rsi, state: ground_chromite }
+  spawn: DystopiaGroundChromite1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaConcentrateChromite
+  name: stack-dystopia-concentrate-chromite
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/ore_processing.rsi, state: concentrate_chromite }
+  spawn: DystopiaConcentrateChromite1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaSand
+  name: stack-dystopia-sand
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/ore_processing.rsi, state: sand }
+  spawn: DystopiaSand1
+  maxCount: 30

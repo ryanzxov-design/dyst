@@ -1,0 +1,156 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: ступень ×3 переработки металлов — мельница (дроблёная → молотая руда 1:1) и обогащение с водой
+# (2 горсти молотой → 3 горсти гравитационного концентрата + 1 горсть песка). Концентрат плавится 1:1 с малым шлаком.
+# Рецепты мельниц (Mill) и обогатителей (Concentrator).
+
+- type: dystopiaProcessRecipe
+  id: DystopiaGrindHematite
+  group: Mill
+  input: DystopiaCrushedHematite
+  output: DystopiaGroundHematite1
+  amount: 1
+
+- type: dystopiaProcessRecipe
+  id: DystopiaWashHematite
+  group: Concentrator
+  input: DystopiaGroundHematite
+  inputCount: 2
+  output: DystopiaConcentrateHematite1
+  amount: 3
+  byproducts:
+    DystopiaSand1: 1   # хвосты
+  reagents:
+    Water: 10
+
+- type: dystopiaProcessRecipe
+  id: DystopiaGrindChalcopyrite
+  group: Mill
+  input: DystopiaCrushedChalcopyrite
+  output: DystopiaGroundChalcopyrite1
+  amount: 1
+
+- type: dystopiaProcessRecipe
+  id: DystopiaWashChalcopyrite
+  group: Concentrator
+  input: DystopiaGroundChalcopyrite
+  inputCount: 2
+  output: DystopiaConcentrateChalcopyrite1
+  amount: 3
+  byproducts:
+    DystopiaSand1: 1   # хвосты
+  reagents:
+    Water: 10
+
+- type: dystopiaProcessRecipe
+  id: DystopiaGrindSphalerite
+  group: Mill
+  input: DystopiaCrushedSphalerite
+  output: DystopiaGroundSphalerite1
+  amount: 1
+
+- type: dystopiaProcessRecipe
+  id: DystopiaWashSphalerite
+  group: Concentrator
+  input: DystopiaGroundSphalerite
+  inputCount: 2
+  output: DystopiaConcentrateSphalerite1
+  amount: 3
+  byproducts:
+    DystopiaSand1: 1   # хвосты
+  reagents:
+    Water: 10
+
+- type: dystopiaProcessRecipe
+  id: DystopiaGrindCassiterite
+  group: Mill
+  input: DystopiaCrushedCassiterite
+  output: DystopiaGroundCassiterite1
+  amount: 1
+
+- type: dystopiaProcessRecipe
+  id: DystopiaWashCassiterite
+  group: Concentrator
+  input: DystopiaGroundCassiterite
+  inputCount: 2
+  output: DystopiaConcentrateCassiterite1
+  amount: 3
+  byproducts:
+    DystopiaSand1: 1   # хвосты
+  reagents:
+    Water: 10
+
+- type: dystopiaProcessRecipe
+  id: DystopiaGrindGalena
+  group: Mill
+  input: DystopiaCrushedGalena
+  output: DystopiaGroundGalena1
+  amount: 1
+
+- type: dystopiaProcessRecipe
+  id: DystopiaWashGalena
+  group: Concentrator
+  input: DystopiaGroundGalena
+  inputCount: 2
+  output: DystopiaConcentrateGalena1
+  amount: 3
+  byproducts:
+    DystopiaSand1: 1   # хвосты
+  reagents:
+    Water: 10
+
+- type: dystopiaProcessRecipe
+  id: DystopiaGrindGoldOre
+  group: Mill
+  input: DystopiaCrushedGoldOre
+  output: DystopiaGroundGoldOre1
+  amount: 1
+
+- type: dystopiaProcessRecipe
+  id: DystopiaWashGoldOre
+  group: Concentrator
+  input: DystopiaGroundGoldOre
+  inputCount: 2
+  output: DystopiaConcentrateGoldOre1
+  amount: 3
+  byproducts:
+    DystopiaSand1: 1   # хвосты
+  reagents:
+    Water: 10
+
+- type: dystopiaProcessRecipe
+  id: DystopiaGrindArgentite
+  group: Mill
+  input: DystopiaCrushedArgentite
+  output: DystopiaGroundArgentite1
+  amount: 1
+
+- type: dystopiaProcessRecipe
+  id: DystopiaWashArgentite
+  group: Concentrator
+  input: DystopiaGroundArgentite
+  inputCount: 2
+  output: DystopiaConcentrateArgentite1
+  amount: 3
+  byproducts:
+    DystopiaSand1: 1   # хвосты
+  reagents:
+    Water: 10
+
+- type: dystopiaProcessRecipe
+  id: DystopiaGrindChromite
+  group: Mill
+  input: DystopiaCrushedChromite
+  output: DystopiaGroundChromite1
+  amount: 1
+
+- type: dystopiaProcessRecipe
+  id: DystopiaWashChromite
+  group: Concentrator
+  input: DystopiaGroundChromite
+  inputCount: 2
+  output: DystopiaConcentrateChromite1
+  amount: 3
+  byproducts:
+    DystopiaSand1: 1   # хвосты
+  reagents:
+    Water: 10

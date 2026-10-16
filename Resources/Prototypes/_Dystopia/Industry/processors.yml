@@ -1,0 +1,863 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: машины переработки руды (Промышленность, этап 3). Дробилки (Crusher, ×2): кусок руды → 2 горсти
+# дроблёной. Мельницы (Mill, ×3): дроблёная → молотая 1:1. Обогатители (Concentrator, ×3): 2 горсти молотой + вода →
+# 3 горсти концентрата + песок. Рецепты — crush_recipes.yml, grind_recipes.yml. Самостоятельные сущности, без parent.
+# Числа — в полях DystopiaProcessor (Content.Shared/_Dystopia/Industry/DystopiaProcessorComponents.cs).
+# Ручные — продукция на пол; электрические — во внутренний контейнер (выгрузка кликом, ПКМ или конвейерным
+# извлекателем).
+
+- type: entity
+  id: DystopiaHandCrusher
+  name: hand crusher
+  description: "A cast-iron jaw crusher with a flywheel. Load ore and turn the crank; every turn crushes one chunk."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.4,-0.45,0.4,0.3"
+        density: 200
+        mask: [ MachineMask ]
+        layer: [ MidImpassable, LowImpassable ]
+  - type: Pullable
+  - type: Anchorable
+    delay: 2
+  - type: Tag
+    tags: [ Structure ]
+  - type: Sprite
+    sprite: _Dystopia/Structures/Industry/hand_crusher.rsi
+    noRot: true
+    drawdepth: Objects
+    layers:
+    - state: icon
+      map: [ "enum.DystopiaProcessorVisuals.Running" ]
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DystopiaProcessorVisuals.Running:
+        enum.DystopiaProcessorVisuals.Running:
+          True: { state: running }
+          False: { state: icon }
+  - type: ContainerContainer
+    containers:
+      dystopia_processor_input: !type:Container {}
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 150
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:EmptyAllContainersBehaviour
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          DystopiaIngotCastIron1:
+            min: 1
+            max: 2
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: DystopiaProcessor
+    group: Crusher
+    container: dystopia_processor_input
+    capacity: 10
+    batchesPerCycle: 1
+    cycleTime: 5
+    manual: true
+    requireAnchored: true
+    workVerb: dystopia-processor-work-crank
+    cycleSound:
+      path: /Audio/Effects/break_stone.ogg
+      params:
+        volume: -6
+    insertSound:
+      path: /Audio/Effects/stonedoor_openclose.ogg
+      params:
+        volume: -8
+
+- type: entity
+  id: DystopiaJawCrusher
+  name: jaw crusher
+  description: "An electric jaw crusher. Load ore and it chews through it on its own while there is power, one chunk at a time."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.45"
+        density: 250
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]
+  - type: Pullable
+  - type: Anchorable
+    delay: 2
+  - type: Tag
+    tags: [ Structure ]
+  - type: Sprite
+    sprite: _Dystopia/Structures/Industry/jaw_crusher.rsi
+    noRot: true
+    drawdepth: Objects
+    layers:
+    - state: icon
+      map: [ "enum.DystopiaProcessorVisuals.Running" ]
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DystopiaProcessorVisuals.Running:
+        enum.DystopiaProcessorVisuals.Running:
+          True: { state: running }
+          False: { state: icon }
+  - type: ApcPowerReceiver
+    powerLoad: 1000
+  - type: ExtensionCableReceiver
+  - type: AmbientSound
+    enabled: false
+    volume: -6
+    range: 5
+    sound:
+      path: /Audio/Ambience/Objects/crushing.ogg
+  - type: ContainerContainer
+    containers:
+      dystopia_processor_input: !type:Container {}
+      dystopia_processor_output: !type:Container {}
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 200
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:EmptyAllContainersBehaviour
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 2
+            max: 4
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: DystopiaProcessor
+    group: Crusher
+    container: dystopia_processor_input
+    capacity: 30
+    batchesPerCycle: 1
+    cycleTime: 3
+    manual: false
+    requireAnchored: true
+    outputContainer: dystopia_processor_output
+    outputCapacity: 60
+    cycleSound:
+      path: /Audio/Effects/metal_crunch.ogg
+      params:
+        volume: -6
+    insertSound:
+      path: /Audio/Effects/stonedoor_openclose.ogg
+      params:
+        volume: -8
+
+- type: entity
+  id: DystopiaConeCrusher
+  name: cone crusher
+  description: "An industrial cone crusher. Power-hungry, but crushes three chunks of ore per cycle and works fast."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.45"
+        density: 250
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]
+  - type: Pullable
+  - type: Anchorable
+    delay: 3
+  - type: Tag
+    tags: [ Structure ]
+  - type: Sprite
+    sprite: _Dystopia/Structures/Industry/cone_crusher.rsi
+    noRot: true
+    drawdepth: Objects
+    layers:
+    - state: icon
+      map: [ "enum.DystopiaProcessorVisuals.Running" ]
+    - state: unlit
+      map: [ "enum.PowerDeviceVisualLayers.Powered" ]
+      shader: unshaded
+      visible: false
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DystopiaProcessorVisuals.Running:
+        enum.DystopiaProcessorVisuals.Running:
+          True: { state: running }
+          False: { state: icon }
+      enum.PowerDeviceVisuals.Powered:
+        enum.PowerDeviceVisualLayers.Powered:
+          True: { visible: true }
+          False: { visible: false }
+  - type: ApcPowerReceiver
+    powerLoad: 3000
+  - type: ExtensionCableReceiver
+  - type: AmbientSound
+    enabled: false
+    volume: -6
+    range: 5
+    sound:
+      path: /Audio/Ambience/Objects/crushing.ogg
+  - type: ContainerContainer
+    containers:
+      dystopia_processor_input: !type:Container {}
+      dystopia_processor_output: !type:Container {}
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 300
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:EmptyAllContainersBehaviour
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 4
+            max: 6
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: DystopiaProcessor
+    group: Crusher
+    container: dystopia_processor_input
+    capacity: 90
+    batchesPerCycle: 3
+    cycleTime: 2
+    manual: false
+    requireAnchored: true
+    outputContainer: dystopia_processor_output
+    outputCapacity: 180
+    cycleSound:
+      path: /Audio/Effects/metal_crunch.ogg
+      params:
+        volume: -6
+    insertSound:
+      path: /Audio/Effects/stonedoor_openclose.ogg
+      params:
+        volume: -8
+
+- type: entity
+  id: DystopiaHandMill
+  name: hand quern
+  description: "A pair of millstones turned by hand. Pour crushed ore into the eye and turn the handle; it comes out as ore flour."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.4,-0.45,0.4,0.3"
+        density: 200
+        mask: [ MachineMask ]
+        layer: [ MidImpassable, LowImpassable ]
+  - type: Pullable
+  - type: Anchorable
+    delay: 2
+  - type: Tag
+    tags: [ Structure ]
+  - type: Sprite
+    sprite: _Dystopia/Structures/Industry/hand_mill.rsi
+    noRot: true
+    drawdepth: Objects
+    layers:
+    - state: icon
+      map: [ "enum.DystopiaProcessorVisuals.Running" ]
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DystopiaProcessorVisuals.Running:
+        enum.DystopiaProcessorVisuals.Running:
+          True: { state: running }
+          False: { state: icon }
+  - type: ContainerContainer
+    containers:
+      dystopia_processor_input: !type:Container {}
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 150
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:EmptyAllContainersBehaviour
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          DystopiaIngotCastIron1:
+            min: 1
+            max: 2
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: DystopiaProcessor
+    group: Mill
+    container: dystopia_processor_input
+    capacity: 10
+    batchesPerCycle: 1
+    cycleTime: 4
+    manual: true
+    requireAnchored: true
+    workVerb: dystopia-processor-work-turn
+    cycleSound:
+      path: /Audio/Effects/break_stone.ogg
+      params:
+        volume: -6
+    insertSound:
+      path: /Audio/Effects/stonedoor_openclose.ogg
+      params:
+        volume: -8
+
+- type: entity
+  id: DystopiaBallMill
+  name: ball mill
+  description: "A rotating drum full of steel balls. Grinds crushed ore into ore flour on its own while there is power."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.45"
+        density: 250
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]
+  - type: Pullable
+  - type: Anchorable
+    delay: 2
+  - type: Tag
+    tags: [ Structure ]
+  - type: Sprite
+    sprite: _Dystopia/Structures/Industry/ball_mill.rsi
+    noRot: true
+    drawdepth: Objects
+    layers:
+    - state: icon
+      map: [ "enum.DystopiaProcessorVisuals.Running" ]
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DystopiaProcessorVisuals.Running:
+        enum.DystopiaProcessorVisuals.Running:
+          True: { state: running }
+          False: { state: icon }
+  - type: ApcPowerReceiver
+    powerLoad: 1000
+  - type: ExtensionCableReceiver
+  - type: AmbientSound
+    enabled: false
+    volume: -6
+    range: 5
+    sound:
+      path: /Audio/Ambience/Objects/crushing.ogg
+  - type: ContainerContainer
+    containers:
+      dystopia_processor_input: !type:Container {}
+      dystopia_processor_output: !type:Container {}
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 200
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:EmptyAllContainersBehaviour
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 2
+            max: 4
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: DystopiaProcessor
+    group: Mill
+    container: dystopia_processor_input
+    capacity: 30
+    batchesPerCycle: 1
+    cycleTime: 3
+    manual: false
+    requireAnchored: true
+    outputContainer: dystopia_processor_output
+    outputCapacity: 60
+    cycleSound:
+      path: /Audio/Effects/metal_crunch.ogg
+      params:
+        volume: -6
+    insertSound:
+      path: /Audio/Effects/stonedoor_openclose.ogg
+      params:
+        volume: -8
+
+- type: entity
+  id: DystopiaBallMillLarge
+  name: large ball mill
+  description: "An industrial ball mill. Power-hungry, but grinds three handfuls per cycle and works fast."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.45"
+        density: 250
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]
+  - type: Pullable
+  - type: Anchorable
+    delay: 3
+  - type: Tag
+    tags: [ Structure ]
+  - type: Sprite
+    sprite: _Dystopia/Structures/Industry/ball_mill_large.rsi
+    noRot: true
+    drawdepth: Objects
+    layers:
+    - state: icon
+      map: [ "enum.DystopiaProcessorVisuals.Running" ]
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DystopiaProcessorVisuals.Running:
+        enum.DystopiaProcessorVisuals.Running:
+          True: { state: running }
+          False: { state: icon }
+  - type: ApcPowerReceiver
+    powerLoad: 3000
+  - type: ExtensionCableReceiver
+  - type: AmbientSound
+    enabled: false
+    volume: -6
+    range: 5
+    sound:
+      path: /Audio/Ambience/Objects/crushing.ogg
+  - type: ContainerContainer
+    containers:
+      dystopia_processor_input: !type:Container {}
+      dystopia_processor_output: !type:Container {}
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 300
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:EmptyAllContainersBehaviour
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 4
+            max: 6
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: DystopiaProcessor
+    group: Mill
+    container: dystopia_processor_input
+    capacity: 90
+    batchesPerCycle: 3
+    cycleTime: 2
+    manual: false
+    requireAnchored: true
+    outputContainer: dystopia_processor_output
+    outputCapacity: 180
+    cycleSound:
+      path: /Audio/Effects/metal_crunch.ogg
+      params:
+        volume: -6
+    insertSound:
+      path: /Audio/Effects/stonedoor_openclose.ogg
+      params:
+        volume: -8
+
+- type: entity
+  id: DystopiaSluiceBox
+  name: sluice box
+  description: "A sloped wooden trough with riffles. Fill its box with water, load ore flour and rock it: heavy grains stay, waste rock washes out as sand."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.4,-0.45,0.4,0.3"
+        density: 200
+        mask: [ MachineMask ]
+        layer: [ MidImpassable, LowImpassable ]
+  - type: Pullable
+  - type: Anchorable
+    delay: 2
+  - type: Tag
+    tags: [ Structure ]
+  - type: Sprite
+    sprite: _Dystopia/Structures/Industry/sluice_box.rsi
+    noRot: true
+    drawdepth: Objects
+    layers:
+    - state: icon
+      map: [ "enum.DystopiaProcessorVisuals.Running" ]
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DystopiaProcessorVisuals.Running:
+        enum.DystopiaProcessorVisuals.Running:
+          True: { state: running }
+          False: { state: icon }
+  - type: Solution
+    id: tank
+    solution:
+      maxVol: 100
+  - type: RefillableSolution   # воду — ведром или из цистерны
+    solution: tank
+  - type: DrainableSolution
+    solution: tank
+  - type: ContainerContainer
+    containers:
+      dystopia_processor_input: !type:Container {}
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 100
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:EmptyAllContainersBehaviour
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          MaterialWoodPlank1:
+            min: 2
+            max: 3
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: DystopiaProcessor
+    group: Concentrator
+    container: dystopia_processor_input
+    capacity: 10
+    batchesPerCycle: 1
+    cycleTime: 5
+    manual: true
+    requireAnchored: true
+    tank: tank
+    workVerb: dystopia-processor-work-rock
+    cycleSound:
+      path: /Audio/Effects/Fluids/splash.ogg
+      params:
+        volume: -6
+    insertSound:
+      path: /Audio/Effects/stonedoor_openclose.ogg
+      params:
+        volume: -8
+
+- type: entity
+  id: DystopiaShakingTable
+  name: concentrating table
+  description: "A shaking table under a stream of water. Separates ore flour into concentrate and sand on its own while there is power and water."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.45"
+        density: 250
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]
+  - type: Pullable
+  - type: Anchorable
+    delay: 2
+  - type: Tag
+    tags: [ Structure ]
+  - type: Sprite
+    sprite: _Dystopia/Structures/Industry/shaking_table.rsi
+    noRot: true
+    drawdepth: Objects
+    layers:
+    - state: icon
+      map: [ "enum.DystopiaProcessorVisuals.Running" ]
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DystopiaProcessorVisuals.Running:
+        enum.DystopiaProcessorVisuals.Running:
+          True: { state: running }
+          False: { state: icon }
+  - type: ApcPowerReceiver
+    powerLoad: 1000
+  - type: ExtensionCableReceiver
+  - type: AmbientSound
+    enabled: false
+    volume: -6
+    range: 5
+    sound:
+      path: /Audio/Ambience/Objects/crushing.ogg
+  - type: Solution
+    id: tank
+    solution:
+      maxVol: 200
+  - type: RefillableSolution   # воду — ведром или из цистерны
+    solution: tank
+  - type: DrainableSolution
+    solution: tank
+  - type: ContainerContainer
+    containers:
+      dystopia_processor_input: !type:Container {}
+      dystopia_processor_output: !type:Container {}
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 200
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:EmptyAllContainersBehaviour
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 2
+            max: 4
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: DystopiaProcessor
+    group: Concentrator
+    container: dystopia_processor_input
+    capacity: 30
+    batchesPerCycle: 1
+    cycleTime: 3
+    manual: false
+    requireAnchored: true
+    outputContainer: dystopia_processor_output
+    outputCapacity: 90
+    tank: tank
+    cycleSound:
+      path: /Audio/Effects/Fluids/splash.ogg
+      params:
+        volume: -6
+    insertSound:
+      path: /Audio/Effects/stonedoor_openclose.ogg
+      params:
+        volume: -8
+
+- type: entity
+  id: DystopiaJig
+  name: jig
+  description: "An industrial jig: pulsing water sorts ore flour by weight. Power- and water-hungry, but washes three batches per cycle."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.45"
+        density: 250
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]
+  - type: Pullable
+  - type: Anchorable
+    delay: 3
+  - type: Tag
+    tags: [ Structure ]
+  - type: Sprite
+    sprite: _Dystopia/Structures/Industry/jig.rsi
+    noRot: true
+    drawdepth: Objects
+    layers:
+    - state: icon
+      map: [ "enum.DystopiaProcessorVisuals.Running" ]
+    - state: unlit
+      map: [ "enum.PowerDeviceVisualLayers.Powered" ]
+      shader: unshaded
+      visible: false
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DystopiaProcessorVisuals.Running:
+        enum.DystopiaProcessorVisuals.Running:
+          True: { state: running }
+          False: { state: icon }
+      enum.PowerDeviceVisuals.Powered:
+        enum.PowerDeviceVisualLayers.Powered:
+          True: { visible: true }
+          False: { visible: false }
+  - type: ApcPowerReceiver
+    powerLoad: 3000
+  - type: ExtensionCableReceiver
+  - type: AmbientSound
+    enabled: false
+    volume: -6
+    range: 5
+    sound:
+      path: /Audio/Ambience/Objects/crushing.ogg
+  - type: Solution
+    id: tank
+    solution:
+      maxVol: 600
+  - type: RefillableSolution   # воду — ведром или из цистерны
+    solution: tank
+  - type: DrainableSolution
+    solution: tank
+  - type: ContainerContainer
+    containers:
+      dystopia_processor_input: !type:Container {}
+      dystopia_processor_output: !type:Container {}
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 300
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:EmptyAllContainersBehaviour
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 4
+            max: 6
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: DystopiaProcessor
+    group: Concentrator
+    container: dystopia_processor_input
+    capacity: 90
+    batchesPerCycle: 3
+    cycleTime: 2
+    manual: false
+    requireAnchored: true
+    outputContainer: dystopia_processor_output
+    outputCapacity: 270
+    tank: tank
+    cycleSound:
+      path: /Audio/Effects/Fluids/splash.ogg
+      params:
+        volume: -6
+    insertSound:
+      path: /Audio/Effects/stonedoor_openclose.ogg
+      params:
+        volume: -8
