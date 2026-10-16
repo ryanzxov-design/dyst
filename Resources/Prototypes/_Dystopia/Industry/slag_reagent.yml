@@ -1,0 +1,24 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: ручное литьё (Промышленность, этап 3, ручной уровень ×1).
+
+- type: reagent
+  id: DystopiaMoltenSlag
+  name: reagent-name-dystopia-molten-slag
+  group: Metals
+  desc: reagent-desc-dystopia-molten-slag
+  physicalDesc: reagent-physical-desc-dystopia-molten
+  flavor: metallic
+  color: "#7a4a2a"
+  meltingPoint: 1200.0
+  boilingPoint: 2500.0
+  reactiveEffects:
+    Acidic:
+      methods: [ Touch, Ingestion ]
+      effects:
+      - !type:HealthChange
+        damage:
+          types:
+            Heat: 3
+      - !type:Emote
+        emote: Scream
+        probability: 0.4

@@ -1,0 +1,91 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: ручное литьё (Промышленность, этап 3, ручной уровень ×1).
+# Сплавы — реакции расплавов в тигле при нужной температуре.
+#
+# Железо и углерод (уголь в тигле, 1 ед. углерода с куска):
+#   1 кусок угля на 1 кусок гематита — сталь;
+#   2 куска угля на 1 кусок гематита — чугун;
+#   между — смесь стали и чугуна (брак в изложнице, пока не доведёшь пропорцию).
+# Три реакции сходятся к одному итогу при любом порядке плавки:
+#   железо + углерод -> сталь; сталь + углерод -> чугун; чугун + железо -> сталь.
+
+- type: reaction
+  id: DystopiaAlloySteel
+  minTemp: 1773.15  # 1500 °C
+  reactants:
+    DystopiaMoltenIron:
+      amount: 10
+    Carbon:
+      amount: 1
+  products:
+    DystopiaMoltenSteel: 10
+
+- type: reaction
+  id: DystopiaAlloyCastIron
+  minTemp: 1473.15  # 1200 °C
+  reactants:
+    DystopiaMoltenSteel:
+      amount: 10
+    Carbon:
+      amount: 1
+  products:
+    DystopiaMoltenCastIron: 10
+
+- type: reaction
+  id: DystopiaAlloySteelFromCastIron
+  minTemp: 1773.15  # 1500 °C
+  reactants:
+    DystopiaMoltenCastIron:
+      amount: 10
+    DystopiaMoltenIron:
+      amount: 10
+  products:
+    DystopiaMoltenSteel: 20
+
+# Бронза: медь 9 : олово 1 (9 кусков халькопирита на 1 касситерит)
+- type: reaction
+  id: DystopiaAlloyBronze
+  minTemp: 1223.15  # 950 °C
+  reactants:
+    DystopiaMoltenCopper:
+      amount: 9
+    DystopiaMoltenTin:
+      amount: 1
+  products:
+    DystopiaMoltenBronze: 10
+
+# Латунь: медь 6 : цинк 4
+- type: reaction
+  id: DystopiaAlloyBrass
+  minTemp: 1203.15  # 930 °C
+  reactants:
+    DystopiaMoltenCopper:
+      amount: 6
+    DystopiaMoltenZinc:
+      amount: 4
+  products:
+    DystopiaMoltenBrass: 10
+
+# Припой: олово 6 : свинец 4
+- type: reaction
+  id: DystopiaAlloySolder
+  minTemp: 503.15  # 230 °C
+  reactants:
+    DystopiaMoltenTin:
+      amount: 6
+    DystopiaMoltenLead:
+      amount: 4
+  products:
+    DystopiaMoltenSolder: 10
+
+# Нержавейка: сталь 4 : феррохром 1
+- type: reaction
+  id: DystopiaAlloyStainlessSteel
+  minTemp: 1773.15  # 1500 °C
+  reactants:
+    DystopiaMoltenSteel:
+      amount: 4
+    DystopiaMoltenFerrochrome:
+      amount: 1
+  products:
+    DystopiaMoltenStainlessSteel: 5

@@ -1,0 +1,158 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: ручное литьё (Промышленность, этап 3, ручной уровень ×1).
+# Плавка по материалу (PhysicalComposition): на 100 единиц материала. Без meltTemperature —
+# температура плавки берётся из точки плавления расплава.
+
+# Руды. Выход ручного уровня: кусок = слиток + шлак
+- type: dystopiaSmeltable
+  id: RawIron
+  meltTemperature: 1823.15  # 1550 °C
+  products:
+    DystopiaMoltenIron: 10
+    DystopiaMoltenSlag: 5
+
+- type: dystopiaSmeltable
+  id: DystopiaRawChalcopyrite
+  meltTemperature: 1473.15  # 1200 °C
+  products:
+    DystopiaMoltenCopper: 10
+    DystopiaMoltenSlag: 5
+
+- type: dystopiaSmeltable
+  id: DystopiaRawSphalerite
+  meltTemperature: 1273.15  # 1000 °C
+  products:
+    DystopiaMoltenZinc: 10
+    DystopiaMoltenSlag: 5
+
+- type: dystopiaSmeltable
+  id: DystopiaRawCassiterite
+  meltTemperature: 1273.15  # 1000 °C
+  products:
+    DystopiaMoltenTin: 10
+    DystopiaMoltenSlag: 5
+
+- type: dystopiaSmeltable
+  id: DystopiaRawGalena
+  meltTemperature: 1073.15  # 800 °C
+  products:
+    DystopiaMoltenLead: 10
+    DystopiaMoltenSilver: 0.5
+    DystopiaMoltenSlag: 5
+
+- type: dystopiaSmeltable
+  id: RawGold
+  meltTemperature: 1343.15  # 1070 °C
+  products:
+    DystopiaMoltenGold: 10
+    DystopiaMoltenSlag: 5
+
+- type: dystopiaSmeltable
+  id: RawSilver
+  meltTemperature: 1273.15  # 1000 °C
+  products:
+    DystopiaMoltenSilver: 10
+    DystopiaMoltenSlag: 5
+
+- type: dystopiaSmeltable
+  id: DystopiaRawChromite
+  meltTemperature: 1823.15  # 1550 °C
+  products:
+    DystopiaMoltenFerrochrome: 10
+    DystopiaMoltenSlag: 8
+
+# Уголь в тигле — науглероживатель: кусок угля = 1 ед. углерода.
+# Сталь: гематит и уголь поровну (5 + 5 = 5 слитков). Чугун: угля вдвое больше. Реакции — alloys.yml
+- type: dystopiaSmeltable
+  id: Coal
+  meltTemperature: 1273.15  # 1000 °C
+  products:
+    Carbon: 1
+
+# Металлы и сплавы: переплавка лома и слитков
+- type: dystopiaSmeltable
+  id: DystopiaIron
+  products:
+    DystopiaMoltenIron: 10
+
+- type: dystopiaSmeltable
+  id: DystopiaCastIron
+  products:
+    DystopiaMoltenCastIron: 10
+
+- type: dystopiaSmeltable
+  id: Steel
+  products:
+    DystopiaMoltenSteel: 10
+
+- type: dystopiaSmeltable
+  id: DystopiaCopper
+  products:
+    DystopiaMoltenCopper: 10
+
+- type: dystopiaSmeltable
+  id: DystopiaAluminium
+  products:
+    DystopiaMoltenAluminium: 10
+
+- type: dystopiaSmeltable
+  id: DystopiaZinc
+  products:
+    DystopiaMoltenZinc: 10
+
+- type: dystopiaSmeltable
+  id: DystopiaTin
+  products:
+    DystopiaMoltenTin: 10
+
+- type: dystopiaSmeltable
+  id: DystopiaLead
+  products:
+    DystopiaMoltenLead: 10
+
+- type: dystopiaSmeltable
+  id: Gold
+  products:
+    DystopiaMoltenGold: 10
+
+- type: dystopiaSmeltable
+  id: Silver
+  products:
+    DystopiaMoltenSilver: 10
+
+- type: dystopiaSmeltable
+  id: Uranium
+  products:
+    DystopiaMoltenUranium: 10
+
+- type: dystopiaSmeltable
+  id: Brass
+  products:
+    DystopiaMoltenBrass: 10
+
+- type: dystopiaSmeltable
+  id: DystopiaBronze
+  products:
+    DystopiaMoltenBronze: 10
+
+- type: dystopiaSmeltable
+  id: DystopiaSolder
+  products:
+    DystopiaMoltenSolder: 10
+
+- type: dystopiaSmeltable
+  id: DystopiaStainlessSteel
+  products:
+    DystopiaMoltenStainlessSteel: 10
+
+- type: dystopiaSmeltable
+  id: DystopiaFerrochrome
+  products:
+    DystopiaMoltenFerrochrome: 10
+
+# Пласталь: плазма выгорает в шлак
+- type: dystopiaSmeltable
+  id: Plasteel
+  products:
+    DystopiaMoltenSteel: 7
+    DystopiaMoltenSlag: 3

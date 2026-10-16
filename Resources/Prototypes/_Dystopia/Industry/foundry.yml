@@ -1,0 +1,610 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: ручное литьё (Промышленность, этап 3, ручной уровень ×1).
+# Горн, малый тигель, клещи, изложницы, шлак. Самостоятельные сущности, без parent.
+# Числа — в полях компонентов (Content.Server/_Dystopia/Industry/DystopiaFoundryComponents.cs).
+
+- type: entity
+  id: DystopiaForge
+  name: forge
+  description: A brick hearth with leather bellows. Put a crucible on top, feed it coal or wood, light it.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.35"
+        density: 1000
+        mask: [ TableMask ]
+        layer: [ TableLayer ]
+      # Нежёсткая область сверху: по ней ItemPlacer замечает поставленный тигель
+      itemcollide:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.35,-0.3,0.35,0.45"
+        layer: [ HighImpassable ]
+        hard: false
+  - type: Tag
+    tags: [ Structure ]
+  - type: Sprite
+    sprite: _Dystopia/Structures/Industry/forge.rsi
+    noRot: true
+    drawdepth: Objects
+    layers:
+    - state: base
+    - state: fire
+      map: [ "enum.DystopiaForgeVisuals.Lit" ]
+      shader: unshaded
+      visible: false
+    - state: fire_bellows
+      map: [ "enum.DystopiaForgeVisuals.Bellows" ]
+      shader: unshaded
+      visible: false
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DystopiaForgeVisuals.Lit:
+        enum.DystopiaForgeVisuals.Lit:
+          True: { visible: true }
+          False: { visible: false }
+      enum.DystopiaForgeVisuals.Bellows:
+        enum.DystopiaForgeVisuals.Bellows:
+          True: { visible: true }
+          False: { visible: false }
+  - type: PointLight
+    enabled: false
+    radius: 4
+    energy: 2.5
+    color: "#FF8A30"
+  - type: AmbientSound
+    enabled: false
+    volume: -6
+    range: 5
+    sound:
+      path: /Audio/Ambience/Objects/fireplace.ogg
+  - type: ItemPlacer
+    maxEntities: 1
+    whitelist:
+      components: [ DystopiaCrucible ]
+  - type: PlaceableSurface
+    placeCentered: true
+    positionOffset: 0, 0.3
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 300
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/Effects/break_stone.ogg
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: DystopiaForge
+    # Топливо: секунд горения на 100 единиц материала (кусок угля, доска)
+    fuelMaterials:
+      Coal: 120
+      Wood: 45
+    maxFuel: 900
+    baseMaxTemperature: 1373.15  # 1100 °C: олово, свинец, цинк, алюминий, медь, бронза, латунь, серебро
+    bellowsMaxTemperature: 1973.15  # 1700 °C, пока качают меха: железо, сталь, золото, феррохром
+    heatRate: 12            # K в секунду
+    bellowsDuration: 5
+    bellowsDelay: 1
+    bellowsFuelMultiplier: 2
+    updateInterval: 0.5
+
+- type: entity
+  id: DystopiaCrucibleSmall
+  name: small crucible
+  description: A graphite pot for melting ore and scrap. Hot ones are handled with tongs only.
+  components:
+  - type: Solution
+    id: crucible
+    solution:
+      maxVol: 160
+      canReact: true
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Industry/crucible.rsi
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Industry/crucible.rsi
+    layers:
+    - state: icon
+    - state: fill-1
+      map:
+      - enum.SolutionContainerLayers.Fill
+      visible: false
+      shader: unshaded
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: SolutionTransfer
+    transferAmount: 10
+    canChangeTransferAmount: true
+  - type: RefillableSolution
+    solution: crucible
+  - type: DrainableSolution
+    solution: crucible
+  - type: ExaminableSolution
+    solution: crucible
+    exactVolume: true
+  - type: SolutionItemStatus
+    solution: crucible
+  - type: SolutionContainerVisuals
+    maxFillLevels: 4
+    fillBaseName: fill-
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Appearance
+  - type: UserInterface
+    interfaces:
+      enum.TransferAmountUiKey.Key:
+        type: TransferAmountBoundUserInterface
+  - type: ContainerContainer
+    containers:
+      dystopia_crucible_charge: !type:Container {}
+  - type: PointLight
+    enabled: false
+    radius: 1.5
+    energy: 1.5
+    color: "#FF7A2A"
+  - type: DystopiaHotItem
+    burnDamage:
+      types:
+        Heat: 4
+    checkInterval: 1
+  - type: DystopiaCrucible
+    solution: crucible
+    chargeContainer: dystopia_crucible_charge
+    maxCharge: 1000      # 10 кусков: 5 гематита + 5 угля, или 10 кусков медной руды
+    meltRate: 100
+    coolingRate: 0.005     # снятый с горна тигель остывает медленно: успеть разлить
+    fallbackAmbient: 293.15
+    hotThreshold: 333.15
+    glowThreshold: 873.15
+    foreignSlag: DystopiaMoltenSlag
+    foreignSlagPer100: 5
+    slagReagent: DystopiaMoltenSlag
+    slagLump: DystopiaSlag
+    slagPerLump: 5
+    updateInterval: 0.5
+
+- type: entity
+  id: DystopiaTongs
+  name: tongs
+  description: Long blacksmith tongs. Hold them in the other hand to carry a red-hot crucible or mould.
+  components:
+  - type: Item
+    size: Small
+    sprite: _Dystopia/Objects/Industry/tongs.rsi
+    storedRotation: -90
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Items/wirecutter_drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Industry/tongs.rsi
+    state: icon
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: MeleeWeapon
+    wideAnimationRotation: -90
+    damage:
+      types:
+        Blunt: 4
+    attackRate: 1.5
+  - type: PhysicalComposition
+    materialComposition:
+      Steel: 25
+  - type: StaticPrice
+    price: 15
+  - type: DystopiaTongs
+
+- type: entity
+  id: DystopiaMouldIngot
+  name: ingot mould
+  description: A cast-iron mould for one ingot.
+  components:
+  - type: Solution
+    id: mould
+    solution:
+      maxVol: 10
+      canReact: true
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Industry/moulds.rsi
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Industry/moulds.rsi
+    layers:
+    - state: ingot
+    - state: ingot-fill-1
+      map:
+      - enum.SolutionContainerLayers.Fill
+      visible: false
+      shader: unshaded
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: RefillableSolution
+    solution: mould
+  - type: ExaminableSolution
+    solution: mould
+    exactVolume: true
+  - type: SolutionContainerVisuals
+    maxFillLevels: 1
+    fillBaseName: ingot-fill-
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Appearance
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaCastIron: 100
+  - type: DystopiaHotItem
+    burnDamage:
+      types:
+        Heat: 4
+    checkInterval: 1
+  - type: DystopiaMould
+    shape: DystopiaIngot
+    solution: mould
+    coolingRate: 0.01
+    fallbackAmbient: 293.15
+    hotThreshold: 333.15
+    updateInterval: 0.5
+
+- type: entity
+  id: DystopiaMouldSheet
+  name: sheet mould
+  description: A cast-iron mould for one plate.
+  components:
+  - type: Solution
+    id: mould
+    solution:
+      maxVol: 10
+      canReact: true
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Industry/moulds.rsi
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Industry/moulds.rsi
+    layers:
+    - state: sheet
+    - state: sheet-fill-1
+      map:
+      - enum.SolutionContainerLayers.Fill
+      visible: false
+      shader: unshaded
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: RefillableSolution
+    solution: mould
+  - type: ExaminableSolution
+    solution: mould
+    exactVolume: true
+  - type: SolutionContainerVisuals
+    maxFillLevels: 1
+    fillBaseName: sheet-fill-
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Appearance
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaCastIron: 100
+  - type: DystopiaHotItem
+    burnDamage:
+      types:
+        Heat: 4
+    checkInterval: 1
+  - type: DystopiaMould
+    shape: DystopiaSheet
+    solution: mould
+    coolingRate: 0.01
+    fallbackAmbient: 293.15
+    hotThreshold: 333.15
+    updateInterval: 0.5
+
+- type: entity
+  id: DystopiaMouldRod
+  name: rod mould
+  description: "A cast-iron mould with two channels: two rods per pour."
+  components:
+  - type: Solution
+    id: mould
+    solution:
+      maxVol: 10
+      canReact: true
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Industry/moulds.rsi
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Industry/moulds.rsi
+    layers:
+    - state: rod
+    - state: rod-fill-1
+      map:
+      - enum.SolutionContainerLayers.Fill
+      visible: false
+      shader: unshaded
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: RefillableSolution
+    solution: mould
+  - type: ExaminableSolution
+    solution: mould
+    exactVolume: true
+  - type: SolutionContainerVisuals
+    maxFillLevels: 1
+    fillBaseName: rod-fill-
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Appearance
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaCastIron: 100
+  - type: DystopiaHotItem
+    burnDamage:
+      types:
+        Heat: 4
+    checkInterval: 1
+  - type: DystopiaMould
+    shape: DystopiaRod
+    solution: mould
+    coolingRate: 0.01
+    fallbackAmbient: 293.15
+    hotThreshold: 333.15
+    updateInterval: 0.5
+
+- type: entity
+  id: DystopiaSlag
+  name: slag
+  description: A glassy lump of slag skimmed off molten metal. Useless, unless someone finds a use for it.
+  components:
+  - type: Item
+    size: Small
+    sprite: _Dystopia/Objects/Industry/slag.rsi
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Industry/slag.rsi
+    state: icon
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Tag
+    tags: [ Trash ]
+  - type: PhysicalComposition
+    materialComposition: {}

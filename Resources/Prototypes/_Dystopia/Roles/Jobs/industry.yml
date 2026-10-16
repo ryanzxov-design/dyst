@@ -38,6 +38,9 @@
     belt: ClothingBeltUtilityFilled
     id: DystopiaChiefIndustrialPDA
     ears: ClothingHeadsetAltDystopiaChiefIndustry
+  storage:
+    back:
+    - DystopiaTongs
 
 - type: job
   id: DystopiaEngineer
@@ -70,6 +73,9 @@
     belt: ClothingBeltUtilityFilled
     id: DystopiaEngineerPDA
     ears: ClothingHeadsetDystopiaIndustry
+  storage:
+    back:
+    - DystopiaTongs
 
 - type: job
   id: DystopiaJuniorTechnician
@@ -97,3 +103,6 @@
     belt: ClothingBeltUtilityFilled
     id: DystopiaJuniorTechnicianPDA
     ears: ClothingHeadsetDystopiaIndustry
+  storage:
+    back:
+    - DystopiaTongs

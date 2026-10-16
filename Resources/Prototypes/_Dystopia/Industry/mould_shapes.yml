@@ -1,0 +1,52 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: ручное литьё (Промышленность, этап 3, ручной уровень ×1).
+# Формы отливки: сколько расплава на одну отливку и что выходит. Грязный металл (<95%) или
+# недолив — брак (кусок шлака).
+
+- type: dystopiaMouldShape
+  id: DystopiaIngot
+  name: dystopia-mould-shape-ingot
+  volume: 10
+  defect: DystopiaSlag
+  minPurity: 0.95
+  products:
+    DystopiaMoltenIron: DystopiaIngotIron1
+    DystopiaMoltenCastIron: DystopiaIngotCastIron1
+    DystopiaMoltenSteel: DystopiaIngotSteel1
+    DystopiaMoltenCopper: DystopiaIngotCopper1
+    DystopiaMoltenAluminium: DystopiaIngotAluminium1
+    DystopiaMoltenZinc: DystopiaIngotZinc1
+    DystopiaMoltenTin: DystopiaIngotTin1
+    DystopiaMoltenLead: DystopiaIngotLead1
+    DystopiaMoltenBrass: DystopiaIngotBrass1
+    DystopiaMoltenBronze: DystopiaIngotBronze1
+    DystopiaMoltenStainlessSteel: DystopiaIngotStainlessSteel1
+    DystopiaMoltenFerrochrome: DystopiaIngotFerrochrome1
+    DystopiaMoltenGold: IngotGold1
+    DystopiaMoltenSilver: IngotSilver1
+    DystopiaMoltenUranium: SheetUranium1
+
+- type: dystopiaMouldShape
+  id: DystopiaSheet
+  name: dystopia-mould-shape-sheet
+  volume: 10
+  defect: DystopiaSlag
+  minPurity: 0.95
+  products:
+    DystopiaMoltenSteel: SheetSteel1
+    DystopiaMoltenBrass: SheetBrass1
+    DystopiaMoltenCopper: DystopiaSheetCopper1
+    DystopiaMoltenAluminium: DystopiaSheetAluminium1
+    DystopiaMoltenLead: DystopiaSheetLead1
+    DystopiaMoltenBronze: DystopiaSheetBronze1
+    DystopiaMoltenStainlessSteel: DystopiaSheetStainlessSteel1
+
+- type: dystopiaMouldShape
+  id: DystopiaRod
+  name: dystopia-mould-shape-rod
+  volume: 5
+  defect: DystopiaSlag
+  minPurity: 0.95
+  products:
+    DystopiaMoltenSteel: PartRodMetal1
+    DystopiaMoltenCopper: DystopiaRodCopper1
