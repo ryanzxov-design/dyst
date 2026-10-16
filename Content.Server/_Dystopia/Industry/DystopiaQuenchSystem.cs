@@ -4,6 +4,7 @@
 
 using Content.Shared._Dystopia.Industry;
 using Content.Shared.Chemistry;
+using Content.Shared.Chemistry.Components;
 using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Chemistry.Reagent;
 using Content.Shared.FixedPoint;
@@ -88,6 +89,34 @@ public sealed partial class DystopiaQuenchSystem : EntitySystem
 
         Cool((ent.Owner, ent.Comp), cooling);
         return true;
+    }
+
+    /// <summary>
+    /// Остудить горячий предмет охладителями из чужого раствора (например, из жидкостной сети), не наливая их внутрь:
+    /// забирает из <paramref name="source"/> не больше <paramref name="max"/> единиц охладителей. Холодный — ничего.
+    /// </summary>
+    public FixedPoint2 TryQuench(Entity<DystopiaQuenchableComponent?> ent, Solution source, FixedPoint2 max)
+    {
+        if (!Resolve(ent, ref ent.Comp, false) || !IsHot((ent.Owner, ent.Comp)))
+            return FixedPoint2.Zero;
+
+        var taken = FixedPoint2.Zero;
+        var cooling = 0f;
+        foreach (var (reagent, perUnit) in ent.Comp.Coolants)
+        {
+            var amount = FixedPoint2.Min(max - taken, source.GetTotalPrototypeQuantity(reagent));
+            if (amount <= FixedPoint2.Zero)
+                continue;
+
+            source.RemoveReagent(reagent.Id, amount);
+            taken += amount;
+            cooling += (float) amount * perUnit;
+        }
+
+        if (cooling > 0f)
+            Cool((ent.Owner, ent.Comp), cooling);
+
+        return taken;
     }
 
     private void Cool(Entity<DystopiaQuenchableComponent> ent, float kelvin)

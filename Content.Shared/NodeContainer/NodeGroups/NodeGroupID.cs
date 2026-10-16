@@ -17,4 +17,5 @@ public enum NodeGroupID : byte
     /// <seealso cref="Content.Server.Power.Generation.Teg.TegNodeGroup"/>
     Teg,
     ExCable,
+    DystopiaLiquid, // Dystopia-Liquids: жидкостные трубы
 }

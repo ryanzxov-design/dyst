@@ -1,0 +1,786 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: жидкостная система — трубы (отдельный слой, с газовыми не соединяются), порт, насос, экспортер, импортер.
+# Трубы держат общий раствор сети (по 50 ед. на трубу), на трубе — отсечки цвета смеси. Пока только спавном:
+# крафты — в самом конце, после всех материалов, машин и структур.
+# Направления узлов — для сущности с поворотом 0 (смотрит на юг). Самостоятельные сущности, без parent.
+
+- type: entity
+  id: DystopiaLiquidPipeHalf
+  name: liquid pipe
+  suffix: Half
+  description: "Half of a liquid pipe: a dead end."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Item
+    size: Small
+    storedSprite:
+      sprite: _Dystopia/Structures/Piping/liquid_pipe.rsi
+      state: storageHalf
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    canCollide: false
+    bodyType: static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Visibility
+    layer: 1
+  - type: Transform
+    anchored: true
+  - type: SubFloorHide
+  - type: CollideOnAnchor
+  - type: Anchorable
+  - type: Rotatable
+    increment: 90
+  - type: Appearance
+  - type: StaticPrice
+    price: 30
+  - type: Sprite
+    sprite: _Dystopia/Structures/Piping/liquid_pipe.rsi
+    drawdepth: ThinPipe
+    noRot: false
+    visible: false
+    layers:
+    - state: pipeHalf
+    - state: pipeHalf-marks
+      map: [ "enum.DystopiaLiquidVisualLayers.Marks" ]
+      color: "#5A5A5A"
+  - type: NodeContainer
+    nodes:
+      pipe:
+        !type:DystopiaLiquidPipeNode
+        nodeGroupID: DystopiaLiquid
+        pipeDirection: South
+        volume: 50
+  - type: DystopiaLiquidPipe
+    emptyColor: "#5A5A5A"
+
+- type: entity
+  id: DystopiaLiquidPipeStraight
+  name: liquid pipe
+  suffix: Straight
+  description: "Carries liquids. Does not connect to gas pipes."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Item
+    size: Normal
+    storedSprite:
+      sprite: _Dystopia/Structures/Piping/liquid_pipe.rsi
+      state: storageStraight
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    canCollide: false
+    bodyType: static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Visibility
+    layer: 1
+  - type: Transform
+    anchored: true
+  - type: SubFloorHide
+  - type: CollideOnAnchor
+  - type: Anchorable
+  - type: Rotatable
+    increment: 90
+  - type: Appearance
+  - type: StaticPrice
+    price: 30
+  - type: Sprite
+    sprite: _Dystopia/Structures/Piping/liquid_pipe.rsi
+    drawdepth: ThinPipe
+    noRot: false
+    visible: false
+    layers:
+    - state: pipeStraight
+    - state: pipeStraight-marks
+      map: [ "enum.DystopiaLiquidVisualLayers.Marks" ]
+      color: "#5A5A5A"
+  - type: NodeContainer
+    nodes:
+      pipe:
+        !type:DystopiaLiquidPipeNode
+        nodeGroupID: DystopiaLiquid
+        pipeDirection: Longitudinal
+        volume: 50
+  - type: DystopiaLiquidPipe
+    emptyColor: "#5A5A5A"
+
+- type: entity
+  id: DystopiaLiquidPipeBend
+  name: liquid pipe
+  suffix: Bend
+  description: "Carries liquids. Does not connect to gas pipes."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Item
+    size: Normal
+    heldPrefix: Bend
+    storedSprite:
+      sprite: _Dystopia/Structures/Piping/liquid_pipe.rsi
+      state: storageBend
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    canCollide: false
+    bodyType: static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Visibility
+    layer: 1
+  - type: Transform
+    anchored: true
+  - type: SubFloorHide
+  - type: CollideOnAnchor
+  - type: Anchorable
+  - type: Rotatable
+    increment: 90
+  - type: Appearance
+  - type: StaticPrice
+    price: 30
+  - type: Sprite
+    sprite: _Dystopia/Structures/Piping/liquid_pipe.rsi
+    drawdepth: ThinPipe
+    noRot: false
+    visible: false
+    layers:
+    - state: pipeBend
+    - state: pipeBend-marks
+      map: [ "enum.DystopiaLiquidVisualLayers.Marks" ]
+      color: "#5A5A5A"
+  - type: NodeContainer
+    nodes:
+      pipe:
+        !type:DystopiaLiquidPipeNode
+        nodeGroupID: DystopiaLiquid
+        pipeDirection: SWBend
+        volume: 50
+  - type: DystopiaLiquidPipe
+    emptyColor: "#5A5A5A"
+
+- type: entity
+  id: DystopiaLiquidPipeTJunction
+  name: liquid pipe
+  suffix: T-junction
+  description: "Carries liquids. Does not connect to gas pipes."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Item
+    size: Normal
+    heldPrefix: TJunction
+    storedSprite:
+      sprite: _Dystopia/Structures/Piping/liquid_pipe.rsi
+      state: storageTJunction
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    canCollide: false
+    bodyType: static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Visibility
+    layer: 1
+  - type: Transform
+    anchored: true
+  - type: SubFloorHide
+  - type: CollideOnAnchor
+  - type: Anchorable
+  - type: Rotatable
+    increment: 90
+  - type: Appearance
+  - type: StaticPrice
+    price: 30
+  - type: Sprite
+    sprite: _Dystopia/Structures/Piping/liquid_pipe.rsi
+    drawdepth: ThinPipe
+    noRot: false
+    visible: false
+    layers:
+    - state: pipeTJunction
+    - state: pipeTJunction-marks
+      map: [ "enum.DystopiaLiquidVisualLayers.Marks" ]
+      color: "#5A5A5A"
+  - type: NodeContainer
+    nodes:
+      pipe:
+        !type:DystopiaLiquidPipeNode
+        nodeGroupID: DystopiaLiquid
+        pipeDirection: TSouth
+        volume: 50
+  - type: DystopiaLiquidPipe
+    emptyColor: "#5A5A5A"
+
+- type: entity
+  id: DystopiaLiquidPipeFourway
+  name: liquid pipe
+  suffix: Four-way
+  description: "Carries liquids. Does not connect to gas pipes."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Item
+    size: Normal
+    heldPrefix: Fourway
+    storedSprite:
+      sprite: _Dystopia/Structures/Piping/liquid_pipe.rsi
+      state: storageFourway
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    canCollide: false
+    bodyType: static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Visibility
+    layer: 1
+  - type: Transform
+    anchored: true
+  - type: SubFloorHide
+  - type: CollideOnAnchor
+  - type: Anchorable
+  - type: Rotatable
+    increment: 90
+  - type: Appearance
+  - type: StaticPrice
+    price: 30
+  - type: Sprite
+    sprite: _Dystopia/Structures/Piping/liquid_pipe.rsi
+    drawdepth: ThinPipe
+    noRot: false
+    visible: false
+    layers:
+    - state: pipeFourway
+    - state: pipeFourway-marks
+      map: [ "enum.DystopiaLiquidVisualLayers.Marks" ]
+      color: "#5A5A5A"
+  - type: NodeContainer
+    nodes:
+      pipe:
+        !type:DystopiaLiquidPipeNode
+        nodeGroupID: DystopiaLiquid
+        pipeDirection: Fourway
+        volume: 50
+  - type: DystopiaLiquidPipe
+    emptyColor: "#5A5A5A"
+
+- type: entity
+  id: DystopiaLiquidPort
+  name: liquid port
+  description: "Connects a liquid network to a tank anchored on top of it: levels the tank and the pipes to the same fill."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Item
+    size: Normal
+    storedSprite:
+      sprite: _Dystopia/Structures/Piping/liquid_pipe.rsi
+      state: storageStraight
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    canCollide: false
+    bodyType: static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Visibility
+    layer: 1
+  - type: Transform
+    anchored: true
+  - type: SubFloorHide
+    blockInteractions: false
+    blockAmbience: false
+    visibleLayers:
+    - enum.SubfloorLayers.FirstLayer
+  - type: CollideOnAnchor
+  - type: Anchorable
+  - type: Rotatable
+    increment: 90
+  - type: Appearance
+  - type: StaticPrice
+    price: 30
+  - type: Sprite
+    sprite: _Dystopia/Structures/Piping/liquid_pipe.rsi
+    drawdepth: ThinPipe
+    noRot: false
+    visible: false
+    layers:
+    - state: pipeUnaryConnectors
+    - sprite: _Dystopia/Structures/Piping/liquid_port.rsi
+      state: gasCanisterPort
+      map: [ "enum.SubfloorLayers.FirstLayer", "enabled" ]
+  - type: NodeContainer
+    nodes:
+      pipe:
+        !type:DystopiaLiquidPipeNode
+        nodeGroupID: DystopiaLiquid
+        pipeDirection: South
+        volume: 10
+  - type: DystopiaLiquidDevice
+    mode: Port
+    rate: 25
+
+- type: entity
+  id: DystopiaLiquidPump
+  name: liquid pump
+  description: "Pumps liquid from the pipe behind it into the pipe in front. Needs power; switched on and off by hand."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Item
+    size: Normal
+    storedSprite:
+      sprite: _Dystopia/Structures/Piping/liquid_pipe.rsi
+      state: storageStraight
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    canCollide: false
+    bodyType: static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Visibility
+    layer: 1
+  - type: Transform
+    anchored: true
+  - type: SubFloorHide
+    blockInteractions: false
+    blockAmbience: false
+    visibleLayers:
+    - enum.SubfloorLayers.FirstLayer
+  - type: CollideOnAnchor
+  - type: Anchorable
+  - type: Rotatable
+    increment: 90
+  - type: Appearance
+  - type: StaticPrice
+    price: 30
+  - type: Sprite
+    sprite: _Dystopia/Structures/Piping/liquid_pipe.rsi
+    drawdepth: ThinPipe
+    noRot: false
+    visible: false
+    layers:
+    - state: pipeStraight
+    - sprite: _Dystopia/Structures/Piping/liquid_pump.rsi
+      state: pumpPressure
+      map: [ "enum.SubfloorLayers.FirstLayer", "enabled" ]
+  - type: NodeContainer
+    nodes:
+      pipe:
+        !type:DystopiaLiquidPipeNode
+        nodeGroupID: DystopiaLiquid
+        pipeDirection: North
+        volume: 10
+      outlet:
+        !type:DystopiaLiquidPipeNode
+        nodeGroupID: DystopiaLiquid
+        pipeDirection: South
+        volume: 10
+  - type: DystopiaLiquidDevice
+    mode: Pump
+    rate: 20
+    inlet: pipe
+    outlet: outlet
+    requirePower: true
+    toggleable: true
+    on: false
+  - type: ApcPowerReceiver
+    powerLoad: 300
+  - type: ExtensionCableReceiver
+  - type: GenericVisualizer
+    visuals:
+      enum.DystopiaLiquidVisuals.Working:
+        enabled:
+          True: { state: pumpPressureOn }
+          False: { state: pumpPressure }
+
+- type: entity
+  id: DystopiaLiquidExporter
+  name: liquid exporter
+  description: "Lets liquid out of the pipe behind it into the object in front: a tank, a machine tank, or - only coolant and only while hot - a casting table or a mould."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Item
+    size: Normal
+    storedSprite:
+      sprite: _Dystopia/Structures/Piping/liquid_pipe.rsi
+      state: storageStraight
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    canCollide: false
+    bodyType: static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Visibility
+    layer: 1
+  - type: Transform
+    anchored: true
+  - type: SubFloorHide
+    blockInteractions: false
+    blockAmbience: false
+    visibleLayers:
+    - enum.SubfloorLayers.FirstLayer
+  - type: CollideOnAnchor
+  - type: Anchorable
+  - type: Rotatable
+    increment: 90
+  - type: Appearance
+  - type: StaticPrice
+    price: 30
+  - type: Sprite
+    sprite: _Dystopia/Structures/Piping/liquid_pipe.rsi
+    drawdepth: ThinPipe
+    noRot: false
+    visible: false
+    layers:
+    - state: pipeStraight
+    - sprite: _Dystopia/Structures/Piping/liquid_pump.rsi
+      state: pumpVolume
+      map: [ "enum.SubfloorLayers.FirstLayer", "enabled" ]
+  - type: NodeContainer
+    nodes:
+      pipe:
+        !type:DystopiaLiquidPipeNode
+        nodeGroupID: DystopiaLiquid
+        pipeDirection: North
+        volume: 10
+  - type: DystopiaLiquidDevice
+    mode: Exporter
+    rate: 5
+    targetSide: South
+  - type: GenericVisualizer
+    visuals:
+      enum.DystopiaLiquidVisuals.Working:
+        enabled:
+          True: { state: pumpVolumeOn }
+          False: { state: pumpVolume }
+
+- type: entity
+  id: DystopiaLiquidImporter
+  name: liquid importer
+  description: "Draws liquid from the tank or machine tank behind it into the pipe in front."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Item
+    size: Normal
+    storedSprite:
+      sprite: _Dystopia/Structures/Piping/liquid_pipe.rsi
+      state: storageStraight
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    canCollide: false
+    bodyType: static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Visibility
+    layer: 1
+  - type: Transform
+    anchored: true
+  - type: SubFloorHide
+    blockInteractions: false
+    blockAmbience: false
+    visibleLayers:
+    - enum.SubfloorLayers.FirstLayer
+  - type: CollideOnAnchor
+  - type: Anchorable
+  - type: Rotatable
+    increment: 90
+  - type: Appearance
+  - type: StaticPrice
+    price: 30
+  - type: Sprite
+    sprite: _Dystopia/Structures/Piping/liquid_pipe.rsi
+    drawdepth: ThinPipe
+    noRot: false
+    visible: false
+    layers:
+    - state: pipeStraight
+    - sprite: _Dystopia/Structures/Piping/liquid_pump.rsi
+      state: pumpPassiveGate
+      map: [ "enum.SubfloorLayers.FirstLayer", "enabled" ]
+  - type: NodeContainer
+    nodes:
+      pipe:
+        !type:DystopiaLiquidPipeNode
+        nodeGroupID: DystopiaLiquid
+        pipeDirection: South
+        volume: 10
+  - type: DystopiaLiquidDevice
+    mode: Importer
+    rate: 10
+    targetSide: North
+  - type: GenericVisualizer
+    visuals:
+      enum.DystopiaLiquidVisuals.Working:
+        enabled:
+          True: { state: pumpPassiveGateOn }
+          False: { state: pumpPassiveGate }
