@@ -11,6 +11,7 @@
   defect: DystopiaSlag1
   minPurity: 0.95
   products:
+    DystopiaConcreteMix: DystopiaConcreteBlock1
     DystopiaMoltenIron: DystopiaIngotIron1
     DystopiaMoltenCastIron: DystopiaIngotCastIron1
     DystopiaMoltenSteel: DystopiaIngotSteel1
@@ -27,6 +28,10 @@
     DystopiaMoltenGold: IngotGold1
     DystopiaMoltenSilver: IngotSilver1
     DystopiaMoltenUranium: SheetUranium1
+  settingTime:   # схватывание после последнего налива, с
+    DystopiaConcreteMix: 15
+  defects:
+    DystopiaConcreteMix: DystopiaGravel1
 
 - type: dystopiaMouldShape
   id: DystopiaSheet
@@ -35,6 +40,8 @@
   defect: DystopiaSlag1
   minPurity: 0.95
   products:
+    DystopiaConcreteMix: DystopiaConcreteBlock1
+    DystopiaMoltenGlass: SheetGlass1
     DystopiaMoltenSteel: SheetSteel1
     DystopiaMoltenBrass: SheetBrass1
     DystopiaMoltenCopper: DystopiaSheetCopper1
@@ -51,6 +58,10 @@
     DystopiaMoltenUranium: DystopiaSheetUranium1
     DystopiaMoltenSolder: DystopiaSheetSolder1
     DystopiaMoltenFerrochrome: DystopiaSheetFerrochrome1
+  settingTime:   # схватывание после последнего налива, с
+    DystopiaConcreteMix: 15
+  defects:
+    DystopiaConcreteMix: DystopiaGravel1
 
 - type: dystopiaMouldShape
   id: DystopiaRod
@@ -75,3 +86,7 @@
     DystopiaMoltenSolder: DystopiaRodSolder1
     DystopiaMoltenStainlessSteel: DystopiaRodStainlessSteel1
     DystopiaMoltenFerrochrome: DystopiaRodFerrochrome1
+  settingTime:   # схватывание после последнего налива, с
+    DystopiaConcreteMix: 15
+  defects:
+    DystopiaConcreteMix: DystopiaGravel1

@@ -58,6 +58,7 @@ public sealed partial class DystopiaProcessorSystem : EntitySystem
         SubscribeLocalEvent<DystopiaProcessorComponent, ExaminedEvent>(OnExamined);
         SubscribeLocalEvent<DystopiaProcessorComponent, DystopiaConveyorInsertEvent>(OnConveyorInsert);
         SubscribeLocalEvent<DystopiaProcessorComponent, DystopiaConveyorExtractEvent>(OnConveyorExtract);
+        SubscribeLocalEvent<PrototypesReloadedEventArgs>(OnPrototypesReloaded);
     }
 
     private void OnInit(Entity<DystopiaProcessorComponent> ent, ref ComponentInit args)
@@ -74,19 +75,74 @@ public sealed partial class DystopiaProcessorSystem : EntitySystem
 
     // ------------------------------------------------------------------ рецепты и счёт
 
-    /// <summary>Рецепт группы машины для этого предмета (по его стеку). Null — машина это не берёт.</summary>
+    /// <summary>
+    /// Рецепт группы машины, в который идёт этот предмет (основным или дополнительным сырьём). Null — машина это
+    /// не берёт.
+    /// </summary>
     public DystopiaProcessRecipePrototype? GetRecipe(Entity<DystopiaProcessorComponent> ent, EntityUid item)
     {
         if (!TryComp<StackComponent>(item, out var stack))
             return null;
 
-        foreach (var recipe in _proto.EnumeratePrototypes<DystopiaProcessRecipePrototype>())
+        foreach (var recipe in GroupRecipes(ent.Comp.Group))
         {
-            if (recipe.Group == ent.Comp.Group && recipe.Input == stack.StackTypeId)
+            if (recipe.Input == stack.StackTypeId || recipe.ExtraInputs.ContainsKey(stack.StackTypeId))
                 return recipe;
         }
 
         return null;
+    }
+
+    private readonly Dictionary<string, List<DystopiaProcessRecipePrototype>> _groupRecipes = new();
+
+    /// <summary>
+    /// Рецепты группы в порядке выбора: сначала те, где больше видов сырья (глина с известняком — в клинкер, а не
+    /// известняк отдельно в известь), рецепты только из бака — последними.
+    /// </summary>
+    private List<DystopiaProcessRecipePrototype> GroupRecipes(string group)
+    {
+        if (_groupRecipes.TryGetValue(group, out var cached))
+            return cached;
+
+        var list = new List<DystopiaProcessRecipePrototype>();
+        foreach (var recipe in _proto.EnumeratePrototypes<DystopiaProcessRecipePrototype>())
+        {
+            if (recipe.Group == group)
+                list.Add(recipe);
+        }
+
+        list.Sort((a, b) =>
+        {
+            var byItems = (b.Input == null ? 0 : 1).CompareTo(a.Input == null ? 0 : 1);
+            if (byItems != 0)
+                return byItems;
+
+            var byExtras = b.ExtraInputs.Count.CompareTo(a.ExtraInputs.Count);
+            return byExtras != 0 ? byExtras : string.CompareOrdinal(a.ID, b.ID);
+        });
+
+        _groupRecipes[group] = list;
+        return list;
+    }
+
+    private void OnPrototypesReloaded(PrototypesReloadedEventArgs args)
+    {
+        if (args.WasModified<DystopiaProcessRecipePrototype>())
+            _groupRecipes.Clear();
+    }
+
+    private static bool HasItems(DystopiaProcessRecipePrototype recipe, Dictionary<ProtoId<StackPrototype>, int> loaded)
+    {
+        if (recipe.Input is { } input && loaded.GetValueOrDefault(input) < recipe.InputCount)
+            return false;
+
+        foreach (var (extra, count) in recipe.ExtraInputs)
+        {
+            if (loaded.GetValueOrDefault(extra) < count)
+                return false;
+        }
+
+        return true;
     }
 
     private int CountUnits(BaseContainer container)
@@ -160,24 +216,19 @@ public sealed partial class DystopiaProcessorSystem : EntitySystem
         reason = null;
         var plan = new List<DystopiaProcessRecipePrototype>();
         var loaded = LoadedByStack(ent);
-        if (loaded.Count == 0)
-        {
-            reason = "dystopia-processor-empty";
-            return plan;
-        }
-
         var reserved = new Dictionary<ProtoId<ReagentPrototype>, FixedPoint2>();
         var room = ent.Comp.OutputContainer != null ? ent.Comp.OutputCapacity - OutputUnits(ent) : int.MaxValue;
         var tankRoom = TankRoom(ent);
+        var separate = ent.Comp.OutputTank != null;
         var noReagents = false;
         var noRoom = false;
 
         for (var i = 0; i < ent.Comp.BatchesPerCycle; i++)
         {
             DystopiaProcessRecipePrototype? chosen = null;
-            foreach (var recipe in _proto.EnumeratePrototypes<DystopiaProcessRecipePrototype>())
+            foreach (var recipe in GroupRecipes(ent.Comp.Group))
             {
-                if (recipe.Group != ent.Comp.Group || loaded.GetValueOrDefault(recipe.Input) < recipe.InputCount)
+                if (!HasItems(recipe, loaded))
                     continue;
 
                 if (!HasReagents(ent, recipe, reserved))
@@ -192,8 +243,9 @@ public sealed partial class DystopiaProcessorSystem : EntitySystem
                     produced += extra;
                 }
 
-                // Вещества партии — в бак: место освобождают и её же израсходованные реагенты.
-                var liquid = Sum(recipe.Produces) - Sum(recipe.Reagents);
+                // Вещества партии — в бак продукции; если он тот же, что и бак реагентов, место освобождают и её же
+                // израсходованные реагенты.
+                var liquid = separate ? Sum(recipe.Produces) : Sum(recipe.Produces) - Sum(recipe.Reagents);
                 if (produced > room || (recipe.Produces.Count > 0 && (tankRoom == null || liquid > tankRoom)))
                 {
                     noRoom = true;
@@ -211,7 +263,12 @@ public sealed partial class DystopiaProcessorSystem : EntitySystem
                 break;
 
             plan.Add(chosen);
-            loaded[chosen.Input] -= chosen.InputCount;
+            if (chosen.Input is { } input)
+                loaded[input] -= chosen.InputCount;
+            foreach (var (extra, count) in chosen.ExtraInputs)
+            {
+                loaded[extra] -= count;
+            }
             foreach (var (reagent, amount) in chosen.Reagents)
             {
                 reserved[reagent] = reserved.GetValueOrDefault(reagent) + amount;
@@ -222,6 +279,7 @@ public sealed partial class DystopiaProcessorSystem : EntitySystem
         {
             reason = noRoom ? "dystopia-processor-output-full"
                 : noReagents ? "dystopia-processor-no-reagents"
+                : LoadedUnits(ent) == 0 ? "dystopia-processor-empty"
                 : "dystopia-processor-not-enough";
         }
 
@@ -239,10 +297,16 @@ public sealed partial class DystopiaProcessorSystem : EntitySystem
         return total;
     }
 
-    /// <summary>Свободное место в баке (null — бака нет).</summary>
+    /// <summary>Бак, куда идут вещества рецептов: бак продукции, если он есть, иначе общий.</summary>
+    private string? ProductTank(DystopiaProcessorComponent comp)
+    {
+        return comp.OutputTank ?? comp.Tank;
+    }
+
+    /// <summary>Свободное место в баке продукции (null — бака нет).</summary>
     private FixedPoint2? TankRoom(Entity<DystopiaProcessorComponent> ent)
     {
-        return ent.Comp.Tank is { } tank && _solution.TryGetSolution(ent.Owner, tank, out _, out var solution)
+        return ProductTank(ent.Comp) is { } tank && _solution.TryGetSolution(ent.Owner, tank, out _, out var solution)
             ? solution.AvailableVolume
             : null;
     }
@@ -385,15 +449,19 @@ public sealed partial class DystopiaProcessorSystem : EntitySystem
             });
         }
 
-        AddTankVerbs(ent, ref args);
+        if (ent.Comp.Tank is { } tank)
+            AddTankVerbs(ent, tank, false, ref args);
+        if (ent.Comp.OutputTank is { } outputTank && outputTank != ent.Comp.Tank)
+            AddTankVerbs(ent, outputTank, true, ref args);
     }
 
     // ------------------------------------------------------------------ бак: отлить в сосуд, слить на пол
 
-    private void AddTankVerbs(Entity<DystopiaProcessorComponent> ent, ref GetVerbsEvent<AlternativeVerb> args)
+    /// <param name="product">Бак продукции: свои подписи, и отлить из него — первым в списке.</param>
+    private void AddTankVerbs(Entity<DystopiaProcessorComponent> ent, string tankName, bool product,
+        ref GetVerbsEvent<AlternativeVerb> args)
     {
-        if (ent.Comp.Tank is not { } tankName ||
-            !_solution.TryGetSolution(ent.Owner, tankName, out var tank, out var tankSolution) ||
+        if (!_solution.TryGetSolution(ent.Owner, tankName, out var tank, out var tankSolution) ||
             tankSolution.Volume <= FixedPoint2.Zero)
         {
             return;
@@ -417,7 +485,9 @@ public sealed partial class DystopiaProcessorSystem : EntitySystem
             var heldEnt = heldSoln.Value;
             args.Verbs.Add(new AlternativeVerb
             {
-                Text = Loc.GetString("dystopia-processor-tank-draw-verb", ("amount", shown)),
+                Text = Loc.GetString(product
+                    ? "dystopia-processor-output-tank-draw-verb"
+                    : "dystopia-processor-tank-draw-verb", ("amount", shown)),
                 Act = () =>
                 {
                     var moved = _transfer.Transfer(new SolutionTransferData(user, ent.Owner, tankEnt, held, heldEnt, amount));
@@ -427,14 +497,16 @@ public sealed partial class DystopiaProcessorSystem : EntitySystem
                             ("amount", moved), ("target", held)), ent, user);
                     }
                 },
-                Priority = 2,
+                Priority = product ? 3 : 2,
             });
         }
 
         // Слить весь бак на пол — если налили не того или не столько.
         args.Verbs.Add(new AlternativeVerb
         {
-            Text = Loc.GetString("dystopia-processor-tank-dump-verb"),
+            Text = Loc.GetString(product
+                ? "dystopia-processor-output-tank-dump-verb"
+                : "dystopia-processor-tank-dump-verb"),
             Act = () =>
             {
                 if (tankEnt.Comp.Solution.Volume <= FixedPoint2.Zero)
@@ -444,7 +516,7 @@ public sealed partial class DystopiaProcessorSystem : EntitySystem
                 _puddle.TrySpillAt(ent.Owner, spilled, out _);
                 _popup.PopupEntity(Loc.GetString("dystopia-processor-tank-dumped"), ent, user);
             },
-            Priority = -1,
+            Priority = product ? -1 : -2,
         });
     }
 
@@ -575,35 +647,28 @@ public sealed partial class DystopiaProcessorSystem : EntitySystem
         var outputs = new Dictionary<EntProtoId, int>();
         foreach (var recipe in plan)
         {
-            // Сырьё — из любых стопок этого типа
-            var need = recipe.InputCount;
-            foreach (var item in new List<EntityUid>(container.ContainedEntities))
+            if (recipe.Input is { } input)
+                Consume(container, input, recipe.InputCount);
+            foreach (var (extra, count) in recipe.ExtraInputs)
             {
-                if (need <= 0)
-                    break;
-
-                if (EntityManager.IsQueuedForDeletion(item) ||
-                    !TryComp<StackComponent>(item, out var stack) || stack.StackTypeId != recipe.Input)
-                {
-                    continue;
-                }
-
-                var take = Math.Min(need, stack.Count);
-                _stack.ReduceCount((item, stack), take); // дошло до нуля — стопка удаляется сама
-                need -= take;
+                Consume(container, extra, count);
             }
 
-            if ((recipe.Reagents.Count > 0 || recipe.Produces.Count > 0) && ent.Comp.Tank is { } tank &&
+            if (recipe.Reagents.Count > 0 && ent.Comp.Tank is { } tank &&
                 _solution.TryGetSolution(ent.Owner, tank, out var soln, out _))
             {
                 foreach (var (reagent, amount) in recipe.Reagents)
                 {
                     _solution.RemoveReagent(soln.Value, reagent.Id, amount);
                 }
+            }
 
+            if (recipe.Produces.Count > 0 && ProductTank(ent.Comp) is { } productTank &&
+                _solution.TryGetSolution(ent.Owner, productTank, out var productSoln, out _))
+            {
                 foreach (var (reagent, amount) in recipe.Produces)
                 {
-                    _solution.TryAddReagent(soln.Value, reagent.Id, amount, out _);
+                    _solution.TryAddReagent(productSoln.Value, reagent.Id, amount, out _);
                 }
             }
 
@@ -621,6 +686,26 @@ public sealed partial class DystopiaProcessorSystem : EntitySystem
         }
 
         _audio.PlayPvs(ent.Comp.CycleSound, ent);
+    }
+
+    /// <summary>Списать <paramref name="count"/> единиц сырья этого типа из любых стопок загрузки.</summary>
+    private void Consume(BaseContainer container, ProtoId<StackPrototype> type, int count)
+    {
+        foreach (var item in new List<EntityUid>(container.ContainedEntities))
+        {
+            if (count <= 0)
+                break;
+
+            if (EntityManager.IsQueuedForDeletion(item) ||
+                !TryComp<StackComponent>(item, out var stack) || stack.StackTypeId != type)
+            {
+                continue;
+            }
+
+            var take = Math.Min(count, stack.Count);
+            _stack.ReduceCount((item, stack), take); // дошло до нуля — стопка удаляется сама
+            count -= take;
+        }
     }
 
     private void Produce(Entity<DystopiaProcessorComponent> ent, EntProtoId proto, int amount)
@@ -666,8 +751,12 @@ public sealed partial class DystopiaProcessorSystem : EntitySystem
         if (!args.IsInDetailsRange)
             return;
 
-        args.PushMarkup(Loc.GetString("dystopia-processor-examine-load",
-            ("loaded", LoadedUnits(ent)), ("capacity", ent.Comp.Capacity)));
+        // Аппараты только на веществах (без загрузки) строку про сырьё не показывают.
+        if (ent.Comp.Capacity > 0)
+        {
+            args.PushMarkup(Loc.GetString("dystopia-processor-examine-load",
+                ("loaded", LoadedUnits(ent)), ("capacity", ent.Comp.Capacity)));
+        }
 
         if (ent.Comp.OutputContainer != null)
         {
@@ -675,21 +764,12 @@ public sealed partial class DystopiaProcessorSystem : EntitySystem
                 ("units", OutputUnits(ent)), ("capacity", ent.Comp.OutputCapacity)));
         }
 
-        if (ent.Comp.Tank is { } tank && _solution.TryGetSolution(ent.Owner, tank, out _, out var solution))
+        if (ent.Comp.Tank is { } tank)
+            ExamineTank(ent, tank, "dystopia-processor-examine-tank", "dystopia-processor-examine-tank-empty", args);
+        if (ent.Comp.OutputTank is { } outputTank && outputTank != ent.Comp.Tank)
         {
-            // Одной строкой: строки с равным приоритетом сортируются по алфавиту и разбежались бы.
-            var parts = new List<string>();
-            foreach (var (reagent, quantity) in solution.GetReagentPrototypes(_proto))
-            {
-                parts.Add(Loc.GetString("dystopia-processor-examine-tank-entry",
-                    ("color", reagent.SubstanceColor.ToHexNoAlpha()), ("name", reagent.LocalizedName),
-                    ("amount", quantity)));
-            }
-
-            args.PushMarkup(Loc.GetString(parts.Count == 0
-                    ? "dystopia-processor-examine-tank-empty"
-                    : "dystopia-processor-examine-tank",
-                ("volume", solution.Volume), ("max", solution.MaxVolume), ("contents", string.Join(", ", parts))));
+            ExamineTank(ent, outputTank, "dystopia-processor-examine-output-tank",
+                "dystopia-processor-examine-output-tank-empty", args);
         }
 
         args.PushMarkup(Loc.GetString("dystopia-processor-examine-cycle",
@@ -699,5 +779,23 @@ public sealed partial class DystopiaProcessorSystem : EntitySystem
             args.PushMarkup(Loc.GetString("dystopia-processor-examine-loose"));
         else if (!ent.Comp.Manual && !_power.IsPowered(ent.Owner))
             args.PushMarkup(Loc.GetString("dystopia-processor-examine-unpowered"));
+    }
+
+    private void ExamineTank(EntityUid uid, string tank, LocId full, LocId empty, ExaminedEvent args)
+    {
+        if (!_solution.TryGetSolution(uid, tank, out _, out var solution))
+            return;
+
+        // Одной строкой: строки с равным приоритетом сортируются по алфавиту и разбежались бы.
+        var parts = new List<string>();
+        foreach (var (reagent, quantity) in solution.GetReagentPrototypes(_proto))
+        {
+            parts.Add(Loc.GetString("dystopia-processor-examine-tank-entry",
+                ("color", reagent.SubstanceColor.ToHexNoAlpha()), ("name", reagent.LocalizedName),
+                ("amount", quantity)));
+        }
+
+        args.PushMarkup(Loc.GetString(parts.Count == 0 ? empty : full,
+            ("volume", solution.Volume), ("max", solution.MaxVolume), ("contents", string.Join(", ", parts))));
     }
 }

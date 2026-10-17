@@ -1,0 +1,53 @@
+<Document>
+  # Кокс, сера, соль
+
+  ## Кокс
+  <Box>
+      <GuideEntityEmbed Entity="DystopiaCokeOven" Caption=""/>
+      <GuideEntityEmbed Entity="DystopiaCoke" Caption=""/>
+  </Box>
+
+  [color=#d2ae68]Коксовая печь[/color] берёт [color=#ff9a50]2000[/color] Вт. Из [color=#ff9a50]4[/color] кусков [color=#9ab0c4]угля[/color] выходит [color=#ff9a50]3[/color] куска [color=#9ab0c4]кокса[/color] и [color=#ff9a50]4[/color] ед. [color=#7ac8b0]каменноугольной смолы[/color], смола стекает в бак печи.
+
+  Кокс в горне горит [color=#ff9a50]300[/color] секунд против [color=#ff9a50]120[/color] у угля. В тигле он работает как уголь: кусок даёт [color=#ff9a50]1[/color] ед. [color=#7ac8b0]углерода[/color] для стали и чугуна.
+
+  ## Сернистый газ
+  <Box>
+      <GuideEntityEmbed Entity="DystopiaRoastingFurnace" Caption=""/>
+      <GuideEntityEmbed Entity="DystopiaOreSulfur" Caption=""/>
+      <GuideEntityEmbed Entity="DystopiaOrePyrite" Caption=""/>
+  </Box>
+
+  Его получают в [color=#d2ae68]обжиговой печи[/color], и он собирается в её конденсатор.
+  - Кусок [color=#9ab0c4]самородной серы[/color] сгорает в [color=#ff9a50]10[/color] ед. [color=#7ac8b0]сернистого газа[/color].
+  - Кусок [color=#9ab0c4]пирита[/color] даёт [color=#ff9a50]5[/color] ед. газа и горсть [color=#9ab0c4]огарка[/color].
+
+  ## Серная кислота
+  <Box>
+      <GuideEntityEmbed Entity="DystopiaContactApparatus" Caption=""/>
+  </Box>
+
+  [color=#d2ae68]Контактный аппарат[/color] работает только на том, что налито в его бак. [color=#ff9a50]10[/color] ед. сернистого газа и [color=#ff9a50]5[/color] ед. [color=#7ac8b0]воды[/color] дают [color=#ff9a50]10[/color] ед. [color=#7ac8b0]серной кислоты[/color], за цикл выходит по [color=#ff9a50]2[/color] партии. Кислота собирается в отдельный бак готового. Аппарат берёт [color=#ff9a50]3000[/color] Вт.
+
+  ## Рассол и сода
+  <Box>
+      <GuideEntityEmbed Entity="DystopiaLeachingTank" Caption=""/>
+      <GuideEntityEmbed Entity="SaltOre" Caption=""/>
+  </Box>
+
+  В [color=#d2ae68]чане выщелачивания[/color]:
+  - кусок [color=#9ab0c4]каменной соли[/color] и [color=#ff9a50]20[/color] ед. воды дают [color=#ff9a50]10[/color] ед. [color=#7ac8b0]столовой соли[/color] в растворе;
+  - кусок [color=#9ab0c4]известняка[/color], [color=#ff9a50]10[/color] ед. столовой соли и [color=#ff9a50]5[/color] ед. воды дают [color=#ff9a50]5[/color] ед. [color=#7ac8b0]карбоната натрия[/color], то есть соды.
+
+  Всё готовое стекает в отстойник чана. Чтобы пустить рассол на соду, его надо [bold]набрать[/bold] из отстойника и [bold]налить[/bold] обратно в бак чана или перекачать трубами.
+
+  ## Едкий натр, хлор и водород
+  <Box>
+      <GuideEntityEmbed Entity="DystopiaElectrolyzer" Caption=""/>
+  </Box>
+
+  Налейте в бак [color=#d2ae68]электролизёра[/color] [color=#ff9a50]10[/color] ед. столовой соли и [color=#ff9a50]10[/color] ед. воды. Выйдет [color=#ff9a50]5[/color] ед. [color=#7ac8b0]гидроксида натрия[/color], [color=#ff9a50]5[/color] ед. [color=#7ac8b0]хлора[/color] и [color=#ff9a50]2[/color] ед. [color=#7ac8b0]водорода[/color], всё это в бак готового. Электролизёр делает это сам, пока в баке хватает соли и воды.
+
+  ## Флотореагент
+  Если в баке чана выщелачивания есть [color=#ff9a50]2[/color] ед. [color=#7ac8b0]этанола[/color], [color=#ff9a50]1[/color] ед. [color=#7ac8b0]серы[/color] и [color=#ff9a50]1[/color] ед. гидроксида натрия, чан сам делает из них [color=#ff9a50]4[/color] ед. [color=#7ac8b0]флотореагента[/color].
+</Document>

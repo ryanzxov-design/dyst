@@ -1,0 +1,208 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: неметаллы, шаг 2 — переработка.
+# Рецепты переработки неметаллов (DystopiaProcessRecipe). extraInputs — ещё сырьё на партию; без input — рецепт
+# только из веществ бака (идёт, пока их хватает). Вещества (produces) — в бак продукции машины, если он есть.
+# Дробилка: известняк → щебень, кварц → песок. Мельница: щебень → песок, клинкер + гипс → цемент.
+# Обжиговая печь: известняк → известь, глина + известняк → клинкер, пирит → огарок + сернистый газ, сера → сернистый
+# газ, сырец → кирпич. Коксовая печь: уголь → кокс + смола. Кирпичный пресс: глина → сырец.
+# Бетономешалка: цемент + песок + щебень + вода → бетонная смесь; песок + известь + сода → стекольная шихта.
+# Чан выщелачивания: соль → рассол, известь → известковое молоко, известняк + рассол → сода; спирт + сера + щёлочь →
+# флотореагент. Электролизёр: рассол → едкий натр + хлор + водород. Контактный аппарат: сернистый газ + вода → кислота.
+
+- type: dystopiaProcessRecipe
+  id: DystopiaCrushLimestone
+  group: Crusher
+  input: DystopiaOreLimestone
+  inputCount: 1
+  output: DystopiaGravel1
+  amount: 2
+
+- type: dystopiaProcessRecipe
+  id: DystopiaCrushQuartz
+  group: Crusher
+  input: SpaceQuartz
+  inputCount: 1
+  output: DystopiaSand1
+  amount: 2
+
+- type: dystopiaProcessRecipe
+  id: DystopiaGrindGravel
+  group: Mill
+  input: DystopiaGravel
+  inputCount: 1
+  output: DystopiaSand1
+  amount: 1
+
+- type: dystopiaProcessRecipe
+  id: DystopiaGrindCement
+  group: Mill
+  input: DystopiaClinker
+  inputCount: 4
+  extraInputs:
+    DystopiaOreGypsum: 1
+  output: DystopiaCement1
+  amount: 4
+
+- type: dystopiaProcessRecipe
+  id: DystopiaRoastClinker
+  group: Roasting
+  input: DystopiaOreClay
+  inputCount: 1
+  extraInputs:
+    DystopiaOreLimestone: 2
+  output: DystopiaClinker1
+  amount: 2
+
+- type: dystopiaProcessRecipe
+  id: DystopiaRoastLimestone
+  group: Roasting
+  input: DystopiaOreLimestone
+  inputCount: 1
+  output: DystopiaQuicklime1
+  amount: 1
+
+- type: dystopiaProcessRecipe
+  id: DystopiaRoastPyrite
+  group: Roasting
+  input: DystopiaOrePyrite
+  inputCount: 1
+  output: DystopiaPyriteCinder1
+  amount: 1
+  produces:
+    DystopiaSulfurDioxide: 5
+
+- type: dystopiaProcessRecipe
+  id: DystopiaBurnSulfur
+  group: Roasting
+  input: DystopiaOreSulfur
+  inputCount: 1
+  produces:
+    DystopiaSulfurDioxide: 10
+
+- type: dystopiaProcessRecipe
+  id: DystopiaFireBrick
+  group: Roasting
+  input: DystopiaBrickRaw
+  inputCount: 1
+  output: DystopiaBrick1
+  amount: 1
+
+- type: dystopiaProcessRecipe
+  id: DystopiaFireFireBrick
+  group: Roasting
+  input: DystopiaFireBrickRaw
+  inputCount: 1
+  output: DystopiaFireBrick1
+  amount: 1
+
+- type: dystopiaProcessRecipe
+  id: DystopiaCokeCoal
+  group: Coking
+  input: Coal
+  inputCount: 4
+  output: DystopiaCoke1
+  amount: 3
+  produces:
+    DystopiaCoalTar: 4
+
+- type: dystopiaProcessRecipe
+  id: DystopiaPressBrick
+  group: BrickPress
+  input: DystopiaOreClay
+  inputCount: 1
+  output: DystopiaBrickRaw1
+  amount: 2
+
+- type: dystopiaProcessRecipe
+  id: DystopiaPressFireBrick
+  group: BrickPress
+  input: DystopiaOreFireclay
+  inputCount: 1
+  output: DystopiaFireBrickRaw1
+  amount: 2
+
+- type: dystopiaProcessRecipe
+  id: DystopiaMixConcrete
+  group: Mixing
+  input: DystopiaCement
+  inputCount: 1
+  extraInputs:
+    DystopiaSand: 2
+    DystopiaGravel: 2
+  reagents:
+    Water: 10
+  produces:
+    DystopiaConcreteMix: 40
+
+- type: dystopiaProcessRecipe
+  id: DystopiaMixGlassBatch
+  group: Mixing
+  input: DystopiaSand
+  inputCount: 3
+  extraInputs:
+    DystopiaQuicklime: 1
+  output: DystopiaGlassBatch1
+  amount: 3
+  reagents:
+    SodiumCarbonate: 5
+
+- type: dystopiaProcessRecipe
+  id: DystopiaDissolveSalt
+  group: Leaching
+  input: SaltOre
+  inputCount: 1
+  reagents:
+    Water: 20
+  produces:
+    TableSalt: 10
+
+- type: dystopiaProcessRecipe
+  id: DystopiaSlakeLime
+  group: Leaching
+  input: DystopiaQuicklime
+  inputCount: 1
+  reagents:
+    Water: 10
+  produces:
+    DystopiaSlakedLime: 10
+
+- type: dystopiaProcessRecipe
+  id: DystopiaLeachSoda
+  group: Leaching
+  input: DystopiaOreLimestone
+  inputCount: 1
+  reagents:
+    TableSalt: 10
+    Water: 5
+  produces:
+    SodiumCarbonate: 5
+
+- type: dystopiaProcessRecipe
+  id: DystopiaMixFlotationReagent
+  group: Leaching
+  reagents:
+    Ethanol: 2
+    Sulfur: 1
+    SodiumHydroxide: 1
+  produces:
+    DystopiaFlotationReagent: 4
+
+- type: dystopiaProcessRecipe
+  id: DystopiaElectrolyzeBrine
+  group: Electrolysis
+  reagents:
+    TableSalt: 10
+    Water: 10
+  produces:
+    SodiumHydroxide: 5
+    Chlorine: 5
+    Hydrogen: 2
+
+- type: dystopiaProcessRecipe
+  id: DystopiaContactSulfuricAcid
+  group: Contact
+  reagents:
+    DystopiaSulfurDioxide: 10
+    Water: 5
+  produces:
+    SulfuricAcid: 10

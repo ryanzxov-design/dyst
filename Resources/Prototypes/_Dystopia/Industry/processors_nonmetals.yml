@@ -1,0 +1,518 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: неметаллы, шаг 2 — переработка.
+# Машины неметаллов: коксовая печь (Coking), кирпичные прессы (BrickPress), бетономешалка (Mixing), контактный
+# аппарат (Contact). Рецепты — nonmetal_recipes.yml. Числа — в полях DystopiaProcessor. Баки не реагируют
+# (canReact: false); у бетономешалки и контактного аппарата готовое идёт в отдельный бак продукции
+# (processor_solutions.yml). Самостоятельные сущности, без parent.
+
+- type: entity
+  id: DystopiaCokeOven
+  name: coke oven
+  description: "A brick chamber where coal is baked without air. Out comes light grey coke; the tar runs off into a tank."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.45"
+        density: 250
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]
+  - type: Pullable
+  - type: Anchorable
+    delay: 2
+  - type: Tag
+    tags: [ Structure ]
+  - type: Sprite
+    sprite: _Dystopia/Structures/Industry/coke_oven.rsi
+    noRot: true
+    drawdepth: Objects
+    layers:
+    - state: icon
+      map: [ "enum.DystopiaProcessorVisuals.Running" ]
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DystopiaProcessorVisuals.Running:
+        enum.DystopiaProcessorVisuals.Running:
+          True: { state: running }
+          False: { state: icon }
+  - type: ApcPowerReceiver
+    powerLoad: 2000
+  - type: ExtensionCableReceiver
+  - type: AmbientSound
+    enabled: false
+    volume: -6
+    range: 5
+    sound:
+      path: /Audio/Ambience/Objects/crushing.ogg
+  - type: Solution
+    id: tank
+    solution:
+      maxVol: 200
+      canReact: false   # вещества в баке не реагируют между собой
+  - type: RefillableSolution   # воду — ведром или из цистерны
+    solution: tank
+  - type: DrainableSolution
+    solution: tank
+  - type: ContainerContainer
+    containers:
+      dystopia_processor_input: !type:Container {}
+      dystopia_processor_output: !type:Container {}
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 300
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:EmptyAllContainersBehaviour
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          DystopiaFireBrick1:
+            min: 3
+            max: 6
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: DystopiaProcessor
+    group: Coking
+    container: dystopia_processor_input
+    capacity: 30
+    batchesPerCycle: 1
+    cycleTime: 8
+    manual: false
+    requireAnchored: true
+    outputContainer: dystopia_processor_output
+    outputCapacity: 60
+    tank: tank
+    cycleSound:
+      path: /Audio/Effects/stonedoor_openclose.ogg
+      params:
+        volume: -6
+    insertSound:
+      path: /Audio/Effects/stonedoor_openclose.ogg
+      params:
+        volume: -8
+
+- type: entity
+  id: DystopiaHandBrickPress
+  name: hand brick press
+  description: "A wooden frame with an iron lever. Put a lump of clay in the mould and lean on the lever: out drop two raw bricks."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.4,-0.45,0.4,0.3"
+        density: 200
+        mask: [ MachineMask ]
+        layer: [ MidImpassable, LowImpassable ]
+  - type: Pullable
+  - type: Anchorable
+    delay: 2
+  - type: Tag
+    tags: [ Structure ]
+  - type: Sprite
+    sprite: _Dystopia/Structures/Industry/hand_brick_press.rsi
+    noRot: true
+    drawdepth: Objects
+    layers:
+    - state: icon
+      map: [ "enum.DystopiaProcessorVisuals.Running" ]
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DystopiaProcessorVisuals.Running:
+        enum.DystopiaProcessorVisuals.Running:
+          True: { state: running }
+          False: { state: icon }
+  - type: ContainerContainer
+    containers:
+      dystopia_processor_input: !type:Container {}
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 120
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:EmptyAllContainersBehaviour
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          DystopiaIngotCastIron1:
+            min: 1
+            max: 2
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: DystopiaProcessor
+    group: BrickPress
+    container: dystopia_processor_input
+    capacity: 10
+    batchesPerCycle: 1
+    cycleTime: 3
+    manual: true
+    requireAnchored: true
+    workVerb: dystopia-processor-work-press
+    cycleSound:
+      path: /Audio/Effects/break_stone.ogg
+      params:
+        volume: -6
+    insertSound:
+      path: /Audio/Effects/stonedoor_openclose.ogg
+      params:
+        volume: -8
+
+- type: entity
+  id: DystopiaBrickPress
+  name: brick press
+  description: "An electric ram press. Moulds raw bricks from clay and fireclay on its own, two per stroke, while there is power."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.45"
+        density: 250
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]
+  - type: Pullable
+  - type: Anchorable
+    delay: 2
+  - type: Tag
+    tags: [ Structure ]
+  - type: Sprite
+    sprite: _Dystopia/Structures/Industry/brick_press.rsi
+    noRot: true
+    drawdepth: Objects
+    layers:
+    - state: icon
+      map: [ "enum.DystopiaProcessorVisuals.Running" ]
+    - state: unlit
+      map: [ "enum.PowerDeviceVisualLayers.Powered" ]
+      shader: unshaded
+      visible: false
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DystopiaProcessorVisuals.Running:
+        enum.DystopiaProcessorVisuals.Running:
+          True: { state: running }
+          False: { state: icon }
+      enum.PowerDeviceVisuals.Powered:
+        enum.PowerDeviceVisualLayers.Powered:
+          True: { visible: true }
+          False: { visible: false }
+  - type: ApcPowerReceiver
+    powerLoad: 1500
+  - type: ExtensionCableReceiver
+  - type: AmbientSound
+    enabled: false
+    volume: -6
+    range: 5
+    sound:
+      path: /Audio/Ambience/Objects/crushing.ogg
+  - type: ContainerContainer
+    containers:
+      dystopia_processor_input: !type:Container {}
+      dystopia_processor_output: !type:Container {}
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 250
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:EmptyAllContainersBehaviour
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 2
+            max: 4
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: DystopiaProcessor
+    group: BrickPress
+    container: dystopia_processor_input
+    capacity: 30
+    batchesPerCycle: 2
+    cycleTime: 3
+    manual: false
+    requireAnchored: true
+    outputContainer: dystopia_processor_output
+    outputCapacity: 60
+    cycleSound:
+      path: /Audio/Effects/break_stone.ogg
+      params:
+        volume: -6
+    insertSound:
+      path: /Audio/Effects/stonedoor_openclose.ogg
+      params:
+        volume: -8
+
+- type: entity
+  id: DystopiaConcreteMixer
+  name: concrete mixer
+  description: "A drum on a stand. Turns cement, sand, gravel and water into concrete mix to be bucketed into moulds; also mixes glass batch from sand, lime and soda."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.45"
+        density: 250
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]
+  - type: Pullable
+  - type: Anchorable
+    delay: 2
+  - type: Tag
+    tags: [ Structure ]
+  - type: Sprite
+    sprite: _Dystopia/Structures/Industry/concrete_mixer.rsi
+    noRot: true
+    drawdepth: Objects
+    layers:
+    - state: icon
+      map: [ "enum.DystopiaProcessorVisuals.Running" ]
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DystopiaProcessorVisuals.Running:
+        enum.DystopiaProcessorVisuals.Running:
+          True: { state: running }
+          False: { state: icon }
+  - type: ApcPowerReceiver
+    powerLoad: 1500
+  - type: ExtensionCableReceiver
+  - type: AmbientSound
+    enabled: false
+    volume: -6
+    range: 5
+    sound:
+      path: /Audio/Ambience/Objects/crushing.ogg
+  - type: Solution
+    id: tank
+    solution:
+      maxVol: 200
+      canReact: false   # вещества в баке не реагируют между собой
+  - type: RefillableSolution   # воду — ведром или из цистерны
+    solution: tank
+  - type: SolutionManager   # бак продукции
+    solutions:
+    - DystopiaSolutionConcreteMixerProduct
+  - type: DrainableSolution   # сливают готовое
+    solution: product
+  - type: ContainerContainer
+    containers:
+      dystopia_processor_input: !type:Container {}
+      dystopia_processor_output: !type:Container {}
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 200
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:EmptyContainersBehaviour
+        containers: [ dystopia_processor_input, dystopia_processor_output ]
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 2
+            max: 4
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: DystopiaProcessor
+    group: Mixing
+    container: dystopia_processor_input
+    capacity: 30
+    batchesPerCycle: 1
+    cycleTime: 4
+    manual: false
+    requireAnchored: true
+    outputContainer: dystopia_processor_output
+    outputCapacity: 60
+    tank: tank
+    outputTank: product
+    cycleSound:
+      path: /Audio/Effects/Fluids/splash.ogg
+      params:
+        volume: -6
+    insertSound:
+      path: /Audio/Effects/stonedoor_openclose.ogg
+      params:
+        volume: -8
+
+- type: entity
+  id: DystopiaContactApparatus
+  name: contact apparatus
+  description: "A steel column with trays of catalyst inside. Sulfur dioxide and water go in at the top; sulfuric acid collects at the bottom. Runs only on what is in its tank."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.45"
+        density: 250
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]
+  - type: Pullable
+  - type: Anchorable
+    delay: 2
+  - type: Tag
+    tags: [ Structure ]
+  - type: Sprite
+    sprite: _Dystopia/Structures/Industry/contact_apparatus.rsi
+    noRot: true
+    drawdepth: Objects
+    layers:
+    - state: icon
+      map: [ "enum.DystopiaProcessorVisuals.Running" ]
+    - state: unlit
+      map: [ "enum.PowerDeviceVisualLayers.Powered" ]
+      shader: unshaded
+      visible: false
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DystopiaProcessorVisuals.Running:
+        enum.DystopiaProcessorVisuals.Running:
+          True: { state: running }
+          False: { state: icon }
+      enum.PowerDeviceVisuals.Powered:
+        enum.PowerDeviceVisualLayers.Powered:
+          True: { visible: true }
+          False: { visible: false }
+  - type: ApcPowerReceiver
+    powerLoad: 3000
+  - type: ExtensionCableReceiver
+  - type: AmbientSound
+    enabled: false
+    volume: -6
+    range: 5
+    sound:
+      path: /Audio/Ambience/Objects/crushing.ogg
+  - type: Solution
+    id: tank
+    solution:
+      maxVol: 300
+      canReact: false   # вещества в баке не реагируют между собой
+  - type: RefillableSolution   # воду — ведром или из цистерны
+    solution: tank
+  - type: SolutionManager   # бак продукции
+    solutions:
+    - DystopiaSolutionContactProduct
+  - type: DrainableSolution   # сливают готовое
+    solution: product
+  - type: ContainerContainer
+    containers:
+      dystopia_processor_input: !type:Container {}
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 300
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:EmptyContainersBehaviour
+        containers: [ dystopia_processor_input ]
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 3
+            max: 5
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: DystopiaProcessor
+    group: Contact
+    container: dystopia_processor_input
+    capacity: 0
+    batchesPerCycle: 2
+    cycleTime: 4
+    manual: false
+    requireAnchored: true
+    tank: tank
+    outputTank: product
+    cycleSound:
+      path: /Audio/Effects/Fluids/splash.ogg
+      params:
+        volume: -6
+    insertSound:
+      path: /Audio/Effects/stonedoor_openclose.ogg
+      params:
+        volume: -8

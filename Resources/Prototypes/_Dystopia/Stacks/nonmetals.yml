@@ -107,6 +107,27 @@
   maxCount: 30
 
 - type: stack
+  id: DystopiaGravel
+  name: stack-dystopia-gravel
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/NonMetals/products.rsi, state: gravel }
+  spawn: DystopiaGravel1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaFireBrickRaw
+  name: stack-dystopia-fire-brick-raw
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/NonMetals/products.rsi, state: fire_brick_raw }
+  spawn: DystopiaFireBrickRaw1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaGlassBatch
+  name: stack-dystopia-glass-batch
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/NonMetals/products.rsi, state: glass_batch }
+  spawn: DystopiaGlassBatch1
+  maxCount: 30
+
+- type: stack
   id: DystopiaPyriteCinder
   name: stack-dystopia-pyrite-cinder
   icon: { sprite: /Textures/_Dystopia/Objects/Materials/NonMetals/products.rsi, state: pyrite_cinder }

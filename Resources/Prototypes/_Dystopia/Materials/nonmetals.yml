@@ -138,6 +138,33 @@
   price: 0.04
 
 - type: material
+  id: DystopiaGravel
+  stackEntity: DystopiaGravel1
+  name: materials-dystopia-gravel
+  unit: materials-unit-dystopia-handful
+  icon: { sprite: _Dystopia/Objects/Materials/NonMetals/products.rsi, state: gravel }
+  color: "#8a857a"
+  price: 0.01
+
+- type: material
+  id: DystopiaFireBrickRaw
+  stackEntity: DystopiaFireBrickRaw1
+  name: materials-dystopia-fire-brick-raw
+  unit: materials-unit-dystopia-brick
+  icon: { sprite: _Dystopia/Objects/Materials/NonMetals/products.rsi, state: fire_brick_raw }
+  color: "#b4a68a"
+  price: 0.02
+
+- type: material
+  id: DystopiaGlassBatch
+  stackEntity: DystopiaGlassBatch1
+  name: materials-dystopia-glass-batch
+  unit: materials-unit-dystopia-handful
+  icon: { sprite: _Dystopia/Objects/Materials/NonMetals/products.rsi, state: glass_batch }
+  color: "#d6d0bc"
+  price: 0.03
+
+- type: material
   id: DystopiaPyriteCinder
   stackEntity: DystopiaPyriteCinder1
   name: materials-dystopia-pyrite-cinder

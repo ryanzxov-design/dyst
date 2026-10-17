@@ -4,7 +4,7 @@
 - type: entity
   id: DystopiaBookMetallurgy
   name: metallurgist's handbook
-  description: A thick workshop handbook with greasy fingerprints on every page. Ores, forges, alloys, ore processing.
+  description: A thick workshop handbook with greasy fingerprints on every page. Ores, forges, alloys, ore processing, lime, bricks, glass.
   components:
   - type: Item
     size: Small

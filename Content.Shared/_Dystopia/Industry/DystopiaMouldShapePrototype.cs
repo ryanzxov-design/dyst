@@ -32,4 +32,15 @@ public sealed partial class DystopiaMouldShapePrototype : IPrototype
     /// <summary>Минимальная доля основного металла в расплаве, иначе брак.</summary>
     [DataField]
     public float MinPurity = 0.95f;
+
+    /// <summary>
+    /// Схватывание, секунды: отливка из этого вещества выходит не сразу, а через столько секунд после последнего
+    /// налива (бетон успевают долить ведром в несколько приёмов). Металлам не нужно — их держит жар.
+    /// </summary>
+    [DataField]
+    public Dictionary<ProtoId<ReagentPrototype>, float> SettingTime = new();
+
+    /// <summary>Свой брак для вещества (бетон крошится в щебень, а не в шлак). Нет — <see cref="Defect"/>.</summary>
+    [DataField]
+    public Dictionary<ProtoId<ReagentPrototype>, EntProtoId> Defects = new();
 }

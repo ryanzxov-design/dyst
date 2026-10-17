@@ -39,5 +39,18 @@
   [color=#9ab0c4]Боксит[/color] (алюминий), [color=#9ab0c4]уранинит[/color] (уран), [color=#9ab0c4]каменная соль[/color] (натрий), [color=#9ab0c4]сильвин[/color] (калий), [color=#9ab0c4]сподумен[/color] (литий) и [color=#9ab0c4]киноварь[/color] (ртуть) идут другим путём — через печь, кислоту и ток. Об этом раздел [textlink="Металлы без тигля" link="DystopiaMetallurgyChemical"].
 
   ## Уголь
-  [color=#9ab0c4]Уголь[/color] в горне — топливо, а в тигле — [color=#7ac8b0]углерод[/color] для стали и чугуна. Не путайте, куда его кладёте.
+  [color=#9ab0c4]Уголь[/color] в горне — топливо, а в тигле — [color=#7ac8b0]углерод[/color] для стали и чугуна. Не путайте, куда его кладёте. Из угля делают [color=#9ab0c4]кокс[/color], он горит дольше (см. [textlink="Кокс, сера, соль" link="DystopiaMetallurgySulfurSalt"]).
+
+  ## Камень, глина и прочее
+  <Box>
+      <GuideEntityEmbed Entity="DystopiaOreLimestone" Caption=""/>
+      <GuideEntityEmbed Entity="DystopiaOreClay" Caption=""/>
+      <GuideEntityEmbed Entity="DystopiaOreFireclay" Caption=""/>
+      <GuideEntityEmbed Entity="DystopiaOreGypsum" Caption=""/>
+      <GuideEntityEmbed Entity="DystopiaOreSulfur" Caption=""/>
+      <GuideEntityEmbed Entity="DystopiaOrePyrite" Caption=""/>
+      <GuideEntityEmbed Entity="SpaceQuartz" Caption=""/>
+  </Box>
+
+  [color=#9ab0c4]Известняк[/color], [color=#9ab0c4]глина[/color], [color=#9ab0c4]шамотная глина[/color], [color=#9ab0c4]гипс[/color], [color=#9ab0c4]самородная сера[/color], [color=#9ab0c4]пирит[/color] и [color=#9ab0c4]кварц[/color] металла почти не дают, но без них не будет ни бетона, ни кирпича, ни стекла, ни кислоты. [color=#9ab0c4]Графит[/color] копают про запас: в дело он пока не идёт.
 </Document>

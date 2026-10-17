@@ -8,6 +8,7 @@ using Content.Shared._Dystopia.Industry;
 using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Containers.ItemSlots;
 using Content.Shared.Examine;
+using Content.Shared.FixedPoint;
 using Content.Shared.Interaction;
 using Content.Shared.Popups;
 using Content.Shared.Verbs;
@@ -99,8 +100,17 @@ public sealed partial class DystopiaMouldSystem : EntitySystem
         var comp = ent.Comp;
         if (!_solution.TryGetSolution(ent.Owner, comp.Solution, out var soln, out var solution) || solution.Volume <= 0)
         {
+            comp.LastVolume = FixedPoint2.Zero;
             _hot.SetHot(ent.Owner, false);
             return;
+        }
+
+        // Когда последний раз доливали — от этого считается схватывание.
+        var now = _timing.CurTime;
+        if (solution.Volume != comp.LastVolume)
+        {
+            comp.LastVolume = solution.Volume;
+            comp.VolumeChangedAt = now;
         }
 
         var temperature = solution.Temperature;
@@ -116,13 +126,21 @@ public sealed partial class DystopiaMouldSystem : EntitySystem
             return;
         }
 
+        // Бетон и подобное схватываются не сразу: ждут, пока перестанут доливать.
+        if (shape.SettingTime.TryGetValue(primary.Prototype, out var setting) &&
+            now < comp.VolumeChangedAt + TimeSpan.FromSeconds(setting))
+        {
+            return;
+        }
+
+        var defect = shape.Defects.TryGetValue(primary.Prototype, out var own) ? own : shape.Defect;
         var coords = Transform(ent).Coordinates;
         while (solution.Volume >= shape.Volume)
         {
             var purity = (float) (solution.GetTotalPrototypeQuantity(primary.Prototype) / solution.Volume);
             var product = purity >= shape.MinPurity && shape.Products.TryGetValue(primary.Prototype, out var cast)
                 ? cast
-                : shape.Defect;
+                : defect;
 
             _solution.SplitSolution(soln.Value, shape.Volume);
             SpawnCasting(ent, product, coords);
@@ -132,7 +150,7 @@ public sealed partial class DystopiaMouldSystem : EntitySystem
         if (solution.Volume > 0)
         {
             _solution.RemoveAllSolution(soln.Value);
-            SpawnCasting(ent, shape.Defect, coords);
+            SpawnCasting(ent, defect, coords);
         }
 
         _hot.SetHot(ent.Owner, false);

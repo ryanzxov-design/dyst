@@ -1,0 +1,48 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: неметаллы, шаг 2 — переработка.
+# Баки продукции машин: отдельный раствор "product", чтобы готовое не мешалось с тем, что залили.
+# Вещества в них не реагируют между собой. Самостоятельные сущности, без parent.
+
+- type: entity
+  id: DystopiaSolutionLeachingProduct
+  categories: [ HideSpawnMenu ]
+  name: product tank
+  components:
+  - type: Solution
+    id: product
+    solution:
+      maxVol: 600
+      canReact: false
+
+- type: entity
+  id: DystopiaSolutionElectrolyzerProduct
+  categories: [ HideSpawnMenu ]
+  name: product tank
+  components:
+  - type: Solution
+    id: product
+    solution:
+      maxVol: 600
+      canReact: false
+
+- type: entity
+  id: DystopiaSolutionConcreteMixerProduct
+  categories: [ HideSpawnMenu ]
+  name: product tank
+  components:
+  - type: Solution
+    id: product
+    solution:
+      maxVol: 400
+      canReact: false
+
+- type: entity
+  id: DystopiaSolutionContactProduct
+  categories: [ HideSpawnMenu ]
+  name: product tank
+  components:
+  - type: Solution
+    id: product
+    solution:
+      maxVol: 300
+      canReact: false

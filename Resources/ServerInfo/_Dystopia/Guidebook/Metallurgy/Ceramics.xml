@@ -1,0 +1,41 @@
+<Document>
+  # Кирпич и стекло
+
+  ## Кирпич
+  <Box>
+      <GuideEntityEmbed Entity="DystopiaHandBrickPress" Caption=""/>
+      <GuideEntityEmbed Entity="DystopiaBrickPress" Caption=""/>
+      <GuideEntityEmbed Entity="DystopiaBrickRaw" Caption=""/>
+      <GuideEntityEmbed Entity="DystopiaBrick" Caption=""/>
+  </Box>
+
+  [color=#d2ae68]Кирпичный пресс[/color] делает из куска [color=#9ab0c4]глины[/color] [color=#ff9a50]2[/color] [color=#9ab0c4]кирпича-сырца[/color], из куска [color=#9ab0c4]шамотной глины[/color] — [color=#ff9a50]2[/color] [color=#9ab0c4]шамотных сырца[/color].
+  - [color=#d2ae68]Ручной[/color] работает, пока налегаете на рычаг. Сырец падает на пол.
+  - [color=#d2ae68]Электрический[/color] берёт [color=#ff9a50]1500[/color] Вт и жмёт по [color=#ff9a50]2[/color] куска за цикл. Сырец складывает внутрь.
+
+  Сырец обжигают в [color=#d2ae68]обжиговой печи[/color]: из глиняного выходит [color=#9ab0c4]кирпич[/color], из шамотного — [color=#9ab0c4]огнеупорный кирпич[/color]. Сырой кирпич в постройки не годится.
+
+  ## Стекло
+  <Box>
+      <GuideEntityEmbed Entity="DystopiaSand" Caption=""/>
+      <GuideEntityEmbed Entity="SpaceQuartz" Caption=""/>
+      <GuideEntityEmbed Entity="DystopiaGlassBatch" Caption=""/>
+      <GuideEntityEmbed Entity="SheetGlass" Caption=""/>
+  </Box>
+
+  Стекло варят в тигле, как металл.
+  - [color=#9ab0c4]Песок[/color]: от [color=#ff9a50]1650 °C[/color], только с мехами или в электрическом горне. Горсть даёт [color=#ff9a50]8[/color] ед. [color=#7ac8b0]расплава стекла[/color] и [color=#ff9a50]2[/color] ед. [color=#7ac8b0]шлака[/color]. Шлак снимите до разлива.
+  - [color=#9ab0c4]Кварц[/color] и битые [color=#9ab0c4]листы стекла[/color]: от [color=#ff9a50]1400 °C[/color], тоже с мехами. Кусок или лист даёт [color=#ff9a50]10[/color] ед. расплава.
+  - [color=#9ab0c4]Стекольная шихта[/color]: от [color=#ff9a50]1050 °C[/color], хватает горна без мехов. Горсть даёт [color=#ff9a50]10[/color] ед. расплава, без шлака.
+
+  Шихту мешают в [color=#d2ae68]бетономешалке[/color]: [color=#ff9a50]3[/color] горсти песка и [color=#ff9a50]1[/color] горсть [color=#9ab0c4]негашёной извести[/color], а в бак — [color=#ff9a50]5[/color] ед. [color=#7ac8b0]карбоната натрия[/color] (соды). Выходит [color=#ff9a50]3[/color] горсти шихты. Где взять соду, сказано в [textlink="Кокс, сера, соль" link="DystopiaMetallurgySulfurSalt"].
+
+  Расплав стекла застывает около [color=#ff9a50]1000 °C[/color]. Лейте его в [color=#d2ae68]изложницу на лист[/color], выйдет [color=#9ab0c4]лист стекла[/color]. В изложнице на слиток или пруток получится брак. [color=#d2ae68]Дуговая печь[/color] тоже умеет варить и разливать стекло.
+
+  ## Пиритный огарок
+  <Box>
+      <GuideEntityEmbed Entity="DystopiaPyriteCinder" Caption=""/>
+  </Box>
+
+  Обожжённый пирит ([color=#9ab0c4]огарок[/color]) — почти чистое железо. В тигле от [color=#ff9a50]1550 °C[/color] горсть даёт [color=#ff9a50]7[/color] ед. [color=#7ac8b0]железа[/color] и [color=#ff9a50]3[/color] ед. шлака.
+</Document>

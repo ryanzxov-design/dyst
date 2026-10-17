@@ -4,6 +4,7 @@
 # (плавится в тигле в уран) + радий в бак; обожжённый сподумен + серная кислота → литий в бак.
 # Электролизёр (Electrolysis): глинозём → слиток алюминия; каменная соль → натрий, сильвин → калий (хлор — в вытяжку).
 # Баки этих машин не реагируют (canReact: false): калий с водой, радий с кислотой не прореагируют внутри.
+# Рассол в электролизёре — едкий натр, хлор и водород. У чана и электролизёра готовое — в отдельный бак продукции.
 # Вещества — в бак машины (сливать сосудом через ПКМ или по трубам импортером).
 # Самостоятельные сущности, без parent.
 
@@ -154,7 +155,7 @@
 - type: entity
   id: DystopiaLeachingTank
   name: leaching tank
-  description: "A stirred acid-proof tank. Fill it with the right solution and load ore: bauxite takes lye and water, uraninite and roasted spodumene take sulfuric acid."
+  description: "A stirred acid-proof tank. Bauxite takes lye, uraninite and roasted spodumene take sulfuric acid; salt and lime are dissolved here too. The finished solution collects in a separate settling tank."
   placement:
     mode: SnapgridCenter
   components:
@@ -230,8 +231,11 @@
       canReact: false   # вещества в баке не реагируют между собой
   - type: RefillableSolution   # воду — ведром или из цистерны
     solution: tank
-  - type: DrainableSolution
-    solution: tank
+  - type: SolutionManager   # бак продукции
+    solutions:
+    - DystopiaSolutionLeachingProduct
+  - type: DrainableSolution   # сливают готовое
+    solution: product
   - type: ContainerContainer
     containers:
       dystopia_processor_input: !type:Container {}
@@ -248,7 +252,8 @@
       - !type:PlaySoundBehavior
         sound:
           collection: MetalBreak
-      - !type:EmptyAllContainersBehaviour
+      - !type:EmptyContainersBehaviour
+        containers: [ dystopia_processor_input, dystopia_processor_output ]
       - !type:SpawnEntitiesBehavior
         spawn:
           SheetSteel1:
@@ -267,6 +272,7 @@
     outputContainer: dystopia_processor_output
     outputCapacity: 60
     tank: tank
+    outputTank: product
     cycleSound:
       path: /Audio/Effects/Fluids/splash.ogg
       params:
@@ -279,7 +285,7 @@
 - type: entity
   id: DystopiaElectrolyzer
   name: electrolytic cell
-  description: "A bath of molten salts under heavy current. Turns alumina into aluminium, rock salt into sodium and sylvite into potassium; the chlorine goes up the vent. Extremely power-hungry."
+  description: "A bath of molten salts under heavy current. Turns alumina into aluminium, rock salt into sodium and sylvite into potassium. Fill it with brine and it gives lye, chlorine and hydrogen into a separate tank. Extremely power-hungry."
   placement:
     mode: SnapgridCenter
   components:
@@ -382,8 +388,11 @@
       canReact: false   # вещества в баке не реагируют между собой
   - type: RefillableSolution   # воду — ведром или из цистерны
     solution: tank
-  - type: DrainableSolution
-    solution: tank
+  - type: SolutionManager   # бак продукции
+    solutions:
+    - DystopiaSolutionElectrolyzerProduct
+  - type: DrainableSolution   # сливают готовое
+    solution: product
   - type: ContainerContainer
     containers:
       dystopia_processor_input: !type:Container {}
@@ -400,7 +409,8 @@
       - !type:PlaySoundBehavior
         sound:
           collection: MetalBreak
-      - !type:EmptyAllContainersBehaviour
+      - !type:EmptyContainersBehaviour
+        containers: [ dystopia_processor_input, dystopia_processor_output ]
       - !type:SpawnEntitiesBehavior
         spawn:
           SheetSteel1:
@@ -419,6 +429,7 @@
     outputContainer: dystopia_processor_output
     outputCapacity: 60
     tank: tank
+    outputTank: product
     cycleSound:
       path: /Audio/Effects/Fluids/splash.ogg
       params:

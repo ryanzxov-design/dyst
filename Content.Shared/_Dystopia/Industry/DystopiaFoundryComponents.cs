@@ -214,6 +214,13 @@ public sealed partial class DystopiaMouldComponent : Component
     [DataField]
     public float UpdateInterval = 0.5f;
 
+    // --- схватывание: когда последний раз менялся объём
+    [ViewVariables]
+    public FixedPoint2 LastVolume;
+
+    [ViewVariables]
+    public TimeSpan VolumeChangedAt;
+
     [ViewVariables]
     public TimeSpan NextUpdate;
 }

@@ -347,6 +347,7 @@
         acts: [ Destruction ]
   - type: DystopiaForge
     fuelMaterials:
+      DystopiaCoke: 300
       Coal: 120
       Wood: 45
     maxFuel: 900

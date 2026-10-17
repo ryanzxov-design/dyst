@@ -120,6 +120,45 @@
             "directions": 4
         },
         {
+            "name": "gravel"
+        },
+        {
+            "name": "gravel-inhand-left",
+            "directions": 4
+        },
+        {
+            "name": "gravel-inhand-right",
+            "directions": 4
+        },
+        {
+            "name": "fire_brick_raw"
+        },
+        {
+            "name": "fire_brick_raw_2"
+        },
+        {
+            "name": "fire_brick_raw_3"
+        },
+        {
+            "name": "fire_brick_raw-inhand-left",
+            "directions": 4
+        },
+        {
+            "name": "fire_brick_raw-inhand-right",
+            "directions": 4
+        },
+        {
+            "name": "glass_batch"
+        },
+        {
+            "name": "glass_batch-inhand-left",
+            "directions": 4
+        },
+        {
+            "name": "glass_batch-inhand-right",
+            "directions": 4
+        },
+        {
             "name": "pyrite_cinder"
         },
         {

@@ -1,0 +1,35 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: неметаллы, шаг 2 — переработка.
+# Плавка неметаллов в тигле: стекло из песка, кварца и шихты, железо из огарка, кокс как науглероживатель.
+
+- type: dystopiaSmeltable
+  id: DystopiaSand
+  meltTemperature: 1923.15  # 1650 °C — только с мехами; без соды песок даёт грязное стекло
+  products:
+    DystopiaMoltenGlass: 8
+    DystopiaMoltenSlag: 2
+
+- type: dystopiaSmeltable
+  id: Glass
+  meltTemperature: 1673.15  # 1400 °C — кварц и битые листы стекла, с мехами
+  products:
+    DystopiaMoltenGlass: 10
+
+- type: dystopiaSmeltable
+  id: DystopiaGlassBatch
+  meltTemperature: 1323.15  # 1050 °C — с содой хватает горна без мехов
+  products:
+    DystopiaMoltenGlass: 10
+
+- type: dystopiaSmeltable
+  id: DystopiaPyriteCinder
+  meltTemperature: 1823.15  # 1550 °C — огарок плавится в железо
+  products:
+    DystopiaMoltenIron: 7
+    DystopiaMoltenSlag: 3
+
+- type: dystopiaSmeltable
+  id: DystopiaCoke
+  meltTemperature: 1273.15  # 1000 °C — кокс, как и уголь, науглероживает: кусок = 1 ед. углерода
+  products:
+    Carbon: 1

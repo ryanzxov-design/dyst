@@ -34,7 +34,7 @@ public sealed partial class DystopiaProcessorComponent : Component
     [DataField]
     public string? OutputContainer;
 
-    /// <summary>Сколько единиц сырья влезает в загрузку.</summary>
+    /// <summary>Сколько единиц сырья влезает в загрузку. 0 — загрузки нет, машина работает только на веществах бака.</summary>
     [DataField]
     public int Capacity = 30;
 
@@ -61,6 +61,13 @@ public sealed partial class DystopiaProcessorComponent : Component
     /// <summary>Бак (раствор) для реагентов рецепта — например, воды у обогатителя.</summary>
     [DataField]
     public string? Tank;
+
+    /// <summary>
+    /// Отдельный бак продукции: вещества рецептов (produces) идут сюда, а не в <see cref="Tank"/>, чтобы не
+    /// мешаться с тем, что залили. Нет — в <see cref="Tank"/>.
+    /// </summary>
+    [DataField]
+    public string? OutputTank;
 
     /// <summary>Подпись действия ручной работы («Крутить ворот», «Качать лоток»).</summary>
     [DataField]
@@ -95,12 +102,20 @@ public sealed partial class DystopiaProcessRecipePrototype : IPrototype
     [DataField(required: true)]
     public string Group = string.Empty;
 
-    [DataField(required: true)]
-    public ProtoId<StackPrototype> Input;
+    /// <summary>
+    /// Основное сырьё. Нет — рецепт только из веществ бака (контактный аппарат, хлор-щелочной электролиз...):
+    /// партия идёт, как только в баке хватает реагентов.
+    /// </summary>
+    [DataField]
+    public ProtoId<StackPrototype>? Input;
 
     /// <summary>Сколько единиц сырья на одну партию.</summary>
     [DataField]
     public int InputCount = 1;
+
+    /// <summary>Ещё сырьё на партию, кроме основного (песок и щебень к цементу...).</summary>
+    [DataField]
+    public Dictionary<ProtoId<StackPrototype>, int> ExtraInputs = new();
 
     /// <summary>Основная продукция (одиночный предмет стека). Нет — рецепт даёт только вещества в бак.</summary>
     [DataField]

@@ -48,7 +48,7 @@
   physicalDesc: reagent-physical-desc-thick-and-grainy
   flavor: bitter
   color: "#8e8e88"
-  meltingPoint: 0.0
+  meltingPoint: 60.0
   boilingPoint: 100.0
   reactiveEffects:
     Acidic:

@@ -123,7 +123,7 @@ public sealed partial class DystopiaLiquidDeviceSystem : EntitySystem
             {
                 foreach (var target in Targets(ent, xform, ent.Comp.TargetSide))
                 {
-                    if (Refuses(target) || IsCasting(target) || TankSolution(target) is not { } tank)
+                    if (Refuses(target) || IsCasting(target) || DrainSolution(target) is not { } tank)
                         continue;
 
                     var moved = MoveOut(tank, net.Solution, max);
@@ -185,6 +185,27 @@ public sealed partial class DystopiaLiquidDeviceSystem : EntitySystem
 
         if (_solution.TryGetDrainableSolution(uid, out var drain, out _))
             return drain;
+
+        return null;
+    }
+
+    /// <summary>
+    /// Откуда забирать (импортёр): у машины с баком продукции — из него; иначе сначала то, из чего сливают
+    /// (у отстойника слив — это продукт, а залив — вода), потом то, во что наливают.
+    /// </summary>
+    private Entity<SolutionComponent>? DrainSolution(EntityUid uid)
+    {
+        if (TryComp<DystopiaProcessorComponent>(uid, out var processor) && processor.OutputTank is { } output &&
+            _solution.TryGetSolution(uid, output, out var product, out _))
+        {
+            return product;
+        }
+
+        if (_solution.TryGetDrainableSolution(uid, out var drain, out _))
+            return drain;
+
+        if (_solution.TryGetRefillableSolution(uid, out var refill, out _))
+            return refill;
 
         return null;
     }

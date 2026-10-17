@@ -199,6 +199,7 @@
     slagCapacity: 120
     footprint: 1              # 3×3
     castable:
+    - DystopiaMoltenGlass
     - DystopiaMoltenSteel
     - DystopiaMoltenIron
     - DystopiaMoltenCastIron

@@ -1,0 +1,55 @@
+<Document>
+  # Известь, цемент, бетон
+
+  Весь Город стоит на бетоне. Его делают из четырёх вещей: [color=#9ab0c4]цемента[/color], [color=#9ab0c4]песка[/color], [color=#9ab0c4]щебня[/color] и [color=#7ac8b0]воды[/color]. Машины по большей части те же, что в обогащении руды.
+
+  ## Щебень и песок
+  <Box>
+      <GuideEntityEmbed Entity="DystopiaJawCrusher" Caption=""/>
+      <GuideEntityEmbed Entity="DystopiaBallMill" Caption=""/>
+      <GuideEntityEmbed Entity="DystopiaGravel" Caption=""/>
+      <GuideEntityEmbed Entity="DystopiaSand" Caption=""/>
+  </Box>
+
+  - Кусок [color=#9ab0c4]известняка[/color] в любой [color=#d2ae68]дробилке[/color] даёт [color=#ff9a50]2[/color] горсти [color=#9ab0c4]щебня[/color].
+  - Кусок [color=#9ab0c4]кварца[/color] в дробилке даёт [color=#ff9a50]2[/color] горсти [color=#9ab0c4]песка[/color].
+  - Горсть щебня в любой [color=#d2ae68]мельнице[/color] даёт горсть песка.
+
+  Песок остаётся и после обогащения руды, его не выбрасывайте.
+
+  ## Известь и клинкер
+  <Box>
+      <GuideEntityEmbed Entity="DystopiaRoastingFurnace" Caption=""/>
+      <GuideEntityEmbed Entity="DystopiaQuicklime" Caption=""/>
+      <GuideEntityEmbed Entity="DystopiaClinker" Caption=""/>
+  </Box>
+
+  Обжигают в [color=#d2ae68]обжиговой печи[/color].
+  - Кусок [color=#9ab0c4]известняка[/color] становится [color=#9ab0c4]негашёной известью[/color].
+  - Кусок [color=#9ab0c4]глины[/color] и [color=#ff9a50]2[/color] куска известняка дают [color=#ff9a50]2[/color] горсти [color=#9ab0c4]клинкера[/color].
+
+  Если в печи лежат и глина, и известняк, печь сначала делает клинкер и только потом жжёт оставшийся известняк в известь. Нужна чистая известь — не кладите глину.
+
+  ## Цемент
+  <Box>
+      <GuideEntityEmbed Entity="DystopiaCement" Caption=""/>
+      <GuideEntityEmbed Entity="DystopiaOreGypsum" Caption=""/>
+  </Box>
+
+  [color=#ff9a50]4[/color] горсти клинкера и [color=#ff9a50]1[/color] кусок [color=#9ab0c4]гипса[/color] в [color=#d2ae68]мельнице[/color] дают [color=#ff9a50]4[/color] мешка [color=#9ab0c4]цемента[/color]. Без гипса клинкер так и пролежит в мельнице.
+
+  ## Бетон
+  <Box>
+      <GuideEntityEmbed Entity="DystopiaConcreteMixer" Caption=""/>
+      <GuideEntityEmbed Entity="DystopiaConcreteBlock" Caption=""/>
+  </Box>
+
+  В [color=#d2ae68]бетономешалку[/color] кладут [color=#ff9a50]1[/color] мешок цемента, [color=#ff9a50]2[/color] горсти песка и [color=#ff9a50]2[/color] горсти щебня, а в бак наливают [color=#ff9a50]10[/color] ед. [color=#7ac8b0]воды[/color]. Выходит [color=#ff9a50]40[/color] ед. [color=#7ac8b0]бетонной смеси[/color], она собирается в отдельный бак готового. Мешалка берёт [color=#ff9a50]1500[/color] Вт.
+
+  Смесь [bold]набирают ведром[/bold] через ПКМ ([bold]«Набрать готового»[/bold]) и [bold]льют в изложницу[/bold] на слиток или на лист, по [color=#ff9a50]10[/color] ед. на блок. В литейный стол с формой ×10 входит [color=#ff9a50]100[/color] ед., это [color=#ff9a50]10[/color] блоков.
+
+  Бетон схватывается через [color=#ff9a50]15[/color] секунд после последнего налива. Пока не схватился, можно доливать. Если смеси не хватило на целый блок, она раскрошится в [color=#9ab0c4]щебень[/color]. В изложнице на пруток бетон тоже крошится.
+
+  ## Известковое молоко
+  [color=#9ab0c4]Негашёная известь[/color] в [color=#d2ae68]чане выщелачивания[/color] с [color=#ff9a50]10[/color] ед. воды даёт [color=#ff9a50]10[/color] ед. [color=#7ac8b0]гашёной извести[/color].
+</Document>

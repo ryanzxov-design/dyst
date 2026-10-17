@@ -178,6 +178,7 @@
   - type: DystopiaForge
     # Топливо: секунд горения на 100 единиц материала (кусок угля, доска)
     fuelMaterials:
+      DystopiaCoke: 300
       Coal: 120
       Wood: 45
     maxFuel: 900

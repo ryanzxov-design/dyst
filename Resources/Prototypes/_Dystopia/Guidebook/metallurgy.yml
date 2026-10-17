@@ -13,6 +13,9 @@
   - DystopiaMetallurgyBeneficiation
   - DystopiaMetallurgyForming
   - DystopiaMetallurgyChemical
+  - DystopiaMetallurgyBuilding
+  - DystopiaMetallurgyCeramics
+  - DystopiaMetallurgySulfurSalt
   - DystopiaMetallurgyLogistics
   - DystopiaMetallurgySafety
 
@@ -50,6 +53,21 @@
   id: DystopiaMetallurgyChemical
   name: guide-entry-dystopia-metallurgy-chemical
   text: "/ServerInfo/_Dystopia/Guidebook/Metallurgy/Chemical.xml"
+
+- type: guideEntry
+  id: DystopiaMetallurgyBuilding
+  name: guide-entry-dystopia-metallurgy-building
+  text: "/ServerInfo/_Dystopia/Guidebook/Metallurgy/Building.xml"
+
+- type: guideEntry
+  id: DystopiaMetallurgyCeramics
+  name: guide-entry-dystopia-metallurgy-ceramics
+  text: "/ServerInfo/_Dystopia/Guidebook/Metallurgy/Ceramics.xml"
+
+- type: guideEntry
+  id: DystopiaMetallurgySulfurSalt
+  name: guide-entry-dystopia-metallurgy-sulfur-salt
+  text: "/ServerInfo/_Dystopia/Guidebook/Metallurgy/SulfurSalt.xml"
 
 - type: guideEntry
   id: DystopiaMetallurgyLogistics

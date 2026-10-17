@@ -4,12 +4,13 @@ dystopia-processor-work-verb = Работать
 dystopia-processor-work-crank = Крутить ворот
 dystopia-processor-work-turn = Крутить жернова
 dystopia-processor-work-rock = Качать лоток
+dystopia-processor-work-press = Налечь на рычаг
 dystopia-processor-not-accepted = { CAPITALIZE(THE($item)) } сюда не подходит.
 dystopia-processor-full = Загрузка полна.
 dystopia-processor-loaded = Вы загружаете { $item } ({ $loaded } из { $capacity }).
 dystopia-processor-empty = Внутри нет сырья.
 dystopia-processor-not-enough = Сырья не хватает на партию.
-dystopia-processor-no-reagents = Не хватает воды.
+dystopia-processor-no-reagents = В баке не хватает того, что нужно для партии.
 dystopia-processor-output-full = Продукции некуда деваться — выгрузите её.
 dystopia-processor-not-anchored = Машина не закреплена — прикрутите её к полу ключом.
 dystopia-processor-unload-verb = Выгрузить продукцию
@@ -21,10 +22,14 @@ dystopia-processor-tank-draw-verb = Отлить из бака ({ $amount } ед
 dystopia-processor-tank-drawn = Вы отливаете { $amount } ед. из бака.
 dystopia-processor-tank-dump-verb = Слить бак на пол
 dystopia-processor-tank-dumped = Вы сливаете бак на пол.
+dystopia-processor-output-tank-draw-verb = Набрать готового ({ $amount } ед.)
+dystopia-processor-output-tank-dump-verb = Слить готовое на пол
 dystopia-processor-examine-load = Сырья: { $loaded } из { $capacity }.
 dystopia-processor-examine-output = Готовой продукции: { $units } из { $capacity } (выгрузка — клик рукой или ПКМ).
 dystopia-processor-examine-tank = В баке { $volume } из { $max } ед.: { $contents }.
 dystopia-processor-examine-tank-empty = Бак пуст (вмещает { $max } ед.).
+dystopia-processor-examine-output-tank = Готового { $volume } из { $max } ед.: { $contents }.
+dystopia-processor-examine-output-tank-empty = Готового пока нет (вмещает { $max } ед.).
 dystopia-processor-examine-tank-entry = [color={ $color }]{ $name }[/color] { $amount }
 dystopia-processor-examine-cycle = За цикл — { $batches } { $batches ->
     [one] партия
@@ -35,13 +40,13 @@ dystopia-processor-examine-loose = [color=#d0a040]Не прикручено к �
 dystopia-processor-examine-unpowered = [color=#d05050]Нет питания.[/color]
 
 ent-DystopiaHandCrusher = ручная дробилка
-    .desc = Ручная щековая дробилка с маховиком. Заложите кусок руды и крутите ворот, на выходе две горсти щебня.
+    .desc = Ручная щековая дробилка с маховиком. Заложите кусок руды и крутите ворот, на выходе две горсти дроблёной руды.
 ent-DystopiaJawCrusher = щековая дробилка
     .desc = Щековая дробилка на электромоторе. Сама грызёт руду по куску, пока есть ток.
 ent-DystopiaConeCrusher = конусная дробилка
     .desc = Конусная дробилка. Шумная и прожорливая, зато дробит по три куска за раз.
 ent-DystopiaHandMill = ручные жернова
-    .desc = Ручные жернова. Сыпьте щебень в глазок и крутите, и выйдет рудная мука.
+    .desc = Ручные жернова. Сыпьте дроблёную руду в глазок и крутите, и выйдет рудная мука.
 ent-DystopiaBallMill = шаровая мельница
     .desc = Шаровая мельница: барабан со стальными шарами. Грохочет так, что разговаривать рядом бесполезно.
 ent-DystopiaBallMillLarge = большая шаровая мельница
