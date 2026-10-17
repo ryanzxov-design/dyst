@@ -1,0 +1,62 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: ступень ×5 переработки металлов. Молотая руда (из мельницы) обогащается тремя путями:
+# флотация — халькопирит, сфалерит, галенит, аргентит, касситерит (2 горсти молотой + 20 воды + 1 флотореагента →
+# 5 флотоконцентрата + песок; у полиметаллических руд — партия ×4 с попутным концентратом);
+# магнитная сепарация — гематит, хромит (2 горсти → 5 магнитного концентрата + песок, всухую);
+# амальгамация — золото (2 горсти + 10 воды + 2 ртути → 5 амальгамы + песок; ртуть в тигле выкипает).
+
+- type: stack
+  id: DystopiaMagneticHematite
+  name: stack-dystopia-magnetic-hematite
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/ore_processing_x5.rsi, state: magnetic_hematite }
+  spawn: DystopiaMagneticHematite1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaFlotationChalcopyrite
+  name: stack-dystopia-flotation-chalcopyrite
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/ore_processing_x5.rsi, state: flotation_chalcopyrite }
+  spawn: DystopiaFlotationChalcopyrite1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaFlotationSphalerite
+  name: stack-dystopia-flotation-sphalerite
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/ore_processing_x5.rsi, state: flotation_sphalerite }
+  spawn: DystopiaFlotationSphalerite1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaFlotationCassiterite
+  name: stack-dystopia-flotation-cassiterite
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/ore_processing_x5.rsi, state: flotation_cassiterite }
+  spawn: DystopiaFlotationCassiterite1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaFlotationGalena
+  name: stack-dystopia-flotation-galena
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/ore_processing_x5.rsi, state: flotation_galena }
+  spawn: DystopiaFlotationGalena1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaAmalgamGold
+  name: stack-dystopia-amalgam-gold
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/ore_processing_x5.rsi, state: amalgam_gold }
+  spawn: DystopiaAmalgamGold1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaFlotationArgentite
+  name: stack-dystopia-flotation-argentite
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/ore_processing_x5.rsi, state: flotation_argentite }
+  spawn: DystopiaFlotationArgentite1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaMagneticChromite
+  name: stack-dystopia-magnetic-chromite
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Metals/ore_processing_x5.rsi, state: magnetic_chromite }
+  spawn: DystopiaMagneticChromite1
+  maxCount: 30

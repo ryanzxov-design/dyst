@@ -1,0 +1,109 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: ступень ×5 переработки металлов. Молотая руда (из мельницы) обогащается тремя путями:
+# флотация — халькопирит, сфалерит, галенит, аргентит, касситерит (2 горсти молотой + 20 воды + 1 флотореагента →
+# 5 флотоконцентрата + песок; у полиметаллических руд — партия ×4 с попутным концентратом);
+# магнитная сепарация — гематит, хромит (2 горсти → 5 магнитного концентрата + песок, всухую);
+# амальгамация — золото (2 горсти + 10 воды + 2 ртути → 5 амальгамы + песок; ртуть в тигле выкипает).
+# Рецепты флотомашин (Flotation), магнитного сепаратора (MagneticSeparator) и амальгамационной бочки (Amalgamation).
+
+- type: dystopiaProcessRecipe
+  id: DystopiaSeparateHematite
+  group: MagneticSeparator
+  input: DystopiaGroundHematite
+  inputCount: 2
+  output: DystopiaMagneticHematite1
+  amount: 5
+  byproducts:
+    DystopiaSand1: 1   # хвосты
+
+- type: dystopiaProcessRecipe
+  id: DystopiaFloatChalcopyrite
+  group: Flotation
+  input: DystopiaGroundChalcopyrite
+  inputCount: 8
+  output: DystopiaFlotationChalcopyrite1
+  amount: 20
+  byproducts:
+    DystopiaSand1: 4   # хвосты
+    DystopiaConcentrateGoldOre1: 1   # попутный концентрат
+  reagents:
+    Water: 80
+    DystopiaFlotationReagent: 4
+
+- type: dystopiaProcessRecipe
+  id: DystopiaFloatSphalerite
+  group: Flotation
+  input: DystopiaGroundSphalerite
+  inputCount: 8
+  output: DystopiaFlotationSphalerite1
+  amount: 20
+  byproducts:
+    DystopiaSand1: 4   # хвосты
+    DystopiaFlotationGalena1: 1   # попутный концентрат
+  reagents:
+    Water: 80
+    DystopiaFlotationReagent: 4
+
+- type: dystopiaProcessRecipe
+  id: DystopiaFloatCassiterite
+  group: Flotation
+  input: DystopiaGroundCassiterite
+  inputCount: 2
+  output: DystopiaFlotationCassiterite1
+  amount: 5
+  byproducts:
+    DystopiaSand1: 1   # хвосты
+  reagents:
+    Water: 20
+    DystopiaFlotationReagent: 1
+
+- type: dystopiaProcessRecipe
+  id: DystopiaFloatGalena
+  group: Flotation
+  input: DystopiaGroundGalena
+  inputCount: 8
+  output: DystopiaFlotationGalena1
+  amount: 20
+  byproducts:
+    DystopiaSand1: 4   # хвосты
+    DystopiaFlotationArgentite1: 1   # попутный концентрат
+  reagents:
+    Water: 80
+    DystopiaFlotationReagent: 4
+
+- type: dystopiaProcessRecipe
+  id: DystopiaAmalgamateGoldOre
+  group: Amalgamation
+  input: DystopiaGroundGoldOre
+  inputCount: 2
+  output: DystopiaAmalgamGold1
+  amount: 5
+  byproducts:
+    DystopiaSand1: 1   # хвосты
+  reagents:
+    Water: 10
+    Mercury: 2
+
+- type: dystopiaProcessRecipe
+  id: DystopiaFloatArgentite
+  group: Flotation
+  input: DystopiaGroundArgentite
+  inputCount: 8
+  output: DystopiaFlotationArgentite1
+  amount: 20
+  byproducts:
+    DystopiaSand1: 4   # хвосты
+    DystopiaFlotationGalena1: 1   # попутный концентрат
+  reagents:
+    Water: 80
+    DystopiaFlotationReagent: 4
+
+- type: dystopiaProcessRecipe
+  id: DystopiaSeparateChromite
+  group: MagneticSeparator
+  input: DystopiaGroundChromite
+  inputCount: 2
+  output: DystopiaMagneticChromite1
+  amount: 5
+  byproducts:
+    DystopiaSand1: 1   # хвосты

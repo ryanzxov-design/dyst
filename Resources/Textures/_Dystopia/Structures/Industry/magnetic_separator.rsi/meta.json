@@ -1,0 +1,36 @@
+{
+    "version": 1,
+    "license": "CC-BY-SA-3.0",
+    "copyright": "by Ko4erga (discord) Recolored into a magnetic separator for Dystopia.",
+    "size": {
+        "x": 32,
+        "y": 32
+    },
+    "states": [
+        {
+            "name": "icon"
+        },
+        {
+            "name": "running",
+            "delays": [
+                [
+                    0.042,
+                    0.042,
+                    0.042,
+                    0.042,
+                    0.042,
+                    0.042,
+                    0.042,
+                    0.042,
+                    0.042,
+                    0.042,
+                    0.042,
+                    0.042
+                ]
+            ]
+        },
+        {
+            "name": "unlit"
+        }
+    ]
+}

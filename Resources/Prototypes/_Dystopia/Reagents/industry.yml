@@ -1,0 +1,20 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: промышленные реагенты. Флотореагент — для флотомашин (×5); пока только спавн, получение — с неметаллами.
+
+- type: reagent
+  id: DystopiaFlotationReagent
+  name: reagent-name-dystopia-flotation-reagent
+  group: Industrial
+  desc: reagent-desc-dystopia-flotation-reagent
+  physicalDesc: reagent-physical-desc-oily
+  flavor: bitter
+  color: "#d8c060"
+  boilingPoint: 150.0
+  meltingPoint: -20.0
+  metabolisms:
+    Bloodstream:
+      effects:
+      - !type:HealthChange
+        damage:
+          types:
+            Poison: 1

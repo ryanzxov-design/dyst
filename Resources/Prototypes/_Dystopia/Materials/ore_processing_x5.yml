@@ -1,0 +1,79 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: ступень ×5 переработки металлов. Молотая руда (из мельницы) обогащается тремя путями:
+# флотация — халькопирит, сфалерит, галенит, аргентит, касситерит (2 горсти молотой + 20 воды + 1 флотореагента →
+# 5 флотоконцентрата + песок; у полиметаллических руд — партия ×4 с попутным концентратом);
+# магнитная сепарация — гематит, хромит (2 горсти → 5 магнитного концентрата + песок, всухую);
+# амальгамация — золото (2 горсти + 10 воды + 2 ртути → 5 амальгамы + песок; ртуть в тигле выкипает).
+# Материалы: 100 единиц = одна горсть.
+
+- type: material
+  id: DystopiaMagneticHematite
+  stackEntity: DystopiaMagneticHematite1
+  name: materials-dystopia-magnetic-hematite
+  unit: materials-unit-dystopia-handful
+  icon: { sprite: _Dystopia/Objects/Materials/Metals/ore_processing_x5.rsi, state: magnetic_hematite }
+  color: "#c88a70"
+  price: 0.12
+
+- type: material
+  id: DystopiaFlotationChalcopyrite
+  stackEntity: DystopiaFlotationChalcopyrite1
+  name: materials-dystopia-flotation-chalcopyrite
+  unit: materials-unit-dystopia-handful
+  icon: { sprite: _Dystopia/Objects/Materials/Metals/ore_processing_x5.rsi, state: flotation_chalcopyrite }
+  color: "#f0e07a"
+  price: 0.12
+
+- type: material
+  id: DystopiaFlotationSphalerite
+  stackEntity: DystopiaFlotationSphalerite1
+  name: materials-dystopia-flotation-sphalerite
+  unit: materials-unit-dystopia-handful
+  icon: { sprite: _Dystopia/Objects/Materials/Metals/ore_processing_x5.rsi, state: flotation_sphalerite }
+  color: "#e8b84e"
+  price: 0.12
+
+- type: material
+  id: DystopiaFlotationCassiterite
+  stackEntity: DystopiaFlotationCassiterite1
+  name: materials-dystopia-flotation-cassiterite
+  unit: materials-unit-dystopia-handful
+  icon: { sprite: _Dystopia/Objects/Materials/Metals/ore_processing_x5.rsi, state: flotation_cassiterite }
+  color: "#b09482"
+  price: 0.12
+
+- type: material
+  id: DystopiaFlotationGalena
+  stackEntity: DystopiaFlotationGalena1
+  name: materials-dystopia-flotation-galena
+  unit: materials-unit-dystopia-handful
+  icon: { sprite: _Dystopia/Objects/Materials/Metals/ore_processing_x5.rsi, state: flotation_galena }
+  color: "#c2c8d8"
+  price: 0.12
+
+- type: material
+  id: DystopiaAmalgamGold
+  stackEntity: DystopiaAmalgamGold1
+  name: materials-dystopia-amalgam-gold
+  unit: materials-unit-dystopia-handful
+  icon: { sprite: _Dystopia/Objects/Materials/Metals/ore_processing_x5.rsi, state: amalgam_gold }
+  color: "#d8d0b0"
+  price: 0.15
+
+- type: material
+  id: DystopiaFlotationArgentite
+  stackEntity: DystopiaFlotationArgentite1
+  name: materials-dystopia-flotation-argentite
+  unit: materials-unit-dystopia-handful
+  icon: { sprite: _Dystopia/Objects/Materials/Metals/ore_processing_x5.rsi, state: flotation_argentite }
+  color: "#c0c0cc"
+  price: 0.12
+
+- type: material
+  id: DystopiaMagneticChromite
+  stackEntity: DystopiaMagneticChromite1
+  name: materials-dystopia-magnetic-chromite
+  unit: materials-unit-dystopia-handful
+  icon: { sprite: _Dystopia/Objects/Materials/Metals/ore_processing_x5.rsi, state: magnetic_chromite }
+  color: "#958a90"
+  price: 0.12

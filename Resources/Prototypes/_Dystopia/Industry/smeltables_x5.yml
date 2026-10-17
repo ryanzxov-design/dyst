@@ -1,0 +1,63 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: ступень ×5 переработки металлов. Молотая руда (из мельницы) обогащается тремя путями:
+# флотация — халькопирит, сфалерит, галенит, аргентит, касситерит (2 горсти молотой + 20 воды + 1 флотореагента →
+# 5 флотоконцентрата + песок; у полиметаллических руд — партия ×4 с попутным концентратом);
+# магнитная сепарация — гематит, хромит (2 горсти → 5 магнитного концентрата + песок, всухую);
+# амальгамация — золото (2 горсти + 10 воды + 2 ртути → 5 амальгамы + песок; ртуть в тигле выкипает).
+# Плавка концентратов ×5 — с минимальным шлаком.
+
+- type: dystopiaSmeltable
+  id: DystopiaMagneticHematite
+  meltTemperature: 1823.15  # как у руды
+  products:
+    DystopiaMoltenIron: 10
+    DystopiaMoltenSlag: 1
+
+- type: dystopiaSmeltable
+  id: DystopiaFlotationChalcopyrite
+  meltTemperature: 1473.15  # как у руды
+  products:
+    DystopiaMoltenCopper: 10
+    DystopiaMoltenSlag: 1
+
+- type: dystopiaSmeltable
+  id: DystopiaFlotationSphalerite
+  meltTemperature: 1273.15  # как у руды
+  products:
+    DystopiaMoltenZinc: 10
+    DystopiaMoltenSlag: 1
+
+- type: dystopiaSmeltable
+  id: DystopiaFlotationCassiterite
+  meltTemperature: 1273.15  # как у руды
+  products:
+    DystopiaMoltenTin: 10
+    DystopiaMoltenSlag: 1
+
+- type: dystopiaSmeltable
+  id: DystopiaFlotationGalena
+  meltTemperature: 1073.15  # как у руды
+  products:
+    DystopiaMoltenLead: 10
+    DystopiaMoltenSilver: 0.5
+    DystopiaMoltenSlag: 1
+
+- type: dystopiaSmeltable
+  id: DystopiaAmalgamGold
+  meltTemperature: 1343.15  # ртуть выкипает, остаётся чистое золото
+  products:
+    DystopiaMoltenGold: 10
+
+- type: dystopiaSmeltable
+  id: DystopiaFlotationArgentite
+  meltTemperature: 1273.15  # как у руды
+  products:
+    DystopiaMoltenSilver: 10
+    DystopiaMoltenSlag: 1
+
+- type: dystopiaSmeltable
+  id: DystopiaMagneticChromite
+  meltTemperature: 1823.15  # как у руды
+  products:
+    DystopiaMoltenFerrochrome: 10
+    DystopiaMoltenSlag: 2
