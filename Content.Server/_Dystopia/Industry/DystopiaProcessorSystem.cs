@@ -127,8 +127,11 @@ public sealed partial class DystopiaProcessorSystem : EntitySystem
 
     private void OnPrototypesReloaded(PrototypesReloadedEventArgs args)
     {
-        if (args.WasModified<DystopiaProcessRecipePrototype>())
-            _groupRecipes.Clear();
+        if (!args.WasModified<DystopiaProcessRecipePrototype>())
+            return;
+
+        _groupRecipes.Clear();
+        _groupReagents.Clear();
     }
 
     private static bool HasItems(DystopiaProcessRecipePrototype recipe, Dictionary<ProtoId<StackPrototype>, int> loaded)
@@ -354,6 +357,15 @@ public sealed partial class DystopiaProcessorSystem : EntitySystem
         if (args.Handled)
             return;
 
+        // Сосуд с жидкостью (стакан, мензурка, ведро, канистра) — залить или набрать, как у ванильных цистерн.
+        if (TryComp<SolutionTransferComponent>(args.Used, out var transfer) &&
+            (ent.Comp.Tank != null || ent.Comp.OutputTank != null))
+        {
+            args.Handled = true;
+            UseVessel(ent, (args.Used, transfer), args.User);
+            return;
+        }
+
         if (GetRecipe(ent, args.Used) == null)
         {
             // Руда, которую эта машина не берёт, — сказать; остальное (ключ, ведро с водой) — не наше.
@@ -455,9 +467,125 @@ public sealed partial class DystopiaProcessorSystem : EntitySystem
             AddTankVerbs(ent, outputTank, true, ref args);
     }
 
-    // ------------------------------------------------------------------ бак: отлить в сосуд, слить на пол
+    // ------------------------------------------------------------------ бак: залить, набрать, слить на пол
 
-    /// <param name="product">Бак продукции: свои подписи, и отлить из него — первым в списке.</param>
+    private readonly Dictionary<string, ProtoId<ReagentPrototype>[]> _groupReagents = new();
+
+    /// <summary>Вещества, которые берут рецепты группы, — только их машина принимает в бак (рукой и по трубам).</summary>
+    public ProtoId<ReagentPrototype>[] GroupReagents(string group)
+    {
+        if (_groupReagents.TryGetValue(group, out var cached))
+            return cached;
+
+        var set = new HashSet<ProtoId<ReagentPrototype>>();
+        foreach (var recipe in GroupRecipes(group))
+        {
+            set.UnionWith(recipe.Reagents.Keys);
+        }
+
+        var result = new ProtoId<ReagentPrototype>[set.Count];
+        set.CopyTo(result);
+        _groupReagents[group] = result;
+        return result;
+    }
+
+    /// <summary>
+    /// Клик сосудом по машине. Есть в сосуде то, что идёт в рецепты, — заливается в бак (прочее остаётся в сосуде).
+    /// Нечего заливать — сосуд набирается из бака готового (или из общего бака). За раз — «перемещаемое количество»
+    /// сосуда (его меняют, как обычно, через ПКМ по сосуду).
+    /// </summary>
+    private void UseVessel(Entity<DystopiaProcessorComponent> ent, Entity<SolutionTransferComponent> vessel, EntityUid user)
+    {
+        if (vessel.Comp.CanSend && TryPour(ent, vessel, vessel.Comp.TransferAmount, user))
+            return;
+
+        if (vessel.Comp.CanReceive && DrawSource(ent) is { } source)
+        {
+            Draw(ent, source, vessel, vessel.Comp.TransferAmount, user);
+            return;
+        }
+
+        _popup.PopupEntity(Loc.GetString("dystopia-processor-liquid-nothing"), ent, user);
+    }
+
+    private bool TryPour(Entity<DystopiaProcessorComponent> ent, EntityUid vessel, FixedPoint2 max, EntityUid user)
+    {
+        if (ent.Comp.Tank is not { } tankName ||
+            !_solution.TryGetSolution(ent.Owner, tankName, out var tank, out var tankSolution) ||
+            !_solution.TryGetDrainableSolution(vessel, out var held, out var heldSolution))
+        {
+            return false;
+        }
+
+        var reagents = GroupReagents(ent.Comp.Group);
+        if (reagents.Length == 0)
+            return false;
+
+        var usable = heldSolution.GetTotalPrototypeQuantity(reagents);
+        if (usable <= FixedPoint2.Zero)
+            return false;
+
+        var amount = FixedPoint2.Min(max, FixedPoint2.Min(usable, tankSolution.AvailableVolume));
+        if (amount <= FixedPoint2.Zero)
+        {
+            _popup.PopupEntity(Loc.GetString("dystopia-processor-liquid-tank-full"), ent, user);
+            return true;
+        }
+
+        var poured = heldSolution.SplitSolutionWithOnly(amount, reagents);
+        _solution.UpdateChemicals(held.Value);
+        _solution.AddSolution(tank.Value, poured);
+        _popup.PopupEntity(Loc.GetString("dystopia-processor-liquid-poured", ("amount", poured.Volume)), ent, user);
+        return true;
+    }
+
+    /// <summary>Откуда набирать: бак готового, если в нём что-то есть, иначе общий бак.</summary>
+    private Entity<SolutionComponent>? DrawSource(Entity<DystopiaProcessorComponent> ent)
+    {
+        foreach (var name in new[] { ent.Comp.OutputTank, ent.Comp.Tank })
+        {
+            if (name != null && _solution.TryGetSolution(ent.Owner, name, out var soln, out var solution) &&
+                solution.Volume > FixedPoint2.Zero)
+            {
+                return soln;
+            }
+        }
+
+        return null;
+    }
+
+    /// <summary>Сколько войдёт в сосуд за раз: не больше места в нём, горлышка (если ограничено) и max.</summary>
+    private FixedPoint2 VesselRoom(EntityUid vessel, Solution heldSolution, FixedPoint2 max)
+    {
+        var room = FixedPoint2.Min(max, heldSolution.AvailableVolume);
+        if (TryComp<RefillableSolutionComponent>(vessel, out var refillable) && refillable.MaxRefill is { } maxRefill)
+            room = FixedPoint2.Min(room, maxRefill);
+
+        return room;
+    }
+
+    private void Draw(Entity<DystopiaProcessorComponent> ent, Entity<SolutionComponent> source, EntityUid vessel,
+        FixedPoint2 max, EntityUid user)
+    {
+        if (!_solution.TryGetRefillableSolution(vessel, out var held, out var heldSolution))
+            return;
+
+        var room = VesselRoom(vessel, heldSolution, max);
+        if (room <= FixedPoint2.Zero)
+        {
+            _popup.PopupEntity(Loc.GetString("dystopia-processor-liquid-vessel-full", ("vessel", vessel)), ent, user);
+            return;
+        }
+
+        var moved = _transfer.Transfer(new SolutionTransferData(user, ent.Owner, source, vessel, held.Value, room));
+        if (moved > FixedPoint2.Zero)
+        {
+            _popup.PopupEntity(Loc.GetString("dystopia-processor-liquid-drawn", ("amount", moved), ("vessel", vessel)),
+                ent, user);
+        }
+    }
+
+    /// <param name="product">Бак готового: свои подписи, и набрать из него — первым в списке.</param>
     private void AddTankVerbs(Entity<DystopiaProcessorComponent> ent, string tankName, bool product,
         ref GetVerbsEvent<AlternativeVerb> args)
     {
@@ -470,33 +598,19 @@ public sealed partial class DystopiaProcessorSystem : EntitySystem
         var user = args.User;
         var tankEnt = tank.Value;
 
-        // Сосуд в руке (стакан, ведро, канистра) — отлить из бака столько, сколько сосуд наливает за раз.
+        // Сосуд в руке — набрать именно из этого бака, по «перемещаемому количеству» сосуда.
         if (args.Using is { } held &&
             TryComp<SolutionTransferComponent>(held, out var transfer) && transfer.CanReceive &&
-            TryComp<RefillableSolutionComponent>(held, out var refillable) &&
-            _solution.TryGetRefillableSolution(held, out var heldSoln, out var heldSolution) &&
-            heldSolution.AvailableVolume > FixedPoint2.Zero)
+            _solution.TryGetRefillableSolution(held, out _, out var heldSolution) &&
+            VesselRoom(held, heldSolution, transfer.TransferAmount) is var room && room > FixedPoint2.Zero)
         {
-            var amount = transfer.TransferAmount;
-            if (refillable.MaxRefill is { } maxRefill)
-                amount = FixedPoint2.Min(amount, maxRefill);
-
-            var shown = FixedPoint2.Min(amount, FixedPoint2.Min(tankSolution.Volume, heldSolution.AvailableVolume));
-            var heldEnt = heldSoln.Value;
+            var shown = FixedPoint2.Min(room, tankSolution.Volume);
             args.Verbs.Add(new AlternativeVerb
             {
                 Text = Loc.GetString(product
                     ? "dystopia-processor-output-tank-draw-verb"
                     : "dystopia-processor-tank-draw-verb", ("amount", shown)),
-                Act = () =>
-                {
-                    var moved = _transfer.Transfer(new SolutionTransferData(user, ent.Owner, tankEnt, held, heldEnt, amount));
-                    if (moved > FixedPoint2.Zero)
-                    {
-                        _popup.PopupEntity(Loc.GetString("dystopia-processor-tank-drawn",
-                            ("amount", moved), ("target", held)), ent, user);
-                    }
-                },
+                Act = () => Draw(ent, tankEnt, held, room, user),
                 Priority = product ? 3 : 2,
             });
         }
@@ -751,17 +865,24 @@ public sealed partial class DystopiaProcessorSystem : EntitySystem
         if (!args.IsInDetailsRange)
             return;
 
+        // Одной группой: строки идут в том порядке, в каком написаны (иначе осмотр сортирует их по алфавиту).
+        using var group = args.PushGroup(nameof(DystopiaProcessorComponent));
+
         // Аппараты только на веществах (без загрузки) строку про сырьё не показывают.
         if (ent.Comp.Capacity > 0)
         {
             args.PushMarkup(Loc.GetString("dystopia-processor-examine-load",
                 ("loaded", LoadedUnits(ent)), ("capacity", ent.Comp.Capacity)));
+            if (_container.TryGetContainer(ent, ent.Comp.Container, out var input))
+                PushItems(args, input);
         }
 
-        if (ent.Comp.OutputContainer != null)
+        if (ent.Comp.OutputContainer is { } outputId)
         {
             args.PushMarkup(Loc.GetString("dystopia-processor-examine-output",
                 ("units", OutputUnits(ent)), ("capacity", ent.Comp.OutputCapacity)));
+            if (_container.TryGetContainer(ent, outputId, out var output))
+                PushItems(args, output);
         }
 
         if (ent.Comp.Tank is { } tank)
@@ -781,12 +902,20 @@ public sealed partial class DystopiaProcessorSystem : EntitySystem
             args.PushMarkup(Loc.GetString("dystopia-processor-examine-unpowered"));
     }
 
+    /// <summary>Что лежит в контейнере — по строке на вид: «— известняк × 4».</summary>
+    private void PushItems(ExaminedEvent args, BaseContainer container)
+    {
+        foreach (var (name, count) in DystopiaFoundryExamine.CountItems(EntityManager, _proto, container.ContainedEntities))
+        {
+            args.PushMarkup(Loc.GetString("dystopia-crucible-inside-entry", ("name", name), ("count", count)));
+        }
+    }
+
     private void ExamineTank(EntityUid uid, string tank, LocId full, LocId empty, ExaminedEvent args)
     {
         if (!_solution.TryGetSolution(uid, tank, out _, out var solution))
             return;
 
-        // Одной строкой: строки с равным приоритетом сортируются по алфавиту и разбежались бы.
         var parts = new List<string>();
         foreach (var (reagent, quantity) in solution.GetReagentPrototypes(_proto))
         {

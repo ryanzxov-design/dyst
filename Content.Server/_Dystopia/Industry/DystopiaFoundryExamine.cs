@@ -1,10 +1,11 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
-// Dystopia: осмотр тигля и изложницы — что внутри, сколько и жидкое ли (вместо общего «содержит ... вещество»).
+// Dystopia: осмотр тигля, изложницы и машин — что внутри, сколько и жидкое ли (вместо общего «содержит ... вещество»).
 
 using System.Linq;
 using Content.Shared.Chemistry.Components;
 using Content.Shared.Chemistry.Reagent;
 using Content.Shared.Examine;
+using Content.Shared.Stacks;
 using Robust.Shared.Prototypes;
 
 namespace Content.Server._Dystopia.Industry;
@@ -42,5 +43,30 @@ public static class DystopiaFoundryExamine
                 ("name", reagent.LocalizedName),
                 ("amount", quantity)), priority);
         }
+    }
+
+    /// <summary>Предметы по видам (стопки — по названию стопки), больше — выше.</summary>
+    public static List<(string Name, int Count)> CountItems(IEntityManager entMan, IPrototypeManager proto,
+        IEnumerable<EntityUid> items)
+    {
+        var counts = new Dictionary<string, int>();
+        foreach (var item in items)
+        {
+            if (entMan.IsQueuedForDeletion(item))
+                continue;
+
+            var name = entMan.GetComponent<MetaDataComponent>(item).EntityName;
+            var count = 1;
+            if (entMan.TryGetComponent<StackComponent>(item, out var stack))
+            {
+                count = stack.Count;
+                if (proto.TryIndex(stack.StackTypeId, out var stackProto) && !string.IsNullOrEmpty(stackProto.Name.Id))
+                    name = Loc.GetString(stackProto.Name);
+            }
+
+            counts[name] = counts.GetValueOrDefault(name) + count;
+        }
+
+        return counts.OrderByDescending(pair => pair.Value).Select(pair => (pair.Key, pair.Value)).ToList();
     }
 }

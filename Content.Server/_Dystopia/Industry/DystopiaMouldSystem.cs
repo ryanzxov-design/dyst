@@ -274,6 +274,9 @@ public sealed partial class DystopiaMouldSystem : EntitySystem
         if (!args.IsInDetailsRange)
             return;
 
+        // Одной группой: строки в том порядке, в каком написаны (иначе осмотр сортирует их по алфавиту).
+        using var group = args.PushGroup(nameof(DystopiaMouldComponent));
+
         if (GetShape(ent) is { } shape)
         {
             args.PushMarkup(Loc.GetString("dystopia-mould-shape",
@@ -284,8 +287,15 @@ public sealed partial class DystopiaMouldSystem : EntitySystem
             args.PushMarkup(Loc.GetString("dystopia-casting-table-no-form"));
         }
 
-        if (CastingsInside(ent) is var castings and > 0)
+        if (CastingsInside(ent) is var castings and > 0 &&
+            ent.Comp.OutputContainer is { } outputId && _container.TryGetContainer(ent, outputId, out var output))
+        {
             args.PushMarkup(Loc.GetString("dystopia-casting-table-inside", ("count", castings)));
+            foreach (var (name, count) in DystopiaFoundryExamine.CountItems(EntityManager, _proto, output.ContainedEntities))
+            {
+                args.PushMarkup(Loc.GetString("dystopia-crucible-inside-entry", ("name", name), ("count", count)));
+            }
+        }
 
         if (!_solution.TryGetSolution(ent.Owner, ent.Comp.Solution, out _, out var solution))
             return;

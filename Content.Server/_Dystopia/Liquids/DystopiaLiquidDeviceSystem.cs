@@ -35,22 +35,13 @@ public sealed partial class DystopiaLiquidDeviceSystem : EntitySystem
     [Dependency] private SharedPopupSystem _popup = default!;
     [Dependency] private DystopiaLiquidSystem _liquid = default!;
     [Dependency] private DystopiaQuenchSystem _quench = default!;
-
-    /// <summary>Реагенты рецептов каждой группы машин (что бак машины принимает из сети).</summary>
-    private readonly Dictionary<string, ProtoId<ReagentPrototype>[]> _groupReagents = new();
+    [Dependency] private DystopiaProcessorSystem _processor = default!;
 
     public override void Initialize()
     {
         base.Initialize();
         SubscribeLocalEvent<DystopiaLiquidDeviceComponent, GetVerbsEvent<AlternativeVerb>>(OnGetVerbs);
         SubscribeLocalEvent<DystopiaLiquidDeviceComponent, ExaminedEvent>(OnExamined);
-        SubscribeLocalEvent<PrototypesReloadedEventArgs>(OnPrototypesReloaded);
-    }
-
-    private void OnPrototypesReloaded(PrototypesReloadedEventArgs args)
-    {
-        if (args.WasModified<DystopiaProcessRecipePrototype>())
-            _groupReagents.Clear();
     }
 
     // ------------------------------------------------------------------ работа
@@ -227,7 +218,7 @@ public sealed partial class DystopiaLiquidDeviceSystem : EntitySystem
                 return FixedPoint2.Zero;
             }
 
-            var reagents = GroupReagents(processor.Group);
+            var reagents = _processor.GroupReagents(processor.Group);
             if (reagents.Length == 0)
                 return FixedPoint2.Zero;
 
@@ -241,24 +232,6 @@ public sealed partial class DystopiaLiquidDeviceSystem : EntitySystem
         }
 
         return TankSolution(target) is { } solution ? MoveIn(net, solution, max) : FixedPoint2.Zero;
-    }
-
-    private ProtoId<ReagentPrototype>[] GroupReagents(string group)
-    {
-        if (_groupReagents.TryGetValue(group, out var cached))
-            return cached;
-
-        var set = new HashSet<ProtoId<ReagentPrototype>>();
-        foreach (var recipe in _proto.EnumeratePrototypes<DystopiaProcessRecipePrototype>())
-        {
-            if (recipe.Group == group)
-                set.UnionWith(recipe.Reagents.Keys);
-        }
-
-        var result = new ProtoId<ReagentPrototype>[set.Count];
-        set.CopyTo(result);
-        _groupReagents[group] = result;
-        return result;
     }
 
     /// <summary>Из сети в раствор сущности.</summary>
