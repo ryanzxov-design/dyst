@@ -12,7 +12,7 @@
       <GuideEntityEmbed Entity="DystopiaOreChromite" Caption=""/>
   </Box>
 
-  Жила снаружи выглядит как обычный [color=#9ab0c4]камень[/color], [color=#9ab0c4]песчаник[/color] или [color=#9ab0c4]сугроб[/color]. Что внутри, без сканера не узнать, пока не начнёте долбить. Отбитый кусок руды подписан: что за минерал и какой металл в нём.
+  Жила снаружи выглядит как обычный [color=#9ab0c4]камень[/color], [color=#9ab0c4]песчаник[/color], [color=#9ab0c4]сугроб[/color] или [color=#9ab0c4]перидотит[/color]. Что внутри, без сканера не узнать: в описании жилы есть только приметы породы. Отбитый кусок руды уже называется по минералу, а в описании сказано, какой в нём металл.
 
   ## Руда, которая плавится в тигле
   - [color=#9ab0c4]Гематит[/color] — железо. Плавится при [color=#ff9a50]1550 °C[/color].
@@ -24,7 +24,7 @@
   - [color=#9ab0c4]Аргентит[/color] — серебро, [color=#ff9a50]1000 °C[/color].
   - [color=#9ab0c4]Хромит[/color] — сразу [color=#9ab0c4]феррохром[/color], [color=#ff9a50]1550 °C[/color]. Чистого хрома из тигля не бывает.
 
-  Кусок руды в тигле даёт [color=#ff9a50]10[/color] ед. [color=#7ac8b0]металла[/color] и [color=#ff9a50]5[/color] ед. [color=#7ac8b0]шлака[/color]. Шлак придётся снимать (см. [textlink="Горн и тигель" link="DystopiaMetallurgyForge"]). Если сначала обогатить руду, шлака будет меньше, а металла больше (см. [textlink="Обогащение" link="DystopiaMetallurgyBeneficiation"]).
+  Кусок руды в тигле даёт [color=#ff9a50]10[/color] ед. [color=#7ac8b0]металла[/color] и [color=#ff9a50]5[/color] ед. [color=#7ac8b0]шлака[/color] (хромит — [color=#ff9a50]8[/color]). Шлак придётся снимать (см. [textlink="Горн и тигель" link="DystopiaMetallurgyForge"]). Если сначала обогатить руду, шлака будет меньше, а металла больше (см. [textlink="Обогащение" link="DystopiaMetallurgyBeneficiation"]).
 
   ## Руда, которая в тигле не плавится
   <Box>
