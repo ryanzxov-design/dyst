@@ -168,6 +168,7 @@ public sealed partial class DystopiaProcessorSystem : EntitySystem
 
         var reserved = new Dictionary<ProtoId<ReagentPrototype>, FixedPoint2>();
         var room = ent.Comp.OutputContainer != null ? ent.Comp.OutputCapacity - OutputUnits(ent) : int.MaxValue;
+        var tankRoom = TankRoom(ent);
         var noReagents = false;
         var noRoom = false;
 
@@ -185,13 +186,15 @@ public sealed partial class DystopiaProcessorSystem : EntitySystem
                     continue;
                 }
 
-                var produced = recipe.Amount;
+                var produced = recipe.Output != null ? recipe.Amount : 0;
                 foreach (var extra in recipe.Byproducts.Values)
                 {
                     produced += extra;
                 }
 
-                if (produced > room)
+                // Вещества партии — в бак: место освобождают и её же израсходованные реагенты.
+                var liquid = Sum(recipe.Produces) - Sum(recipe.Reagents);
+                if (produced > room || (recipe.Produces.Count > 0 && (tankRoom == null || liquid > tankRoom)))
                 {
                     noRoom = true;
                     continue;
@@ -199,6 +202,8 @@ public sealed partial class DystopiaProcessorSystem : EntitySystem
 
                 chosen = recipe;
                 room -= produced;
+                if (tankRoom != null)
+                    tankRoom -= liquid;
                 break;
             }
 
@@ -221,6 +226,25 @@ public sealed partial class DystopiaProcessorSystem : EntitySystem
         }
 
         return plan;
+    }
+
+    private static FixedPoint2 Sum(Dictionary<ProtoId<ReagentPrototype>, FixedPoint2> reagents)
+    {
+        var total = FixedPoint2.Zero;
+        foreach (var amount in reagents.Values)
+        {
+            total += amount;
+        }
+
+        return total;
+    }
+
+    /// <summary>Свободное место в баке (null — бака нет).</summary>
+    private FixedPoint2? TankRoom(Entity<DystopiaProcessorComponent> ent)
+    {
+        return ent.Comp.Tank is { } tank && _solution.TryGetSolution(ent.Owner, tank, out _, out var solution)
+            ? solution.AvailableVolume
+            : null;
     }
 
     // ------------------------------------------------------------------ загрузка
@@ -569,16 +593,22 @@ public sealed partial class DystopiaProcessorSystem : EntitySystem
                 need -= take;
             }
 
-            if (recipe.Reagents.Count > 0 && ent.Comp.Tank is { } tank &&
+            if ((recipe.Reagents.Count > 0 || recipe.Produces.Count > 0) && ent.Comp.Tank is { } tank &&
                 _solution.TryGetSolution(ent.Owner, tank, out var soln, out _))
             {
                 foreach (var (reagent, amount) in recipe.Reagents)
                 {
                     _solution.RemoveReagent(soln.Value, reagent.Id, amount);
                 }
+
+                foreach (var (reagent, amount) in recipe.Produces)
+                {
+                    _solution.TryAddReagent(soln.Value, reagent.Id, amount, out _);
+                }
             }
 
-            outputs[recipe.Output] = outputs.GetValueOrDefault(recipe.Output) + recipe.Amount;
+            if (recipe.Output is { } main)
+                outputs[main] = outputs.GetValueOrDefault(main) + recipe.Amount;
             foreach (var (extra, amount) in recipe.Byproducts)
             {
                 outputs[extra] = outputs.GetValueOrDefault(extra) + amount;

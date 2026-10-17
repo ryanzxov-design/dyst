@@ -1,0 +1,35 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: металлы без тигля. Обжиговая печь (Roasting): киноварь → ртуть в конденсатор, сподумен → обожжённый.
+# Чан выщелачивания (Leaching): боксит + едкий натр + вода → глинозём; уранинит + серная кислота → жёлтый кек
+# (плавится в тигле в уран) + радий в бак; обожжённый сподумен + серная кислота → литий в бак.
+# Электролизёр (Electrolysis): глинозём → слиток алюминия; каменная соль → натрий, сильвин → калий (хлор — в вытяжку).
+# Баки этих машин не реагируют (canReact: false): калий с водой, радий с кислотой не прореагируют внутри.
+# Вещества — в бак машины (сливать сосудом через ПКМ или по трубам импортером).
+# Материалы: 100 единиц = одна горсть.
+
+- type: material
+  id: DystopiaAlumina
+  stackEntity: DystopiaAlumina1
+  name: materials-dystopia-alumina
+  unit: materials-unit-dystopia-handful
+  icon: { sprite: _Dystopia/Objects/Materials/Metals/chemical_processing.rsi, state: alumina }
+  color: "#d8d8dc"
+  price: 0.1
+
+- type: material
+  id: DystopiaYellowcake
+  stackEntity: DystopiaYellowcake1
+  name: materials-dystopia-yellowcake
+  unit: materials-unit-dystopia-handful
+  icon: { sprite: _Dystopia/Objects/Materials/Metals/chemical_processing.rsi, state: yellowcake }
+  color: "#d0b030"
+  price: 0.3
+
+- type: material
+  id: DystopiaRoastedSpodumene
+  stackEntity: DystopiaRoastedSpodumene1
+  name: materials-dystopia-roasted-spodumene
+  unit: materials-unit-dystopia-handful
+  icon: { sprite: _Dystopia/Objects/Materials/Metals/chemical_processing.rsi, state: roasted_spodumene }
+  color: "#9a8ca8"
+  price: 0.08

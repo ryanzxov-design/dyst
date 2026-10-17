@@ -102,9 +102,9 @@ public sealed partial class DystopiaProcessRecipePrototype : IPrototype
     [DataField]
     public int InputCount = 1;
 
-    /// <summary>Основная продукция (одиночный предмет стека).</summary>
-    [DataField(required: true)]
-    public EntProtoId Output;
+    /// <summary>Основная продукция (одиночный предмет стека). Нет — рецепт даёт только вещества в бак.</summary>
+    [DataField]
+    public EntProtoId? Output;
 
     [DataField]
     public int Amount = 1;
@@ -116,6 +116,10 @@ public sealed partial class DystopiaProcessRecipePrototype : IPrototype
     /// <summary>Реагенты из бака машины на партию.</summary>
     [DataField]
     public Dictionary<ProtoId<ReagentPrototype>, FixedPoint2> Reagents = new();
+
+    /// <summary>Вещества, которые партия даёт в бак машины (ртуть из обжига, натрий и хлор из электролиза...).</summary>
+    [DataField]
+    public Dictionary<ProtoId<ReagentPrototype>, FixedPoint2> Produces = new();
 }
 
 [Serializable, NetSerializable]

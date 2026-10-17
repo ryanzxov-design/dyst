@@ -1,0 +1,317 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: кувшины промышленных реагентов (240 ед.): флотореагент — для флотомашин, ртуть — для
+# амальгамационной бочки. Пока только спавн. Самостоятельные сущности, без parent.
+
+- type: entity
+  id: DystopiaJugFlotationReagent
+  name: jug
+  description: A jug of flotation reagent for flotation cells. A unit per batch, poured into the cell's tank together with water.
+  suffix: flotation reagent
+  components:
+  - type: Solution
+    id: drink
+    solution:
+      maxVol: 240
+      reagents:
+      - ReagentId: DystopiaFlotationReagent
+        Quantity: 240
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 20
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalCrunch
+          params:
+            volume: -4
+      - !type:SpillBehavior {}
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetPlastic1:
+            min: 0
+            max: 1
+        transferForensics: true
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: DamageOnLand
+    ignoreResistances: true
+    damage:
+      types:
+        Blunt: 1
+  - type: DamageOtherOnHit
+    damage:
+      types:
+        Blunt: 2
+  - type: PhysicalComposition
+    materialComposition:
+      Plastic: 100
+  - type: Item
+    size: Large
+    sprite: _Dystopia/Objects/Specific/Chemistry/jug.rsi
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    state: icon
+    layers:
+    - state: icon_empty
+      map: [ enum.OpenableVisuals.Layer ]
+    - state: fill-1
+      map:
+      - enum.SolutionContainerLayers.Fill
+      visible: false
+    sprite: _Dystopia/Objects/Specific/Chemistry/jug.rsi
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: MeleeWeapon
+    soundNoDamage:
+      path: /Audio/Effects/Fluids/splat.ogg
+    damage:
+      types:
+        Blunt: 0
+  - type: DnaSubstanceTrace
+  - type: Edible
+    edible: Drink
+    destroyOnEmpty: false
+    utensil: None
+    solution: drink
+  - type: Spillable
+    solution: drink
+  - type: MixableSolution
+    solution: drink
+  - type: DrawableSolution
+    solution: drink
+  - type: RefillableSolution
+    solution: drink
+  - type: DrainableSolution
+    solution: drink
+  - type: InjectableSolution
+    solution: drink
+  - type: ExaminableSolution
+    solution: drink
+    examinableWhileClosed: true
+    heldOnly: false
+    exactVolume: true
+  - type: SolutionItemStatus
+    solution: drink
+  - type: SolutionTransfer
+    canChangeTransferAmount: true
+  - type: UserInterface
+    interfaces:
+      enum.TransferAmountUiKey.Key:
+        type: TransferAmountBoundUserInterface
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.OpenableVisuals.Opened:
+        enum.OpenableVisuals.Layer:
+          true:
+            state: icon_open
+          false:
+            state: icon_empty
+  - type: SolutionContainerVisuals
+    solutionName: drink
+    maxFillLevels: 6
+    fillBaseName: fill-
+    inHandsMaxFillLevels: 5
+    inHandsFillBaseName: "-fill-"
+  - type: StaticPrice
+    price: 60
+  - type: Tag
+    tags: [ ChemDispensable ]
+  - type: Label
+    localizedLabel: reagent-name-dystopia-flotation-reagent
+
+- type: entity
+  id: DystopiaJugMercury
+  name: jug
+  description: A heavy jug of mercury for the amalgamation barrel. Poisonous; do not drink.
+  suffix: mercury
+  components:
+  - type: Solution
+    id: drink
+    solution:
+      maxVol: 240
+      reagents:
+      - ReagentId: Mercury
+        Quantity: 240
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 20
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalCrunch
+          params:
+            volume: -4
+      - !type:SpillBehavior {}
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetPlastic1:
+            min: 0
+            max: 1
+        transferForensics: true
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: DamageOnLand
+    ignoreResistances: true
+    damage:
+      types:
+        Blunt: 1
+  - type: DamageOtherOnHit
+    damage:
+      types:
+        Blunt: 2
+  - type: PhysicalComposition
+    materialComposition:
+      Plastic: 100
+  - type: Item
+    size: Large
+    sprite: _Dystopia/Objects/Specific/Chemistry/jug.rsi
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    state: icon
+    layers:
+    - state: icon_empty
+      map: [ enum.OpenableVisuals.Layer ]
+    - state: fill-1
+      map:
+      - enum.SolutionContainerLayers.Fill
+      visible: false
+    sprite: _Dystopia/Objects/Specific/Chemistry/jug.rsi
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: MeleeWeapon
+    soundNoDamage:
+      path: /Audio/Effects/Fluids/splat.ogg
+    damage:
+      types:
+        Blunt: 0
+  - type: DnaSubstanceTrace
+  - type: Edible
+    edible: Drink
+    destroyOnEmpty: false
+    utensil: None
+    solution: drink
+  - type: Spillable
+    solution: drink
+  - type: MixableSolution
+    solution: drink
+  - type: DrawableSolution
+    solution: drink
+  - type: RefillableSolution
+    solution: drink
+  - type: DrainableSolution
+    solution: drink
+  - type: InjectableSolution
+    solution: drink
+  - type: ExaminableSolution
+    solution: drink
+    examinableWhileClosed: true
+    heldOnly: false
+    exactVolume: true
+  - type: SolutionItemStatus
+    solution: drink
+  - type: SolutionTransfer
+    canChangeTransferAmount: true
+  - type: UserInterface
+    interfaces:
+      enum.TransferAmountUiKey.Key:
+        type: TransferAmountBoundUserInterface
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.OpenableVisuals.Opened:
+        enum.OpenableVisuals.Layer:
+          true:
+            state: icon_open
+          false:
+            state: icon_empty
+  - type: SolutionContainerVisuals
+    solutionName: drink
+    maxFillLevels: 6
+    fillBaseName: fill-
+    inHandsMaxFillLevels: 5
+    inHandsFillBaseName: "-fill-"
+  - type: StaticPrice
+    price: 60
+  - type: Tag
+    tags: [ ChemDispensable ]
+  - type: Label
+    localizedLabel: reagent-name-mercury

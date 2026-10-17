@@ -1,0 +1,87 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: металлы без тигля. Обжиговая печь (Roasting): киноварь → ртуть в конденсатор, сподумен → обожжённый.
+# Чан выщелачивания (Leaching): боксит + едкий натр + вода → глинозём; уранинит + серная кислота → жёлтый кек
+# (плавится в тигле в уран) + радий в бак; обожжённый сподумен + серная кислота → литий в бак.
+# Электролизёр (Electrolysis): глинозём → слиток алюминия; каменная соль → натрий, сильвин → калий (хлор — в вытяжку).
+# Баки этих машин не реагируют (canReact: false): калий с водой, радий с кислотой не прореагируют внутри.
+# Вещества — в бак машины (сливать сосудом через ПКМ или по трубам импортером).
+# Рецепты обжиговой печи, чана выщелачивания и электролизёра.
+
+- type: dystopiaProcessRecipe
+  id: DystopiaRoastCinnabar
+  group: Roasting
+  input: DystopiaOreCinnabar
+  inputCount: 1
+  produces:
+    Mercury: 8
+
+- type: dystopiaProcessRecipe
+  id: DystopiaRoastSpodumene
+  group: Roasting
+  input: DystopiaOreSpodumene
+  inputCount: 1
+  output: DystopiaRoastedSpodumene1
+  amount: 1
+
+- type: dystopiaProcessRecipe
+  id: DystopiaLeachBauxite
+  group: Leaching
+  input: DystopiaOreBauxite
+  inputCount: 1
+  output: DystopiaAlumina1
+  amount: 1
+  byproducts:
+    DystopiaSand1: 1
+  reagents:
+    SodiumHydroxide: 2
+    Water: 10
+
+- type: dystopiaProcessRecipe
+  id: DystopiaLeachUraninite
+  group: Leaching
+  input: UraniumOre
+  inputCount: 1
+  output: DystopiaYellowcake1
+  amount: 1
+  byproducts:
+    DystopiaSand1: 1
+  reagents:
+    SulfuricAcid: 5
+  produces:
+    Radium: 1
+
+- type: dystopiaProcessRecipe
+  id: DystopiaLeachSpodumene
+  group: Leaching
+  input: DystopiaRoastedSpodumene
+  inputCount: 1
+  byproducts:
+    DystopiaSand1: 1
+  reagents:
+    SulfuricAcid: 5
+  produces:
+    Lithium: 3
+
+- type: dystopiaProcessRecipe
+  id: DystopiaElectrolyzeAlumina
+  group: Electrolysis
+  input: DystopiaAlumina
+  inputCount: 1
+  output: DystopiaIngotAluminium1
+  amount: 1
+
+- type: dystopiaProcessRecipe
+  id: DystopiaElectrolyzeSalt
+  group: Electrolysis
+  input: SaltOre
+  inputCount: 1
+  produces:
+    Sodium: 5
+
+- type: dystopiaProcessRecipe
+  id: DystopiaElectrolyzeSylvite
+  group: Electrolysis
+  input: DystopiaOreSylvite
+  inputCount: 1
+  produces:
+    Potassium: 5

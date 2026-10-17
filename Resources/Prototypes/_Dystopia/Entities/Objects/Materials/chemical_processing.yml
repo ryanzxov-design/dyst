@@ -1,0 +1,437 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: металлы без тигля. Обжиговая печь (Roasting): киноварь → ртуть в конденсатор, сподумен → обожжённый.
+# Чан выщелачивания (Leaching): боксит + едкий натр + вода → глинозём; уранинит + серная кислота → жёлтый кек
+# (плавится в тигле в уран) + радий в бак; обожжённый сподумен + серная кислота → литий в бак.
+# Электролизёр (Electrolysis): глинозём → слиток алюминия; каменная соль → натрий, сильвин → калий (хлор — в вытяжку).
+# Баки этих машин не реагируют (canReact: false): калий с водой, радий с кислотой не прореагируют внутри.
+# Вещества — в бак машины (сливать сосудом через ПКМ или по трубам импортером).
+# Самостоятельные сущности, без parent.
+
+- type: entity
+  id: DystopiaAlumina
+  name: alumina
+  description: White aluminium oxide powder leached out of bauxite. An electrolytic cell turns it into aluminium.
+  suffix: Aluminium, Full
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/chemical_processing.rsi
+    heldPrefix: alumina
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/chemical_processing.rsi
+    state: alumina
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Stack
+    stackType: DystopiaAlumina
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaAlumina: 100
+
+- type: entity
+  id: DystopiaAlumina1
+  name: alumina
+  description: White aluminium oxide powder leached out of bauxite. An electrolytic cell turns it into aluminium.
+  suffix: Aluminium, Single
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/chemical_processing.rsi
+    heldPrefix: alumina
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/chemical_processing.rsi
+    state: alumina
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Stack
+    stackType: DystopiaAlumina
+    count: 1
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaAlumina: 100
+
+- type: entity
+  id: DystopiaYellowcake
+  name: yellowcake
+  description: A bright yellow uranium concentrate leached out of uraninite. Melts into uranium in a crucible.
+  suffix: Uranium, Full
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/chemical_processing.rsi
+    heldPrefix: yellowcake
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/chemical_processing.rsi
+    state: yellowcake
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Stack
+    stackType: DystopiaYellowcake
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaYellowcake: 100
+
+- type: entity
+  id: DystopiaYellowcake1
+  name: yellowcake
+  description: A bright yellow uranium concentrate leached out of uraninite. Melts into uranium in a crucible.
+  suffix: Uranium, Single
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/chemical_processing.rsi
+    heldPrefix: yellowcake
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/chemical_processing.rsi
+    state: yellowcake
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Stack
+    stackType: DystopiaYellowcake
+    count: 1
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaYellowcake: 100
+
+- type: entity
+  id: DystopiaRoastedSpodumene
+  name: roasted spodumene
+  description: "Spodumene after roasting: crumbly, and gives up its lithium to acid in a leaching tank."
+  suffix: Lithium, Full
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/chemical_processing.rsi
+    heldPrefix: roasted_spodumene
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/chemical_processing.rsi
+    state: roasted_spodumene
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Stack
+    stackType: DystopiaRoastedSpodumene
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaRoastedSpodumene: 100
+
+- type: entity
+  id: DystopiaRoastedSpodumene1
+  name: roasted spodumene
+  description: "Spodumene after roasting: crumbly, and gives up its lithium to acid in a leaching tank."
+  suffix: Lithium, Single
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Metals/chemical_processing.rsi
+    heldPrefix: roasted_spodumene
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Metals/chemical_processing.rsi
+    state: roasted_spodumene
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Stack
+    stackType: DystopiaRoastedSpodumene
+    count: 1
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaRoastedSpodumene: 100
