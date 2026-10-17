@@ -1,0 +1,152 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: обработка металла давлением. Прокатный стан (Rolling): слиток → лист 1:1 (100 ед. материала).
+# Волочильный стан (WireDrawing): пруток → 2 мотка проволоки (50 ед. → 2 × 25 ед.); проволока есть у меди,
+# алюминия, золота, серебра и припоя. Ручные — работа рукой (ворот), электрические — сами от сети.
+# Рецепты прокатных (Rolling) и волочильных (WireDrawing) станов.
+
+- type: dystopiaProcessRecipe
+  id: DystopiaRollIron
+  group: Rolling
+  input: DystopiaIngotIron
+  output: DystopiaSheetIron1
+  amount: 1
+
+- type: dystopiaProcessRecipe
+  id: DystopiaRollCastIron
+  group: Rolling
+  input: DystopiaIngotCastIron
+  output: DystopiaSheetCastIron1
+  amount: 1
+
+- type: dystopiaProcessRecipe
+  id: DystopiaRollSteel
+  group: Rolling
+  input: DystopiaIngotSteel
+  output: SheetSteel1
+  amount: 1
+
+- type: dystopiaProcessRecipe
+  id: DystopiaRollCopper
+  group: Rolling
+  input: DystopiaIngotCopper
+  output: DystopiaSheetCopper1
+  amount: 1
+
+- type: dystopiaProcessRecipe
+  id: DystopiaRollAluminium
+  group: Rolling
+  input: DystopiaIngotAluminium
+  output: DystopiaSheetAluminium1
+  amount: 1
+
+- type: dystopiaProcessRecipe
+  id: DystopiaRollZinc
+  group: Rolling
+  input: DystopiaIngotZinc
+  output: DystopiaSheetZinc1
+  amount: 1
+
+- type: dystopiaProcessRecipe
+  id: DystopiaRollTin
+  group: Rolling
+  input: DystopiaIngotTin
+  output: DystopiaSheetTin1
+  amount: 1
+
+- type: dystopiaProcessRecipe
+  id: DystopiaRollLead
+  group: Rolling
+  input: DystopiaIngotLead
+  output: DystopiaSheetLead1
+  amount: 1
+
+- type: dystopiaProcessRecipe
+  id: DystopiaRollBrass
+  group: Rolling
+  input: DystopiaIngotBrass
+  output: SheetBrass1
+  amount: 1
+
+- type: dystopiaProcessRecipe
+  id: DystopiaRollBronze
+  group: Rolling
+  input: DystopiaIngotBronze
+  output: DystopiaSheetBronze1
+  amount: 1
+
+- type: dystopiaProcessRecipe
+  id: DystopiaRollSolder
+  group: Rolling
+  input: DystopiaIngotSolder
+  output: DystopiaSheetSolder1
+  amount: 1
+
+- type: dystopiaProcessRecipe
+  id: DystopiaRollStainlessSteel
+  group: Rolling
+  input: DystopiaIngotStainlessSteel
+  output: DystopiaSheetStainlessSteel1
+  amount: 1
+
+- type: dystopiaProcessRecipe
+  id: DystopiaRollFerrochrome
+  group: Rolling
+  input: DystopiaIngotFerrochrome
+  output: DystopiaSheetFerrochrome1
+  amount: 1
+
+- type: dystopiaProcessRecipe
+  id: DystopiaRollGold
+  group: Rolling
+  input: Gold
+  output: DystopiaSheetGold1
+  amount: 1
+
+- type: dystopiaProcessRecipe
+  id: DystopiaRollSilver
+  group: Rolling
+  input: Silver
+  output: DystopiaSheetSilver1
+  amount: 1
+
+- type: dystopiaProcessRecipe
+  id: DystopiaRollUranium
+  group: Rolling
+  input: Uranium
+  output: DystopiaSheetUranium1
+  amount: 1
+
+- type: dystopiaProcessRecipe
+  id: DystopiaDrawCopper
+  group: WireDrawing
+  input: DystopiaRodCopper
+  output: DystopiaWireCopper1
+  amount: 2
+
+- type: dystopiaProcessRecipe
+  id: DystopiaDrawAluminium
+  group: WireDrawing
+  input: DystopiaRodAluminium
+  output: DystopiaWireAluminium1
+  amount: 2
+
+- type: dystopiaProcessRecipe
+  id: DystopiaDrawGold
+  group: WireDrawing
+  input: DystopiaRodGold
+  output: DystopiaWireGold1
+  amount: 2
+
+- type: dystopiaProcessRecipe
+  id: DystopiaDrawSilver
+  group: WireDrawing
+  input: DystopiaRodSilver
+  output: DystopiaWireSilver1
+  amount: 2
+
+- type: dystopiaProcessRecipe
+  id: DystopiaDrawSolder
+  group: WireDrawing
+  input: DystopiaRodSolder
+  output: DystopiaWireSolder1
+  amount: 2

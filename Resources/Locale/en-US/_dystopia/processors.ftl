@@ -17,9 +17,15 @@ dystopia-processor-unloaded = You unload the output.
 dystopia-processor-no-output = There is no finished output.
 dystopia-processor-eject-verb = Empty out input
 dystopia-processor-ejected = You empty out the input.
+dystopia-processor-tank-draw-verb = Draw from tank ({ $amount }u)
+dystopia-processor-tank-drawn = You draw { $amount }u from the tank.
+dystopia-processor-tank-dump-verb = Drain tank onto the floor
+dystopia-processor-tank-dumped = You drain the tank onto the floor.
 dystopia-processor-examine-load = Input: { $loaded } of { $capacity }.
 dystopia-processor-examine-output = Output: { $units } of { $capacity } (unload with an empty hand or the verb).
-dystopia-processor-examine-tank = Water tank: { $volume } of { $max } u.
+dystopia-processor-examine-tank = Tank: { $volume } of { $max }u: { $contents }.
+dystopia-processor-examine-tank-empty = The tank is empty (holds { $max }u).
+dystopia-processor-examine-tank-entry = [color={ $color }]{ $name }[/color] { $amount }
 dystopia-processor-examine-cycle = { $batches } { $batches ->
     [one] batch
    *[other] batches

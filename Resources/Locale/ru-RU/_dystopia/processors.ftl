@@ -17,9 +17,15 @@ dystopia-processor-unloaded = Вы выгружаете продукцию.
 dystopia-processor-no-output = Готовой продукции нет.
 dystopia-processor-eject-verb = Вытряхнуть сырьё
 dystopia-processor-ejected = Вы вытряхиваете сырьё.
+dystopia-processor-tank-draw-verb = Отлить из бака ({ $amount } ед.)
+dystopia-processor-tank-drawn = Вы отливаете { $amount } ед. из бака.
+dystopia-processor-tank-dump-verb = Слить бак на пол
+dystopia-processor-tank-dumped = Вы сливаете бак на пол.
 dystopia-processor-examine-load = Сырья: { $loaded } из { $capacity }.
 dystopia-processor-examine-output = Готовой продукции: { $units } из { $capacity } (выгрузка — клик рукой или ПКМ).
-dystopia-processor-examine-tank = Вода в баке: { $volume } из { $max } ед.
+dystopia-processor-examine-tank = В баке { $volume } из { $max } ед.: { $contents }.
+dystopia-processor-examine-tank-empty = Бак пуст (вмещает { $max } ед.).
+dystopia-processor-examine-tank-entry = [color={ $color }]{ $name }[/color] { $amount }
 dystopia-processor-examine-cycle = За цикл — { $batches } { $batches ->
     [one] партия
     [few] партии

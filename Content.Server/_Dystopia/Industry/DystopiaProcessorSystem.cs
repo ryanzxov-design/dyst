@@ -4,10 +4,12 @@
 // За цикл — до BatchesPerCycle партий: 7 кусков ручная и щековая дробилки дробят за 7 циклов, конусная — за 3.
 // Продукция: у ручных — на пол, у электрических — в выходной контейнер (его разгружает конвейерный извлекатель).
 
+using Content.Server.Fluids.EntitySystems;
 using Content.Server.Power.EntitySystems;
 using Content.Server.Stack;
 using Content.Shared._Dystopia.Industry;
 using Content.Shared.Audio;
+using Content.Shared.Chemistry.Components;
 using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Chemistry.Reagent;
 using Content.Shared.DoAfter;
@@ -39,6 +41,8 @@ public sealed partial class DystopiaProcessorSystem : EntitySystem
     [Dependency] private SharedSolutionContainerSystem _solution = default!;
     [Dependency] private PowerReceiverSystem _power = default!;
     [Dependency] private TagSystem _tag = default!;
+    [Dependency] private SolutionTransferSystem _transfer = default!;
+    [Dependency] private PuddleSystem _puddle = default!;
 
     private static readonly ProtoId<TagPrototype> OreTag = "Ore";
 
@@ -356,6 +360,68 @@ public sealed partial class DystopiaProcessorSystem : EntitySystem
                 Act = () => EjectInput(ent, user),
             });
         }
+
+        AddTankVerbs(ent, ref args);
+    }
+
+    // ------------------------------------------------------------------ бак: отлить в сосуд, слить на пол
+
+    private void AddTankVerbs(Entity<DystopiaProcessorComponent> ent, ref GetVerbsEvent<AlternativeVerb> args)
+    {
+        if (ent.Comp.Tank is not { } tankName ||
+            !_solution.TryGetSolution(ent.Owner, tankName, out var tank, out var tankSolution) ||
+            tankSolution.Volume <= FixedPoint2.Zero)
+        {
+            return;
+        }
+
+        var user = args.User;
+        var tankEnt = tank.Value;
+
+        // Сосуд в руке (стакан, ведро, канистра) — отлить из бака столько, сколько сосуд наливает за раз.
+        if (args.Using is { } held &&
+            TryComp<SolutionTransferComponent>(held, out var transfer) && transfer.CanReceive &&
+            TryComp<RefillableSolutionComponent>(held, out var refillable) &&
+            _solution.TryGetRefillableSolution(held, out var heldSoln, out var heldSolution) &&
+            heldSolution.AvailableVolume > FixedPoint2.Zero)
+        {
+            var amount = transfer.TransferAmount;
+            if (refillable.MaxRefill is { } maxRefill)
+                amount = FixedPoint2.Min(amount, maxRefill);
+
+            var shown = FixedPoint2.Min(amount, FixedPoint2.Min(tankSolution.Volume, heldSolution.AvailableVolume));
+            var heldEnt = heldSoln.Value;
+            args.Verbs.Add(new AlternativeVerb
+            {
+                Text = Loc.GetString("dystopia-processor-tank-draw-verb", ("amount", shown)),
+                Act = () =>
+                {
+                    var moved = _transfer.Transfer(new SolutionTransferData(user, ent.Owner, tankEnt, held, heldEnt, amount));
+                    if (moved > FixedPoint2.Zero)
+                    {
+                        _popup.PopupEntity(Loc.GetString("dystopia-processor-tank-drawn",
+                            ("amount", moved), ("target", held)), ent, user);
+                    }
+                },
+                Priority = 2,
+            });
+        }
+
+        // Слить весь бак на пол — если налили не того или не столько.
+        args.Verbs.Add(new AlternativeVerb
+        {
+            Text = Loc.GetString("dystopia-processor-tank-dump-verb"),
+            Act = () =>
+            {
+                if (tankEnt.Comp.Solution.Volume <= FixedPoint2.Zero)
+                    return;
+
+                var spilled = _solution.SplitSolution(tankEnt, tankEnt.Comp.Solution.Volume);
+                _puddle.TrySpillAt(ent.Owner, spilled, out _);
+                _popup.PopupEntity(Loc.GetString("dystopia-processor-tank-dumped"), ent, user);
+            },
+            Priority = -1,
+        });
     }
 
     public void TryStartWork(Entity<DystopiaProcessorComponent> ent, EntityUid user)
@@ -581,8 +647,19 @@ public sealed partial class DystopiaProcessorSystem : EntitySystem
 
         if (ent.Comp.Tank is { } tank && _solution.TryGetSolution(ent.Owner, tank, out _, out var solution))
         {
-            args.PushMarkup(Loc.GetString("dystopia-processor-examine-tank",
-                ("volume", solution.Volume), ("max", solution.MaxVolume)));
+            // Одной строкой: строки с равным приоритетом сортируются по алфавиту и разбежались бы.
+            var parts = new List<string>();
+            foreach (var (reagent, quantity) in solution.GetReagentPrototypes(_proto))
+            {
+                parts.Add(Loc.GetString("dystopia-processor-examine-tank-entry",
+                    ("color", reagent.SubstanceColor.ToHexNoAlpha()), ("name", reagent.LocalizedName),
+                    ("amount", quantity)));
+            }
+
+            args.PushMarkup(Loc.GetString(parts.Count == 0
+                    ? "dystopia-processor-examine-tank-empty"
+                    : "dystopia-processor-examine-tank",
+                ("volume", solution.Volume), ("max", solution.MaxVolume), ("contents", string.Join(", ", parts))));
         }
 
         args.PushMarkup(Loc.GetString("dystopia-processor-examine-cycle",
