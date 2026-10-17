@@ -1,0 +1,43 @@
+<Document>
+  # Руда
+
+  <Box>
+      <GuideEntityEmbed Entity="SteelOre" Caption=""/>
+      <GuideEntityEmbed Entity="DystopiaOreChalcopyrite" Caption=""/>
+      <GuideEntityEmbed Entity="DystopiaOreSphalerite" Caption=""/>
+      <GuideEntityEmbed Entity="DystopiaOreCassiterite" Caption=""/>
+      <GuideEntityEmbed Entity="DystopiaOreGalena" Caption=""/>
+      <GuideEntityEmbed Entity="GoldOre" Caption=""/>
+      <GuideEntityEmbed Entity="SilverOre" Caption=""/>
+      <GuideEntityEmbed Entity="DystopiaOreChromite" Caption=""/>
+  </Box>
+
+  Жила снаружи выглядит как обычный [color=#9ab0c4]камень[/color], [color=#9ab0c4]песчаник[/color] или [color=#9ab0c4]сугроб[/color]. Что внутри, без сканера не узнать, пока не начнёте долбить. Отбитый кусок руды подписан: что за минерал и какой металл в нём.
+
+  ## Руда, которая плавится в тигле
+  - [color=#9ab0c4]Гематит[/color] — железо. Плавится при [color=#ff9a50]1550 °C[/color].
+  - [color=#9ab0c4]Халькопирит[/color] — медь, [color=#ff9a50]1200 °C[/color].
+  - [color=#9ab0c4]Сфалерит[/color] — цинк, [color=#ff9a50]1000 °C[/color].
+  - [color=#9ab0c4]Касситерит[/color] — олово, [color=#ff9a50]1000 °C[/color].
+  - [color=#9ab0c4]Галенит[/color] — свинец, [color=#ff9a50]800 °C[/color]. В каждом куске есть немного серебра, оно уходит в расплав.
+  - [color=#9ab0c4]Золотоносная руда[/color] — золото, [color=#ff9a50]1070 °C[/color].
+  - [color=#9ab0c4]Аргентит[/color] — серебро, [color=#ff9a50]1000 °C[/color].
+  - [color=#9ab0c4]Хромит[/color] — сразу [color=#9ab0c4]феррохром[/color], [color=#ff9a50]1550 °C[/color]. Чистого хрома из тигля не бывает.
+
+  Кусок руды в тигле даёт [color=#ff9a50]10[/color] ед. [color=#7ac8b0]металла[/color] и [color=#ff9a50]5[/color] ед. [color=#7ac8b0]шлака[/color]. Шлак придётся снимать (см. [textlink="Горн и тигель" link="DystopiaMetallurgyForge"]). Если сначала обогатить руду, шлака будет меньше, а металла больше (см. [textlink="Обогащение" link="DystopiaMetallurgyBeneficiation"]).
+
+  ## Руда, которая в тигле не плавится
+  <Box>
+      <GuideEntityEmbed Entity="DystopiaOreBauxite" Caption=""/>
+      <GuideEntityEmbed Entity="UraniumOre" Caption=""/>
+      <GuideEntityEmbed Entity="SaltOre" Caption=""/>
+      <GuideEntityEmbed Entity="DystopiaOreSylvite" Caption=""/>
+      <GuideEntityEmbed Entity="DystopiaOreSpodumene" Caption=""/>
+      <GuideEntityEmbed Entity="DystopiaOreCinnabar" Caption=""/>
+  </Box>
+
+  [color=#9ab0c4]Боксит[/color] (алюминий), [color=#9ab0c4]уранинит[/color] (уран), [color=#9ab0c4]каменная соль[/color] (натрий), [color=#9ab0c4]сильвин[/color] (калий), [color=#9ab0c4]сподумен[/color] (литий) и [color=#9ab0c4]киноварь[/color] (ртуть) идут другим путём — через печь, кислоту и ток. Об этом раздел [textlink="Металлы без тигля" link="DystopiaMetallurgyChemical"].
+
+  ## Уголь
+  [color=#9ab0c4]Уголь[/color] в горне — топливо, а в тигле — [color=#7ac8b0]углерод[/color] для стали и чугуна. Не путайте, куда его кладёте.
+</Document>

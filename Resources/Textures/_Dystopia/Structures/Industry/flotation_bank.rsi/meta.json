@@ -1,7 +1,7 @@
 {
     "version": 1,
     "license": "CC-BY-SA-3.0",
-    "copyright": "Created by Peptide90 for SS14 Recolored into a flotation bank for Dystopia.",
+    "copyright": "Drawn for Dystopia (ryanzxov-design/dyst).",
     "size": {
         "x": 32,
         "y": 32
@@ -14,12 +14,12 @@
             "name": "running",
             "delays": [
                 [
-                    0.3,
-                    0.3,
-                    0.3,
-                    0.3,
-                    0.3,
-                    0.3
+                    0.12,
+                    0.12,
+                    0.12,
+                    0.12,
+                    0.12,
+                    0.12
                 ]
             ]
         },

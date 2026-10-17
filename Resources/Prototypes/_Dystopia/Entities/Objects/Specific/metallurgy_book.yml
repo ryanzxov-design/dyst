@@ -1,0 +1,70 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: «Руководство металлурга» — книга, открывает страницы руководства DystopiaMetallurgy. Самостоятельная сущность, без parent.
+
+- type: entity
+  id: DystopiaBookMetallurgy
+  name: metallurgist's handbook
+  description: A thick workshop handbook with greasy fingerprints on every page. Ores, forges, alloys, ore processing.
+  components:
+  - type: Item
+    size: Small
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    sprite: _Dystopia/Objects/Misc/books.rsi
+    layers:
+    - state: paper
+    - state: cover_strong
+      color: "#2e3846"
+    - state: icon_ladle
+      color: "#ff9a50"
+    - state: icon_corner
+      color: "#d2ae68"
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Tag
+    tags: [ Book ]
+  - type: GuideHelp
+    openOnActivation: true
+    guides: [ DystopiaMetallurgy ]
+  - type: MeleeWeapon
+    soundHit:
+      collection: Punch
+    damage:
+      types:
+        Blunt: 1
+  - type: DamageOtherOnHit
+    damage:
+      types: {}

@@ -1,0 +1,50 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: эффекты металлургии. Клуб пара — когда вода вскипает на раскалённом (закалка; сам пар уходит в воздух
+# ванильным водяным паром, это — только видимый выброс). Самостоятельные сущности, без parent.
+
+- type: entity
+  id: DystopiaEffectSteam
+  categories: [ HideSpawnMenu ]
+  name: steam
+  components:
+  - type: Transform
+    anchored: false
+  - type: TimedDespawn
+    lifetime: 0.5
+  - type: DystopiaParticleEmitter
+    emitters:
+    # клубы пара
+    - rate: 70
+      lifetime: 0.8,1.6
+      speed: 0.3,0.9
+      direction: 0
+      spread: 120
+      alignToVelocity: false
+      inheritVelocity: 0
+      drift: 0,0.6
+      drag: 1.2
+      jitter: 0.25
+      size: 2,5
+      additive: false
+      colors:
+      - "#F0F4F800"
+      - "#E8EEF4B0"
+      - "#D0D8E070"
+      - "#B8C0C800"
+    # капли
+    - rate: 25
+      lifetime: 0.2,0.5
+      speed: 0.6,1.4
+      direction: 0
+      spread: 160
+      alignToVelocity: false
+      inheritVelocity: 0
+      drift: 0,-0.8
+      drag: 1.0
+      jitter: 0.2
+      size: 1,1
+      additive: false
+      colors:
+      - "#FFFFFFC0"
+      - "#D8E8F060"
+      - "#B0C8D800"

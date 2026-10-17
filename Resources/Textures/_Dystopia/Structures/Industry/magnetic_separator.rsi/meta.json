@@ -1,7 +1,7 @@
 {
     "version": 1,
     "license": "CC-BY-SA-3.0",
-    "copyright": "by Ko4erga (discord) Recolored into a magnetic separator for Dystopia.",
+    "copyright": "Drawn for Dystopia (ryanzxov-design/dyst).",
     "size": {
         "x": 32,
         "y": 32
@@ -14,18 +14,10 @@
             "name": "running",
             "delays": [
                 [
-                    0.042,
-                    0.042,
-                    0.042,
-                    0.042,
-                    0.042,
-                    0.042,
-                    0.042,
-                    0.042,
-                    0.042,
-                    0.042,
-                    0.042,
-                    0.042
+                    0.1,
+                    0.1,
+                    0.1,
+                    0.1
                 ]
             ]
         },

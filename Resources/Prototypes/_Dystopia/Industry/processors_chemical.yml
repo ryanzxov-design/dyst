@@ -14,6 +14,46 @@
   placement:
     mode: SnapgridCenter
   components:
+  - type: DystopiaParticleEmitter   # частицы (gen_particles.py)
+    emitters:
+    # дым
+    - rate: 7
+      lifetime: 1.4,2.4
+      speed: 0.1,0.3
+      direction: 0
+      spread: 50
+      alignToVelocity: false
+      inheritVelocity: 0
+      drift: 0,0.35
+      drag: 0.6
+      jitter: 0.3
+      size: 2,4
+      additive: false
+      activeWhen: enum.DystopiaProcessorVisuals.Running
+      colors:
+      - "#8A845600"
+      - "#8A845670"
+      - "#8A845640"
+      - "#8A845600"
+    # искры, летят вверх
+    - rate: 4
+      lifetime: 0.6,1.2
+      speed: 0.3,0.8
+      direction: 0
+      spread: 80
+      alignToVelocity: false
+      inheritVelocity: 0
+      drift: 0,0.5
+      drag: 0.8
+      jitter: 0.25
+      size: 1,1
+      additive: true
+      flicker: 0.5
+      activeWhen: enum.DystopiaProcessorVisuals.Running
+      colors:
+      - "#FFD27AFF"
+      - "#FF8A2AC8"
+      - "#C0401A00"
   - type: Transform
     anchored: true
     noRot: true
@@ -118,6 +158,27 @@
   placement:
     mode: SnapgridCenter
   components:
+  - type: DystopiaParticleEmitter   # частицы (gen_particles.py)
+    emitters:
+    # кислотные пары
+    - rate: 4
+      lifetime: 1.2,2.0
+      speed: 0.05,0.2
+      direction: 0
+      spread: 50
+      alignToVelocity: false
+      inheritVelocity: 0
+      drift: 0,0.3
+      drag: 0.5
+      jitter: 0.35
+      size: 2,4
+      additive: false
+      activeWhen: enum.DystopiaProcessorVisuals.Running
+      colors:
+      - "#A8D0B000"
+      - "#A8D0B050"
+      - "#7AA08A20"
+      - "#5A806A00"
   - type: Transform
     anchored: true
     noRot: true
@@ -222,6 +283,46 @@
   placement:
     mode: SnapgridCenter
   components:
+  - type: DystopiaParticleEmitter   # частицы (gen_particles.py)
+    emitters:
+    # искрение на анодах
+    - rate: 10
+      lifetime: 0.1,0.3
+      speed: 0.4,1.2
+      direction: 0
+      spread: 360
+      alignToVelocity: false
+      inheritVelocity: 0
+      drift: 0,0
+      drag: 2.5
+      jitter: 0.5
+      size: 1,1
+      additive: true
+      flicker: 0.7
+      activeWhen: enum.DystopiaProcessorVisuals.Running
+      colors:
+      - "#FFFFFFFF"
+      - "#C8E4FFC0"
+      - "#78BEE100"
+    # дым
+    - rate: 4
+      lifetime: 1.4,2.4
+      speed: 0.1,0.3
+      direction: 0
+      spread: 50
+      alignToVelocity: false
+      inheritVelocity: 0
+      drift: 0,0.35
+      drag: 0.6
+      jitter: 0.5
+      size: 2,4
+      additive: false
+      activeWhen: enum.DystopiaProcessorVisuals.Running
+      colors:
+      - "#6A6A7000"
+      - "#6A6A7070"
+      - "#6A6A7040"
+      - "#6A6A7000"
   - type: Transform
     anchored: true
     noRot: true

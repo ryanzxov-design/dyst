@@ -1,0 +1,35 @@
+<Document>
+  # Руководство металлурга
+  [color=#999999][italic]Промышленная служба Города. Цеховое издание.[/italic][/color]
+
+  <Box>
+      <GuideEntityEmbed Entity="DystopiaForge" Caption=""/>
+      <GuideEntityEmbed Entity="DystopiaCrucibleSmall" Caption=""/>
+      <GuideEntityEmbed Entity="DystopiaTongs" Caption=""/>
+      <GuideEntityEmbed Entity="DystopiaMouldIngot" Caption=""/>
+  </Box>
+
+  Книга для тех, кто встаёт к горну впервые, и для тех, кто уже лил сталь, но забыл, сколько класть угля. Читать подряд не обязательно, каждый раздел понятен сам по себе.
+
+  ## Как читать выделения
+  - [color=#d2ae68]Так[/color] написаны машины, инструменты и всё, что строят или ставят на пол.
+  - [color=#9ab0c4]Так[/color] — руда, слитки и прочее, что носят в руках.
+  - [color=#7ac8b0]Так[/color] — жидкости и вещества: вода, расплав, кислоты.
+  - [color=#ff9a50]Так[/color] — числа, которые стоит запомнить.
+  - [bold]Так[/bold] — что сделать руками.
+  - [color=#e05050]Так[/color] — то, от чего обжигаются и травятся.
+
+  ## Главное правило счёта
+  [color=#ff9a50]100[/color] единиц материала = [color=#ff9a50]1[/color] [color=#9ab0c4]слиток[/color] = [color=#ff9a50]1[/color] [color=#9ab0c4]лист[/color] = [color=#ff9a50]2[/color] [color=#9ab0c4]прутка[/color] = [color=#ff9a50]4[/color] [color=#9ab0c4]мотка проволоки[/color] = [color=#ff9a50]10[/color] ед. [color=#7ac8b0]расплава[/color].
+
+  ## Разделы
+  - [textlink="Руда" link="DystopiaMetallurgyOres"] — что копать и что из этого выйдет.
+  - [textlink="Горн и тигель" link="DystopiaMetallurgyForge"] — первая плавка руками.
+  - [textlink="Сплавы" link="DystopiaMetallurgyAlloys"] — сталь, чугун, бронза, латунь и остальное.
+  - [textlink="Мастерская" link="DystopiaMetallurgyWorkshop"] — большой тигель, желоба, литейный стол, электрический горн, дуговая печь.
+  - [textlink="Обогащение руды" link="DystopiaMetallurgyBeneficiation"] — как из одного куска получить пять слитков.
+  - [textlink="Прокат и волочение" link="DystopiaMetallurgyForming"] — листы и проволока.
+  - [textlink="Металлы без тигля" link="DystopiaMetallurgyChemical"] — алюминий, уран, натрий, калий, литий, ртуть.
+  - [textlink="Конвейеры и трубы" link="DystopiaMetallurgyLogistics"] — чтобы цех работал без беготни.
+  - [textlink="Техника безопасности" link="DystopiaMetallurgySafety"] — прочитайте до первой плавки.
+</Document>

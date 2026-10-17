@@ -4,6 +4,7 @@ using Robust.Client.Graphics;
 using Robust.Shared.Map;
 using Robust.Shared.Physics.Systems;
 using Robust.Shared.Random;
+using Robust.Shared.Reflection;
 
 namespace Content.Client._Dystopia.Particles;
 
@@ -17,6 +18,8 @@ public sealed partial class DystopiaParticleSystem : EntitySystem
     [Dependency] private IRobustRandom _random = default!;
     [Dependency] private SharedTransformSystem _transform = default!;
     [Dependency] private SharedPhysicsSystem _physics = default!;
+    [Dependency] private SharedAppearanceSystem _appearance = default!;
+    [Dependency] private IReflectionManager _reflection = default!;
 
     /// <summary>Предел живых частиц — защита от просадки кадров.</summary>
     public const int MaxParticles = 4000;
@@ -27,6 +30,9 @@ public sealed partial class DystopiaParticleSystem : EntitySystem
     private readonly Dictionary<EntityUid, float> _ages = new();
     private readonly HashSet<EntityUid> _seen = new();
     private DystopiaParticleOverlay _overlay = default!;
+
+    // Разобранные ключи ActiveWhen ("enum.X.Y" → Enum), null — ключ не разобрался.
+    private readonly Dictionary<string, Enum?> _keys = new();
 
     public override void Initialize()
     {
@@ -63,6 +69,12 @@ public sealed partial class DystopiaParticleSystem : EntitySystem
 
             foreach (var emitter in comp.Emitters)
             {
+                if (emitter.ActiveWhen != null && !IsActive(uid, emitter.ActiveWhen))
+                {
+                    emitter.Accumulator = 0f;
+                    continue;
+                }
+
                 emitter.Accumulator += emitter.Rate * frameTime;
                 var count = (int) emitter.Accumulator;
                 emitter.Accumulator -= count;
@@ -103,6 +115,18 @@ public sealed partial class DystopiaParticleSystem : EntitySystem
             p.Position += p.Velocity * frameTime;
             Particles[i] = p;
         }
+    }
+
+    /// <summary>Ключ ActiveWhen у сущности равен true.</summary>
+    private bool IsActive(EntityUid uid, string reference)
+    {
+        if (!_keys.TryGetValue(reference, out var key))
+        {
+            key = _reflection.TryParseEnumReference(reference, out var parsed, false) ? parsed : null;
+            _keys[reference] = key;
+        }
+
+        return key != null && _appearance.TryGetData<bool>(uid, key, out var on) && on;
     }
 
     private Particle Spawn(DystopiaParticleEmitter emitter, MapId map, Vector2 position, Vector2 sourceVelocity, float ramp)

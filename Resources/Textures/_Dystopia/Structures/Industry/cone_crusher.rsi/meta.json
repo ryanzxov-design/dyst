@@ -1,7 +1,7 @@
 {
     "version": 1,
     "license": "CC-BY-SA-3.0",
-    "copyright": "Created by UbaserB (GitHub) for SS14, based on ore processor sprite from tgstation Recolored into a cone crusher for Dystopia.",
+    "copyright": "Drawn for Dystopia (ryanzxov-design/dyst).",
     "size": {
         "x": 32,
         "y": 32
@@ -14,14 +14,10 @@
             "name": "running",
             "delays": [
                 [
-                    0.1,
-                    0.1,
-                    0.1,
-                    0.1,
-                    0.1,
-                    0.1,
-                    0.1,
-                    0.1
+                    0.08,
+                    0.08,
+                    0.08,
+                    0.08
                 ]
             ]
         },

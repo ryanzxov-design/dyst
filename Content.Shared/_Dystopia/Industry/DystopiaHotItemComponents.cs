@@ -121,9 +121,17 @@ public sealed partial class DystopiaQuenchableComponent : Component
     [DataField]
     public SoundSpecifier? Sound;
 
-    /// <summary>Не чаще, чем раз в столько секунд — звук и сообщение.</summary>
+    /// <summary>Не чаще, чем раз в столько секунд — звук, сообщение и клуб пара.</summary>
     [DataField]
     public float EffectCooldown = 1f;
+
+    /// <summary>Сколько молей водяного пара уходит в воздух клетки с единицы вскипевшего охладителя.</summary>
+    [DataField]
+    public float VaporPerUnit = 0.1f;
+
+    /// <summary>Клуб пара (эффект с частицами), когда охладитель вскипает.</summary>
+    [DataField]
+    public EntProtoId? SteamEffect = "DystopiaEffectSteam";
 
     [ViewVariables]
     public TimeSpan NextEffect;
@@ -136,6 +144,13 @@ public record struct DystopiaGetTemperatureEvent(float? Temperature = null);
 /// <summary>Остудить предмет на Kelvin (не ниже окружения).</summary>
 [ByRefEvent]
 public record struct DystopiaCoolEvent(float Kelvin);
+
+/// <summary>Раскалено ли (тигли, изложницы, литейный стол, печи) — для частиц жара и дымка.</summary>
+[Serializable, NetSerializable]
+public enum DystopiaHeatVisuals : byte
+{
+    Hot,
+}
 
 [Serializable, NetSerializable]
 public enum DystopiaForgeVisuals : byte

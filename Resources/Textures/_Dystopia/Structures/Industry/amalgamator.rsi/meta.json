@@ -1,7 +1,7 @@
 {
     "version": 1,
     "license": "CC-BY-SA-3.0",
-    "copyright": "Taken from https://github.com/discordia-space/CEV-Eris/blob/01f7518e0f8177734a6579aba2bbf76024aa96c4/icons/obj/recycling.dmi Recolored into an amalgamation barrel for Dystopia.",
+    "copyright": "Drawn for Dystopia (ryanzxov-design/dyst).",
     "size": {
         "x": 32,
         "y": 32
@@ -14,12 +14,9 @@
             "name": "running",
             "delays": [
                 [
-                    0.1,
-                    0.1,
-                    0.1,
-                    0.1,
-                    0.1,
-                    0.1
+                    0.15,
+                    0.15,
+                    0.15
                 ]
             ]
         }

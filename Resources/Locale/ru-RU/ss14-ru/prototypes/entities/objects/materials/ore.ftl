@@ -1,10 +1,11 @@
 ent-OreBase = { ent-MaterialBase }
     .desc = Кусок неочищенной руды.
+# Dystopia-Metals: описание GoldOre
 ent-GoldOre = золотоносная руда
-    .desc = { ent-OreBase.desc }
+    .desc = Порода с жилками золота. Обычно золота в ней меньше, чем надеешься.
     .suffix = Полный
 ent-GoldOre1 = { ent-GoldOre }
-    .desc = { ent-GoldOre.desc }
+    .desc = Порода с жилками золота. Обычно золота в ней меньше, чем надеешься.
     .suffix = Один
 ent-DiamondOre = алмазная руда
     .desc = { ent-OreBase.desc }
@@ -13,11 +14,12 @@ ent-DiamondOre1 = { ent-DiamondOre }
     .desc = { ent-DiamondOre.desc }
     .suffix = Один
 # Dystopia-Metals
+# Dystopia-Metals: описание SteelOre
 ent-SteelOre = гематит
-    .desc = Железная руда: тяжёлые красно-бурые куски.
+    .desc = Железная руда. Тяжёлая, красно-бурая, пачкает руки ржавчиной. Без мехов не расплавить.
     .suffix = Железо, полный
 ent-SteelOre1 = { ent-SteelOre }
-    .desc = { ent-SteelOre.desc }
+    .desc = Железная руда. Тяжёлая, красно-бурая, пачкает руки ржавчиной. Без мехов не расплавить.
     .suffix = Железо, один
 ent-PlasmaOre = плазменная руда
     .desc = { ent-OreBase.desc }
@@ -26,11 +28,12 @@ ent-PlasmaOre1 = { ent-PlasmaOre }
     .desc = { ent-PlasmaOre.desc }
     .suffix = Один
 # Dystopia-Metals
+# Dystopia-Metals: описание SilverOre
 ent-SilverOre = аргентит
-    .desc = Серебряная руда: свинцово-серый блестящий минерал.
+    .desc = Серебряная руда. Свинцово-серый минерал, режется ножом почти как свинец.
     .suffix = Серебро, полный
 ent-SilverOre1 = { ent-SilverOre }
-    .desc = { ent-SilverOre.desc }
+    .desc = Серебряная руда. Свинцово-серый минерал, режется ножом почти как свинец.
     .suffix = Серебро, один
 ent-SpaceQuartz = космический кварц
     .desc = { ent-OreBase.desc }
@@ -39,11 +42,12 @@ ent-SpaceQuartz1 = { ent-SpaceQuartz }
     .desc = { ent-SpaceQuartz.desc }
     .suffix = Один
 # Dystopia-Metals
+# Dystopia-Metals: описание UraniumOre
 ent-UraniumOre = уранинит
-    .desc = Урановая руда: чёрная смоляная обманка. Фонит.
+    .desc = Урановая руда. Чёрная, смолистая и тяжёлая. Фонит, в карманах не носить.
     .suffix = Уран, полный
 ent-UraniumOre1 = { ent-UraniumOre }
-    .desc = { ent-UraniumOre.desc }
+    .desc = Урановая руда. Чёрная, смолистая и тяжёлая. Фонит, в карманах не носить.
     .suffix = Уран, один
 ent-BananiumOre = бананиумовая руда
     .desc = { ent-OreBase.desc }
@@ -67,8 +71,9 @@ ent-Coal15 = { ent-Coal }
     .desc = { ent-Coal.desc }
     .suffix = Пятнадцать
 # Dystopia-Metals
+# Dystopia-Metals: описание SaltOre
 ent-SaltOre = каменная соль
-    .desc = Натриевая руда: галит, она же поваренная соль.
+    .desc = Каменная соль. Серые полупрозрачные глыбы. В электролизёре из неё получают натрий.
     .suffix = Натрий, полный
 ent-Salt1 = { ent-SaltOre }
     .desc = { ent-SaltOre.desc }

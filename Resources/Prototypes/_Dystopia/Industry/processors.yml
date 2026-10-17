@@ -13,6 +13,27 @@
   placement:
     mode: SnapgridCenter
   components:
+  - type: DystopiaParticleEmitter   # частицы (gen_particles.py)
+    emitters:
+    # рудная пыль
+    - rate: 10
+      lifetime: 0.5,1.1
+      speed: 0.15,0.5
+      direction: 0
+      spread: 360
+      alignToVelocity: false
+      inheritVelocity: 0
+      drift: 0,-0.2
+      drag: 1.2
+      jitter: 0.35
+      size: 1,2
+      additive: false
+      activeWhen: enum.DystopiaProcessorVisuals.Running
+      colors:
+      - "#8A7E6E00"
+      - "#8A7E6EA0"
+      - "#8A7E6E50"
+      - "#8A7E6E00"
   - type: Transform
     anchored: true
     noRot: true
@@ -96,6 +117,27 @@
   placement:
     mode: SnapgridCenter
   components:
+  - type: DystopiaParticleEmitter   # частицы (gen_particles.py)
+    emitters:
+    # рудная пыль
+    - rate: 10
+      lifetime: 0.5,1.1
+      speed: 0.15,0.5
+      direction: 0
+      spread: 360
+      alignToVelocity: false
+      inheritVelocity: 0
+      drift: 0,-0.2
+      drag: 1.2
+      jitter: 0.35
+      size: 1,2
+      additive: false
+      activeWhen: enum.DystopiaProcessorVisuals.Running
+      colors:
+      - "#8A7E6E00"
+      - "#8A7E6EA0"
+      - "#8A7E6E50"
+      - "#8A7E6E00"
   - type: Transform
     anchored: true
     noRot: true
@@ -190,6 +232,27 @@
   placement:
     mode: SnapgridCenter
   components:
+  - type: DystopiaParticleEmitter   # частицы (gen_particles.py)
+    emitters:
+    # рудная пыль
+    - rate: 18
+      lifetime: 0.5,1.1
+      speed: 0.15,0.5
+      direction: 0
+      spread: 360
+      alignToVelocity: false
+      inheritVelocity: 0
+      drift: 0,-0.2
+      drag: 1.2
+      jitter: 0.45
+      size: 1,2
+      additive: false
+      activeWhen: enum.DystopiaProcessorVisuals.Running
+      colors:
+      - "#8A7E6E00"
+      - "#8A7E6EA0"
+      - "#8A7E6E50"
+      - "#8A7E6E00"
   - type: Transform
     anchored: true
     noRot: true
@@ -292,6 +355,27 @@
   placement:
     mode: SnapgridCenter
   components:
+  - type: DystopiaParticleEmitter   # частицы (gen_particles.py)
+    emitters:
+    # рудная пыль
+    - rate: 8
+      lifetime: 0.5,1.1
+      speed: 0.15,0.5
+      direction: 0
+      spread: 360
+      alignToVelocity: false
+      inheritVelocity: 0
+      drift: 0,-0.2
+      drag: 1.2
+      jitter: 0.3
+      size: 1,2
+      additive: false
+      activeWhen: enum.DystopiaProcessorVisuals.Running
+      colors:
+      - "#A0948400"
+      - "#A09484A0"
+      - "#A0948450"
+      - "#A0948400"
   - type: Transform
     anchored: true
     noRot: true
@@ -375,6 +459,27 @@
   placement:
     mode: SnapgridCenter
   components:
+  - type: DystopiaParticleEmitter   # частицы (gen_particles.py)
+    emitters:
+    # рудная пыль
+    - rate: 8
+      lifetime: 0.5,1.1
+      speed: 0.15,0.5
+      direction: 0
+      spread: 360
+      alignToVelocity: false
+      inheritVelocity: 0
+      drift: 0,-0.2
+      drag: 1.2
+      jitter: 0.3
+      size: 1,2
+      additive: false
+      activeWhen: enum.DystopiaProcessorVisuals.Running
+      colors:
+      - "#A0948400"
+      - "#A09484A0"
+      - "#A0948450"
+      - "#A0948400"
   - type: Transform
     anchored: true
     noRot: true
@@ -469,6 +574,27 @@
   placement:
     mode: SnapgridCenter
   components:
+  - type: DystopiaParticleEmitter   # частицы (gen_particles.py)
+    emitters:
+    # рудная пыль
+    - rate: 8
+      lifetime: 0.5,1.1
+      speed: 0.15,0.5
+      direction: 0
+      spread: 360
+      alignToVelocity: false
+      inheritVelocity: 0
+      drift: 0,-0.2
+      drag: 1.2
+      jitter: 0.3
+      size: 1,2
+      additive: false
+      activeWhen: enum.DystopiaProcessorVisuals.Running
+      colors:
+      - "#A0948400"
+      - "#A09484A0"
+      - "#A0948450"
+      - "#A0948400"
   - type: Transform
     anchored: true
     noRot: true
@@ -563,6 +689,26 @@
   placement:
     mode: SnapgridCenter
   components:
+  - type: DystopiaParticleEmitter   # частицы (gen_particles.py)
+    emitters:
+    # брызги воды
+    - rate: 8
+      lifetime: 0.2,0.5
+      speed: 0.4,0.9
+      direction: 0
+      spread: 140
+      alignToVelocity: false
+      inheritVelocity: 0
+      drift: 0,-1.6
+      drag: 0.5
+      jitter: 0.35
+      size: 1,1
+      additive: false
+      activeWhen: enum.DystopiaProcessorVisuals.Running
+      colors:
+      - "#C8E4F0D0"
+      - "#78BEE190"
+      - "#3E6E9600"
   - type: Transform
     anchored: true
     noRot: true
@@ -655,6 +801,26 @@
   placement:
     mode: SnapgridCenter
   components:
+  - type: DystopiaParticleEmitter   # частицы (gen_particles.py)
+    emitters:
+    # брызги воды
+    - rate: 8
+      lifetime: 0.2,0.5
+      speed: 0.4,0.9
+      direction: 0
+      spread: 140
+      alignToVelocity: false
+      inheritVelocity: 0
+      drift: 0,-1.6
+      drag: 0.5
+      jitter: 0.35
+      size: 1,1
+      additive: false
+      activeWhen: enum.DystopiaProcessorVisuals.Running
+      colors:
+      - "#C8E4F0D0"
+      - "#78BEE190"
+      - "#3E6E9600"
   - type: Transform
     anchored: true
     noRot: true
@@ -758,6 +924,26 @@
   placement:
     mode: SnapgridCenter
   components:
+  - type: DystopiaParticleEmitter   # частицы (gen_particles.py)
+    emitters:
+    # брызги воды
+    - rate: 8
+      lifetime: 0.2,0.5
+      speed: 0.4,0.9
+      direction: 0
+      spread: 140
+      alignToVelocity: false
+      inheritVelocity: 0
+      drift: 0,-1.6
+      drag: 0.5
+      jitter: 0.35
+      size: 1,1
+      additive: false
+      activeWhen: enum.DystopiaProcessorVisuals.Running
+      colors:
+      - "#C8E4F0D0"
+      - "#78BEE190"
+      - "#3E6E9600"
   - type: Transform
     anchored: true
     noRot: true

@@ -1,0 +1,24 @@
+<Document>
+  # Сплавы
+
+  <Box>
+      <GuideEntityEmbed Entity="DystopiaIngotSteel" Caption=""/>
+      <GuideEntityEmbed Entity="DystopiaIngotCastIron" Caption=""/>
+      <GuideEntityEmbed Entity="DystopiaIngotBronze" Caption=""/>
+      <GuideEntityEmbed Entity="DystopiaIngotBrass" Caption=""/>
+      <GuideEntityEmbed Entity="DystopiaIngotSolder" Caption=""/>
+      <GuideEntityEmbed Entity="DystopiaIngotStainlessSteel" Caption=""/>
+  </Box>
+
+  Сплав собирается сам, когда в тигле есть оба расплава и хватает жара. Порядок загрузки не важен.
+
+  - [color=#9ab0c4]Сталь[/color] — [color=#7ac8b0]железо[/color] и [color=#7ac8b0]углерод[/color] [color=#ff9a50]10 : 1[/color], от [color=#ff9a50]1500 °C[/color]. На деле это [color=#ff9a50]1[/color] кусок [color=#9ab0c4]угля[/color] на [color=#ff9a50]1[/color] кусок [color=#9ab0c4]гематита[/color].
+  - [color=#9ab0c4]Чугун[/color] — сталь и ещё углерод [color=#ff9a50]10 : 1[/color], от [color=#ff9a50]1200 °C[/color]. То есть угля вдвое больше, чем на сталь.
+  - Чугун с железом [color=#ff9a50]1 : 1[/color] при [color=#ff9a50]1500 °C[/color] снова дают сталь. Так исправляют перебор с углём.
+  - [color=#9ab0c4]Бронза[/color] — медь и олово [color=#ff9a50]9 : 1[/color], от [color=#ff9a50]950 °C[/color].
+  - [color=#9ab0c4]Латунь[/color] — медь и цинк [color=#ff9a50]6 : 4[/color], от [color=#ff9a50]930 °C[/color].
+  - [color=#9ab0c4]Припой[/color] — олово и свинец [color=#ff9a50]6 : 4[/color], от [color=#ff9a50]230 °C[/color]. Плавится даже в остывающем горне.
+  - [color=#9ab0c4]Нержавеющая сталь[/color] — сталь и феррохром [color=#ff9a50]4 : 1[/color], от [color=#ff9a50]1500 °C[/color]. Без мехов или электрического горна не выйдет.
+
+  Совет: сначала расплавьте основу, потом досыпайте добавку. Так проще следить за пропорцией по осмотру тигля.
+</Document>

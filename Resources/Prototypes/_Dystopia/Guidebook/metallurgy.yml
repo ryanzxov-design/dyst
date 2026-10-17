@@ -1,0 +1,62 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: «Руководство металлурга» — страницы руководства (их открывает книга DystopiaBookMetallurgy). Текст — /ServerInfo/_Dystopia/Guidebook/Metallurgy/, генератор gen_book.py.
+
+- type: guideEntry
+  id: DystopiaMetallurgy
+  name: guide-entry-dystopia-metallurgy
+  text: "/ServerInfo/_Dystopia/Guidebook/Metallurgy/Index.xml"
+  children:
+  - DystopiaMetallurgyOres
+  - DystopiaMetallurgyForge
+  - DystopiaMetallurgyAlloys
+  - DystopiaMetallurgyWorkshop
+  - DystopiaMetallurgyBeneficiation
+  - DystopiaMetallurgyForming
+  - DystopiaMetallurgyChemical
+  - DystopiaMetallurgyLogistics
+  - DystopiaMetallurgySafety
+
+- type: guideEntry
+  id: DystopiaMetallurgyOres
+  name: guide-entry-dystopia-metallurgy-ores
+  text: "/ServerInfo/_Dystopia/Guidebook/Metallurgy/Ores.xml"
+
+- type: guideEntry
+  id: DystopiaMetallurgyForge
+  name: guide-entry-dystopia-metallurgy-forge
+  text: "/ServerInfo/_Dystopia/Guidebook/Metallurgy/Forge.xml"
+
+- type: guideEntry
+  id: DystopiaMetallurgyAlloys
+  name: guide-entry-dystopia-metallurgy-alloys
+  text: "/ServerInfo/_Dystopia/Guidebook/Metallurgy/Alloys.xml"
+
+- type: guideEntry
+  id: DystopiaMetallurgyWorkshop
+  name: guide-entry-dystopia-metallurgy-workshop
+  text: "/ServerInfo/_Dystopia/Guidebook/Metallurgy/Workshop.xml"
+
+- type: guideEntry
+  id: DystopiaMetallurgyBeneficiation
+  name: guide-entry-dystopia-metallurgy-beneficiation
+  text: "/ServerInfo/_Dystopia/Guidebook/Metallurgy/Beneficiation.xml"
+
+- type: guideEntry
+  id: DystopiaMetallurgyForming
+  name: guide-entry-dystopia-metallurgy-forming
+  text: "/ServerInfo/_Dystopia/Guidebook/Metallurgy/Forming.xml"
+
+- type: guideEntry
+  id: DystopiaMetallurgyChemical
+  name: guide-entry-dystopia-metallurgy-chemical
+  text: "/ServerInfo/_Dystopia/Guidebook/Metallurgy/Chemical.xml"
+
+- type: guideEntry
+  id: DystopiaMetallurgyLogistics
+  name: guide-entry-dystopia-metallurgy-logistics
+  text: "/ServerInfo/_Dystopia/Guidebook/Metallurgy/Logistics.xml"
+
+- type: guideEntry
+  id: DystopiaMetallurgySafety
+  name: guide-entry-dystopia-metallurgy-safety
+  text: "/ServerInfo/_Dystopia/Guidebook/Metallurgy/Safety.xml"

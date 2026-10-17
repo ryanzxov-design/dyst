@@ -1,0 +1,35 @@
+{
+    "version": 1,
+    "license": "CC-BY-SA-3.0",
+    "copyright": "icon_law changed by lzk228 Ladle icon drawn for Dystopia.",
+    "size": {
+        "x": 32,
+        "y": 32
+    },
+    "states": [
+        {
+            "name": "book_icon"
+        },
+        {
+            "name": "cover_strong"
+        },
+        {
+            "name": "decor_wingette"
+        },
+        {
+            "name": "decor_spine"
+        },
+        {
+            "name": "detail_rivets"
+        },
+        {
+            "name": "icon_corner"
+        },
+        {
+            "name": "paper"
+        },
+        {
+            "name": "icon_ladle"
+        }
+    ]
+}

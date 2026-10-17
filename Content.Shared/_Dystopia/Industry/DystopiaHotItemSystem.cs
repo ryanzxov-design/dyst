@@ -29,6 +29,7 @@ public sealed partial class DystopiaHotItemSystem : EntitySystem
     [Dependency] private WoundSystem _wounds = default!;
     [Dependency] private INetManager _net = default!;
     [Dependency] private IGameTiming _timing = default!;
+    [Dependency] private SharedAppearanceSystem _appearance = default!;
 
     public override void Initialize()
     {
@@ -55,6 +56,9 @@ public sealed partial class DystopiaHotItemSystem : EntitySystem
 
     public void SetHot(Entity<DystopiaHotItemComponent?> ent, bool hot)
     {
+        // Жар виден всем: частицы дымка и искр (у литейного стола и печей DystopiaHotItem нет — им только это).
+        _appearance.SetData(ent.Owner, DystopiaHeatVisuals.Hot, hot);
+
         if (!Resolve(ent, ref ent.Comp, false) || ent.Comp.Hot == hot)
             return;
 

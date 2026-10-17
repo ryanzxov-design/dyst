@@ -1,0 +1,19 @@
+<Document>
+  # Прокат и волочение
+
+  <Box>
+      <GuideEntityEmbed Entity="DystopiaHandRollingMill" Caption=""/>
+      <GuideEntityEmbed Entity="DystopiaRollingMill" Caption=""/>
+  </Box>
+
+  [color=#d2ae68]Прокатный стан[/color] раскатывает [color=#9ab0c4]слиток[/color] в [color=#9ab0c4]лист[/color], один в один. Работает для всех шестнадцати металлов и сплавов. [color=#d2ae68]Ручной[/color] крутят воротом, [color=#d2ae68]электрический[/color] делает по [color=#ff9a50]2[/color] листа за цикл и берёт [color=#ff9a50]2000[/color] Вт.
+
+  <Box>
+      <GuideEntityEmbed Entity="DystopiaHandWireDrawBench" Caption=""/>
+      <GuideEntityEmbed Entity="DystopiaWireDrawingMachine" Caption=""/>
+  </Box>
+
+  [color=#d2ae68]Волочильный стан[/color] протягивает [color=#9ab0c4]пруток[/color] через волоку, и выходит [color=#ff9a50]2[/color] [color=#9ab0c4]мотка проволоки[/color]. Проволоку тянут из меди, алюминия, золота, серебра и припоя. [color=#d2ae68]Волочильная скамья[/color] работает от ворота, [color=#d2ae68]волочильный стан[/color] — сам, по [color=#ff9a50]2[/color] прутка за цикл.
+
+  Прутки берутся из литейного стола или изложницы на пруток. Если нужна проволока, лейте сразу прутки, а не слитки.
+</Document>

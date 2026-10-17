@@ -1,0 +1,71 @@
+<Document>
+  # Обогащение руды
+
+  Кусок руды, брошенный в тигель, даёт один слиток и много шлака. Если сначала раздробить, смолоть и отмыть, тот же кусок даст два, три или пять слитков.
+
+  ## ×2 — дробилки
+  <Box>
+      <GuideEntityEmbed Entity="DystopiaHandCrusher" Caption=""/>
+      <GuideEntityEmbed Entity="DystopiaJawCrusher" Caption=""/>
+      <GuideEntityEmbed Entity="DystopiaConeCrusher" Caption=""/>
+  </Box>
+
+  Из куска руды выходит [color=#ff9a50]2[/color] горсти [color=#9ab0c4]дроблёной руды[/color].
+  - [color=#d2ae68]Ручная дробилка[/color] — крутить ворот, по куску за раз.
+  - [color=#d2ae68]Щековая[/color] работает сама от сети, [color=#ff9a50]1000[/color] Вт.
+  - [color=#d2ae68]Конусная[/color] — [color=#ff9a50]3000[/color] Вт, дробит по [color=#ff9a50]3[/color] куска за цикл.
+
+  ## ×3 — мельницы и обогатители
+  <Box>
+      <GuideEntityEmbed Entity="DystopiaHandMill" Caption=""/>
+      <GuideEntityEmbed Entity="DystopiaBallMill" Caption=""/>
+      <GuideEntityEmbed Entity="DystopiaBallMillLarge" Caption=""/>
+  </Box>
+
+  [color=#d2ae68]Жернова[/color], [color=#d2ae68]шаровая мельница[/color] и [color=#d2ae68]большая шаровая мельница[/color] превращают дроблёную руду в [color=#9ab0c4]молотую[/color], горсть в горсть.
+
+  <Box>
+      <GuideEntityEmbed Entity="DystopiaSluiceBox" Caption=""/>
+      <GuideEntityEmbed Entity="DystopiaShakingTable" Caption=""/>
+      <GuideEntityEmbed Entity="DystopiaJig" Caption=""/>
+  </Box>
+
+  [color=#d2ae68]Вашгерд[/color], [color=#d2ae68]концентрационный стол[/color] и [color=#d2ae68]отсадочная машина[/color] отмывают молотую руду: [color=#ff9a50]2[/color] горсти и [color=#ff9a50]10[/color] ед. [color=#7ac8b0]воды[/color] дают [color=#ff9a50]3[/color] горсти [color=#9ab0c4]концентрата[/color] и [color=#ff9a50]1[/color] [color=#9ab0c4]песка[/color]. Концентрат плавится почти без шлака.
+
+  ## ×5 — три пути, по руде
+  <Box>
+      <GuideEntityEmbed Entity="DystopiaFlotationCell" Caption=""/>
+      <GuideEntityEmbed Entity="DystopiaFlotationBank" Caption=""/>
+  </Box>
+
+  [color=#d2ae68]Флотация[/color] подходит для меди, цинка, свинца, серебра и олова. [color=#ff9a50]2[/color] горсти молотой руды, [color=#ff9a50]20[/color] ед. [color=#7ac8b0]воды[/color] и [color=#ff9a50]1[/color] ед. [color=#7ac8b0]флотореагента[/color] дают [color=#ff9a50]5[/color] горстей [color=#9ab0c4]флотоконцентрата[/color] и [color=#ff9a50]1[/color] [color=#9ab0c4]песка[/color]. Воду и реагент льют в один бак.
+
+  Полиметаллические руды флотируют партиями по [color=#ff9a50]8[/color] горстей: выходит [color=#ff9a50]20[/color] концентрата и [color=#ff9a50]1[/color] горсть попутного.
+  - [color=#9ab0c4]Галенит[/color] даёт попутно серебро.
+  - [color=#9ab0c4]Халькопирит[/color] — золото.
+  - [color=#9ab0c4]Сфалерит[/color] и [color=#9ab0c4]аргентит[/color] — свинец.
+
+  <Box>
+      <GuideEntityEmbed Entity="DystopiaMagneticSeparator" Caption=""/>
+  </Box>
+
+  [color=#d2ae68]Магнитный сепаратор[/color] — для железа и хрома. Работает всухую: [color=#ff9a50]2[/color] горсти дают [color=#ff9a50]5[/color].
+
+  <Box>
+      <GuideEntityEmbed Entity="DystopiaAmalgamator" Caption=""/>
+  </Box>
+
+  [color=#d2ae68]Амальгамационная бочка[/color] — для золота. [color=#ff9a50]2[/color] горсти, [color=#ff9a50]10[/color] ед. [color=#7ac8b0]воды[/color] и [color=#ff9a50]2[/color] ед. [color=#7ac8b0]ртути[/color] дают [color=#ff9a50]5[/color] горстей [color=#9ab0c4]золотой амальгамы[/color]. В тигле ртуть выкипает, и остаётся чистое золото без шлака.
+
+  ## Сколько выходит из десяти кусков руды
+  - Прямо в тигель: [color=#ff9a50]10[/color] слитков.
+  - Через дробилку: [color=#ff9a50]20[/color].
+  - Дробилка, мельница, обогатитель: [color=#ff9a50]30[/color].
+  - Дробилка, мельница, флотация, сепаратор или бочка: [color=#ff9a50]50[/color].
+
+  ## Как работают машины
+  - Ручные выдают продукцию на пол.
+  - Электрические складывают её внутрь. Выгружают кликом, через ПКМ или конвейерным извлекателем.
+  - В бак [bold]льют ведром[/bold] или подают по трубам.
+  - Если налили не то, через ПКМ с сосудом в руке выберите [bold]«Отлить из бака»[/bold]. Пустой рукой — [bold]«Слить бак на пол»[/bold].
+</Document>

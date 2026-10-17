@@ -96,6 +96,13 @@ public sealed partial class DystopiaParticleEmitter
     [DataField]
     public float SizeMultiplierEnd = 1f;
 
+    /// <summary>
+    /// Излучатель работает, только пока у сущности в данных внешнего вида этот ключ равен true
+    /// (например, enum.DystopiaForgeVisuals.Lit — горн горит). Пусто — работает всегда.
+    /// </summary>
+    [DataField]
+    public string? ActiveWhen;
+
     // Рабочее поле: накопитель дробных частиц между кадрами.
     [ViewVariables]
     public float Accumulator;
