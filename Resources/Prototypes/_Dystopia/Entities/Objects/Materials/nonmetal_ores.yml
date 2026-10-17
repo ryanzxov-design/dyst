@@ -1,0 +1,1150 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: неметаллы, шаг 1 — сырьё и вещества (машины и рецепты переработки — следующим шагом).
+# Куски сырья. Самостоятельные сущности, без parent.
+
+- type: entity
+  id: DystopiaOreLimestone
+  name: limestone
+  description: Pale dense rock with tiny shells in the break. Lime, cement and soda come from it.
+  suffix: Lime, Full
+  components:
+  - type: Solution
+    solution:
+      canReact: false
+      maxVol: 1
+    id: composite
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/NonMetals/ore.rsi
+    heldPrefix: limestone
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/NonMetals/ore.rsi
+    state: limestone
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Extractable
+    grindableSolutionName: composite
+  - type: Stack
+    stackType: DystopiaOreLimestone
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaRawLimestone: 100
+
+- type: entity
+  id: DystopiaOreLimestone1
+  name: limestone
+  description: Pale dense rock with tiny shells in the break. Lime, cement and soda come from it.
+  suffix: Lime, Single
+  components:
+  - type: Solution
+    solution:
+      canReact: false
+      maxVol: 1
+    id: composite
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/NonMetals/ore.rsi
+    heldPrefix: limestone
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/NonMetals/ore.rsi
+    state: limestone
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Extractable
+    grindableSolutionName: composite
+  - type: Stack
+    stackType: DystopiaOreLimestone
+    count: 1
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaRawLimestone: 100
+
+- type: entity
+  id: DystopiaOreClay
+  name: clay
+  description: Greasy red clay that sticks to your hands. Bricks are moulded from it, and it goes into cement.
+  suffix: Clay, Full
+  components:
+  - type: Solution
+    solution:
+      canReact: false
+      maxVol: 8
+      reagents:
+      - ReagentId: Silicon
+        Quantity: 5
+      - ReagentId: Aluminium
+        Quantity: 3
+    id: composite
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/NonMetals/ore.rsi
+    heldPrefix: clay
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/NonMetals/ore.rsi
+    state: clay
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Extractable
+    grindableSolutionName: composite
+  - type: Stack
+    stackType: DystopiaOreClay
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaRawClay: 100
+
+- type: entity
+  id: DystopiaOreClay1
+  name: clay
+  description: Greasy red clay that sticks to your hands. Bricks are moulded from it, and it goes into cement.
+  suffix: Clay, Single
+  components:
+  - type: Solution
+    solution:
+      canReact: false
+      maxVol: 8
+      reagents:
+      - ReagentId: Silicon
+        Quantity: 5
+      - ReagentId: Aluminium
+        Quantity: 3
+    id: composite
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/NonMetals/ore.rsi
+    heldPrefix: clay
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/NonMetals/ore.rsi
+    state: clay
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Extractable
+    grindableSolutionName: composite
+  - type: Stack
+    stackType: DystopiaOreClay
+    count: 1
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaRawClay: 100
+
+- type: entity
+  id: DystopiaOreFireclay
+  name: fireclay
+  description: Pale refractory clay. Bricks made from it stand up to a forge's heat.
+  suffix: Fireclay, Full
+  components:
+  - type: Solution
+    solution:
+      canReact: false
+      maxVol: 9
+      reagents:
+      - ReagentId: Silicon
+        Quantity: 5
+      - ReagentId: Aluminium
+        Quantity: 4
+    id: composite
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/NonMetals/ore.rsi
+    heldPrefix: fireclay
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/NonMetals/ore.rsi
+    state: fireclay
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Extractable
+    grindableSolutionName: composite
+  - type: Stack
+    stackType: DystopiaOreFireclay
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaRawFireclay: 100
+
+- type: entity
+  id: DystopiaOreFireclay1
+  name: fireclay
+  description: Pale refractory clay. Bricks made from it stand up to a forge's heat.
+  suffix: Fireclay, Single
+  components:
+  - type: Solution
+    solution:
+      canReact: false
+      maxVol: 9
+      reagents:
+      - ReagentId: Silicon
+        Quantity: 5
+      - ReagentId: Aluminium
+        Quantity: 4
+    id: composite
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/NonMetals/ore.rsi
+    heldPrefix: fireclay
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/NonMetals/ore.rsi
+    state: fireclay
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Extractable
+    grindableSolutionName: composite
+  - type: Stack
+    stackType: DystopiaOreFireclay
+    count: 1
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaRawFireclay: 100
+
+- type: entity
+  id: DystopiaOreSulfur
+  name: native sulfur
+  description: Brittle yellow crystals that smell of matches. Burns blue with a choking smoke.
+  suffix: Sulfur, Full
+  components:
+  - type: Solution
+    solution:
+      canReact: false
+      maxVol: 10
+      reagents:
+      - ReagentId: Sulfur
+        Quantity: 10
+    id: composite
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/NonMetals/ore.rsi
+    heldPrefix: sulfur
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/NonMetals/ore.rsi
+    state: sulfur
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Extractable
+    grindableSolutionName: composite
+  - type: Stack
+    stackType: DystopiaOreSulfur
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaRawSulfur: 100
+
+- type: entity
+  id: DystopiaOreSulfur1
+  name: native sulfur
+  description: Brittle yellow crystals that smell of matches. Burns blue with a choking smoke.
+  suffix: Sulfur, Single
+  components:
+  - type: Solution
+    solution:
+      canReact: false
+      maxVol: 10
+      reagents:
+      - ReagentId: Sulfur
+        Quantity: 10
+    id: composite
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/NonMetals/ore.rsi
+    heldPrefix: sulfur
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/NonMetals/ore.rsi
+    state: sulfur
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Extractable
+    grindableSolutionName: composite
+  - type: Stack
+    stackType: DystopiaOreSulfur
+    count: 1
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaRawSulfur: 100
+
+- type: entity
+  id: DystopiaOrePyrite
+  name: pyrite
+  description: Brassy cubes with perfectly flat faces. It is not gold, however hard you wish. Sulfur and acid come from it.
+  suffix: Sulfur, iron, Full
+  components:
+  - type: Solution
+    solution:
+      canReact: false
+      maxVol: 10
+      reagents:
+      - ReagentId: Iron
+        Quantity: 5
+      - ReagentId: Sulfur
+        Quantity: 5
+    id: composite
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/NonMetals/ore.rsi
+    heldPrefix: pyrite
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/NonMetals/ore.rsi
+    state: pyrite
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Extractable
+    grindableSolutionName: composite
+  - type: Stack
+    stackType: DystopiaOrePyrite
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaRawPyrite: 100
+
+- type: entity
+  id: DystopiaOrePyrite1
+  name: pyrite
+  description: Brassy cubes with perfectly flat faces. It is not gold, however hard you wish. Sulfur and acid come from it.
+  suffix: Sulfur, iron, Single
+  components:
+  - type: Solution
+    solution:
+      canReact: false
+      maxVol: 10
+      reagents:
+      - ReagentId: Iron
+        Quantity: 5
+      - ReagentId: Sulfur
+        Quantity: 5
+    id: composite
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/NonMetals/ore.rsi
+    heldPrefix: pyrite
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/NonMetals/ore.rsi
+    state: pyrite
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Extractable
+    grindableSolutionName: composite
+  - type: Stack
+    stackType: DystopiaOrePyrite
+    count: 1
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaRawPyrite: 100
+
+- type: entity
+  id: DystopiaOreGraphite
+  name: graphite
+  description: Soft greasy stone that marks your fingers like a pencil. Electrodes and crucibles are made from it.
+  suffix: Carbon, Full
+  components:
+  - type: Solution
+    solution:
+      canReact: false
+      maxVol: 10
+      reagents:
+      - ReagentId: Carbon
+        Quantity: 10
+    id: composite
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/NonMetals/ore.rsi
+    heldPrefix: graphite
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/NonMetals/ore.rsi
+    state: graphite
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Extractable
+    grindableSolutionName: composite
+  - type: Stack
+    stackType: DystopiaOreGraphite
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaRawGraphite: 100
+
+- type: entity
+  id: DystopiaOreGraphite1
+  name: graphite
+  description: Soft greasy stone that marks your fingers like a pencil. Electrodes and crucibles are made from it.
+  suffix: Carbon, Single
+  components:
+  - type: Solution
+    solution:
+      canReact: false
+      maxVol: 10
+      reagents:
+      - ReagentId: Carbon
+        Quantity: 10
+    id: composite
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/NonMetals/ore.rsi
+    heldPrefix: graphite
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/NonMetals/ore.rsi
+    state: graphite
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Extractable
+    grindableSolutionName: composite
+  - type: Stack
+    stackType: DystopiaOreGraphite
+    count: 1
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaRawGraphite: 100
+
+- type: entity
+  id: DystopiaOreGypsum
+  name: gypsum
+  description: Soft white stone you can scratch with a fingernail. A little gypsum in cement keeps it from setting too early.
+  suffix: Gypsum, Full
+  components:
+  - type: Solution
+    solution:
+      canReact: false
+      maxVol: 2
+      reagents:
+      - ReagentId: Sulfur
+        Quantity: 2
+    id: composite
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/NonMetals/ore.rsi
+    heldPrefix: gypsum
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/NonMetals/ore.rsi
+    state: gypsum
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Extractable
+    grindableSolutionName: composite
+  - type: Stack
+    stackType: DystopiaOreGypsum
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaRawGypsum: 100
+
+- type: entity
+  id: DystopiaOreGypsum1
+  name: gypsum
+  description: Soft white stone you can scratch with a fingernail. A little gypsum in cement keeps it from setting too early.
+  suffix: Gypsum, Single
+  components:
+  - type: Solution
+    solution:
+      canReact: false
+      maxVol: 2
+      reagents:
+      - ReagentId: Sulfur
+        Quantity: 2
+    id: composite
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/NonMetals/ore.rsi
+    heldPrefix: gypsum
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/NonMetals/ore.rsi
+    state: gypsum
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Extractable
+    grindableSolutionName: composite
+  - type: Stack
+    stackType: DystopiaOreGypsum
+    count: 1
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaRawGypsum: 100

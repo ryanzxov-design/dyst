@@ -1,0 +1,2531 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: неметаллы, шаг 1 — сырьё и вещества (машины и рецепты переработки — следующим шагом).
+# Жилы неметаллов в планетных породах (камень, песчаник, сугроб, перидотит). Обычная жила через
+# EntityRemap заменяется вариантом под породу при генерации.
+
+- type: entity
+  id: DystopiaWallRockLimestone
+  name: rock
+  description: A rock seam rich with limestone.
+  suffix: Lime (limestone)
+  placement:
+    mode: SnapgridCenter
+    snap: [ Wall ]
+  components:
+  - type: OreVein
+    oreChance: 1.0
+    currentOre: DystopiaLimestone
+  - type: Sprite
+    layers:
+    - state: limestone
+      sprite: _Dystopia/Structures/Walls/nonmetal_veins.rsi
+      map:
+      - enum.MiningScannerVisualLayers.Overlay
+    drawdepth: Walls
+    sprite: Structures/Walls/stone-dirt.rsi
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        density: 1000
+        mask: [ FullTileMask ]
+        layer: [ WallLayer ]
+  - type: Pullable
+  - type: Tag
+    tags: [ Structure ]
+  - type: Anchorable
+    flags: [ Anchorable ]
+  - type: Rotatable
+  - type: RangedDamageSound
+    soundGroups:
+      Brute:
+        collection: MetalBulletImpact
+    soundTypes:
+      Heat:
+        collection: MetalLaserImpact
+  - type: Wall
+  - type: IsRoof
+  - type: Icon
+    state: full
+    sprite: Structures/Walls/stone-dirt.rsi
+  - type: PlacementReplacement
+    key: walls
+  - type: Airtight
+  - type: StaticPrice
+    price: 75
+  - type: RadiationBlocker
+    resistance: 2
+  - type: BlockWeather
+  - type: SunShadowCast
+  - type: Occluder
+  - type: StructureAlignerPylon
+    pylons: [ Door, Firelock ]
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 150
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/Effects/break_stone.ogg
+          params:
+            volume: -6
+  - type: Damageable
+    damageModifierSet: RockMod
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: SoundOnGather
+  - type: Gatherable
+    toolWhitelist:
+      tags: [ Pickaxe ]
+  - type: IconSmooth
+    key: stone
+    index: 0
+    base: stone
+  - type: MiningScannerViewable
+  - type: EntityRemap
+    mask:
+      WallRockSand: DystopiaWallRockSandLimestone
+      WallRockSnow: DystopiaWallRockSnowLimestone
+      WallRockChromite: DystopiaWallRockChromiteLimestone
+
+- type: entity
+  id: DystopiaWallRockSandLimestone
+  name: sandstone
+  description: A rock seam rich with limestone.
+  suffix: Lime (limestone)
+  placement:
+    mode: SnapgridCenter
+    snap: [ Wall ]
+  components:
+  - type: OreVein
+    oreChance: 1.0
+    currentOre: DystopiaLimestone
+  - type: Sprite
+    layers:
+    - state: limestone
+      sprite: _Dystopia/Structures/Walls/nonmetal_veins.rsi
+      map:
+      - enum.MiningScannerVisualLayers.Overlay
+    drawdepth: Walls
+    sprite: Structures/Walls/stone-sand.rsi
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        density: 1000
+        mask: [ FullTileMask ]
+        layer: [ WallLayer ]
+  - type: Pullable
+  - type: Tag
+    tags: [ Structure ]
+  - type: Anchorable
+    flags: [ Anchorable ]
+  - type: Rotatable
+  - type: RangedDamageSound
+    soundGroups:
+      Brute:
+        collection: MetalBulletImpact
+    soundTypes:
+      Heat:
+        collection: MetalLaserImpact
+  - type: Wall
+  - type: IsRoof
+  - type: Icon
+    state: full
+    sprite: Structures/Walls/stone-sand.rsi
+  - type: PlacementReplacement
+    key: walls
+  - type: Airtight
+  - type: StaticPrice
+    price: 75
+  - type: RadiationBlocker
+    resistance: 2
+  - type: BlockWeather
+  - type: SunShadowCast
+  - type: Occluder
+  - type: StructureAlignerPylon
+    pylons: [ Door, Firelock ]
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 150
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/Effects/break_stone.ogg
+          params:
+            volume: -6
+  - type: Damageable
+    damageModifierSet: RockMod
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: SoundOnGather
+  - type: Gatherable
+    toolWhitelist:
+      tags: [ Pickaxe ]
+  - type: IconSmooth
+    key: stone
+    index: 0
+    base: stone
+  - type: MiningScannerViewable
+
+- type: entity
+  id: DystopiaWallRockSnowLimestone
+  name: snowdrift
+  description: A rock seam rich with limestone.
+  suffix: Lime (limestone)
+  placement:
+    mode: SnapgridCenter
+    snap: [ Wall ]
+  components:
+  - type: OreVein
+    oreChance: 1.0
+    currentOre: DystopiaLimestone
+  - type: Sprite
+    layers:
+    - state: limestone
+      sprite: _Dystopia/Structures/Walls/nonmetal_veins.rsi
+      map:
+      - enum.MiningScannerVisualLayers.Overlay
+    drawdepth: Walls
+    sprite: Structures/Walls/stone-snow.rsi
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        density: 1000
+        mask: [ FullTileMask ]
+        layer: [ WallLayer ]
+  - type: Pullable
+  - type: Tag
+    tags: [ Structure ]
+  - type: Anchorable
+    flags: [ Anchorable ]
+  - type: Rotatable
+  - type: RangedDamageSound
+    soundGroups:
+      Brute:
+        collection: MetalBulletImpact
+    soundTypes:
+      Heat:
+        collection: MetalLaserImpact
+  - type: Wall
+  - type: IsRoof
+  - type: Icon
+    state: full
+    sprite: Structures/Walls/stone-snow.rsi
+  - type: PlacementReplacement
+    key: walls
+  - type: Airtight
+  - type: StaticPrice
+    price: 75
+  - type: RadiationBlocker
+    resistance: 2
+  - type: BlockWeather
+  - type: SunShadowCast
+  - type: Occluder
+  - type: StructureAlignerPylon
+    pylons: [ Door, Firelock ]
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 150
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/Effects/break_stone.ogg
+          params:
+            volume: -6
+  - type: Damageable
+    damageModifierSet: RockMod
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: SoundOnGather
+  - type: Gatherable
+    toolWhitelist:
+      tags: [ Pickaxe ]
+  - type: IconSmooth
+    key: stone
+    index: 0
+    base: stone
+  - type: MiningScannerViewable
+
+- type: entity
+  id: DystopiaWallRockChromiteLimestone
+  name: chromite
+  description: A rock seam rich with limestone.
+  suffix: Lime (limestone)
+  placement:
+    mode: SnapgridCenter
+    snap: [ Wall ]
+  components:
+  - type: OreVein
+    oreChance: 1.0
+    currentOre: DystopiaLimestone
+  - type: Sprite
+    layers:
+    - state: limestone
+      sprite: _Dystopia/Structures/Walls/nonmetal_veins.rsi
+      map:
+      - enum.MiningScannerVisualLayers.Overlay
+    drawdepth: Walls
+    sprite: Structures/Walls/stone-chromite.rsi
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        density: 1000
+        mask: [ FullTileMask ]
+        layer: [ WallLayer ]
+  - type: Pullable
+  - type: Tag
+    tags: [ Structure ]
+  - type: Anchorable
+    flags: [ Anchorable ]
+  - type: Rotatable
+  - type: RangedDamageSound
+    soundGroups:
+      Brute:
+        collection: MetalBulletImpact
+    soundTypes:
+      Heat:
+        collection: MetalLaserImpact
+  - type: Wall
+  - type: IsRoof
+  - type: Icon
+    state: full
+    sprite: Structures/Walls/stone-chromite.rsi
+  - type: PlacementReplacement
+    key: walls
+  - type: Airtight
+  - type: StaticPrice
+    price: 75
+  - type: RadiationBlocker
+    resistance: 2
+  - type: BlockWeather
+  - type: SunShadowCast
+  - type: Occluder
+  - type: StructureAlignerPylon
+    pylons: [ Door, Firelock ]
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 150
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/Effects/break_stone.ogg
+          params:
+            volume: -6
+  - type: Damageable
+    damageModifierSet: RockMod
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: SoundOnGather
+  - type: Gatherable
+    toolWhitelist:
+      tags: [ Pickaxe ]
+  - type: IconSmooth
+    key: stone
+    index: 0
+    base: stone
+  - type: MiningScannerViewable
+
+- type: entity
+  id: DystopiaWallRockClay
+  name: rock
+  description: A rock seam rich with clay.
+  suffix: Clay (clay)
+  placement:
+    mode: SnapgridCenter
+    snap: [ Wall ]
+  components:
+  - type: OreVein
+    oreChance: 1.0
+    currentOre: DystopiaClay
+  - type: Sprite
+    layers:
+    - state: clay
+      sprite: _Dystopia/Structures/Walls/nonmetal_veins.rsi
+      map:
+      - enum.MiningScannerVisualLayers.Overlay
+    drawdepth: Walls
+    sprite: Structures/Walls/stone-dirt.rsi
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        density: 1000
+        mask: [ FullTileMask ]
+        layer: [ WallLayer ]
+  - type: Pullable
+  - type: Tag
+    tags: [ Structure ]
+  - type: Anchorable
+    flags: [ Anchorable ]
+  - type: Rotatable
+  - type: RangedDamageSound
+    soundGroups:
+      Brute:
+        collection: MetalBulletImpact
+    soundTypes:
+      Heat:
+        collection: MetalLaserImpact
+  - type: Wall
+  - type: IsRoof
+  - type: Icon
+    state: full
+    sprite: Structures/Walls/stone-dirt.rsi
+  - type: PlacementReplacement
+    key: walls
+  - type: Airtight
+  - type: StaticPrice
+    price: 75
+  - type: RadiationBlocker
+    resistance: 2
+  - type: BlockWeather
+  - type: SunShadowCast
+  - type: Occluder
+  - type: StructureAlignerPylon
+    pylons: [ Door, Firelock ]
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 150
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/Effects/break_stone.ogg
+          params:
+            volume: -6
+  - type: Damageable
+    damageModifierSet: RockMod
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: SoundOnGather
+  - type: Gatherable
+    toolWhitelist:
+      tags: [ Pickaxe ]
+  - type: IconSmooth
+    key: stone
+    index: 0
+    base: stone
+  - type: MiningScannerViewable
+  - type: EntityRemap
+    mask:
+      WallRockSand: DystopiaWallRockSandClay
+      WallRockSnow: DystopiaWallRockSnowClay
+      WallRockChromite: DystopiaWallRockChromiteClay
+
+- type: entity
+  id: DystopiaWallRockSandClay
+  name: sandstone
+  description: A rock seam rich with clay.
+  suffix: Clay (clay)
+  placement:
+    mode: SnapgridCenter
+    snap: [ Wall ]
+  components:
+  - type: OreVein
+    oreChance: 1.0
+    currentOre: DystopiaClay
+  - type: Sprite
+    layers:
+    - state: clay
+      sprite: _Dystopia/Structures/Walls/nonmetal_veins.rsi
+      map:
+      - enum.MiningScannerVisualLayers.Overlay
+    drawdepth: Walls
+    sprite: Structures/Walls/stone-sand.rsi
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        density: 1000
+        mask: [ FullTileMask ]
+        layer: [ WallLayer ]
+  - type: Pullable
+  - type: Tag
+    tags: [ Structure ]
+  - type: Anchorable
+    flags: [ Anchorable ]
+  - type: Rotatable
+  - type: RangedDamageSound
+    soundGroups:
+      Brute:
+        collection: MetalBulletImpact
+    soundTypes:
+      Heat:
+        collection: MetalLaserImpact
+  - type: Wall
+  - type: IsRoof
+  - type: Icon
+    state: full
+    sprite: Structures/Walls/stone-sand.rsi
+  - type: PlacementReplacement
+    key: walls
+  - type: Airtight
+  - type: StaticPrice
+    price: 75
+  - type: RadiationBlocker
+    resistance: 2
+  - type: BlockWeather
+  - type: SunShadowCast
+  - type: Occluder
+  - type: StructureAlignerPylon
+    pylons: [ Door, Firelock ]
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 150
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/Effects/break_stone.ogg
+          params:
+            volume: -6
+  - type: Damageable
+    damageModifierSet: RockMod
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: SoundOnGather
+  - type: Gatherable
+    toolWhitelist:
+      tags: [ Pickaxe ]
+  - type: IconSmooth
+    key: stone
+    index: 0
+    base: stone
+  - type: MiningScannerViewable
+
+- type: entity
+  id: DystopiaWallRockSnowClay
+  name: snowdrift
+  description: A rock seam rich with clay.
+  suffix: Clay (clay)
+  placement:
+    mode: SnapgridCenter
+    snap: [ Wall ]
+  components:
+  - type: OreVein
+    oreChance: 1.0
+    currentOre: DystopiaClay
+  - type: Sprite
+    layers:
+    - state: clay
+      sprite: _Dystopia/Structures/Walls/nonmetal_veins.rsi
+      map:
+      - enum.MiningScannerVisualLayers.Overlay
+    drawdepth: Walls
+    sprite: Structures/Walls/stone-snow.rsi
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        density: 1000
+        mask: [ FullTileMask ]
+        layer: [ WallLayer ]
+  - type: Pullable
+  - type: Tag
+    tags: [ Structure ]
+  - type: Anchorable
+    flags: [ Anchorable ]
+  - type: Rotatable
+  - type: RangedDamageSound
+    soundGroups:
+      Brute:
+        collection: MetalBulletImpact
+    soundTypes:
+      Heat:
+        collection: MetalLaserImpact
+  - type: Wall
+  - type: IsRoof
+  - type: Icon
+    state: full
+    sprite: Structures/Walls/stone-snow.rsi
+  - type: PlacementReplacement
+    key: walls
+  - type: Airtight
+  - type: StaticPrice
+    price: 75
+  - type: RadiationBlocker
+    resistance: 2
+  - type: BlockWeather
+  - type: SunShadowCast
+  - type: Occluder
+  - type: StructureAlignerPylon
+    pylons: [ Door, Firelock ]
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 150
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/Effects/break_stone.ogg
+          params:
+            volume: -6
+  - type: Damageable
+    damageModifierSet: RockMod
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: SoundOnGather
+  - type: Gatherable
+    toolWhitelist:
+      tags: [ Pickaxe ]
+  - type: IconSmooth
+    key: stone
+    index: 0
+    base: stone
+  - type: MiningScannerViewable
+
+- type: entity
+  id: DystopiaWallRockChromiteClay
+  name: chromite
+  description: A rock seam rich with clay.
+  suffix: Clay (clay)
+  placement:
+    mode: SnapgridCenter
+    snap: [ Wall ]
+  components:
+  - type: OreVein
+    oreChance: 1.0
+    currentOre: DystopiaClay
+  - type: Sprite
+    layers:
+    - state: clay
+      sprite: _Dystopia/Structures/Walls/nonmetal_veins.rsi
+      map:
+      - enum.MiningScannerVisualLayers.Overlay
+    drawdepth: Walls
+    sprite: Structures/Walls/stone-chromite.rsi
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        density: 1000
+        mask: [ FullTileMask ]
+        layer: [ WallLayer ]
+  - type: Pullable
+  - type: Tag
+    tags: [ Structure ]
+  - type: Anchorable
+    flags: [ Anchorable ]
+  - type: Rotatable
+  - type: RangedDamageSound
+    soundGroups:
+      Brute:
+        collection: MetalBulletImpact
+    soundTypes:
+      Heat:
+        collection: MetalLaserImpact
+  - type: Wall
+  - type: IsRoof
+  - type: Icon
+    state: full
+    sprite: Structures/Walls/stone-chromite.rsi
+  - type: PlacementReplacement
+    key: walls
+  - type: Airtight
+  - type: StaticPrice
+    price: 75
+  - type: RadiationBlocker
+    resistance: 2
+  - type: BlockWeather
+  - type: SunShadowCast
+  - type: Occluder
+  - type: StructureAlignerPylon
+    pylons: [ Door, Firelock ]
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 150
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/Effects/break_stone.ogg
+          params:
+            volume: -6
+  - type: Damageable
+    damageModifierSet: RockMod
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: SoundOnGather
+  - type: Gatherable
+    toolWhitelist:
+      tags: [ Pickaxe ]
+  - type: IconSmooth
+    key: stone
+    index: 0
+    base: stone
+  - type: MiningScannerViewable
+
+- type: entity
+  id: DystopiaWallRockFireclay
+  name: rock
+  description: A rock seam rich with fireclay.
+  suffix: Fireclay (fireclay)
+  placement:
+    mode: SnapgridCenter
+    snap: [ Wall ]
+  components:
+  - type: OreVein
+    oreChance: 1.0
+    currentOre: DystopiaFireclay
+  - type: Sprite
+    layers:
+    - state: fireclay
+      sprite: _Dystopia/Structures/Walls/nonmetal_veins.rsi
+      map:
+      - enum.MiningScannerVisualLayers.Overlay
+    drawdepth: Walls
+    sprite: Structures/Walls/stone-dirt.rsi
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        density: 1000
+        mask: [ FullTileMask ]
+        layer: [ WallLayer ]
+  - type: Pullable
+  - type: Tag
+    tags: [ Structure ]
+  - type: Anchorable
+    flags: [ Anchorable ]
+  - type: Rotatable
+  - type: RangedDamageSound
+    soundGroups:
+      Brute:
+        collection: MetalBulletImpact
+    soundTypes:
+      Heat:
+        collection: MetalLaserImpact
+  - type: Wall
+  - type: IsRoof
+  - type: Icon
+    state: full
+    sprite: Structures/Walls/stone-dirt.rsi
+  - type: PlacementReplacement
+    key: walls
+  - type: Airtight
+  - type: StaticPrice
+    price: 75
+  - type: RadiationBlocker
+    resistance: 2
+  - type: BlockWeather
+  - type: SunShadowCast
+  - type: Occluder
+  - type: StructureAlignerPylon
+    pylons: [ Door, Firelock ]
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 150
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/Effects/break_stone.ogg
+          params:
+            volume: -6
+  - type: Damageable
+    damageModifierSet: RockMod
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: SoundOnGather
+  - type: Gatherable
+    toolWhitelist:
+      tags: [ Pickaxe ]
+  - type: IconSmooth
+    key: stone
+    index: 0
+    base: stone
+  - type: MiningScannerViewable
+  - type: EntityRemap
+    mask:
+      WallRockSand: DystopiaWallRockSandFireclay
+      WallRockSnow: DystopiaWallRockSnowFireclay
+      WallRockChromite: DystopiaWallRockChromiteFireclay
+
+- type: entity
+  id: DystopiaWallRockSandFireclay
+  name: sandstone
+  description: A rock seam rich with fireclay.
+  suffix: Fireclay (fireclay)
+  placement:
+    mode: SnapgridCenter
+    snap: [ Wall ]
+  components:
+  - type: OreVein
+    oreChance: 1.0
+    currentOre: DystopiaFireclay
+  - type: Sprite
+    layers:
+    - state: fireclay
+      sprite: _Dystopia/Structures/Walls/nonmetal_veins.rsi
+      map:
+      - enum.MiningScannerVisualLayers.Overlay
+    drawdepth: Walls
+    sprite: Structures/Walls/stone-sand.rsi
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        density: 1000
+        mask: [ FullTileMask ]
+        layer: [ WallLayer ]
+  - type: Pullable
+  - type: Tag
+    tags: [ Structure ]
+  - type: Anchorable
+    flags: [ Anchorable ]
+  - type: Rotatable
+  - type: RangedDamageSound
+    soundGroups:
+      Brute:
+        collection: MetalBulletImpact
+    soundTypes:
+      Heat:
+        collection: MetalLaserImpact
+  - type: Wall
+  - type: IsRoof
+  - type: Icon
+    state: full
+    sprite: Structures/Walls/stone-sand.rsi
+  - type: PlacementReplacement
+    key: walls
+  - type: Airtight
+  - type: StaticPrice
+    price: 75
+  - type: RadiationBlocker
+    resistance: 2
+  - type: BlockWeather
+  - type: SunShadowCast
+  - type: Occluder
+  - type: StructureAlignerPylon
+    pylons: [ Door, Firelock ]
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 150
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/Effects/break_stone.ogg
+          params:
+            volume: -6
+  - type: Damageable
+    damageModifierSet: RockMod
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: SoundOnGather
+  - type: Gatherable
+    toolWhitelist:
+      tags: [ Pickaxe ]
+  - type: IconSmooth
+    key: stone
+    index: 0
+    base: stone
+  - type: MiningScannerViewable
+
+- type: entity
+  id: DystopiaWallRockSnowFireclay
+  name: snowdrift
+  description: A rock seam rich with fireclay.
+  suffix: Fireclay (fireclay)
+  placement:
+    mode: SnapgridCenter
+    snap: [ Wall ]
+  components:
+  - type: OreVein
+    oreChance: 1.0
+    currentOre: DystopiaFireclay
+  - type: Sprite
+    layers:
+    - state: fireclay
+      sprite: _Dystopia/Structures/Walls/nonmetal_veins.rsi
+      map:
+      - enum.MiningScannerVisualLayers.Overlay
+    drawdepth: Walls
+    sprite: Structures/Walls/stone-snow.rsi
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        density: 1000
+        mask: [ FullTileMask ]
+        layer: [ WallLayer ]
+  - type: Pullable
+  - type: Tag
+    tags: [ Structure ]
+  - type: Anchorable
+    flags: [ Anchorable ]
+  - type: Rotatable
+  - type: RangedDamageSound
+    soundGroups:
+      Brute:
+        collection: MetalBulletImpact
+    soundTypes:
+      Heat:
+        collection: MetalLaserImpact
+  - type: Wall
+  - type: IsRoof
+  - type: Icon
+    state: full
+    sprite: Structures/Walls/stone-snow.rsi
+  - type: PlacementReplacement
+    key: walls
+  - type: Airtight
+  - type: StaticPrice
+    price: 75
+  - type: RadiationBlocker
+    resistance: 2
+  - type: BlockWeather
+  - type: SunShadowCast
+  - type: Occluder
+  - type: StructureAlignerPylon
+    pylons: [ Door, Firelock ]
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 150
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/Effects/break_stone.ogg
+          params:
+            volume: -6
+  - type: Damageable
+    damageModifierSet: RockMod
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: SoundOnGather
+  - type: Gatherable
+    toolWhitelist:
+      tags: [ Pickaxe ]
+  - type: IconSmooth
+    key: stone
+    index: 0
+    base: stone
+  - type: MiningScannerViewable
+
+- type: entity
+  id: DystopiaWallRockChromiteFireclay
+  name: chromite
+  description: A rock seam rich with fireclay.
+  suffix: Fireclay (fireclay)
+  placement:
+    mode: SnapgridCenter
+    snap: [ Wall ]
+  components:
+  - type: OreVein
+    oreChance: 1.0
+    currentOre: DystopiaFireclay
+  - type: Sprite
+    layers:
+    - state: fireclay
+      sprite: _Dystopia/Structures/Walls/nonmetal_veins.rsi
+      map:
+      - enum.MiningScannerVisualLayers.Overlay
+    drawdepth: Walls
+    sprite: Structures/Walls/stone-chromite.rsi
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        density: 1000
+        mask: [ FullTileMask ]
+        layer: [ WallLayer ]
+  - type: Pullable
+  - type: Tag
+    tags: [ Structure ]
+  - type: Anchorable
+    flags: [ Anchorable ]
+  - type: Rotatable
+  - type: RangedDamageSound
+    soundGroups:
+      Brute:
+        collection: MetalBulletImpact
+    soundTypes:
+      Heat:
+        collection: MetalLaserImpact
+  - type: Wall
+  - type: IsRoof
+  - type: Icon
+    state: full
+    sprite: Structures/Walls/stone-chromite.rsi
+  - type: PlacementReplacement
+    key: walls
+  - type: Airtight
+  - type: StaticPrice
+    price: 75
+  - type: RadiationBlocker
+    resistance: 2
+  - type: BlockWeather
+  - type: SunShadowCast
+  - type: Occluder
+  - type: StructureAlignerPylon
+    pylons: [ Door, Firelock ]
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 150
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/Effects/break_stone.ogg
+          params:
+            volume: -6
+  - type: Damageable
+    damageModifierSet: RockMod
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: SoundOnGather
+  - type: Gatherable
+    toolWhitelist:
+      tags: [ Pickaxe ]
+  - type: IconSmooth
+    key: stone
+    index: 0
+    base: stone
+  - type: MiningScannerViewable
+
+- type: entity
+  id: DystopiaWallRockSulfur
+  name: rock
+  description: A rock seam rich with native sulfur.
+  suffix: Sulfur (native sulfur)
+  placement:
+    mode: SnapgridCenter
+    snap: [ Wall ]
+  components:
+  - type: OreVein
+    oreChance: 1.0
+    currentOre: DystopiaSulfur
+  - type: Sprite
+    layers:
+    - state: sulfur
+      sprite: _Dystopia/Structures/Walls/nonmetal_veins.rsi
+      map:
+      - enum.MiningScannerVisualLayers.Overlay
+    drawdepth: Walls
+    sprite: Structures/Walls/stone-dirt.rsi
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        density: 1000
+        mask: [ FullTileMask ]
+        layer: [ WallLayer ]
+  - type: Pullable
+  - type: Tag
+    tags: [ Structure ]
+  - type: Anchorable
+    flags: [ Anchorable ]
+  - type: Rotatable
+  - type: RangedDamageSound
+    soundGroups:
+      Brute:
+        collection: MetalBulletImpact
+    soundTypes:
+      Heat:
+        collection: MetalLaserImpact
+  - type: Wall
+  - type: IsRoof
+  - type: Icon
+    state: full
+    sprite: Structures/Walls/stone-dirt.rsi
+  - type: PlacementReplacement
+    key: walls
+  - type: Airtight
+  - type: StaticPrice
+    price: 75
+  - type: RadiationBlocker
+    resistance: 2
+  - type: BlockWeather
+  - type: SunShadowCast
+  - type: Occluder
+  - type: StructureAlignerPylon
+    pylons: [ Door, Firelock ]
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 150
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/Effects/break_stone.ogg
+          params:
+            volume: -6
+  - type: Damageable
+    damageModifierSet: RockMod
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: SoundOnGather
+  - type: Gatherable
+    toolWhitelist:
+      tags: [ Pickaxe ]
+  - type: IconSmooth
+    key: stone
+    index: 0
+    base: stone
+  - type: MiningScannerViewable
+  - type: EntityRemap
+    mask:
+      WallRockSand: DystopiaWallRockSandSulfur
+      WallRockSnow: DystopiaWallRockSnowSulfur
+      WallRockChromite: DystopiaWallRockChromiteSulfur
+
+- type: entity
+  id: DystopiaWallRockSandSulfur
+  name: sandstone
+  description: A rock seam rich with native sulfur.
+  suffix: Sulfur (native sulfur)
+  placement:
+    mode: SnapgridCenter
+    snap: [ Wall ]
+  components:
+  - type: OreVein
+    oreChance: 1.0
+    currentOre: DystopiaSulfur
+  - type: Sprite
+    layers:
+    - state: sulfur
+      sprite: _Dystopia/Structures/Walls/nonmetal_veins.rsi
+      map:
+      - enum.MiningScannerVisualLayers.Overlay
+    drawdepth: Walls
+    sprite: Structures/Walls/stone-sand.rsi
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        density: 1000
+        mask: [ FullTileMask ]
+        layer: [ WallLayer ]
+  - type: Pullable
+  - type: Tag
+    tags: [ Structure ]
+  - type: Anchorable
+    flags: [ Anchorable ]
+  - type: Rotatable
+  - type: RangedDamageSound
+    soundGroups:
+      Brute:
+        collection: MetalBulletImpact
+    soundTypes:
+      Heat:
+        collection: MetalLaserImpact
+  - type: Wall
+  - type: IsRoof
+  - type: Icon
+    state: full
+    sprite: Structures/Walls/stone-sand.rsi
+  - type: PlacementReplacement
+    key: walls
+  - type: Airtight
+  - type: StaticPrice
+    price: 75
+  - type: RadiationBlocker
+    resistance: 2
+  - type: BlockWeather
+  - type: SunShadowCast
+  - type: Occluder
+  - type: StructureAlignerPylon
+    pylons: [ Door, Firelock ]
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 150
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/Effects/break_stone.ogg
+          params:
+            volume: -6
+  - type: Damageable
+    damageModifierSet: RockMod
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: SoundOnGather
+  - type: Gatherable
+    toolWhitelist:
+      tags: [ Pickaxe ]
+  - type: IconSmooth
+    key: stone
+    index: 0
+    base: stone
+  - type: MiningScannerViewable
+
+- type: entity
+  id: DystopiaWallRockSnowSulfur
+  name: snowdrift
+  description: A rock seam rich with native sulfur.
+  suffix: Sulfur (native sulfur)
+  placement:
+    mode: SnapgridCenter
+    snap: [ Wall ]
+  components:
+  - type: OreVein
+    oreChance: 1.0
+    currentOre: DystopiaSulfur
+  - type: Sprite
+    layers:
+    - state: sulfur
+      sprite: _Dystopia/Structures/Walls/nonmetal_veins.rsi
+      map:
+      - enum.MiningScannerVisualLayers.Overlay
+    drawdepth: Walls
+    sprite: Structures/Walls/stone-snow.rsi
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        density: 1000
+        mask: [ FullTileMask ]
+        layer: [ WallLayer ]
+  - type: Pullable
+  - type: Tag
+    tags: [ Structure ]
+  - type: Anchorable
+    flags: [ Anchorable ]
+  - type: Rotatable
+  - type: RangedDamageSound
+    soundGroups:
+      Brute:
+        collection: MetalBulletImpact
+    soundTypes:
+      Heat:
+        collection: MetalLaserImpact
+  - type: Wall
+  - type: IsRoof
+  - type: Icon
+    state: full
+    sprite: Structures/Walls/stone-snow.rsi
+  - type: PlacementReplacement
+    key: walls
+  - type: Airtight
+  - type: StaticPrice
+    price: 75
+  - type: RadiationBlocker
+    resistance: 2
+  - type: BlockWeather
+  - type: SunShadowCast
+  - type: Occluder
+  - type: StructureAlignerPylon
+    pylons: [ Door, Firelock ]
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 150
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/Effects/break_stone.ogg
+          params:
+            volume: -6
+  - type: Damageable
+    damageModifierSet: RockMod
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: SoundOnGather
+  - type: Gatherable
+    toolWhitelist:
+      tags: [ Pickaxe ]
+  - type: IconSmooth
+    key: stone
+    index: 0
+    base: stone
+  - type: MiningScannerViewable
+
+- type: entity
+  id: DystopiaWallRockChromiteSulfur
+  name: chromite
+  description: A rock seam rich with native sulfur.
+  suffix: Sulfur (native sulfur)
+  placement:
+    mode: SnapgridCenter
+    snap: [ Wall ]
+  components:
+  - type: OreVein
+    oreChance: 1.0
+    currentOre: DystopiaSulfur
+  - type: Sprite
+    layers:
+    - state: sulfur
+      sprite: _Dystopia/Structures/Walls/nonmetal_veins.rsi
+      map:
+      - enum.MiningScannerVisualLayers.Overlay
+    drawdepth: Walls
+    sprite: Structures/Walls/stone-chromite.rsi
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        density: 1000
+        mask: [ FullTileMask ]
+        layer: [ WallLayer ]
+  - type: Pullable
+  - type: Tag
+    tags: [ Structure ]
+  - type: Anchorable
+    flags: [ Anchorable ]
+  - type: Rotatable
+  - type: RangedDamageSound
+    soundGroups:
+      Brute:
+        collection: MetalBulletImpact
+    soundTypes:
+      Heat:
+        collection: MetalLaserImpact
+  - type: Wall
+  - type: IsRoof
+  - type: Icon
+    state: full
+    sprite: Structures/Walls/stone-chromite.rsi
+  - type: PlacementReplacement
+    key: walls
+  - type: Airtight
+  - type: StaticPrice
+    price: 75
+  - type: RadiationBlocker
+    resistance: 2
+  - type: BlockWeather
+  - type: SunShadowCast
+  - type: Occluder
+  - type: StructureAlignerPylon
+    pylons: [ Door, Firelock ]
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 150
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/Effects/break_stone.ogg
+          params:
+            volume: -6
+  - type: Damageable
+    damageModifierSet: RockMod
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: SoundOnGather
+  - type: Gatherable
+    toolWhitelist:
+      tags: [ Pickaxe ]
+  - type: IconSmooth
+    key: stone
+    index: 0
+    base: stone
+  - type: MiningScannerViewable
+
+- type: entity
+  id: DystopiaWallRockPyrite
+  name: rock
+  description: A rock seam rich with pyrite.
+  suffix: Sulfur, iron (pyrite)
+  placement:
+    mode: SnapgridCenter
+    snap: [ Wall ]
+  components:
+  - type: OreVein
+    oreChance: 1.0
+    currentOre: DystopiaPyrite
+  - type: Sprite
+    layers:
+    - state: pyrite
+      sprite: _Dystopia/Structures/Walls/nonmetal_veins.rsi
+      map:
+      - enum.MiningScannerVisualLayers.Overlay
+    drawdepth: Walls
+    sprite: Structures/Walls/stone-dirt.rsi
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        density: 1000
+        mask: [ FullTileMask ]
+        layer: [ WallLayer ]
+  - type: Pullable
+  - type: Tag
+    tags: [ Structure ]
+  - type: Anchorable
+    flags: [ Anchorable ]
+  - type: Rotatable
+  - type: RangedDamageSound
+    soundGroups:
+      Brute:
+        collection: MetalBulletImpact
+    soundTypes:
+      Heat:
+        collection: MetalLaserImpact
+  - type: Wall
+  - type: IsRoof
+  - type: Icon
+    state: full
+    sprite: Structures/Walls/stone-dirt.rsi
+  - type: PlacementReplacement
+    key: walls
+  - type: Airtight
+  - type: StaticPrice
+    price: 75
+  - type: RadiationBlocker
+    resistance: 2
+  - type: BlockWeather
+  - type: SunShadowCast
+  - type: Occluder
+  - type: StructureAlignerPylon
+    pylons: [ Door, Firelock ]
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 150
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/Effects/break_stone.ogg
+          params:
+            volume: -6
+  - type: Damageable
+    damageModifierSet: RockMod
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: SoundOnGather
+  - type: Gatherable
+    toolWhitelist:
+      tags: [ Pickaxe ]
+  - type: IconSmooth
+    key: stone
+    index: 0
+    base: stone
+  - type: MiningScannerViewable
+  - type: EntityRemap
+    mask:
+      WallRockSand: DystopiaWallRockSandPyrite
+      WallRockSnow: DystopiaWallRockSnowPyrite
+      WallRockChromite: DystopiaWallRockChromitePyrite
+
+- type: entity
+  id: DystopiaWallRockSandPyrite
+  name: sandstone
+  description: A rock seam rich with pyrite.
+  suffix: Sulfur, iron (pyrite)
+  placement:
+    mode: SnapgridCenter
+    snap: [ Wall ]
+  components:
+  - type: OreVein
+    oreChance: 1.0
+    currentOre: DystopiaPyrite
+  - type: Sprite
+    layers:
+    - state: pyrite
+      sprite: _Dystopia/Structures/Walls/nonmetal_veins.rsi
+      map:
+      - enum.MiningScannerVisualLayers.Overlay
+    drawdepth: Walls
+    sprite: Structures/Walls/stone-sand.rsi
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        density: 1000
+        mask: [ FullTileMask ]
+        layer: [ WallLayer ]
+  - type: Pullable
+  - type: Tag
+    tags: [ Structure ]
+  - type: Anchorable
+    flags: [ Anchorable ]
+  - type: Rotatable
+  - type: RangedDamageSound
+    soundGroups:
+      Brute:
+        collection: MetalBulletImpact
+    soundTypes:
+      Heat:
+        collection: MetalLaserImpact
+  - type: Wall
+  - type: IsRoof
+  - type: Icon
+    state: full
+    sprite: Structures/Walls/stone-sand.rsi
+  - type: PlacementReplacement
+    key: walls
+  - type: Airtight
+  - type: StaticPrice
+    price: 75
+  - type: RadiationBlocker
+    resistance: 2
+  - type: BlockWeather
+  - type: SunShadowCast
+  - type: Occluder
+  - type: StructureAlignerPylon
+    pylons: [ Door, Firelock ]
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 150
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/Effects/break_stone.ogg
+          params:
+            volume: -6
+  - type: Damageable
+    damageModifierSet: RockMod
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: SoundOnGather
+  - type: Gatherable
+    toolWhitelist:
+      tags: [ Pickaxe ]
+  - type: IconSmooth
+    key: stone
+    index: 0
+    base: stone
+  - type: MiningScannerViewable
+
+- type: entity
+  id: DystopiaWallRockSnowPyrite
+  name: snowdrift
+  description: A rock seam rich with pyrite.
+  suffix: Sulfur, iron (pyrite)
+  placement:
+    mode: SnapgridCenter
+    snap: [ Wall ]
+  components:
+  - type: OreVein
+    oreChance: 1.0
+    currentOre: DystopiaPyrite
+  - type: Sprite
+    layers:
+    - state: pyrite
+      sprite: _Dystopia/Structures/Walls/nonmetal_veins.rsi
+      map:
+      - enum.MiningScannerVisualLayers.Overlay
+    drawdepth: Walls
+    sprite: Structures/Walls/stone-snow.rsi
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        density: 1000
+        mask: [ FullTileMask ]
+        layer: [ WallLayer ]
+  - type: Pullable
+  - type: Tag
+    tags: [ Structure ]
+  - type: Anchorable
+    flags: [ Anchorable ]
+  - type: Rotatable
+  - type: RangedDamageSound
+    soundGroups:
+      Brute:
+        collection: MetalBulletImpact
+    soundTypes:
+      Heat:
+        collection: MetalLaserImpact
+  - type: Wall
+  - type: IsRoof
+  - type: Icon
+    state: full
+    sprite: Structures/Walls/stone-snow.rsi
+  - type: PlacementReplacement
+    key: walls
+  - type: Airtight
+  - type: StaticPrice
+    price: 75
+  - type: RadiationBlocker
+    resistance: 2
+  - type: BlockWeather
+  - type: SunShadowCast
+  - type: Occluder
+  - type: StructureAlignerPylon
+    pylons: [ Door, Firelock ]
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 150
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/Effects/break_stone.ogg
+          params:
+            volume: -6
+  - type: Damageable
+    damageModifierSet: RockMod
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: SoundOnGather
+  - type: Gatherable
+    toolWhitelist:
+      tags: [ Pickaxe ]
+  - type: IconSmooth
+    key: stone
+    index: 0
+    base: stone
+  - type: MiningScannerViewable
+
+- type: entity
+  id: DystopiaWallRockChromitePyrite
+  name: chromite
+  description: A rock seam rich with pyrite.
+  suffix: Sulfur, iron (pyrite)
+  placement:
+    mode: SnapgridCenter
+    snap: [ Wall ]
+  components:
+  - type: OreVein
+    oreChance: 1.0
+    currentOre: DystopiaPyrite
+  - type: Sprite
+    layers:
+    - state: pyrite
+      sprite: _Dystopia/Structures/Walls/nonmetal_veins.rsi
+      map:
+      - enum.MiningScannerVisualLayers.Overlay
+    drawdepth: Walls
+    sprite: Structures/Walls/stone-chromite.rsi
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        density: 1000
+        mask: [ FullTileMask ]
+        layer: [ WallLayer ]
+  - type: Pullable
+  - type: Tag
+    tags: [ Structure ]
+  - type: Anchorable
+    flags: [ Anchorable ]
+  - type: Rotatable
+  - type: RangedDamageSound
+    soundGroups:
+      Brute:
+        collection: MetalBulletImpact
+    soundTypes:
+      Heat:
+        collection: MetalLaserImpact
+  - type: Wall
+  - type: IsRoof
+  - type: Icon
+    state: full
+    sprite: Structures/Walls/stone-chromite.rsi
+  - type: PlacementReplacement
+    key: walls
+  - type: Airtight
+  - type: StaticPrice
+    price: 75
+  - type: RadiationBlocker
+    resistance: 2
+  - type: BlockWeather
+  - type: SunShadowCast
+  - type: Occluder
+  - type: StructureAlignerPylon
+    pylons: [ Door, Firelock ]
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 150
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/Effects/break_stone.ogg
+          params:
+            volume: -6
+  - type: Damageable
+    damageModifierSet: RockMod
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: SoundOnGather
+  - type: Gatherable
+    toolWhitelist:
+      tags: [ Pickaxe ]
+  - type: IconSmooth
+    key: stone
+    index: 0
+    base: stone
+  - type: MiningScannerViewable
+
+- type: entity
+  id: DystopiaWallRockGraphite
+  name: rock
+  description: A rock seam rich with graphite.
+  suffix: Carbon (graphite)
+  placement:
+    mode: SnapgridCenter
+    snap: [ Wall ]
+  components:
+  - type: OreVein
+    oreChance: 1.0
+    currentOre: DystopiaGraphite
+  - type: Sprite
+    layers:
+    - state: graphite
+      sprite: _Dystopia/Structures/Walls/nonmetal_veins.rsi
+      map:
+      - enum.MiningScannerVisualLayers.Overlay
+    drawdepth: Walls
+    sprite: Structures/Walls/stone-dirt.rsi
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        density: 1000
+        mask: [ FullTileMask ]
+        layer: [ WallLayer ]
+  - type: Pullable
+  - type: Tag
+    tags: [ Structure ]
+  - type: Anchorable
+    flags: [ Anchorable ]
+  - type: Rotatable
+  - type: RangedDamageSound
+    soundGroups:
+      Brute:
+        collection: MetalBulletImpact
+    soundTypes:
+      Heat:
+        collection: MetalLaserImpact
+  - type: Wall
+  - type: IsRoof
+  - type: Icon
+    state: full
+    sprite: Structures/Walls/stone-dirt.rsi
+  - type: PlacementReplacement
+    key: walls
+  - type: Airtight
+  - type: StaticPrice
+    price: 75
+  - type: RadiationBlocker
+    resistance: 2
+  - type: BlockWeather
+  - type: SunShadowCast
+  - type: Occluder
+  - type: StructureAlignerPylon
+    pylons: [ Door, Firelock ]
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 150
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/Effects/break_stone.ogg
+          params:
+            volume: -6
+  - type: Damageable
+    damageModifierSet: RockMod
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: SoundOnGather
+  - type: Gatherable
+    toolWhitelist:
+      tags: [ Pickaxe ]
+  - type: IconSmooth
+    key: stone
+    index: 0
+    base: stone
+  - type: MiningScannerViewable
+  - type: EntityRemap
+    mask:
+      WallRockSand: DystopiaWallRockSandGraphite
+      WallRockSnow: DystopiaWallRockSnowGraphite
+      WallRockChromite: DystopiaWallRockChromiteGraphite
+
+- type: entity
+  id: DystopiaWallRockSandGraphite
+  name: sandstone
+  description: A rock seam rich with graphite.
+  suffix: Carbon (graphite)
+  placement:
+    mode: SnapgridCenter
+    snap: [ Wall ]
+  components:
+  - type: OreVein
+    oreChance: 1.0
+    currentOre: DystopiaGraphite
+  - type: Sprite
+    layers:
+    - state: graphite
+      sprite: _Dystopia/Structures/Walls/nonmetal_veins.rsi
+      map:
+      - enum.MiningScannerVisualLayers.Overlay
+    drawdepth: Walls
+    sprite: Structures/Walls/stone-sand.rsi
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        density: 1000
+        mask: [ FullTileMask ]
+        layer: [ WallLayer ]
+  - type: Pullable
+  - type: Tag
+    tags: [ Structure ]
+  - type: Anchorable
+    flags: [ Anchorable ]
+  - type: Rotatable
+  - type: RangedDamageSound
+    soundGroups:
+      Brute:
+        collection: MetalBulletImpact
+    soundTypes:
+      Heat:
+        collection: MetalLaserImpact
+  - type: Wall
+  - type: IsRoof
+  - type: Icon
+    state: full
+    sprite: Structures/Walls/stone-sand.rsi
+  - type: PlacementReplacement
+    key: walls
+  - type: Airtight
+  - type: StaticPrice
+    price: 75
+  - type: RadiationBlocker
+    resistance: 2
+  - type: BlockWeather
+  - type: SunShadowCast
+  - type: Occluder
+  - type: StructureAlignerPylon
+    pylons: [ Door, Firelock ]
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 150
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/Effects/break_stone.ogg
+          params:
+            volume: -6
+  - type: Damageable
+    damageModifierSet: RockMod
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: SoundOnGather
+  - type: Gatherable
+    toolWhitelist:
+      tags: [ Pickaxe ]
+  - type: IconSmooth
+    key: stone
+    index: 0
+    base: stone
+  - type: MiningScannerViewable
+
+- type: entity
+  id: DystopiaWallRockSnowGraphite
+  name: snowdrift
+  description: A rock seam rich with graphite.
+  suffix: Carbon (graphite)
+  placement:
+    mode: SnapgridCenter
+    snap: [ Wall ]
+  components:
+  - type: OreVein
+    oreChance: 1.0
+    currentOre: DystopiaGraphite
+  - type: Sprite
+    layers:
+    - state: graphite
+      sprite: _Dystopia/Structures/Walls/nonmetal_veins.rsi
+      map:
+      - enum.MiningScannerVisualLayers.Overlay
+    drawdepth: Walls
+    sprite: Structures/Walls/stone-snow.rsi
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        density: 1000
+        mask: [ FullTileMask ]
+        layer: [ WallLayer ]
+  - type: Pullable
+  - type: Tag
+    tags: [ Structure ]
+  - type: Anchorable
+    flags: [ Anchorable ]
+  - type: Rotatable
+  - type: RangedDamageSound
+    soundGroups:
+      Brute:
+        collection: MetalBulletImpact
+    soundTypes:
+      Heat:
+        collection: MetalLaserImpact
+  - type: Wall
+  - type: IsRoof
+  - type: Icon
+    state: full
+    sprite: Structures/Walls/stone-snow.rsi
+  - type: PlacementReplacement
+    key: walls
+  - type: Airtight
+  - type: StaticPrice
+    price: 75
+  - type: RadiationBlocker
+    resistance: 2
+  - type: BlockWeather
+  - type: SunShadowCast
+  - type: Occluder
+  - type: StructureAlignerPylon
+    pylons: [ Door, Firelock ]
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 150
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/Effects/break_stone.ogg
+          params:
+            volume: -6
+  - type: Damageable
+    damageModifierSet: RockMod
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: SoundOnGather
+  - type: Gatherable
+    toolWhitelist:
+      tags: [ Pickaxe ]
+  - type: IconSmooth
+    key: stone
+    index: 0
+    base: stone
+  - type: MiningScannerViewable
+
+- type: entity
+  id: DystopiaWallRockChromiteGraphite
+  name: chromite
+  description: A rock seam rich with graphite.
+  suffix: Carbon (graphite)
+  placement:
+    mode: SnapgridCenter
+    snap: [ Wall ]
+  components:
+  - type: OreVein
+    oreChance: 1.0
+    currentOre: DystopiaGraphite
+  - type: Sprite
+    layers:
+    - state: graphite
+      sprite: _Dystopia/Structures/Walls/nonmetal_veins.rsi
+      map:
+      - enum.MiningScannerVisualLayers.Overlay
+    drawdepth: Walls
+    sprite: Structures/Walls/stone-chromite.rsi
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        density: 1000
+        mask: [ FullTileMask ]
+        layer: [ WallLayer ]
+  - type: Pullable
+  - type: Tag
+    tags: [ Structure ]
+  - type: Anchorable
+    flags: [ Anchorable ]
+  - type: Rotatable
+  - type: RangedDamageSound
+    soundGroups:
+      Brute:
+        collection: MetalBulletImpact
+    soundTypes:
+      Heat:
+        collection: MetalLaserImpact
+  - type: Wall
+  - type: IsRoof
+  - type: Icon
+    state: full
+    sprite: Structures/Walls/stone-chromite.rsi
+  - type: PlacementReplacement
+    key: walls
+  - type: Airtight
+  - type: StaticPrice
+    price: 75
+  - type: RadiationBlocker
+    resistance: 2
+  - type: BlockWeather
+  - type: SunShadowCast
+  - type: Occluder
+  - type: StructureAlignerPylon
+    pylons: [ Door, Firelock ]
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 150
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/Effects/break_stone.ogg
+          params:
+            volume: -6
+  - type: Damageable
+    damageModifierSet: RockMod
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: SoundOnGather
+  - type: Gatherable
+    toolWhitelist:
+      tags: [ Pickaxe ]
+  - type: IconSmooth
+    key: stone
+    index: 0
+    base: stone
+  - type: MiningScannerViewable
+
+- type: entity
+  id: DystopiaWallRockGypsum
+  name: rock
+  description: A rock seam rich with gypsum.
+  suffix: Gypsum (gypsum)
+  placement:
+    mode: SnapgridCenter
+    snap: [ Wall ]
+  components:
+  - type: OreVein
+    oreChance: 1.0
+    currentOre: DystopiaGypsum
+  - type: Sprite
+    layers:
+    - state: gypsum
+      sprite: _Dystopia/Structures/Walls/nonmetal_veins.rsi
+      map:
+      - enum.MiningScannerVisualLayers.Overlay
+    drawdepth: Walls
+    sprite: Structures/Walls/stone-dirt.rsi
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        density: 1000
+        mask: [ FullTileMask ]
+        layer: [ WallLayer ]
+  - type: Pullable
+  - type: Tag
+    tags: [ Structure ]
+  - type: Anchorable
+    flags: [ Anchorable ]
+  - type: Rotatable
+  - type: RangedDamageSound
+    soundGroups:
+      Brute:
+        collection: MetalBulletImpact
+    soundTypes:
+      Heat:
+        collection: MetalLaserImpact
+  - type: Wall
+  - type: IsRoof
+  - type: Icon
+    state: full
+    sprite: Structures/Walls/stone-dirt.rsi
+  - type: PlacementReplacement
+    key: walls
+  - type: Airtight
+  - type: StaticPrice
+    price: 75
+  - type: RadiationBlocker
+    resistance: 2
+  - type: BlockWeather
+  - type: SunShadowCast
+  - type: Occluder
+  - type: StructureAlignerPylon
+    pylons: [ Door, Firelock ]
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 150
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/Effects/break_stone.ogg
+          params:
+            volume: -6
+  - type: Damageable
+    damageModifierSet: RockMod
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: SoundOnGather
+  - type: Gatherable
+    toolWhitelist:
+      tags: [ Pickaxe ]
+  - type: IconSmooth
+    key: stone
+    index: 0
+    base: stone
+  - type: MiningScannerViewable
+  - type: EntityRemap
+    mask:
+      WallRockSand: DystopiaWallRockSandGypsum
+      WallRockSnow: DystopiaWallRockSnowGypsum
+      WallRockChromite: DystopiaWallRockChromiteGypsum
+
+- type: entity
+  id: DystopiaWallRockSandGypsum
+  name: sandstone
+  description: A rock seam rich with gypsum.
+  suffix: Gypsum (gypsum)
+  placement:
+    mode: SnapgridCenter
+    snap: [ Wall ]
+  components:
+  - type: OreVein
+    oreChance: 1.0
+    currentOre: DystopiaGypsum
+  - type: Sprite
+    layers:
+    - state: gypsum
+      sprite: _Dystopia/Structures/Walls/nonmetal_veins.rsi
+      map:
+      - enum.MiningScannerVisualLayers.Overlay
+    drawdepth: Walls
+    sprite: Structures/Walls/stone-sand.rsi
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        density: 1000
+        mask: [ FullTileMask ]
+        layer: [ WallLayer ]
+  - type: Pullable
+  - type: Tag
+    tags: [ Structure ]
+  - type: Anchorable
+    flags: [ Anchorable ]
+  - type: Rotatable
+  - type: RangedDamageSound
+    soundGroups:
+      Brute:
+        collection: MetalBulletImpact
+    soundTypes:
+      Heat:
+        collection: MetalLaserImpact
+  - type: Wall
+  - type: IsRoof
+  - type: Icon
+    state: full
+    sprite: Structures/Walls/stone-sand.rsi
+  - type: PlacementReplacement
+    key: walls
+  - type: Airtight
+  - type: StaticPrice
+    price: 75
+  - type: RadiationBlocker
+    resistance: 2
+  - type: BlockWeather
+  - type: SunShadowCast
+  - type: Occluder
+  - type: StructureAlignerPylon
+    pylons: [ Door, Firelock ]
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 150
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/Effects/break_stone.ogg
+          params:
+            volume: -6
+  - type: Damageable
+    damageModifierSet: RockMod
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: SoundOnGather
+  - type: Gatherable
+    toolWhitelist:
+      tags: [ Pickaxe ]
+  - type: IconSmooth
+    key: stone
+    index: 0
+    base: stone
+  - type: MiningScannerViewable
+
+- type: entity
+  id: DystopiaWallRockSnowGypsum
+  name: snowdrift
+  description: A rock seam rich with gypsum.
+  suffix: Gypsum (gypsum)
+  placement:
+    mode: SnapgridCenter
+    snap: [ Wall ]
+  components:
+  - type: OreVein
+    oreChance: 1.0
+    currentOre: DystopiaGypsum
+  - type: Sprite
+    layers:
+    - state: gypsum
+      sprite: _Dystopia/Structures/Walls/nonmetal_veins.rsi
+      map:
+      - enum.MiningScannerVisualLayers.Overlay
+    drawdepth: Walls
+    sprite: Structures/Walls/stone-snow.rsi
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        density: 1000
+        mask: [ FullTileMask ]
+        layer: [ WallLayer ]
+  - type: Pullable
+  - type: Tag
+    tags: [ Structure ]
+  - type: Anchorable
+    flags: [ Anchorable ]
+  - type: Rotatable
+  - type: RangedDamageSound
+    soundGroups:
+      Brute:
+        collection: MetalBulletImpact
+    soundTypes:
+      Heat:
+        collection: MetalLaserImpact
+  - type: Wall
+  - type: IsRoof
+  - type: Icon
+    state: full
+    sprite: Structures/Walls/stone-snow.rsi
+  - type: PlacementReplacement
+    key: walls
+  - type: Airtight
+  - type: StaticPrice
+    price: 75
+  - type: RadiationBlocker
+    resistance: 2
+  - type: BlockWeather
+  - type: SunShadowCast
+  - type: Occluder
+  - type: StructureAlignerPylon
+    pylons: [ Door, Firelock ]
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 150
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/Effects/break_stone.ogg
+          params:
+            volume: -6
+  - type: Damageable
+    damageModifierSet: RockMod
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: SoundOnGather
+  - type: Gatherable
+    toolWhitelist:
+      tags: [ Pickaxe ]
+  - type: IconSmooth
+    key: stone
+    index: 0
+    base: stone
+  - type: MiningScannerViewable
+
+- type: entity
+  id: DystopiaWallRockChromiteGypsum
+  name: chromite
+  description: A rock seam rich with gypsum.
+  suffix: Gypsum (gypsum)
+  placement:
+    mode: SnapgridCenter
+    snap: [ Wall ]
+  components:
+  - type: OreVein
+    oreChance: 1.0
+    currentOre: DystopiaGypsum
+  - type: Sprite
+    layers:
+    - state: gypsum
+      sprite: _Dystopia/Structures/Walls/nonmetal_veins.rsi
+      map:
+      - enum.MiningScannerVisualLayers.Overlay
+    drawdepth: Walls
+    sprite: Structures/Walls/stone-chromite.rsi
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        density: 1000
+        mask: [ FullTileMask ]
+        layer: [ WallLayer ]
+  - type: Pullable
+  - type: Tag
+    tags: [ Structure ]
+  - type: Anchorable
+    flags: [ Anchorable ]
+  - type: Rotatable
+  - type: RangedDamageSound
+    soundGroups:
+      Brute:
+        collection: MetalBulletImpact
+    soundTypes:
+      Heat:
+        collection: MetalLaserImpact
+  - type: Wall
+  - type: IsRoof
+  - type: Icon
+    state: full
+    sprite: Structures/Walls/stone-chromite.rsi
+  - type: PlacementReplacement
+    key: walls
+  - type: Airtight
+  - type: StaticPrice
+    price: 75
+  - type: RadiationBlocker
+    resistance: 2
+  - type: BlockWeather
+  - type: SunShadowCast
+  - type: Occluder
+  - type: StructureAlignerPylon
+    pylons: [ Door, Firelock ]
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 150
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/Effects/break_stone.ogg
+          params:
+            volume: -6
+  - type: Damageable
+    damageModifierSet: RockMod
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: SoundOnGather
+  - type: Gatherable
+    toolWhitelist:
+      tags: [ Pickaxe ]
+  - type: IconSmooth
+    key: stone
+    index: 0
+    base: stone
+  - type: MiningScannerViewable

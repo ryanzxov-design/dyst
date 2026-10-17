@@ -1,0 +1,96 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: неметаллы, шаг 1 — сырьё и вещества (машины и рецепты переработки — следующим шагом).
+# Вещества неметаллов. Хлор пока — ванильная жидкость, не газ.
+
+- type: reagent
+  id: DystopiaMoltenGlass
+  name: reagent-name-dystopia-molten-glass
+  group: Metals
+  desc: reagent-desc-dystopia-molten-glass
+  physicalDesc: reagent-physical-desc-dystopia-molten
+  flavor: bitter
+  color: "#ffb060"
+  meltingPoint: 1000.0
+  boilingPoint: 2230.0
+  reactiveEffects:
+    Acidic:
+      methods: [ Touch, Ingestion ]
+      effects:
+      - !type:HealthChange
+        damage:
+          types:
+            Heat: 3
+
+- type: reagent
+  id: DystopiaSlakedLime
+  name: reagent-name-dystopia-slaked-lime
+  group: Industrial
+  desc: reagent-desc-dystopia-slaked-lime
+  physicalDesc: reagent-physical-desc-milky
+  flavor: bitter
+  color: "#ecebe2"
+  meltingPoint: 0.0
+  boilingPoint: 100.0
+  reactiveEffects:
+    Acidic:
+      methods: [ Touch ]
+      effects:
+      - !type:HealthChange
+        damage:
+          types:
+            Caustic: 0.5
+
+- type: reagent
+  id: DystopiaConcreteMix
+  name: reagent-name-dystopia-concrete-mix
+  group: Industrial
+  desc: reagent-desc-dystopia-concrete-mix
+  physicalDesc: reagent-physical-desc-thick-and-grainy
+  flavor: bitter
+  color: "#8e8e88"
+  meltingPoint: 0.0
+  boilingPoint: 100.0
+  reactiveEffects:
+    Acidic:
+      methods: [ Touch ]
+      effects:
+      - !type:HealthChange
+        damage:
+          types:
+            Caustic: 0.5
+
+- type: reagent
+  id: DystopiaCoalTar
+  name: reagent-name-dystopia-coal-tar
+  group: Industrial
+  desc: reagent-desc-dystopia-coal-tar
+  physicalDesc: reagent-physical-desc-viscous
+  flavor: bitter
+  color: "#1c1612"
+  meltingPoint: -10.0
+  boilingPoint: 300.0
+  metabolisms:
+    Bloodstream:
+      effects:
+      - !type:HealthChange
+        damage:
+          types:
+            Poison: 1
+
+- type: reagent
+  id: DystopiaSulfurDioxide
+  name: reagent-name-dystopia-sulfur-dioxide
+  group: Industrial
+  desc: reagent-desc-dystopia-sulfur-dioxide
+  physicalDesc: reagent-physical-desc-pungent
+  flavor: bitter
+  color: "#f2f0d8"
+  meltingPoint: -72.0
+  boilingPoint: -10.0
+  metabolisms:
+    Bloodstream:
+      effects:
+      - !type:HealthChange
+        damage:
+          types:
+            Poison: 1

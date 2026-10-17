@@ -1,0 +1,147 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: неметаллы, шаг 1 — сырьё и вещества (машины и рецепты переработки — следующим шагом).
+# Материалы: 100 единиц = один кусок, горсть, кирпич, блок или мешок.
+
+- type: material
+  id: DystopiaRawLimestone
+  stackEntity: DystopiaOreLimestone1
+  name: materials-dystopia-raw-limestone
+  unit: materials-unit-chunk
+  icon: { sprite: _Dystopia/Objects/Materials/NonMetals/ore.rsi, state: limestone }
+  color: "#cfc6ae"
+  price: 0.03
+
+- type: material
+  id: DystopiaRawClay
+  stackEntity: DystopiaOreClay1
+  name: materials-dystopia-raw-clay
+  unit: materials-unit-chunk
+  icon: { sprite: _Dystopia/Objects/Materials/NonMetals/ore.rsi, state: clay }
+  color: "#a8643a"
+  price: 0.03
+
+- type: material
+  id: DystopiaRawFireclay
+  stackEntity: DystopiaOreFireclay1
+  name: materials-dystopia-raw-fireclay
+  unit: materials-unit-chunk
+  icon: { sprite: _Dystopia/Objects/Materials/NonMetals/ore.rsi, state: fireclay }
+  color: "#d2c4a0"
+  price: 0.03
+
+- type: material
+  id: DystopiaRawSulfur
+  stackEntity: DystopiaOreSulfur1
+  name: materials-dystopia-raw-sulfur
+  unit: materials-unit-chunk
+  icon: { sprite: _Dystopia/Objects/Materials/NonMetals/ore.rsi, state: sulfur }
+  color: "#e0c830"
+  price: 0.03
+
+- type: material
+  id: DystopiaRawPyrite
+  stackEntity: DystopiaOrePyrite1
+  name: materials-dystopia-raw-pyrite
+  unit: materials-unit-chunk
+  icon: { sprite: _Dystopia/Objects/Materials/NonMetals/ore.rsi, state: pyrite }
+  color: "#c8b060"
+  price: 0.03
+
+- type: material
+  id: DystopiaRawGraphite
+  stackEntity: DystopiaOreGraphite1
+  name: materials-dystopia-raw-graphite
+  unit: materials-unit-chunk
+  icon: { sprite: _Dystopia/Objects/Materials/NonMetals/ore.rsi, state: graphite }
+  color: "#4a4c50"
+  price: 0.03
+
+- type: material
+  id: DystopiaRawGypsum
+  stackEntity: DystopiaOreGypsum1
+  name: materials-dystopia-raw-gypsum
+  unit: materials-unit-chunk
+  icon: { sprite: _Dystopia/Objects/Materials/NonMetals/ore.rsi, state: gypsum }
+  color: "#e8e4dc"
+  price: 0.03
+
+- type: material
+  id: DystopiaQuicklime
+  stackEntity: DystopiaQuicklime1
+  name: materials-dystopia-quicklime
+  unit: materials-unit-dystopia-handful
+  icon: { sprite: _Dystopia/Objects/Materials/NonMetals/products.rsi, state: quicklime }
+  color: "#e8e6dc"
+  price: 0.03
+
+- type: material
+  id: DystopiaClinker
+  stackEntity: DystopiaClinker1
+  name: materials-dystopia-clinker
+  unit: materials-unit-dystopia-handful
+  icon: { sprite: _Dystopia/Objects/Materials/NonMetals/products.rsi, state: clinker }
+  color: "#5a6258"
+  price: 0.04
+
+- type: material
+  id: DystopiaCement
+  stackEntity: DystopiaCement1
+  name: materials-dystopia-cement
+  unit: materials-unit-dystopia-bag
+  icon: { sprite: _Dystopia/Objects/Materials/NonMetals/products.rsi, state: cement }
+  color: "#9a9a94"
+  price: 0.06
+
+- type: material
+  id: DystopiaConcreteBlock
+  stackEntity: DystopiaConcreteBlock1
+  name: materials-dystopia-concrete-block
+  unit: materials-unit-dystopia-block
+  icon: { sprite: _Dystopia/Objects/Materials/NonMetals/products.rsi, state: concrete_block }
+  color: "#8a8a84"
+  price: 0.05
+
+- type: material
+  id: DystopiaBrickRaw
+  stackEntity: DystopiaBrickRaw1
+  name: materials-dystopia-brick-raw
+  unit: materials-unit-dystopia-brick
+  icon: { sprite: _Dystopia/Objects/Materials/NonMetals/products.rsi, state: brick_raw }
+  color: "#9a6a46"
+  price: 0.01
+
+- type: material
+  id: DystopiaBrick
+  stackEntity: DystopiaBrick1
+  name: materials-dystopia-brick
+  unit: materials-unit-dystopia-brick
+  icon: { sprite: _Dystopia/Objects/Materials/NonMetals/products.rsi, state: brick }
+  color: "#a43e22"
+  price: 0.03
+
+- type: material
+  id: DystopiaFireBrick
+  stackEntity: DystopiaFireBrick1
+  name: materials-dystopia-fire-brick
+  unit: materials-unit-dystopia-brick
+  icon: { sprite: _Dystopia/Objects/Materials/NonMetals/products.rsi, state: fire_brick }
+  color: "#d2bc8a"
+  price: 0.06
+
+- type: material
+  id: DystopiaCoke
+  stackEntity: DystopiaCoke1
+  name: materials-dystopia-coke
+  unit: materials-unit-chunk
+  icon: { sprite: _Dystopia/Objects/Materials/NonMetals/products.rsi, state: coke }
+  color: "#8a8e94"
+  price: 0.04
+
+- type: material
+  id: DystopiaPyriteCinder
+  stackEntity: DystopiaPyriteCinder1
+  name: materials-dystopia-pyrite-cinder
+  unit: materials-unit-dystopia-handful
+  icon: { sprite: _Dystopia/Objects/Materials/NonMetals/products.rsi, state: pyrite_cinder }
+  color: "#8a3a22"
+  price: 0.02

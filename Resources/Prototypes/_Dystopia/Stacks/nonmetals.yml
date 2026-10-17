@@ -1,0 +1,114 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: неметаллы, шаг 1 — сырьё и вещества (машины и рецепты переработки — следующим шагом).
+
+- type: stack
+  id: DystopiaOreLimestone
+  name: stack-dystopia-ore-limestone
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/NonMetals/ore.rsi, state: limestone }
+  spawn: DystopiaOreLimestone1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaOreClay
+  name: stack-dystopia-ore-clay
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/NonMetals/ore.rsi, state: clay }
+  spawn: DystopiaOreClay1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaOreFireclay
+  name: stack-dystopia-ore-fireclay
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/NonMetals/ore.rsi, state: fireclay }
+  spawn: DystopiaOreFireclay1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaOreSulfur
+  name: stack-dystopia-ore-sulfur
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/NonMetals/ore.rsi, state: sulfur }
+  spawn: DystopiaOreSulfur1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaOrePyrite
+  name: stack-dystopia-ore-pyrite
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/NonMetals/ore.rsi, state: pyrite }
+  spawn: DystopiaOrePyrite1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaOreGraphite
+  name: stack-dystopia-ore-graphite
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/NonMetals/ore.rsi, state: graphite }
+  spawn: DystopiaOreGraphite1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaOreGypsum
+  name: stack-dystopia-ore-gypsum
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/NonMetals/ore.rsi, state: gypsum }
+  spawn: DystopiaOreGypsum1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaQuicklime
+  name: stack-dystopia-quicklime
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/NonMetals/products.rsi, state: quicklime }
+  spawn: DystopiaQuicklime1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaClinker
+  name: stack-dystopia-clinker
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/NonMetals/products.rsi, state: clinker }
+  spawn: DystopiaClinker1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaCement
+  name: stack-dystopia-cement
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/NonMetals/products.rsi, state: cement }
+  spawn: DystopiaCement1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaConcreteBlock
+  name: stack-dystopia-concrete-block
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/NonMetals/products.rsi, state: concrete_block }
+  spawn: DystopiaConcreteBlock1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaBrickRaw
+  name: stack-dystopia-brick-raw
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/NonMetals/products.rsi, state: brick_raw }
+  spawn: DystopiaBrickRaw1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaBrick
+  name: stack-dystopia-brick
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/NonMetals/products.rsi, state: brick }
+  spawn: DystopiaBrick1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaFireBrick
+  name: stack-dystopia-fire-brick
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/NonMetals/products.rsi, state: fire_brick }
+  spawn: DystopiaFireBrick1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaCoke
+  name: stack-dystopia-coke
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/NonMetals/products.rsi, state: coke }
+  spawn: DystopiaCoke1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaPyriteCinder
+  name: stack-dystopia-pyrite-cinder
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/NonMetals/products.rsi, state: pyrite_cinder }
+  spawn: DystopiaPyriteCinder1
+  maxCount: 30

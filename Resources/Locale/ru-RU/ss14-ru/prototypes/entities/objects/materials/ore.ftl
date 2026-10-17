@@ -35,8 +35,9 @@ ent-SilverOre = аргентит
 ent-SilverOre1 = { ent-SilverOre }
     .desc = Серебряная руда. Свинцово-серый минерал, режется ножом почти как свинец.
     .suffix = Серебро, один
-ent-SpaceQuartz = космический кварц
-    .desc = { ent-OreBase.desc }
+# Dystopia-NonMetals: кварц
+ent-SpaceQuartz = кварц
+    .desc = Прозрачные кристаллы с жирным блеском. Из кварца и песка варят стекло.
     .suffix = Полный
 ent-SpaceQuartz1 = { ent-SpaceQuartz }
     .desc = { ent-SpaceQuartz.desc }

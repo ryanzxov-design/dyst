@@ -1,0 +1,45 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: неметаллы, шаг 1 — сырьё и вещества (машины и рецепты переработки — следующим шагом).
+# Что выпадает из жил неметаллов при добыче.
+
+- type: ore
+  id: DystopiaLimestone
+  oreEntity: DystopiaOreLimestone1
+  minOreYield: 2
+  maxOreYield: 5
+
+- type: ore
+  id: DystopiaClay
+  oreEntity: DystopiaOreClay1
+  minOreYield: 2
+  maxOreYield: 5
+
+- type: ore
+  id: DystopiaFireclay
+  oreEntity: DystopiaOreFireclay1
+  minOreYield: 1
+  maxOreYield: 3
+
+- type: ore
+  id: DystopiaSulfur
+  oreEntity: DystopiaOreSulfur1
+  minOreYield: 1
+  maxOreYield: 3
+
+- type: ore
+  id: DystopiaPyrite
+  oreEntity: DystopiaOrePyrite1
+  minOreYield: 1
+  maxOreYield: 4
+
+- type: ore
+  id: DystopiaGraphite
+  oreEntity: DystopiaOreGraphite1
+  minOreYield: 1
+  maxOreYield: 2
+
+- type: ore
+  id: DystopiaGypsum
+  oreEntity: DystopiaOreGypsum1
+  minOreYield: 1
+  maxOreYield: 3

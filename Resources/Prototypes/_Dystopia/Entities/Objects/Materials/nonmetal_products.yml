@@ -1,0 +1,1294 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: неметаллы, шаг 1 — сырьё и вещества (машины и рецепты переработки — следующим шагом).
+# Продукты неметаллов: известь, клинкер, цемент, бетон, кирпичи, кокс, огарок. Без parent.
+
+- type: entity
+  id: DystopiaQuicklime
+  name: quicklime
+  description: White lumps of burnt limestone. They hiss and get hot when wet, so keep them dry.
+  suffix: Lime, Full
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/NonMetals/products.rsi
+    heldPrefix: quicklime
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/NonMetals/products.rsi
+    state: quicklime
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Stack
+    stackType: DystopiaQuicklime
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaQuicklime: 100
+
+- type: entity
+  id: DystopiaQuicklime1
+  name: quicklime
+  description: White lumps of burnt limestone. They hiss and get hot when wet, so keep them dry.
+  suffix: Lime, Single
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/NonMetals/products.rsi
+    heldPrefix: quicklime
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/NonMetals/products.rsi
+    state: quicklime
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Stack
+    stackType: DystopiaQuicklime
+    count: 1
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaQuicklime: 100
+
+- type: entity
+  id: DystopiaClinker
+  name: clinker
+  description: Grey-green sintered nodules from the kiln. Ground with gypsum, they become cement.
+  suffix: Cement, Full
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/NonMetals/products.rsi
+    heldPrefix: clinker
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/NonMetals/products.rsi
+    state: clinker
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Stack
+    stackType: DystopiaClinker
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaClinker: 100
+
+- type: entity
+  id: DystopiaClinker1
+  name: clinker
+  description: Grey-green sintered nodules from the kiln. Ground with gypsum, they become cement.
+  suffix: Cement, Single
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/NonMetals/products.rsi
+    heldPrefix: clinker
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/NonMetals/products.rsi
+    state: clinker
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Stack
+    stackType: DystopiaClinker
+    count: 1
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaClinker: 100
+
+- type: entity
+  id: DystopiaCement
+  name: cement
+  description: A bag of grey powder. With sand, gravel and water it sets into stone, and in damp it sets right in the bag.
+  suffix: Cement, Full
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/NonMetals/products.rsi
+    heldPrefix: cement
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/NonMetals/products.rsi
+    state: cement
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Stack
+    stackType: DystopiaCement
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaCement: 100
+
+- type: entity
+  id: DystopiaCement1
+  name: cement
+  description: A bag of grey powder. With sand, gravel and water it sets into stone, and in damp it sets right in the bag.
+  suffix: Cement, Single
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/NonMetals/products.rsi
+    heldPrefix: cement
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/NonMetals/products.rsi
+    state: cement
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Stack
+    stackType: DystopiaCement
+    count: 1
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaCement: 100
+
+- type: entity
+  id: DystopiaConcreteBlock
+  name: concrete block
+  description: A heavy, rough grey concrete block. The whole City is built of these.
+  suffix: Concrete, Full
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/NonMetals/products.rsi
+    heldPrefix: concrete_block
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/NonMetals/products.rsi
+    state: concrete_block_3
+    layers:
+    - state: concrete_block_3
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Stack
+    stackType: DystopiaConcreteBlock
+    baseLayer: base
+    layerStates: [ concrete_block, concrete_block_2, concrete_block_3 ]
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaConcreteBlock: 100
+
+- type: entity
+  id: DystopiaConcreteBlock1
+  name: concrete block
+  description: A heavy, rough grey concrete block. The whole City is built of these.
+  suffix: Concrete, Single
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/NonMetals/products.rsi
+    heldPrefix: concrete_block
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/NonMetals/products.rsi
+    state: concrete_block
+    layers:
+    - state: concrete_block
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Stack
+    stackType: DystopiaConcreteBlock
+    baseLayer: base
+    layerStates: [ concrete_block, concrete_block_2, concrete_block_3 ]
+    count: 1
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaConcreteBlock: 100
+
+- type: entity
+  id: DystopiaBrickRaw
+  name: raw brick
+  description: A moulded but unfired brick. Until it is fired, rain will turn it back into mud.
+  suffix: Brick, Full
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/NonMetals/products.rsi
+    heldPrefix: brick_raw
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/NonMetals/products.rsi
+    state: brick_raw_3
+    layers:
+    - state: brick_raw_3
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Stack
+    stackType: DystopiaBrickRaw
+    baseLayer: base
+    layerStates: [ brick_raw, brick_raw_2, brick_raw_3 ]
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaBrickRaw: 100
+
+- type: entity
+  id: DystopiaBrickRaw1
+  name: raw brick
+  description: A moulded but unfired brick. Until it is fired, rain will turn it back into mud.
+  suffix: Brick, Single
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/NonMetals/products.rsi
+    heldPrefix: brick_raw
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/NonMetals/products.rsi
+    state: brick_raw
+    layers:
+    - state: brick_raw
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Stack
+    stackType: DystopiaBrickRaw
+    baseLayer: base
+    layerStates: [ brick_raw, brick_raw_2, brick_raw_3 ]
+    count: 1
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaBrickRaw: 100
+
+- type: entity
+  id: DystopiaBrick
+  name: brick
+  description: A fired red brick. It rings when you knock two together.
+  suffix: Brick, Full
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/NonMetals/products.rsi
+    heldPrefix: brick
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/NonMetals/products.rsi
+    state: brick_3
+    layers:
+    - state: brick_3
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Stack
+    stackType: DystopiaBrick
+    baseLayer: base
+    layerStates: [ brick, brick_2, brick_3 ]
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaBrick: 100
+
+- type: entity
+  id: DystopiaBrick1
+  name: brick
+  description: A fired red brick. It rings when you knock two together.
+  suffix: Brick, Single
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/NonMetals/products.rsi
+    heldPrefix: brick
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/NonMetals/products.rsi
+    state: brick
+    layers:
+    - state: brick
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Stack
+    stackType: DystopiaBrick
+    baseLayer: base
+    layerStates: [ brick, brick_2, brick_3 ]
+    count: 1
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaBrick: 100
+
+- type: entity
+  id: DystopiaFireBrick
+  name: fire brick
+  description: "A pale fireclay brick. Forges and kilns are lined with it: it holds the heat and does not melt."
+  suffix: Refractory, Full
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/NonMetals/products.rsi
+    heldPrefix: fire_brick
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/NonMetals/products.rsi
+    state: fire_brick_3
+    layers:
+    - state: fire_brick_3
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Stack
+    stackType: DystopiaFireBrick
+    baseLayer: base
+    layerStates: [ fire_brick, fire_brick_2, fire_brick_3 ]
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaFireBrick: 100
+
+- type: entity
+  id: DystopiaFireBrick1
+  name: fire brick
+  description: "A pale fireclay brick. Forges and kilns are lined with it: it holds the heat and does not melt."
+  suffix: Refractory, Single
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/NonMetals/products.rsi
+    heldPrefix: fire_brick
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/NonMetals/products.rsi
+    state: fire_brick
+    layers:
+    - state: fire_brick
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Stack
+    stackType: DystopiaFireBrick
+    baseLayer: base
+    layerStates: [ fire_brick, fire_brick_2, fire_brick_3 ]
+    count: 1
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaFireBrick: 100
+
+- type: entity
+  id: DystopiaCoke
+  name: coke
+  description: "Grey porous lumps, light for their size: coal with the tar and gas baked out. Burns hotter and longer than coal."
+  suffix: Carbon, Full
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/NonMetals/products.rsi
+    heldPrefix: coke
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/NonMetals/products.rsi
+    state: coke
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Stack
+    stackType: DystopiaCoke
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaCoke: 100
+
+- type: entity
+  id: DystopiaCoke1
+  name: coke
+  description: "Grey porous lumps, light for their size: coal with the tar and gas baked out. Burns hotter and longer than coal."
+  suffix: Carbon, Single
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/NonMetals/products.rsi
+    heldPrefix: coke
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/NonMetals/products.rsi
+    state: coke
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Stack
+    stackType: DystopiaCoke
+    count: 1
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaCoke: 100
+
+- type: entity
+  id: DystopiaPyriteCinder
+  name: pyrite cinder
+  description: The rusty scale left when the sulfur is roasted out of pyrite. Nearly pure iron, it melts in a crucible.
+  suffix: Iron, Full
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/NonMetals/products.rsi
+    heldPrefix: pyrite_cinder
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/NonMetals/products.rsi
+    state: pyrite_cinder
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Stack
+    stackType: DystopiaPyriteCinder
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaPyriteCinder: 100
+
+- type: entity
+  id: DystopiaPyriteCinder1
+  name: pyrite cinder
+  description: The rusty scale left when the sulfur is roasted out of pyrite. Nearly pure iron, it melts in a crucible.
+  suffix: Iron, Single
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/NonMetals/products.rsi
+    heldPrefix: pyrite_cinder
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/NonMetals/products.rsi
+    state: pyrite_cinder
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Stack
+    stackType: DystopiaPyriteCinder
+    count: 1
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaPyriteCinder: 100
