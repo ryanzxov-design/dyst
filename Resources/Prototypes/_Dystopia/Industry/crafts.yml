@@ -714,43 +714,7 @@
     entity: DystopiaElectricMotor
 
 - type: constructionGraph
-  id: CableApcStack10Craft
-  start: start
-  graph:
-  - node: start
-    edges:
-    - to: done
-      steps:
-      - material: DystopiaWireCopper
-        amount: 2
-        doAfter: 1.5
-      - material: Cloth
-        amount: 1
-        doAfter: 1.5
-
-  - node: done
-    entity: CableApcStack10
-
-- type: constructionGraph
-  id: CableMVStack10Craft
-  start: start
-  graph:
-  - node: start
-    edges:
-    - to: done
-      steps:
-      - material: DystopiaWireCopper
-        amount: 4
-        doAfter: 2.0
-      - material: Cloth
-        amount: 2
-        doAfter: 2.0
-
-  - node: done
-    entity: CableMVStack10
-
-- type: constructionGraph
-  id: CableHVStack10Craft
+  id: CableApcStackCraft
   start: start
   graph:
   - node: start
@@ -759,16 +723,223 @@
       steps:
       - material: DystopiaWireCopper
         amount: 6
-        doAfter: 1.67
+        doAfter: 2.0
       - material: Cloth
-        amount: 2
-        doAfter: 1.67
-      - material: DystopiaSheetLead
-        amount: 1
-        doAfter: 1.67
+        amount: 3
+        doAfter: 2.0
 
   - node: done
-    entity: CableHVStack10
+    entity: CableApcStack
+
+- type: constructionGraph
+  id: CableApcStackSilverCraft
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: done
+      steps:
+      - material: DystopiaWireSilver
+        amount: 6
+        doAfter: 2.0
+      - material: Cloth
+        amount: 3
+        doAfter: 2.0
+
+  - node: done
+    entity: CableApcStack
+
+- type: constructionGraph
+  id: CableApcStackGoldCraft
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: done
+      steps:
+      - material: DystopiaWireGold
+        amount: 9
+        doAfter: 2.0
+      - material: Cloth
+        amount: 3
+        doAfter: 2.0
+
+  - node: done
+    entity: CableApcStack
+
+- type: constructionGraph
+  id: CableApcStackAluminiumCraft
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: done
+      steps:
+      - material: DystopiaWireAluminium
+        amount: 9
+        doAfter: 2.0
+      - material: Cloth
+        amount: 3
+        doAfter: 2.0
+
+  - node: done
+    entity: CableApcStack
+
+- type: constructionGraph
+  id: CableMVStackCraft
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: done
+      steps:
+      - material: DystopiaWireCopper
+        amount: 12
+        doAfter: 3.0
+      - material: Cloth
+        amount: 6
+        doAfter: 3.0
+
+  - node: done
+    entity: CableMVStack
+
+- type: constructionGraph
+  id: CableMVStackSilverCraft
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: done
+      steps:
+      - material: DystopiaWireSilver
+        amount: 11
+        doAfter: 3.0
+      - material: Cloth
+        amount: 6
+        doAfter: 3.0
+
+  - node: done
+    entity: CableMVStack
+
+- type: constructionGraph
+  id: CableMVStackGoldCraft
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: done
+      steps:
+      - material: DystopiaWireGold
+        amount: 17
+        doAfter: 3.0
+      - material: Cloth
+        amount: 6
+        doAfter: 3.0
+
+  - node: done
+    entity: CableMVStack
+
+- type: constructionGraph
+  id: CableMVStackAluminiumCraft
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: done
+      steps:
+      - material: DystopiaWireAluminium
+        amount: 19
+        doAfter: 3.0
+      - material: Cloth
+        amount: 6
+        doAfter: 3.0
+
+  - node: done
+    entity: CableMVStack
+
+- type: constructionGraph
+  id: CableHVStackCraft
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: done
+      steps:
+      - material: DystopiaWireCopper
+        amount: 18
+        doAfter: 2.67
+      - material: Cloth
+        amount: 6
+        doAfter: 2.67
+      - material: DystopiaSheetLead
+        amount: 3
+        doAfter: 2.67
+
+  - node: done
+    entity: CableHVStack
+
+- type: constructionGraph
+  id: CableHVStackSilverCraft
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: done
+      steps:
+      - material: DystopiaWireSilver
+        amount: 17
+        doAfter: 2.67
+      - material: Cloth
+        amount: 6
+        doAfter: 2.67
+      - material: DystopiaSheetLead
+        amount: 3
+        doAfter: 2.67
+
+  - node: done
+    entity: CableHVStack
+
+- type: constructionGraph
+  id: CableHVStackGoldCraft
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: done
+      steps:
+      - material: DystopiaWireGold
+        amount: 26
+        doAfter: 2.67
+      - material: Cloth
+        amount: 6
+        doAfter: 2.67
+      - material: DystopiaSheetLead
+        amount: 3
+        doAfter: 2.67
+
+  - node: done
+    entity: CableHVStack
+
+- type: constructionGraph
+  id: CableHVStackAluminiumCraft
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: done
+      steps:
+      - material: DystopiaWireAluminium
+        amount: 28
+        doAfter: 2.67
+      - material: Cloth
+        amount: 6
+        doAfter: 2.67
+      - material: DystopiaSheetLead
+        amount: 3
+        doAfter: 2.67
+
+  - node: done
+    entity: CableHVStack
 
 - type: constructionGraph
   id: DystopiaRoastingFurnaceCraft
@@ -4466,27 +4637,111 @@
   objectType: Item
 
 - type: construction
-  id: CableApcStack10Craft
-  graph: CableApcStack10Craft
+  id: CableApcStackCraft
+  graph: CableApcStackCraft
   startNode: start
   targetNode: done
   category: construction-category-dystopia-industry-tools
+  name: construction-dystopia-CableApcStackCraft
   objectType: Item
 
 - type: construction
-  id: CableMVStack10Craft
-  graph: CableMVStack10Craft
+  id: CableApcStackSilverCraft
+  graph: CableApcStackSilverCraft
   startNode: start
   targetNode: done
   category: construction-category-dystopia-industry-tools
+  name: construction-dystopia-CableApcStackSilverCraft
   objectType: Item
 
 - type: construction
-  id: CableHVStack10Craft
-  graph: CableHVStack10Craft
+  id: CableApcStackGoldCraft
+  graph: CableApcStackGoldCraft
   startNode: start
   targetNode: done
   category: construction-category-dystopia-industry-tools
+  name: construction-dystopia-CableApcStackGoldCraft
+  objectType: Item
+
+- type: construction
+  id: CableApcStackAluminiumCraft
+  graph: CableApcStackAluminiumCraft
+  startNode: start
+  targetNode: done
+  category: construction-category-dystopia-industry-tools
+  name: construction-dystopia-CableApcStackAluminiumCraft
+  objectType: Item
+
+- type: construction
+  id: CableMVStackCraft
+  graph: CableMVStackCraft
+  startNode: start
+  targetNode: done
+  category: construction-category-dystopia-industry-tools
+  name: construction-dystopia-CableMVStackCraft
+  objectType: Item
+
+- type: construction
+  id: CableMVStackSilverCraft
+  graph: CableMVStackSilverCraft
+  startNode: start
+  targetNode: done
+  category: construction-category-dystopia-industry-tools
+  name: construction-dystopia-CableMVStackSilverCraft
+  objectType: Item
+
+- type: construction
+  id: CableMVStackGoldCraft
+  graph: CableMVStackGoldCraft
+  startNode: start
+  targetNode: done
+  category: construction-category-dystopia-industry-tools
+  name: construction-dystopia-CableMVStackGoldCraft
+  objectType: Item
+
+- type: construction
+  id: CableMVStackAluminiumCraft
+  graph: CableMVStackAluminiumCraft
+  startNode: start
+  targetNode: done
+  category: construction-category-dystopia-industry-tools
+  name: construction-dystopia-CableMVStackAluminiumCraft
+  objectType: Item
+
+- type: construction
+  id: CableHVStackCraft
+  graph: CableHVStackCraft
+  startNode: start
+  targetNode: done
+  category: construction-category-dystopia-industry-tools
+  name: construction-dystopia-CableHVStackCraft
+  objectType: Item
+
+- type: construction
+  id: CableHVStackSilverCraft
+  graph: CableHVStackSilverCraft
+  startNode: start
+  targetNode: done
+  category: construction-category-dystopia-industry-tools
+  name: construction-dystopia-CableHVStackSilverCraft
+  objectType: Item
+
+- type: construction
+  id: CableHVStackGoldCraft
+  graph: CableHVStackGoldCraft
+  startNode: start
+  targetNode: done
+  category: construction-category-dystopia-industry-tools
+  name: construction-dystopia-CableHVStackGoldCraft
+  objectType: Item
+
+- type: construction
+  id: CableHVStackAluminiumCraft
+  graph: CableHVStackAluminiumCraft
+  startNode: start
+  targetNode: done
+  category: construction-category-dystopia-industry-tools
+  name: construction-dystopia-CableHVStackAluminiumCraft
   objectType: Item
 
 - type: construction

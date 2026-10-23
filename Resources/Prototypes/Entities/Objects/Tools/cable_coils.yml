@@ -46,6 +46,9 @@
   suffix: Full
   description: HV cables for connecting engines to heavy duty machinery, SMESes, and substations.
   components:
+  - type: Construction   # Dystopia-Crafts: крафт (gen_crafts.py)
+    graph: CableHVStackCraft
+    node: done
   - type: Stack
     stackType: CableHV
     baseLayer: base
@@ -78,9 +81,6 @@
   id: CableHVStack10
   suffix: 10
   components:
-  - type: Construction   # Dystopia-Crafts: крафт (gen_crafts.py)
-    graph: CableHVStack10Craft
-    node: done
   - type: Sprite
     state: coilhv-10
   - type: Stack
@@ -103,6 +103,9 @@
   suffix: Full
   description: MV cables for connecting substations to APCs, and also powering a select few things like emitters.
   components:
+  - type: Construction   # Dystopia-Crafts: крафт (gen_crafts.py)
+    graph: CableMVStackCraft
+    node: done
   - type: Stack
     stackType: CableMV
     baseLayer: base
@@ -139,9 +142,6 @@
   id: CableMVStack10
   suffix: 10
   components:
-  - type: Construction   # Dystopia-Crafts: крафт (gen_crafts.py)
-    graph: CableMVStack10Craft
-    node: done
   - type: Sprite
     state: coilmv-10
   - type: Stack
@@ -164,6 +164,9 @@
   description: Low-Voltage stack of wires for connecting APCs to machines and other purposes.
   suffix: Full
   components:
+  - type: Construction   # Dystopia-Crafts: крафт (gen_crafts.py)
+    graph: CableApcStackCraft
+    node: done
   - type: Sprite
     state: coillv-30
     layers:
@@ -202,9 +205,6 @@
   id: CableApcStack10
   suffix: 10
   components:
-    - type: Construction   # Dystopia-Crafts: крафт (gen_crafts.py)
-      graph: CableApcStack10Craft
-      node: done
     - type: Sprite
       state: coillv-10
     - type: Stack

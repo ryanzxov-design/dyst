@@ -32,9 +32,18 @@
   - [color=#d2ae68]обмоточный провод[/color]: [color=#9ab0c4]медная проволока[/color] × [color=#ff9a50]1[/color], [color=#9ab0c4]ткань[/color] × [color=#ff9a50]1[/color]
   - [color=#d2ae68]редуктор[/color]: [color=#9ab0c4]чугунная шестерня[/color] × [color=#ff9a50]2[/color], [color=#9ab0c4]слиток чугуна[/color] × [color=#ff9a50]1[/color]
   - [color=#d2ae68]электромотор[/color]: [color=#9ab0c4]стальной лист[/color] × [color=#ff9a50]1[/color], [color=#9ab0c4]слиток чугуна[/color] × [color=#ff9a50]1[/color], [color=#9ab0c4]стальной прут[/color] × [color=#ff9a50]1[/color], [color=#9ab0c4]обмоточный провод[/color] × [color=#ff9a50]2[/color]
-  - [color=#d2ae68]моток НВ-кабеля[/color]: [color=#9ab0c4]медная проволока[/color] × [color=#ff9a50]2[/color], [color=#9ab0c4]ткань[/color] × [color=#ff9a50]1[/color]
-  - [color=#d2ae68]моток СВ-кабеля[/color]: [color=#9ab0c4]медная проволока[/color] × [color=#ff9a50]4[/color], [color=#9ab0c4]ткань[/color] × [color=#ff9a50]2[/color]
-  - [color=#d2ae68]моток ВВ-кабеля[/color]: [color=#9ab0c4]медная проволока[/color] × [color=#ff9a50]6[/color], [color=#9ab0c4]ткань[/color] × [color=#ff9a50]2[/color], [color=#9ab0c4]лист свинца[/color] × [color=#ff9a50]1[/color]
+  - [color=#d2ae68]моток НВ-кабеля[/color]: [color=#9ab0c4]медная проволока[/color] × [color=#ff9a50]6[/color], [color=#9ab0c4]ткань[/color] × [color=#ff9a50]3[/color]
+  - [color=#d2ae68]моток НВ-кабеля[/color]: [color=#9ab0c4]серебряная проволока[/color] × [color=#ff9a50]6[/color], [color=#9ab0c4]ткань[/color] × [color=#ff9a50]3[/color]
+  - [color=#d2ae68]моток НВ-кабеля[/color]: [color=#9ab0c4]золотая проволока[/color] × [color=#ff9a50]9[/color], [color=#9ab0c4]ткань[/color] × [color=#ff9a50]3[/color]
+  - [color=#d2ae68]моток НВ-кабеля[/color]: [color=#9ab0c4]алюминиевая проволока[/color] × [color=#ff9a50]9[/color], [color=#9ab0c4]ткань[/color] × [color=#ff9a50]3[/color]
+  - [color=#d2ae68]моток СВ-кабеля[/color]: [color=#9ab0c4]медная проволока[/color] × [color=#ff9a50]12[/color], [color=#9ab0c4]ткань[/color] × [color=#ff9a50]6[/color]
+  - [color=#d2ae68]моток СВ-кабеля[/color]: [color=#9ab0c4]серебряная проволока[/color] × [color=#ff9a50]11[/color], [color=#9ab0c4]ткань[/color] × [color=#ff9a50]6[/color]
+  - [color=#d2ae68]моток СВ-кабеля[/color]: [color=#9ab0c4]золотая проволока[/color] × [color=#ff9a50]17[/color], [color=#9ab0c4]ткань[/color] × [color=#ff9a50]6[/color]
+  - [color=#d2ae68]моток СВ-кабеля[/color]: [color=#9ab0c4]алюминиевая проволока[/color] × [color=#ff9a50]19[/color], [color=#9ab0c4]ткань[/color] × [color=#ff9a50]6[/color]
+  - [color=#d2ae68]моток ВВ-кабеля[/color]: [color=#9ab0c4]медная проволока[/color] × [color=#ff9a50]18[/color], [color=#9ab0c4]ткань[/color] × [color=#ff9a50]6[/color], [color=#9ab0c4]лист свинца[/color] × [color=#ff9a50]3[/color]
+  - [color=#d2ae68]моток ВВ-кабеля[/color]: [color=#9ab0c4]серебряная проволока[/color] × [color=#ff9a50]17[/color], [color=#9ab0c4]ткань[/color] × [color=#ff9a50]6[/color], [color=#9ab0c4]лист свинца[/color] × [color=#ff9a50]3[/color]
+  - [color=#d2ae68]моток ВВ-кабеля[/color]: [color=#9ab0c4]золотая проволока[/color] × [color=#ff9a50]26[/color], [color=#9ab0c4]ткань[/color] × [color=#ff9a50]6[/color], [color=#9ab0c4]лист свинца[/color] × [color=#ff9a50]3[/color]
+  - [color=#d2ae68]моток ВВ-кабеля[/color]: [color=#9ab0c4]алюминиевая проволока[/color] × [color=#ff9a50]28[/color], [color=#9ab0c4]ткань[/color] × [color=#ff9a50]6[/color], [color=#9ab0c4]лист свинца[/color] × [color=#ff9a50]3[/color]
 
   Сальниковую набивку не собирают руками: её делает [color=#d2ae68]бетономешалка[/color] из ткани и смолы, [color=#ff9a50]2[/color] мотка за раз.
 

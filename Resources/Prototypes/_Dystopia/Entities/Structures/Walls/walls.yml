@@ -68,11 +68,12 @@
         sound:
           path: /Audio/Effects/break_stone.ogg
       - !type:SpawnEntitiesBehavior
-        offset: 0
         spawn:
           DystopiaFireBrick1:
             min: 3
             max: 6
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
   - type: Damageable
     damageModifierSet: RockMod
   - type: Injurable

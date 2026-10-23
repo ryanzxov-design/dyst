@@ -128,12 +128,15 @@
       - &SoundBreakStone !type:PlaySoundBehavior
         sound:
           path: /Audio/Effects/break_stone.ogg
-      - &SpawnGirder !type:SpawnEntitiesBehavior
-        offset: 0
+      # Dystopia-Walls: кирпичная кладка строится без стали — каркаса после неё нет, рассыпается в кирпич,
+      # и стена исчезает (у ванили не было Destruction — стена оставалась на месте).
+      - !type:SpawnEntitiesBehavior
         spawn:
-          Girder:
-            min: 1
-            max: 1
+          DystopiaBrick1:
+            min: 3
+            max: 6
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
   - type: IconSmooth
     key: walls
     base: brick
@@ -218,7 +221,13 @@
         !type:DamageTrigger
         damage: 1
       behaviors:
-      - *SpawnGirder
+      # Dystopia-Walls: якорь перенесён сюда из WallBrick (там каркас больше не появляется)
+      - &SpawnGirder !type:SpawnEntitiesBehavior
+        offset: 0
+        spawn:
+          Girder:
+            min: 1
+            max: 1
   - type: IconSmooth
     key: walls
     base: debug
@@ -1062,6 +1071,11 @@
     - trigger: *DamageBarrierStrong
       behaviors:
       - *SoundBreakStone
+      # Dystopia-Walls: в бетонной стене стальная арматура — после разрушения остаётся каркас,
+      # а сама стена исчезает (у ванили не было Destruction).
+      - *SpawnGirder
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
   - type: IconSmooth
     key: walls
     base: concrete
