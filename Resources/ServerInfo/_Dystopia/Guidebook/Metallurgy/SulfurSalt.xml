@@ -11,6 +11,14 @@
 
   Кокс в горне горит [color=#ff9a50]300[/color] секунд против [color=#ff9a50]120[/color] у угля. В тигле он работает как уголь: кусок даёт [color=#ff9a50]1[/color] ед. [color=#7ac8b0]углерода[/color] для стали и чугуна.
 
+  ## Графитовые электроды
+  <Box>
+      <GuideEntityEmbed Entity="DystopiaOreGraphite" Caption=""/>
+      <GuideEntityEmbed Entity="DystopiaGraphiteElectrode" Caption=""/>
+  </Box>
+
+  В той же печи [color=#ff9a50]2[/color] куска [color=#9ab0c4]графита[/color] на [color=#ff9a50]5[/color] ед. смолы из её бака обжигаются в [color=#9ab0c4]графитовый электрод[/color]. Смолу печь берёт свою, а можно долить и со стороны. Электроды пойдут в дуговую печь и электролизёр.
+
   ## Сернистый газ
   <Box>
       <GuideEntityEmbed Entity="DystopiaRoastingFurnace" Caption=""/>

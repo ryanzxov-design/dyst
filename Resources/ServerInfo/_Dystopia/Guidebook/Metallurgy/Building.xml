@@ -38,6 +38,8 @@
 
   [color=#ff9a50]4[/color] горсти клинкера и [color=#ff9a50]1[/color] кусок [color=#9ab0c4]гипса[/color] в [color=#d2ae68]мельнице[/color] дают [color=#ff9a50]4[/color] мешка [color=#9ab0c4]цемента[/color]. Без гипса клинкер так и пролежит в мельнице.
 
+  Гипс можно и не копать. Залейте в бак [color=#d2ae68]чана выщелачивания[/color] [color=#ff9a50]10[/color] ед. [color=#7ac8b0]гашёной извести[/color] и [color=#ff9a50]5[/color] ед. [color=#7ac8b0]серной кислоты[/color]: выпадет кусок [color=#9ab0c4]гипса[/color], а в отстойник уйдёт [color=#ff9a50]5[/color] ед. воды.
+
   ## Бетон
   <Box>
       <GuideEntityEmbed Entity="DystopiaConcreteMixer" Caption=""/>

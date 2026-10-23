@@ -1,0 +1,154 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: графитовый электрод — деталь для дуговой печи и электролизёра. Делается в коксовой печи
+# (графит + каменноугольная смола). Самостоятельные сущности, без parent. Генератор gen_graphite.py.
+
+- type: entity
+  id: DystopiaGraphiteElectrode
+  name: graphite electrode
+  description: "A heavy black rod that marks your hands like a pencil: graphite bound with tar and baked without air. They go into arc furnaces and electrolytic cells."
+  suffix: Full
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/NonMetals/electrode.rsi
+    heldPrefix: electrode
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/NonMetals/electrode.rsi
+    state: electrode_5
+    layers:
+    - state: electrode_5
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+    damageModifierSet: FlimsyMetallic
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaGraphiteElectrode: 100
+  - type: Stack
+    stackType: DystopiaGraphiteElectrode
+    baseLayer: base
+    layerStates: [ electrode, electrode_2, electrode_3, electrode_4, electrode_5 ]
+
+- type: entity
+  id: DystopiaGraphiteElectrode1
+  name: graphite electrode
+  description: "A heavy black rod that marks your hands like a pencil: graphite bound with tar and baked without air. They go into arc furnaces and electrolytic cells."
+  suffix: Single
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/NonMetals/electrode.rsi
+    heldPrefix: electrode
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/NonMetals/electrode.rsi
+    state: electrode
+    layers:
+    - state: electrode
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+    damageModifierSet: FlimsyMetallic
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaGraphiteElectrode: 100
+  - type: Stack
+    stackType: DystopiaGraphiteElectrode
+    baseLayer: base
+    layerStates: [ electrode, electrode_2, electrode_3, electrode_4, electrode_5 ]
+    count: 1

@@ -4,10 +4,10 @@
 # только из веществ бака (идёт, пока их хватает). Вещества (produces) — в бак продукции машины, если он есть.
 # Дробилка: известняк → щебень, кварц → песок. Мельница: щебень → песок, клинкер + гипс → цемент.
 # Обжиговая печь: известняк → известь, глина + известняк → клинкер, пирит → огарок + сернистый газ, сера → сернистый
-# газ, сырец → кирпич. Коксовая печь: уголь → кокс + смола. Кирпичный пресс: глина → сырец.
+# газ, сырец → кирпич. Коксовая печь: уголь → кокс + смола; графит на смоле → графитовый электрод. Кирпичный пресс: глина → сырец.
 # Бетономешалка: цемент + песок + щебень + вода → бетонная смесь; песок + известь + сода → стекольная шихта.
 # Чан выщелачивания: соль → рассол, известь → известковое молоко, известняк + рассол → сода; спирт + сера + щёлочь →
-# флотореагент. Электролизёр: рассол → едкий натр + хлор + водород. Контактный аппарат: сернистый газ + вода → кислота.
+# флотореагент; известковое молоко + серная кислота → гипс (осадок) + вода. Электролизёр: рассол → едкий натр + хлор + водород. Контактный аппарат: сернистый газ + вода → кислота.
 
 - type: dystopiaProcessRecipe
   id: DystopiaCrushLimestone
@@ -106,6 +106,16 @@
     DystopiaCoalTar: 4
 
 - type: dystopiaProcessRecipe
+  id: DystopiaBakeElectrode
+  group: Coking
+  input: DystopiaOreGraphite
+  inputCount: 2
+  output: DystopiaGraphiteElectrode1
+  amount: 1
+  reagents:
+    DystopiaCoalTar: 5
+
+- type: dystopiaProcessRecipe
   id: DystopiaPressBrick
   group: BrickPress
   input: DystopiaOreClay
@@ -176,6 +186,17 @@
     Water: 5
   produces:
     SodiumCarbonate: 5
+
+- type: dystopiaProcessRecipe
+  id: DystopiaPrecipitateGypsum
+  group: Leaching
+  output: DystopiaOreGypsum1
+  amount: 1
+  reagents:
+    DystopiaSlakedLime: 10
+    SulfuricAcid: 5
+  produces:
+    Water: 5
 
 - type: dystopiaProcessRecipe
   id: DystopiaMixFlotationReagent

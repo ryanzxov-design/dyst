@@ -266,7 +266,7 @@
 - type: entity
   id: DystopiaCrucibleSmall
   name: small crucible
-  description: A graphite pot for melting ore and scrap. Hot ones are handled with tongs only.
+  description: A fireclay pot for melting ore and scrap. Hot ones are handled with tongs only.
   components:
   - type: DystopiaParticleEmitter   # частицы (gen_particles.py)
     emitters:

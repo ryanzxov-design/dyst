@@ -1,0 +1,10 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: графитовый электрод — деталь для дуговой печи и электролизёра. Делается в коксовой печи
+# (графит + каменноугольная смола). Самостоятельные сущности, без parent. Генератор gen_graphite.py.
+
+- type: stack
+  id: DystopiaGraphiteElectrode
+  name: stack-dystopia-graphite-electrode
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/NonMetals/electrode.rsi, state: electrode_5 }
+  spawn: DystopiaGraphiteElectrode1
+  maxCount: 30

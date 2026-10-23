@@ -8,10 +8,50 @@
 - type: entity
   id: DystopiaCokeOven
   name: coke oven
-  description: "A brick chamber where coal is baked without air. Out comes light grey coke; the tar runs off into a tank."
+  description: "A brick chamber where coal is baked without air. Out comes light grey coke; the tar runs off into a tank. Graphite bound with that tar bakes here into electrodes."
   placement:
     mode: SnapgridCenter
   components:
+  - type: DystopiaParticleEmitter   # частицы (gen_particles.py)
+    emitters:
+    # дым
+    - rate: 9
+      lifetime: 1.6,2.8
+      speed: 0.1,0.3
+      direction: 0
+      spread: 50
+      alignToVelocity: false
+      inheritVelocity: 0
+      drift: 0,0.35
+      drag: 0.6
+      jitter: 0.9
+      size: 3,5
+      additive: false
+      activeWhen: enum.DystopiaProcessorVisuals.Running
+      colors:
+      - "#3A383600"
+      - "#3A383670"
+      - "#3A383640"
+      - "#3A383600"
+    # искры, летят вверх
+    - rate: 3
+      lifetime: 0.6,1.2
+      speed: 0.3,0.8
+      direction: 0
+      spread: 80
+      alignToVelocity: false
+      inheritVelocity: 0
+      drift: 0,0.5
+      drag: 0.8
+      jitter: 0.8
+      size: 1,1
+      additive: true
+      flicker: 0.5
+      activeWhen: enum.DystopiaProcessorVisuals.Running
+      colors:
+      - "#FFD27AFF"
+      - "#FF8A2AC8"
+      - "#C0401A00"
   - type: Transform
     anchored: true
     noRot: true
@@ -116,6 +156,27 @@
   placement:
     mode: SnapgridCenter
   components:
+  - type: DystopiaParticleEmitter   # частицы (gen_particles.py)
+    emitters:
+    # рудная пыль
+    - rate: 5
+      lifetime: 0.5,1.1
+      speed: 0.15,0.5
+      direction: 0
+      spread: 360
+      alignToVelocity: false
+      inheritVelocity: 0
+      drift: 0,-0.2
+      drag: 1.2
+      jitter: 0.3
+      size: 1,2
+      additive: false
+      activeWhen: enum.DystopiaProcessorVisuals.Running
+      colors:
+      - "#9A6A4600"
+      - "#9A6A46A0"
+      - "#9A6A4650"
+      - "#9A6A4600"
   - type: Transform
     anchored: true
     noRot: true
@@ -199,6 +260,27 @@
   placement:
     mode: SnapgridCenter
   components:
+  - type: DystopiaParticleEmitter   # частицы (gen_particles.py)
+    emitters:
+    # рудная пыль
+    - rate: 5
+      lifetime: 0.5,1.1
+      speed: 0.15,0.5
+      direction: 0
+      spread: 360
+      alignToVelocity: false
+      inheritVelocity: 0
+      drift: 0,-0.2
+      drag: 1.2
+      jitter: 0.3
+      size: 1,2
+      additive: false
+      activeWhen: enum.DystopiaProcessorVisuals.Running
+      colors:
+      - "#9A6A4600"
+      - "#9A6A46A0"
+      - "#9A6A4650"
+      - "#9A6A4600"
   - type: Transform
     anchored: true
     noRot: true
@@ -301,6 +383,27 @@
   placement:
     mode: SnapgridCenter
   components:
+  - type: DystopiaParticleEmitter   # частицы (gen_particles.py)
+    emitters:
+    # рудная пыль
+    - rate: 6
+      lifetime: 0.5,1.1
+      speed: 0.15,0.5
+      direction: 0
+      spread: 360
+      alignToVelocity: false
+      inheritVelocity: 0
+      drift: 0,-0.2
+      drag: 1.2
+      jitter: 0.35
+      size: 1,2
+      additive: false
+      activeWhen: enum.DystopiaProcessorVisuals.Running
+      colors:
+      - "#8E8E8800"
+      - "#8E8E88A0"
+      - "#8E8E8850"
+      - "#8E8E8800"
   - type: Transform
     anchored: true
     noRot: true
@@ -410,6 +513,27 @@
   placement:
     mode: SnapgridCenter
   components:
+  - type: DystopiaParticleEmitter   # частицы (gen_particles.py)
+    emitters:
+    # кислотные пары
+    - rate: 4
+      lifetime: 1.2,2.0
+      speed: 0.05,0.2
+      direction: 0
+      spread: 50
+      alignToVelocity: false
+      inheritVelocity: 0
+      drift: 0,0.3
+      drag: 0.5
+      jitter: 0.35
+      size: 2,4
+      additive: false
+      activeWhen: enum.DystopiaProcessorVisuals.Running
+      colors:
+      - "#A8D0B000"
+      - "#A8D0B050"
+      - "#7AA08A20"
+      - "#5A806A00"
   - type: Transform
     anchored: true
     noRot: true

@@ -1,0 +1,310 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: жилы в мире. Слои меток биома заменяют обычную породу жилой (по четырём видам породы). Ими
+# пользуются экспедиции (гарантированная добыча ниже) и планета вокруг станции (StationBiome.markerLayers
+# на карте). Частота — maxCount групп на участок 128×128 клеток. Генератор gen_ore_layers.py.
+
+- type: biomeMarkerLayer
+  id: DystopiaOreLimestone
+  entityMask:
+    WallRock: DystopiaWallRockLimestone
+    WallRockSand: DystopiaWallRockSandLimestone
+    WallRockSnow: DystopiaWallRockSnowLimestone
+    WallRockChromite: DystopiaWallRockChromiteLimestone
+  maxCount: 25   # common
+  minGroupSize: 8
+  maxGroupSize: 12
+  radius: 4
+
+- type: biomeMarkerLayer
+  id: DystopiaOreClay
+  entityMask:
+    WallRock: DystopiaWallRockClay
+    WallRockSand: DystopiaWallRockSandClay
+    WallRockSnow: DystopiaWallRockSnowClay
+    WallRockChromite: DystopiaWallRockChromiteClay
+  maxCount: 25   # common
+  minGroupSize: 8
+  maxGroupSize: 12
+  radius: 4
+
+- type: biomeMarkerLayer
+  id: DystopiaOreChalcopyrite
+  entityMask:
+    WallRock: DystopiaWallRockChalcopyrite
+    WallRockSand: DystopiaWallRockSandChalcopyrite
+    WallRockSnow: DystopiaWallRockSnowChalcopyrite
+    WallRockChromite: DystopiaWallRockChromiteChalcopyrite
+  maxCount: 20   # low
+  minGroupSize: 6
+  maxGroupSize: 10
+  radius: 4
+
+- type: biomeMarkerLayer
+  id: DystopiaOreSphalerite
+  entityMask:
+    WallRock: DystopiaWallRockSphalerite
+    WallRockSand: DystopiaWallRockSandSphalerite
+    WallRockSnow: DystopiaWallRockSnowSphalerite
+    WallRockChromite: DystopiaWallRockChromiteSphalerite
+  maxCount: 20   # low
+  minGroupSize: 6
+  maxGroupSize: 10
+  radius: 4
+
+- type: biomeMarkerLayer
+  id: DystopiaOreCassiterite
+  entityMask:
+    WallRock: DystopiaWallRockCassiterite
+    WallRockSand: DystopiaWallRockSandCassiterite
+    WallRockSnow: DystopiaWallRockSnowCassiterite
+    WallRockChromite: DystopiaWallRockChromiteCassiterite
+  maxCount: 20   # low
+  minGroupSize: 6
+  maxGroupSize: 10
+  radius: 4
+
+- type: biomeMarkerLayer
+  id: DystopiaOreGalena
+  entityMask:
+    WallRock: DystopiaWallRockGalena
+    WallRockSand: DystopiaWallRockSandGalena
+    WallRockSnow: DystopiaWallRockSnowGalena
+    WallRockChromite: DystopiaWallRockChromiteGalena
+  maxCount: 20   # low
+  minGroupSize: 6
+  maxGroupSize: 10
+  radius: 4
+
+- type: biomeMarkerLayer
+  id: DystopiaOreBauxite
+  entityMask:
+    WallRock: DystopiaWallRockBauxite
+    WallRockSand: DystopiaWallRockSandBauxite
+    WallRockSnow: DystopiaWallRockSnowBauxite
+    WallRockChromite: DystopiaWallRockChromiteBauxite
+  maxCount: 20   # low
+  minGroupSize: 6
+  maxGroupSize: 10
+  radius: 4
+
+- type: biomeMarkerLayer
+  id: DystopiaOreGypsum
+  entityMask:
+    WallRock: DystopiaWallRockGypsum
+    WallRockSand: DystopiaWallRockSandGypsum
+    WallRockSnow: DystopiaWallRockSnowGypsum
+    WallRockChromite: DystopiaWallRockChromiteGypsum
+  maxCount: 20   # low
+  minGroupSize: 6
+  maxGroupSize: 10
+  radius: 4
+
+- type: biomeMarkerLayer
+  id: DystopiaOreFireclay
+  entityMask:
+    WallRock: DystopiaWallRockFireclay
+    WallRockSand: DystopiaWallRockSandFireclay
+    WallRockSnow: DystopiaWallRockSnowFireclay
+    WallRockChromite: DystopiaWallRockChromiteFireclay
+  maxCount: 20   # low
+  minGroupSize: 6
+  maxGroupSize: 10
+  radius: 4
+
+- type: biomeMarkerLayer
+  id: DystopiaOreChromite
+  entityMask:
+    WallRock: DystopiaWallRockChromite
+    WallRockSand: DystopiaWallRockSandChromite
+    WallRockSnow: DystopiaWallRockSnowChromite
+    WallRockChromite: DystopiaWallRockChromiteChromite
+  maxCount: 14   # medium
+  minGroupSize: 4
+  maxGroupSize: 8
+  radius: 4
+
+- type: biomeMarkerLayer
+  id: DystopiaOrePyrite
+  entityMask:
+    WallRock: DystopiaWallRockPyrite
+    WallRockSand: DystopiaWallRockSandPyrite
+    WallRockSnow: DystopiaWallRockSnowPyrite
+    WallRockChromite: DystopiaWallRockChromitePyrite
+  maxCount: 14   # medium
+  minGroupSize: 4
+  maxGroupSize: 8
+  radius: 4
+
+- type: biomeMarkerLayer
+  id: DystopiaOreSulfur
+  entityMask:
+    WallRock: DystopiaWallRockSulfur
+    WallRockSand: DystopiaWallRockSandSulfur
+    WallRockSnow: DystopiaWallRockSnowSulfur
+    WallRockChromite: DystopiaWallRockChromiteSulfur
+  maxCount: 14   # medium
+  minGroupSize: 4
+  maxGroupSize: 8
+  radius: 4
+
+- type: biomeMarkerLayer
+  id: DystopiaOreGraphite
+  entityMask:
+    WallRock: DystopiaWallRockGraphite
+    WallRockSand: DystopiaWallRockSandGraphite
+    WallRockSnow: DystopiaWallRockSnowGraphite
+    WallRockChromite: DystopiaWallRockChromiteGraphite
+  maxCount: 14   # medium
+  minGroupSize: 4
+  maxGroupSize: 8
+  radius: 4
+
+- type: biomeMarkerLayer
+  id: DystopiaOreSylvite
+  entityMask:
+    WallRock: DystopiaWallRockSylvite
+    WallRockSand: DystopiaWallRockSandSylvite
+    WallRockSnow: DystopiaWallRockSnowSylvite
+    WallRockChromite: DystopiaWallRockChromiteSylvite
+  maxCount: 14   # medium
+  minGroupSize: 4
+  maxGroupSize: 8
+  radius: 4
+
+- type: biomeMarkerLayer
+  id: DystopiaOreSpodumene
+  entityMask:
+    WallRock: DystopiaWallRockSpodumene
+    WallRockSand: DystopiaWallRockSandSpodumene
+    WallRockSnow: DystopiaWallRockSnowSpodumene
+    WallRockChromite: DystopiaWallRockChromiteSpodumene
+  maxCount: 8   # rare
+  minGroupSize: 3
+  maxGroupSize: 6
+  radius: 4
+
+- type: biomeMarkerLayer
+  id: DystopiaOreCinnabar
+  entityMask:
+    WallRock: DystopiaWallRockCinnabar
+    WallRockSand: DystopiaWallRockSandCinnabar
+    WallRockSnow: DystopiaWallRockSnowCinnabar
+    WallRockChromite: DystopiaWallRockChromiteCinnabar
+  maxCount: 8   # rare
+  minGroupSize: 3
+  maxGroupSize: 6
+  radius: 4
+
+# Экспедиции: жилы Города на каждой планете экспедиции.
+
+- type: salvageLoot
+  id: DystopiaOreLimestone
+  guaranteed: true
+  loots:
+    - !type:BiomeMarkerLoot
+      proto: DystopiaOreLimestone
+
+- type: salvageLoot
+  id: DystopiaOreClay
+  guaranteed: true
+  loots:
+    - !type:BiomeMarkerLoot
+      proto: DystopiaOreClay
+
+- type: salvageLoot
+  id: DystopiaOreChalcopyrite
+  guaranteed: true
+  loots:
+    - !type:BiomeMarkerLoot
+      proto: DystopiaOreChalcopyrite
+
+- type: salvageLoot
+  id: DystopiaOreSphalerite
+  guaranteed: true
+  loots:
+    - !type:BiomeMarkerLoot
+      proto: DystopiaOreSphalerite
+
+- type: salvageLoot
+  id: DystopiaOreCassiterite
+  guaranteed: true
+  loots:
+    - !type:BiomeMarkerLoot
+      proto: DystopiaOreCassiterite
+
+- type: salvageLoot
+  id: DystopiaOreGalena
+  guaranteed: true
+  loots:
+    - !type:BiomeMarkerLoot
+      proto: DystopiaOreGalena
+
+- type: salvageLoot
+  id: DystopiaOreBauxite
+  guaranteed: true
+  loots:
+    - !type:BiomeMarkerLoot
+      proto: DystopiaOreBauxite
+
+- type: salvageLoot
+  id: DystopiaOreGypsum
+  guaranteed: true
+  loots:
+    - !type:BiomeMarkerLoot
+      proto: DystopiaOreGypsum
+
+- type: salvageLoot
+  id: DystopiaOreFireclay
+  guaranteed: true
+  loots:
+    - !type:BiomeMarkerLoot
+      proto: DystopiaOreFireclay
+
+- type: salvageLoot
+  id: DystopiaOreChromite
+  guaranteed: true
+  loots:
+    - !type:BiomeMarkerLoot
+      proto: DystopiaOreChromite
+
+- type: salvageLoot
+  id: DystopiaOrePyrite
+  guaranteed: true
+  loots:
+    - !type:BiomeMarkerLoot
+      proto: DystopiaOrePyrite
+
+- type: salvageLoot
+  id: DystopiaOreSulfur
+  guaranteed: true
+  loots:
+    - !type:BiomeMarkerLoot
+      proto: DystopiaOreSulfur
+
+- type: salvageLoot
+  id: DystopiaOreGraphite
+  guaranteed: true
+  loots:
+    - !type:BiomeMarkerLoot
+      proto: DystopiaOreGraphite
+
+- type: salvageLoot
+  id: DystopiaOreSylvite
+  guaranteed: true
+  loots:
+    - !type:BiomeMarkerLoot
+      proto: DystopiaOreSylvite
+
+- type: salvageLoot
+  id: DystopiaOreSpodumene
+  guaranteed: true
+  loots:
+    - !type:BiomeMarkerLoot
+      proto: DystopiaOreSpodumene
+
+- type: salvageLoot
+  id: DystopiaOreCinnabar
+  guaranteed: true
+  loots:
+    - !type:BiomeMarkerLoot
+      proto: DystopiaOreCinnabar
