@@ -1,0 +1,585 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: детали машин — шестерня, электромотор, редуктор, обмоточный провод, сальниковая набивка.
+# Собираются крафтами (следующий архив); шестерню льют в изложницу. Без parent. Генератор gen_parts.py.
+
+- type: entity
+  id: DystopiaGear
+  name: cast-iron gear
+  description: A cast gear, its teeth still rough from the mould. Two of these and a housing make a gearbox.
+  suffix: Full
+  components:
+  - type: Item
+    size: Small
+    sprite: _Dystopia/Objects/Materials/Parts/parts.rsi
+    heldPrefix: gear
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Parts/parts.rsi
+    state: gear_3
+    layers:
+    - state: gear_3
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+    damageModifierSet: FlimsyMetallic
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaCastIron: 50
+  - type: Stack
+    stackType: DystopiaGear
+    baseLayer: base
+    layerStates: [ gear, gear_2, gear_3 ]
+
+- type: entity
+  id: DystopiaGear1
+  name: cast-iron gear
+  description: A cast gear, its teeth still rough from the mould. Two of these and a housing make a gearbox.
+  suffix: Single
+  components:
+  - type: Item
+    size: Small
+    sprite: _Dystopia/Objects/Materials/Parts/parts.rsi
+    heldPrefix: gear
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Parts/parts.rsi
+    state: gear
+    layers:
+    - state: gear
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+    damageModifierSet: FlimsyMetallic
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaCastIron: 50
+  - type: Stack
+    stackType: DystopiaGear
+    baseLayer: base
+    layerStates: [ gear, gear_2, gear_3 ]
+    count: 1
+
+- type: entity
+  id: DystopiaWinding
+  name: winding wire
+  description: Copper wire in a varnished cloth braid. Motor coils are wound from it.
+  suffix: Full
+  components:
+  - type: Item
+    size: Small
+    sprite: _Dystopia/Objects/Materials/Parts/parts.rsi
+    heldPrefix: winding
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Parts/parts.rsi
+    state: winding_30
+    layers:
+    - state: winding_30
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+    damageModifierSet: FlimsyMetallic
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaCopper: 25
+      Cloth: 10
+  - type: Stack
+    stackType: DystopiaWinding
+    baseLayer: base
+    layerStates: [ winding_10, winding_20, winding_30 ]
+
+- type: entity
+  id: DystopiaWinding1
+  name: winding wire
+  description: Copper wire in a varnished cloth braid. Motor coils are wound from it.
+  suffix: Single
+  components:
+  - type: Item
+    size: Small
+    sprite: _Dystopia/Objects/Materials/Parts/parts.rsi
+    heldPrefix: winding
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Parts/parts.rsi
+    state: winding_10
+    layers:
+    - state: winding_10
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+    damageModifierSet: FlimsyMetallic
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaCopper: 25
+      Cloth: 10
+  - type: Stack
+    stackType: DystopiaWinding
+    baseLayer: base
+    layerStates: [ winding_10, winding_20, winding_30 ]
+    count: 1
+
+- type: entity
+  id: DystopiaPacking
+  name: gland packing
+  description: Hemp cord soaked in tar. Pump glands are packed with it so nothing leaks along the shaft.
+  suffix: Full
+  components:
+  - type: Item
+    size: Small
+    sprite: _Dystopia/Objects/Materials/Parts/parts.rsi
+    heldPrefix: packing
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Parts/parts.rsi
+    state: packing_3
+    layers:
+    - state: packing_3
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+    damageModifierSet: FlimsyMetallic
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: PhysicalComposition
+    materialComposition:
+      Cloth: 25
+  - type: Stack
+    stackType: DystopiaPacking
+    baseLayer: base
+    layerStates: [ packing, packing_2, packing_3 ]
+
+- type: entity
+  id: DystopiaPacking1
+  name: gland packing
+  description: Hemp cord soaked in tar. Pump glands are packed with it so nothing leaks along the shaft.
+  suffix: Single
+  components:
+  - type: Item
+    size: Small
+    sprite: _Dystopia/Objects/Materials/Parts/parts.rsi
+    heldPrefix: packing
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Parts/parts.rsi
+    state: packing
+    layers:
+    - state: packing
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+    damageModifierSet: FlimsyMetallic
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: PhysicalComposition
+    materialComposition:
+      Cloth: 25
+  - type: Stack
+    stackType: DystopiaPacking
+    baseLayer: base
+    layerStates: [ packing, packing_2, packing_3 ]
+    count: 1
+
+- type: entity
+  id: DystopiaElectricMotor
+  name: electric motor
+  description: A cast-iron casing with copper coils inside and a geared shaft sticking out. The heart of anything that runs off the grid.
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Parts/parts.rsi
+    heldPrefix: motor
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Parts/parts.rsi
+    state: motor
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+    damageModifierSet: FlimsyMetallic
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: PhysicalComposition
+    materialComposition:
+      Steel: 100
+      DystopiaCopper: 50
+
+- type: entity
+  id: DystopiaGearbox
+  name: gearbox
+  description: A heavy ribbed housing with gears in oil. A motor spins fast; a gearbox turns that into force.
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Parts/parts.rsi
+    heldPrefix: gearbox
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Parts/parts.rsi
+    state: gearbox
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+    damageModifierSet: FlimsyMetallic
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaCastIron: 150

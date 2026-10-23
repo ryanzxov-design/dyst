@@ -1,0 +1,84 @@
+{
+    "version": 1,
+    "license": "CC-BY-SA-3.0",
+    "copyright": "Gear drawn for Dystopia (same shape as the gear mould). Derived from vanilla SS14 sprites: servo (Objects/Misc/module.rsi), matter bin (Objects/Misc/stock_parts.rsi, BeeStation), cable coils (Objects/Tools/cable-coils.rsi), ring (Clothing/Hands/Rings/basic.rsi), ingot inhands (tgstation, mubururu_). Recolored and rearranged for Dystopia.",
+    "size": {
+        "x": 32,
+        "y": 32
+    },
+    "states": [
+        {
+            "name": "gear"
+        },
+        {
+            "name": "gear_2"
+        },
+        {
+            "name": "gear_3"
+        },
+        {
+            "name": "gear-inhand-left",
+            "directions": 4
+        },
+        {
+            "name": "gear-inhand-right",
+            "directions": 4
+        },
+        {
+            "name": "winding_10"
+        },
+        {
+            "name": "winding_20"
+        },
+        {
+            "name": "winding_30"
+        },
+        {
+            "name": "winding-inhand-left",
+            "directions": 4
+        },
+        {
+            "name": "winding-inhand-right",
+            "directions": 4
+        },
+        {
+            "name": "packing"
+        },
+        {
+            "name": "packing_2"
+        },
+        {
+            "name": "packing_3"
+        },
+        {
+            "name": "packing-inhand-left",
+            "directions": 4
+        },
+        {
+            "name": "packing-inhand-right",
+            "directions": 4
+        },
+        {
+            "name": "motor"
+        },
+        {
+            "name": "motor-inhand-left",
+            "directions": 4
+        },
+        {
+            "name": "motor-inhand-right",
+            "directions": 4
+        },
+        {
+            "name": "gearbox"
+        },
+        {
+            "name": "gearbox-inhand-left",
+            "directions": 4
+        },
+        {
+            "name": "gearbox-inhand-right",
+            "directions": 4
+        }
+    ]
+}

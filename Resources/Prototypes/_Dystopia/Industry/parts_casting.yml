@@ -1,0 +1,156 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: детали машин — шестерня, электромотор, редуктор, обмоточный провод, сальниковая набивка.
+# Собираются крафтами (следующий архив); шестерню льют в изложницу. Без parent. Генератор gen_parts.py.
+# Литьё шестерни: форма DystopiaGear и изложница на шестерню.
+
+- type: dystopiaMouldShape
+  id: DystopiaGear
+  name: dystopia-mould-shape-gear
+  volume: 5
+  defect: DystopiaSlag1
+  minPurity: 0.95
+  products:
+    DystopiaMoltenCastIron: DystopiaGear1   # шестерни льют из чугуна; другой металл в этой форме — брак
+  settingTime:   # бетон схватывается после последнего налива, с
+    DystopiaConcreteMix: 15
+  defects:
+    DystopiaConcreteMix: DystopiaGravel1
+
+- type: entity
+  id: DystopiaMouldGear
+  name: gear mould
+  description: "A cast-iron mould with a toothed cavity: one gear per pour. Cast iron only."
+  components:
+  - type: DystopiaParticleEmitter   # частицы (gen_particles.py)
+    emitters:
+    # дымок над раскалённым
+    - rate: 2
+      lifetime: 1.0,1.8
+      speed: 0.05,0.2
+      direction: 0
+      spread: 40
+      alignToVelocity: false
+      inheritVelocity: 0
+      drift: 0,0.3
+      drag: 0.5
+      jitter: 0.15
+      size: 1,3
+      additive: false
+      activeWhen: enum.DystopiaHeatVisuals.Hot
+      colors:
+      - "#B0AAA000"
+      - "#B0AAA050"
+      - "#90898020"
+      - "#80787000"
+    # светящиеся крупинки окалины
+    - rate: 1
+      lifetime: 0.4,0.9
+      speed: 0.05,0.2
+      direction: 0
+      spread: 90
+      alignToVelocity: false
+      inheritVelocity: 0
+      drift: 0,0.2
+      drag: 0.6
+      jitter: 0.15
+      size: 1,1
+      additive: true
+      flicker: 0.6
+      activeWhen: enum.DystopiaHeatVisuals.Hot
+      colors:
+      - "#FFB050C0"
+      - "#E0602080"
+      - "#80200000"
+  - type: Solution
+    id: mould
+    solution:
+      maxVol: 10
+      canReact: true
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Industry/moulds.rsi
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Industry/moulds.rsi
+    layers:
+    - state: gear
+    - state: gear-fill-1
+      map:
+      - enum.SolutionContainerLayers.Fill
+      visible: false
+      shader: unshaded
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: RefillableSolution
+    solution: mould
+  - type: SolutionContainerVisuals
+    maxFillLevels: 1
+    fillBaseName: gear-fill-
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Appearance
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaCastIron: 100
+  - type: Tag
+    tags: [ DystopiaTongsGrip ]
+  - type: DystopiaHotItem
+    burnDamage:
+      types:
+        Heat: 4
+    checkInterval: 1
+  - type: Anchorable
+    delay: 1
+  - type: Reactive
+    groups:
+      Extinguish: [ Touch ]
+  - type: DystopiaQuenchable
+    solution: mould
+    coolants:
+      Water: 40
+      Ice: 60
+    sound:
+      path: /Audio/Effects/sizzle.ogg
+  - type: DystopiaMould
+    shape: DystopiaGear
+    solution: mould
+    coolingRate: 0.01
+    fallbackAmbient: 293.15
+    hotThreshold: 333.15
+    updateInterval: 0.5

@@ -1,0 +1,24 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: детали машин — шестерня, электромотор, редуктор, обмоточный провод, сальниковая набивка.
+# Собираются крафтами (следующий архив); шестерню льют в изложницу. Без parent. Генератор gen_parts.py.
+
+- type: stack
+  id: DystopiaGear
+  name: stack-dystopia-gear
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Parts/parts.rsi, state: gear_3 }
+  spawn: DystopiaGear1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaWinding
+  name: stack-dystopia-winding
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Parts/parts.rsi, state: winding_30 }
+  spawn: DystopiaWinding1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaPacking
+  name: stack-dystopia-packing
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Parts/parts.rsi, state: packing_3 }
+  spawn: DystopiaPacking1
+  maxCount: 30
