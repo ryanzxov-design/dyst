@@ -118,9 +118,9 @@ public sealed partial class PharmacistGuideSystem : EntitySystem
                 }
 
                 if (reaction.MinimumTemperature > 0f)
-                    recipe.Conditions.Add(Loc.GetString("pharm-guide-cond-min-temp", ("temp", MathF.Round(reaction.MinimumTemperature, 1))));
+                    recipe.Conditions.Add(Loc.GetString("pharm-guide-cond-min-temp", ("temp", Math.Round((double) reaction.MinimumTemperature, 1))));
                 if (!float.IsPositiveInfinity(reaction.MaximumTemperature))
-                    recipe.Conditions.Add(Loc.GetString("pharm-guide-cond-max-temp", ("temp", MathF.Round(reaction.MaximumTemperature, 1))));
+                    recipe.Conditions.Add(Loc.GetString("pharm-guide-cond-max-temp", ("temp", Math.Round((double) reaction.MaximumTemperature, 1))));
                 if (reaction.MixingCategories != null)
                 {
                     foreach (var category in reaction.MixingCategories)

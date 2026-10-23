@@ -8,7 +8,7 @@
 - type: entity
   id: DystopiaSiteForge
   name: construction site
-  description: An unfinished machine. Examine it to see what goes in next.
+  description: Unfinished construction. Examine it to see what goes in next.
   categories: [ HideSpawnMenu ]
   components:
   - type: Transform
@@ -44,7 +44,7 @@
 - type: entity
   id: DystopiaSiteBellows
   name: construction site
-  description: An unfinished machine. Examine it to see what goes in next.
+  description: Unfinished construction. Examine it to see what goes in next.
   categories: [ HideSpawnMenu ]
   components:
   - type: Transform
@@ -75,7 +75,7 @@
 - type: entity
   id: DystopiaSiteHandCrusher
   name: construction site
-  description: An unfinished machine. Examine it to see what goes in next.
+  description: Unfinished construction. Examine it to see what goes in next.
   categories: [ HideSpawnMenu ]
   components:
   - type: Transform
@@ -106,7 +106,7 @@
 - type: entity
   id: DystopiaSiteHandMill
   name: construction site
-  description: An unfinished machine. Examine it to see what goes in next.
+  description: Unfinished construction. Examine it to see what goes in next.
   categories: [ HideSpawnMenu ]
   components:
   - type: Transform
@@ -137,7 +137,7 @@
 - type: entity
   id: DystopiaSiteHandRollingMill
   name: construction site
-  description: An unfinished machine. Examine it to see what goes in next.
+  description: Unfinished construction. Examine it to see what goes in next.
   categories: [ HideSpawnMenu ]
   components:
   - type: Transform
@@ -168,7 +168,7 @@
 - type: entity
   id: DystopiaSiteHandWireDrawBench
   name: construction site
-  description: An unfinished machine. Examine it to see what goes in next.
+  description: Unfinished construction. Examine it to see what goes in next.
   categories: [ HideSpawnMenu ]
   components:
   - type: Transform
@@ -199,7 +199,7 @@
 - type: entity
   id: DystopiaSiteHandBrickPress
   name: construction site
-  description: An unfinished machine. Examine it to see what goes in next.
+  description: Unfinished construction. Examine it to see what goes in next.
   categories: [ HideSpawnMenu ]
   components:
   - type: Transform
@@ -230,7 +230,7 @@
 - type: entity
   id: DystopiaSiteRoastingFurnace
   name: construction site
-  description: An unfinished machine. Examine it to see what goes in next.
+  description: Unfinished construction. Examine it to see what goes in next.
   categories: [ HideSpawnMenu ]
   components:
   - type: Transform
@@ -261,7 +261,7 @@
 - type: entity
   id: DystopiaSiteCokeOven
   name: construction site
-  description: An unfinished machine. Examine it to see what goes in next.
+  description: Unfinished construction. Examine it to see what goes in next.
   categories: [ HideSpawnMenu ]
   components:
   - type: Transform
@@ -292,7 +292,7 @@
 - type: entity
   id: DystopiaSiteContactApparatus
   name: construction site
-  description: An unfinished machine. Examine it to see what goes in next.
+  description: Unfinished construction. Examine it to see what goes in next.
   categories: [ HideSpawnMenu ]
   components:
   - type: Transform
@@ -323,7 +323,7 @@
 - type: entity
   id: DystopiaSiteLeachingTank
   name: construction site
-  description: An unfinished machine. Examine it to see what goes in next.
+  description: Unfinished construction. Examine it to see what goes in next.
   categories: [ HideSpawnMenu ]
   components:
   - type: Transform
@@ -354,7 +354,7 @@
 - type: entity
   id: DystopiaSiteElectrolyzer
   name: construction site
-  description: An unfinished machine. Examine it to see what goes in next.
+  description: Unfinished construction. Examine it to see what goes in next.
   categories: [ HideSpawnMenu ]
   components:
   - type: Transform
@@ -385,7 +385,7 @@
 - type: entity
   id: DystopiaSiteArcFurnace
   name: construction site
-  description: An unfinished machine. Examine it to see what goes in next.
+  description: Unfinished construction. Examine it to see what goes in next.
   categories: [ HideSpawnMenu ]
   components:
   - type: Transform
@@ -416,7 +416,7 @@
 - type: entity
   id: DystopiaSiteJawCrusher
   name: construction site
-  description: An unfinished machine. Examine it to see what goes in next.
+  description: Unfinished construction. Examine it to see what goes in next.
   categories: [ HideSpawnMenu ]
   components:
   - type: Transform
@@ -447,7 +447,7 @@
 - type: entity
   id: DystopiaSiteBallMill
   name: construction site
-  description: An unfinished machine. Examine it to see what goes in next.
+  description: Unfinished construction. Examine it to see what goes in next.
   categories: [ HideSpawnMenu ]
   components:
   - type: Transform
@@ -478,7 +478,7 @@
 - type: entity
   id: DystopiaSiteShakingTable
   name: construction site
-  description: An unfinished machine. Examine it to see what goes in next.
+  description: Unfinished construction. Examine it to see what goes in next.
   categories: [ HideSpawnMenu ]
   components:
   - type: Transform
@@ -509,7 +509,7 @@
 - type: entity
   id: DystopiaSiteRollingMill
   name: construction site
-  description: An unfinished machine. Examine it to see what goes in next.
+  description: Unfinished construction. Examine it to see what goes in next.
   categories: [ HideSpawnMenu ]
   components:
   - type: Transform
@@ -540,7 +540,7 @@
 - type: entity
   id: DystopiaSiteWireDrawingMachine
   name: construction site
-  description: An unfinished machine. Examine it to see what goes in next.
+  description: Unfinished construction. Examine it to see what goes in next.
   categories: [ HideSpawnMenu ]
   components:
   - type: Transform
@@ -571,7 +571,7 @@
 - type: entity
   id: DystopiaSiteBrickPress
   name: construction site
-  description: An unfinished machine. Examine it to see what goes in next.
+  description: Unfinished construction. Examine it to see what goes in next.
   categories: [ HideSpawnMenu ]
   components:
   - type: Transform
@@ -602,7 +602,7 @@
 - type: entity
   id: DystopiaSiteConcreteMixer
   name: construction site
-  description: An unfinished machine. Examine it to see what goes in next.
+  description: Unfinished construction. Examine it to see what goes in next.
   categories: [ HideSpawnMenu ]
   components:
   - type: Transform
@@ -633,7 +633,7 @@
 - type: entity
   id: DystopiaSiteConeCrusher
   name: construction site
-  description: An unfinished machine. Examine it to see what goes in next.
+  description: Unfinished construction. Examine it to see what goes in next.
   categories: [ HideSpawnMenu ]
   components:
   - type: Transform
@@ -664,7 +664,7 @@
 - type: entity
   id: DystopiaSiteBallMillLarge
   name: construction site
-  description: An unfinished machine. Examine it to see what goes in next.
+  description: Unfinished construction. Examine it to see what goes in next.
   categories: [ HideSpawnMenu ]
   components:
   - type: Transform
@@ -695,7 +695,7 @@
 - type: entity
   id: DystopiaSiteJig
   name: construction site
-  description: An unfinished machine. Examine it to see what goes in next.
+  description: Unfinished construction. Examine it to see what goes in next.
   categories: [ HideSpawnMenu ]
   components:
   - type: Transform
@@ -726,7 +726,7 @@
 - type: entity
   id: DystopiaSiteFlotationCell
   name: construction site
-  description: An unfinished machine. Examine it to see what goes in next.
+  description: Unfinished construction. Examine it to see what goes in next.
   categories: [ HideSpawnMenu ]
   components:
   - type: Transform
@@ -757,7 +757,7 @@
 - type: entity
   id: DystopiaSiteFlotationBank
   name: construction site
-  description: An unfinished machine. Examine it to see what goes in next.
+  description: Unfinished construction. Examine it to see what goes in next.
   categories: [ HideSpawnMenu ]
   components:
   - type: Transform
@@ -788,7 +788,7 @@
 - type: entity
   id: DystopiaSiteMagneticSeparator
   name: construction site
-  description: An unfinished machine. Examine it to see what goes in next.
+  description: Unfinished construction. Examine it to see what goes in next.
   categories: [ HideSpawnMenu ]
   components:
   - type: Transform
@@ -819,7 +819,7 @@
 - type: entity
   id: DystopiaSiteAmalgamator
   name: construction site
-  description: An unfinished machine. Examine it to see what goes in next.
+  description: Unfinished construction. Examine it to see what goes in next.
   categories: [ HideSpawnMenu ]
   components:
   - type: Transform
@@ -850,7 +850,7 @@
 - type: entity
   id: DystopiaSiteLiquidPump
   name: construction site
-  description: An unfinished machine. Examine it to see what goes in next.
+  description: Unfinished construction. Examine it to see what goes in next.
   categories: [ HideSpawnMenu ]
   components:
   - type: Transform
@@ -883,7 +883,7 @@
 - type: entity
   id: DystopiaSiteLiquidPort
   name: construction site
-  description: An unfinished machine. Examine it to see what goes in next.
+  description: Unfinished construction. Examine it to see what goes in next.
   categories: [ HideSpawnMenu ]
   components:
   - type: Transform
@@ -916,7 +916,7 @@
 - type: entity
   id: DystopiaSiteLiquidExporter
   name: construction site
-  description: An unfinished machine. Examine it to see what goes in next.
+  description: Unfinished construction. Examine it to see what goes in next.
   categories: [ HideSpawnMenu ]
   components:
   - type: Transform
@@ -949,7 +949,7 @@
 - type: entity
   id: DystopiaSiteLiquidImporter
   name: construction site
-  description: An unfinished machine. Examine it to see what goes in next.
+  description: Unfinished construction. Examine it to see what goes in next.
   categories: [ HideSpawnMenu ]
   components:
   - type: Transform
@@ -982,7 +982,7 @@
 - type: entity
   id: DystopiaSiteConveyorExtractor
   name: construction site
-  description: An unfinished machine. Examine it to see what goes in next.
+  description: Unfinished construction. Examine it to see what goes in next.
   categories: [ HideSpawnMenu ]
   components:
   - type: Transform
@@ -1013,7 +1013,7 @@
 - type: entity
   id: DystopiaSiteConveyorInserter
   name: construction site
-  description: An unfinished machine. Examine it to see what goes in next.
+  description: Unfinished construction. Examine it to see what goes in next.
   categories: [ HideSpawnMenu ]
   components:
   - type: Transform
@@ -1044,7 +1044,7 @@
 - type: entity
   id: DystopiaSiteConveyorSorter
   name: construction site
-  description: An unfinished machine. Examine it to see what goes in next.
+  description: Unfinished construction. Examine it to see what goes in next.
   categories: [ HideSpawnMenu ]
   components:
   - type: Transform
@@ -1071,3 +1071,96 @@
         density: 100
         mask: [ TableMask ]
         layer: [ TableLayer ]
+
+- type: entity
+  id: DystopiaSiteWallBrick
+  name: construction site
+  description: Unfinished construction. Examine it to see what goes in next.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: Structures/Walls/brick.rsi
+    state: full
+    color: "#FFFFFF80"
+    drawdepth: Walls
+    noRot: true
+  - type: Construction
+    graph: WallBrickCraft
+    node: s1
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        density: 1000
+        mask: [ FullTileMask ]
+        layer: [ WallLayer ]
+
+- type: entity
+  id: DystopiaSiteWallFireBrick
+  name: construction site
+  description: Unfinished construction. Examine it to see what goes in next.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _Dystopia/Structures/Walls/firebrick.rsi
+    state: full
+    color: "#FFFFFF80"
+    drawdepth: Walls
+    noRot: true
+  - type: Construction
+    graph: DystopiaWallFireBrickCraft
+    node: s1
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        density: 1000
+        mask: [ FullTileMask ]
+        layer: [ WallLayer ]
+
+- type: entity
+  id: DystopiaSiteWallConcrete
+  name: construction site
+  description: Unfinished construction. Examine it to see what goes in next.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: Structures/Walls/concrete.rsi
+    state: full
+    color: "#FFFFFF80"
+    drawdepth: Walls
+    noRot: true
+  - type: Construction
+    graph: WallConcreteCraft
+    node: s1
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        density: 1000
+        mask: [ FullTileMask ]
+        layer: [ WallLayer ]

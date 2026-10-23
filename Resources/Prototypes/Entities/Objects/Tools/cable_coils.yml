@@ -78,6 +78,9 @@
   id: CableHVStack10
   suffix: 10
   components:
+  - type: Construction   # Dystopia-Crafts: крафт (gen_crafts.py)
+    graph: CableHVStack10Craft
+    node: done
   - type: Sprite
     state: coilhv-10
   - type: Stack
@@ -136,6 +139,9 @@
   id: CableMVStack10
   suffix: 10
   components:
+  - type: Construction   # Dystopia-Crafts: крафт (gen_crafts.py)
+    graph: CableMVStack10Craft
+    node: done
   - type: Sprite
     state: coilmv-10
   - type: Stack
@@ -196,6 +202,9 @@
   id: CableApcStack10
   suffix: 10
   components:
+    - type: Construction   # Dystopia-Crafts: крафт (gen_crafts.py)
+      graph: CableApcStack10Craft
+      node: done
     - type: Sprite
       state: coillv-10
     - type: Stack

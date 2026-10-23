@@ -129,7 +129,7 @@ public sealed class DystopiaArcFurnaceWindow : CityWindow
             name.HorizontalExpand = true;
             row.AddChild(name);
             row.AddChild(CityUi.MakeLabel(Loc.GetString("dystopia-arc-furnace-ui-amount",
-                ("amount", MathF.Round(entry.Amount, 1)))));
+                ("amount", Math.Round((double) entry.Amount, 1)))));
             _contents.AddChild(row);
         }
 

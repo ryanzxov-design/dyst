@@ -460,8 +460,8 @@ public sealed partial class ArmorPenetrationSystem : EntitySystem
             message.PushNewline();
 
         message.AddMarkupOrThrow(Loc.GetString("armor-penetration-examine",
-            ("sharp", MathF.Round(sharp, 1)),
-            ("blunt", MathF.Round(blunt, 1))));
+            ("sharp", Math.Round((double) sharp, 1)),
+            ("blunt", Math.Round((double) blunt, 1))));
     }
 
     /// <summary>
@@ -491,8 +491,8 @@ public sealed partial class ArmorPenetrationSystem : EntitySystem
 
         message.PushNewline();
         message.AddMarkupOrThrow(Loc.GetString("armor-rating-examine",
-            ("sharp", MathF.Round(sharp, 1)),
-            ("blunt", MathF.Round(blunt, 1))));
+            ("sharp", Math.Round((double) sharp, 1)),
+            ("blunt", Math.Round((double) blunt, 1))));
 
         if (rating == null)
             return;

@@ -5,6 +5,9 @@
   suffix: Generic
   description: A suit that protects against biological contamination.
   components:
+  # Dystopia-Armor: герметичный костюм закрывает и кисти, и стопы (по слоту костюма — только туловище, руки, ноги)
+  - type: ArmorCoverage
+    coverage: [ Chest, Groin, Arm, Hand, Leg, Foot ]
   - type: Sprite
     sprite: Clothing/OuterClothing/Bio/general.rsi
   - type: Clothing
@@ -77,6 +80,9 @@
   suffix: Security
   description: A suit that protects against biological contamination, kitted out with additional armor.
   components:
+  # Dystopia-Armor: герметичный костюм закрывает и кисти, и стопы (по слоту костюма — только туловище, руки, ноги)
+  - type: ArmorCoverage
+    coverage: [ Chest, Groin, Arm, Hand, Leg, Foot ]
   - type: Sprite
     sprite: Clothing/OuterClothing/Bio/security.rsi
   - type: Clothing

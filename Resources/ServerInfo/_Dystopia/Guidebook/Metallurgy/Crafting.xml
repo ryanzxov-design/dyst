@@ -32,6 +32,9 @@
   - [color=#d2ae68]обмоточный провод[/color]: [color=#9ab0c4]медная проволока[/color] × [color=#ff9a50]1[/color], [color=#9ab0c4]ткань[/color] × [color=#ff9a50]1[/color]
   - [color=#d2ae68]редуктор[/color]: [color=#9ab0c4]чугунная шестерня[/color] × [color=#ff9a50]2[/color], [color=#9ab0c4]слиток чугуна[/color] × [color=#ff9a50]1[/color]
   - [color=#d2ae68]электромотор[/color]: [color=#9ab0c4]стальной лист[/color] × [color=#ff9a50]1[/color], [color=#9ab0c4]слиток чугуна[/color] × [color=#ff9a50]1[/color], [color=#9ab0c4]стальной прут[/color] × [color=#ff9a50]1[/color], [color=#9ab0c4]обмоточный провод[/color] × [color=#ff9a50]2[/color]
+  - [color=#d2ae68]моток НВ-кабеля[/color]: [color=#9ab0c4]медная проволока[/color] × [color=#ff9a50]2[/color], [color=#9ab0c4]ткань[/color] × [color=#ff9a50]1[/color]
+  - [color=#d2ae68]моток СВ-кабеля[/color]: [color=#9ab0c4]медная проволока[/color] × [color=#ff9a50]4[/color], [color=#9ab0c4]ткань[/color] × [color=#ff9a50]2[/color]
+  - [color=#d2ae68]моток ВВ-кабеля[/color]: [color=#9ab0c4]медная проволока[/color] × [color=#ff9a50]6[/color], [color=#9ab0c4]ткань[/color] × [color=#ff9a50]2[/color], [color=#9ab0c4]лист свинца[/color] × [color=#ff9a50]1[/color]
 
   Сальниковую набивку не собирают руками: её делает [color=#d2ae68]бетономешалка[/color] из ткани и смолы, [color=#ff9a50]2[/color] мотка за раз.
 
@@ -80,4 +83,11 @@
   - [color=#d2ae68]конвейерный извлекатель[/color]: [color=#9ab0c4]чертёж[/color], [color=#9ab0c4]стальной лист[/color] × [color=#ff9a50]2[/color], [color=#9ab0c4]электромотор[/color] × [color=#ff9a50]1[/color]
   - [color=#d2ae68]конвейерный вставщик[/color]: [color=#9ab0c4]чертёж[/color], [color=#9ab0c4]стальной лист[/color] × [color=#ff9a50]2[/color], [color=#9ab0c4]электромотор[/color] × [color=#ff9a50]1[/color]
   - [color=#d2ae68]конвейерный сортировщик[/color]: [color=#9ab0c4]чертёж[/color], [color=#9ab0c4]стальной лист[/color] × [color=#ff9a50]2[/color], [color=#9ab0c4]электромотор[/color] × [color=#ff9a50]1[/color]
+
+  ## Стены
+  - [color=#d2ae68]кирпичная стена[/color]: [color=#9ab0c4]кирпич[/color] × [color=#ff9a50]6[/color], [color=#9ab0c4]кирпич[/color] × [color=#ff9a50]6[/color], [color=#9ab0c4]цемент[/color] × [color=#ff9a50]1[/color]
+  - [color=#d2ae68]огнеупорная стена[/color]: [color=#9ab0c4]огнеупорный кирпич[/color] × [color=#ff9a50]6[/color], [color=#9ab0c4]огнеупорный кирпич[/color] × [color=#ff9a50]6[/color], [color=#9ab0c4]шамотная глина[/color] × [color=#ff9a50]2[/color]
+  - [color=#d2ae68]бетонная стена[/color]: [color=#9ab0c4]доска[/color] × [color=#ff9a50]4[/color], [color=#9ab0c4]стальной прут[/color] × [color=#ff9a50]4[/color], [color=#9ab0c4]бетонный блок[/color] × [color=#ff9a50]4[/color], [color=#9ab0c4]цемент[/color] × [color=#ff9a50]1[/color]
+
+  Стену кладут рядами: сначала первые ряды, потом остальное, раствор последним. [color=#d2ae68]Бетонную[/color] отливают в опалубку из досок с арматурой; когда стена готова, доски возвращаются. Кирпичную и огнеупорную разбирают ломом, бетонную сначала режут сваркой (арматура), потом ломом.
 </Document>

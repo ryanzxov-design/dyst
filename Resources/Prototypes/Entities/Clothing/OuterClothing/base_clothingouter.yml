@@ -140,6 +140,9 @@
   id: ClothingOuterEVASuitBase
   name: base EVA Suit
   components:
+  # Dystopia-Armor: герметичный костюм закрывает и кисти, и стопы (по слоту костюма — только туловище, руки, ноги)
+  - type: ArmorCoverage
+    coverage: [ Chest, Groin, Arm, Hand, Leg, Foot ]
 # SlotBlocker blocked until UI change
 #  - type: SlotBlock
 #    slots: [innerclothing, feet]

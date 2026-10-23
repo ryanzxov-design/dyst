@@ -714,6 +714,63 @@
     entity: DystopiaElectricMotor
 
 - type: constructionGraph
+  id: CableApcStack10Craft
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: done
+      steps:
+      - material: DystopiaWireCopper
+        amount: 2
+        doAfter: 1.5
+      - material: Cloth
+        amount: 1
+        doAfter: 1.5
+
+  - node: done
+    entity: CableApcStack10
+
+- type: constructionGraph
+  id: CableMVStack10Craft
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: done
+      steps:
+      - material: DystopiaWireCopper
+        amount: 4
+        doAfter: 2.0
+      - material: Cloth
+        amount: 2
+        doAfter: 2.0
+
+  - node: done
+    entity: CableMVStack10
+
+- type: constructionGraph
+  id: CableHVStack10Craft
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: done
+      steps:
+      - material: DystopiaWireCopper
+        amount: 6
+        doAfter: 1.67
+      - material: Cloth
+        amount: 2
+        doAfter: 1.67
+      - material: DystopiaSheetLead
+        amount: 1
+        doAfter: 1.67
+
+  - node: done
+    entity: CableHVStack10
+
+- type: constructionGraph
   id: DystopiaRoastingFurnaceCraft
   start: start
   graph:
@@ -3914,6 +3971,234 @@
         doAfter: 2
 
 - type: constructionGraph
+  id: WallBrickCraft
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: s1
+      steps:
+      - material: DystopiaBrick
+        amount: 6
+        doAfter: 3.33
+
+  - node: s1
+    entity: DystopiaSiteWallBrick
+    edges:
+    - to: s2
+      steps:
+      - material: DystopiaBrick
+        amount: 6
+        doAfter: 3.33
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaBrick1
+        amount: 6
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: s2
+    entity: DystopiaSiteWallBrick
+    edges:
+    - to: done
+      steps:
+      - material: DystopiaCement
+        amount: 1
+        doAfter: 3.33
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaBrick1
+        amount: 12
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: done
+    entity: WallBrick
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaBrick1
+        amount: 12
+      - !type:SpawnPrototype
+        prototype: DystopiaCement1
+        amount: 1
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 5
+
+- type: constructionGraph
+  id: DystopiaWallFireBrickCraft
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: s1
+      steps:
+      - material: DystopiaFireBrick
+        amount: 6
+        doAfter: 4.0
+
+  - node: s1
+    entity: DystopiaSiteWallFireBrick
+    edges:
+    - to: s2
+      steps:
+      - material: DystopiaFireBrick
+        amount: 6
+        doAfter: 4.0
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaFireBrick1
+        amount: 6
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: s2
+    entity: DystopiaSiteWallFireBrick
+    edges:
+    - to: done
+      steps:
+      - material: DystopiaOreFireclay
+        amount: 2
+        doAfter: 4.0
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaFireBrick1
+        amount: 12
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: done
+    entity: DystopiaWallFireBrick
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaFireBrick1
+        amount: 12
+      - !type:SpawnPrototype
+        prototype: DystopiaOreFireclay1
+        amount: 2
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 6
+
+- type: constructionGraph
+  id: WallConcreteCraft
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: s1
+      steps:
+      - material: WoodPlank
+        amount: 4
+        doAfter: 3.5
+
+  - node: s1
+    entity: DystopiaSiteWallConcrete
+    edges:
+    - to: s2
+      steps:
+      - material: MetalRod
+        amount: 4
+        doAfter: 3.5
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: MaterialWoodPlank1
+        amount: 4
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: s2
+    entity: DystopiaSiteWallConcrete
+    edges:
+    - to: s3
+      steps:
+      - material: DystopiaConcreteBlock
+        amount: 4
+        doAfter: 3.5
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: MaterialWoodPlank1
+        amount: 4
+      - !type:SpawnPrototype
+        prototype: PartRodMetal1
+        amount: 4
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: s3
+    entity: DystopiaSiteWallConcrete
+    edges:
+    - to: done
+      completed:
+      - !type:GivePrototype
+        prototype: MaterialWoodPlank1
+        amount: 4
+      steps:
+      - material: DystopiaCement
+        amount: 1
+        doAfter: 3.5
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: MaterialWoodPlank1
+        amount: 4
+      - !type:SpawnPrototype
+        prototype: PartRodMetal1
+        amount: 4
+      - !type:SpawnPrototype
+        prototype: DystopiaConcreteBlock1
+        amount: 4
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: done
+    entity: WallConcrete
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: PartRodMetal1
+        amount: 4
+      - !type:SpawnPrototype
+        prototype: DystopiaConcreteBlock1
+        amount: 4
+      - !type:SpawnPrototype
+        prototype: DystopiaCement1
+        amount: 1
+      - !type:DeleteEntity
+      steps:
+      - tool: Welding
+        doAfter: 4
+      - tool: Prying
+        doAfter: 4
+
+- type: constructionGraph
   id: DystopiaForgeElectricCraft
   start: start
   graph:
@@ -4175,6 +4460,30 @@
 - type: construction
   id: DystopiaElectricMotorCraft
   graph: DystopiaElectricMotorCraft
+  startNode: start
+  targetNode: done
+  category: construction-category-dystopia-industry-tools
+  objectType: Item
+
+- type: construction
+  id: CableApcStack10Craft
+  graph: CableApcStack10Craft
+  startNode: start
+  targetNode: done
+  category: construction-category-dystopia-industry-tools
+  objectType: Item
+
+- type: construction
+  id: CableMVStack10Craft
+  graph: CableMVStack10Craft
+  startNode: start
+  targetNode: done
+  category: construction-category-dystopia-industry-tools
+  objectType: Item
+
+- type: construction
+  id: CableHVStack10Craft
+  graph: CableHVStack10Craft
   startNode: start
   targetNode: done
   category: construction-category-dystopia-industry-tools
@@ -4592,6 +4901,45 @@
   objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
+  canBuildInImpassable: false
+  conditions:
+  - !type:TileNotBlocked
+
+- type: construction
+  id: WallBrickCraft
+  graph: WallBrickCraft
+  startNode: start
+  targetNode: done
+  category: construction-category-dystopia-walls
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: false
+  canBuildInImpassable: false
+  conditions:
+  - !type:TileNotBlocked
+
+- type: construction
+  id: DystopiaWallFireBrickCraft
+  graph: DystopiaWallFireBrickCraft
+  startNode: start
+  targetNode: done
+  category: construction-category-dystopia-walls
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: false
+  canBuildInImpassable: false
+  conditions:
+  - !type:TileNotBlocked
+
+- type: construction
+  id: WallConcreteCraft
+  graph: WallConcreteCraft
+  startNode: start
+  targetNode: done
+  category: construction-category-dystopia-walls
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: false
   canBuildInImpassable: false
   conditions:
   - !type:TileNotBlocked

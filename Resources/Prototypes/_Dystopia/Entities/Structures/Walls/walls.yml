@@ -1,0 +1,82 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: огнеупорная кирпичная стена (из ванильной кирпичной, без parent). Строится — gen_crafts.py. Генератор gen_walls.py.
+
+- type: entity
+  id: DystopiaWallFireBrick
+  name: fire brick wall
+  description: Pale fireclay masonry. Kilns and forge rooms are walled with it.
+  placement:
+    mode: SnapgridCenter
+    snap: [ Wall ]
+  components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaWallFireBrickCraft
+    node: done
+  - type: Transform
+    anchored: true
+  - type: Clickable
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        density: 1000
+        mask: [ FullTileMask ]
+        layer: [ WallLayer ]
+  - type: Pullable
+  - type: Tag
+    tags: [ Structure ]
+  - type: Anchorable
+    flags: [ Anchorable ]
+  - type: Rotatable
+  - type: RangedDamageSound
+    soundGroups:
+      Brute:
+        collection: MetalBulletImpact
+    soundTypes:
+      Heat:
+        collection: MetalLaserImpact
+  - type: Wall
+  - type: IsRoof
+  - type: Sprite
+    drawdepth: Walls
+    sprite: _Dystopia/Structures/Walls/firebrick.rsi
+  - type: Icon
+    state: full
+    sprite: _Dystopia/Structures/Walls/firebrick.rsi
+  - type: PlacementReplacement
+    key: walls
+  - type: Airtight
+  - type: StaticPrice
+    price: 75
+  - type: RadiationBlocker
+    resistance: 2
+  - type: BlockWeather
+  - type: SunShadowCast
+  - type: Occluder
+  - type: StructureAlignerPylon
+    pylons: [ Door, Firelock ]
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 300
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/Effects/break_stone.ogg
+      - !type:SpawnEntitiesBehavior
+        offset: 0
+        spawn:
+          DystopiaFireBrick1:
+            min: 3
+            max: 6
+  - type: Damageable
+    damageModifierSet: RockMod
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: IconSmooth
+    key: walls
+    base: brick
