@@ -10,6 +10,9 @@
   placement:
     mode: SnapgridCenter
   components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaConveyorExtractorCraft
+    node: done
   - type: Transform
     anchored: true
   - type: Clickable
@@ -86,6 +89,9 @@
   placement:
     mode: SnapgridCenter
   components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaConveyorInserterCraft
+    node: done
   - type: Transform
     anchored: true
   - type: Clickable
@@ -162,6 +168,9 @@
   placement:
     mode: SnapgridCenter
   components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaConveyorSorterCraft
+    node: done
   - type: Transform
     anchored: true
   - type: Clickable

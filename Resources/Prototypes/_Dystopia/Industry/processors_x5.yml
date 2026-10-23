@@ -14,6 +14,9 @@
   placement:
     mode: SnapgridCenter
   components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaFlotationCellCraft
+    node: done
   - type: DystopiaParticleEmitter   # частицы (gen_particles.py)
     emitters:
     # пузыри пены
@@ -155,6 +158,9 @@
   placement:
     mode: SnapgridCenter
   components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaFlotationBankCraft
+    node: done
   - type: DystopiaParticleEmitter   # частицы (gen_particles.py)
     emitters:
     # пузыри пены
@@ -304,6 +310,9 @@
   placement:
     mode: SnapgridCenter
   components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaMagneticSeparatorCraft
+    node: done
   - type: DystopiaParticleEmitter   # частицы (gen_particles.py)
     emitters:
     # рудная пыль
@@ -427,6 +436,9 @@
   placement:
     mode: SnapgridCenter
   components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaAmalgamatorCraft
+    node: done
   - type: Transform
     anchored: true
     noRot: true

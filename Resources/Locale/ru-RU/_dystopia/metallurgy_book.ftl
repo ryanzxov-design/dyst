@@ -2,6 +2,7 @@
 
 guide-entry-dystopia-metallurgy = Руководство металлурга
 guide-entry-dystopia-metallurgy-ores = Руда
+guide-entry-dystopia-metallurgy-crafting = Как построить
 guide-entry-dystopia-metallurgy-forge = Горн и тигель
 guide-entry-dystopia-metallurgy-alloys = Сплавы
 guide-entry-dystopia-metallurgy-workshop = Мастерская

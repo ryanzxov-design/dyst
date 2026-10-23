@@ -2,6 +2,12 @@
 # Dystopia: детали машин — шестерня, электромотор, редуктор, обмоточный провод, сальниковая набивка.
 # Собираются крафтами (следующий архив); шестерню льют в изложницу. Без parent. Генератор gen_parts.py.
 
+- type: Tag
+  id: DystopiaPartMotor
+
+- type: Tag
+  id: DystopiaPartGearbox
+
 - type: entity
   id: DystopiaGear
   name: cast-iron gear
@@ -232,6 +238,9 @@
   description: Copper wire in a varnished cloth braid. Motor coils are wound from it.
   suffix: Single
   components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaWinding1Craft
+    node: done
   - type: Item
     size: Small
     sprite: _Dystopia/Objects/Materials/Parts/parts.rsi
@@ -456,6 +465,9 @@
   name: electric motor
   description: A cast-iron casing with copper coils inside and a geared shaft sticking out. The heart of anything that runs off the grid.
   components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaElectricMotorCraft
+    node: done
   - type: Item
     size: Normal
     sprite: _Dystopia/Objects/Materials/Parts/parts.rsi
@@ -515,14 +527,21 @@
   - type: Appearance
   - type: PhysicalComposition
     materialComposition:
-      Steel: 100
+      Steel: 150
+      DystopiaCastIron: 100
       DystopiaCopper: 50
+      Cloth: 20
+  - type: Tag
+    tags: [ DystopiaPartMotor ]
 
 - type: entity
   id: DystopiaGearbox
   name: gearbox
   description: A heavy ribbed housing with gears in oil. A motor spins fast; a gearbox turns that into force.
   components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaGearboxCraft
+    node: done
   - type: Item
     size: Normal
     sprite: _Dystopia/Objects/Materials/Parts/parts.rsi
@@ -582,4 +601,6 @@
   - type: Appearance
   - type: PhysicalComposition
     materialComposition:
-      DystopiaCastIron: 150
+      DystopiaCastIron: 200
+  - type: Tag
+    tags: [ DystopiaPartGearbox ]

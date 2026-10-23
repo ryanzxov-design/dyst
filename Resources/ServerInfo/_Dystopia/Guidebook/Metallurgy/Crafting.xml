@@ -1,0 +1,77 @@
+<Document>
+  # Как построить
+
+  Всё строится через [bold]меню строительства[/bold], разделы «Промышленность». Инструменты и детали собираются в руки, машины и печи ставятся на пол. Материалы должны лежать рядом или быть в руках, причём каждый одной стопкой нужного размера.
+
+  Машину [bold]разбирают ломом[/bold]: она возвращает всё, из чего собрана, а то, что лежало внутри, высыпается на пол. Жидкость из баков при разборке пропадает, слейте её заранее.
+
+  ## С чего начать
+  Горн, мехи и малый тигель делаются из того, что копают: глины, известняка, шамотной глины, досок и ткани. Клещи и изложницы на первую плавку собирают из стальных листов и прутьев со складов Города. Дальше всё железо уже своё.
+
+  ## Инструменты и детали
+  - [color=#d2ae68]малый тигель[/color]: [color=#9ab0c4]шамотная глина[/color] × [color=#ff9a50]3[/color]
+  - [color=#d2ae68]клещи[/color]: [color=#9ab0c4]стальной прут[/color] × [color=#ff9a50]2[/color]
+  - [color=#d2ae68]изложница для слитка[/color]: [color=#9ab0c4]стальной лист[/color] × [color=#ff9a50]2[/color]
+  - [color=#d2ae68]изложница для листа[/color]: [color=#9ab0c4]стальной лист[/color] × [color=#ff9a50]2[/color]
+  - [color=#d2ae68]изложница для прутьев[/color]: [color=#9ab0c4]стальной лист[/color] × [color=#ff9a50]2[/color]
+  - [color=#d2ae68]изложница на шестерню[/color]: [color=#9ab0c4]стальной лист[/color] × [color=#ff9a50]2[/color]
+  - [color=#d2ae68]большой тигель[/color]: [color=#9ab0c4]графит[/color] × [color=#ff9a50]4[/color], [color=#9ab0c4]шамотная глина[/color] × [color=#ff9a50]2[/color]
+  - [color=#d2ae68]литейная форма: слиток ×1[/color]: [color=#9ab0c4]слиток чугуна[/color] × [color=#ff9a50]2[/color]
+  - [color=#d2ae68]литейная форма: слиток ×10[/color]: [color=#9ab0c4]слиток чугуна[/color] × [color=#ff9a50]10[/color]
+  - [color=#d2ae68]литейная форма: лист ×1[/color]: [color=#9ab0c4]слиток чугуна[/color] × [color=#ff9a50]2[/color]
+  - [color=#d2ae68]литейная форма: лист ×10[/color]: [color=#9ab0c4]слиток чугуна[/color] × [color=#ff9a50]10[/color]
+  - [color=#d2ae68]литейная форма: прут ×1[/color]: [color=#9ab0c4]слиток чугуна[/color] × [color=#ff9a50]2[/color]
+  - [color=#d2ae68]литейная форма: прут ×10[/color]: [color=#9ab0c4]слиток чугуна[/color] × [color=#ff9a50]10[/color]
+  - [color=#d2ae68]комплект ТЭНов[/color]: [color=#9ab0c4]стальной лист[/color] × [color=#ff9a50]2[/color], [color=#9ab0c4]медная проволока[/color] × [color=#ff9a50]4[/color]
+  - [color=#d2ae68]обмоточный провод[/color]: [color=#9ab0c4]медная проволока[/color] × [color=#ff9a50]1[/color], [color=#9ab0c4]ткань[/color] × [color=#ff9a50]1[/color]
+  - [color=#d2ae68]редуктор[/color]: [color=#9ab0c4]чугунная шестерня[/color] × [color=#ff9a50]2[/color], [color=#9ab0c4]слиток чугуна[/color] × [color=#ff9a50]1[/color]
+  - [color=#d2ae68]электромотор[/color]: [color=#9ab0c4]стальной лист[/color] × [color=#ff9a50]1[/color], [color=#9ab0c4]слиток чугуна[/color] × [color=#ff9a50]1[/color], [color=#9ab0c4]стальной прут[/color] × [color=#ff9a50]1[/color], [color=#9ab0c4]обмоточный провод[/color] × [color=#ff9a50]2[/color]
+
+  Сальниковую набивку не собирают руками: её делает [color=#d2ae68]бетономешалка[/color] из ткани и смолы, [color=#ff9a50]2[/color] мотка за раз.
+
+  ## Ручной цех
+  - [color=#d2ae68]горн[/color]: [color=#9ab0c4]глина[/color] × [color=#ff9a50]6[/color], [color=#9ab0c4]известняк[/color] × [color=#ff9a50]6[/color]
+  - [color=#d2ae68]меха[/color]: [color=#9ab0c4]доска[/color] × [color=#ff9a50]4[/color], [color=#9ab0c4]ткань[/color] × [color=#ff9a50]2[/color]
+  - [color=#d2ae68]ручная дробилка[/color]: [color=#9ab0c4]слиток чугуна[/color] × [color=#ff9a50]3[/color], [color=#9ab0c4]чугунная шестерня[/color] × [color=#ff9a50]2[/color]
+  - [color=#d2ae68]ручные жернова[/color]: [color=#9ab0c4]известняк[/color] × [color=#ff9a50]4[/color], [color=#9ab0c4]доска[/color] × [color=#ff9a50]2[/color], [color=#9ab0c4]стальной прут[/color] × [color=#ff9a50]1[/color]
+  - [color=#d2ae68]вашгерд[/color]: [color=#9ab0c4]доска[/color] × [color=#ff9a50]6[/color]
+  - [color=#d2ae68]ручной прокатный стан[/color]: [color=#9ab0c4]слиток чугуна[/color] × [color=#ff9a50]4[/color], [color=#9ab0c4]чугунная шестерня[/color] × [color=#ff9a50]2[/color]
+  - [color=#d2ae68]волочильная скамья[/color]: [color=#9ab0c4]слиток чугуна[/color] × [color=#ff9a50]2[/color], [color=#9ab0c4]стальной прут[/color] × [color=#ff9a50]2[/color], [color=#9ab0c4]чугунная шестерня[/color] × [color=#ff9a50]1[/color]
+  - [color=#d2ae68]ручной кирпичный пресс[/color]: [color=#9ab0c4]доска[/color] × [color=#ff9a50]3[/color], [color=#9ab0c4]слиток чугуна[/color] × [color=#ff9a50]1[/color], [color=#9ab0c4]стальной прут[/color] × [color=#ff9a50]2[/color]
+
+  [color=#d2ae68]Электрический горн[/color] отдельно не строят: это обычный горн с вставленным [color=#9ab0c4]комплектом ТЭНов[/color]. При разборке ломом из него выпадают материалы горна и сам комплект.
+
+  ## Печи и аппараты
+  - [color=#d2ae68]обжиговая печь[/color]: [color=#9ab0c4]кирпич[/color] × [color=#ff9a50]10[/color], [color=#9ab0c4]огнеупорный кирпич[/color] × [color=#ff9a50]4[/color], [color=#9ab0c4]стальной лист[/color] × [color=#ff9a50]2[/color]
+  - [color=#d2ae68]коксовая печь[/color]: [color=#9ab0c4]кирпич[/color] × [color=#ff9a50]12[/color], [color=#9ab0c4]огнеупорный кирпич[/color] × [color=#ff9a50]4[/color], [color=#9ab0c4]стальной лист[/color] × [color=#ff9a50]2[/color]
+  - [color=#d2ae68]контактный аппарат[/color]: [color=#9ab0c4]стальной лист[/color] × [color=#ff9a50]6[/color], [color=#9ab0c4]огнеупорный кирпич[/color] × [color=#ff9a50]4[/color], [color=#9ab0c4]стекло[/color] × [color=#ff9a50]2[/color]
+  - [color=#d2ae68]чан выщелачивания[/color]: [color=#9ab0c4]стальной лист[/color] × [color=#ff9a50]4[/color], [color=#9ab0c4]лист свинца[/color] × [color=#ff9a50]4[/color], [color=#9ab0c4]электромотор[/color] × [color=#ff9a50]1[/color], [color=#9ab0c4]редуктор[/color] × [color=#ff9a50]1[/color]
+  - [color=#d2ae68]электролизёр[/color]: [color=#9ab0c4]стальной лист[/color] × [color=#ff9a50]6[/color], [color=#9ab0c4]огнеупорный кирпич[/color] × [color=#ff9a50]4[/color], [color=#9ab0c4]графитовый электрод[/color] × [color=#ff9a50]4[/color], [color=#9ab0c4]обмоточный провод[/color] × [color=#ff9a50]4[/color]
+  - [color=#d2ae68]дуговая сталеплавильная печь[/color]: [color=#9ab0c4]огнеупорный кирпич[/color] × [color=#ff9a50]20[/color], [color=#9ab0c4]стальной лист[/color] × [color=#ff9a50]10[/color], [color=#9ab0c4]графитовый электрод[/color] × [color=#ff9a50]3[/color], [color=#9ab0c4]обмоточный провод[/color] × [color=#ff9a50]4[/color]
+
+  ## Машины
+  - [color=#d2ae68]щековая дробилка[/color]: [color=#9ab0c4]стальной лист[/color] × [color=#ff9a50]4[/color], [color=#9ab0c4]слиток чугуна[/color] × [color=#ff9a50]2[/color], [color=#9ab0c4]электромотор[/color] × [color=#ff9a50]1[/color], [color=#9ab0c4]редуктор[/color] × [color=#ff9a50]1[/color]
+  - [color=#d2ae68]шаровая мельница[/color]: [color=#9ab0c4]стальной лист[/color] × [color=#ff9a50]4[/color], [color=#9ab0c4]слиток стали[/color] × [color=#ff9a50]4[/color], [color=#9ab0c4]электромотор[/color] × [color=#ff9a50]1[/color], [color=#9ab0c4]редуктор[/color] × [color=#ff9a50]1[/color]
+  - [color=#d2ae68]концентрационный стол[/color]: [color=#9ab0c4]стальной лист[/color] × [color=#ff9a50]4[/color], [color=#9ab0c4]электромотор[/color] × [color=#ff9a50]1[/color], [color=#9ab0c4]сальниковая набивка[/color] × [color=#ff9a50]1[/color]
+  - [color=#d2ae68]прокатный стан[/color]: [color=#9ab0c4]стальной лист[/color] × [color=#ff9a50]6[/color], [color=#9ab0c4]электромотор[/color] × [color=#ff9a50]1[/color], [color=#9ab0c4]редуктор[/color] × [color=#ff9a50]1[/color], [color=#9ab0c4]чугунная шестерня[/color] × [color=#ff9a50]2[/color]
+  - [color=#d2ae68]волочильный стан[/color]: [color=#9ab0c4]стальной лист[/color] × [color=#ff9a50]4[/color], [color=#9ab0c4]электромотор[/color] × [color=#ff9a50]1[/color], [color=#9ab0c4]редуктор[/color] × [color=#ff9a50]1[/color]
+  - [color=#d2ae68]кирпичный пресс[/color]: [color=#9ab0c4]стальной лист[/color] × [color=#ff9a50]4[/color], [color=#9ab0c4]слиток чугуна[/color] × [color=#ff9a50]2[/color], [color=#9ab0c4]электромотор[/color] × [color=#ff9a50]1[/color], [color=#9ab0c4]редуктор[/color] × [color=#ff9a50]1[/color]
+  - [color=#d2ae68]бетономешалка[/color]: [color=#9ab0c4]стальной лист[/color] × [color=#ff9a50]4[/color], [color=#9ab0c4]электромотор[/color] × [color=#ff9a50]1[/color], [color=#9ab0c4]редуктор[/color] × [color=#ff9a50]1[/color]
+  - [color=#d2ae68]конусная дробилка[/color]: [color=#9ab0c4]стальной лист[/color] × [color=#ff9a50]8[/color], [color=#9ab0c4]лист нержавеющей стали[/color] × [color=#ff9a50]4[/color], [color=#9ab0c4]электромотор[/color] × [color=#ff9a50]2[/color], [color=#9ab0c4]редуктор[/color] × [color=#ff9a50]2[/color]
+  - [color=#d2ae68]большая шаровая мельница[/color]: [color=#9ab0c4]стальной лист[/color] × [color=#ff9a50]8[/color], [color=#9ab0c4]слиток стали[/color] × [color=#ff9a50]8[/color], [color=#9ab0c4]электромотор[/color] × [color=#ff9a50]2[/color], [color=#9ab0c4]редуктор[/color] × [color=#ff9a50]2[/color]
+  - [color=#d2ae68]отсадочная машина[/color]: [color=#9ab0c4]стальной лист[/color] × [color=#ff9a50]6[/color], [color=#9ab0c4]электромотор[/color] × [color=#ff9a50]2[/color], [color=#9ab0c4]сальниковая набивка[/color] × [color=#ff9a50]2[/color]
+  - [color=#d2ae68]флотационная машина[/color]: [color=#9ab0c4]стальной лист[/color] × [color=#ff9a50]4[/color], [color=#9ab0c4]лист свинца[/color] × [color=#ff9a50]2[/color], [color=#9ab0c4]электромотор[/color] × [color=#ff9a50]1[/color]
+  - [color=#d2ae68]флотационная батарея[/color]: [color=#9ab0c4]стальной лист[/color] × [color=#ff9a50]10[/color], [color=#9ab0c4]лист свинца[/color] × [color=#ff9a50]4[/color], [color=#9ab0c4]электромотор[/color] × [color=#ff9a50]3[/color]
+  - [color=#d2ae68]магнитный сепаратор[/color]: [color=#9ab0c4]стальной лист[/color] × [color=#ff9a50]4[/color], [color=#9ab0c4]электромотор[/color] × [color=#ff9a50]1[/color], [color=#9ab0c4]обмоточный провод[/color] × [color=#ff9a50]6[/color]
+  - [color=#d2ae68]амальгамационная бочка[/color]: [color=#9ab0c4]доска[/color] × [color=#ff9a50]6[/color], [color=#9ab0c4]стальной лист[/color] × [color=#ff9a50]2[/color], [color=#9ab0c4]электромотор[/color] × [color=#ff9a50]1[/color], [color=#9ab0c4]редуктор[/color] × [color=#ff9a50]1[/color]
+
+  ## Трубы и конвейеры
+  - [color=#d2ae68]жидкостная труба[/color]: [color=#9ab0c4]стальной лист[/color] × [color=#ff9a50]1[/color]
+  - [color=#d2ae68]жидкостный насос[/color]: [color=#9ab0c4]стальной лист[/color] × [color=#ff9a50]2[/color], [color=#9ab0c4]электромотор[/color] × [color=#ff9a50]1[/color], [color=#9ab0c4]сальниковая набивка[/color] × [color=#ff9a50]2[/color]
+  - [color=#d2ae68]жидкостный порт[/color]: [color=#9ab0c4]стальной лист[/color] × [color=#ff9a50]2[/color], [color=#9ab0c4]сальниковая набивка[/color] × [color=#ff9a50]1[/color]
+  - [color=#d2ae68]жидкостный экспортер[/color]: [color=#9ab0c4]стальной лист[/color] × [color=#ff9a50]2[/color], [color=#9ab0c4]сальниковая набивка[/color] × [color=#ff9a50]1[/color]
+  - [color=#d2ae68]жидкостный импортер[/color]: [color=#9ab0c4]стальной лист[/color] × [color=#ff9a50]2[/color], [color=#9ab0c4]сальниковая набивка[/color] × [color=#ff9a50]1[/color]
+  - [color=#d2ae68]конвейерный извлекатель[/color]: [color=#9ab0c4]стальной лист[/color] × [color=#ff9a50]2[/color], [color=#9ab0c4]электромотор[/color] × [color=#ff9a50]1[/color]
+  - [color=#d2ae68]конвейерный вставщик[/color]: [color=#9ab0c4]стальной лист[/color] × [color=#ff9a50]2[/color], [color=#9ab0c4]электромотор[/color] × [color=#ff9a50]1[/color]
+  - [color=#d2ae68]конвейерный сортировщик[/color]: [color=#9ab0c4]стальной лист[/color] × [color=#ff9a50]2[/color], [color=#9ab0c4]электромотор[/color] × [color=#ff9a50]1[/color]
+</Document>

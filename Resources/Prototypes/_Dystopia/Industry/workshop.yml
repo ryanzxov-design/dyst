@@ -8,6 +8,9 @@
   name: large crucible
   description: A heavy graphite crucible with trunnions and a tilting lever. Click a forge with it to set it in; tongs can't lift it.
   components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaCrucibleLargeCraft
+    node: done
   - type: DystopiaParticleEmitter   # частицы (gen_particles.py)
     emitters:
     # дымок над раскалённым
@@ -414,6 +417,9 @@
   placement:
     mode: SnapgridCenter
   components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaForgeElectricCraft
+    node: done
   - type: DystopiaParticleEmitter   # частицы (gen_particles.py)
     emitters:
     # светящиеся крупинки окалины
@@ -731,6 +737,9 @@
   name: tubular heater kit
   description: A bundle of tubular electric heaters with terminals. Click a forge with it to turn it into an electric forge.
   components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaForgeHeaterKitCraft
+    node: done
   - type: Item
     size: Normal
     sprite: _Dystopia/Objects/Industry/heater_kit.rsi
@@ -1312,6 +1321,9 @@
   name: ingot casting form x1
   description: A cast-iron form for the casting table. Holds 10 u of molten metal, 1 ingot per pour.
   components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaCastingFormIngot1Craft
+    node: done
   - type: Item
     size: Normal
     sprite: _Dystopia/Objects/Industry/casting_forms.rsi
@@ -1373,6 +1385,9 @@
   name: ingot casting form x10
   description: A cast-iron form for the casting table. Holds 100 u of molten metal, 10 ingots per pour.
   components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaCastingFormIngot10Craft
+    node: done
   - type: Item
     size: Large
     sprite: _Dystopia/Objects/Industry/casting_forms.rsi
@@ -1434,6 +1449,9 @@
   name: sheet casting form x1
   description: A cast-iron form for the casting table. Holds 10 u of molten metal, 1 sheet per pour.
   components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaCastingFormSheet1Craft
+    node: done
   - type: Item
     size: Normal
     sprite: _Dystopia/Objects/Industry/casting_forms.rsi
@@ -1495,6 +1513,9 @@
   name: sheet casting form x10
   description: A cast-iron form for the casting table. Holds 100 u of molten metal, 10 sheets per pour.
   components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaCastingFormSheet10Craft
+    node: done
   - type: Item
     size: Large
     sprite: _Dystopia/Objects/Industry/casting_forms.rsi
@@ -1556,6 +1577,9 @@
   name: rod casting form x1
   description: A cast-iron form for the casting table. Holds 10 u of molten metal, 2 rods per pour.
   components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaCastingFormRod1Craft
+    node: done
   - type: Item
     size: Normal
     sprite: _Dystopia/Objects/Industry/casting_forms.rsi
@@ -1617,6 +1641,9 @@
   name: rod casting form x10
   description: A cast-iron form for the casting table. Holds 100 u of molten metal, 20 rods per pour.
   components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaCastingFormRod10Craft
+    node: done
   - type: Item
     size: Large
     sprite: _Dystopia/Objects/Industry/casting_forms.rsi

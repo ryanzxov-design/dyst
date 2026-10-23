@@ -12,6 +12,9 @@
   placement:
     mode: SnapgridCenter
   components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaLiquidPipeHalfCraft
+    node: done
   - type: Item
     size: Small
     storedSprite:
@@ -93,6 +96,9 @@
   placement:
     mode: SnapgridCenter
   components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaLiquidPipeStraightCraft
+    node: done
   - type: Item
     size: Normal
     storedSprite:
@@ -174,6 +180,9 @@
   placement:
     mode: SnapgridCenter
   components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaLiquidPipeBendCraft
+    node: done
   - type: Item
     size: Normal
     heldPrefix: Bend
@@ -256,6 +265,9 @@
   placement:
     mode: SnapgridCenter
   components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaLiquidPipeTJunctionCraft
+    node: done
   - type: Item
     size: Normal
     heldPrefix: TJunction
@@ -338,6 +350,9 @@
   placement:
     mode: SnapgridCenter
   components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaLiquidPipeFourwayCraft
+    node: done
   - type: Item
     size: Normal
     heldPrefix: Fourway
@@ -419,6 +434,9 @@
   placement:
     mode: SnapgridCenter
   components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaLiquidPortCraft
+    node: done
   - type: Item
     size: Normal
     storedSprite:
@@ -504,6 +522,9 @@
   placement:
     mode: SnapgridCenter
   components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaLiquidPumpCraft
+    node: done
   - type: Item
     size: Normal
     storedSprite:
@@ -608,6 +629,9 @@
   placement:
     mode: SnapgridCenter
   components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaLiquidExporterCraft
+    node: done
   - type: Item
     size: Normal
     storedSprite:
@@ -700,6 +724,9 @@
   placement:
     mode: SnapgridCenter
   components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaLiquidImporterCraft
+    node: done
   - type: Item
     size: Normal
     storedSprite:

@@ -21,6 +21,9 @@
   name: gear mould
   description: "A cast-iron mould with a toothed cavity: one gear per pour. Cast iron only."
   components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaMouldGearCraft
+    node: done
   - type: DystopiaParticleEmitter   # частицы (gen_particles.py)
     emitters:
     # дымок над раскалённым

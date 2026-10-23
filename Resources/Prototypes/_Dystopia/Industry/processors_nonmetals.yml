@@ -12,6 +12,9 @@
   placement:
     mode: SnapgridCenter
   components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaCokeOvenCraft
+    node: done
   - type: DystopiaParticleEmitter   # частицы (gen_particles.py)
     emitters:
     # дым
@@ -156,6 +159,9 @@
   placement:
     mode: SnapgridCenter
   components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaHandBrickPressCraft
+    node: done
   - type: DystopiaParticleEmitter   # частицы (gen_particles.py)
     emitters:
     # рудная пыль
@@ -260,6 +266,9 @@
   placement:
     mode: SnapgridCenter
   components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaBrickPressCraft
+    node: done
   - type: DystopiaParticleEmitter   # частицы (gen_particles.py)
     emitters:
     # рудная пыль
@@ -379,10 +388,13 @@
 - type: entity
   id: DystopiaConcreteMixer
   name: concrete mixer
-  description: "A drum on a stand. Turns cement, sand, gravel and water into concrete mix to be bucketed into moulds; also mixes glass batch from sand, lime and soda."
+  description: "A drum on a stand. Turns cement, sand, gravel and water into concrete mix to be bucketed into moulds; also mixes glass batch from sand, lime and soda, and rolls cloth in tar into gland packing."
   placement:
     mode: SnapgridCenter
   components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaConcreteMixerCraft
+    node: done
   - type: DystopiaParticleEmitter   # частицы (gen_particles.py)
     emitters:
     # рудная пыль
@@ -513,6 +525,9 @@
   placement:
     mode: SnapgridCenter
   components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaContactApparatusCraft
+    node: done
   - type: DystopiaParticleEmitter   # частицы (gen_particles.py)
     emitters:
     # кислотные пары

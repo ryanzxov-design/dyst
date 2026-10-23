@@ -11,6 +11,9 @@
   placement:
     mode: SnapgridCenter
   components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaHandRollingMillCraft
+    node: done
   - type: Transform
     anchored: true
     noRot: true
@@ -94,6 +97,9 @@
   placement:
     mode: SnapgridCenter
   components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaRollingMillCraft
+    node: done
   - type: Transform
     anchored: true
     noRot: true
@@ -188,6 +194,9 @@
   placement:
     mode: SnapgridCenter
   components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaHandWireDrawBenchCraft
+    node: done
   - type: Transform
     anchored: true
     noRot: true
@@ -271,6 +280,9 @@
   placement:
     mode: SnapgridCenter
   components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaWireDrawingMachineCraft
+    node: done
   - type: Transform
     anchored: true
     noRot: true

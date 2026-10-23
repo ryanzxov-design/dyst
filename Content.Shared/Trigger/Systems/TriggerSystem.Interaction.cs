@@ -158,6 +158,11 @@ public sealed partial class TriggerSystem
         if (target == null)
             return;
 
+        // Dystopia-Fix: сработавшая в контейнере (в руке, в сумке, в тигле) граната пыталась прикрутиться к полу
+        // прямо из контейнера — движок падал на проверке «anchor is invalid». Внутри контейнера не прикручиваем.
+        if ((MetaData(target.Value).Flags & MetaDataFlags.InContainer) != 0)
+            return;
+
         var xform = Transform(target.Value);
 
         if (xform.Anchored && ent.Comp.CanUnanchor)

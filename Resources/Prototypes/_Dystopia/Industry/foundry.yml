@@ -13,6 +13,9 @@
   placement:
     mode: SnapgridCenter
   components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaForgeCraft
+    node: done
   - type: DystopiaParticleEmitter   # частицы (gen_particles.py)
     emitters:
     # языки пламени в топке
@@ -197,6 +200,9 @@
   placement:
     mode: SnapgridCenter
   components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaBellowsCraft
+    node: done
   - type: Transform
     anchored: true
   - type: Clickable
@@ -268,6 +274,9 @@
   name: small crucible
   description: A fireclay pot for melting ore and scrap. Hot ones are handled with tongs only.
   components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaCrucibleSmallCraft
+    node: done
   - type: DystopiaParticleEmitter   # частицы (gen_particles.py)
     emitters:
     # дымок над раскалённым
@@ -429,6 +438,9 @@
   name: tongs
   description: Long blacksmith tongs. Poke a red-hot crucible or mould to grip it; poke a mould or a casting channel with the gripped crucible to pour.
   components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaTongsCraft
+    node: done
   - type: Item
     size: Normal
     sprite: _Dystopia/Objects/Industry/tongs.rsi
@@ -515,6 +527,9 @@
   name: ingot mould
   description: A cast-iron mould for one ingot.
   components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaMouldIngotCraft
+    node: done
   - type: DystopiaParticleEmitter   # частицы (gen_particles.py)
     emitters:
     # дымок над раскалённым
@@ -654,6 +669,9 @@
   name: sheet mould
   description: A cast-iron mould for one plate.
   components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaMouldSheetCraft
+    node: done
   - type: DystopiaParticleEmitter   # частицы (gen_particles.py)
     emitters:
     # дымок над раскалённым
@@ -793,6 +811,9 @@
   name: rod mould
   description: "A cast-iron mould with two channels: two rods per pour."
   components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaMouldRodCraft
+    node: done
   - type: DystopiaParticleEmitter   # частицы (gen_particles.py)
     emitters:
     # дымок над раскалённым

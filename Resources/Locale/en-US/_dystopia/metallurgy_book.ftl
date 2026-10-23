@@ -2,6 +2,7 @@
 
 guide-entry-dystopia-metallurgy = Metallurgist's Handbook
 guide-entry-dystopia-metallurgy-ores = Ores
+guide-entry-dystopia-metallurgy-crafting = How to Build
 guide-entry-dystopia-metallurgy-forge = Forge and Crucible
 guide-entry-dystopia-metallurgy-alloys = Alloys
 guide-entry-dystopia-metallurgy-workshop = Workshop

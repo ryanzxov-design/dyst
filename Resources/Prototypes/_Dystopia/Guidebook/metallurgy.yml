@@ -7,6 +7,7 @@
   text: "/ServerInfo/_Dystopia/Guidebook/Metallurgy/Index.xml"
   children:
   - DystopiaMetallurgyOres
+  - DystopiaMetallurgyCrafting
   - DystopiaMetallurgyForge
   - DystopiaMetallurgyAlloys
   - DystopiaMetallurgyWorkshop
@@ -23,6 +24,11 @@
   id: DystopiaMetallurgyOres
   name: guide-entry-dystopia-metallurgy-ores
   text: "/ServerInfo/_Dystopia/Guidebook/Metallurgy/Ores.xml"
+
+- type: guideEntry
+  id: DystopiaMetallurgyCrafting
+  name: guide-entry-dystopia-metallurgy-crafting
+  text: "/ServerInfo/_Dystopia/Guidebook/Metallurgy/Crafting.xml"
 
 - type: guideEntry
   id: DystopiaMetallurgyForge
