@@ -1,0 +1,72 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: нефть, шаг 2 — перегонка. Генератор gen_oil_refining.py.
+# Жидкостный фильтр: выбранное через ПКМ вещество — вбок (запад), остальное — прямо (юг); вход — север.
+# Питания не нужно. Отдельный файл, чтобы не трогать liquids.yml.
+
+- type: entity
+  id: DystopiaLiquidFilter
+  name: liquid filter
+  description: "Lets the chosen substance out to the side and passes everything else straight on. Pick the substance with the right-click menu."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Transform
+    anchored: true
+  - type: Physics
+    canCollide: false
+    bodyType: static
+  - type: Visibility
+    layer: 1
+  - type: SubFloorHide
+    blockInteractions: false
+    blockAmbience: false
+    visibleLayers:
+    - enum.SubfloorLayers.FirstLayer
+  - type: CollideOnAnchor
+  - type: Anchorable
+  - type: Rotatable
+    increment: 90
+  - type: Appearance
+  - type: StaticPrice
+    price: 40
+  - type: Sprite
+    sprite: _Dystopia/Structures/Piping/liquid_filter.rsi
+    drawdepth: ThinPipe
+    noRot: false
+    visible: false
+    layers:
+    - state: filter
+      map: [ "enum.SubfloorLayers.FirstLayer", "enabled" ]
+  - type: NodeContainer
+    nodes:
+      inlet:
+        !type:DystopiaLiquidPipeNode
+        nodeGroupID: DystopiaLiquid
+        pipeDirection: North
+        volume: 10
+      outlet:
+        !type:DystopiaLiquidPipeNode
+        nodeGroupID: DystopiaLiquid
+        pipeDirection: South
+        volume: 10
+      filter:
+        !type:DystopiaLiquidPipeNode
+        nodeGroupID: DystopiaLiquid
+        pipeDirection: West
+        volume: 10
+  - type: DystopiaLiquidDevice
+    mode: Filter
+    rate: 20
+    inlet: inlet
+    outlet: outlet
+    filterNode: filter
+    toggleable: true
+    on: true
+  - type: GenericVisualizer
+    visuals:
+      enum.DystopiaLiquidVisuals.Working:
+        enabled:
+          True: { state: filterOn }
+          False: { state: filter }

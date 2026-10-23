@@ -1,0 +1,23 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: нефть, шаг 2 — перегонка. Генератор gen_oil_refining.py.
+# Рецепты перегонки (DystopiaProcessRecipe), только из веществ бака: идут, пока их хватает.
+
+- type: dystopiaProcessRecipe
+  id: DystopiaDistillCrudeOil
+  group: Distillation
+  reagents:
+    DystopiaCrudeOil: 20
+  produces:
+    DystopiaGasoline: 4
+    DystopiaKerosene: 2
+    DystopiaDiesel: 5
+    DystopiaFuelOil: 9
+
+- type: dystopiaProcessRecipe
+  id: DystopiaVacuumDistillFuelOil
+  group: VacuumDistillation
+  reagents:
+    DystopiaFuelOil: 10
+  produces:
+    DystopiaLubricatingOil: 6
+    DystopiaBitumen: 4

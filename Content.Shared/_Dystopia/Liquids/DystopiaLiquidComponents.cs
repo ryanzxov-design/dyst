@@ -2,7 +2,7 @@
 // Dystopia: жидкостные трубы и устройства. Трубы держат общий раствор сети; на трубе — отсечки цвета смеси.
 // Устройства: порт (выравнивает сеть с цистерной на своей клетке), насос (из сети в сеть), экспортер (из сети в объект
 // впереди) и импортер (из объекта позади — в сеть). Качалка (Extractor) — из природного источника на своей клетке
-// (нефтяной выход) в сеть.
+// (нефтяной выход) в сеть. Фильтр (Filter) — выбранное вещество в боковую трубу, остальное прямо.
 
 using Content.Shared.Chemistry.Reagent;
 using Content.Shared.FixedPoint;
@@ -55,6 +55,12 @@ public enum DystopiaLiquidDeviceMode : byte
 
     /// <summary>Из природного источника (<see cref="DystopiaLiquidSourceComponent"/>) на своей клетке в сеть.</summary>
     Extractor,
+
+    /// <summary>
+    /// Из сети входа: выбранное вещество (<see cref="DystopiaLiquidDeviceComponent.FilterReagent"/>) — в сеть
+    /// <see cref="DystopiaLiquidDeviceComponent.FilterNode"/> (сбоку), всё остальное — в сеть выхода (прямо).
+    /// </summary>
+    Filter,
 }
 
 [RegisterComponent]
@@ -96,6 +102,14 @@ public sealed partial class DystopiaLiquidDeviceComponent : Component
 
     [DataField]
     public bool On = true;
+
+    /// <summary>Фильтр: боковой узел, куда уходит выбранное вещество.</summary>
+    [DataField]
+    public string FilterNode = "filter";
+
+    /// <summary>Фильтр: какое вещество отводить вбок (выбирается через ПКМ; пусто — всё идёт прямо).</summary>
+    [DataField]
+    public ProtoId<ReagentPrototype>? FilterReagent;
 
     [ViewVariables]
     public TimeSpan NextUpdate;

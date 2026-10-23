@@ -6,6 +6,7 @@
 // машины с баком — только реагенты своих рецептов, цистерны — всё; тигли, горны и дуговая печь — ничего.
 // Импортер — из объекта в сеть: цистерны и баки машин; литейное оборудование — нет.
 // Качалка (Extractor) — из природного источника на своей клетке (нефтяной выход) в сеть; источник конечен.
+// Фильтр — выбранное через ПКМ вещество уходит в боковую трубу, остальное проходит прямо; питания не нужно.
 
 using Content.Server._Dystopia.Industry;
 using Content.Server.Power.EntitySystems;
@@ -44,6 +45,7 @@ public sealed partial class DystopiaLiquidDeviceSystem : EntitySystem
     {
         base.Initialize();
         SubscribeLocalEvent<DystopiaLiquidDeviceComponent, GetVerbsEvent<AlternativeVerb>>(OnGetVerbs);
+        SubscribeLocalEvent<DystopiaLiquidDeviceComponent, GetVerbsEvent<Verb>>(OnGetFilterVerbs);
         SubscribeLocalEvent<DystopiaLiquidDeviceComponent, ExaminedEvent>(OnExamined);
         SubscribeLocalEvent<DystopiaLiquidSourceComponent, MapInitEvent>(OnSourceMapInit);
         SubscribeLocalEvent<DystopiaLiquidSourceComponent, ExaminedEvent>(OnSourceExamined);
@@ -130,6 +132,12 @@ public sealed partial class DystopiaLiquidDeviceSystem : EntitySystem
                 return FixedPoint2.Zero;
             }
 
+            case DystopiaLiquidDeviceMode.Filter:
+            {
+                return Filter(ent.Comp, net.Solution, _liquid.GetNet(ent, ent.Comp.Outlet)?.Solution,
+                    _liquid.GetNet(ent, ent.Comp.FilterNode)?.Solution, max);
+            }
+
             case DystopiaLiquidDeviceMode.Extractor:
             {
                 return GetSource(ent, xform) is { } source ? Extract(source, net.Solution, max) : FixedPoint2.Zero;
@@ -138,6 +146,88 @@ public sealed partial class DystopiaLiquidDeviceSystem : EntitySystem
 
         return FixedPoint2.Zero;
     }
+
+    // ------------------------------------------------------------------ фильтр
+
+    /// <summary>
+    /// Сначала выбранное вещество — вбок (сколько влезет), потом остальное — прямо; вместе не больше max.
+    /// Если боковая труба полна, выбранное ждёт во входе, а остальное идёт дальше.
+    /// </summary>
+    private FixedPoint2 Filter(DystopiaLiquidDeviceComponent device, Solution inlet, Solution? outlet, Solution? side,
+        FixedPoint2 max)
+    {
+        var moved = FixedPoint2.Zero;
+        if (device.FilterReagent is { } reagent && side != null && side != inlet)
+        {
+            var amount = FixedPoint2.Min(max,
+                FixedPoint2.Min(inlet.GetTotalPrototypeQuantity(reagent), side.AvailableVolume));
+            if (amount > FixedPoint2.Zero)
+            {
+                side.AddSolution(inlet.SplitSolutionWithOnly(amount, reagent), _proto);
+                moved += amount;
+            }
+        }
+
+        if (outlet == null || outlet == inlet)
+            return moved;
+
+        var rest = inlet.Volume - (device.FilterReagent is { } r ? inlet.GetTotalPrototypeQuantity(r) : FixedPoint2.Zero);
+        var pass = FixedPoint2.Min(max - moved, FixedPoint2.Min(rest, outlet.AvailableVolume));
+        if (pass > FixedPoint2.Zero)
+        {
+            outlet.AddSolution(device.FilterReagent is { } f
+                ? inlet.SplitSolutionWithout(pass, f)
+                : inlet.SplitSolution(pass), _proto);
+            moved += pass;
+        }
+
+        return moved;
+    }
+
+    private void OnGetFilterVerbs(Entity<DystopiaLiquidDeviceComponent> ent, ref GetVerbsEvent<Verb> args)
+    {
+        if (ent.Comp.Mode != DystopiaLiquidDeviceMode.Filter || !args.CanAccess || !args.CanInteract)
+            return;
+
+        // На выбор — то, что сейчас есть во входной трубе, плюс уже выбранное.
+        var options = new List<ProtoId<ReagentPrototype>>();
+        if (_liquid.GetNet(ent, ent.Comp.Inlet) is { } net)
+        {
+            foreach (var quantity in net.Solution.Contents)
+                options.Add(quantity.Reagent.Prototype);
+        }
+
+        if (ent.Comp.FilterReagent is { } current && !options.Contains(current))
+            options.Add(current);
+
+        var user = args.User;
+        args.Verbs.Add(FilterVerb(ent, user, null, Loc.GetString("dystopia-liquid-filter-none"), 0));
+        var priority = -1;
+        foreach (var option in options)
+        {
+            var name = _proto.TryIndex(option, out var proto) ? proto.LocalizedName : option.Id;
+            args.Verbs.Add(FilterVerb(ent, user, option, name, priority--));
+        }
+    }
+
+    private Verb FilterVerb(Entity<DystopiaLiquidDeviceComponent> ent, EntityUid user,
+        ProtoId<ReagentPrototype>? reagent, string name, int priority)
+    {
+        return new Verb
+        {
+            Text = name,
+            Category = FilterCategory,
+            Priority = priority,
+            Disabled = ent.Comp.FilterReagent == reagent,
+            Act = () =>
+            {
+                ent.Comp.FilterReagent = reagent;
+                _popup.PopupEntity(Loc.GetString("dystopia-liquid-filter-set", ("reagent", name)), ent, user);
+            },
+        };
+    }
+
+    private static readonly VerbCategory FilterCategory = new("dystopia-liquid-filter-category", null);
 
     // ------------------------------------------------------------------ природные источники
 
@@ -384,6 +474,21 @@ public sealed partial class DystopiaLiquidDeviceSystem : EntitySystem
             _liquid.PushNetInfo(args, _liquid.GetNet(ent, ent.Comp.Inlet), 4);
             args.PushMarkup(Loc.GetString("dystopia-liquid-examine-outlet"), 3);
             _liquid.PushNetInfo(args, _liquid.GetNet(ent, ent.Comp.Outlet), 2);
+            return;
+        }
+
+        if (ent.Comp.Mode == DystopiaLiquidDeviceMode.Filter)
+        {
+            var reagent = ent.Comp.FilterReagent is { } id && _proto.TryIndex(id, out var proto)
+                ? Loc.GetString("dystopia-liquid-filter-examine", ("reagent", proto.LocalizedName))
+                : Loc.GetString("dystopia-liquid-filter-examine-none");
+            args.PushMarkup(reagent, 7);
+            args.PushMarkup(Loc.GetString("dystopia-liquid-examine-inlet"), 5);
+            _liquid.PushNetInfo(args, _liquid.GetNet(ent, ent.Comp.Inlet), 4);
+            args.PushMarkup(Loc.GetString("dystopia-liquid-examine-outlet"), 3);
+            _liquid.PushNetInfo(args, _liquid.GetNet(ent, ent.Comp.Outlet), 2);
+            args.PushMarkup(Loc.GetString("dystopia-liquid-filter-examine-side"), 1);
+            _liquid.PushNetInfo(args, _liquid.GetNet(ent, ent.Comp.FilterNode), 0);
             return;
         }
 

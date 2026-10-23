@@ -1,0 +1,147 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: нефть, шаг 2 — перегонка. Генератор gen_oil_refining.py.
+# Фракции нефти. Все горят (FlammableTileReaction) и ядовиты; лёгкие быстро испаряются, тяжёлые лежат лужей.
+
+- type: reagent
+  id: DystopiaGasoline
+  name: reagent-name-dystopia-gasoline
+  group: Industrial
+  desc: reagent-desc-dystopia-gasoline
+  physicalDesc: reagent-physical-desc-volatile
+  flavor: bitter
+  color: "#e8d27a"
+  boilingPoint: 100.0
+  meltingPoint: -60.0
+  evaporationSpeed: 0.6
+  tileReactions:
+  - !type:FlammableTileReaction {}
+  metabolisms:
+    Bloodstream:
+      effects:
+      - !type:HealthChange
+        damage:
+          types:
+            Poison: 1
+      - !type:Flammable
+        multiplier: 0.6
+
+- type: reagent
+  id: DystopiaKerosene
+  name: reagent-name-dystopia-kerosene
+  group: Industrial
+  desc: reagent-desc-dystopia-kerosene
+  physicalDesc: reagent-physical-desc-oily
+  flavor: bitter
+  color: "#d8d0b8"
+  boilingPoint: 220.0
+  meltingPoint: -45.0
+  evaporationSpeed: 0.3
+  tileReactions:
+  - !type:FlammableTileReaction {}
+  metabolisms:
+    Bloodstream:
+      effects:
+      - !type:HealthChange
+        damage:
+          types:
+            Poison: 1
+      - !type:Flammable
+        multiplier: 0.5
+
+- type: reagent
+  id: DystopiaDiesel
+  name: reagent-name-dystopia-diesel
+  group: Industrial
+  desc: reagent-desc-dystopia-diesel
+  physicalDesc: reagent-physical-desc-oily
+  flavor: bitter
+  color: "#c89a3a"
+  boilingPoint: 300.0
+  meltingPoint: -10.0
+  evaporationSpeed: 0.15
+  tileReactions:
+  - !type:FlammableTileReaction {}
+  metabolisms:
+    Bloodstream:
+      effects:
+      - !type:HealthChange
+        damage:
+          types:
+            Poison: 1
+      - !type:Flammable
+        multiplier: 0.4
+
+- type: reagent
+  id: DystopiaFuelOil
+  name: reagent-name-dystopia-fuel-oil
+  group: Industrial
+  desc: reagent-desc-dystopia-fuel-oil
+  physicalDesc: reagent-physical-desc-viscous
+  flavor: bitter
+  color: "#1a120c"
+  boilingPoint: 450.0
+  meltingPoint: 10.0
+  evaporationSpeed: 0.02
+  slipData:
+    requiredSlipSpeed: 4
+  friction: 0.4
+  tileReactions:
+  - !type:FlammableTileReaction {}
+  metabolisms:
+    Bloodstream:
+      effects:
+      - !type:HealthChange
+        damage:
+          types:
+            Poison: 1
+      - !type:Flammable
+        multiplier: 0.2
+
+- type: reagent
+  id: DystopiaLubricatingOil
+  name: reagent-name-dystopia-lubricating-oil
+  group: Industrial
+  desc: reagent-desc-dystopia-lubricating-oil
+  physicalDesc: reagent-physical-desc-oily
+  flavor: bitter
+  color: "#8a5a1c"
+  boilingPoint: 400.0
+  meltingPoint: -20.0
+  evaporationSpeed: 0.02
+  slipData:
+    requiredSlipSpeed: 2
+  friction: 0.4
+  tileReactions:
+  - !type:FlammableTileReaction {}
+  metabolisms:
+    Bloodstream:
+      effects:
+      - !type:HealthChange
+        damage:
+          types:
+            Poison: 0.5
+      - !type:Flammable
+        multiplier: 0.1
+
+- type: reagent
+  id: DystopiaBitumen
+  name: reagent-name-dystopia-bitumen
+  group: Industrial
+  desc: reagent-desc-dystopia-bitumen
+  physicalDesc: reagent-physical-desc-sticky
+  flavor: bitter
+  color: "#0c0b0a"
+  boilingPoint: 500.0
+  meltingPoint: 50.0
+  evaporationSpeed: 0.0
+  tileReactions:
+  - !type:FlammableTileReaction {}
+  metabolisms:
+    Bloodstream:
+      effects:
+      - !type:HealthChange
+        damage:
+          types:
+            Poison: 0.5
+      - !type:Flammable
+        multiplier: 0.1

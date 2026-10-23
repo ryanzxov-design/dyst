@@ -1,0 +1,234 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: нефть, шаг 2 — перегонка. Генератор gen_oil_refining.py.
+# Машины перегонки: ректификационная колонна (Distillation) и вакуумный куб (VacuumDistillation). Рецепты —
+# oil_recipes.yml. Работают только на веществах бака (заливают ведром или экспортером из трубы); готовое — в бак
+# продукции (oil_solutions.yml), оттуда — ведром или импортером в трубу. Баки не реагируют (canReact: false).
+# Самостоятельные сущности, без parent.
+
+- type: entity
+  id: DystopiaDistillationColumn
+  name: distillation column
+  description: "A tall column of trays over an electric heater. Crude oil goes in; gasoline, kerosene, diesel and fuel oil come out together into the product tank. Separate them with liquid filters."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.45"
+        density: 250
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]
+  - type: Pullable
+  - type: Anchorable
+    delay: 2
+  - type: Tag
+    tags: [ Structure ]
+  - type: Sprite
+    sprite: _Dystopia/Structures/Industry/distillation_column.rsi
+    noRot: true
+    drawdepth: Objects
+    layers:
+    - state: icon
+      map: [ "enum.DystopiaProcessorVisuals.Running" ]
+    - state: unlit
+      map: [ "enum.PowerDeviceVisualLayers.Powered" ]
+      shader: unshaded
+      visible: false
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DystopiaProcessorVisuals.Running:
+        enum.DystopiaProcessorVisuals.Running:
+          True: { state: running }
+          False: { state: icon }
+      enum.PowerDeviceVisuals.Powered:
+        enum.PowerDeviceVisualLayers.Powered:
+          True: { visible: true }
+          False: { visible: false }
+  - type: ApcPowerReceiver
+    powerLoad: 6000
+  - type: ExtensionCableReceiver
+  - type: AmbientSound
+    enabled: false
+    volume: -6
+    range: 5
+    sound:
+      path: /Audio/Ambience/Objects/vending_machine_hum.ogg
+  - type: Solution
+    id: tank
+    solution:
+      maxVol: 300
+      canReact: false   # вещества в баке не реагируют между собой
+  - type: RefillableSolution   # воду — ведром или из цистерны
+    solution: tank
+  - type: SolutionManager   # бак продукции
+    solutions:
+    - DystopiaSolutionDistillationProduct
+  - type: DrainableSolution   # сливают готовое
+    solution: product
+  - type: ContainerContainer
+    containers:
+      dystopia_processor_input: !type:Container {}
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 300
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:EmptyContainersBehaviour
+        containers: [ dystopia_processor_input ]
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 3
+            max: 5
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: DystopiaProcessor
+    group: Distillation
+    container: dystopia_processor_input
+    capacity: 0
+    batchesPerCycle: 1
+    cycleTime: 4
+    manual: false
+    requireAnchored: true
+    tank: tank
+    outputTank: product
+    cycleSound:
+      path: /Audio/Effects/Fluids/splash.ogg
+      params:
+        volume: -6
+    insertSound:
+      path: /Audio/Effects/stonedoor_openclose.ogg
+      params:
+        volume: -8
+
+- type: entity
+  id: DystopiaVacuumDistiller
+  name: vacuum still
+  description: "A horizontal still under a vacuum pump. Fuel oil boils here without cracking: lubricating oil and tar collect in the product tank."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.45"
+        density: 250
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]
+  - type: Pullable
+  - type: Anchorable
+    delay: 2
+  - type: Tag
+    tags: [ Structure ]
+  - type: Sprite
+    sprite: _Dystopia/Structures/Industry/vacuum_distiller.rsi
+    noRot: true
+    drawdepth: Objects
+    layers:
+    - state: icon
+      map: [ "enum.DystopiaProcessorVisuals.Running" ]
+    - state: unlit
+      map: [ "enum.PowerDeviceVisualLayers.Powered" ]
+      shader: unshaded
+      visible: false
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DystopiaProcessorVisuals.Running:
+        enum.DystopiaProcessorVisuals.Running:
+          True: { state: running }
+          False: { state: icon }
+      enum.PowerDeviceVisuals.Powered:
+        enum.PowerDeviceVisualLayers.Powered:
+          True: { visible: true }
+          False: { visible: false }
+  - type: ApcPowerReceiver
+    powerLoad: 4000
+  - type: ExtensionCableReceiver
+  - type: AmbientSound
+    enabled: false
+    volume: -6
+    range: 5
+    sound:
+      path: /Audio/Ambience/Objects/vending_machine_hum.ogg
+  - type: Solution
+    id: tank
+    solution:
+      maxVol: 200
+      canReact: false   # вещества в баке не реагируют между собой
+  - type: RefillableSolution   # воду — ведром или из цистерны
+    solution: tank
+  - type: SolutionManager   # бак продукции
+    solutions:
+    - DystopiaSolutionVacuumProduct
+  - type: DrainableSolution   # сливают готовое
+    solution: product
+  - type: ContainerContainer
+    containers:
+      dystopia_processor_input: !type:Container {}
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 250
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:EmptyContainersBehaviour
+        containers: [ dystopia_processor_input ]
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 2
+            max: 4
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: DystopiaProcessor
+    group: VacuumDistillation
+    container: dystopia_processor_input
+    capacity: 0
+    batchesPerCycle: 1
+    cycleTime: 4
+    manual: false
+    requireAnchored: true
+    tank: tank
+    outputTank: product
+    cycleSound:
+      path: /Audio/Effects/Fluids/splash.ogg
+      params:
+        volume: -6
+    insertSound:
+      path: /Audio/Effects/stonedoor_openclose.ogg
+      params:
+        volume: -8

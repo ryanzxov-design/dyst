@@ -1,0 +1,25 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: нефть, шаг 2 — перегонка. Генератор gen_oil_refining.py.
+# Баки продукции машин перегонки (раствор "product"), вещества в них не реагируют.
+
+- type: entity
+  id: DystopiaSolutionDistillationProduct
+  categories: [ HideSpawnMenu ]
+  name: product tank
+  components:
+  - type: Solution
+    id: product
+    solution:
+      maxVol: 400
+      canReact: false
+
+- type: entity
+  id: DystopiaSolutionVacuumProduct
+  categories: [ HideSpawnMenu ]
+  name: product tank
+  components:
+  - type: Solution
+    id: product
+    solution:
+      maxVol: 300
+      canReact: false
