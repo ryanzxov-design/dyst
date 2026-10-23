@@ -8,9 +8,6 @@
   name: large crucible
   description: A heavy graphite crucible with trunnions and a tilting lever. Click a forge with it to set it in; tongs can't lift it.
   components:
-  - type: Construction   # крафт (gen_crafts.py)
-    graph: DystopiaCrucibleLargeCraft
-    node: done
   - type: DystopiaParticleEmitter   # частицы (gen_particles.py)
     emitters:
     # дымок над раскалённым
@@ -51,6 +48,9 @@
       - "#FFB050C0"
       - "#E0602080"
       - "#80200000"
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaCrucibleLargeCraft
+    node: done
   - type: Item
     size: Huge
     sprite: _Dystopia/Objects/Industry/crucible_large.rsi
@@ -417,9 +417,6 @@
   placement:
     mode: SnapgridCenter
   components:
-  - type: Construction   # крафт (gen_crafts.py)
-    graph: DystopiaForgeElectricCraft
-    node: done
   - type: DystopiaParticleEmitter   # частицы (gen_particles.py)
     emitters:
     # светящиеся крупинки окалины
@@ -460,6 +457,9 @@
       - "#B0AAA050"
       - "#90898020"
       - "#80787000"
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaForgeElectricCraft
+    node: done
   - type: Transform
     anchored: true
     noRot: true

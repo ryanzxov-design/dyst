@@ -13,9 +13,6 @@
   placement:
     mode: SnapgridCenter
   components:
-  - type: Construction   # крафт (gen_crafts.py)
-    graph: DystopiaHandCrusherCraft
-    node: done
   - type: DystopiaParticleEmitter   # частицы (gen_particles.py)
     emitters:
     # рудная пыль
@@ -37,6 +34,9 @@
       - "#8A7E6EA0"
       - "#8A7E6E50"
       - "#8A7E6E00"
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaHandCrusherCraft
+    node: done
   - type: Transform
     anchored: true
     noRot: true
@@ -120,9 +120,6 @@
   placement:
     mode: SnapgridCenter
   components:
-  - type: Construction   # крафт (gen_crafts.py)
-    graph: DystopiaJawCrusherCraft
-    node: done
   - type: DystopiaParticleEmitter   # частицы (gen_particles.py)
     emitters:
     # рудная пыль
@@ -144,6 +141,9 @@
       - "#8A7E6EA0"
       - "#8A7E6E50"
       - "#8A7E6E00"
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaJawCrusherCraft
+    node: done
   - type: Transform
     anchored: true
     noRot: true
@@ -238,9 +238,6 @@
   placement:
     mode: SnapgridCenter
   components:
-  - type: Construction   # крафт (gen_crafts.py)
-    graph: DystopiaConeCrusherCraft
-    node: done
   - type: DystopiaParticleEmitter   # частицы (gen_particles.py)
     emitters:
     # рудная пыль
@@ -262,6 +259,9 @@
       - "#8A7E6EA0"
       - "#8A7E6E50"
       - "#8A7E6E00"
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaConeCrusherCraft
+    node: done
   - type: Transform
     anchored: true
     noRot: true
@@ -364,9 +364,6 @@
   placement:
     mode: SnapgridCenter
   components:
-  - type: Construction   # крафт (gen_crafts.py)
-    graph: DystopiaHandMillCraft
-    node: done
   - type: DystopiaParticleEmitter   # частицы (gen_particles.py)
     emitters:
     # рудная пыль
@@ -388,6 +385,9 @@
       - "#A09484A0"
       - "#A0948450"
       - "#A0948400"
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaHandMillCraft
+    node: done
   - type: Transform
     anchored: true
     noRot: true
@@ -471,9 +471,6 @@
   placement:
     mode: SnapgridCenter
   components:
-  - type: Construction   # крафт (gen_crafts.py)
-    graph: DystopiaBallMillCraft
-    node: done
   - type: DystopiaParticleEmitter   # частицы (gen_particles.py)
     emitters:
     # рудная пыль
@@ -495,6 +492,9 @@
       - "#A09484A0"
       - "#A0948450"
       - "#A0948400"
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaBallMillCraft
+    node: done
   - type: Transform
     anchored: true
     noRot: true
@@ -589,9 +589,6 @@
   placement:
     mode: SnapgridCenter
   components:
-  - type: Construction   # крафт (gen_crafts.py)
-    graph: DystopiaBallMillLargeCraft
-    node: done
   - type: DystopiaParticleEmitter   # частицы (gen_particles.py)
     emitters:
     # рудная пыль
@@ -613,6 +610,9 @@
       - "#A09484A0"
       - "#A0948450"
       - "#A0948400"
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaBallMillLargeCraft
+    node: done
   - type: Transform
     anchored: true
     noRot: true
@@ -707,9 +707,6 @@
   placement:
     mode: SnapgridCenter
   components:
-  - type: Construction   # крафт (gen_crafts.py)
-    graph: DystopiaSluiceBoxCraft
-    node: done
   - type: DystopiaParticleEmitter   # частицы (gen_particles.py)
     emitters:
     # брызги воды
@@ -730,6 +727,9 @@
       - "#C8E4F0D0"
       - "#78BEE190"
       - "#3E6E9600"
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaSluiceBoxCraft
+    node: done
   - type: Transform
     anchored: true
     noRot: true
@@ -822,9 +822,6 @@
   placement:
     mode: SnapgridCenter
   components:
-  - type: Construction   # крафт (gen_crafts.py)
-    graph: DystopiaShakingTableCraft
-    node: done
   - type: DystopiaParticleEmitter   # частицы (gen_particles.py)
     emitters:
     # брызги воды
@@ -845,6 +842,9 @@
       - "#C8E4F0D0"
       - "#78BEE190"
       - "#3E6E9600"
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaShakingTableCraft
+    node: done
   - type: Transform
     anchored: true
     noRot: true
@@ -948,9 +948,6 @@
   placement:
     mode: SnapgridCenter
   components:
-  - type: Construction   # крафт (gen_crafts.py)
-    graph: DystopiaJigCraft
-    node: done
   - type: DystopiaParticleEmitter   # частицы (gen_particles.py)
     emitters:
     # брызги воды
@@ -971,6 +968,9 @@
       - "#C8E4F0D0"
       - "#78BEE190"
       - "#3E6E9600"
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaJigCraft
+    node: done
   - type: Transform
     anchored: true
     noRot: true

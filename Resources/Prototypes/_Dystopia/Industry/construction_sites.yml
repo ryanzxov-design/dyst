@@ -1,0 +1,1073 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: крафты производства (первый заход, без нефти). Предметы — в руки из меню. Постройки — по
+# призраку: первый ресурс (у сложных машин — чертёж) закладывает недострой, остальные ресурсы вставляют по
+# одному, последний превращает недострой в машину. Разборка ломом возвращает всё. Цены — crafts_table.py,
+# генератор gen_crafts.py.
+# Недострои: полупрозрачная картинка будущей постройки.
+
+- type: entity
+  id: DystopiaSiteForge
+  name: construction site
+  description: An unfinished machine. Examine it to see what goes in next.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _Dystopia/Structures/Industry/forge.rsi
+    state: base
+    color: "#FFFFFF80"
+    drawdepth: Objects
+    noRot: true
+  - type: Construction
+    graph: DystopiaForgeCraft
+    node: s1
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.35"
+        density: 1000
+        mask: [ TableMask ]
+        layer: [ TableLayer ]
+      itemcollide:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.35,-0.3,0.35,0.45"
+        layer: [ HighImpassable ]
+        hard: false
+
+- type: entity
+  id: DystopiaSiteBellows
+  name: construction site
+  description: An unfinished machine. Examine it to see what goes in next.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _Dystopia/Structures/Industry/bellows.rsi
+    state: bellows
+    color: "#FFFFFF80"
+    drawdepth: Objects
+    noRot: false
+  - type: Construction
+    graph: DystopiaBellowsCraft
+    node: s1
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.45,-0.3,0.45,0.2"
+        density: 60
+        mask: [ MachineMask ]
+        layer: [ MidImpassable, LowImpassable ]
+
+- type: entity
+  id: DystopiaSiteHandCrusher
+  name: construction site
+  description: An unfinished machine. Examine it to see what goes in next.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _Dystopia/Structures/Industry/hand_crusher.rsi
+    state: icon
+    color: "#FFFFFF80"
+    drawdepth: Objects
+    noRot: true
+  - type: Construction
+    graph: DystopiaHandCrusherCraft
+    node: s1
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.4,-0.45,0.4,0.3"
+        density: 200
+        mask: [ MachineMask ]
+        layer: [ MidImpassable, LowImpassable ]
+
+- type: entity
+  id: DystopiaSiteHandMill
+  name: construction site
+  description: An unfinished machine. Examine it to see what goes in next.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _Dystopia/Structures/Industry/hand_mill.rsi
+    state: icon
+    color: "#FFFFFF80"
+    drawdepth: Objects
+    noRot: true
+  - type: Construction
+    graph: DystopiaHandMillCraft
+    node: s1
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.4,-0.45,0.4,0.3"
+        density: 200
+        mask: [ MachineMask ]
+        layer: [ MidImpassable, LowImpassable ]
+
+- type: entity
+  id: DystopiaSiteHandRollingMill
+  name: construction site
+  description: An unfinished machine. Examine it to see what goes in next.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _Dystopia/Structures/Industry/hand_rolling_mill.rsi
+    state: icon
+    color: "#FFFFFF80"
+    drawdepth: Objects
+    noRot: true
+  - type: Construction
+    graph: DystopiaHandRollingMillCraft
+    node: s1
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.4,-0.45,0.4,0.3"
+        density: 200
+        mask: [ MachineMask ]
+        layer: [ MidImpassable, LowImpassable ]
+
+- type: entity
+  id: DystopiaSiteHandWireDrawBench
+  name: construction site
+  description: An unfinished machine. Examine it to see what goes in next.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _Dystopia/Structures/Industry/hand_wire_bench.rsi
+    state: icon
+    color: "#FFFFFF80"
+    drawdepth: Objects
+    noRot: true
+  - type: Construction
+    graph: DystopiaHandWireDrawBenchCraft
+    node: s1
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.4,-0.45,0.4,0.3"
+        density: 200
+        mask: [ MachineMask ]
+        layer: [ MidImpassable, LowImpassable ]
+
+- type: entity
+  id: DystopiaSiteHandBrickPress
+  name: construction site
+  description: An unfinished machine. Examine it to see what goes in next.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _Dystopia/Structures/Industry/hand_brick_press.rsi
+    state: icon
+    color: "#FFFFFF80"
+    drawdepth: Objects
+    noRot: true
+  - type: Construction
+    graph: DystopiaHandBrickPressCraft
+    node: s1
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.4,-0.45,0.4,0.3"
+        density: 200
+        mask: [ MachineMask ]
+        layer: [ MidImpassable, LowImpassable ]
+
+- type: entity
+  id: DystopiaSiteRoastingFurnace
+  name: construction site
+  description: An unfinished machine. Examine it to see what goes in next.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _Dystopia/Structures/Industry/roasting_furnace.rsi
+    state: icon
+    color: "#FFFFFF80"
+    drawdepth: Objects
+    noRot: true
+  - type: Construction
+    graph: DystopiaRoastingFurnaceCraft
+    node: s1
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.45"
+        density: 250
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]
+
+- type: entity
+  id: DystopiaSiteCokeOven
+  name: construction site
+  description: An unfinished machine. Examine it to see what goes in next.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _Dystopia/Structures/Industry/coke_oven.rsi
+    state: icon
+    color: "#FFFFFF80"
+    drawdepth: Objects
+    noRot: true
+  - type: Construction
+    graph: DystopiaCokeOvenCraft
+    node: s1
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.45"
+        density: 250
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]
+
+- type: entity
+  id: DystopiaSiteContactApparatus
+  name: construction site
+  description: An unfinished machine. Examine it to see what goes in next.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _Dystopia/Structures/Industry/contact_apparatus.rsi
+    state: icon
+    color: "#FFFFFF80"
+    drawdepth: Objects
+    noRot: true
+  - type: Construction
+    graph: DystopiaContactApparatusCraft
+    node: s1
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.45"
+        density: 250
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]
+
+- type: entity
+  id: DystopiaSiteLeachingTank
+  name: construction site
+  description: An unfinished machine. Examine it to see what goes in next.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _Dystopia/Structures/Industry/leaching_tank.rsi
+    state: icon
+    color: "#FFFFFF80"
+    drawdepth: Objects
+    noRot: true
+  - type: Construction
+    graph: DystopiaLeachingTankCraft
+    node: s1
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.45"
+        density: 250
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]
+
+- type: entity
+  id: DystopiaSiteElectrolyzer
+  name: construction site
+  description: An unfinished machine. Examine it to see what goes in next.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _Dystopia/Structures/Industry/electrolyzer.rsi
+    state: icon
+    color: "#FFFFFF80"
+    drawdepth: Objects
+    noRot: true
+  - type: Construction
+    graph: DystopiaElectrolyzerCraft
+    node: s1
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.45"
+        density: 250
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]
+
+- type: entity
+  id: DystopiaSiteArcFurnace
+  name: construction site
+  description: An unfinished machine. Examine it to see what goes in next.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _Dystopia/Structures/Industry/arc_furnace.rsi
+    state: base
+    color: "#FFFFFF80"
+    drawdepth: Objects
+    noRot: true
+  - type: Construction
+    graph: DystopiaArcFurnaceCraft
+    node: s1
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-1.45,-1.45,1.45,1.45"
+        density: 3000
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]
+
+- type: entity
+  id: DystopiaSiteJawCrusher
+  name: construction site
+  description: An unfinished machine. Examine it to see what goes in next.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _Dystopia/Structures/Industry/jaw_crusher.rsi
+    state: icon
+    color: "#FFFFFF80"
+    drawdepth: Objects
+    noRot: true
+  - type: Construction
+    graph: DystopiaJawCrusherCraft
+    node: s1
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.45"
+        density: 250
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]
+
+- type: entity
+  id: DystopiaSiteBallMill
+  name: construction site
+  description: An unfinished machine. Examine it to see what goes in next.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _Dystopia/Structures/Industry/ball_mill.rsi
+    state: icon
+    color: "#FFFFFF80"
+    drawdepth: Objects
+    noRot: true
+  - type: Construction
+    graph: DystopiaBallMillCraft
+    node: s1
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.45"
+        density: 250
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]
+
+- type: entity
+  id: DystopiaSiteShakingTable
+  name: construction site
+  description: An unfinished machine. Examine it to see what goes in next.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _Dystopia/Structures/Industry/shaking_table.rsi
+    state: icon
+    color: "#FFFFFF80"
+    drawdepth: Objects
+    noRot: true
+  - type: Construction
+    graph: DystopiaShakingTableCraft
+    node: s1
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.45"
+        density: 250
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]
+
+- type: entity
+  id: DystopiaSiteRollingMill
+  name: construction site
+  description: An unfinished machine. Examine it to see what goes in next.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _Dystopia/Structures/Industry/rolling_mill.rsi
+    state: icon
+    color: "#FFFFFF80"
+    drawdepth: Objects
+    noRot: true
+  - type: Construction
+    graph: DystopiaRollingMillCraft
+    node: s1
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.45"
+        density: 250
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]
+
+- type: entity
+  id: DystopiaSiteWireDrawingMachine
+  name: construction site
+  description: An unfinished machine. Examine it to see what goes in next.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _Dystopia/Structures/Industry/wire_drawing_machine.rsi
+    state: icon
+    color: "#FFFFFF80"
+    drawdepth: Objects
+    noRot: true
+  - type: Construction
+    graph: DystopiaWireDrawingMachineCraft
+    node: s1
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.45"
+        density: 250
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]
+
+- type: entity
+  id: DystopiaSiteBrickPress
+  name: construction site
+  description: An unfinished machine. Examine it to see what goes in next.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _Dystopia/Structures/Industry/brick_press.rsi
+    state: icon
+    color: "#FFFFFF80"
+    drawdepth: Objects
+    noRot: true
+  - type: Construction
+    graph: DystopiaBrickPressCraft
+    node: s1
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.45"
+        density: 250
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]
+
+- type: entity
+  id: DystopiaSiteConcreteMixer
+  name: construction site
+  description: An unfinished machine. Examine it to see what goes in next.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _Dystopia/Structures/Industry/concrete_mixer.rsi
+    state: icon
+    color: "#FFFFFF80"
+    drawdepth: Objects
+    noRot: true
+  - type: Construction
+    graph: DystopiaConcreteMixerCraft
+    node: s1
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.45"
+        density: 250
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]
+
+- type: entity
+  id: DystopiaSiteConeCrusher
+  name: construction site
+  description: An unfinished machine. Examine it to see what goes in next.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _Dystopia/Structures/Industry/cone_crusher.rsi
+    state: icon
+    color: "#FFFFFF80"
+    drawdepth: Objects
+    noRot: true
+  - type: Construction
+    graph: DystopiaConeCrusherCraft
+    node: s1
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.45"
+        density: 250
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]
+
+- type: entity
+  id: DystopiaSiteBallMillLarge
+  name: construction site
+  description: An unfinished machine. Examine it to see what goes in next.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _Dystopia/Structures/Industry/ball_mill_large.rsi
+    state: icon
+    color: "#FFFFFF80"
+    drawdepth: Objects
+    noRot: true
+  - type: Construction
+    graph: DystopiaBallMillLargeCraft
+    node: s1
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.45"
+        density: 250
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]
+
+- type: entity
+  id: DystopiaSiteJig
+  name: construction site
+  description: An unfinished machine. Examine it to see what goes in next.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _Dystopia/Structures/Industry/jig.rsi
+    state: icon
+    color: "#FFFFFF80"
+    drawdepth: Objects
+    noRot: true
+  - type: Construction
+    graph: DystopiaJigCraft
+    node: s1
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.45"
+        density: 250
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]
+
+- type: entity
+  id: DystopiaSiteFlotationCell
+  name: construction site
+  description: An unfinished machine. Examine it to see what goes in next.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _Dystopia/Structures/Industry/flotation_cell.rsi
+    state: icon
+    color: "#FFFFFF80"
+    drawdepth: Objects
+    noRot: true
+  - type: Construction
+    graph: DystopiaFlotationCellCraft
+    node: s1
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.45"
+        density: 250
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]
+
+- type: entity
+  id: DystopiaSiteFlotationBank
+  name: construction site
+  description: An unfinished machine. Examine it to see what goes in next.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _Dystopia/Structures/Industry/flotation_bank.rsi
+    state: icon
+    color: "#FFFFFF80"
+    drawdepth: Objects
+    noRot: true
+  - type: Construction
+    graph: DystopiaFlotationBankCraft
+    node: s1
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.45"
+        density: 250
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]
+
+- type: entity
+  id: DystopiaSiteMagneticSeparator
+  name: construction site
+  description: An unfinished machine. Examine it to see what goes in next.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _Dystopia/Structures/Industry/magnetic_separator.rsi
+    state: icon
+    color: "#FFFFFF80"
+    drawdepth: Objects
+    noRot: true
+  - type: Construction
+    graph: DystopiaMagneticSeparatorCraft
+    node: s1
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.45"
+        density: 250
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]
+
+- type: entity
+  id: DystopiaSiteAmalgamator
+  name: construction site
+  description: An unfinished machine. Examine it to see what goes in next.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _Dystopia/Structures/Industry/amalgamator.rsi
+    state: icon
+    color: "#FFFFFF80"
+    drawdepth: Objects
+    noRot: true
+  - type: Construction
+    graph: DystopiaAmalgamatorCraft
+    node: s1
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.45"
+        density: 250
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]
+
+- type: entity
+  id: DystopiaSiteLiquidPump
+  name: construction site
+  description: An unfinished machine. Examine it to see what goes in next.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _Dystopia/Structures/Piping/liquid_pipe.rsi
+    state: pipeStraight
+    color: "#FFFFFF80"
+    drawdepth: ThinPipe
+    noRot: false
+  - type: Construction
+    graph: DystopiaLiquidPumpCraft
+    node: s1
+  - type: Physics
+    canCollide: false
+    bodyType: static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+
+- type: entity
+  id: DystopiaSiteLiquidPort
+  name: construction site
+  description: An unfinished machine. Examine it to see what goes in next.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _Dystopia/Structures/Piping/liquid_pipe.rsi
+    state: pipeUnaryConnectors
+    color: "#FFFFFF80"
+    drawdepth: ThinPipe
+    noRot: false
+  - type: Construction
+    graph: DystopiaLiquidPortCraft
+    node: s1
+  - type: Physics
+    canCollide: false
+    bodyType: static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+
+- type: entity
+  id: DystopiaSiteLiquidExporter
+  name: construction site
+  description: An unfinished machine. Examine it to see what goes in next.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _Dystopia/Structures/Piping/liquid_pipe.rsi
+    state: pipeStraight
+    color: "#FFFFFF80"
+    drawdepth: ThinPipe
+    noRot: false
+  - type: Construction
+    graph: DystopiaLiquidExporterCraft
+    node: s1
+  - type: Physics
+    canCollide: false
+    bodyType: static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+
+- type: entity
+  id: DystopiaSiteLiquidImporter
+  name: construction site
+  description: An unfinished machine. Examine it to see what goes in next.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _Dystopia/Structures/Piping/liquid_pipe.rsi
+    state: pipeStraight
+    color: "#FFFFFF80"
+    drawdepth: ThinPipe
+    noRot: false
+  - type: Construction
+    graph: DystopiaLiquidImporterCraft
+    node: s1
+  - type: Physics
+    canCollide: false
+    bodyType: static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+
+- type: entity
+  id: DystopiaSiteConveyorExtractor
+  name: construction site
+  description: An unfinished machine. Examine it to see what goes in next.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _Dystopia/Structures/Industry/conveyor_extractor.rsi
+    state: icon
+    color: "#FFFFFF80"
+    drawdepth: Objects
+    noRot: false
+  - type: Construction
+    graph: DystopiaConveyorExtractorCraft
+    node: s1
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.35,-0.35,0.35,0.35"
+        density: 100
+        mask: [ TableMask ]
+        layer: [ TableLayer ]
+
+- type: entity
+  id: DystopiaSiteConveyorInserter
+  name: construction site
+  description: An unfinished machine. Examine it to see what goes in next.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _Dystopia/Structures/Industry/conveyor_inserter.rsi
+    state: icon
+    color: "#FFFFFF80"
+    drawdepth: Objects
+    noRot: false
+  - type: Construction
+    graph: DystopiaConveyorInserterCraft
+    node: s1
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.35,-0.35,0.35,0.35"
+        density: 100
+        mask: [ TableMask ]
+        layer: [ TableLayer ]
+
+- type: entity
+  id: DystopiaSiteConveyorSorter
+  name: construction site
+  description: An unfinished machine. Examine it to see what goes in next.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _Dystopia/Structures/Industry/conveyor_sorter.rsi
+    state: icon
+    color: "#FFFFFF80"
+    drawdepth: Objects
+    noRot: false
+  - type: Construction
+    graph: DystopiaConveyorSorterCraft
+    node: s1
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.35,-0.35,0.35,0.35"
+        density: 100
+        mask: [ TableMask ]
+        layer: [ TableLayer ]

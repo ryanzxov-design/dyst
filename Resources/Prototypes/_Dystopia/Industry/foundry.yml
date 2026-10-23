@@ -13,9 +13,6 @@
   placement:
     mode: SnapgridCenter
   components:
-  - type: Construction   # крафт (gen_crafts.py)
-    graph: DystopiaForgeCraft
-    node: done
   - type: DystopiaParticleEmitter   # частицы (gen_particles.py)
     emitters:
     # языки пламени в топке
@@ -97,6 +94,9 @@
       - "#FFB040E0"
       - "#E0601A80"
       - "#80200000"
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaForgeCraft
+    node: done
   - type: Transform
     anchored: true
     noRot: true
@@ -274,9 +274,6 @@
   name: small crucible
   description: A fireclay pot for melting ore and scrap. Hot ones are handled with tongs only.
   components:
-  - type: Construction   # крафт (gen_crafts.py)
-    graph: DystopiaCrucibleSmallCraft
-    node: done
   - type: DystopiaParticleEmitter   # частицы (gen_particles.py)
     emitters:
     # дымок над раскалённым
@@ -317,6 +314,9 @@
       - "#FFB050C0"
       - "#E0602080"
       - "#80200000"
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaCrucibleSmallCraft
+    node: done
   - type: Solution
     id: crucible
     solution:
@@ -527,9 +527,6 @@
   name: ingot mould
   description: A cast-iron mould for one ingot.
   components:
-  - type: Construction   # крафт (gen_crafts.py)
-    graph: DystopiaMouldIngotCraft
-    node: done
   - type: DystopiaParticleEmitter   # частицы (gen_particles.py)
     emitters:
     # дымок над раскалённым
@@ -570,6 +567,9 @@
       - "#FFB050C0"
       - "#E0602080"
       - "#80200000"
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaMouldIngotCraft
+    node: done
   - type: Solution
     id: mould
     solution:
@@ -669,9 +669,6 @@
   name: sheet mould
   description: A cast-iron mould for one plate.
   components:
-  - type: Construction   # крафт (gen_crafts.py)
-    graph: DystopiaMouldSheetCraft
-    node: done
   - type: DystopiaParticleEmitter   # частицы (gen_particles.py)
     emitters:
     # дымок над раскалённым
@@ -712,6 +709,9 @@
       - "#FFB050C0"
       - "#E0602080"
       - "#80200000"
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaMouldSheetCraft
+    node: done
   - type: Solution
     id: mould
     solution:
@@ -811,9 +811,6 @@
   name: rod mould
   description: "A cast-iron mould with two channels: two rods per pour."
   components:
-  - type: Construction   # крафт (gen_crafts.py)
-    graph: DystopiaMouldRodCraft
-    node: done
   - type: DystopiaParticleEmitter   # частицы (gen_particles.py)
     emitters:
     # дымок над раскалённым
@@ -854,6 +851,9 @@
       - "#FFB050C0"
       - "#E0602080"
       - "#80200000"
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaMouldRodCraft
+    node: done
   - type: Solution
     id: mould
     solution:

@@ -10,9 +10,6 @@
   placement:
     mode: SnapgridCenter
   components:
-  - type: Construction   # крафт (gen_crafts.py)
-    graph: DystopiaArcFurnaceCraft
-    node: done
   - type: DystopiaParticleEmitter   # частицы (gen_particles.py)
     emitters:
     # вспышки дуги
@@ -92,6 +89,9 @@
       - "#B0AAA050"
       - "#90898020"
       - "#80787000"
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaArcFurnaceCraft
+    node: done
   - type: Transform
     anchored: true
     noRot: true

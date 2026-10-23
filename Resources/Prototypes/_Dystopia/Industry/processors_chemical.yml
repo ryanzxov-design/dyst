@@ -15,9 +15,6 @@
   placement:
     mode: SnapgridCenter
   components:
-  - type: Construction   # крафт (gen_crafts.py)
-    graph: DystopiaRoastingFurnaceCraft
-    node: done
   - type: DystopiaParticleEmitter   # частицы (gen_particles.py)
     emitters:
     # дым
@@ -58,6 +55,9 @@
       - "#FFD27AFF"
       - "#FF8A2AC8"
       - "#C0401A00"
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaRoastingFurnaceCraft
+    node: done
   - type: Transform
     anchored: true
     noRot: true
@@ -162,9 +162,6 @@
   placement:
     mode: SnapgridCenter
   components:
-  - type: Construction   # крафт (gen_crafts.py)
-    graph: DystopiaLeachingTankCraft
-    node: done
   - type: DystopiaParticleEmitter   # частицы (gen_particles.py)
     emitters:
     # кислотные пары
@@ -186,6 +183,9 @@
       - "#A8D0B050"
       - "#7AA08A20"
       - "#5A806A00"
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaLeachingTankCraft
+    node: done
   - type: Transform
     anchored: true
     noRot: true
@@ -295,9 +295,6 @@
   placement:
     mode: SnapgridCenter
   components:
-  - type: Construction   # крафт (gen_crafts.py)
-    graph: DystopiaElectrolyzerCraft
-    node: done
   - type: DystopiaParticleEmitter   # частицы (gen_particles.py)
     emitters:
     # искрение на анодах
@@ -338,6 +335,9 @@
       - "#6A6A7070"
       - "#6A6A7040"
       - "#6A6A7000"
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaElectrolyzerCraft
+    node: done
   - type: Transform
     anchored: true
     noRot: true
