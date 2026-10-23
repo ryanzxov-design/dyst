@@ -1,0 +1,11 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: нефтяные выходы на поверхности (по свободной земле, не в породе). Частота — maxCount групп на
+# участок 128×128 клеток. Генератор gen_oil.py; в тестовую карту вписывает gen_ore_layers.py.
+
+- type: biomeMarkerLayer
+  id: DystopiaOilSeeps
+  prototype: DystopiaOilSeep
+  maxCount: 3
+  minGroupSize: 1
+  maxGroupSize: 3
+  radius: 6

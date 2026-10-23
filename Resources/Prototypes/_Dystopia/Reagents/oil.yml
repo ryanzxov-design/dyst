@@ -1,0 +1,28 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: нефть — реагенты. Генератор gen_oil.py.
+
+- type: reagent
+  id: DystopiaCrudeOil
+  name: reagent-name-dystopia-crude-oil
+  group: Industrial
+  desc: reagent-desc-dystopia-crude-oil
+  physicalDesc: reagent-physical-desc-viscous
+  flavor: bitter
+  color: "#2a1d12"
+  boilingPoint: 350.0   # фракции кипят от 30 до 600 °C — берём середину
+  meltingPoint: -30.0
+  evaporationSpeed: 0.05   # тяжёлая: лужа почти не сохнет
+  friction: 0.5
+  slipData:
+    requiredSlipSpeed: 4
+  tileReactions:
+  - !type:FlammableTileReaction {}
+  metabolisms:
+    Bloodstream:
+      effects:
+      - !type:HealthChange
+        damage:
+          types:
+            Poison: 1
+      - !type:Flammable
+        multiplier: 0.2

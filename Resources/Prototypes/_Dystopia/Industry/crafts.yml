@@ -4359,15 +4359,201 @@
       - !type:SpawnPrototype
         prototype: DystopiaConcreteBlock1
         amount: 4
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 8
+      - tool: Welding
+        doAfter: 10
+      - tool: Prying
+        doAfter: 8
+
+- type: constructionGraph
+  id: DystopiaWallReinforcedConcreteCraft
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: s1
+      steps:
+      - material: WoodPlank
+        amount: 4
+        doAfter: 3.5
+
+  - node: s1
+    entity: DystopiaSiteWallReinforcedConcrete
+    edges:
+    - to: s2
+      steps:
+      - material: MetalRod
+        amount: 4
+        doAfter: 3.5
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: MaterialWoodPlank1
+        amount: 4
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: s2
+    entity: DystopiaSiteWallReinforcedConcrete
+    edges:
+    - to: s3
+      steps:
+      - material: MetalRod
+        amount: 4
+        doAfter: 3.5
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: MaterialWoodPlank1
+        amount: 4
+      - !type:SpawnPrototype
+        prototype: PartRodMetal1
+        amount: 4
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: s3
+    entity: DystopiaSiteWallReinforcedConcrete
+    edges:
+    - to: s4
+      steps:
+      - material: Steel
+        amount: 2
+        doAfter: 3.5
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: MaterialWoodPlank1
+        amount: 4
+      - !type:SpawnPrototype
+        prototype: PartRodMetal1
+        amount: 8
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: s4
+    entity: DystopiaSiteWallReinforcedConcrete
+    edges:
+    - to: s5
+      steps:
+      - material: DystopiaConcreteBlock
+        amount: 4
+        doAfter: 3.5
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: MaterialWoodPlank1
+        amount: 4
+      - !type:SpawnPrototype
+        prototype: PartRodMetal1
+        amount: 8
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 2
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: s5
+    entity: DystopiaSiteWallReinforcedConcrete
+    edges:
+    - to: s6
+      steps:
+      - material: DystopiaConcreteBlock
+        amount: 4
+        doAfter: 3.5
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: MaterialWoodPlank1
+        amount: 4
+      - !type:SpawnPrototype
+        prototype: PartRodMetal1
+        amount: 8
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 2
+      - !type:SpawnPrototype
+        prototype: DystopiaConcreteBlock1
+        amount: 4
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: s6
+    entity: DystopiaSiteWallReinforcedConcrete
+    edges:
+    - to: s7
+      steps:
+      - material: DystopiaCement
+        amount: 1
+        doAfter: 3.5
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: MaterialWoodPlank1
+        amount: 4
+      - !type:SpawnPrototype
+        prototype: PartRodMetal1
+        amount: 8
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 2
+      - !type:SpawnPrototype
+        prototype: DystopiaConcreteBlock1
+        amount: 8
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: s7
+    entity: DystopiaSiteWallReinforcedConcrete
+    edges:
+    - to: done
+      completed:
+      - !type:GivePrototype
+        prototype: MaterialWoodPlank1
+        amount: 4
+      steps:
+      - material: DystopiaCement
+        amount: 1
+        doAfter: 3.5
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: MaterialWoodPlank1
+        amount: 4
+      - !type:SpawnPrototype
+        prototype: PartRodMetal1
+        amount: 8
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 2
+      - !type:SpawnPrototype
+        prototype: DystopiaConcreteBlock1
+        amount: 8
       - !type:SpawnPrototype
         prototype: DystopiaCement1
         amount: 1
       - !type:DeleteEntity
       steps:
-      - tool: Welding
-        doAfter: 4
       - tool: Prying
-        doAfter: 4
+        doAfter: 2
+
+  - node: done
+    entity: DystopiaWallReinforcedConcrete
 
 - type: constructionGraph
   id: DystopiaForgeElectricCraft
@@ -5189,6 +5375,19 @@
 - type: construction
   id: WallConcreteCraft
   graph: WallConcreteCraft
+  startNode: start
+  targetNode: done
+  category: construction-category-dystopia-walls
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: false
+  canBuildInImpassable: false
+  conditions:
+  - !type:TileNotBlocked
+
+- type: construction
+  id: DystopiaWallReinforcedConcreteCraft
+  graph: DystopiaWallReinforcedConcreteCraft
   startNode: start
   targetNode: done
   category: construction-category-dystopia-walls

@@ -46,6 +46,7 @@
           - DystopiaOreSylvite
           - DystopiaOreSpodumene
           - DystopiaOreCinnabar
+          - DystopiaOilSeeps
         - type: StationJobs
           availableJobs:
             # Администрация

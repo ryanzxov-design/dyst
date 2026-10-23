@@ -15,3 +15,10 @@ dystopia-liquid-turn-on = Switch on
 dystopia-liquid-turn-off = Switch off
 dystopia-liquid-turned-on = Switched on.
 dystopia-liquid-turned-off = Switched off.
+
+# oil seep and pumpjack (Extractor)
+dystopia-liquid-source-rich = [color=#c8a060]Oil wells up thickly: a rich reserve.[/color]
+dystopia-liquid-source-fair = [color=#a08a60]There is still a fair amount of oil.[/color]
+dystopia-liquid-source-poor = [color=#8a7a6a]Oil barely seeps: the reserve is running out.[/color]
+dystopia-liquid-source-depleted = [color=#7a7a7a]Depleted: only a dried crust remains.[/color]
+dystopia-liquid-source-none = [color=#e05050]There is no oil seep under the pumpjack.[/color]

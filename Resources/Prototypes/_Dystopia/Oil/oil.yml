@@ -1,0 +1,127 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: нефть — нефтяной выход и станок-качалка. Генератор gen_oil.py.
+
+- type: entity
+  id: DystopiaOilSeep
+  name: oil seep
+  description: Crude oil oozes up through the ground here. Put a pumpjack on top of it.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+  - type: Clickable
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.45"
+        hard: false   # по нему ходят, на него ставят качалку
+  - type: Sprite
+    sprite: _Dystopia/Structures/Oil/oil_seep.rsi
+    drawdepth: FloorObjects
+    layers:
+    - state: seep
+      map: [ "enum.DystopiaLiquidSourceVisuals.Depleted" ]
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DystopiaLiquidSourceVisuals.Depleted:
+        enum.DystopiaLiquidSourceVisuals.Depleted:
+          True: { state: dry }
+          False: { state: seep }
+  - type: DystopiaLiquidSource
+    reagent: DystopiaCrudeOil
+    minAmount: 4000
+    maxAmount: 10000
+
+- type: entity
+  id: DystopiaPumpjack
+  name: pumpjack
+  description: A nodding beam over a well. Set it right on an oil seep, connect a liquid pipe and power, switch it on.
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.45"
+        density: 300
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]
+  - type: Pullable
+  - type: Anchorable
+    delay: 3
+  - type: Tag
+    tags: [ Structure ]
+  - type: Sprite
+    sprite: _Dystopia/Structures/Industry/pumpjack.rsi
+    noRot: true
+    drawdepth: Objects
+    layers:
+    - state: icon
+      map: [ "enabled" ]
+    - state: unlit
+      map: [ "enum.PowerDeviceVisualLayers.Powered" ]
+      shader: unshaded
+      visible: false
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DystopiaLiquidVisuals.Working:
+        enabled:
+          True: { state: running }
+          False: { state: icon }
+      enum.PowerDeviceVisuals.Powered:
+        enum.PowerDeviceVisualLayers.Powered:
+          True: { visible: true }
+          False: { visible: false }
+  - type: NodeContainer
+    nodes:
+      pipe:
+        !type:DystopiaLiquidPipeNode
+        nodeGroupID: DystopiaLiquid
+        pipeDirection: Fourway   # труба подводится с любой стороны
+        volume: 10
+  - type: DystopiaLiquidDevice
+    mode: Extractor
+    rate: 5
+    inlet: pipe
+    requirePower: true
+    toggleable: true
+    on: false
+  - type: ApcPowerReceiver
+    powerLoad: 2000
+  - type: ExtensionCableReceiver
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 250
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 3
+            max: 5
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: StaticPrice
+    price: 400

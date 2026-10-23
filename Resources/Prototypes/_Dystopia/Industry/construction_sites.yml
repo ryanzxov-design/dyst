@@ -1164,3 +1164,34 @@
         density: 1000
         mask: [ FullTileMask ]
         layer: [ WallLayer ]
+
+- type: entity
+  id: DystopiaSiteWallReinforcedConcrete
+  name: construction site
+  description: Unfinished construction. Examine it to see what goes in next.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _Dystopia/Structures/Walls/reinforced_concrete.rsi
+    state: full
+    color: "#FFFFFF80"
+    drawdepth: Walls
+    noRot: true
+  - type: Construction
+    graph: DystopiaWallReinforcedConcreteCraft
+    node: s1
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        density: 1000
+        mask: [ FullTileMask ]
+        layer: [ WallLayer ]

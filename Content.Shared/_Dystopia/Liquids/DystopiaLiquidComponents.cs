@@ -1,8 +1,12 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 // Dystopia: жидкостные трубы и устройства. Трубы держат общий раствор сети; на трубе — отсечки цвета смеси.
 // Устройства: порт (выравнивает сеть с цистерной на своей клетке), насос (из сети в сеть), экспортер (из сети в объект
-// впереди) и импортер (из объекта позади — в сеть).
+// впереди) и импортер (из объекта позади — в сеть). Качалка (Extractor) — из природного источника на своей клетке
+// (нефтяной выход) в сеть.
 
+using Content.Shared.Chemistry.Reagent;
+using Content.Shared.FixedPoint;
+using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 
 namespace Content.Shared._Dystopia.Liquids;
@@ -48,6 +52,9 @@ public enum DystopiaLiquidDeviceMode : byte
 
     /// <summary>Из объекта на клетке <see cref="DystopiaLiquidDeviceComponent.TargetSide"/> в сеть.</summary>
     Importer,
+
+    /// <summary>Из природного источника (<see cref="DystopiaLiquidSourceComponent"/>) на своей клетке в сеть.</summary>
+    Extractor,
 }
 
 [RegisterComponent]
@@ -92,6 +99,46 @@ public sealed partial class DystopiaLiquidDeviceComponent : Component
 
     [ViewVariables]
     public TimeSpan NextUpdate;
+}
+
+/// <summary>
+/// Природный источник жидкости (нефтяной выход): запас одного реагента, который выкачивает качалка, стоящая на нём.
+/// Запас конечен; иссякший источник остаётся на месте, но больше ничего не даёт.
+/// </summary>
+[RegisterComponent]
+public sealed partial class DystopiaLiquidSourceComponent : Component
+{
+    [DataField(required: true)]
+    public ProtoId<ReagentPrototype> Reagent;
+
+    /// <summary>Начальный запас — случайно между Min и Max (при появлении в мире).</summary>
+    [DataField]
+    public float MinAmount = 3000f;
+
+    [DataField]
+    public float MaxAmount = 6000f;
+
+    /// <summary>Сколько осталось.</summary>
+    [DataField]
+    public FixedPoint2 Amount;
+
+    /// <summary>Начальный запас — для оценки при осмотре.</summary>
+    [DataField]
+    public FixedPoint2 Initial;
+
+    /// <summary>Пороги оценки запаса при осмотре (доля начального): выше первого — богатый, выше второго — средний.</summary>
+    [DataField]
+    public float RichFraction = 0.66f;
+
+    [DataField]
+    public float FairFraction = 0.33f;
+}
+
+[Serializable, NetSerializable]
+public enum DystopiaLiquidSourceVisuals : byte
+{
+    /// <summary>Источник иссяк.</summary>
+    Depleted,
 }
 
 [Serializable, NetSerializable]

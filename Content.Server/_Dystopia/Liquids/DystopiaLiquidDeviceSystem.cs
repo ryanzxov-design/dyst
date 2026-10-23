@@ -5,6 +5,7 @@
 // Экспортер — из сети в объект: литейный стол и изложницы берут только охладители и только горячими (закалка),
 // машины с баком — только реагенты своих рецептов, цистерны — всё; тигли, горны и дуговая печь — ничего.
 // Импортер — из объекта в сеть: цистерны и баки машин; литейное оборудование — нет.
+// Качалка (Extractor) — из природного источника на своей клетке (нефтяной выход) в сеть; источник конечен.
 
 using Content.Server._Dystopia.Industry;
 using Content.Server.Power.EntitySystems;
@@ -19,6 +20,7 @@ using Content.Shared.Popups;
 using Content.Shared.Verbs;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Random;
 using Robust.Shared.Timing;
 
 namespace Content.Server._Dystopia.Liquids;
@@ -36,12 +38,15 @@ public sealed partial class DystopiaLiquidDeviceSystem : EntitySystem
     [Dependency] private DystopiaLiquidSystem _liquid = default!;
     [Dependency] private DystopiaQuenchSystem _quench = default!;
     [Dependency] private DystopiaProcessorSystem _processor = default!;
+    [Dependency] private IRobustRandom _random = default!;
 
     public override void Initialize()
     {
         base.Initialize();
         SubscribeLocalEvent<DystopiaLiquidDeviceComponent, GetVerbsEvent<AlternativeVerb>>(OnGetVerbs);
         SubscribeLocalEvent<DystopiaLiquidDeviceComponent, ExaminedEvent>(OnExamined);
+        SubscribeLocalEvent<DystopiaLiquidSourceComponent, MapInitEvent>(OnSourceMapInit);
+        SubscribeLocalEvent<DystopiaLiquidSourceComponent, ExaminedEvent>(OnSourceExamined);
     }
 
     // ------------------------------------------------------------------ работа
@@ -124,9 +129,72 @@ public sealed partial class DystopiaLiquidDeviceSystem : EntitySystem
 
                 return FixedPoint2.Zero;
             }
+
+            case DystopiaLiquidDeviceMode.Extractor:
+            {
+                return GetSource(ent, xform) is { } source ? Extract(source, net.Solution, max) : FixedPoint2.Zero;
+            }
         }
 
         return FixedPoint2.Zero;
+    }
+
+    // ------------------------------------------------------------------ природные источники
+
+    private void OnSourceMapInit(Entity<DystopiaLiquidSourceComponent> ent, ref MapInitEvent args)
+    {
+        // Запас, заданный в прототипе или на карте, не трогаем.
+        if (ent.Comp.Initial <= FixedPoint2.Zero)
+        {
+            ent.Comp.Initial = FixedPoint2.New(_random.NextFloat(ent.Comp.MinAmount, ent.Comp.MaxAmount));
+            ent.Comp.Amount = ent.Comp.Initial;
+        }
+
+        _appearance.SetData(ent, DystopiaLiquidSourceVisuals.Depleted, ent.Comp.Amount <= FixedPoint2.Zero);
+    }
+
+    /// <summary>Источник на клетке устройства (качалка ставится прямо на него).</summary>
+    private Entity<DystopiaLiquidSourceComponent>? GetSource(EntityUid uid, TransformComponent xform)
+    {
+        foreach (var target in Targets(uid, xform, Direction.Invalid))
+        {
+            if (TryComp<DystopiaLiquidSourceComponent>(target, out var source))
+                return (target, source);
+        }
+
+        return null;
+    }
+
+    private FixedPoint2 Extract(Entity<DystopiaLiquidSourceComponent> source, Solution net, FixedPoint2 max)
+    {
+        var amount = FixedPoint2.Min(max, FixedPoint2.Min(source.Comp.Amount, net.AvailableVolume));
+        if (amount <= FixedPoint2.Zero)
+            return FixedPoint2.Zero;
+
+        net.AddReagent(new ReagentId(source.Comp.Reagent, null), amount);
+        source.Comp.Amount -= amount;
+        if (source.Comp.Amount <= FixedPoint2.Zero)
+            _appearance.SetData(source, DystopiaLiquidSourceVisuals.Depleted, true);
+
+        return amount;
+    }
+
+    /// <summary>Оценка запаса — на глаз, без чисел: богатый, средний, скудный, иссяк.</summary>
+    private string SourceReserve(DystopiaLiquidSourceComponent source)
+    {
+        if (source.Amount <= FixedPoint2.Zero)
+            return Loc.GetString("dystopia-liquid-source-depleted");
+
+        var fraction = source.Initial > FixedPoint2.Zero ? (source.Amount / source.Initial).Float() : 1f;
+        return Loc.GetString(fraction > source.RichFraction ? "dystopia-liquid-source-rich"
+            : fraction > source.FairFraction ? "dystopia-liquid-source-fair"
+            : "dystopia-liquid-source-poor");
+    }
+
+    private void OnSourceExamined(Entity<DystopiaLiquidSourceComponent> ent, ref ExaminedEvent args)
+    {
+        if (args.IsInDetailsRange)
+            args.PushMarkup(SourceReserve(ent.Comp));
     }
 
     /// <summary>
@@ -317,6 +385,12 @@ public sealed partial class DystopiaLiquidDeviceSystem : EntitySystem
             args.PushMarkup(Loc.GetString("dystopia-liquid-examine-outlet"), 3);
             _liquid.PushNetInfo(args, _liquid.GetNet(ent, ent.Comp.Outlet), 2);
             return;
+        }
+
+        if (ent.Comp.Mode == DystopiaLiquidDeviceMode.Extractor)
+        {
+            var source = GetSource(ent, Transform(ent));
+            args.PushMarkup(source is { } s ? SourceReserve(s.Comp) : Loc.GetString("dystopia-liquid-source-none"), 5);
         }
 
         _liquid.PushNetInfo(args, _liquid.GetNet(ent, ent.Comp.Inlet), 4);

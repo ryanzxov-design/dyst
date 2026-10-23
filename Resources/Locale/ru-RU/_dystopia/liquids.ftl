@@ -16,6 +16,13 @@ dystopia-liquid-turn-off = Выключить
 dystopia-liquid-turned-on = Включено.
 dystopia-liquid-turned-off = Выключено.
 
+# нефтяной выход и качалка (Extractor)
+dystopia-liquid-source-rich = [color=#c8a060]Нефть идёт густо — запас богатый.[/color]
+dystopia-liquid-source-fair = [color=#a08a60]Нефти ещё порядочно.[/color]
+dystopia-liquid-source-poor = [color=#8a7a6a]Нефть еле сочится — запас на исходе.[/color]
+dystopia-liquid-source-depleted = [color=#7a7a7a]Иссяк: только засохшая корка.[/color]
+dystopia-liquid-source-none = [color=#e05050]Под качалкой нет нефтяного выхода.[/color]
+
 ent-DystopiaLiquidPipeHalf = жидкостная труба
     .desc = Обрезок жидкостной трубы, заглушённый с одной стороны.
     .suffix = Половина
