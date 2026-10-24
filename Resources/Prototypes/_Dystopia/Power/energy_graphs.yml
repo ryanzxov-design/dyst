@@ -1,0 +1,36 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: котёл и турбина разбираются ломом обратно в секции каркаса (gen_energy1.py).
+
+- type: constructionGraph
+  id: DystopiaSteamBoilerAssembly
+  start: start
+  graph:
+  - node: start
+
+  - node: done
+    entity: DystopiaSteamBoiler
+    edges:
+    - to: start
+      completed:
+      - !type:DystopiaMultiblockDisassemble
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 10
+
+- type: constructionGraph
+  id: DystopiaSteamTurbineAssembly
+  start: start
+  graph:
+  - node: start
+
+  - node: done
+    entity: DystopiaSteamTurbine
+    edges:
+    - to: start
+      completed:
+      - !type:DystopiaMultiblockDisassemble
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 10

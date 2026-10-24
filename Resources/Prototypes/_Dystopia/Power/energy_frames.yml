@@ -1,0 +1,201 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: секции каркаса котла и турбины (gen_energy1.py). Ровный прямоугольник с узлом в центре
+# превращается в машину (DystopiaMultiblockSystem). Крафт — gen_crafts.py.
+
+- type: entity
+  id: DystopiaFrameSteamBoiler
+  name: boiler brickwork section
+  description: "Brickwork on a firebrick bed: part of a future steam boiler's setting. The boiler is assembled from 3×3 sections with the firebox core in the middle."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaFrameSteamBoilerCraft
+    node: done
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Tag   # леса проходимы (без физики); одна секция на клетку
+    tags: [ Structure, Unstackable ]
+  - type: Sprite
+    sprite: _Dystopia/Structures/Power/frame_steam_boiler.rsi
+    noRot: true
+    drawdepth: FloorObjects
+    layers:
+    - state: frame0
+  - type: IconSmooth   # секции одного многоблока тянутся друг к другу (север 1, юг 2, восток 4, запад 8)
+    key: DystopiaMbSteamBoiler
+    base: frame
+    mode: CardinalFlags
+  - type: DystopiaMultiblockFrame
+    key: DystopiaMbSteamBoiler
+    width: 3
+    height: 3
+    result: DystopiaSteamBoiler
+    core: false
+    requireCore: true
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 200
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+
+- type: entity
+  id: DystopiaFrameSteamBoilerCore
+  name: boiler firebox core
+  description: "The grate, the fire door and the drum with its fittings. Goes in the middle of the 3×3 frame."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaFrameSteamBoilerCoreCraft
+    node: done
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Tag   # леса проходимы (без физики); одна секция на клетку
+    tags: [ Structure, Unstackable ]
+  - type: Sprite
+    sprite: _Dystopia/Structures/Power/frame_steam_boiler.rsi
+    noRot: true
+    drawdepth: FloorObjects
+    layers:
+    - state: core0
+  - type: IconSmooth   # секции одного многоблока тянутся друг к другу (север 1, юг 2, восток 4, запад 8)
+    key: DystopiaMbSteamBoiler
+    base: core
+    mode: CardinalFlags
+  - type: DystopiaMultiblockFrame
+    key: DystopiaMbSteamBoiler
+    width: 3
+    height: 3
+    result: DystopiaSteamBoiler
+    core: true
+    requireCore: true
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 200
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+
+- type: entity
+  id: DystopiaFrameSteamTurbine
+  name: turbine bedplate section
+  description: "A steel bedplate. A steam turbine is assembled from 3×5 sections, lengthwise or crosswise, with the rotor core in the middle."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaFrameSteamTurbineCraft
+    node: done
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Tag   # леса проходимы (без физики); одна секция на клетку
+    tags: [ Structure, Unstackable ]
+  - type: Sprite
+    sprite: _Dystopia/Structures/Power/frame_steam_turbine.rsi
+    noRot: true
+    drawdepth: FloorObjects
+    layers:
+    - state: frame0
+  - type: IconSmooth   # секции одного многоблока тянутся друг к другу (север 1, юг 2, восток 4, запад 8)
+    key: DystopiaMbSteamTurbine
+    base: frame
+    mode: CardinalFlags
+  - type: DystopiaMultiblockFrame
+    key: DystopiaMbSteamTurbine
+    width: 3
+    height: 5
+    result: DystopiaSteamTurbine
+    rotateResult: true   # 5×3 — та же машина, повёрнутая на 90°
+    core: false
+    requireCore: true
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 200
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+
+- type: entity
+  id: DystopiaFrameSteamTurbineCore
+  name: turbine rotor core
+  description: "The bladed shaft and the generator on one axis. Goes in the middle of the 3×5 frame."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaFrameSteamTurbineCoreCraft
+    node: done
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Tag   # леса проходимы (без физики); одна секция на клетку
+    tags: [ Structure, Unstackable ]
+  - type: Sprite
+    sprite: _Dystopia/Structures/Power/frame_steam_turbine.rsi
+    noRot: true
+    drawdepth: FloorObjects
+    layers:
+    - state: core0
+  - type: IconSmooth   # секции одного многоблока тянутся друг к другу (север 1, юг 2, восток 4, запад 8)
+    key: DystopiaMbSteamTurbine
+    base: core
+    mode: CardinalFlags
+  - type: DystopiaMultiblockFrame
+    key: DystopiaMbSteamTurbine
+    width: 3
+    height: 5
+    result: DystopiaSteamTurbine
+    rotateResult: true   # 5×3 — та же машина, повёрнутая на 90°
+    core: true
+    requireCore: true
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 200
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:DoActsBehavior
+        acts: [ Destruction ]

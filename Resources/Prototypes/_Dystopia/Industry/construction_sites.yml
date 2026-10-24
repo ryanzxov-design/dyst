@@ -1752,3 +1752,126 @@
         density: 80
         mask: [ MachineMask ]
         layer: [ MachineLayer ]
+
+- type: entity
+  id: DystopiaSiteFrameSteamBoiler
+  name: construction site
+  description: Unfinished construction. Examine it to see what goes in next.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _Dystopia/Structures/Power/frame_steam_boiler.rsi
+    state: frame0
+    color: "#FFFFFF80"
+    drawdepth: FloorObjects
+    noRot: true
+  - type: Construction
+    graph: DystopiaFrameSteamBoilerCraft
+    node: s1
+  - type: Tag
+    tags: [ Unstackable ]
+
+- type: entity
+  id: DystopiaSiteFrameSteamBoilerCore
+  name: construction site
+  description: Unfinished construction. Examine it to see what goes in next.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _Dystopia/Structures/Power/frame_steam_boiler.rsi
+    state: core0
+    color: "#FFFFFF80"
+    drawdepth: FloorObjects
+    noRot: true
+  - type: Construction
+    graph: DystopiaFrameSteamBoilerCoreCraft
+    node: s1
+  - type: Tag
+    tags: [ Unstackable ]
+
+- type: entity
+  id: DystopiaSiteFrameSteamTurbine
+  name: construction site
+  description: Unfinished construction. Examine it to see what goes in next.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _Dystopia/Structures/Power/frame_steam_turbine.rsi
+    state: frame0
+    color: "#FFFFFF80"
+    drawdepth: FloorObjects
+    noRot: true
+  - type: Construction
+    graph: DystopiaFrameSteamTurbineCraft
+    node: s1
+  - type: Tag
+    tags: [ Unstackable ]
+
+- type: entity
+  id: DystopiaSiteFrameSteamTurbineCore
+  name: construction site
+  description: Unfinished construction. Examine it to see what goes in next.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _Dystopia/Structures/Power/frame_steam_turbine.rsi
+    state: core0
+    color: "#FFFFFF80"
+    drawdepth: FloorObjects
+    noRot: true
+  - type: Construction
+    graph: DystopiaFrameSteamTurbineCoreCraft
+    node: s1
+  - type: Tag
+    tags: [ Unstackable ]
+
+- type: entity
+  id: DystopiaSiteWallLead
+  name: construction site
+  description: Unfinished construction. Examine it to see what goes in next.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _Dystopia/Structures/Walls/lead.rsi
+    state: full
+    color: "#FFFFFF80"
+    drawdepth: Walls
+    noRot: true
+  - type: Construction
+    graph: DystopiaWallLeadCraft
+    node: s1
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        density: 1000
+        mask: [ FullTileMask ]
+        layer: [ WallLayer ]

@@ -557,6 +557,25 @@ public sealed partial class DystopiaLiquidDeviceSystem : EntitySystem
         if (HasComp<DystopiaCoolingTowerComponent>(target))
             return FixedPoint2.Zero;
 
+        // Котёл, турбина: только своё (вода, масло) и только в свой бак.
+        if (TryComp<DystopiaLiquidInputFilterComponent>(target, out var filter))
+        {
+            if (filter.Reagents.Count == 0 ||
+                !_solution.TryGetSolution(target, filter.Solution, out var filterTank, out var filterSolution))
+            {
+                return FixedPoint2.Zero;
+            }
+
+            var filterReagents = filter.Reagents.ToArray();
+            var filterAmount = FixedPoint2.Min(max,
+                FixedPoint2.Min(filterSolution.AvailableVolume, net.GetTotalPrototypeQuantity(filterReagents)));
+            if (filterAmount <= FixedPoint2.Zero)
+                return FixedPoint2.Zero;
+
+            _solution.AddSolution(filterTank.Value, net.SplitSolutionWithOnly(filterAmount, filterReagents));
+            return filterAmount;
+        }
+
         // Промышленный двигатель: топливо, масло и вода — каждое в свой бак.
         if (TryComp<DystopiaEngineControllerComponent>(target, out var engine))
             return _engine.Fill((target, engine), net, max);

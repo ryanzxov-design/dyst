@@ -1,0 +1,393 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: энергетика, шаг 1 (gen_energy1.py) — паровой котёл 3×3 и паровая турбина 3×5 (многоблоки из
+# секций energy_frames.yml), узлы-патрубки и клемма. Числа — DystopiaSteamComponents.cs.
+
+- type: entity
+  id: DystopiaSteamBoiler
+  name: steam boiler
+  description: "A 3×3 fire-tube boiler on a brick setting. Coal, coke or planks go into the firebox by hand or by an inserter; a fuel oil burner facing the fire door burns liquid fuel. Water comes in through the blue tap on the left, steam leaves through the white branch pipe at the back. The hotter the steam, the more power in each mole and the more fuel it takes. If the steam has nowhere to go, the pressure climbs until the drum bursts."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-1.45,-1.45,1.45,1.45"
+        density: 4000
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]
+  - type: Tag
+    tags: [ Structure ]
+  - type: SpriteFade   # барабан и труба выше основания: зашёл за котёл — он полупрозрачен
+  - type: Sprite
+    sprite: _Dystopia/Structures/Power/steam_boiler.rsi
+    noRot: true
+    drawdepth: Overdoors   # над мобами, как деревья (иначе SpriteFade не выцветает)
+    offset: 0,1
+    layers:
+    - state: icon
+      map: [ "enum.DystopiaBoilerVisuals.Lit" ]
+    - state: glow
+      map: [ "glow" ]
+      shader: unshaded
+      visible: false
+    - state: alarm
+      map: [ "enum.DystopiaBoilerVisuals.Alarm" ]
+      shader: unshaded
+      visible: false
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DystopiaBoilerVisuals.Lit:
+        enum.DystopiaBoilerVisuals.Lit:
+          True: { state: lit }
+          False: { state: icon }
+        glow:
+          True: { visible: true }
+          False: { visible: false }
+      enum.DystopiaBoilerVisuals.Alarm:
+        enum.DystopiaBoilerVisuals.Alarm:
+          True: { visible: true }
+          False: { visible: false }
+  - type: PointLight   # отсвет топки
+    enabled: false
+    radius: 4
+    energy: 1.6
+    color: "#ff9a50"
+    offset: 0,-0.8
+    castShadows: false
+  - type: AmbientSound
+    enabled: false
+    volume: -2
+    range: 8
+    sound:
+      path: /Audio/Ambience/Objects/fireplace.ogg
+  - type: Solution   # котловая вода
+    id: water
+    solution:
+      maxVol: 2000
+      canReact: false
+  - type: RefillableSolution
+    solution: water
+  - type: DrainableSolution
+    solution: water
+  - type: DystopiaLiquidInputFilter   # экспортер наливает только воду
+    solution: water
+    reagents: [ Water ]
+  - type: DystopiaLiquidAccess   # синий кран — левый бок средней клетки
+    points:
+    - offset: -1,0
+      side: West
+  - type: DystopiaMachinePorts   # патрубок пара — задняя клетка посередине, смотрит назад
+    ports:
+    - key: steam
+      prototype: DystopiaSteamPort
+      offset: 0,1
+      direction: North
+  - type: DystopiaBoiler
+    fuelMaterials:   # секунд горения на 100 единиц материала (как у горна)
+      DystopiaCoke: 300
+      Coal: 120
+      Wood: 45
+    maxFuel: 1800
+    modes:   # температура пара, пар (моль/с) и топливо (секунд горения в секунду) при полном прогреве
+    - temperature: 150
+      steam: 3
+      fuel: 0.5
+    - temperature: 300
+      steam: 3
+      fuel: 0.8
+    - temperature: 450
+      steam: 3
+      fuel: 1.2
+    pressureDamage:
+      types:
+        Blunt: 1
+    dryDamage:
+      types:
+        Heat: 1
+  - type: ActivatableUI   # клик пустой рукой — меню котла
+    key: enum.DystopiaBoilerUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.DystopiaBoilerUiKey.Key:
+        type: DystopiaBoilerBoundUserInterface
+  - type: DystopiaMultiblock
+    frame: DystopiaFrameSteamBoiler
+    coreFrame: DystopiaFrameSteamBoilerCore
+    width: 3
+    height: 3
+    portsHint: dystopia-steamboiler-ports
+  - type: Construction
+    graph: DystopiaSteamBoilerAssembly
+    node: done
+  - type: DystopiaParticleEmitter
+    emitters:
+    # дым из трубы
+    - rate: 10
+      lifetime: 1.6,2.8
+      speed: 0.3,0.6
+      direction: 0
+      spread: 25
+      alignToVelocity: false
+      inheritVelocity: 0
+      drift: 0.15,0.25
+      drag: 0.4
+      jitter: 0.25
+      size: 3,6
+      additive: false
+      offset: 0.94,3.44
+      activeWhen: enum.DystopiaBoilerVisuals.Lit
+      colors:
+      - "#3A363000"
+      - "#3A3630A0"
+      - "#4A464270"
+      - "#5A565230"
+      - "#5A565200"
+    # стравливание через клапан
+    - rate: 40
+      lifetime: 0.6,1.4
+      speed: 1.2,2.2
+      direction: 0
+      spread: 30
+      alignToVelocity: false
+      inheritVelocity: 0
+      drift: 0.1,0.4
+      drag: 0.8
+      jitter: 0.15
+      size: 3,5
+      additive: false
+      offset: 0.16,2.85
+      activeWhen: enum.DystopiaBoilerVisuals.Venting
+      colors:
+      - "#F0F4F800"
+      - "#E6ECF2C0"
+      - "#D4DCE490"
+      - "#BCC6D050"
+      - "#A8B2BC00"
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Repairable   # чинят сваркой
+    fuelCost: 20
+    doAfterDelay: 10
+  - type: Explosive   # барабан рвёт паром
+    explosionType: Default
+    maxIntensity: 40
+    intensitySlope: 4
+    totalIntensity: 220
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 600
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:ExplodeBehavior
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 6
+            max: 10
+          DystopiaBrick1:
+            min: 4
+            max: 8
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+
+- type: entity
+  id: DystopiaSteamTurbine
+  name: steam turbine
+  description: "A 3×5 steam turbine with a generator on the same shaft. Fresh steam goes into the branch pipe at the back end, spent steam at about 100 °C leaves through the front one and should go to a cooling tower. Power goes into a high-voltage cable under the generator terminal. Needs lubricating oil; without it the bearings wear out fast."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-1.45,-2.45,1.45,2.45"
+        density: 4000
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]
+  - type: Tag
+    tags: [ Structure ]
+  - type: Sprite   # 4 направления: юг/север — вдоль, восток/запад — поперёк; перед — генератор и выхлоп
+    sprite: _Dystopia/Structures/Power/steam_turbine.rsi
+    noRot: false
+    drawdepth: Objects
+    layers:
+    - state: icon
+      map: [ "enum.DystopiaProcessorVisuals.Running" ]
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DystopiaProcessorVisuals.Running:
+        enum.DystopiaProcessorVisuals.Running:
+          True: { state: running }
+          False: { state: icon }
+  - type: AmbientSound
+    enabled: false
+    volume: -2
+    range: 10
+    sound:
+      path: /Audio/Ambience/Objects/gravity_gen_hum.ogg
+  - type: Solution   # масло подшипников
+    id: oil
+    solution:
+      maxVol: 200
+      canReact: false
+  - type: RefillableSolution
+    solution: oil
+  - type: DrainableSolution
+    solution: oil
+  - type: DystopiaLiquidInputFilter   # экспортер наливает только смазочное масло
+    solution: oil
+    reagents: [ DystopiaLubricatingOil ]
+  - type: DystopiaLiquidAccess   # латунный масляный кран — правый бок предпоследней клетки
+    points:
+    - offset: 1,-1
+      side: East
+  - type: DystopiaMachinePorts   # смещения без поворота (перед — юг); поворачиваются с турбиной
+    flippable: true
+    ports:
+    - key: steamIn
+      prototype: DystopiaSteamPort
+      offset: 0,2
+      direction: North
+    - key: steamOut
+      prototype: DystopiaSteamPort
+      offset: -1,-2
+      direction: South
+    - key: power
+      prototype: DystopiaGeneratorTerminal
+      offset: 1,-2
+  - type: DystopiaSteamTurbine
+    maxFlow: 6
+    powerPerMoleKelvin: 400
+    wearDamage:
+      types:
+        Blunt: 1
+    overheatDamage:
+      types:
+        Heat: 1
+  - type: ActivatableUI   # клик пустой рукой — меню турбины
+    key: enum.DystopiaSteamTurbineUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.DystopiaSteamTurbineUiKey.Key:
+        type: DystopiaSteamTurbineBoundUserInterface
+  - type: DystopiaMultiblock
+    frame: DystopiaFrameSteamTurbine
+    coreFrame: DystopiaFrameSteamTurbineCore
+    width: 3
+    height: 5
+    portsHint: dystopia-steamturbine-ports
+  - type: Construction
+    graph: DystopiaSteamTurbineAssembly
+    node: done
+  - type: DystopiaParticleEmitter
+    emitters:
+    # пар из сальников выхлопа
+    - rate: 8
+      lifetime: 0.8,1.6
+      speed: 0.2,0.5
+      direction: 0
+      spread: 40
+      alignToVelocity: false
+      inheritVelocity: 0
+      drift: 0,0.3
+      drag: 0.5
+      jitter: 0.3
+      size: 2,4
+      additive: false
+      offset: -1,-1.6
+      rotate: true
+      activeWhen: enum.DystopiaProcessorVisuals.Running
+      colors:
+      - "#F0F4F800"
+      - "#E6ECF2C0"
+      - "#D4DCE490"
+      - "#BCC6D050"
+      - "#A8B2BC00"
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Repairable   # чинят сваркой
+    fuelCost: 20
+    doAfterDelay: 10
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 800
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 8
+            max: 14
+          DystopiaWinding1:
+            min: 2
+            max: 5
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+
+- type: entity
+  id: DystopiaSteamPort
+  name: steam branch pipe
+  description: A steam branch pipe of a boiler or turbine.
+  categories: [ HideSpawnMenu ]
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+  - type: NodeContainer
+    nodes:
+      pipe:
+        !type:PipeNode
+        nodeGroupID: Pipe
+        pipeDirection: South   # поворачивается наружу при установке
+        volume: 200
+
+- type: entity
+  id: DystopiaGeneratorTerminal
+  name: generator terminal
+  description: The power terminal of a turbine generator.
+  categories: [ HideSpawnMenu ]
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+  - type: NodeContainer
+    examinable: true
+    nodes:
+      output:
+        !type:CableDeviceNode
+        nodeGroupID: HVPower
+  - type: PowerSupplier
+    voltage: High
+    supplyRate: 0
+    supplyRampRate: 50000
+    supplyRampTolerance: 50000

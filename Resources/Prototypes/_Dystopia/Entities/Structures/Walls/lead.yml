@@ -1,0 +1,84 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: свинцовая стена (gen_energy1.py; компоненты — как у огнеупорной).
+
+- type: entity
+  id: DystopiaWallLead
+  name: lead wall
+  description: Lead plates bolted onto a steel frame. Stops radiation better than anything else you can build.
+  placement:
+    mode: SnapgridCenter
+    snap: [ Wall ]
+  components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaWallLeadCraft
+    node: done
+  - type: Transform
+    anchored: true
+  - type: Clickable
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        density: 1000
+        mask: [ FullTileMask ]
+        layer: [ WallLayer ]
+  - type: Pullable
+  - type: Tag
+    tags: [ Structure ]
+  - type: Anchorable
+    flags: [ Anchorable ]
+  - type: Rotatable
+  - type: RangedDamageSound
+    soundGroups:
+      Brute:
+        collection: MetalBulletImpact
+    soundTypes:
+      Heat:
+        collection: MetalLaserImpact
+  - type: Wall
+  - type: IsRoof
+  - type: Sprite
+    drawdepth: Walls
+    sprite: _Dystopia/Structures/Walls/lead.rsi
+  - type: Icon
+    state: full
+    sprite: _Dystopia/Structures/Walls/lead.rsi
+  - type: PlacementReplacement
+    key: walls
+  - type: Airtight
+  - type: StaticPrice
+    price: 75
+  - type: RadiationBlocker
+    resistance: 8   # свинец: лучше любой другой стены
+  - type: BlockWeather
+  - type: SunShadowCast
+  - type: Occluder
+  - type: StructureAlignerPylon
+    pylons: [ Door, Firelock ]
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 400
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/Effects/metal_break1.ogg
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          DystopiaSheetLead1:
+            min: 3
+            max: 6
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: IconSmooth
+    key: walls
+    base: lead
+

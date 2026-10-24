@@ -1,0 +1,70 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: лужа радиоактивной пыли — для карт и администраторов (gen_energy1.py; компоненты — как у
+# временной лужи).
+
+- type: entity
+  id: DystopiaPuddleRadioactiveDust
+  name: puddle
+  description: A puddle of liquid.
+  suffix: Radioactive dust
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Solution
+    solution:
+      maxVol: 7680
+      reagents:
+      - ReagentId: DystopiaRadioactiveDust
+        Quantity: 30
+    id: puddle
+  - type: Clickable
+  - type: Slippery
+    staminaDamage: 0
+    frictionStatusTime: 0
+  - type: Transform
+    noRot: false
+    anchored: true
+  - type: Sprite
+    layers:
+    - sprite: Fluids/puddle.rsi
+      state: splat0
+    drawdepth: Puddles
+    color: "#FFFFFF80"
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      slipFixture:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.4,-0.4,0.4,0.4"
+        mask: [ ItemMask ]
+        layer: [ SlipLayer ]
+        hard: false
+  - type: IconSmooth
+    key: puddles
+    additionalKeys: [ walls ]
+    base: splat
+    mode: CardinalFlags
+  - type: Puddle
+  - type: MixableSolution
+    solution: puddle
+  - type: Appearance
+  - type: ActiveEdgeSpreader
+  - type: EdgeSpreader
+    id: Puddle
+  - type: StepTrigger
+  - type: Edible
+    edible: Drink
+    delay: 3
+    transferAmount: 1
+    solution: puddle
+    utensil: Spoon
+  - type: ExaminableSolution
+    solution: puddle
+    locVolume: examinable-solution-on-examine-volume-puddle
+  - type: DrawableSolution
+    solution: puddle
+  - type: BadDrink
+  - type: IgnoresFingerprints
+  - type: Tag
+    tags: [ DNASolutionScannable ]

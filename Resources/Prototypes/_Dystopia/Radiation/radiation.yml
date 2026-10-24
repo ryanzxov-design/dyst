@@ -1,0 +1,44 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: дополнения к радиации (gen_energy1.py) — радиоактивная пыль; что светит в лужах
+# (DystopiaContaminationSystem); лучевая болезнь (DystopiaRadiationSicknessSystem).
+
+- type: reagent
+  id: DystopiaRadioactiveDust
+  name: reagent-name-dystopia-radioactive-dust
+  group: Toxins
+  desc: reagent-desc-dystopia-radioactive-dust
+  physicalDesc: reagent-physical-desc-dystopia-dusty
+  flavor: metallic
+  color: "#8c9a5c"
+  meltingPoint: 2800.0
+  boilingPoint: 3500.0
+  metabolisms:
+    Poison:
+      effects:
+      - !type:HealthChange
+        damage:
+          types:
+            Radiation: 2
+
+- type: dystopiaContamination
+  id: Default
+  minIntensity: 0.05   # слабее — лужа не светит
+  interval: 2
+  reagents:   # рад/с на единицу в луже
+    DystopiaRadioactiveDust: 0.1
+    Radium: 0.05
+    Uranium: 0.02
+    DystopiaMoltenUranium: 0.02
+
+- type: dystopiaRadiationSickness
+  id: Default
+  threshold: 40     # рад: с этой дозы — болезнь
+  severe: 400       # рад: болезнь в полной силе
+  decayFlat: 0.02
+  decayFraction: 0.0005
+  disease: DiseaseRadiationSickness
+  medicines:   # во сколько раз быстрее спадает доза
+    Hyronalin: 6
+    Arithrazine: 12
+  protectors:   # какую долю облучения не пускает
+    PotassiumIodide: 0.5

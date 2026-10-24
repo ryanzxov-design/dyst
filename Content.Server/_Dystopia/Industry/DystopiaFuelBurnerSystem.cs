@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
-// Dystopia: мазутная форсунка — жжёт жидкое топливо в горне, что прямо перед ней (см. DystopiaFuelBurnerComponents).
+// Dystopia: мазутная форсунка — жжёт жидкое топливо в горне или топке котла, что прямо перед ней (см.
+// DystopiaFuelBurnerComponents).
 
 using Content.Shared._Dystopia.Industry;
 using Content.Shared.Audio;
@@ -23,6 +24,8 @@ public sealed partial class DystopiaFuelBurnerSystem : EntitySystem
     [Dependency] private SharedAmbientSoundSystem _ambient = default!;
     [Dependency] private SharedPopupSystem _popup = default!;
     [Dependency] private DystopiaForgeSystem _forge = default!;
+    [Dependency] private DystopiaBoilerSystem _boiler = default!;
+    [Dependency] private EntityLookupSystem _lookup = default!;
 
     public override void Initialize()
     {
@@ -81,6 +84,23 @@ public sealed partial class DystopiaFuelBurnerSystem : EntitySystem
         return null;
     }
 
+    /// <summary>Котёл, занимающий клетку прямо перед форсункой (многоклеточный — ищем по хитбоксу).</summary>
+    private Entity<DystopiaBoilerComponent>? FindBoiler(EntityUid uid)
+    {
+        var xform = Transform(uid);
+        if (!xform.Anchored || xform.GridUid is not { } gridUid || !TryComp<MapGridComponent>(gridUid, out var grid))
+            return null;
+
+        var tile = _map.TileIndicesFor(gridUid, grid, xform.Coordinates).Offset(xform.LocalRotation.GetCardinalDir());
+        foreach (var other in _lookup.GetLocalEntitiesIntersecting(gridUid, tile, gridComp: grid))
+        {
+            if (TryComp<DystopiaBoilerComponent>(other, out var boiler))
+                return (other, boiler);
+        }
+
+        return null;
+    }
+
     public override void Update(float frameTime)
     {
         base.Update(frameTime);
@@ -103,6 +123,9 @@ public sealed partial class DystopiaFuelBurnerSystem : EntitySystem
     private bool Burn(Entity<DystopiaFuelBurnerComponent> ent)
     {
         var burner = ent.Comp;
+        if (FindForge(ent) == null && FindBoiler(ent) is { } boiler)
+            return BurnBoiler(ent, boiler);
+
         if (FindForge(ent) is not { } forge ||
             !_solution.TryGetSolution(ent.Owner, burner.Solution, out var solnEnt, out var solution))
         {
@@ -142,6 +165,45 @@ public sealed partial class DystopiaFuelBurnerSystem : EntitySystem
         return forge.Comp.Lit;
     }
 
+    /// <summary>Топка котла: подкинуть топлива, пока есть место (котёл сам разгорается от факела).</summary>
+    private bool BurnBoiler(Entity<DystopiaFuelBurnerComponent> ent, Entity<DystopiaBoilerComponent> boiler)
+    {
+        var burner = ent.Comp;
+        if (!_solution.TryGetSolution(ent.Owner, burner.Solution, out var solnEnt, out var solution))
+            return false;
+
+        var budget = burner.Rate * burner.Interval;
+        var any = false;
+        foreach (var (reagent, perUnit) in burner.Fuels)
+        {
+            var have = solution.GetTotalPrototypeQuantity(reagent).Float();
+            if (have <= 0f || perUnit <= 0f)
+                continue;
+
+            any = true;
+            if (budget <= 0f)
+                break;
+
+            var room = (boiler.Comp.MaxFuel - boiler.Comp.Fuel) / perUnit;
+            var units = MathF.Min(MathF.Min(have, budget), room);
+            if (units > 0.01f)
+            {
+                _boiler.Feed(boiler, units * perUnit);
+                _solution.RemoveReagent(solnEnt.Value, reagent.Id, FixedPoint2.New(units));
+                budget -= units;
+            }
+        }
+
+        if (!any)
+            return false;
+
+        // Топка полна, но не горит — форсунка разжигает её факелом.
+        if (!boiler.Comp.Lit && boiler.Comp.Fuel > 0f)
+            _boiler.SetLit(boiler, true);
+
+        return boiler.Comp.Lit;
+    }
+
     private void SetBurning(Entity<DystopiaFuelBurnerComponent> ent, bool burning)
     {
         if (ent.Comp.Burning == burning)
@@ -159,7 +221,7 @@ public sealed partial class DystopiaFuelBurnerSystem : EntitySystem
 
         args.PushMarkup(Loc.GetString(ent.Comp.Burning ? "dystopia-burner-examine-burning"
             : ent.Comp.On ? "dystopia-burner-examine-idle" : "dystopia-burner-examine-off"));
-        if (FindForge(ent) == null)
+        if (FindForge(ent) == null && FindBoiler(ent) == null)
             args.PushMarkup(Loc.GetString("dystopia-burner-examine-no-forge"));
 
         if (_solution.TryGetSolution(ent.Owner, ent.Comp.Solution, out _, out var solution))

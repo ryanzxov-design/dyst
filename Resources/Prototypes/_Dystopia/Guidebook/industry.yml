@@ -1,0 +1,116 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: «Руководство промышленника» — страницы руководства (их открывает книга DystopiaBookIndustry). Текст — /ServerInfo/_Dystopia/Guidebook/Industry/, генератор gen_book.py.
+
+- type: guideEntry
+  id: DystopiaIndustry
+  name: guide-entry-dystopia-industry
+  text: "/ServerInfo/_Dystopia/Guidebook/Industry/Index.xml"
+  children:
+  - DystopiaIndustryOres
+  - DystopiaIndustryCrafting
+  - DystopiaIndustryForge
+  - DystopiaIndustryAlloys
+  - DystopiaIndustryWorkshop
+  - DystopiaIndustryBeneficiation
+  - DystopiaIndustryForming
+  - DystopiaIndustryChemical
+  - DystopiaIndustryBuilding
+  - DystopiaIndustryCeramics
+  - DystopiaIndustrySulfurSalt
+  - DystopiaIndustryLogistics
+  - DystopiaIndustryOil
+  - DystopiaIndustryPetrochem
+  - DystopiaIndustryEngines
+  - DystopiaIndustrySteam
+  - DystopiaIndustryRadiation
+  - DystopiaIndustrySafety
+
+- type: guideEntry
+  id: DystopiaIndustryOres
+  name: guide-entry-dystopia-industry-ores
+  text: "/ServerInfo/_Dystopia/Guidebook/Industry/Ores.xml"
+
+- type: guideEntry
+  id: DystopiaIndustryCrafting
+  name: guide-entry-dystopia-industry-crafting
+  text: "/ServerInfo/_Dystopia/Guidebook/Industry/Crafting.xml"
+
+- type: guideEntry
+  id: DystopiaIndustryForge
+  name: guide-entry-dystopia-industry-forge
+  text: "/ServerInfo/_Dystopia/Guidebook/Industry/Forge.xml"
+
+- type: guideEntry
+  id: DystopiaIndustryAlloys
+  name: guide-entry-dystopia-industry-alloys
+  text: "/ServerInfo/_Dystopia/Guidebook/Industry/Alloys.xml"
+
+- type: guideEntry
+  id: DystopiaIndustryWorkshop
+  name: guide-entry-dystopia-industry-workshop
+  text: "/ServerInfo/_Dystopia/Guidebook/Industry/Workshop.xml"
+
+- type: guideEntry
+  id: DystopiaIndustryBeneficiation
+  name: guide-entry-dystopia-industry-beneficiation
+  text: "/ServerInfo/_Dystopia/Guidebook/Industry/Beneficiation.xml"
+
+- type: guideEntry
+  id: DystopiaIndustryForming
+  name: guide-entry-dystopia-industry-forming
+  text: "/ServerInfo/_Dystopia/Guidebook/Industry/Forming.xml"
+
+- type: guideEntry
+  id: DystopiaIndustryChemical
+  name: guide-entry-dystopia-industry-chemical
+  text: "/ServerInfo/_Dystopia/Guidebook/Industry/Chemical.xml"
+
+- type: guideEntry
+  id: DystopiaIndustryBuilding
+  name: guide-entry-dystopia-industry-building
+  text: "/ServerInfo/_Dystopia/Guidebook/Industry/Building.xml"
+
+- type: guideEntry
+  id: DystopiaIndustryCeramics
+  name: guide-entry-dystopia-industry-ceramics
+  text: "/ServerInfo/_Dystopia/Guidebook/Industry/Ceramics.xml"
+
+- type: guideEntry
+  id: DystopiaIndustrySulfurSalt
+  name: guide-entry-dystopia-industry-sulfur-salt
+  text: "/ServerInfo/_Dystopia/Guidebook/Industry/SulfurSalt.xml"
+
+- type: guideEntry
+  id: DystopiaIndustryLogistics
+  name: guide-entry-dystopia-industry-logistics
+  text: "/ServerInfo/_Dystopia/Guidebook/Industry/Logistics.xml"
+
+- type: guideEntry
+  id: DystopiaIndustryOil
+  name: guide-entry-dystopia-industry-oil
+  text: "/ServerInfo/_Dystopia/Guidebook/Industry/Oil.xml"
+
+- type: guideEntry
+  id: DystopiaIndustryPetrochem
+  name: guide-entry-dystopia-industry-petrochem
+  text: "/ServerInfo/_Dystopia/Guidebook/Industry/Petrochem.xml"
+
+- type: guideEntry
+  id: DystopiaIndustryEngines
+  name: guide-entry-dystopia-industry-engines
+  text: "/ServerInfo/_Dystopia/Guidebook/Industry/Engines.xml"
+
+- type: guideEntry
+  id: DystopiaIndustrySteam
+  name: guide-entry-dystopia-industry-steam
+  text: "/ServerInfo/_Dystopia/Guidebook/Industry/Steam.xml"
+
+- type: guideEntry
+  id: DystopiaIndustryRadiation
+  name: guide-entry-dystopia-industry-radiation
+  text: "/ServerInfo/_Dystopia/Guidebook/Industry/Radiation.xml"
+
+- type: guideEntry
+  id: DystopiaIndustrySafety
+  name: guide-entry-dystopia-industry-safety
+  text: "/ServerInfo/_Dystopia/Guidebook/Industry/Safety.xml"

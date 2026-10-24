@@ -30,10 +30,10 @@ dystopia-burner-verb-on = Light burner
 dystopia-burner-verb-off = Put out burner
 dystopia-burner-turned-on = Burner opened.
 dystopia-burner-turned-off = Burner closed.
-dystopia-burner-examine-burning = The flame roars into the forge.
-dystopia-burner-examine-idle = [color=#e0c040]Open but not burning: no fuel or no forge in front of the nozzle.[/color]
+dystopia-burner-examine-burning = The flame roars into the firebox.
+dystopia-burner-examine-idle = [color=#e0c040]Open but not burning: no fuel or no forge (boiler) in front of the nozzle.[/color]
 dystopia-burner-examine-off = Closed.
-dystopia-burner-examine-no-forge = [color=#e05040]There is no forge in front of the nozzle.[/color]
+dystopia-burner-examine-no-forge = [color=#e05040]There is no forge or boiler firebox in front of the nozzle.[/color]
 dystopia-burner-examine-fuel = Fuel: { $amount } of { $max }.
 dystopia-lamp-no-fuel = Nothing to burn.
 dystopia-lamp-full = No more fits.

@@ -1,0 +1,49 @@
+<Document>
+  # Руководство промышленника
+  [color=#999999][italic]Промышленная служба Города. Цеховое издание.[/italic][/color]
+
+  <Box>
+      <GuideEntityEmbed Entity="DystopiaForge" Caption=""/>
+      <GuideEntityEmbed Entity="DystopiaPumpjack" Caption=""/>
+      <GuideEntityEmbed Entity="DystopiaSteamBoiler" Caption=""/>
+      <GuideEntityEmbed Entity="DystopiaSteamTurbine" Caption=""/>
+  </Box>
+
+  Книга для всех, кто работает в промышленной службе: от того, кто впервые встаёт к горну, до того, кто пускает паровую турбину. Читать подряд не обязательно, каждый раздел понятен сам по себе.
+
+  ## Как читать выделения
+  - [color=#d2ae68]Так[/color] написаны машины, инструменты и всё, что строят или ставят на пол.
+  - [color=#9ab0c4]Так[/color] — руда, слитки и прочее, что носят в руках.
+  - [color=#7ac8b0]Так[/color] — жидкости и вещества: вода, расплав, кислоты, нефть.
+  - [color=#ff9a50]Так[/color] — числа, которые стоит запомнить.
+  - [bold]Так[/bold] — что сделать руками.
+  - [color=#e05050]Так[/color] — то, от чего обжигаются, травятся и взрываются.
+
+  ## Главное правило счёта
+  [color=#ff9a50]100[/color] единиц материала = [color=#ff9a50]1[/color] [color=#9ab0c4]слиток[/color] = [color=#ff9a50]1[/color] [color=#9ab0c4]лист[/color] = [color=#ff9a50]2[/color] [color=#9ab0c4]прутка[/color] = [color=#ff9a50]4[/color] [color=#9ab0c4]мотка проволоки[/color] = [color=#ff9a50]10[/color] ед. [color=#7ac8b0]расплава[/color].
+
+  ## Разделы
+  ### Металлургия
+  - [textlink="Руда" link="DystopiaIndustryOres"] — что копать и что из этого выйдет.
+  - [textlink="Как построить" link="DystopiaIndustryCrafting"] — из чего собирают инструменты, машины, печи и многоблоки.
+  - [textlink="Горн и тигель" link="DystopiaIndustryForge"] — первая плавка руками.
+  - [textlink="Сплавы" link="DystopiaIndustryAlloys"] — сталь, чугун, бронза, латунь и остальное.
+  - [textlink="Мастерская" link="DystopiaIndustryWorkshop"] — большой тигель, желоба, литейный стол, электрический горн, дуговая печь, карбид.
+  - [textlink="Обогащение руды" link="DystopiaIndustryBeneficiation"] — как из одного куска получить пять слитков.
+  - [textlink="Прокат и волочение" link="DystopiaIndustryForming"] — листы и проволока.
+  - [textlink="Металлы без тигля" link="DystopiaIndustryChemical"] — алюминий, уран, натрий, калий, литий, ртуть.
+  ### Стройматериалы и химия
+  - [textlink="Известь, цемент, бетон" link="DystopiaIndustryBuilding"] — из чего строят Город.
+  - [textlink="Кирпич и стекло" link="DystopiaIndustryCeramics"] — обжиг, прессы и стекловарение.
+  - [textlink="Кокс, сера, соль" link="DystopiaIndustrySulfurSalt"] — топливо и реактивы своими руками.
+  - [textlink="Конвейеры, трубы, ёмкости" link="DystopiaIndustryLogistics"] — чтобы цех работал без беготни.
+  ### Нефть
+  - [textlink="Нефть" link="DystopiaIndustryOil"] — от скважины до бочки: перегонка, фильтры, топливо, масло, лампы.
+  - [textlink="Нефтехимия" link="DystopiaIndustryPetrochem"] — крекинг, пластмасса, каучук, резина, сажа, химическая установка, солидол, асфальт.
+  ### Энергетика
+  - [textlink="Двигатели и генераторы" link="DystopiaIndustryEngines"] — дизель-генератор, промышленный двигатель, градирни.
+  - [textlink="Паровая энергетика" link="DystopiaIndustrySteam"] — котёл, турбина и замкнутый круг воды.
+  - [textlink="Радиация" link="DystopiaIndustryRadiation"] — защита, заражение, дезактивация, лучевая болезнь.
+  ### Главное
+  - [textlink="Техника безопасности" link="DystopiaIndustrySafety"] — прочитайте до первой плавки и до первого пуска.
+</Document>

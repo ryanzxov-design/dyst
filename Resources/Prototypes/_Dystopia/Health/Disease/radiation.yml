@@ -1,0 +1,107 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: лучевая болезнь и её симптомы (gen_energy1.py). Названия — Locale/*/_dystopia/energy1.ftl
+
+# Лучевая болезнь: сама не растёт и иммунитетом не лечится — её силу ведёт доза облучения
+# (DystopiaRadiationSicknessSystem). Не заразна.
+- type: entity
+  id: DiseaseRadiationSickness
+  parent: DiseaseBase
+  name: radiation sickness
+  description: Damage from radiation. Not contagious. Fades as the dose goes down.
+  components:
+  - type: Disease
+    diseaseType: OwnCells
+    infectionRate: 0
+    immunityGainRate: 0
+    canGainImmunity: false
+    mutationRate: 0
+    genotype: 7001
+    availableEffects: DiseaseRadiationSicknessPool
+    effects:
+      DiseaseBehaviorFeelUnwell: 1
+      DiseaseBehaviorRadiationNausea: 1
+      DiseaseBehaviorFatigue: 1
+      DiseaseBehaviorHairLoss: 1
+      DiseaseBehaviorBleedingGums: 1
+      DiseaseBehaviorRadiationBurnout: 1
+
+- type: weightedRandom
+  id: DiseaseRadiationSicknessPool
+  weights:
+    DiseaseBehaviorRadiationNausea: 1
+
+# тошнота и рвота — без передачи (это не инфекция)
+- type: entity
+  id: DiseaseBehaviorRadiationNausea
+  parent: DiseaseBehaviorBase
+  name: Radiation nausea
+  description: Nausea and vomiting a few hours after exposure.
+  components:
+  - type: DiseaseEffect
+    complexity: 10
+  - type: DiseaseProgressCondition
+    minProgress: 0.1
+  - type: DiseasePeriodicCondition
+    delayMin: 40
+    delayMax: 90
+  - type: DiseaseReagentEffect
+    timeScale: false
+    effects:
+    - !type:Vomit
+
+- type: entity
+  id: DiseaseBehaviorHairLoss
+  parent: DiseaseBehaviorBase
+  name: Hair loss
+  description: Hair comes out in clumps.
+  components:
+  - type: DiseaseEffect
+    complexity: 3
+  - type: DiseaseProgressCondition
+    minProgress: 0.35
+  - type: DiseasePopupEffect
+    string: disease-effect-popup-hair-loss
+  - type: DiseasePeriodicCondition
+    delayMin: 60
+    delayMax: 120
+
+- type: entity
+  id: DiseaseBehaviorBleedingGums
+  parent: DiseaseBehaviorBase
+  name: Bleeding gums
+  description: Blood stops clotting; the gums bleed.
+  components:
+  - type: DiseaseEffect
+    complexity: 8
+  - type: DiseaseProgressCondition
+    minProgress: 0.5
+  - type: DiseasePopupEffect
+    string: disease-effect-popup-bleeding-gums
+  - type: DiseasePeriodicCondition
+    delayMin: 40
+    delayMax: 80
+  - type: DiseaseReagentEffect
+    timeScale: false
+    effects:
+    - !type:HealthChange
+      damage:
+        types:
+          Bloodloss: 2
+
+# тяжёлая форма: костный мозг и кишечник отказывают
+- type: entity
+  id: DiseaseBehaviorRadiationBurnout
+  parent: DiseaseBehaviorBase
+  name: Marrow failure
+  description: Severe stage. The body stops renewing itself.
+  components:
+  - type: DiseaseEffect
+    complexity: 30
+  - type: DiseaseProgressCondition
+    minProgress: 0.7
+  - type: DiseaseReagentEffect
+    effects:
+    - !type:HealthChange
+      damage:
+        types:
+          Cellular: 0.4

@@ -1,0 +1,71 @@
+<Document>
+  # Нефть
+
+  ## Скважина
+  <Box>
+      <GuideEntityEmbed Entity="DystopiaOilSeep" Caption=""/>
+      <GuideEntityEmbed Entity="DystopiaPumpjack" Caption=""/>
+  </Box>
+
+  [color=#7ac8b0]Нефть[/color] выходит на поверхность [color=#d2ae68]нефтяными выходами[/color] — тёмными пятнами на земле. В каждом от [color=#ff9a50]4000[/color] до [color=#ff9a50]10 000[/color] ед. При осмотре видно, густо ли она идёт или выход иссякает.
+
+  [color=#d2ae68]Качалку[/color] ставят прямо на выход и [bold]прикручивают[/bold]. Ей нужен ток ([color=#ff9a50]2000[/color] Вт) и [color=#d2ae68]жидкостная труба[/color]. Включают кликом, в меню. Качает она [color=#ff9a50]5[/color] ед. в секунду, пока в трубах есть место.
+
+  ## Перегонная колонна
+  <Box>
+      <GuideEntityEmbed Entity="DystopiaDistillationColumn" Caption=""/>
+      <GuideEntityEmbed Entity="DystopiaLiquidFilter" Caption=""/>
+  </Box>
+
+  [color=#d2ae68]Перегонная колонна[/color] берёт [color=#ff9a50]6000[/color] Вт. Нефть подают в её бак экспортером. Из [color=#ff9a50]20[/color] ед. нефти за цикл ([color=#ff9a50]4[/color] секунды) выходит:
+  - [color=#ff9a50]4[/color] ед. [color=#7ac8b0]бензина[/color];
+  - [color=#ff9a50]2[/color] ед. [color=#7ac8b0]керосина[/color];
+  - [color=#ff9a50]5[/color] ед. [color=#7ac8b0]дизельного топлива[/color];
+  - [color=#ff9a50]9[/color] ед. [color=#7ac8b0]мазута[/color].
+
+  Всё это стекает вместе в бак готового. Забирают импортером и разводят [color=#d2ae68]фильтрами[/color]: каждый выпускает вбок одно выбранное вещество, остальное идёт дальше прямо.
+
+  ## Вакуумная перегонка
+  <Box>
+      <GuideEntityEmbed Entity="DystopiaVacuumDistiller" Caption=""/>
+  </Box>
+
+  [color=#d2ae68]Вакуумный перегонный куб[/color] ([color=#ff9a50]4000[/color] Вт) кипятит мазут без разложения: из [color=#ff9a50]10[/color] ед. [color=#7ac8b0]мазута[/color] выходит [color=#ff9a50]6[/color] ед. [color=#7ac8b0]смазочного масла[/color] и [color=#ff9a50]4[/color] ед. [color=#7ac8b0]битума[/color].
+
+  ## Что куда идёт
+  - [color=#7ac8b0]Бензин[/color] — мотор [color=#d2ae68]М.И.Н.И.П.А.К.М.А.Н.[/color], промышленный двигатель (плохо, с сильным износом).
+  - [color=#7ac8b0]Керосин[/color] — лампы, [color=#d2ae68]дизель-генератор[/color], двигатель, [color=#d2ae68]мазутная форсунка[/color].
+  - [color=#7ac8b0]Дизель[/color] — дизель-генератор и двигатель (лучшее топливо), форсунка, крекинг.
+  - [color=#7ac8b0]Мазут[/color] — форсунка (горн и котёл), двигатель, вакуумная перегонка, крекинг, сажа.
+  - [color=#7ac8b0]Смазочное масло[/color] — двигатель, паровая турбина, солидол.
+  - [color=#7ac8b0]Битум[/color] — асфальт.
+
+  Подробнее о машинах на топливе — [textlink="Двигатели и генераторы" link="DystopiaIndustryEngines"] и [textlink="Паровая энергетика" link="DystopiaIndustrySteam"]. Что делают из газов и мазута дальше — [textlink="Нефтехимия" link="DystopiaIndustryPetrochem"].
+
+  ## Бочки и бидоны
+  <Box>
+      <GuideEntityEmbed Entity="DystopiaBarrel" Caption=""/>
+      <GuideEntityEmbed Entity="DystopiaBarrelDiesel" Caption=""/>
+      <GuideEntityEmbed Entity="DystopiaJugCrudeOil" Caption=""/>
+  </Box>
+
+  Топливо хранят в [color=#d2ae68]бочках[/color] на [color=#ff9a50]200[/color] ед. и [color=#d2ae68]цистернах[/color] на [color=#ff9a50]10 000[/color] (см. [textlink="Конвейеры, трубы, ёмкости" link="DystopiaIndustryLogistics"]). Немного носят в [color=#9ab0c4]бидонах[/color] и канистрах.
+
+  ## Мазутная форсунка
+  <Box>
+      <GuideEntityEmbed Entity="DystopiaFuelOilBurner" Caption=""/>
+  </Box>
+
+  [color=#d2ae68]Форсунку[/color] ставят вплотную к горну или к топочной дверце котла, соплом к ним, и [bold]прикручивают[/bold]. Бак на [color=#ff9a50]200[/color] ед. заливают мазутом, дизелем или керосином — ведром или экспортером. Включённая ([bold]клик[/bold] или ПКМ) сама разжигает огонь и подкидывает топливо: [color=#ff9a50]1[/color] ед. даёт [color=#ff9a50]6[/color] секунд горения, сжигает она до [color=#ff9a50]0,5[/color] ед. в секунду. Горн она ещё и раздувает, как меха.
+
+  ## Лампы
+  <Box>
+      <GuideEntityEmbed Entity="DystopiaKeroseneLamp" Caption=""/>
+      <GuideEntityEmbed Entity="DystopiaCarbideLamp" Caption=""/>
+  </Box>
+
+  - [color=#d2ae68]Керосиновая лампа[/color]: бачок на [color=#ff9a50]50[/color] ед. [color=#7ac8b0]керосина[/color], единица горит [color=#ff9a50]30[/color] секунд — полный бачок примерно на [color=#ff9a50]25[/color] минут.
+  - [color=#d2ae68]Карбидная лампа[/color]: в камеру — до [color=#ff9a50]2[/color] кусков [color=#9ab0c4]карбида кальция[/color], в бачок — до [color=#ff9a50]30[/color] ед. [color=#7ac8b0]воды[/color]. Вода капает на карбид, выходит ацетилен; кусок карбида горит около [color=#ff9a50]4[/color] минут.
+
+  Зажигают и гасят [bold]кликом в руке[/bold]. Лампу можно [bold]повесить на стену[/bold] (ПКМ по стене — «Повесить лампу»): она встанет на свободную клетку рядом. Снимают через ПКМ.
+</Document>

@@ -1,0 +1,65 @@
+<Document>
+  # Нефтехимия
+
+  ## Крекинг-установка
+  <Box>
+      <GuideEntityEmbed Entity="DystopiaCrackingUnit" Caption=""/>
+      <GuideEntityEmbed Entity="DystopiaAlumina" Caption=""/>
+  </Box>
+
+  [color=#d2ae68]Крекинг-установка[/color] ([color=#ff9a50]8000[/color] Вт) раскалывает тяжёлое топливо на катализаторе. Катализатор — [color=#9ab0c4]глинозём[/color]: кусок загружают в машину, и на каждую партию уходит по куску. Всё выходит вместе в бак готового, разводят фильтрами.
+  - [color=#ff9a50]100[/color] ед. [color=#7ac8b0]мазута[/color] → [color=#ff9a50]35[/color] [color=#7ac8b0]бензина[/color], [color=#ff9a50]20[/color] [color=#7ac8b0]дизеля[/color], [color=#ff9a50]20[/color] [color=#7ac8b0]этилена[/color], [color=#ff9a50]15[/color] [color=#7ac8b0]пропилена[/color], [color=#ff9a50]10[/color] [color=#7ac8b0]бутадиена[/color].
+  - [color=#ff9a50]100[/color] ед. [color=#7ac8b0]дизеля[/color] → [color=#ff9a50]50[/color] бензина, [color=#ff9a50]25[/color] этилена, [color=#ff9a50]15[/color] пропилена, [color=#ff9a50]10[/color] бутадиена.
+  - [color=#ff9a50]100[/color] ед. [color=#7ac8b0]этанола[/color] → [color=#ff9a50]45[/color] бутадиена, [color=#ff9a50]45[/color] воды, [color=#ff9a50]10[/color] водорода (способ Лебедева).
+  - [color=#ff9a50]100[/color] ед. [color=#7ac8b0]этилена[/color] без катализатора → [color=#ff9a50]85[/color] [color=#7ac8b0]сварочного топлива[/color] (ацетилена) и [color=#ff9a50]15[/color] водорода.
+
+  ## Полимеризационный реактор
+  <Box>
+      <GuideEntityEmbed Entity="DystopiaPolymerReactor" Caption=""/>
+      <GuideEntityEmbed Entity="SheetPlastic1" Caption=""/>
+      <GuideEntityEmbed Entity="DystopiaCaoutchouc1" Caption=""/>
+  </Box>
+
+  [color=#d2ae68]Реактор[/color] ([color=#ff9a50]5000[/color] Вт) варит из газов твёрдое:
+  - [color=#ff9a50]10[/color] ед. [color=#7ac8b0]этилена[/color] или [color=#7ac8b0]пропилена[/color] — [color=#9ab0c4]лист пластика[/color];
+  - [color=#ff9a50]10[/color] ед. [color=#7ac8b0]бутадиена[/color] — кусок [color=#9ab0c4]каучука[/color].
+
+  ## Натуральный каучук
+  <Box>
+      <GuideEntityEmbed Entity="DystopiaKokSaghyzRoot" Caption=""/>
+  </Box>
+
+  [color=#9ab0c4]Корень кок-сагыза[/color] растят в гидропонике. Молотый корень даёт [color=#ff9a50]10[/color] ед. [color=#7ac8b0]латекса[/color]. В баке [color=#d2ae68]чана выщелачивания[/color] [color=#ff9a50]20[/color] ед. латекса и [color=#ff9a50]1[/color] ед. [color=#7ac8b0]серной кислоты[/color] сворачиваются в кусок [color=#9ab0c4]каучука[/color], а в отстойник уходит [color=#ff9a50]15[/color] ед. воды.
+
+  ## Сажа и резина
+  <Box>
+      <GuideEntityEmbed Entity="DystopiaCarbonBlack1" Caption=""/>
+      <GuideEntityEmbed Entity="DystopiaVulcanizer" Caption=""/>
+      <GuideEntityEmbed Entity="DystopiaSheetRubber1" Caption=""/>
+      <GuideEntityEmbed Entity="DystopiaRubberSeal1" Caption=""/>
+  </Box>
+
+  [color=#9ab0c4]Сажу[/color] жгут в [color=#d2ae68]коксовой печи[/color]: [color=#ff9a50]20[/color] ед. [color=#7ac8b0]мазута[/color] в её бак — [color=#ff9a50]2[/color] горсти сажи.
+
+  [color=#d2ae68]Вулканизационный пресс[/color] ([color=#ff9a50]3000[/color] Вт): [color=#ff9a50]2[/color] куска [color=#9ab0c4]каучука[/color], [color=#ff9a50]1[/color] кусок [color=#9ab0c4]серы[/color] и [color=#ff9a50]1[/color] горсть [color=#9ab0c4]сажи[/color] дают [color=#ff9a50]2[/color] [color=#9ab0c4]листа резины[/color]. Из листа резины тот же пресс штампует [color=#ff9a50]4[/color] [color=#9ab0c4]резиновых уплотнителя[/color].
+
+  ## Химическая установка
+  <Box>
+      <GuideEntityEmbed Entity="DystopiaChemUnit" Caption=""/>
+  </Box>
+
+  [color=#d2ae68]Химическая установка[/color] ([color=#ff9a50]4000[/color] Вт) ведёт обычные химические реакции большими партиями. В слот ставят ёмкость и [bold]переливают из неё в буфер[/bold] ([color=#ff9a50]1000[/color] ед.) — там ничего не смешивается. В меню выбирают, что делать: установка берёт из буфера только нужные вещества в нужной пропорции, по [color=#ff9a50]20[/color] ед. за [color=#ff9a50]2[/color] секунды, и складывает готовое в бак продукции. Взрывы, дым и пену, а также реакции на центрифуге и электролизе она не ведёт.
+
+  ## Солидол и асфальт
+  <Box>
+      <GuideEntityEmbed Entity="DystopiaGrease1" Caption=""/>
+      <GuideEntityEmbed Entity="DystopiaFloorTileItemAsphalt" Caption=""/>
+  </Box>
+
+  В [color=#d2ae68]бетономешалке[/color]:
+  - [color=#ff9a50]20[/color] ед. [color=#7ac8b0]смазочного масла[/color] и [color=#ff9a50]5[/color] ед. [color=#7ac8b0]гашёной извести[/color] — [color=#9ab0c4]банка солидола[/color];
+  - [color=#ff9a50]2[/color] горсти [color=#9ab0c4]щебня[/color], [color=#ff9a50]1[/color] горсть [color=#9ab0c4]песка[/color] и [color=#ff9a50]10[/color] ед. [color=#7ac8b0]битума[/color] — [color=#ff9a50]4[/color] [color=#9ab0c4]плитки асфальта[/color]. Асфальт кладут на землю, как плитку.
+
+  ## Изделия
+  Из резины шьют [color=#9ab0c4]изолирующие перчатки[/color], [color=#9ab0c4]галоши[/color] и [color=#9ab0c4]фартук[/color], из пластика — [color=#9ab0c4]кувшин[/color] и [color=#9ab0c4]ведро[/color]. Кабели изолируют резиной или пластиком вместо ткани. Цены — в [textlink="Как построить" link="DystopiaIndustryCrafting"].
+</Document>

@@ -1,0 +1,46 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Solid wall from Structures/Walls/solid.rsi (by rye-rice (GitHub) and 20nypercent, modified by AftrLite (GitHub)), recolored for Dystopia.",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "full"
+    },
+    {
+      "name": "lead0",
+      "directions": 4
+    },
+    {
+      "name": "lead1",
+      "directions": 4
+    },
+    {
+      "name": "lead2",
+      "directions": 4
+    },
+    {
+      "name": "lead3",
+      "directions": 4
+    },
+    {
+      "name": "lead4",
+      "directions": 4
+    },
+    {
+      "name": "lead5",
+      "directions": 4
+    },
+    {
+      "name": "lead6",
+      "directions": 4
+    },
+    {
+      "name": "lead7",
+      "directions": 4
+    }
+  ]
+}

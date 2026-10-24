@@ -1,0 +1,52 @@
+<Document>
+  # Двигатели и генераторы
+
+  ## Малые генераторы
+  <Box>
+      <GuideEntityEmbed Entity="PortableGeneratorJrPacman" Caption=""/>
+      <GuideEntityEmbed Entity="DystopiaDieselGenerator" Caption=""/>
+  </Box>
+
+  - [color=#d2ae68]М.И.Н.И.П.А.К.М.А.Н.[/color] — переносной мотор-генератор на [color=#7ac8b0]бензине[/color] (или хуже — на [color=#7ac8b0]сварочном топливе[/color]), до [color=#ff9a50]8[/color] кВт в низковольтную сеть. Строится без чертежа.
+  - [color=#d2ae68]Дизель-генератор[/color] — армейский агрегат на раме, до [color=#ff9a50]20[/color] кВт в средневольтную линию. Ест [color=#7ac8b0]дизель[/color] или, чуть хуже, [color=#7ac8b0]керосин[/color]; бак на [color=#ff9a50]200[/color] ед. Строится по чертежу.
+
+  Оба запускают и настраивают кликом, как ванильные генераторы.
+
+  ## Промышленный двигатель
+  <Box>
+      <GuideEntityEmbed Entity="DystopiaEngineController" Caption=""/>
+      <GuideEntityEmbed Entity="DystopiaEngineCylinder" Caption=""/>
+      <GuideEntityEmbed Entity="DystopiaEngineRadiator" Caption=""/>
+  </Box>
+
+  Двигатель собирают в ряд. [color=#d2ae68]Пульт[/color] ставят задней стороной к будущему ряду, позади него в линию ставят от [color=#ff9a50]2[/color] до [color=#ff9a50]12[/color] [color=#d2ae68]блоков цилиндров[/color]. [color=#d2ae68]Радиаторы[/color] — в конец ряда (до [color=#ff9a50]3[/color]) и по бокам от любого блока. Всё остальное ряд обрывает.
+
+  Каждый блок даёт [color=#ff9a50]20[/color] кВт при подаче [color=#ff9a50]100%[/color]; подачу можно поднять до [color=#ff9a50]150%[/color] — мощнее, но сильно греет и изнашивает. Ток идёт в высоковольтный кабель под пультом. Всё управление — в меню пульта ([bold]клик[/bold]).
+
+  Баки пульта: топливо ([color=#ff9a50]1000[/color]), масло ([color=#ff9a50]200[/color]), вода ([color=#ff9a50]500[/color]). Заливают ведром или экспортером — каждое само уходит в свой бак. Топливо может быть любым из списка; хуже топливо — больше расход:
+  - [color=#7ac8b0]дизель[/color] — отдача [color=#ff9a50]1[/color];
+  - [color=#7ac8b0]керосин[/color] — [color=#ff9a50]0,9[/color];
+  - [color=#7ac8b0]мазут[/color] — [color=#ff9a50]0,75[/color], износ ×[color=#ff9a50]1,3[/color];
+  - [color=#7ac8b0]бензин[/color] — [color=#ff9a50]0,7[/color], износ ×[color=#ff9a50]3[/color];
+  - [color=#7ac8b0]этанол[/color] — [color=#ff9a50]0,6[/color];
+  - [color=#7ac8b0]сварочное топливо[/color] — [color=#ff9a50]0,5[/color], износ ×[color=#ff9a50]2[/color].
+
+  На дизеле блок ест [color=#ff9a50]0,04[/color] ед. в секунду. [color=#7ac8b0]Масло[/color] уходит понемногу; без него износ в [color=#ff9a50]20[/color] раз выше.
+
+  ## Тепло двигателя
+  Двигатель греется от работы. С [color=#ff9a50]115 °C[/color] износ вдвое быстрее, с [color=#ff9a50]130 °C[/color] двигатель горит: дым, искры, сирена. Остужают его радиаторы (без воды, но слабо) и [color=#7ac8b0]вода[/color]: с [color=#ff9a50]90 °C[/color] она выкипает, и пар уходит в газовую трубу спереди или сбоку пульта. Если пару некуда деться, водяное охлаждение встаёт. Пар двигателя можно пустить в [color=#d2ae68]паровую турбину[/color] — он не очень горячий, но бесплатный.
+
+  Износ и перегрев — урон пульту. Чинят [bold]сваркой[/bold]. Сильно изношенный двигатель клинит, разбитый — [color=#e05050]взрывается[/color].
+
+  ## Градирни
+  <Box>
+      <GuideEntityEmbed Entity="DystopiaCoolingTowerSmall" Caption=""/>
+      <GuideEntityEmbed Entity="DystopiaCoolingTowerLarge" Caption=""/>
+  </Box>
+
+  [color=#d2ae68]Градирня[/color] превращает пар из газовой трубы обратно в воду. Пар подводят к белым патрубкам слева и справа, воду забирают импортером у синего крана спереди посередине. Из моля пара выходит [color=#ff9a50]2[/color] ед. воды, [color=#ff9a50]5%[/color] уходит облаком в небо.
+  - [color=#d2ae68]Малая[/color] ([color=#ff9a50]3×3[/color]): [color=#ff9a50]1,5[/color] моль пара в секунду, бассейн [color=#ff9a50]2000[/color] ед., вентилятор [color=#ff9a50]3000[/color] Вт.
+  - [color=#d2ae68]Большая[/color] ([color=#ff9a50]5×5[/color]): [color=#ff9a50]4,5[/color] моль/с, бассейн [color=#ff9a50]6000[/color] ед., вентилятор [color=#ff9a50]9000[/color] Вт.
+
+  Без тока градирня работает на естественной тяге, втрое медленнее. Полный бассейн пара больше не берёт.
+</Document>

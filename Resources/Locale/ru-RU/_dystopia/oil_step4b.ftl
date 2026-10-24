@@ -49,7 +49,7 @@ ent-DystopiaBarrelWeldingFuel = бочка
     .desc = { ent-DystopiaBarrel.desc }
     .suffix = { reagent-name-welding-fuel }
 ent-DystopiaFuelOilBurner = мазутная форсунка
-    .desc = Форсунка под давлением, ставится вплотную к горну соплом к нему. Заливают мазут, дизель или керосин — ведром или жидкостным экспортером. Включённая сама разжигает горн, подкидывает ему топлива и дует, как меха: качать не нужно.
+    .desc = Форсунка под давлением, ставится вплотную к горну или к топочной дверце котла соплом к ним. Заливают мазут, дизель или керосин — ведром или жидкостным экспортером. Включённая сама разжигает огонь и подкидывает топлива, а горн ещё и раздувает, как меха: качать не нужно.
 ent-DystopiaKeroseneLamp = керосиновая лампа
     .desc = Фонарь «летучая мышь»: фитиль и стекло. Заливается керосином, горит тёплым светом около 25 минут. Можно повесить на стену: ПКМ лампой по стене — «Повесить лампу».
 ent-DystopiaWallLampKerosene = керосиновая лампа на стене
@@ -93,10 +93,10 @@ dystopia-burner-verb-on = Зажечь форсунку
 dystopia-burner-verb-off = Погасить форсунку
 dystopia-burner-turned-on = Форсунка открыта.
 dystopia-burner-turned-off = Форсунка закрыта.
-dystopia-burner-examine-burning = Факел ревёт в горне.
-dystopia-burner-examine-idle = [color=#e0c040]Открыта, но не горит: нет топлива или горна перед соплом.[/color]
+dystopia-burner-examine-burning = Факел ревёт в топке.
+dystopia-burner-examine-idle = [color=#e0c040]Открыта, но не горит: нет топлива или горна (котла) перед соплом.[/color]
 dystopia-burner-examine-off = Закрыта.
-dystopia-burner-examine-no-forge = [color=#e05040]Перед соплом нет горна.[/color]
+dystopia-burner-examine-no-forge = [color=#e05040]Перед соплом нет ни горна, ни топки котла.[/color]
 dystopia-burner-examine-fuel = Топлива: { $amount } из { $max }.
 dystopia-lamp-no-fuel = Нечему гореть.
 dystopia-lamp-full = Больше не влезает.

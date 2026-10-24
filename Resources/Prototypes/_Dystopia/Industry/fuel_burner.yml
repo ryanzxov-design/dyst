@@ -4,7 +4,7 @@
 - type: entity
   id: DystopiaFuelOilBurner
   name: fuel oil burner
-  description: "A pressure burner that bolts on facing a forge. Fill it with fuel oil, diesel or kerosene from a bucket or a liquid exporter; switched on, it lights the forge, feeds it and blasts it hot like bellows."
+  description: "A pressure burner that bolts on facing a forge or a boiler's fire door. Fill it with fuel oil, diesel or kerosene from a bucket or a liquid exporter; switched on, it lights the fire, feeds it and blasts a forge hot like bellows."
   placement:
     mode: SnapgridCenter
   components:
