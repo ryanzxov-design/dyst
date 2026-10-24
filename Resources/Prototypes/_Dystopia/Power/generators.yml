@@ -1,0 +1,439 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: нефть, шаг 4 — генераторы. Генератор gen_engines.py.
+# Дизель-генератор (из J.R.P.A.C.M.A.N., без parent) и промышленный двигатель: пульт, блок цилиндров,
+# радиатор, баки пульта. Самостоятельные сущности, без parent.
+
+- type: entity
+  id: DystopiaDieselGenerator
+  name: diesel generator
+  description: A heavy army generator on a skid. Runs on diesel or kerosene and feeds a medium-voltage line, up to 20 kW.
+  suffix: Diesel, 20 kW
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Solution
+    id: tank
+    solution:
+      maxVol: 200
+  - type: Transform
+    anchored: false
+    noRot: true
+  - type: Clickable
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.30,-0.30,0.30,0.30"
+        density: 80
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]
+  - type: Pullable
+  - type: Tag
+    tags: [ Structure ]
+  - type: Animateable
+  - type: InteractionOutline
+  - type: Anchorable
+    delay: 2
+  - type: LightningTarget
+    priority: 1
+  - type: RequireProjectileTarget
+  - type: TileFrictionModifier
+    modifier: 0.4
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 175
+      behaviors:
+      - !type:SpillBehavior
+        solution: tank
+    - trigger: !type:DamageTypeTrigger
+        damageType: Piercing
+        damage: 75
+      behaviors:
+      - !type:SolutionExplosionBehavior
+        solution: tank
+  - type: Damageable
+    damageModifierSet: SteelMod
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: StaticPrice
+    price: 1500
+  - type: AmbientSound
+    range: 4
+    volume: -8
+    sound:
+      path: /Audio/Ambience/Objects/engine_hum.ogg
+    enabled: false
+  - type: Appearance
+  - type: Sprite
+    sprite: _Dystopia/Structures/Power/diesel_generator.rsi
+    noRot: true
+    layers:
+    - state: icon
+      map:
+      - enum.GeneratorVisualLayers.Body
+    - state: unlit
+      map:
+      - enum.GeneratorVisualLayers.Unlit
+      shader: unshaded
+      visible: false
+  - type: WiresPanel
+  - type: UserInterface
+    interfaces:
+      enum.GeneratorComponentUiKey.Key:
+        type: PortableGeneratorBoundUserInterface
+  - type: ActivatableUI
+    key: enum.GeneratorComponentUiKey.Key
+  - type: Electrified
+    onHandInteract: false
+    onInteractUsing: false
+    onBump: false
+    requirePower: true
+    highVoltageNode: output
+  - type: PortableGenerator
+    startSoundEmpty:
+      collection: GeneratorTugEmpty
+    startSound:
+      collection: GeneratorTug
+    startChance: 0.7
+  - type: FuelGenerator
+    targetPower: 15000
+    minTargetPower: 10000
+    optimalPower: 20000
+    maxTargetPower: 20000
+    optimalBurnRate: 0.25
+    fuelEfficiencyConstant: 0.3
+  - type: PowerSupplier
+    supplyRate: 3000
+    supplyRampRate: 2000
+    supplyRampTolerance: 5000
+    enabled: false
+    voltage: Medium
+  - type: DeviceLinkSink
+    ports: [ true, false, Toggle ]
+  - type: GeneratorSignalControl
+  - type: DeviceNetwork
+    deviceNetId: Wireless
+    receiveFrequencyId: BasicDevice
+  - type: WirelessNetworkConnection
+    range: 200
+  - type: GenericVisualizer
+    visuals:
+      enum.GeneratorVisuals.Running:
+        enum.GeneratorVisualLayers.Body:
+          "True":
+            state: running
+          "False":
+            state: icon
+        enum.GeneratorVisualLayers.Unlit:
+          "True":
+            visible: true
+          "False":
+            visible: false
+  - type: ChemicalFuelGeneratorAdapter
+    solution: tank
+    reagents:
+      DystopiaDiesel: 1
+      DystopiaKerosene: 0.85
+  - type: RefillableSolution
+    solution: tank
+  - type: NodeContainer
+    examinable: true
+    nodes:
+      output: !type:CableDeviceNode
+        nodeGroupID: MVPower
+  - type: PowerMonitoringDevice
+    group: Generator
+    loadNode: output
+    sprite: _Dystopia/Structures/Power/diesel_generator.rsi
+    state: icon
+  - type: GeneratorExhaustGas
+    gasType: CarbonDioxide
+    moleRatio: 0.5
+  - type: Explosive
+    explosionType: Default
+    tileBreakScale: 0
+
+- type: entity
+  id: DystopiaEngineController
+  name: engine control console
+  description: "The head of an industrial internal-combustion engine. Cylinder blocks go in a straight row behind it, radiators at the end of the row. Fuel, oil and water are piped in through an exporter; the steam goes out into a gas pipe on its side; the power into a high-voltage cable beneath."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.45"
+        density: 400
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]
+  - type: Pullable
+  - type: Anchorable
+    delay: 4
+  - type: Rotatable   # куда смотрит пульт — от его задней стороны идёт ряд цилиндров
+  - type: Tag
+    tags: [ Structure ]
+  - type: Sprite
+    sprite: _Dystopia/Structures/Power/engine_controller.rsi
+    noRot: false
+    drawdepth: Objects
+    layers:
+    - state: icon
+      map: [ "enum.DystopiaProcessorVisuals.Running" ]
+    - state: unlit
+      map: [ "lamp" ]
+      shader: unshaded
+      visible: false
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DystopiaProcessorVisuals.Running:
+        enum.DystopiaProcessorVisuals.Running:
+          True: { state: running }
+          False: { state: icon }
+        lamp:
+          True: { visible: true }
+          False: { visible: false }
+  - type: AmbientSound
+    enabled: false
+    volume: -2
+    range: 8
+    sound:
+      path: /Audio/Ambience/Objects/engine_hum.ogg
+  - type: Solution   # топливный бак (любое топливо из списка; смесь сгорает пропорционально)
+    id: fuel
+    solution:
+      maxVol: 1000
+      canReact: false
+  - type: SolutionManager   # масляный и водяной баки
+    solutions:
+    - DystopiaSolutionEngineOil
+    - DystopiaSolutionEngineWater
+  - type: NodeContainer
+    examinable: true
+    nodes:
+      output:
+        !type:CableDeviceNode
+        nodeGroupID: HVPower
+      steam:
+        !type:PipeNode
+        nodeGroupID: Pipe
+        pipeDirection: East
+        volume: 200
+  - type: PowerSupplier
+    voltage: High
+    supplyRate: 0
+    supplyRampRate: 50000
+    supplyRampTolerance: 50000
+  - type: DystopiaEngineController
+    fuels:
+      DystopiaDiesel: 1.0
+      DystopiaKerosene: 0.9
+      DystopiaFuelOil: 0.75
+      DystopiaGasoline: 0.7
+      Ethanol: 0.6
+      WeldingFuel: 0.5
+    fuelWear:
+      DystopiaGasoline: 3
+      WeldingFuel: 2
+      DystopiaFuelOil: 1.3
+    wearDamage:
+      types:
+        Blunt: 0.004
+    overheatDamage:
+      types:
+        Heat: 0.2
+  - type: ActivatableUI   # клик — меню пульта
+    key: enum.DystopiaEngineUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.DystopiaEngineUiKey.Key:
+        type: DystopiaEngineBoundUserInterface
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Repairable   # износ чинят сваркой
+    fuelCost: 15
+    doAfterDelay: 8
+  - type: Explosive
+    explosionType: Default
+    maxIntensity: 30
+    intensitySlope: 3
+    totalIntensity: 120
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 500
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:ExplodeBehavior
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 4
+            max: 8
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+
+- type: entity
+  id: DystopiaEngineCylinder
+  name: cylinder block
+  description: "Two cylinders under valve covers on a common crankshaft. Set them in a straight row behind the engine console."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.45"
+        density: 300
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]
+  - type: Pullable
+  - type: Anchorable
+    delay: 4
+  - type: Tag
+    tags: [ Structure ]
+  - type: Appearance
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Sprite
+    sprite: _Dystopia/Structures/Power/engine_cylinder.rsi
+    noRot: true
+    drawdepth: Objects
+    layers:
+    - state: icon
+      map: [ "enum.DystopiaProcessorVisuals.Running" ]
+  - type: GenericVisualizer
+    visuals:
+      enum.DystopiaProcessorVisuals.Running:
+        enum.DystopiaProcessorVisuals.Running:
+          True: { state: running }
+          False: { state: icon }
+  - type: DystopiaEngineCylinder
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 300
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 3
+            max: 6
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+
+- type: entity
+  id: DystopiaEngineRadiator
+  name: engine radiator
+  description: "A honeycomb with a fan. Goes at the end of the cylinder row and cools the engine with no water at all, if not by much."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.45"
+        density: 300
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]
+  - type: Pullable
+  - type: Anchorable
+    delay: 4
+  - type: Tag
+    tags: [ Structure ]
+  - type: Appearance
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Sprite
+    sprite: _Dystopia/Structures/Power/engine_radiator.rsi
+    noRot: true
+    drawdepth: Objects
+    layers:
+    - state: icon
+      map: [ "enum.DystopiaProcessorVisuals.Running" ]
+  - type: GenericVisualizer
+    visuals:
+      enum.DystopiaProcessorVisuals.Running:
+        enum.DystopiaProcessorVisuals.Running:
+          True: { state: running }
+          False: { state: icon }
+  - type: DystopiaEngineRadiator
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 200
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 3
+            max: 6
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+
+- type: entity
+  id: DystopiaSolutionEngineOil
+  categories: [ HideSpawnMenu ]
+  name: oil sump
+  components:
+  - type: Solution
+    id: oil
+    solution:
+      maxVol: 200
+      canReact: false
+
+- type: entity
+  id: DystopiaSolutionEngineWater
+  categories: [ HideSpawnMenu ]
+  name: water jacket
+  components:
+  - type: Solution
+    id: water
+    solution:
+      maxVol: 500
+      canReact: false

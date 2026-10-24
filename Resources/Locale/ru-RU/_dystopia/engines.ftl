@@ -1,0 +1,40 @@
+# Dystopia: нефть, шаг 4 — генераторы. Генератор gen_engines.py.
+
+ent-DystopiaDieselGenerator = дизель-генератор
+    .desc = Тяжёлый армейский генератор на салазках. Работает на дизельном топливе или керосине (чуть хуже) и выдаёт в сеть среднего напряжения до 20 кВт. Заводится увереннее малого.
+    .suffix = Дизель, 20 кВт
+ent-DystopiaEngineController = пульт двигателя
+    .desc = Голова промышленного двигателя внутреннего сгорания. С его задней стороны в прямой ряд ставят блоки цилиндров (от 2 до 12), в конец ряда — радиаторы. Топливо, масло и воду подают по трубам через экспортер; пар уходит в газовую трубу сбоку, ток — в высоковольтный кабель под пультом. Износ чинят сваркой.
+ent-DystopiaEngineCylinder = блок цилиндров
+    .desc = Два цилиндра под клапанными крышками на общем коленвале. Ставится в прямой ряд за пультом двигателя.
+ent-DystopiaEngineRadiator = радиатор двигателя
+    .desc = Соты с вентилятором. Ставится в конец ряда цилиндров и охлаждает двигатель без всякой воды, хоть и понемногу.
+ent-DystopiaSolutionEngineOil = картер
+    .desc = { "" }
+ent-DystopiaSolutionEngineWater = рубашка охлаждения
+    .desc = { "" }
+dystopia-engine-ui-title = Пульт двигателя
+dystopia-engine-ui-start = Пуск
+dystopia-engine-ui-stop = Стоп
+dystopia-engine-ui-status-off = Остановлен
+dystopia-engine-ui-status-running = Работает
+dystopia-engine-ui-status-nofuel = Нет топлива
+dystopia-engine-ui-status-shortrow = Мало цилиндров в ряду
+dystopia-engine-ui-status-seized = Заклинило — нужен ремонт сваркой
+dystopia-engine-ui-row = Ряд: { $cylinders } цилиндров (нужно { $min }–{ $max }), радиаторов: { $radiators }.
+dystopia-engine-ui-power-header = Мощность
+dystopia-engine-ui-power = { $power } кВт (предел { $max } кВт)
+dystopia-engine-ui-throttle = Подача: { $throttle }%
+dystopia-engine-ui-overload-hint = Больше 100% — перегрузка: мощнее, но греется и изнашивается в разы быстрее.
+dystopia-engine-ui-condition-header = Состояние
+dystopia-engine-ui-temperature = Температура: { $temperature } °C (норма до { $warn }, выше { $overheat } — горит)
+dystopia-engine-ui-wear = Износ: { $wear }% (на 100% клинит)
+dystopia-engine-ui-tanks-header = Баки
+dystopia-engine-ui-fuel = Топливо: { $amount } / { $max } ед., расход { $rate } ед./с
+dystopia-engine-ui-oil = Масло: { $amount } / { $max } ед., расход { $rate } ед./с
+dystopia-engine-ui-water = Вода: { $amount } / { $max } ед., выкипает { $rate } ед./с
+dystopia-engine-ui-steam = Пар: { $amount } / { $max } моль, давление в трубе { $pressure } кПа
+dystopia-engine-ui-steam-disconnected = Пар: { $amount } / { $max } моль — газовая труба не подключена
+dystopia-engine-ui-tanks-hint = Топливо (дизель, керосин, мазут, бензин, спирт, сварочное), масло и воду подают экспортером из труб — каждое уходит в свой бак.
+dystopia-engine-examine-row = Ряд: [color=#d2ae68]{ $cylinders }[/color] цилиндров, { $radiators } радиаторов.
+dystopia-engine-examine-state = { $temperature } °C, отдаёт { $power } кВт.

@@ -292,7 +292,9 @@
   - type: ChemicalFuelGeneratorAdapter
     solution: tank
     reagents:
-      WeldingFuel: 1
+      # Dystopia-Oil: бензин — основное топливо; сварочное (по сути ацетилен) в моторе горит хуже
+      DystopiaGasoline: 1
+      WeldingFuel: 0.8
   - type: RefillableSolution
     solution: tank
   - type: PortableGenerator

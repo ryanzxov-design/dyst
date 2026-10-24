@@ -43,6 +43,7 @@ public sealed partial class DystopiaLiquidDeviceSystem : EntitySystem
     [Dependency] private DystopiaProcessorSystem _processor = default!;
     [Dependency] private IRobustRandom _random = default!;
     [Dependency] private SharedUserInterfaceSystem _ui = default!;
+    [Dependency] private DystopiaEngineSystem _engine = default!;
 
     public override void Initialize()
     {
@@ -513,6 +514,10 @@ public sealed partial class DystopiaLiquidDeviceSystem : EntitySystem
 
         if (IsCasting(target))
             return _quench.TryQuench(target, net, max);
+
+        // Промышленный двигатель: топливо, масло и вода — каждое в свой бак.
+        if (TryComp<DystopiaEngineControllerComponent>(target, out var engine))
+            return _engine.Fill((target, engine), net, max);
 
         // Химическая установка: всё — в буфер (там не смешивается).
         if (TryComp<DystopiaChemUnitComponent>(target, out var chem))
