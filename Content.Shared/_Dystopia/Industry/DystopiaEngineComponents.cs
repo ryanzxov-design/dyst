@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 // Dystopia: промышленный двигатель внутреннего сгорания. Многоблочный, как ДАМ, но строго рядом: пульт, за ним
-// (с его задней стороны) цилиндры в линию, в конце ряда — радиаторы. Мощность — по числу цилиндров и подаче; топливо
+// (с его задней стороны) цилиндры в линию; радиаторы — в конце ряда и по бокам от цилиндров. Мощность — по числу цилиндров и подаче; топливо
 // любое из списка, у каждого своя отдача (хуже топливо — больше расход) и износ. Масло расходуется, без него износ
 // резко растёт. Охлаждение: радиаторы (пассивно) и вода — она выкипает в пар, пар уходит в газовую трубу. Износ и
 // перегрев — урон пульту (чинят сваркой, как окна); сильно изношенный двигатель клинит, разбитый — взрывается.
@@ -8,6 +8,7 @@
 using Content.Shared.Chemistry.Reagent;
 using Content.Shared.Damage;
 using Content.Shared.FixedPoint;
+using Robust.Shared.Audio;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 
@@ -49,6 +50,7 @@ public sealed partial class DystopiaEngineControllerComponent : Component
     [DataField]
     public int MaxCylinders = 12;
 
+    /// <summary>Сколько радиаторов можно поставить в конце ряда (по бокам от цилиндров — по одному с каждой стороны).</summary>
     [DataField]
     public int MaxRadiators = 3;
 
@@ -154,13 +156,44 @@ public sealed partial class DystopiaEngineControllerComponent : Component
 
     // ------------------------------------------------------------ износ
 
-    /// <summary>Износ в секунду на цилиндр при подаче 100% (урон пульту).</summary>
+    /// <summary>Чем изнашивается (урон пульту на единицу износа).</summary>
     [DataField]
     public DamageSpecifier WearDamage = new();
 
-    /// <summary>Урон жаром за каждый градус выше OverheatTemperature в секунду.</summary>
+    /// <summary>Износ в секунду на цилиндр при подаче 100%.</summary>
+    [DataField]
+    public float WearRate = 0.004f;
+
+    /// <summary>Чем жжёт перегрев (урон пульту на единицу).</summary>
     [DataField]
     public DamageSpecifier OverheatDamage = new();
+
+    /// <summary>Урон жаром в секунду за каждый градус выше OverheatTemperature.</summary>
+    [DataField]
+    public float OverheatRate = 0.2f;
+
+    /// <summary>Накопленный, ещё не нанесённый износ/жар: урон хранится с точностью до сотых, мелочь копим.</summary>
+    [ViewVariables]
+    public float PendingWear;
+
+    [ViewVariables]
+    public float PendingHeat;
+
+    /// <summary>Перегрев: шипение раз в OverheatSoundInterval, при переходе через порог — сирена.</summary>
+    [DataField]
+    public SoundSpecifier? OverheatSound = new SoundPathSpecifier("/Audio/Effects/sizzle.ogg");
+
+    [DataField]
+    public SoundSpecifier? OverheatAlarm = new SoundPathSpecifier("/Audio/Machines/alarm.ogg");
+
+    [DataField]
+    public float OverheatSoundInterval = 3f;
+
+    [ViewVariables]
+    public TimeSpan NextOverheatSound;
+
+    [ViewVariables]
+    public bool Overheated;
 
     /// <summary>Без масла износ во столько раз выше.</summary>
     [DataField]
@@ -203,6 +236,10 @@ public sealed partial class DystopiaEngineControllerComponent : Component
     [ViewVariables]
     public float WaterRate;
 
+    /// <summary>Сколько пара ушло в трубу за последний такт, моль/с.</summary>
+    [ViewVariables]
+    public float SteamRate;
+
     [ViewVariables]
     public List<EntityUid> Row = new();
 }
@@ -214,6 +251,13 @@ public sealed partial class DystopiaEngineCylinderComponent : Component;
 /// <summary>Радиатор: в конце ряда цилиндров.</summary>
 [RegisterComponent]
 public sealed partial class DystopiaEngineRadiatorComponent : Component;
+
+/// <summary>Вид: перегрев (дым, искры) — у пульта и всех блоков ряда.</summary>
+[Serializable, NetSerializable]
+public enum DystopiaEngineVisuals : byte
+{
+    Overheat,
+}
 
 [Serializable, NetSerializable]
 public enum DystopiaEngineUiKey : byte
@@ -266,7 +310,8 @@ public sealed class DystopiaEngineUiState(
     bool steamConnected,
     float fuelRate,
     float oilRate,
-    float waterRate) : BoundUserInterfaceState
+    float waterRate,
+    float steamRate) : BoundUserInterfaceState
 {
     public readonly DystopiaEngineStatus Status = status;
     public readonly bool On = on;
@@ -298,6 +343,7 @@ public sealed class DystopiaEngineUiState(
     public readonly float FuelRate = fuelRate;
     public readonly float OilRate = oilRate;
     public readonly float WaterRate = waterRate;
+    public readonly float SteamRate = steamRate;
 }
 
 [Serializable, NetSerializable]

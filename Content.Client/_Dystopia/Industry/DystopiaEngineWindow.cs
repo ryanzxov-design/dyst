@@ -186,8 +186,13 @@ public sealed class DystopiaEngineWindow : CityWindow
         _tanks.AddChild(CityUi.MakeLabel(Loc.GetString(state.SteamConnected
                 ? "dystopia-engine-ui-steam"
                 : "dystopia-engine-ui-steam-disconnected",
-            ("amount", Fmt(state.Steam)), ("max", Fmt(state.SteamMax)), ("pressure", Fmt(state.SteamPressure, "0"))),
+            ("rate", Fmt(state.SteamRate, "0.##")), ("pressure", Fmt(state.SteamPressure, "0"))),
             state.SteamConnected ? CityUi.Text : Warn));
+        if (state.Steam > 0f)
+        {
+            _tanks.AddChild(CityUi.MakeLabel(Loc.GetString("dystopia-engine-ui-steam-buffer",
+                ("amount", Fmt(state.Steam)), ("max", Fmt(state.SteamMax))), CityUi.Danger));
+        }
         _tanks.AddChild(CityUi.MakeLabel(Loc.GetString("dystopia-engine-ui-tanks-hint"), CityUi.Muted));
     }
 }

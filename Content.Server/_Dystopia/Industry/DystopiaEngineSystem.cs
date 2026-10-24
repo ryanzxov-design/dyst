@@ -1,8 +1,9 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 // Dystopia: промышленный двигатель внутреннего сгорания (см. DystopiaEngineControllerComponent).
-// Раз в такт: ряд за пультом (цилиндры, потом радиаторы) → если включён, не заклинен и есть топливо — сжигает топливо
+// Раз в такт: ряд за пультом (цилиндры, радиаторы в конце и по бокам) → если включён, не заклинен и есть топливо — сжигает топливо
 // (отдача по виду топлива), масло, греется; охлаждается радиаторами и водой (вода → пар → газовая труба); выдаёт
-// мощность в высоковольтную сеть; выхлоп CO₂ — в воздух клетки; износ и перегрев — урон пульту.
+// мощность в высоковольтную сеть; выхлоп CO₂ — в воздух клетки; износ и перегрев — урон пульту. Перегрев видно и
+// слышно: дым и искры (DystopiaEngineVisuals.Overheat у всего ряда), сирена на пороге и шипение.
 
 using Content.Server.Atmos.EntitySystems;
 using Content.Server.NodeContainer.EntitySystems;
@@ -20,22 +21,22 @@ using Content.Shared.Damage.Systems;
 using Content.Shared.Examine;
 using Content.Shared.FixedPoint;
 using Content.Shared.NodeContainer;
+using Robust.Shared.Audio.Systems;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 
 namespace Content.Server._Dystopia.Industry;
 
-public sealed class DystopiaEngineSystem : EntitySystem
+public sealed partial class DystopiaEngineSystem : EntitySystem
 {
     [Dependency] private IGameTiming _timing = default!;
-    [Dependency] private IPrototypeManager _proto = default!;
     [Dependency] private SharedSolutionContainerSystem _solution = default!;
     [Dependency] private SharedAppearanceSystem _appearance = default!;
     [Dependency] private SharedAmbientSoundSystem _ambient = default!;
     [Dependency] private SharedUserInterfaceSystem _ui = default!;
     [Dependency] private SharedMapSystem _map = default!;
-    [Dependency] private EntityLookupSystem _lookup = default!;
+    [Dependency] private SharedAudioSystem _audio = default!;
     [Dependency] private AtmosphereSystem _atmos = default!;
     [Dependency] private NodeContainerSystem _nodes = default!;
     [Dependency] private DamageableSystem _damageable = default!;
@@ -73,7 +74,10 @@ public sealed class DystopiaEngineSystem : EntitySystem
 
     // ------------------------------------------------------------------ ряд
 
-    /// <summary>Цилиндры — подряд с задней стороны пульта, за ними радиаторы. Остальное ряд обрывает.</summary>
+    /// <summary>
+    /// Цилиндры — подряд с задней стороны пульта; радиаторы — в конце ряда (до MaxRadiators) и по бокам от любого
+    /// цилиндра (по одному с каждой стороны). Остальное ряд обрывает.
+    /// </summary>
     private void ScanRow(Entity<DystopiaEngineControllerComponent> ent, TransformComponent xform)
     {
         var engine = ent.Comp;
@@ -85,36 +89,63 @@ public sealed class DystopiaEngineSystem : EntitySystem
             return;
 
         var back = (xform.LocalRotation + Direction.North.ToAngle()).GetCardinalDir();
+        var left = (xform.LocalRotation + Direction.West.ToAngle()).GetCardinalDir();
+        var right = (xform.LocalRotation + Direction.East.ToAngle()).GetCardinalDir();
         var tile = _map.TileIndicesFor(gridUid, grid, xform.Coordinates);
+        var endRadiators = 0;
+        var cylinderTiles = new List<Vector2i>();
         for (var i = 0; i < engine.MaxCylinders + engine.MaxRadiators; i++)
         {
             tile = tile.Offset(back);
-            EntityUid? cylinder = null;
-            EntityUid? radiator = null;
-            foreach (var other in _map.GetAnchoredEntities(gridUid, grid, tile))
-            {
-                if (HasComp<DystopiaEngineCylinderComponent>(other))
-                    cylinder = other;
-                else if (HasComp<DystopiaEngineRadiatorComponent>(other))
-                    radiator = other;
-            }
-
-            if (cylinder != null && engine.Radiators == 0 && engine.Cylinders < engine.MaxCylinders)
+            var cylinder = Find<DystopiaEngineCylinderComponent>(gridUid, grid, tile);
+            if (cylinder != null && endRadiators == 0 && engine.Cylinders < engine.MaxCylinders)
             {
                 engine.Cylinders++;
                 engine.Row.Add(cylinder.Value);
+                cylinderTiles.Add(tile);
                 continue;
             }
 
-            if (radiator != null && engine.Cylinders > 0 && engine.Radiators < engine.MaxRadiators)
+            var radiator = Find<DystopiaEngineRadiatorComponent>(gridUid, grid, tile);
+            if (radiator != null && engine.Cylinders > 0 && endRadiators < engine.MaxRadiators)
             {
-                engine.Radiators++;
+                endRadiators++;
                 engine.Row.Add(radiator.Value);
                 continue;
             }
 
             break;
         }
+
+        // Радиаторы по бокам от цилиндров
+        foreach (var cylTile in cylinderTiles)
+        {
+            foreach (var side in new[] { left, right })
+            {
+                if (Find<DystopiaEngineRadiatorComponent>(gridUid, grid, cylTile.Offset(side)) is { } radiator &&
+                    !engine.Row.Contains(radiator))
+                {
+                    engine.Row.Add(radiator);
+                }
+            }
+        }
+
+        foreach (var part in engine.Row)
+        {
+            if (HasComp<DystopiaEngineRadiatorComponent>(part))
+                engine.Radiators++;
+        }
+    }
+
+    private EntityUid? Find<T>(EntityUid gridUid, MapGridComponent grid, Vector2i tile) where T : IComponent
+    {
+        foreach (var other in _map.GetAnchoredEntities(gridUid, grid, tile))
+        {
+            if (HasComp<T>(other))
+                return other;
+        }
+
+        return null;
     }
 
     // ------------------------------------------------------------------ работа
@@ -190,19 +221,18 @@ public sealed class DystopiaEngineSystem : EntitySystem
                 if (engine.Temperature > engine.WarnTemperature)
                     wear *= 2f;
 
-                if (wear > 0f && !engine.WearDamage.Empty)
-                    _damageable.TryChangeDamage(ent.Owner, engine.WearDamage * (wear * dt), interruptsDoAfters: false);
+                engine.PendingWear += wear * engine.WearRate * dt;
             }
         }
 
         Cool(ent, dt);
-        VentSteam(ent);
+        VentSteam(ent, dt);
 
-        if (engine.Temperature > engine.OverheatTemperature && !engine.OverheatDamage.Empty)
-        {
-            _damageable.TryChangeDamage(ent.Owner,
-                engine.OverheatDamage * ((engine.Temperature - engine.OverheatTemperature) * dt), interruptsDoAfters: false);
-        }
+        if (engine.Temperature > engine.OverheatTemperature)
+            engine.PendingHeat += (engine.Temperature - engine.OverheatTemperature) * engine.OverheatRate * dt;
+
+        ApplyDamage(ent);
+        Overheat(ent, oldRow);
 
         if (TryComp<PowerSupplierComponent>(ent, out var supplier))
             supplier.MaxSupply = engine.Power;
@@ -241,9 +271,10 @@ public sealed class DystopiaEngineSystem : EntitySystem
     }
 
     /// <summary>Пар — в газовую трубу, пока давление в ней ниже предела.</summary>
-    private void VentSteam(Entity<DystopiaEngineControllerComponent> ent)
+    private void VentSteam(Entity<DystopiaEngineControllerComponent> ent, float dt)
     {
         var engine = ent.Comp;
+        engine.SteamRate = 0f;
         if (engine.SteamMoles <= 0f || !_nodes.TryGetNode<PipeNode>(ent.Owner, engine.SteamNode, out var pipe))
             return;
 
@@ -253,7 +284,55 @@ public sealed class DystopiaEngineSystem : EntitySystem
         var steam = new GasMixture { Temperature = engine.SteamTemperature };
         steam.AdjustMoles(Gas.WaterVapor, engine.SteamMoles);
         _atmos.Merge(pipe.Air, steam);
+        engine.SteamRate = engine.SteamMoles / dt;
         engine.SteamMoles = 0f;
+    }
+
+    /// <summary>Урон хранится с точностью до сотых: мелкий износ копим и наносим, когда наберётся.</summary>
+    private void ApplyDamage(Entity<DystopiaEngineControllerComponent> ent)
+    {
+        var engine = ent.Comp;
+        if (engine.PendingWear >= 0.1f && !engine.WearDamage.Empty)
+        {
+            _damageable.TryChangeDamage(ent.Owner, engine.WearDamage * engine.PendingWear, interruptsDoAfters: false);
+            engine.PendingWear = 0f;
+        }
+
+        if (engine.PendingHeat >= 0.1f && !engine.OverheatDamage.Empty)
+        {
+            _damageable.TryChangeDamage(ent.Owner, engine.OverheatDamage * engine.PendingHeat, interruptsDoAfters: false);
+            engine.PendingHeat = 0f;
+        }
+    }
+
+    /// <summary>Перегрев: дым и искры у всего ряда, сирена при переходе через порог, шипение, пока горит.</summary>
+    private void Overheat(Entity<DystopiaEngineControllerComponent> ent, List<EntityUid> oldRow)
+    {
+        var engine = ent.Comp;
+        var hot = engine.Temperature > engine.OverheatTemperature;
+        var now = _timing.CurTime;
+
+        if (hot && !engine.Overheated)
+        {
+            _audio.PlayPvs(engine.OverheatAlarm, ent);
+            engine.NextOverheatSound = now + TimeSpan.FromSeconds(engine.OverheatSoundInterval);
+        }
+        else if (hot && now >= engine.NextOverheatSound)
+        {
+            _audio.PlayPvs(engine.OverheatSound, ent);
+            engine.NextOverheatSound = now + TimeSpan.FromSeconds(engine.OverheatSoundInterval);
+        }
+
+        engine.Overheated = hot;
+        _appearance.SetData(ent, DystopiaEngineVisuals.Overheat, hot);
+        foreach (var old in oldRow)
+        {
+            if (!engine.Row.Contains(old) && !TerminatingOrDeleted(old))
+                _appearance.SetData(old, DystopiaEngineVisuals.Overheat, false);
+        }
+
+        foreach (var part in engine.Row)
+            _appearance.SetData(part, DystopiaEngineVisuals.Overheat, hot);
     }
 
     private void SetRunning(Entity<DystopiaEngineControllerComponent> ent, bool running, List<EntityUid> oldRow)
@@ -378,7 +457,9 @@ public sealed class DystopiaEngineSystem : EntitySystem
             waterMax = waterSol.MaxVolume.Float();
         }
 
-        var steamConnected = _nodes.TryGetNode<PipeNode>(ent.Owner, engine.SteamNode, out var pipe) && pipe.NodeGroup != null;
+        // Подключено — если в сети патрубка есть ещё узлы (одинокий патрубок — сам себе сеть).
+        var steamConnected = _nodes.TryGetNode<PipeNode>(ent.Owner, engine.SteamNode, out var pipe) &&
+                             pipe.NodeGroup is { } group && group.Nodes.Count > 1;
         var pressure = pipe?.Air.Pressure ?? 0f;
 
         var wear = TryComp<DamageableComponent>(ent, out var damageable) && engine.SeizeDamage > FixedPoint2.Zero
@@ -390,7 +471,7 @@ public sealed class DystopiaEngineSystem : EntitySystem
             engine.MaxThrottle, engine.Power, engine.Cylinders * engine.PowerPerCylinder * engine.MaxThrottle,
             engine.Temperature, engine.WarnTemperature, engine.OverheatTemperature, wear, fuel, fuelMax, oil, oilMax,
             water, waterMax, engine.SteamMoles, engine.SteamCapacity, pressure, steamConnected, engine.FuelRate,
-            engine.OilRate, engine.WaterRate));
+            engine.OilRate, engine.WaterRate, engine.SteamRate));
     }
 
     // ------------------------------------------------------------------ осмотр

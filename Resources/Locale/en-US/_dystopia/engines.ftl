@@ -20,8 +20,9 @@ dystopia-engine-ui-tanks-header = Tanks
 dystopia-engine-ui-fuel = Fuel: { $amount } / { $max } u, burning { $rate } u/s
 dystopia-engine-ui-oil = Oil: { $amount } / { $max } u, using { $rate } u/s
 dystopia-engine-ui-water = Water: { $amount } / { $max } u, boiling off { $rate } u/s
-dystopia-engine-ui-steam = Steam: { $amount } / { $max } mol, pipe pressure { $pressure } kPa
-dystopia-engine-ui-steam-disconnected = Steam: { $amount } / { $max } mol: no gas pipe connected
+dystopia-engine-ui-steam = Steam: { $rate } mol/s into the pipe, pipe pressure { $pressure } kPa
+dystopia-engine-ui-steam-disconnected = Steam: no gas pipe connected (the outlet is at the front and sides of the console): steam builds up in the outlet, { $pressure } kPa
+dystopia-engine-ui-steam-buffer = Steam buffer: { $amount } / { $max } mol: the pipe is full; once the buffer fills, the water stops boiling
 dystopia-engine-ui-tanks-hint = Fuel (diesel, kerosene, fuel oil, gasoline, alcohol, welding fuel), oil and water are fed by an exporter from the pipes: each goes into its own tank.
 dystopia-engine-examine-row = Row: [color=#d2ae68]{ $cylinders }[/color] cylinders, { $radiators } radiators.
 dystopia-engine-examine-state = { $temperature } °C, putting out { $power } kW.

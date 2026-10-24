@@ -160,7 +160,7 @@
 - type: entity
   id: DystopiaEngineController
   name: engine control console
-  description: "The head of an industrial internal-combustion engine. Cylinder blocks go in a straight row behind it, radiators at the end of the row. Fuel, oil and water are piped in through an exporter; the steam goes out into a gas pipe on its side; the power into a high-voltage cable beneath."
+  description: "The head of an industrial internal-combustion engine. Cylinder blocks go in a straight row behind it, radiators at the end of the row or beside the cylinders. Fuel, oil and water are piped in through an exporter; the steam goes out into a gas pipe at its front or sides; the power into a high-voltage cable beneath."
   placement:
     mode: SnapgridCenter
   components:
@@ -230,7 +230,7 @@
       steam:
         !type:PipeNode
         nodeGroupID: Pipe
-        pipeDirection: East
+        pipeDirection: TSouth   # спереди и по бокам пульта (сзади — ряд цилиндров)
         volume: 200
   - type: PowerSupplier
     voltage: High
@@ -249,12 +249,53 @@
       DystopiaGasoline: 3
       WeldingFuel: 2
       DystopiaFuelOil: 1.3
-    wearDamage:
+    wearDamage:   # на единицу износа; скорость — wearRate (0,004 на цилиндр в секунду при 100%)
       types:
-        Blunt: 0.004
-    overheatDamage:
+        Blunt: 1
+    overheatDamage:   # на единицу перегрева; скорость — overheatRate (0,2 в секунду за градус выше 130)
       types:
-        Heat: 0.2
+        Heat: 1
+  - type: IconSmooth   # блоки ряда тянутся к пульту, сам пульт не меняется
+    key: DystopiaEngine
+    mode: NoSprite
+  - type: DystopiaParticleEmitter   # перегрев: дым и искры
+    emitters:
+    - rate: 10
+      lifetime: 1.4,2.6
+      speed: 0.15,0.4
+      direction: 0
+      spread: 60
+      alignToVelocity: false
+      inheritVelocity: 0
+      drift: 0,0.4
+      drag: 0.6
+      jitter: 0.9
+      size: 3,6
+      additive: false
+      activeWhen: enum.DystopiaEngineVisuals.Overheat
+      colors:
+      - "#2E2C2A00"
+      - "#2E2C2A90"
+      - "#2E2C2A50"
+      - "#2E2C2A00"
+    - rate: 5
+      lifetime: 0.4,0.9
+      speed: 0.4,1.0
+      direction: 0
+      spread: 120
+      alignToVelocity: false
+      inheritVelocity: 0
+      drift: 0,-0.6
+      drag: 0.5
+      jitter: 0.6
+      size: 1,1
+      additive: true
+      flicker: 0.5
+      activeWhen: enum.DystopiaEngineVisuals.Overheat
+      colors:
+      - "#FFD27AFF"
+      - "#FF8A2AC8"
+      - "#C0401A00"
   - type: ActivatableUI   # клик — меню пульта
     key: enum.DystopiaEngineUiKey.Key
   - type: UserInterface
@@ -328,14 +369,61 @@
     noRot: true
     drawdepth: Objects
     layers:
-    - state: icon
-      map: [ "enum.DystopiaProcessorVisuals.Running" ]
+    - state: cyl0
+    - state: running
+      map: [ "running" ]
+      visible: false
+  - type: Icon
+    sprite: _Dystopia/Structures/Power/engine_cylinder.rsi
+    state: cyl0
+  - type: IconSmooth
+    key: DystopiaEngine
+    base: cyl
+    mode: CardinalFlags
   - type: GenericVisualizer
     visuals:
       enum.DystopiaProcessorVisuals.Running:
-        enum.DystopiaProcessorVisuals.Running:
-          True: { state: running }
-          False: { state: icon }
+        running:
+          True: { visible: true }
+          False: { visible: false }
+  - type: DystopiaParticleEmitter   # перегрев: дым и искры
+    emitters:
+    - rate: 10
+      lifetime: 1.4,2.6
+      speed: 0.15,0.4
+      direction: 0
+      spread: 60
+      alignToVelocity: false
+      inheritVelocity: 0
+      drift: 0,0.4
+      drag: 0.6
+      jitter: 0.9
+      size: 3,6
+      additive: false
+      activeWhen: enum.DystopiaEngineVisuals.Overheat
+      colors:
+      - "#2E2C2A00"
+      - "#2E2C2A90"
+      - "#2E2C2A50"
+      - "#2E2C2A00"
+    - rate: 5
+      lifetime: 0.4,0.9
+      speed: 0.4,1.0
+      direction: 0
+      spread: 120
+      alignToVelocity: false
+      inheritVelocity: 0
+      drift: 0,-0.6
+      drag: 0.5
+      jitter: 0.6
+      size: 1,1
+      additive: true
+      flicker: 0.5
+      activeWhen: enum.DystopiaEngineVisuals.Overheat
+      colors:
+      - "#FFD27AFF"
+      - "#FF8A2AC8"
+      - "#C0401A00"
   - type: DystopiaEngineCylinder
   - type: Destructible
     thresholds:
@@ -356,7 +444,7 @@
 - type: entity
   id: DystopiaEngineRadiator
   name: engine radiator
-  description: "A honeycomb with a fan. Goes at the end of the cylinder row and cools the engine with no water at all, if not by much."
+  description: "A honeycomb with a fan. Goes at the end of the cylinder row or beside any cylinder and cools the engine with no water at all, if not by much."
   placement:
     mode: SnapgridCenter
   components:
@@ -391,14 +479,23 @@
     noRot: true
     drawdepth: Objects
     layers:
-    - state: icon
-      map: [ "enum.DystopiaProcessorVisuals.Running" ]
+    - state: rad0
+    - state: running
+      map: [ "running" ]
+      visible: false
+  - type: Icon
+    sprite: _Dystopia/Structures/Power/engine_radiator.rsi
+    state: rad0
+  - type: IconSmooth
+    key: DystopiaEngine
+    base: rad
+    mode: CardinalFlags
   - type: GenericVisualizer
     visuals:
       enum.DystopiaProcessorVisuals.Running:
-        enum.DystopiaProcessorVisuals.Running:
-          True: { state: running }
-          False: { state: icon }
+        running:
+          True: { visible: true }
+          False: { visible: false }
   - type: DystopiaEngineRadiator
   - type: Destructible
     thresholds:

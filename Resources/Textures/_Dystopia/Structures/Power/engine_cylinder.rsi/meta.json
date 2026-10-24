@@ -8,7 +8,52 @@
     },
     "states": [
         {
-            "name": "icon"
+            "name": "cyl0"
+        },
+        {
+            "name": "cyl1"
+        },
+        {
+            "name": "cyl2"
+        },
+        {
+            "name": "cyl3"
+        },
+        {
+            "name": "cyl4"
+        },
+        {
+            "name": "cyl5"
+        },
+        {
+            "name": "cyl6"
+        },
+        {
+            "name": "cyl7"
+        },
+        {
+            "name": "cyl8"
+        },
+        {
+            "name": "cyl9"
+        },
+        {
+            "name": "cyl10"
+        },
+        {
+            "name": "cyl11"
+        },
+        {
+            "name": "cyl12"
+        },
+        {
+            "name": "cyl13"
+        },
+        {
+            "name": "cyl14"
+        },
+        {
+            "name": "cyl15"
         },
         {
             "name": "running",
