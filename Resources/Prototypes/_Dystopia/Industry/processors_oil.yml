@@ -12,6 +12,9 @@
   placement:
     mode: SnapgridCenter
   components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaDistillationColumnCraft
+    node: done
   - type: Transform
     anchored: true
     noRot: true
@@ -126,6 +129,9 @@
   placement:
     mode: SnapgridCenter
   components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaVacuumDistillerCraft
+    node: done
   - type: Transform
     anchored: true
     noRot: true

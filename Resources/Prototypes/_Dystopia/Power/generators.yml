@@ -11,6 +11,9 @@
   placement:
     mode: SnapgridCenter
   components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaDieselGeneratorCraft
+    node: done
   - type: Solution
     id: tank
     solution:
@@ -164,6 +167,9 @@
   placement:
     mode: SnapgridCenter
   components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaEngineControllerCraft
+    node: done
   - type: Transform
     anchored: true
   - type: Clickable
@@ -338,6 +344,9 @@
   placement:
     mode: SnapgridCenter
   components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaEngineCylinderCraft
+    node: done
   - type: Transform
     anchored: true
     noRot: true
@@ -448,6 +457,9 @@
   placement:
     mode: SnapgridCenter
   components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaEngineRadiatorCraft
+    node: done
   - type: Transform
     anchored: true
     noRot: true

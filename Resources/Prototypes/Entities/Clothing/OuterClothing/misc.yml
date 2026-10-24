@@ -4,6 +4,9 @@
   name: apron
   description: A fancy apron for a stylish person.
   components:
+  - type: Construction   # Dystopia-Crafts: крафт (gen_crafts.py)
+    graph: ClothingOuterApronCraft
+    node: done
   - type: Sprite
     sprite: Clothing/OuterClothing/Misc/apron.rsi
   - type: Clothing

@@ -1,0 +1,23 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: стопки деталей из нефти и плитки асфальта (gen_oil_crafts.py).
+
+- type: stack
+  id: DystopiaRubberSeal
+  name: stack-dystopiarubberseal
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Parts/oil_parts.rsi, state: seal_3 }
+  spawn: DystopiaRubberSeal1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaGrease
+  name: stack-dystopiagrease
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Parts/oil_parts.rsi, state: grease_3 }
+  spawn: DystopiaGrease1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaFloorTileAsphalt
+  name: stack-dystopia-asphalt-tile
+  icon: { sprite: /Textures/_Dystopia/Objects/Tiles/asphalt.rsi, state: asphalt }
+  spawn: DystopiaFloorTileItemAsphalt
+  maxCount: 30

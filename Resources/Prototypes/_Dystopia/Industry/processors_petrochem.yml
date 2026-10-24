@@ -11,6 +11,9 @@
   placement:
     mode: SnapgridCenter
   components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaCrackingUnitCraft
+    node: done
   - type: Transform
     anchored: true
     noRot: true
@@ -125,6 +128,9 @@
   placement:
     mode: SnapgridCenter
   components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaPolymerReactorCraft
+    node: done
   - type: Transform
     anchored: true
     noRot: true
@@ -237,6 +243,9 @@
   placement:
     mode: SnapgridCenter
   components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaVulcanizerCraft
+    node: done
   - type: Transform
     anchored: true
     noRot: true
@@ -339,6 +348,9 @@
   placement:
     mode: SnapgridCenter
   components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaChemUnitCraft
+    node: done
   - type: Transform
     anchored: true
     noRot: true

@@ -108,6 +108,9 @@
   name: galoshes
   description: Specialised non-slip rubber boots, designed to reduce janitorial workplace accidents; a tider's treasure.
   components:
+  - type: Construction   # Dystopia-Crafts: крафт (gen_crafts.py)
+    graph: ClothingShoesGaloshesCraft
+    node: done
   - type: Sprite
     sprite: Clothing/Shoes/Specific/galoshes.rsi
   - type: Clothing

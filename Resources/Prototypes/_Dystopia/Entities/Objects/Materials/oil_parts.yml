@@ -1,0 +1,291 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: детали из нефти — резиновый уплотнитель, банка солидола (gen_oil_crafts.py; компоненты — как у
+# сальниковой набивки).
+
+- type: entity
+  id: DystopiaRubberSeal
+  name: rubber seal
+  description: A moulded rubber ring for flanges and shafts. Oil and fuel do not eat it the way they eat tarred packing.
+  suffix: Full
+  components:
+  - type: Item
+    size: Small
+    sprite: _Dystopia/Objects/Materials/Parts/oil_parts.rsi
+    heldPrefix: seal
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Parts/oil_parts.rsi
+    state: seal_3
+    layers:
+    - state: seal_3
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+    damageModifierSet: FlimsyMetallic
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Stack
+    stackType: DystopiaRubberSeal
+    baseLayer: base
+    layerStates: [ seal, seal_2, seal_3 ]
+    count: 30
+
+- type: entity
+  id: DystopiaRubberSeal1
+  name: rubber seal
+  description: A moulded rubber ring for flanges and shafts. Oil and fuel do not eat it the way they eat tarred packing.
+  suffix: Single
+  components:
+  - type: Item
+    size: Small
+    sprite: _Dystopia/Objects/Materials/Parts/oil_parts.rsi
+    heldPrefix: seal
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Parts/oil_parts.rsi
+    state: seal
+    layers:
+    - state: seal
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+    damageModifierSet: FlimsyMetallic
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Stack
+    stackType: DystopiaRubberSeal
+    baseLayer: base
+    layerStates: [ seal, seal_2, seal_3 ]
+    count: 1
+
+- type: entity
+  id: DystopiaGrease
+  name: grease tin
+  description: "Calcium grease: lubricating oil thickened with slaked lime. Packed into bearings and gearboxes of oil machines."
+  suffix: Full
+  components:
+  - type: Item
+    size: Small
+    sprite: _Dystopia/Objects/Materials/Parts/oil_parts.rsi
+    heldPrefix: grease
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Parts/oil_parts.rsi
+    state: grease_3
+    layers:
+    - state: grease_3
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+    damageModifierSet: FlimsyMetallic
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Stack
+    stackType: DystopiaGrease
+    baseLayer: base
+    layerStates: [ grease, grease_2, grease_3 ]
+    count: 30
+
+- type: entity
+  id: DystopiaGrease1
+  name: grease tin
+  description: "Calcium grease: lubricating oil thickened with slaked lime. Packed into bearings and gearboxes of oil machines."
+  suffix: Single
+  components:
+  - type: Item
+    size: Small
+    sprite: _Dystopia/Objects/Materials/Parts/oil_parts.rsi
+    heldPrefix: grease
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Parts/oil_parts.rsi
+    state: grease
+    layers:
+    - state: grease
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+    damageModifierSet: FlimsyMetallic
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Stack
+    stackType: DystopiaGrease
+    baseLayer: base
+    layerStates: [ grease, grease_2, grease_3 ]
+    count: 1

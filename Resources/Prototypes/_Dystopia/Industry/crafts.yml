@@ -5106,6 +5106,1725 @@
     entity: DystopiaCarbideLamp
 
 - type: constructionGraph
+  id: DystopiaPumpjackCraft
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: s1
+      steps:
+      - material: Steel
+        amount: 8
+        doAfter: 2.5
+
+  - node: s1
+    entity: DystopiaSitePumpjack
+    edges:
+    - to: s2
+      steps:
+      - material: DystopiaIngotCastIron
+        amount: 4
+        doAfter: 2.5
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 8
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: s2
+    entity: DystopiaSitePumpjack
+    edges:
+    - to: s3
+      steps:
+      - tag: DystopiaPartMotor
+        name: construction-graph-tag-dystopia-motor
+        icon:
+          sprite: _Dystopia/Objects/Materials/Parts/parts.rsi
+          state: motor
+        doAfter: 2.5
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 8
+      - !type:SpawnPrototype
+        prototype: DystopiaIngotCastIron1
+        amount: 4
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: s3
+    entity: DystopiaSitePumpjack
+    edges:
+    - to: done
+      steps:
+      - tag: DystopiaPartGearbox
+        name: construction-graph-tag-dystopia-gearbox
+        icon:
+          sprite: _Dystopia/Objects/Materials/Parts/parts.rsi
+          state: gearbox
+        doAfter: 2.5
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 8
+      - !type:SpawnPrototype
+        prototype: DystopiaIngotCastIron1
+        amount: 4
+      - !type:SpawnPrototype
+        prototype: DystopiaElectricMotor
+        amount: 1
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: done
+    entity: DystopiaPumpjack
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 8
+      - !type:SpawnPrototype
+        prototype: DystopiaIngotCastIron1
+        amount: 4
+      - !type:SpawnPrototype
+        prototype: DystopiaElectricMotor
+        amount: 1
+      - !type:SpawnPrototype
+        prototype: DystopiaGearbox
+        amount: 1
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 5
+
+- type: constructionGraph
+  id: DystopiaLiquidFilterCraft
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: s1
+      steps:
+      - material: Steel
+        amount: 2
+        doAfter: 2.0
+
+  - node: s1
+    entity: DystopiaSiteLiquidFilter
+    edges:
+    - to: done
+      steps:
+      - material: DystopiaPacking
+        amount: 2
+        doAfter: 2.0
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 2
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: done
+    entity: DystopiaLiquidFilter
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 2
+      - !type:SpawnPrototype
+        prototype: DystopiaPacking1
+        amount: 2
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+- type: constructionGraph
+  id: DystopiaDistillationColumnCraft
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: s1
+      steps:
+      - tag: DystopiaBlueprintDistillationColumn
+        name: construction-graph-tag-dystopia-blueprint
+        icon:
+          sprite: _Dystopia/Objects/Misc/blueprint.rsi
+          state: icon
+        doAfter: 2.8
+
+  - node: s1
+    entity: DystopiaSiteDistillationColumn
+    edges:
+    - to: s2
+      steps:
+      - material: Steel
+        amount: 12
+        doAfter: 2.8
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaBlueprintDistillationColumn
+        amount: 1
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: s2
+    entity: DystopiaSiteDistillationColumn
+    edges:
+    - to: s3
+      steps:
+      - material: DystopiaFireBrick
+        amount: 4
+        doAfter: 2.8
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaBlueprintDistillationColumn
+        amount: 1
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 12
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: s3
+    entity: DystopiaSiteDistillationColumn
+    edges:
+    - to: s4
+      steps:
+      - material: DystopiaPacking
+        amount: 4
+        doAfter: 2.8
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaBlueprintDistillationColumn
+        amount: 1
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 12
+      - !type:SpawnPrototype
+        prototype: DystopiaFireBrick1
+        amount: 4
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: s4
+    entity: DystopiaSiteDistillationColumn
+    edges:
+    - to: done
+      steps:
+      - material: Glass
+        amount: 2
+        doAfter: 2.8
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaBlueprintDistillationColumn
+        amount: 1
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 12
+      - !type:SpawnPrototype
+        prototype: DystopiaFireBrick1
+        amount: 4
+      - !type:SpawnPrototype
+        prototype: DystopiaPacking1
+        amount: 4
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: done
+    entity: DystopiaDistillationColumn
+    edges:
+    - to: start
+      completed:
+      - !type:EmptyContainer
+        container: dystopia_processor_input
+      - !type:SpawnPrototype
+        prototype: DystopiaBlueprintDistillationColumn
+        amount: 1
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 12
+      - !type:SpawnPrototype
+        prototype: DystopiaFireBrick1
+        amount: 4
+      - !type:SpawnPrototype
+        prototype: DystopiaPacking1
+        amount: 4
+      - !type:SpawnPrototype
+        prototype: SheetGlass1
+        amount: 2
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 7
+
+- type: constructionGraph
+  id: DystopiaVacuumDistillerCraft
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: s1
+      steps:
+      - tag: DystopiaBlueprintVacuumDistiller
+        name: construction-graph-tag-dystopia-blueprint
+        icon:
+          sprite: _Dystopia/Objects/Misc/blueprint.rsi
+          state: icon
+        doAfter: 2.4
+
+  - node: s1
+    entity: DystopiaSiteVacuumDistiller
+    edges:
+    - to: s2
+      steps:
+      - material: Steel
+        amount: 8
+        doAfter: 2.4
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaBlueprintVacuumDistiller
+        amount: 1
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: s2
+    entity: DystopiaSiteVacuumDistiller
+    edges:
+    - to: s3
+      steps:
+      - tag: DystopiaPartMotor
+        name: construction-graph-tag-dystopia-motor
+        icon:
+          sprite: _Dystopia/Objects/Materials/Parts/parts.rsi
+          state: motor
+        doAfter: 2.4
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaBlueprintVacuumDistiller
+        amount: 1
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 8
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: s3
+    entity: DystopiaSiteVacuumDistiller
+    edges:
+    - to: s4
+      steps:
+      - material: DystopiaPacking
+        amount: 4
+        doAfter: 2.4
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaBlueprintVacuumDistiller
+        amount: 1
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 8
+      - !type:SpawnPrototype
+        prototype: DystopiaElectricMotor
+        amount: 1
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: s4
+    entity: DystopiaSiteVacuumDistiller
+    edges:
+    - to: done
+      steps:
+      - material: Glass
+        amount: 1
+        doAfter: 2.4
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaBlueprintVacuumDistiller
+        amount: 1
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 8
+      - !type:SpawnPrototype
+        prototype: DystopiaElectricMotor
+        amount: 1
+      - !type:SpawnPrototype
+        prototype: DystopiaPacking1
+        amount: 4
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: done
+    entity: DystopiaVacuumDistiller
+    edges:
+    - to: start
+      completed:
+      - !type:EmptyContainer
+        container: dystopia_processor_input
+      - !type:SpawnPrototype
+        prototype: DystopiaBlueprintVacuumDistiller
+        amount: 1
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 8
+      - !type:SpawnPrototype
+        prototype: DystopiaElectricMotor
+        amount: 1
+      - !type:SpawnPrototype
+        prototype: DystopiaPacking1
+        amount: 4
+      - !type:SpawnPrototype
+        prototype: SheetGlass1
+        amount: 1
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 6
+
+- type: constructionGraph
+  id: DystopiaCrackingUnitCraft
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: s1
+      steps:
+      - tag: DystopiaBlueprintCrackingUnit
+        name: construction-graph-tag-dystopia-blueprint
+        icon:
+          sprite: _Dystopia/Objects/Misc/blueprint.rsi
+          state: icon
+        doAfter: 2.4
+
+  - node: s1
+    entity: DystopiaSiteCrackingUnit
+    edges:
+    - to: s2
+      steps:
+      - material: DystopiaFireBrick
+        amount: 8
+        doAfter: 2.4
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaBlueprintCrackingUnit
+        amount: 1
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: s2
+    entity: DystopiaSiteCrackingUnit
+    edges:
+    - to: s3
+      steps:
+      - material: DystopiaSheetStainlessSteel
+        amount: 4
+        doAfter: 2.4
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaBlueprintCrackingUnit
+        amount: 1
+      - !type:SpawnPrototype
+        prototype: DystopiaFireBrick1
+        amount: 8
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: s3
+    entity: DystopiaSiteCrackingUnit
+    edges:
+    - to: s4
+      steps:
+      - material: Steel
+        amount: 4
+        doAfter: 2.4
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaBlueprintCrackingUnit
+        amount: 1
+      - !type:SpawnPrototype
+        prototype: DystopiaFireBrick1
+        amount: 8
+      - !type:SpawnPrototype
+        prototype: DystopiaSheetStainlessSteel1
+        amount: 4
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: s4
+    entity: DystopiaSiteCrackingUnit
+    edges:
+    - to: done
+      steps:
+      - material: DystopiaPacking
+        amount: 2
+        doAfter: 2.4
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaBlueprintCrackingUnit
+        amount: 1
+      - !type:SpawnPrototype
+        prototype: DystopiaFireBrick1
+        amount: 8
+      - !type:SpawnPrototype
+        prototype: DystopiaSheetStainlessSteel1
+        amount: 4
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 4
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: done
+    entity: DystopiaCrackingUnit
+    edges:
+    - to: start
+      completed:
+      - !type:EmptyContainer
+        container: dystopia_processor_input
+      - !type:SpawnPrototype
+        prototype: DystopiaBlueprintCrackingUnit
+        amount: 1
+      - !type:SpawnPrototype
+        prototype: DystopiaFireBrick1
+        amount: 8
+      - !type:SpawnPrototype
+        prototype: DystopiaSheetStainlessSteel1
+        amount: 4
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 4
+      - !type:SpawnPrototype
+        prototype: DystopiaPacking1
+        amount: 2
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 6
+
+- type: constructionGraph
+  id: DystopiaPolymerReactorCraft
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: s1
+      steps:
+      - tag: DystopiaBlueprintPolymerReactor
+        name: construction-graph-tag-dystopia-blueprint
+        icon:
+          sprite: _Dystopia/Objects/Misc/blueprint.rsi
+          state: icon
+        doAfter: 2.4
+
+  - node: s1
+    entity: DystopiaSitePolymerReactor
+    edges:
+    - to: s2
+      steps:
+      - material: DystopiaSheetStainlessSteel
+        amount: 6
+        doAfter: 2.4
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaBlueprintPolymerReactor
+        amount: 1
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: s2
+    entity: DystopiaSitePolymerReactor
+    edges:
+    - to: s3
+      steps:
+      - tag: DystopiaPartMotor
+        name: construction-graph-tag-dystopia-motor
+        icon:
+          sprite: _Dystopia/Objects/Materials/Parts/parts.rsi
+          state: motor
+        doAfter: 2.4
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaBlueprintPolymerReactor
+        amount: 1
+      - !type:SpawnPrototype
+        prototype: DystopiaSheetStainlessSteel1
+        amount: 6
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: s3
+    entity: DystopiaSitePolymerReactor
+    edges:
+    - to: s4
+      steps:
+      - tag: DystopiaPartGearbox
+        name: construction-graph-tag-dystopia-gearbox
+        icon:
+          sprite: _Dystopia/Objects/Materials/Parts/parts.rsi
+          state: gearbox
+        doAfter: 2.4
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaBlueprintPolymerReactor
+        amount: 1
+      - !type:SpawnPrototype
+        prototype: DystopiaSheetStainlessSteel1
+        amount: 6
+      - !type:SpawnPrototype
+        prototype: DystopiaElectricMotor
+        amount: 1
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: s4
+    entity: DystopiaSitePolymerReactor
+    edges:
+    - to: done
+      steps:
+      - material: DystopiaPacking
+        amount: 2
+        doAfter: 2.4
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaBlueprintPolymerReactor
+        amount: 1
+      - !type:SpawnPrototype
+        prototype: DystopiaSheetStainlessSteel1
+        amount: 6
+      - !type:SpawnPrototype
+        prototype: DystopiaElectricMotor
+        amount: 1
+      - !type:SpawnPrototype
+        prototype: DystopiaGearbox
+        amount: 1
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: done
+    entity: DystopiaPolymerReactor
+    edges:
+    - to: start
+      completed:
+      - !type:EmptyContainer
+        container: dystopia_processor_input
+      - !type:EmptyContainer
+        container: dystopia_processor_output
+      - !type:SpawnPrototype
+        prototype: DystopiaBlueprintPolymerReactor
+        amount: 1
+      - !type:SpawnPrototype
+        prototype: DystopiaSheetStainlessSteel1
+        amount: 6
+      - !type:SpawnPrototype
+        prototype: DystopiaElectricMotor
+        amount: 1
+      - !type:SpawnPrototype
+        prototype: DystopiaGearbox
+        amount: 1
+      - !type:SpawnPrototype
+        prototype: DystopiaPacking1
+        amount: 2
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 6
+
+- type: constructionGraph
+  id: DystopiaVulcanizerCraft
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: s1
+      steps:
+      - tag: DystopiaBlueprintVulcanizer
+        name: construction-graph-tag-dystopia-blueprint
+        icon:
+          sprite: _Dystopia/Objects/Misc/blueprint.rsi
+          state: icon
+        doAfter: 2.0
+
+  - node: s1
+    entity: DystopiaSiteVulcanizer
+    edges:
+    - to: s2
+      steps:
+      - material: Steel
+        amount: 6
+        doAfter: 2.0
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaBlueprintVulcanizer
+        amount: 1
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: s2
+    entity: DystopiaSiteVulcanizer
+    edges:
+    - to: s3
+      steps:
+      - material: DystopiaIngotCastIron
+        amount: 4
+        doAfter: 2.0
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaBlueprintVulcanizer
+        amount: 1
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 6
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: s3
+    entity: DystopiaSiteVulcanizer
+    edges:
+    - to: s4
+      steps:
+      - material: DystopiaWinding
+        amount: 2
+        doAfter: 2.0
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaBlueprintVulcanizer
+        amount: 1
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 6
+      - !type:SpawnPrototype
+        prototype: DystopiaIngotCastIron1
+        amount: 4
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: s4
+    entity: DystopiaSiteVulcanizer
+    edges:
+    - to: done
+      steps:
+      - tag: DystopiaPartMotor
+        name: construction-graph-tag-dystopia-motor
+        icon:
+          sprite: _Dystopia/Objects/Materials/Parts/parts.rsi
+          state: motor
+        doAfter: 2.0
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaBlueprintVulcanizer
+        amount: 1
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 6
+      - !type:SpawnPrototype
+        prototype: DystopiaIngotCastIron1
+        amount: 4
+      - !type:SpawnPrototype
+        prototype: DystopiaWinding1
+        amount: 2
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: done
+    entity: DystopiaVulcanizer
+    edges:
+    - to: start
+      completed:
+      - !type:EmptyContainer
+        container: dystopia_processor_input
+      - !type:EmptyContainer
+        container: dystopia_processor_output
+      - !type:SpawnPrototype
+        prototype: DystopiaBlueprintVulcanizer
+        amount: 1
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 6
+      - !type:SpawnPrototype
+        prototype: DystopiaIngotCastIron1
+        amount: 4
+      - !type:SpawnPrototype
+        prototype: DystopiaWinding1
+        amount: 2
+      - !type:SpawnPrototype
+        prototype: DystopiaElectricMotor
+        amount: 1
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 5
+
+- type: constructionGraph
+  id: DystopiaChemUnitCraft
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: s1
+      steps:
+      - tag: DystopiaBlueprintChemUnit
+        name: construction-graph-tag-dystopia-blueprint
+        icon:
+          sprite: _Dystopia/Objects/Misc/blueprint.rsi
+          state: icon
+        doAfter: 2.0
+
+  - node: s1
+    entity: DystopiaSiteChemUnit
+    edges:
+    - to: s2
+      steps:
+      - material: DystopiaSheetStainlessSteel
+        amount: 4
+        doAfter: 2.0
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaBlueprintChemUnit
+        amount: 1
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: s2
+    entity: DystopiaSiteChemUnit
+    edges:
+    - to: s3
+      steps:
+      - material: Glass
+        amount: 4
+        doAfter: 2.0
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaBlueprintChemUnit
+        amount: 1
+      - !type:SpawnPrototype
+        prototype: DystopiaSheetStainlessSteel1
+        amount: 4
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: s3
+    entity: DystopiaSiteChemUnit
+    edges:
+    - to: s4
+      steps:
+      - material: DystopiaRubberSeal
+        amount: 4
+        doAfter: 2.0
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaBlueprintChemUnit
+        amount: 1
+      - !type:SpawnPrototype
+        prototype: DystopiaSheetStainlessSteel1
+        amount: 4
+      - !type:SpawnPrototype
+        prototype: SheetGlass1
+        amount: 4
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: s4
+    entity: DystopiaSiteChemUnit
+    edges:
+    - to: done
+      steps:
+      - tag: DystopiaPartMotor
+        name: construction-graph-tag-dystopia-motor
+        icon:
+          sprite: _Dystopia/Objects/Materials/Parts/parts.rsi
+          state: motor
+        doAfter: 2.0
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaBlueprintChemUnit
+        amount: 1
+      - !type:SpawnPrototype
+        prototype: DystopiaSheetStainlessSteel1
+        amount: 4
+      - !type:SpawnPrototype
+        prototype: SheetGlass1
+        amount: 4
+      - !type:SpawnPrototype
+        prototype: DystopiaRubberSeal1
+        amount: 4
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: done
+    entity: DystopiaChemUnit
+    edges:
+    - to: start
+      completed:
+      - !type:EmptyContainer
+        container: dystopia_chem_container
+      - !type:SpawnPrototype
+        prototype: DystopiaBlueprintChemUnit
+        amount: 1
+      - !type:SpawnPrototype
+        prototype: DystopiaSheetStainlessSteel1
+        amount: 4
+      - !type:SpawnPrototype
+        prototype: SheetGlass1
+        amount: 4
+      - !type:SpawnPrototype
+        prototype: DystopiaRubberSeal1
+        amount: 4
+      - !type:SpawnPrototype
+        prototype: DystopiaElectricMotor
+        amount: 1
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 5
+
+- type: constructionGraph
+  id: DystopiaDieselGeneratorCraft
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: s1
+      steps:
+      - tag: DystopiaBlueprintDieselGenerator
+        name: construction-graph-tag-dystopia-blueprint
+        icon:
+          sprite: _Dystopia/Objects/Misc/blueprint.rsi
+          state: icon
+        doAfter: 1.67
+
+  - node: s1
+    entity: DystopiaSiteDieselGenerator
+    edges:
+    - to: s2
+      steps:
+      - material: Steel
+        amount: 6
+        doAfter: 1.67
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaBlueprintDieselGenerator
+        amount: 1
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: s2
+    entity: DystopiaSiteDieselGenerator
+    edges:
+    - to: s3
+      steps:
+      - material: DystopiaIngotCastIron
+        amount: 4
+        doAfter: 1.67
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaBlueprintDieselGenerator
+        amount: 1
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 6
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: s3
+    entity: DystopiaSiteDieselGenerator
+    edges:
+    - to: s4
+      steps:
+      - material: DystopiaWinding
+        amount: 4
+        doAfter: 1.67
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaBlueprintDieselGenerator
+        amount: 1
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 6
+      - !type:SpawnPrototype
+        prototype: DystopiaIngotCastIron1
+        amount: 4
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: s4
+    entity: DystopiaSiteDieselGenerator
+    edges:
+    - to: s5
+      steps:
+      - material: DystopiaRubberSeal
+        amount: 2
+        doAfter: 1.67
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaBlueprintDieselGenerator
+        amount: 1
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 6
+      - !type:SpawnPrototype
+        prototype: DystopiaIngotCastIron1
+        amount: 4
+      - !type:SpawnPrototype
+        prototype: DystopiaWinding1
+        amount: 4
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: s5
+    entity: DystopiaSiteDieselGenerator
+    edges:
+    - to: done
+      steps:
+      - material: DystopiaGrease
+        amount: 1
+        doAfter: 1.67
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaBlueprintDieselGenerator
+        amount: 1
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 6
+      - !type:SpawnPrototype
+        prototype: DystopiaIngotCastIron1
+        amount: 4
+      - !type:SpawnPrototype
+        prototype: DystopiaWinding1
+        amount: 4
+      - !type:SpawnPrototype
+        prototype: DystopiaRubberSeal1
+        amount: 2
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: done
+    entity: DystopiaDieselGenerator
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaBlueprintDieselGenerator
+        amount: 1
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 6
+      - !type:SpawnPrototype
+        prototype: DystopiaIngotCastIron1
+        amount: 4
+      - !type:SpawnPrototype
+        prototype: DystopiaWinding1
+        amount: 4
+      - !type:SpawnPrototype
+        prototype: DystopiaRubberSeal1
+        amount: 2
+      - !type:SpawnPrototype
+        prototype: DystopiaGrease1
+        amount: 1
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 5
+
+- type: constructionGraph
+  id: DystopiaEngineControllerCraft
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: s1
+      steps:
+      - tag: DystopiaBlueprintEngineController
+        name: construction-graph-tag-dystopia-blueprint
+        icon:
+          sprite: _Dystopia/Objects/Misc/blueprint.rsi
+          state: icon
+        doAfter: 2.0
+
+  - node: s1
+    entity: DystopiaSiteEngineController
+    edges:
+    - to: s2
+      steps:
+      - material: Steel
+        amount: 6
+        doAfter: 2.0
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaBlueprintEngineController
+        amount: 1
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: s2
+    entity: DystopiaSiteEngineController
+    edges:
+    - to: s3
+      steps:
+      - material: DystopiaWinding
+        amount: 6
+        doAfter: 2.0
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaBlueprintEngineController
+        amount: 1
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 6
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: s3
+    entity: DystopiaSiteEngineController
+    edges:
+    - to: s4
+      steps:
+      - material: Glass
+        amount: 1
+        doAfter: 2.0
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaBlueprintEngineController
+        amount: 1
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 6
+      - !type:SpawnPrototype
+        prototype: DystopiaWinding1
+        amount: 6
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: s4
+    entity: DystopiaSiteEngineController
+    edges:
+    - to: s5
+      steps:
+      - material: DystopiaRubberSeal
+        amount: 2
+        doAfter: 2.0
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaBlueprintEngineController
+        amount: 1
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 6
+      - !type:SpawnPrototype
+        prototype: DystopiaWinding1
+        amount: 6
+      - !type:SpawnPrototype
+        prototype: SheetGlass1
+        amount: 1
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: s5
+    entity: DystopiaSiteEngineController
+    edges:
+    - to: done
+      steps:
+      - material: DystopiaGrease
+        amount: 1
+        doAfter: 2.0
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaBlueprintEngineController
+        amount: 1
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 6
+      - !type:SpawnPrototype
+        prototype: DystopiaWinding1
+        amount: 6
+      - !type:SpawnPrototype
+        prototype: SheetGlass1
+        amount: 1
+      - !type:SpawnPrototype
+        prototype: DystopiaRubberSeal1
+        amount: 2
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: done
+    entity: DystopiaEngineController
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaBlueprintEngineController
+        amount: 1
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 6
+      - !type:SpawnPrototype
+        prototype: DystopiaWinding1
+        amount: 6
+      - !type:SpawnPrototype
+        prototype: SheetGlass1
+        amount: 1
+      - !type:SpawnPrototype
+        prototype: DystopiaRubberSeal1
+        amount: 2
+      - !type:SpawnPrototype
+        prototype: DystopiaGrease1
+        amount: 1
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 6
+
+- type: constructionGraph
+  id: DystopiaEngineCylinderCraft
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: s1
+      steps:
+      - material: DystopiaIngotCastIron
+        amount: 8
+        doAfter: 2.5
+
+  - node: s1
+    entity: DystopiaSiteEngineCylinder
+    edges:
+    - to: s2
+      steps:
+      - material: Steel
+        amount: 4
+        doAfter: 2.5
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaIngotCastIron1
+        amount: 8
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: s2
+    entity: DystopiaSiteEngineCylinder
+    edges:
+    - to: s3
+      steps:
+      - material: DystopiaRubberSeal
+        amount: 2
+        doAfter: 2.5
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaIngotCastIron1
+        amount: 8
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 4
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: s3
+    entity: DystopiaSiteEngineCylinder
+    edges:
+    - to: done
+      steps:
+      - material: DystopiaGrease
+        amount: 1
+        doAfter: 2.5
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaIngotCastIron1
+        amount: 8
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 4
+      - !type:SpawnPrototype
+        prototype: DystopiaRubberSeal1
+        amount: 2
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: done
+    entity: DystopiaEngineCylinder
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaIngotCastIron1
+        amount: 8
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 4
+      - !type:SpawnPrototype
+        prototype: DystopiaRubberSeal1
+        amount: 2
+      - !type:SpawnPrototype
+        prototype: DystopiaGrease1
+        amount: 1
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 5
+
+- type: constructionGraph
+  id: DystopiaEngineRadiatorCraft
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: s1
+      steps:
+      - material: DystopiaSheetCopper
+        amount: 4
+        doAfter: 2.67
+
+  - node: s1
+    entity: DystopiaSiteEngineRadiator
+    edges:
+    - to: s2
+      steps:
+      - material: Steel
+        amount: 2
+        doAfter: 2.67
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaSheetCopper1
+        amount: 4
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: s2
+    entity: DystopiaSiteEngineRadiator
+    edges:
+    - to: done
+      steps:
+      - tag: DystopiaPartMotor
+        name: construction-graph-tag-dystopia-motor
+        icon:
+          sprite: _Dystopia/Objects/Materials/Parts/parts.rsi
+          state: motor
+        doAfter: 2.67
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaSheetCopper1
+        amount: 4
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 2
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: done
+    entity: DystopiaEngineRadiator
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaSheetCopper1
+        amount: 4
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 2
+      - !type:SpawnPrototype
+        prototype: DystopiaElectricMotor
+        amount: 1
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 4
+
+- type: constructionGraph
+  id: PortableGeneratorJrPacmanCraft
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: s1
+      steps:
+      - material: Steel
+        amount: 5
+        doAfter: 2.67
+
+  - node: s1
+    entity: DystopiaSitePortableGeneratorJrPacman
+    edges:
+    - to: s2
+      steps:
+      - material: DystopiaWinding
+        amount: 2
+        doAfter: 2.67
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 5
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: s2
+    entity: DystopiaSitePortableGeneratorJrPacman
+    edges:
+    - to: done
+      steps:
+      - material: DystopiaRubberSeal
+        amount: 1
+        doAfter: 2.67
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 5
+      - !type:SpawnPrototype
+        prototype: DystopiaWinding1
+        amount: 2
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: done
+    entity: PortableGeneratorJrPacman
+    edges:
+    - to: start
+      completed:
+      - !type:EmptyContainer
+        container: machine_board
+      - !type:EmptyContainer
+        container: machine_parts
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 5
+      - !type:SpawnPrototype
+        prototype: DystopiaWinding1
+        amount: 2
+      - !type:SpawnPrototype
+        prototype: DystopiaRubberSeal1
+        amount: 1
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 4
+
+- type: constructionGraph
+  id: ClothingHandsGlovesColorYellowCraft
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: done
+      steps:
+      - material: DystopiaRubber
+        amount: 2
+        doAfter: 3.0
+
+  - node: done
+    entity: ClothingHandsGlovesColorYellow
+
+- type: constructionGraph
+  id: ClothingShoesGaloshesCraft
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: done
+      steps:
+      - material: DystopiaRubber
+        amount: 2
+        doAfter: 3.0
+
+  - node: done
+    entity: ClothingShoesGaloshes
+
+- type: constructionGraph
+  id: ClothingOuterApronCraft
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: done
+      steps:
+      - material: DystopiaRubber
+        amount: 3
+        doAfter: 3.0
+
+  - node: done
+    entity: ClothingOuterApron
+
+- type: constructionGraph
+  id: JugCraft
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: done
+      steps:
+      - material: Plastic
+        amount: 2
+        doAfter: 2.0
+
+  - node: done
+    entity: Jug
+
+- type: constructionGraph
+  id: BucketCraft
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: done
+      steps:
+      - material: Plastic
+        amount: 2
+        doAfter: 2.0
+
+  - node: done
+    entity: Bucket
+
+- type: constructionGraph
+  id: CableApcStackRubberCraft
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: done
+      steps:
+      - material: DystopiaWireCopper
+        amount: 6
+        doAfter: 2.0
+      - material: DystopiaRubber
+        amount: 1
+        doAfter: 2.0
+
+  - node: done
+    entity: CableApcStack
+
+- type: constructionGraph
+  id: CableApcStackPlasticCraft
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: done
+      steps:
+      - material: DystopiaWireCopper
+        amount: 6
+        doAfter: 2.0
+      - material: Plastic
+        amount: 1
+        doAfter: 2.0
+
+  - node: done
+    entity: CableApcStack
+
+- type: constructionGraph
+  id: CableMVStackRubberCraft
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: done
+      steps:
+      - material: DystopiaWireCopper
+        amount: 12
+        doAfter: 3.0
+      - material: DystopiaRubber
+        amount: 2
+        doAfter: 3.0
+
+  - node: done
+    entity: CableMVStack
+
+- type: constructionGraph
+  id: CableMVStackPlasticCraft
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: done
+      steps:
+      - material: DystopiaWireCopper
+        amount: 12
+        doAfter: 3.0
+      - material: Plastic
+        amount: 2
+        doAfter: 3.0
+
+  - node: done
+    entity: CableMVStack
+
+- type: constructionGraph
+  id: CableHVStackRubberCraft
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: done
+      steps:
+      - material: DystopiaWireCopper
+        amount: 18
+        doAfter: 2.67
+      - material: DystopiaRubber
+        amount: 2
+        doAfter: 2.67
+      - material: DystopiaSheetLead
+        amount: 3
+        doAfter: 2.67
+
+  - node: done
+    entity: CableHVStack
+
+- type: constructionGraph
+  id: CableHVStackPlasticCraft
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: done
+      steps:
+      - material: DystopiaWireCopper
+        amount: 18
+        doAfter: 2.67
+      - material: Plastic
+        amount: 2
+        doAfter: 2.67
+      - material: DystopiaSheetLead
+        amount: 3
+        doAfter: 2.67
+
+  - node: done
+    entity: CableHVStack
+
+- type: constructionGraph
   id: DystopiaForgeElectricCraft
   start: start
   graph:
@@ -6073,4 +7792,267 @@
   startNode: start
   targetNode: done
   category: construction-category-dystopia-industry-tools
+  objectType: Item
+
+- type: construction
+  id: DystopiaPumpjackCraft
+  graph: DystopiaPumpjackCraft
+  startNode: start
+  targetNode: done
+  category: construction-category-dystopia-industry-oil
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: false
+  conditions:
+  - !type:TileNotBlocked
+
+- type: construction
+  id: DystopiaLiquidFilterCraft
+  graph: DystopiaLiquidFilterCraft
+  startNode: start
+  targetNode: done
+  category: construction-category-dystopia-industry-logistics
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: false
+  conditions:
+  - !type:TileNotBlocked
+
+- type: construction
+  id: DystopiaDistillationColumnCraft
+  graph: DystopiaDistillationColumnCraft
+  startNode: start
+  targetNode: done
+  category: construction-category-dystopia-industry-oil
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: false
+  conditions:
+  - !type:TileNotBlocked
+
+- type: construction
+  id: DystopiaVacuumDistillerCraft
+  graph: DystopiaVacuumDistillerCraft
+  startNode: start
+  targetNode: done
+  category: construction-category-dystopia-industry-oil
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: false
+  conditions:
+  - !type:TileNotBlocked
+
+- type: construction
+  id: DystopiaCrackingUnitCraft
+  graph: DystopiaCrackingUnitCraft
+  startNode: start
+  targetNode: done
+  category: construction-category-dystopia-industry-oil
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: false
+  conditions:
+  - !type:TileNotBlocked
+
+- type: construction
+  id: DystopiaPolymerReactorCraft
+  graph: DystopiaPolymerReactorCraft
+  startNode: start
+  targetNode: done
+  category: construction-category-dystopia-industry-oil
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: false
+  conditions:
+  - !type:TileNotBlocked
+
+- type: construction
+  id: DystopiaVulcanizerCraft
+  graph: DystopiaVulcanizerCraft
+  startNode: start
+  targetNode: done
+  category: construction-category-dystopia-industry-oil
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: false
+  conditions:
+  - !type:TileNotBlocked
+
+- type: construction
+  id: DystopiaChemUnitCraft
+  graph: DystopiaChemUnitCraft
+  startNode: start
+  targetNode: done
+  category: construction-category-dystopia-industry-oil
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: false
+  conditions:
+  - !type:TileNotBlocked
+
+- type: construction
+  id: DystopiaDieselGeneratorCraft
+  graph: DystopiaDieselGeneratorCraft
+  startNode: start
+  targetNode: done
+  category: construction-category-dystopia-industry-power
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: false
+  conditions:
+  - !type:TileNotBlocked
+
+- type: construction
+  id: DystopiaEngineControllerCraft
+  graph: DystopiaEngineControllerCraft
+  startNode: start
+  targetNode: done
+  category: construction-category-dystopia-industry-power
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: false
+  conditions:
+  - !type:TileNotBlocked
+
+- type: construction
+  id: DystopiaEngineCylinderCraft
+  graph: DystopiaEngineCylinderCraft
+  startNode: start
+  targetNode: done
+  category: construction-category-dystopia-industry-power
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: false
+  conditions:
+  - !type:TileNotBlocked
+
+- type: construction
+  id: DystopiaEngineRadiatorCraft
+  graph: DystopiaEngineRadiatorCraft
+  startNode: start
+  targetNode: done
+  category: construction-category-dystopia-industry-power
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: false
+  conditions:
+  - !type:TileNotBlocked
+
+- type: construction
+  id: PortableGeneratorJrPacmanCraft
+  graph: PortableGeneratorJrPacmanCraft
+  startNode: start
+  targetNode: done
+  category: construction-category-dystopia-industry-power
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: false
+  conditions:
+  - !type:TileNotBlocked
+
+- type: construction
+  id: ClothingHandsGlovesColorYellowCraft
+  graph: ClothingHandsGlovesColorYellowCraft
+  startNode: start
+  targetNode: done
+  category: construction-category-dystopia-industry-goods
+  objectType: Item
+
+- type: construction
+  id: ClothingShoesGaloshesCraft
+  graph: ClothingShoesGaloshesCraft
+  startNode: start
+  targetNode: done
+  category: construction-category-dystopia-industry-goods
+  objectType: Item
+
+- type: construction
+  id: ClothingOuterApronCraft
+  graph: ClothingOuterApronCraft
+  startNode: start
+  targetNode: done
+  category: construction-category-dystopia-industry-goods
+  objectType: Item
+
+- type: construction
+  id: JugCraft
+  graph: JugCraft
+  startNode: start
+  targetNode: done
+  category: construction-category-dystopia-industry-goods
+  objectType: Item
+
+- type: construction
+  id: BucketCraft
+  graph: BucketCraft
+  startNode: start
+  targetNode: done
+  category: construction-category-dystopia-industry-goods
+  objectType: Item
+
+- type: construction
+  id: CableApcStackRubberCraft
+  graph: CableApcStackRubberCraft
+  startNode: start
+  targetNode: done
+  category: construction-category-dystopia-industry-tools
+  name: construction-dystopia-CableApcStackRubberCraft
+  objectType: Item
+
+- type: construction
+  id: CableApcStackPlasticCraft
+  graph: CableApcStackPlasticCraft
+  startNode: start
+  targetNode: done
+  category: construction-category-dystopia-industry-tools
+  name: construction-dystopia-CableApcStackPlasticCraft
+  objectType: Item
+
+- type: construction
+  id: CableMVStackRubberCraft
+  graph: CableMVStackRubberCraft
+  startNode: start
+  targetNode: done
+  category: construction-category-dystopia-industry-tools
+  name: construction-dystopia-CableMVStackRubberCraft
+  objectType: Item
+
+- type: construction
+  id: CableMVStackPlasticCraft
+  graph: CableMVStackPlasticCraft
+  startNode: start
+  targetNode: done
+  category: construction-category-dystopia-industry-tools
+  name: construction-dystopia-CableMVStackPlasticCraft
+  objectType: Item
+
+- type: construction
+  id: CableHVStackRubberCraft
+  graph: CableHVStackRubberCraft
+  startNode: start
+  targetNode: done
+  category: construction-category-dystopia-industry-tools
+  name: construction-dystopia-CableHVStackRubberCraft
+  objectType: Item
+
+- type: construction
+  id: CableHVStackPlasticCraft
+  graph: CableHVStackPlasticCraft
+  startNode: start
+  targetNode: done
+  category: construction-category-dystopia-industry-tools
+  name: construction-dystopia-CableHVStackPlasticCraft
   objectType: Item

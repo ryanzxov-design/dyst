@@ -10,6 +10,9 @@
   placement:
     mode: SnapgridCenter
   components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaLiquidFilterCraft
+    node: done
   - type: Clickable
   - type: InteractionOutline
   - type: Transform

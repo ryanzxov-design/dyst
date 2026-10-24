@@ -44,6 +44,9 @@
   placement:
     mode: SnapgridCenter
   components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaPumpjackCraft
+    node: done
   - type: Transform
     anchored: true
     noRot: true

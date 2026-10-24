@@ -1,0 +1,29 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: асфальт — пол дорог Города (gen_oil_crafts.py).
+
+- type: tile
+  id: DystopiaFloorAsphalt
+  name: tiles-dystopia-asphalt
+  sprite: /Textures/_Dystopia/Tiles/asphalt.png
+  variants: 4
+  isSubfloor: false
+  deconstructTools: [ Prying ]
+  footstepSounds:
+    collection: FootstepFloor
+  heatCapacity: 10000
+  weather: true   # дороги — под открытым небом
+  baseTurf: Plating
+  baseWhitelist:
+  - FloorAsteroidIronsand
+  - FloorAsteroidSand
+  - FloorAsteroidSandBorderless
+  - FloorAsteroidIronsandBorderless
+  - PlatingAsteroid
+  - PlatingSnow
+  - FloorPlanetDirt
+  - FloorDesert
+  - FloorPlanetGrass
+  - FloorSnow
+  - FloorDirt
+  - PlatingRCD
+  itemDrop: DystopiaFloorTileItemAsphalt

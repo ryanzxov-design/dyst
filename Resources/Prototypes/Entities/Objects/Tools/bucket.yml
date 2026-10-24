@@ -4,6 +4,9 @@
   name: bucket
   description: It's a boring old bucket.
   components:
+  - type: Construction   # Dystopia-Crafts: крафт (gen_crafts.py)
+    graph: BucketCraft
+    node: done
   - type: Edible
     utensil: Spoon
   - type: Sprite

@@ -1,0 +1,32 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: рецепты деталей из нефти и асфальта (gen_oil_crafts.py): уплотнители — вулканизационный пресс,
+# солидол и асфальт — бетономешалка.
+
+- type: dystopiaProcessRecipe
+  id: DystopiaPressRubberSeals   # лист резины → 4 уплотнителя (штамп в горячем прессе)
+  group: Vulcanization
+  input: DystopiaRubber
+  inputCount: 1
+  output: DystopiaRubberSeal1
+  amount: 4
+
+- type: dystopiaProcessRecipe
+  id: DystopiaMixGrease   # кальциевая смазка: масло + гашёная известь
+  group: Mixing
+  output: DystopiaGrease1
+  amount: 1
+  reagents:
+    DystopiaLubricatingOil: 20
+    DystopiaSlakedLime: 5
+
+- type: dystopiaProcessRecipe
+  id: DystopiaMixAsphalt   # горячий асфальт: щебень + песок + битум → 4 плитки
+  group: Mixing
+  input: DystopiaGravel
+  inputCount: 2
+  extraInputs:
+    DystopiaSand: 1
+  output: DystopiaFloorTileItemAsphalt
+  amount: 4
+  reagents:
+    DystopiaBitumen: 10

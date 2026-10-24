@@ -244,6 +244,9 @@
     Rated ages 3 and up.
   suffix: Welding Fuel, 8 kW
   components:
+  - type: Construction   # Dystopia-Crafts: крафт (gen_crafts.py)
+    graph: PortableGeneratorJrPacmanCraft
+    node: done
   - type: AmbientSound
     range: 4
     volume: -8

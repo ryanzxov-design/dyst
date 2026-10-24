@@ -324,6 +324,9 @@
   name: insulated gloves
   description: These gloves will protect the wearer from electric shocks.
   components:
+  - type: Construction   # Dystopia-Crafts: крафт (gen_crafts.py)
+    graph: ClothingHandsGlovesColorYellowCraft
+    node: done
   - type: FingerprintMask
   - type: Sprite
     sprite: Clothing/Hands/Gloves/Color/yellow.rsi

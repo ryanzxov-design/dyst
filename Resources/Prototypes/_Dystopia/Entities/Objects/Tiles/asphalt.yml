@@ -1,0 +1,81 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: плитка асфальта (gen_oil_crafts.py; из ванильной бетонной плитки).
+
+- type: entity
+  id: DystopiaFloorTileItemAsphalt
+  name: asphalt tile
+  description: "A slab of hot-rolled asphalt: bitumen, crushed stone and sand. Roads of the City are laid with it."
+  components:
+  - type: Item
+    size: Normal
+    sprite: Objects/Tiles/tile.rsi
+    heldPrefix: generic
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Tiles/asphalt.rsi
+    state: asphalt
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: DamageOtherOnHit
+    damage:
+      types:
+        Blunt: 5
+  - type: Stack
+    count: 1
+    stackType: DystopiaFloorTileAsphalt
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 20
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+          params:
+            volume: -8
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: DamageOnLand
+    damage:
+      types:
+        Blunt: 5
+  - type: FloorTile
+    outputs: [ Plating, DystopiaFloorAsphalt ]
