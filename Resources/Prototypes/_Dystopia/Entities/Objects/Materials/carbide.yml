@@ -1,0 +1,178 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: карбид кальция — предмет, стопка, материал (gen_oil4b.py; компоненты — как у негашёной извести).
+
+- type: entity
+  id: DystopiaCalciumCarbide
+  name: calcium carbide
+  description: Grey lumps that smell of garlic. Ground and wetted they give off acetylene; a carbide lamp takes them whole.
+  suffix: Carbide, Full
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/NonMetals/carbide.rsi
+    heldPrefix: carbide
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/NonMetals/carbide.rsi
+    state: carbide
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Stack
+    stackType: DystopiaCalciumCarbide
+    count: 30
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaCalciumCarbide: 100
+  - type: Solution
+    id: carbide
+    solution:
+      maxVol: 20
+      canReact: false
+      reagents:
+      - ReagentId: DystopiaCalciumCarbide
+        Quantity: 20
+  - type: Extractable
+    grindableSolutionName: carbide
+
+- type: entity
+  id: DystopiaCalciumCarbide1
+  name: calcium carbide
+  description: Grey lumps that smell of garlic. Ground and wetted they give off acetylene; a carbide lamp takes them whole.
+  suffix: Carbide, Single
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/NonMetals/carbide.rsi
+    heldPrefix: carbide
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/NonMetals/carbide.rsi
+    state: carbide
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Stack
+    stackType: DystopiaCalciumCarbide
+    count: 1
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaCalciumCarbide: 100
+  - type: Solution
+    id: carbide
+    solution:
+      maxVol: 20
+      canReact: false
+      reagents:
+      - ReagentId: DystopiaCalciumCarbide
+        Quantity: 20
+  - type: Extractable
+    grindableSolutionName: carbide
+
+- type: stack
+  id: DystopiaCalciumCarbide
+  name: stack-dystopia-calcium-carbide
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/NonMetals/carbide.rsi, state: carbide }
+  spawn: DystopiaCalciumCarbide1
+  maxCount: 30
+
+- type: material
+  id: DystopiaCalciumCarbide
+  stackEntity: DystopiaCalciumCarbide1
+  name: materials-dystopia-calcium-carbide
+  unit: materials-unit-dystopia-handful
+  icon: { sprite: _Dystopia/Objects/Materials/NonMetals/carbide.rsi, state: carbide }
+  color: "#6a6878"
+  price: 0.05

@@ -103,6 +103,14 @@ public sealed partial class DystopiaParticleEmitter
     [DataField]
     public string? ActiveWhen;
 
+    /// <summary>Смещение точки рождения от центра сущности, клетки (+Y — вверх). Для больших машин: облако над башней.</summary>
+    [DataField]
+    public Vector2 Offset = Vector2.Zero;
+
+    /// <summary>Поворачивать смещение и направление вместе с сущностью (форсунка, настенная лампа).</summary>
+    [DataField]
+    public bool Rotate;
+
     // Рабочее поле: накопитель дробных частиц между кадрами.
     [ViewVariables]
     public float Accumulator;

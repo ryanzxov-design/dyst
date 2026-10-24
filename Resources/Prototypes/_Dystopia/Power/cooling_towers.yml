@@ -1,0 +1,284 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: градирни 3×3 и 5×5 (gen_oil4b.py) — пар из газовой трубы в воду. Собираются из секций каркаса
+# (multiblock_frames.yml), разбираются обратно. Патрубки пара — отдельные сущности на краевых клетках.
+
+- type: entity
+  id: DystopiaCoolingTowerSmall
+  name: small cooling tower
+  description: "A 3×3 cooling tower: steam from a gas pipe condenses on the fill and drips into the basin as water. Some escapes as a cloud. Powered, the fan runs at full strength; unpowered, natural draft is three times slower."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-1.45,-1.45,1.45,1.45"
+        density: 4000
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]
+  - type: Tag
+    tags: [ Structure ]
+  - type: Sprite
+    sprite: _Dystopia/Structures/Power/cooling_tower_small.rsi
+    noRot: true
+    drawdepth: Objects
+    layers:
+    - state: icon
+      map: [ "enum.DystopiaCoolingTowerVisuals.Working" ]
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DystopiaCoolingTowerVisuals.Working:
+        enum.DystopiaCoolingTowerVisuals.Working:
+          True: { state: running }
+          False: { state: icon }
+  - type: AmbientSound
+    enabled: false
+    volume: -3
+    range: 9
+    sound:
+      path: /Audio/Ambience/Objects/gas_vent.ogg
+  - type: ApcPowerReceiver   # вентилятор; без тока — естественная тяга
+    powerLoad: 3000
+  - type: ExtensionCableReceiver
+  - type: Solution
+    id: water
+    solution:
+      maxVol: 2000
+      canReact: false
+  - type: DrainableSolution   # воду забирает жидкостный импортер у крана спереди
+    solution: water
+  - type: DystopiaCoolingTower
+    steamPerSecond: 1.5
+    inlets:
+    - offset: -1,0
+      direction: West
+    - offset: 1,0
+      direction: East
+  - type: DystopiaLiquidAccess   # кран спереди посередине
+    points:
+    - offset: 0,-1
+      side: South
+  - type: DystopiaMultiblock
+    frame: DystopiaFrameCoolingTowerSmall
+    coreFrame: DystopiaFrameCoolingTowerSmallCore
+    width: 3
+    height: 3
+    portsHint: dystopia-coolingtowersmall-ports
+  - type: Construction
+    graph: DystopiaCoolingTowerSmallAssembly
+    node: done
+  - type: DystopiaParticleEmitter   # облако пара над башней
+    emitters:
+    # облако пара
+    - rate: 36
+      lifetime: 2.5,4.5
+      speed: 0.3,0.7
+      direction: 0
+      spread: 30
+      alignToVelocity: false
+      inheritVelocity: 0
+      drift: 0.12,0.15
+      drag: 0.3
+      jitter: 1.05
+      size: 4,7
+      additive: false
+      offset: 0,1.2
+      activeWhen: enum.DystopiaCoolingTowerVisuals.Working
+      colors:
+      - "#F0F4F800"
+      - "#E6ECF2B0"
+      - "#D4DCE490"
+      - "#BCC6D050"
+      - "#A8B2BC00"
+    # капель в бассейне
+    - rate: 9
+      lifetime: 0.6,1.1
+      speed: 0.05,0.2
+      direction: 0
+      spread: 40
+      alignToVelocity: false
+      inheritVelocity: 0
+      drift: 0,-1.2
+      drag: 0.2
+      jitter: 0.9
+      size: 1,1
+      additive: false
+      offset: 0,-0.7
+      activeWhen: enum.DystopiaCoolingTowerVisuals.Working
+      colors:
+      - "#B8D8F0A0"
+      - "#88B4D860"
+      - "#5A8AB000"
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 1500
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+
+- type: entity
+  id: DystopiaCoolingTowerLarge
+  name: large cooling tower
+  description: "A 5×5 cooling tower, three times the capacity of the small one: steam from a gas pipe condenses into water. Some escapes as a cloud. Unpowered, natural draft is three times slower."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-2.45,-2.45,2.45,2.45"
+        density: 4000
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]
+  - type: Tag
+    tags: [ Structure ]
+  - type: Sprite
+    sprite: _Dystopia/Structures/Power/cooling_tower_large.rsi
+    noRot: true
+    drawdepth: Objects
+    layers:
+    - state: icon
+      map: [ "enum.DystopiaCoolingTowerVisuals.Working" ]
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DystopiaCoolingTowerVisuals.Working:
+        enum.DystopiaCoolingTowerVisuals.Working:
+          True: { state: running }
+          False: { state: icon }
+  - type: AmbientSound
+    enabled: false
+    volume: -3
+    range: 11
+    sound:
+      path: /Audio/Ambience/Objects/gas_vent.ogg
+  - type: ApcPowerReceiver   # вентилятор; без тока — естественная тяга
+    powerLoad: 9000
+  - type: ExtensionCableReceiver
+  - type: Solution
+    id: water
+    solution:
+      maxVol: 6000
+      canReact: false
+  - type: DrainableSolution   # воду забирает жидкостный импортер у крана спереди
+    solution: water
+  - type: DystopiaCoolingTower
+    steamPerSecond: 4.5
+    inlets:
+    - offset: -2,0
+      direction: West
+    - offset: 2,0
+      direction: East
+  - type: DystopiaLiquidAccess   # кран спереди посередине
+    points:
+    - offset: 0,-2
+      side: South
+  - type: DystopiaMultiblock
+    frame: DystopiaFrameCoolingTowerLarge
+    coreFrame: DystopiaFrameCoolingTowerLargeCore
+    width: 5
+    height: 5
+    portsHint: dystopia-coolingtowerlarge-ports
+  - type: Construction
+    graph: DystopiaCoolingTowerLargeAssembly
+    node: done
+  - type: DystopiaParticleEmitter   # облако пара над башней
+    emitters:
+    # облако пара
+    - rate: 60
+      lifetime: 2.5,4.5
+      speed: 0.3,0.7
+      direction: 0
+      spread: 30
+      alignToVelocity: false
+      inheritVelocity: 0
+      drift: 0.12,0.15
+      drag: 0.3
+      jitter: 1.75
+      size: 4,7
+      additive: false
+      offset: 0,2.0
+      activeWhen: enum.DystopiaCoolingTowerVisuals.Working
+      colors:
+      - "#F0F4F800"
+      - "#E6ECF2B0"
+      - "#D4DCE490"
+      - "#BCC6D050"
+      - "#A8B2BC00"
+    # капель в бассейне
+    - rate: 15
+      lifetime: 0.6,1.1
+      speed: 0.05,0.2
+      direction: 0
+      spread: 40
+      alignToVelocity: false
+      inheritVelocity: 0
+      drift: 0,-1.2
+      drag: 0.2
+      jitter: 1.5
+      size: 1,1
+      additive: false
+      offset: 0,-1.7
+      activeWhen: enum.DystopiaCoolingTowerVisuals.Working
+      colors:
+      - "#B8D8F0A0"
+      - "#88B4D860"
+      - "#5A8AB000"
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 1500
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+
+- type: entity
+  id: DystopiaCoolingTowerInlet
+  name: cooling tower steam inlet
+  description: The steam inlet of a cooling tower.
+  categories: [ HideSpawnMenu ]
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+  - type: NodeContainer
+    nodes:
+      inlet:
+        !type:PipeNode
+        nodeGroupID: Pipe
+        pipeDirection: South   # поворачивается наружу при установке
+        volume: 200
+  - type: DystopiaCoolingTowerInlet

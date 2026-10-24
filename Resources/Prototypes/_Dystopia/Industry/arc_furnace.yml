@@ -89,9 +89,6 @@
       - "#B0AAA050"
       - "#90898020"
       - "#80787000"
-  - type: Construction   # крафт (gen_crafts.py)
-    graph: DystopiaArcFurnaceCraft
-    node: done
   - type: Transform
     anchored: true
     noRot: true
@@ -175,6 +172,15 @@
             max: 15
       - !type:DoActsBehavior
         acts: [ Destruction ]
+  - type: DystopiaMultiblock
+    frame: DystopiaFrameArcFurnace
+    coreFrame: DystopiaFrameArcFurnaceCore
+    width: 3
+    height: 3
+    portsHint: dystopia-arcfurnace-ports
+  - type: Construction
+    graph: DystopiaArcFurnaceAssembly
+    node: done
   - type: DystopiaCrucible
     solution: crucible
     chargeContainer: dystopia_crucible_charge
@@ -219,3 +225,4 @@
     - DystopiaMoltenGold
     - DystopiaMoltenSilver
     - DystopiaMoltenUranium
+    - DystopiaMoltenCarbide

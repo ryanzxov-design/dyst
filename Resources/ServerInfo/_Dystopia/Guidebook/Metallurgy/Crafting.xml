@@ -44,6 +44,8 @@
   - [color=#d2ae68]моток ВВ-кабеля[/color]: [color=#9ab0c4]серебряная проволока[/color] × [color=#ff9a50]17[/color], [color=#9ab0c4]ткань[/color] × [color=#ff9a50]6[/color], [color=#9ab0c4]лист свинца[/color] × [color=#ff9a50]3[/color]
   - [color=#d2ae68]моток ВВ-кабеля[/color]: [color=#9ab0c4]золотая проволока[/color] × [color=#ff9a50]26[/color], [color=#9ab0c4]ткань[/color] × [color=#ff9a50]6[/color], [color=#9ab0c4]лист свинца[/color] × [color=#ff9a50]3[/color]
   - [color=#d2ae68]моток ВВ-кабеля[/color]: [color=#9ab0c4]алюминиевая проволока[/color] × [color=#ff9a50]28[/color], [color=#9ab0c4]ткань[/color] × [color=#ff9a50]6[/color], [color=#9ab0c4]лист свинца[/color] × [color=#ff9a50]3[/color]
+  - [color=#d2ae68]керосиновая лампа[/color]: [color=#9ab0c4]стальной лист[/color] × [color=#ff9a50]1[/color], [color=#9ab0c4]стекло[/color] × [color=#ff9a50]1[/color], [color=#9ab0c4]ткань[/color] × [color=#ff9a50]1[/color]
+  - [color=#d2ae68]карбидная лампа[/color]: [color=#9ab0c4]стальной лист[/color] × [color=#ff9a50]1[/color], [color=#9ab0c4]стекло[/color] × [color=#ff9a50]1[/color], [color=#9ab0c4]сальниковая набивка[/color] × [color=#ff9a50]1[/color]
 
   Сальниковую набивку не собирают руками: её делает [color=#d2ae68]бетономешалка[/color] из ткани и смолы, [color=#ff9a50]2[/color] мотка за раз.
 
@@ -65,7 +67,18 @@
   - [color=#d2ae68]контактный аппарат[/color]: [color=#9ab0c4]чертёж[/color], [color=#9ab0c4]стальной лист[/color] × [color=#ff9a50]6[/color], [color=#9ab0c4]огнеупорный кирпич[/color] × [color=#ff9a50]4[/color], [color=#9ab0c4]стекло[/color] × [color=#ff9a50]2[/color]
   - [color=#d2ae68]чан выщелачивания[/color]: [color=#9ab0c4]чертёж[/color], [color=#9ab0c4]стальной лист[/color] × [color=#ff9a50]4[/color], [color=#9ab0c4]лист свинца[/color] × [color=#ff9a50]4[/color], [color=#9ab0c4]электромотор[/color] × [color=#ff9a50]1[/color], [color=#9ab0c4]редуктор[/color] × [color=#ff9a50]1[/color]
   - [color=#d2ae68]электролизёр[/color]: [color=#9ab0c4]чертёж[/color], [color=#9ab0c4]стальной лист[/color] × [color=#ff9a50]6[/color], [color=#9ab0c4]огнеупорный кирпич[/color] × [color=#ff9a50]4[/color], [color=#9ab0c4]графитовый электрод[/color] × [color=#ff9a50]4[/color], [color=#9ab0c4]обмоточный провод[/color] × [color=#ff9a50]4[/color]
-  - [color=#d2ae68]дуговая сталеплавильная печь[/color]: [color=#9ab0c4]чертёж[/color], [color=#9ab0c4]огнеупорный кирпич[/color] × [color=#ff9a50]20[/color], [color=#9ab0c4]стальной лист[/color] × [color=#ff9a50]10[/color], [color=#9ab0c4]графитовый электрод[/color] × [color=#ff9a50]3[/color], [color=#9ab0c4]обмоточный провод[/color] × [color=#ff9a50]4[/color]
+  - [color=#d2ae68]секция каркаса дуговой печи[/color]: [color=#9ab0c4]огнеупорный кирпич[/color] × [color=#ff9a50]2[/color], [color=#9ab0c4]стальной лист[/color] × [color=#ff9a50]1[/color]
+  - [color=#d2ae68]электродный узел дуговой печи[/color]: [color=#9ab0c4]чертёж[/color], [color=#9ab0c4]огнеупорный кирпич[/color] × [color=#ff9a50]4[/color], [color=#9ab0c4]стальной лист[/color] × [color=#ff9a50]2[/color], [color=#9ab0c4]графитовый электрод[/color] × [color=#ff9a50]3[/color], [color=#9ab0c4]обмоточный провод[/color] × [color=#ff9a50]4[/color]
+  - [color=#d2ae68]мазутная форсунка[/color]: [color=#9ab0c4]стальной лист[/color] × [color=#ff9a50]2[/color], [color=#9ab0c4]слиток чугуна[/color] × [color=#ff9a50]1[/color], [color=#9ab0c4]сальниковая набивка[/color] × [color=#ff9a50]1[/color]
+
+  ## Многоблоки
+  [color=#d2ae68]Дуговая печь[/color], [color=#d2ae68]градирни[/color] и [color=#d2ae68]цистерны[/color] строятся по клеткам: на каждую клетку ставят свою [color=#d2ae68]секцию каркаса[/color], соседние секции срастаются. Когда сложился ровный прямоугольник нужного размера ([color=#ff9a50]3×3[/color], [color=#ff9a50]5×5[/color], [color=#ff9a50]3×5[/color] вдоль или поперёк) и в центре стоит [color=#d2ae68]узел[/color] (у печи и градирен, по чертежу), каркас превращается в машину. Лишняя секция рядом мешает сборке. При осмотре секции видно, сколько стоит и чего не хватает. Готовую машину [bold]ломом[/bold] разбирают обратно в секции, жидкость из баков при этом проливается.
+
+  ## Энергетика
+  - [color=#d2ae68]секция каркаса малой градирни[/color]: [color=#9ab0c4]бетонный блок[/color] × [color=#ff9a50]2[/color], [color=#9ab0c4]стальной прут[/color] × [color=#ff9a50]2[/color]
+  - [color=#d2ae68]вентиляторный узел малой градирни[/color]: [color=#9ab0c4]чертёж[/color], [color=#9ab0c4]стальной лист[/color] × [color=#ff9a50]4[/color], [color=#9ab0c4]электромотор[/color] × [color=#ff9a50]1[/color], [color=#9ab0c4]сальниковая набивка[/color] × [color=#ff9a50]2[/color]
+  - [color=#d2ae68]секция каркаса большой градирни[/color]: [color=#9ab0c4]бетонный блок[/color] × [color=#ff9a50]2[/color], [color=#9ab0c4]стальной прут[/color] × [color=#ff9a50]2[/color]
+  - [color=#d2ae68]вентиляторный узел большой градирни[/color]: [color=#9ab0c4]чертёж[/color], [color=#9ab0c4]стальной лист[/color] × [color=#ff9a50]8[/color], [color=#9ab0c4]электромотор[/color] × [color=#ff9a50]2[/color], [color=#9ab0c4]сальниковая набивка[/color] × [color=#ff9a50]4[/color]
 
   ## Машины
   - [color=#d2ae68]щековая дробилка[/color]: [color=#9ab0c4]чертёж[/color], [color=#9ab0c4]стальной лист[/color] × [color=#ff9a50]4[/color], [color=#9ab0c4]слиток чугуна[/color] × [color=#ff9a50]2[/color], [color=#9ab0c4]электромотор[/color] × [color=#ff9a50]1[/color], [color=#9ab0c4]редуктор[/color] × [color=#ff9a50]1[/color]
@@ -92,6 +105,8 @@
   - [color=#d2ae68]конвейерный извлекатель[/color]: [color=#9ab0c4]чертёж[/color], [color=#9ab0c4]стальной лист[/color] × [color=#ff9a50]2[/color], [color=#9ab0c4]электромотор[/color] × [color=#ff9a50]1[/color]
   - [color=#d2ae68]конвейерный вставщик[/color]: [color=#9ab0c4]чертёж[/color], [color=#9ab0c4]стальной лист[/color] × [color=#ff9a50]2[/color], [color=#9ab0c4]электромотор[/color] × [color=#ff9a50]1[/color]
   - [color=#d2ae68]конвейерный сортировщик[/color]: [color=#9ab0c4]чертёж[/color], [color=#9ab0c4]стальной лист[/color] × [color=#ff9a50]2[/color], [color=#9ab0c4]электромотор[/color] × [color=#ff9a50]1[/color]
+  - [color=#d2ae68]секция каркаса цистерны[/color]: [color=#9ab0c4]стальной лист[/color] × [color=#ff9a50]2[/color], [color=#9ab0c4]стальной прут[/color] × [color=#ff9a50]1[/color]
+  - [color=#d2ae68]бочка[/color]: [color=#9ab0c4]стальной лист[/color] × [color=#ff9a50]4[/color]
 
   ## Стены
   - [color=#d2ae68]кирпичная стена[/color]: [color=#9ab0c4]кирпич[/color] × [color=#ff9a50]6[/color], [color=#9ab0c4]кирпич[/color] × [color=#ff9a50]6[/color], [color=#9ab0c4]цемент[/color] × [color=#ff9a50]1[/color]

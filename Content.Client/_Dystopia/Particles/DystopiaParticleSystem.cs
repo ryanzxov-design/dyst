@@ -64,7 +64,7 @@ public sealed partial class DystopiaParticleSystem : EntitySystem
             var age = _ages.GetValueOrDefault(uid) + frameTime;
             _ages[uid] = age;
 
-            var position = _transform.GetWorldPosition(xform);
+            var (position, rotation) = _transform.GetWorldPositionRotation(xform);
             var velocity = _physics.GetMapLinearVelocity(uid, xform: xform);
 
             foreach (var emitter in comp.Emitters)
@@ -82,7 +82,7 @@ public sealed partial class DystopiaParticleSystem : EntitySystem
                 var ramp = emitter.RampTime > 0f ? Math.Clamp(age / emitter.RampTime, 0f, 1f) : 0f;
                 for (var i = 0; i < count && Particles.Count < MaxParticles; i++)
                 {
-                    Particles.Add(Spawn(emitter, xform.MapID, position, velocity, ramp));
+                    Particles.Add(Spawn(emitter, xform.MapID, position, rotation, velocity, ramp));
                 }
             }
         }
@@ -129,13 +129,19 @@ public sealed partial class DystopiaParticleSystem : EntitySystem
         return key != null && _appearance.TryGetData<bool>(uid, key, out var on) && on;
     }
 
-    private Particle Spawn(DystopiaParticleEmitter emitter, MapId map, Vector2 position, Vector2 sourceVelocity, float ramp)
+    private Particle Spawn(DystopiaParticleEmitter emitter, MapId map, Vector2 position, Angle rotation,
+        Vector2 sourceVelocity, float ramp)
     {
+        if (emitter.Offset != Vector2.Zero)
+            position += emitter.Rotate ? rotation.RotateVec(emitter.Offset) : emitter.Offset;
+
         // Направление: вдоль движения источника или от севера
         var baseAngle = emitter.AlignToVelocity && sourceVelocity.LengthSquared() > 0.0001f
             ? MathF.Atan2(sourceVelocity.Y, sourceVelocity.X)
             : MathF.PI / 2f;
         baseAngle += MathHelper.DegreesToRadians(emitter.Direction);
+        if (emitter.Rotate)
+            baseAngle += (float) rotation.Theta;
         var spreadDeg = emitter.SpreadEnd >= 0f ? emitter.Spread + (emitter.SpreadEnd - emitter.Spread) * ramp : emitter.Spread;
         var spread = MathHelper.DegreesToRadians(spreadDeg) * 0.5f;
         var angle = baseAngle + _random.NextFloat(-spread, spread);

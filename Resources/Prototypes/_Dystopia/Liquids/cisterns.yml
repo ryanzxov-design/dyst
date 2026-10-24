@@ -1,0 +1,711 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: цистерны 3×5 (вдоль и поперёк, из секций каркаса) и бочки на 200 единиц (gen_oil4b.py).
+
+- type: entity
+  id: DystopiaCisternVertical
+  name: cistern
+  description: "A 10 000-unit steel cistern for any liquid. Fill and drain it with liquid exporters and importers right against its two valves at the front."
+  suffix: Lengthwise
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-1.45,-2.45,1.45,2.45"
+        density: 4000
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]
+  - type: Tag
+    tags: [ Structure ]
+  - type: Sprite
+    sprite: _Dystopia/Structures/Liquids/cistern_vertical.rsi
+    noRot: true
+    drawdepth: Objects
+    state: icon
+  - type: Solution
+    id: tank
+    solution:
+      maxVol: 10000
+      canReact: false
+  - type: DrainableSolution
+    solution: tank
+  - type: RefillableSolution
+    solution: tank
+  - type: ExaminableSolution
+    solution: tank
+  - type: DystopiaLiquidAccess   # два крана спереди
+    points:
+    - offset: -1,-2
+      side: South
+    - offset: 1,-2
+      side: South
+  - type: DystopiaMultiblock
+    frame: DystopiaFrameCistern
+    width: 3
+    height: 5
+    portsHint: dystopia-cistern-ports
+  - type: Construction
+    graph: DystopiaCisternVerticalAssembly
+    node: done
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 1200
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:SpillBehavior
+        solution: tank
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+
+- type: entity
+  id: DystopiaCisternHorizontal
+  name: cistern
+  description: "A 10 000-unit steel cistern for any liquid. Fill and drain it with liquid exporters and importers right against its two valves at the front."
+  suffix: Crosswise
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-2.45,-1.45,2.45,1.45"
+        density: 4000
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]
+  - type: Tag
+    tags: [ Structure ]
+  - type: Sprite
+    sprite: _Dystopia/Structures/Liquids/cistern_horizontal.rsi
+    noRot: true
+    drawdepth: Objects
+    state: icon
+  - type: Solution
+    id: tank
+    solution:
+      maxVol: 10000
+      canReact: false
+  - type: DrainableSolution
+    solution: tank
+  - type: RefillableSolution
+    solution: tank
+  - type: ExaminableSolution
+    solution: tank
+  - type: DystopiaLiquidAccess   # два крана спереди
+    points:
+    - offset: -2,-1
+      side: South
+    - offset: 2,-1
+      side: South
+  - type: DystopiaMultiblock
+    frame: DystopiaFrameCistern
+    width: 5
+    height: 3
+    portsHint: dystopia-cistern-ports
+  - type: Construction
+    graph: DystopiaCisternHorizontalAssembly
+    node: done
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 1200
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:SpillBehavior
+        solution: tank
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+
+- type: entity
+  id: DystopiaBarrel
+  name: barrel
+  description: "A 200-unit steel barrel. Pour into it with a bucket or tap it; wrench it down next to a liquid exporter or importer to fill or drain it through the pipes."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaBarrelCraft
+    node: done
+  - type: Transform
+    anchored: false
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Physics
+    bodyType: Dynamic
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.3,-0.45,0.3,0.3"
+        density: 200
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]
+  - type: Pullable
+  - type: Anchorable
+    delay: 2
+  - type: Tag
+    tags: [ Structure ]
+  - type: Sprite
+    sprite: _Dystopia/Structures/Liquids/barrel.rsi
+    noRot: true
+    drawdepth: Objects
+    state: icon
+  - type: Solution
+    id: tank
+    solution:
+      maxVol: 200
+      canReact: false
+  - type: DrainableSolution
+    solution: tank
+  - type: RefillableSolution
+    solution: tank
+  - type: ExaminableSolution
+    solution: tank
+  - type: Spillable
+    solution: tank
+  - type: PhysicalComposition
+    materialComposition:
+      Steel: 400
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 150
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:SpillBehavior
+        solution: tank
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+
+- type: entity
+  id: DystopiaBarrelDiesel
+  name: barrel
+  description: "A 200-unit steel barrel. Pour into it with a bucket or tap it; wrench it down next to a liquid exporter or importer to fill or drain it through the pipes."
+  suffix: Diesel
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: false
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Physics
+    bodyType: Dynamic
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.3,-0.45,0.3,0.3"
+        density: 200
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]
+  - type: Pullable
+  - type: Anchorable
+    delay: 2
+  - type: Tag
+    tags: [ Structure ]
+  - type: Sprite
+    sprite: _Dystopia/Structures/Liquids/barrel.rsi
+    noRot: true
+    drawdepth: Objects
+    state: icon
+  - type: Solution
+    id: tank
+    solution:
+      maxVol: 200
+      canReact: false
+      reagents:
+      - ReagentId: DystopiaDiesel
+        Quantity: 200
+  - type: DrainableSolution
+    solution: tank
+  - type: RefillableSolution
+    solution: tank
+  - type: ExaminableSolution
+    solution: tank
+  - type: Spillable
+    solution: tank
+  - type: PhysicalComposition
+    materialComposition:
+      Steel: 400
+  - type: Label
+    localizedLabel: reagent-name-dystopia-diesel
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 150
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:SpillBehavior
+        solution: tank
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+
+- type: entity
+  id: DystopiaBarrelFuelOil
+  name: barrel
+  description: "A 200-unit steel barrel. Pour into it with a bucket or tap it; wrench it down next to a liquid exporter or importer to fill or drain it through the pipes."
+  suffix: FuelOil
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: false
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Physics
+    bodyType: Dynamic
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.3,-0.45,0.3,0.3"
+        density: 200
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]
+  - type: Pullable
+  - type: Anchorable
+    delay: 2
+  - type: Tag
+    tags: [ Structure ]
+  - type: Sprite
+    sprite: _Dystopia/Structures/Liquids/barrel.rsi
+    noRot: true
+    drawdepth: Objects
+    state: icon
+  - type: Solution
+    id: tank
+    solution:
+      maxVol: 200
+      canReact: false
+      reagents:
+      - ReagentId: DystopiaFuelOil
+        Quantity: 200
+  - type: DrainableSolution
+    solution: tank
+  - type: RefillableSolution
+    solution: tank
+  - type: ExaminableSolution
+    solution: tank
+  - type: Spillable
+    solution: tank
+  - type: PhysicalComposition
+    materialComposition:
+      Steel: 400
+  - type: Label
+    localizedLabel: reagent-name-dystopia-fuel-oil
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 150
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:SpillBehavior
+        solution: tank
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+
+- type: entity
+  id: DystopiaBarrelKerosene
+  name: barrel
+  description: "A 200-unit steel barrel. Pour into it with a bucket or tap it; wrench it down next to a liquid exporter or importer to fill or drain it through the pipes."
+  suffix: Kerosene
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: false
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Physics
+    bodyType: Dynamic
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.3,-0.45,0.3,0.3"
+        density: 200
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]
+  - type: Pullable
+  - type: Anchorable
+    delay: 2
+  - type: Tag
+    tags: [ Structure ]
+  - type: Sprite
+    sprite: _Dystopia/Structures/Liquids/barrel.rsi
+    noRot: true
+    drawdepth: Objects
+    state: icon
+  - type: Solution
+    id: tank
+    solution:
+      maxVol: 200
+      canReact: false
+      reagents:
+      - ReagentId: DystopiaKerosene
+        Quantity: 200
+  - type: DrainableSolution
+    solution: tank
+  - type: RefillableSolution
+    solution: tank
+  - type: ExaminableSolution
+    solution: tank
+  - type: Spillable
+    solution: tank
+  - type: PhysicalComposition
+    materialComposition:
+      Steel: 400
+  - type: Label
+    localizedLabel: reagent-name-dystopia-kerosene
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 150
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:SpillBehavior
+        solution: tank
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+
+- type: entity
+  id: DystopiaBarrelGasoline
+  name: barrel
+  description: "A 200-unit steel barrel. Pour into it with a bucket or tap it; wrench it down next to a liquid exporter or importer to fill or drain it through the pipes."
+  suffix: Gasoline
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: false
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Physics
+    bodyType: Dynamic
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.3,-0.45,0.3,0.3"
+        density: 200
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]
+  - type: Pullable
+  - type: Anchorable
+    delay: 2
+  - type: Tag
+    tags: [ Structure ]
+  - type: Sprite
+    sprite: _Dystopia/Structures/Liquids/barrel.rsi
+    noRot: true
+    drawdepth: Objects
+    state: icon
+  - type: Solution
+    id: tank
+    solution:
+      maxVol: 200
+      canReact: false
+      reagents:
+      - ReagentId: DystopiaGasoline
+        Quantity: 200
+  - type: DrainableSolution
+    solution: tank
+  - type: RefillableSolution
+    solution: tank
+  - type: ExaminableSolution
+    solution: tank
+  - type: Spillable
+    solution: tank
+  - type: PhysicalComposition
+    materialComposition:
+      Steel: 400
+  - type: Label
+    localizedLabel: reagent-name-dystopia-gasoline
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 150
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:SpillBehavior
+        solution: tank
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+
+- type: entity
+  id: DystopiaBarrelLubricatingOil
+  name: barrel
+  description: "A 200-unit steel barrel. Pour into it with a bucket or tap it; wrench it down next to a liquid exporter or importer to fill or drain it through the pipes."
+  suffix: LubricatingOil
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: false
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Physics
+    bodyType: Dynamic
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.3,-0.45,0.3,0.3"
+        density: 200
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]
+  - type: Pullable
+  - type: Anchorable
+    delay: 2
+  - type: Tag
+    tags: [ Structure ]
+  - type: Sprite
+    sprite: _Dystopia/Structures/Liquids/barrel.rsi
+    noRot: true
+    drawdepth: Objects
+    state: icon
+  - type: Solution
+    id: tank
+    solution:
+      maxVol: 200
+      canReact: false
+      reagents:
+      - ReagentId: DystopiaLubricatingOil
+        Quantity: 200
+  - type: DrainableSolution
+    solution: tank
+  - type: RefillableSolution
+    solution: tank
+  - type: ExaminableSolution
+    solution: tank
+  - type: Spillable
+    solution: tank
+  - type: PhysicalComposition
+    materialComposition:
+      Steel: 400
+  - type: Label
+    localizedLabel: reagent-name-dystopia-lubricating-oil
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 150
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:SpillBehavior
+        solution: tank
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+
+- type: entity
+  id: DystopiaBarrelWater
+  name: barrel
+  description: "A 200-unit steel barrel. Pour into it with a bucket or tap it; wrench it down next to a liquid exporter or importer to fill or drain it through the pipes."
+  suffix: Water
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: false
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Physics
+    bodyType: Dynamic
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.3,-0.45,0.3,0.3"
+        density: 200
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]
+  - type: Pullable
+  - type: Anchorable
+    delay: 2
+  - type: Tag
+    tags: [ Structure ]
+  - type: Sprite
+    sprite: _Dystopia/Structures/Liquids/barrel.rsi
+    noRot: true
+    drawdepth: Objects
+    state: icon
+  - type: Solution
+    id: tank
+    solution:
+      maxVol: 200
+      canReact: false
+      reagents:
+      - ReagentId: Water
+        Quantity: 200
+  - type: DrainableSolution
+    solution: tank
+  - type: RefillableSolution
+    solution: tank
+  - type: ExaminableSolution
+    solution: tank
+  - type: Spillable
+    solution: tank
+  - type: PhysicalComposition
+    materialComposition:
+      Steel: 400
+  - type: Label
+    localizedLabel: reagent-name-water
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 150
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:SpillBehavior
+        solution: tank
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+
+- type: entity
+  id: DystopiaBarrelWeldingFuel
+  name: barrel
+  description: "A 200-unit steel barrel. Pour into it with a bucket or tap it; wrench it down next to a liquid exporter or importer to fill or drain it through the pipes."
+  suffix: WeldingFuel
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: false
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Physics
+    bodyType: Dynamic
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.3,-0.45,0.3,0.3"
+        density: 200
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]
+  - type: Pullable
+  - type: Anchorable
+    delay: 2
+  - type: Tag
+    tags: [ Structure ]
+  - type: Sprite
+    sprite: _Dystopia/Structures/Liquids/barrel.rsi
+    noRot: true
+    drawdepth: Objects
+    state: icon
+  - type: Solution
+    id: tank
+    solution:
+      maxVol: 200
+      canReact: false
+      reagents:
+      - ReagentId: WeldingFuel
+        Quantity: 200
+  - type: DrainableSolution
+    solution: tank
+  - type: RefillableSolution
+    solution: tank
+  - type: ExaminableSolution
+    solution: tank
+  - type: Spillable
+    solution: tank
+  - type: PhysicalComposition
+    materialComposition:
+      Steel: 400
+  - type: Label
+    localizedLabel: reagent-name-welding-fuel
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 150
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:SpillBehavior
+        solution: tank
+      - !type:DoActsBehavior
+        acts: [ Destruction ]

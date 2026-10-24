@@ -1,0 +1,348 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: секции каркаса фиксированных многоблоков (gen_oil4b.py). Секции одного ключа соединяются
+# текстурами; ровный прямоугольник нужного размера (с узлом в центре, если нужен) превращается в машину
+# (DystopiaMultiblockSystem). Крафт — gen_crafts.py.
+
+- type: entity
+  id: DystopiaFrameArcFurnace
+  name: arc furnace frame section
+  description: "A steel shell segment on a firebrick bed: part of a future arc furnace. The furnace is assembled from 3×3 sections with the electrode core in the middle."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaFrameArcFurnaceCraft
+    node: done
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Tag   # леса проходимы (без физики); одна секция на клетку
+    tags: [ Structure, Unstackable ]
+  - type: Sprite
+    sprite: _Dystopia/Structures/Industry/frame_arc_furnace.rsi
+    noRot: true
+    drawdepth: FloorObjects
+    layers:
+    - state: frame0
+  - type: IconSmooth   # секции одного многоблока тянутся друг к другу (север 1, юг 2, восток 4, запад 8)
+    key: DystopiaMbArcFurnace
+    base: frame
+    mode: CardinalFlags
+  - type: DystopiaMultiblockFrame
+    key: DystopiaMbArcFurnace
+    width: 3
+    height: 3
+    result: DystopiaArcFurnace
+    core: false
+    requireCore: true
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 200
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+
+- type: entity
+  id: DystopiaFrameArcFurnaceCore
+  name: arc furnace electrode core
+  description: "The roof with electrode holders and power leads. Goes in the middle of the 3×3 frame."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaFrameArcFurnaceCoreCraft
+    node: done
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Tag   # леса проходимы (без физики); одна секция на клетку
+    tags: [ Structure, Unstackable ]
+  - type: Sprite
+    sprite: _Dystopia/Structures/Industry/frame_arc_furnace.rsi
+    noRot: true
+    drawdepth: FloorObjects
+    layers:
+    - state: core0
+  - type: IconSmooth   # секции одного многоблока тянутся друг к другу (север 1, юг 2, восток 4, запад 8)
+    key: DystopiaMbArcFurnace
+    base: core
+    mode: CardinalFlags
+  - type: DystopiaMultiblockFrame
+    key: DystopiaMbArcFurnace
+    width: 3
+    height: 3
+    result: DystopiaArcFurnace
+    core: true
+    requireCore: true
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 200
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+
+- type: entity
+  id: DystopiaFrameCoolingTowerSmall
+  name: small cooling tower frame section
+  description: "A concrete footing with sprinkler grating. A small cooling tower is assembled from 3×3 sections with the fan core in the middle."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaFrameCoolingTowerSmallCraft
+    node: done
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Tag   # леса проходимы (без физики); одна секция на клетку
+    tags: [ Structure, Unstackable ]
+  - type: Sprite
+    sprite: _Dystopia/Structures/Power/frame_cooling_tower_small.rsi
+    noRot: true
+    drawdepth: FloorObjects
+    layers:
+    - state: frame0
+  - type: IconSmooth   # секции одного многоблока тянутся друг к другу (север 1, юг 2, восток 4, запад 8)
+    key: DystopiaMbCoolingTowerSmall
+    base: frame
+    mode: CardinalFlags
+  - type: DystopiaMultiblockFrame
+    key: DystopiaMbCoolingTowerSmall
+    width: 3
+    height: 3
+    result: DystopiaCoolingTowerSmall
+    core: false
+    requireCore: true
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 200
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+
+- type: entity
+  id: DystopiaFrameCoolingTowerSmallCore
+  name: small cooling tower fan core
+  description: "A motor-driven fan with sprinklers. Goes in the middle of the 3×3 frame."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaFrameCoolingTowerSmallCoreCraft
+    node: done
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Tag   # леса проходимы (без физики); одна секция на клетку
+    tags: [ Structure, Unstackable ]
+  - type: Sprite
+    sprite: _Dystopia/Structures/Power/frame_cooling_tower_small.rsi
+    noRot: true
+    drawdepth: FloorObjects
+    layers:
+    - state: core0
+  - type: IconSmooth   # секции одного многоблока тянутся друг к другу (север 1, юг 2, восток 4, запад 8)
+    key: DystopiaMbCoolingTowerSmall
+    base: core
+    mode: CardinalFlags
+  - type: DystopiaMultiblockFrame
+    key: DystopiaMbCoolingTowerSmall
+    width: 3
+    height: 3
+    result: DystopiaCoolingTowerSmall
+    core: true
+    requireCore: true
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 200
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+
+- type: entity
+  id: DystopiaFrameCoolingTowerLarge
+  name: large cooling tower frame section
+  description: "A concrete footing with sprinkler grating. A large cooling tower is assembled from 5×5 sections with the fan core in the middle."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaFrameCoolingTowerLargeCraft
+    node: done
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Tag   # леса проходимы (без физики); одна секция на клетку
+    tags: [ Structure, Unstackable ]
+  - type: Sprite
+    sprite: _Dystopia/Structures/Power/frame_cooling_tower_large.rsi
+    noRot: true
+    drawdepth: FloorObjects
+    layers:
+    - state: frame0
+  - type: IconSmooth   # секции одного многоблока тянутся друг к другу (север 1, юг 2, восток 4, запад 8)
+    key: DystopiaMbCoolingTowerLarge
+    base: frame
+    mode: CardinalFlags
+  - type: DystopiaMultiblockFrame
+    key: DystopiaMbCoolingTowerLarge
+    width: 5
+    height: 5
+    result: DystopiaCoolingTowerLarge
+    core: false
+    requireCore: true
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 200
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+
+- type: entity
+  id: DystopiaFrameCoolingTowerLargeCore
+  name: large cooling tower fan core
+  description: "A big twin-motor fan. Goes in the middle of the 5×5 frame."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaFrameCoolingTowerLargeCoreCraft
+    node: done
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Tag   # леса проходимы (без физики); одна секция на клетку
+    tags: [ Structure, Unstackable ]
+  - type: Sprite
+    sprite: _Dystopia/Structures/Power/frame_cooling_tower_large.rsi
+    noRot: true
+    drawdepth: FloorObjects
+    layers:
+    - state: core0
+  - type: IconSmooth   # секции одного многоблока тянутся друг к другу (север 1, юг 2, восток 4, запад 8)
+    key: DystopiaMbCoolingTowerLarge
+    base: core
+    mode: CardinalFlags
+  - type: DystopiaMultiblockFrame
+    key: DystopiaMbCoolingTowerLarge
+    width: 5
+    height: 5
+    result: DystopiaCoolingTowerLarge
+    core: true
+    requireCore: true
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 200
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+
+- type: entity
+  id: DystopiaFrameCistern
+  name: cistern frame section
+  description: "A steel saddle with shell plates. A cistern is assembled from 3×5 sections, lengthwise or crosswise."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaFrameCisternCraft
+    node: done
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Tag   # леса проходимы (без физики); одна секция на клетку
+    tags: [ Structure, Unstackable ]
+  - type: Sprite
+    sprite: _Dystopia/Structures/Liquids/frame_cistern.rsi
+    noRot: true
+    drawdepth: FloorObjects
+    layers:
+    - state: frame0
+  - type: IconSmooth   # секции одного многоблока тянутся друг к другу (север 1, юг 2, восток 4, запад 8)
+    key: DystopiaMbCistern
+    base: frame
+    mode: CardinalFlags
+  - type: DystopiaMultiblockFrame
+    key: DystopiaMbCistern
+    width: 3
+    height: 5
+    result: DystopiaCisternVertical
+    resultRotated: DystopiaCisternHorizontal
+    core: false
+    requireCore: false
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 200
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:DoActsBehavior
+        acts: [ Destruction ]

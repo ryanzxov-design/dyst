@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Drawn for Dystopia (ryanzxov-design/dyst).",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "frame0"
+    },
+    {
+      "name": "frame1"
+    },
+    {
+      "name": "frame2"
+    },
+    {
+      "name": "frame3"
+    },
+    {
+      "name": "frame4"
+    },
+    {
+      "name": "frame5"
+    },
+    {
+      "name": "frame6"
+    },
+    {
+      "name": "frame7"
+    },
+    {
+      "name": "frame8"
+    },
+    {
+      "name": "frame9"
+    },
+    {
+      "name": "frame10"
+    },
+    {
+      "name": "frame11"
+    },
+    {
+      "name": "frame12"
+    },
+    {
+      "name": "frame13"
+    },
+    {
+      "name": "frame14"
+    },
+    {
+      "name": "frame15"
+    }
+  ]
+}

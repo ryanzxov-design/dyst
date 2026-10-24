@@ -6,6 +6,7 @@ construction-category-dystopia-industry-furnaces = Industry: furnaces and vessel
 construction-category-dystopia-industry-machines = Industry: machines
 construction-category-dystopia-industry-logistics = Industry: pipes and conveyors
 construction-category-dystopia-walls = Walls and masonry
+construction-category-dystopia-industry-power = Industry: power
 construction-graph-tag-dystopia-motor = electric motor
 construction-graph-tag-dystopia-gearbox = gearbox
 construction-graph-tag-dystopia-blueprint = blueprint of this machine

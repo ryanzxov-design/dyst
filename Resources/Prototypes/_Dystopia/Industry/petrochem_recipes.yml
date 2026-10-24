@@ -45,6 +45,15 @@
     Hydrogen: 10
 
 - type: dystopiaProcessRecipe
+  id: DystopiaPyrolyzeEthylene
+  group: Cracking
+  reagents:
+    DystopiaEthylene: 100
+  produces:
+    WeldingFuel: 85
+    Hydrogen: 15
+
+- type: dystopiaProcessRecipe
   id: DystopiaPolymerizeEthylene
   group: Polymerization
   output: SheetPlastic1

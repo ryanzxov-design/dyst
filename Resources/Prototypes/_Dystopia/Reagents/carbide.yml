@@ -1,0 +1,51 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: карбид кальция и расплавы для него (gen_oil4b.py).
+
+- type: reagent
+  id: DystopiaCalciumCarbide
+  name: reagent-name-dystopia-calcium-carbide
+  group: Industrial
+  desc: reagent-desc-dystopia-calcium-carbide
+  physicalDesc: reagent-physical-desc-dystopia-gritty
+  flavor: bitter
+  color: "#6a6878"
+  meltingPoint: 2160.0
+  boilingPoint: 2300.0
+
+- type: reagent
+  id: DystopiaMoltenLime
+  name: reagent-name-dystopia-molten-lime
+  group: Metals
+  desc: reagent-desc-dystopia-molten-lime
+  physicalDesc: reagent-physical-desc-dystopia-molten
+  flavor: bitter
+  color: "#fff2c8"
+  meltingPoint: 1600.0
+  boilingPoint: 2850.0
+  reactiveEffects:
+    Acidic:
+      methods: [ Touch, Ingestion ]
+      effects:
+      - !type:HealthChange
+        damage:
+          types:
+            Heat: 3
+
+- type: reagent
+  id: DystopiaMoltenCarbide
+  name: reagent-name-dystopia-molten-carbide
+  group: Metals
+  desc: reagent-desc-dystopia-molten-carbide
+  physicalDesc: reagent-physical-desc-dystopia-molten
+  flavor: bitter
+  color: "#ffc070"
+  meltingPoint: 1700.0
+  boilingPoint: 2300.0
+  reactiveEffects:
+    Acidic:
+      methods: [ Touch, Ingestion ]
+      effects:
+      - !type:HealthChange
+        damage:
+          types:
+            Heat: 3

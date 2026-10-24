@@ -1,0 +1,125 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: мазутная форсунка для горна (gen_oil4b.py). Числа — DystopiaFuelBurnerComponent.
+
+- type: entity
+  id: DystopiaFuelOilBurner
+  name: fuel oil burner
+  description: "A pressure burner that bolts on facing a forge. Fill it with fuel oil, diesel or kerosene from a bucket or a liquid exporter; switched on, it lights the forge, feeds it and blasts it hot like bellows."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaFuelOilBurnerCraft
+    node: done
+  - type: Transform
+    anchored: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.35,-0.35,0.35,0.35"
+        density: 300
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]
+  - type: Anchorable
+    delay: 2
+  - type: Rotatable   # смотрит на горн
+  - type: Tag
+    tags: [ Structure ]
+  - type: Sprite
+    sprite: _Dystopia/Structures/Industry/fuel_burner.rsi
+    noRot: false
+    drawdepth: Objects
+    layers:
+    - state: icon
+      map: [ "enum.DystopiaFuelBurnerVisuals.Burning" ]
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DystopiaFuelBurnerVisuals.Burning:
+        enum.DystopiaFuelBurnerVisuals.Burning:
+          True: { state: running }
+          False: { state: icon }
+  - type: AmbientSound
+    enabled: false
+    volume: -2
+    range: 7
+    sound:
+      path: /Audio/Ambience/Objects/fireplace.ogg
+  - type: Solution
+    id: fuel
+    solution:
+      maxVol: 200
+      canReact: false
+  - type: RefillableSolution
+    solution: fuel
+  - type: DrainableSolution
+    solution: fuel
+  - type: DystopiaFuelBurner
+    rate: 0.5
+    fuels:   # секунд горения горна с единицы
+      DystopiaFuelOil: 6
+      DystopiaDiesel: 6
+      DystopiaKerosene: 6
+  - type: DystopiaParticleEmitter   # факел в сторону горна
+    emitters:
+    # факел
+    - rate: 45
+      lifetime: 0.15,0.35
+      speed: 1.6,2.6
+      direction: 180
+      spread: 18
+      alignToVelocity: false
+      inheritVelocity: 0
+      drift: 0,0
+      drag: 1.5
+      jitter: 0.12
+      size: 2,1
+      additive: true
+      flicker: 0.3
+      offset: 0,-0.35
+      rotate: true
+      activeWhen: enum.DystopiaFuelBurnerVisuals.Burning
+      colors:
+      - "#FFF0B0E0"
+      - "#FFC050C8"
+      - "#F0702096"
+      - "#A0301450"
+      - "#40100800"
+    # копоть
+    - rate: 4
+      lifetime: 1.2,2.0
+      speed: 0.1,0.3
+      direction: 0
+      spread: 50
+      alignToVelocity: false
+      inheritVelocity: 0
+      drift: 0,0.4
+      drag: 0.6
+      jitter: 0.25
+      size: 2,4
+      additive: false
+      offset: 0,0.2
+      activeWhen: enum.DystopiaFuelBurnerVisuals.Burning
+      colors:
+      - "#4A464000"
+      - "#4A464060"
+      - "#4A464000"
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 300
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:DoActsBehavior
+        acts: [ Destruction ]

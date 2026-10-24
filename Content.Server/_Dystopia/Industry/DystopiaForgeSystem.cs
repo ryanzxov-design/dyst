@@ -89,6 +89,26 @@ public sealed partial class DystopiaForgeSystem : EntitySystem
         return true;
     }
 
+    /// <summary>
+    /// Жидкое топливо от форсунки (DystopiaFuelBurnerSystem): добавить секунды горения (не больше места) и разжечь.
+    /// Возвращает, сколько секунд принято.
+    /// </summary>
+    public float Feed(Entity<DystopiaForgeComponent> ent, float seconds)
+    {
+        if (ent.Comp.Electric)
+            return 0f;
+
+        var take = MathF.Max(0f, MathF.Min(seconds, ent.Comp.MaxFuel - ent.Comp.Fuel));
+        ent.Comp.Fuel += take;
+        if (!ent.Comp.Lit && ent.Comp.Fuel > 0f)
+        {
+            ent.Comp.Lit = true;
+            UpdateVisuals(ent, false);
+        }
+
+        return take;
+    }
+
     // ------------------------------------------------------------------ топливо и розжиг
 
     private void OnInteractUsing(Entity<DystopiaForgeComponent> ent, ref InteractUsingEvent args)

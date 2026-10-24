@@ -441,8 +441,12 @@ public sealed partial class DystopiaLiquidDeviceSystem : EntitySystem
             yield break;
 
         var tile = _map.TileIndicesFor(gridUid, grid, xform.Coordinates);
+        var toward = Direction.Invalid;
         if (side != Direction.Invalid)
-            tile = tile.Offset((xform.LocalRotation + side.ToAngle()).GetCardinalDir());
+        {
+            toward = (xform.LocalRotation + side.ToAngle()).GetCardinalDir();
+            tile = tile.Offset(toward);
+        }
 
         foreach (var target in _lookup.GetLocalEntitiesIntersecting(gridUid, tile, gridComp: grid))
         {
@@ -452,9 +456,34 @@ public sealed partial class DystopiaLiquidDeviceSystem : EntitySystem
                 continue;
             }
 
+            // Многоклеточная машина: только у отмеченного крана и с его стороны.
+            if (TryComp<DystopiaLiquidAccessComponent>(target, out var access) &&
+                !Accessible(target, access, gridUid, grid, tile, toward))
+            {
+                continue;
+            }
+
             if (Transform(target).Anchored || HasComp<DystopiaQuenchableComponent>(target))
                 yield return target;
         }
+    }
+
+    /// <summary>Клетка <paramref name="tile"/> — кран машины, и устройство стоит с его стороны.</summary>
+    private bool Accessible(EntityUid target, DystopiaLiquidAccessComponent access, EntityUid gridUid,
+        MapGridComponent grid, Vector2i tile, Direction toward)
+    {
+        if (toward == Direction.Invalid)
+            return false;
+
+        var center = _map.TileIndicesFor(gridUid, grid, Transform(target).Coordinates);
+        var from = toward.GetOpposite();
+        foreach (var point in access.Points)
+        {
+            if (center + point.Offset == tile && point.Side == from)
+                return true;
+        }
+
+        return false;
     }
 
     /// <summary>Тигли, горны и дуговая печь жидкость из труб не берут и не отдают.</summary>
@@ -514,6 +543,10 @@ public sealed partial class DystopiaLiquidDeviceSystem : EntitySystem
 
         if (IsCasting(target))
             return _quench.TryQuench(target, net, max);
+
+        // Градирня воду только отдаёт.
+        if (HasComp<DystopiaCoolingTowerComponent>(target))
+            return FixedPoint2.Zero;
 
         // Промышленный двигатель: топливо, масло и вода — каждое в свой бак.
         if (TryComp<DystopiaEngineControllerComponent>(target, out var engine))

@@ -1466,7 +1466,53 @@
         doAfter: 5
 
 - type: constructionGraph
-  id: DystopiaArcFurnaceCraft
+  id: DystopiaFrameArcFurnaceCraft
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: s1
+      steps:
+      - material: DystopiaFireBrick
+        amount: 2
+        doAfter: 2.0
+
+  - node: s1
+    entity: DystopiaSiteFrameArcFurnace
+    edges:
+    - to: done
+      steps:
+      - material: Steel
+        amount: 1
+        doAfter: 2.0
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaFireBrick1
+        amount: 2
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: done
+    entity: DystopiaFrameArcFurnace
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaFireBrick1
+        amount: 2
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 1
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+- type: constructionGraph
+  id: DystopiaFrameArcFurnaceCoreCraft
   start: start
   graph:
   - node: start
@@ -1478,16 +1524,16 @@
         icon:
           sprite: _Dystopia/Objects/Misc/blueprint.rsi
           state: icon
-        doAfter: 3.0
+        doAfter: 2.4
 
   - node: s1
-    entity: DystopiaSiteArcFurnace
+    entity: DystopiaSiteFrameArcFurnaceCore
     edges:
     - to: s2
       steps:
       - material: DystopiaFireBrick
-        amount: 20
-        doAfter: 3.0
+        amount: 4
+        doAfter: 2.4
     - to: start
       completed:
       - !type:SpawnPrototype
@@ -1499,13 +1545,13 @@
         doAfter: 2
 
   - node: s2
-    entity: DystopiaSiteArcFurnace
+    entity: DystopiaSiteFrameArcFurnaceCore
     edges:
     - to: s3
       steps:
       - material: Steel
-        amount: 10
-        doAfter: 3.0
+        amount: 2
+        doAfter: 2.4
     - to: start
       completed:
       - !type:SpawnPrototype
@@ -1513,20 +1559,20 @@
         amount: 1
       - !type:SpawnPrototype
         prototype: DystopiaFireBrick1
-        amount: 20
+        amount: 4
       - !type:DeleteEntity
       steps:
       - tool: Prying
         doAfter: 2
 
   - node: s3
-    entity: DystopiaSiteArcFurnace
+    entity: DystopiaSiteFrameArcFurnaceCore
     edges:
     - to: s4
       steps:
       - material: DystopiaGraphiteElectrode
         amount: 3
-        doAfter: 3.0
+        doAfter: 2.4
     - to: start
       completed:
       - !type:SpawnPrototype
@@ -1534,23 +1580,23 @@
         amount: 1
       - !type:SpawnPrototype
         prototype: DystopiaFireBrick1
-        amount: 20
+        amount: 4
       - !type:SpawnPrototype
         prototype: SheetSteel1
-        amount: 10
+        amount: 2
       - !type:DeleteEntity
       steps:
       - tool: Prying
         doAfter: 2
 
   - node: s4
-    entity: DystopiaSiteArcFurnace
+    entity: DystopiaSiteFrameArcFurnaceCore
     edges:
     - to: done
       steps:
       - material: DystopiaWinding
         amount: 4
-        doAfter: 3.0
+        doAfter: 2.4
     - to: start
       completed:
       - !type:SpawnPrototype
@@ -1558,10 +1604,10 @@
         amount: 1
       - !type:SpawnPrototype
         prototype: DystopiaFireBrick1
-        amount: 20
+        amount: 4
       - !type:SpawnPrototype
         prototype: SheetSteel1
-        amount: 10
+        amount: 2
       - !type:SpawnPrototype
         prototype: DystopiaGraphiteElectrode1
         amount: 3
@@ -1571,23 +1617,19 @@
         doAfter: 2
 
   - node: done
-    entity: DystopiaArcFurnace
+    entity: DystopiaFrameArcFurnaceCore
     edges:
     - to: start
       completed:
-      - !type:EmptyContainer
-        container: dystopia_crucible_charge
-      - !type:EmptyContainer
-        container: dystopia_arc_slag
       - !type:SpawnPrototype
         prototype: DystopiaBlueprintArcFurnace
         amount: 1
       - !type:SpawnPrototype
         prototype: DystopiaFireBrick1
-        amount: 20
+        amount: 4
       - !type:SpawnPrototype
         prototype: SheetSteel1
-        amount: 10
+        amount: 2
       - !type:SpawnPrototype
         prototype: DystopiaGraphiteElectrode1
         amount: 3
@@ -1597,7 +1639,7 @@
       - !type:DeleteEntity
       steps:
       - tool: Prying
-        doAfter: 8
+        doAfter: 6
 
 - type: constructionGraph
   id: DystopiaJawCrusherCraft
@@ -4556,6 +4598,514 @@
     entity: DystopiaWallReinforcedConcrete
 
 - type: constructionGraph
+  id: DystopiaFrameCoolingTowerSmallCraft
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: s1
+      steps:
+      - material: DystopiaConcreteBlock
+        amount: 2
+        doAfter: 2.0
+
+  - node: s1
+    entity: DystopiaSiteFrameCoolingTowerSmall
+    edges:
+    - to: done
+      steps:
+      - material: MetalRod
+        amount: 2
+        doAfter: 2.0
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaConcreteBlock1
+        amount: 2
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: done
+    entity: DystopiaFrameCoolingTowerSmall
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaConcreteBlock1
+        amount: 2
+      - !type:SpawnPrototype
+        prototype: PartRodMetal1
+        amount: 2
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+- type: constructionGraph
+  id: DystopiaFrameCoolingTowerSmallCoreCraft
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: s1
+      steps:
+      - tag: DystopiaBlueprintCoolingTowerSmall
+        name: construction-graph-tag-dystopia-blueprint
+        icon:
+          sprite: _Dystopia/Objects/Misc/blueprint.rsi
+          state: icon
+        doAfter: 2.0
+
+  - node: s1
+    entity: DystopiaSiteFrameCoolingTowerSmallCore
+    edges:
+    - to: s2
+      steps:
+      - material: Steel
+        amount: 4
+        doAfter: 2.0
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaBlueprintCoolingTowerSmall
+        amount: 1
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: s2
+    entity: DystopiaSiteFrameCoolingTowerSmallCore
+    edges:
+    - to: s3
+      steps:
+      - tag: DystopiaPartMotor
+        name: construction-graph-tag-dystopia-motor
+        icon:
+          sprite: _Dystopia/Objects/Materials/Parts/parts.rsi
+          state: motor
+        doAfter: 2.0
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaBlueprintCoolingTowerSmall
+        amount: 1
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 4
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: s3
+    entity: DystopiaSiteFrameCoolingTowerSmallCore
+    edges:
+    - to: done
+      steps:
+      - material: DystopiaPacking
+        amount: 2
+        doAfter: 2.0
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaBlueprintCoolingTowerSmall
+        amount: 1
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 4
+      - !type:SpawnPrototype
+        prototype: DystopiaElectricMotor
+        amount: 1
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: done
+    entity: DystopiaFrameCoolingTowerSmallCore
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaBlueprintCoolingTowerSmall
+        amount: 1
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 4
+      - !type:SpawnPrototype
+        prototype: DystopiaElectricMotor
+        amount: 1
+      - !type:SpawnPrototype
+        prototype: DystopiaPacking1
+        amount: 2
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 4
+
+- type: constructionGraph
+  id: DystopiaFrameCoolingTowerLargeCraft
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: s1
+      steps:
+      - material: DystopiaConcreteBlock
+        amount: 2
+        doAfter: 2.0
+
+  - node: s1
+    entity: DystopiaSiteFrameCoolingTowerLarge
+    edges:
+    - to: done
+      steps:
+      - material: MetalRod
+        amount: 2
+        doAfter: 2.0
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaConcreteBlock1
+        amount: 2
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: done
+    entity: DystopiaFrameCoolingTowerLarge
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaConcreteBlock1
+        amount: 2
+      - !type:SpawnPrototype
+        prototype: PartRodMetal1
+        amount: 2
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+- type: constructionGraph
+  id: DystopiaFrameCoolingTowerLargeCoreCraft
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: s1
+      steps:
+      - tag: DystopiaBlueprintCoolingTowerLarge
+        name: construction-graph-tag-dystopia-blueprint
+        icon:
+          sprite: _Dystopia/Objects/Misc/blueprint.rsi
+          state: icon
+        doAfter: 2.4
+
+  - node: s1
+    entity: DystopiaSiteFrameCoolingTowerLargeCore
+    edges:
+    - to: s2
+      steps:
+      - material: Steel
+        amount: 8
+        doAfter: 2.4
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaBlueprintCoolingTowerLarge
+        amount: 1
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: s2
+    entity: DystopiaSiteFrameCoolingTowerLargeCore
+    edges:
+    - to: s3
+      steps:
+      - tag: DystopiaPartMotor
+        name: construction-graph-tag-dystopia-motor
+        icon:
+          sprite: _Dystopia/Objects/Materials/Parts/parts.rsi
+          state: motor
+        doAfter: 2.4
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaBlueprintCoolingTowerLarge
+        amount: 1
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 8
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: s3
+    entity: DystopiaSiteFrameCoolingTowerLargeCore
+    edges:
+    - to: s4
+      steps:
+      - tag: DystopiaPartMotor
+        name: construction-graph-tag-dystopia-motor
+        icon:
+          sprite: _Dystopia/Objects/Materials/Parts/parts.rsi
+          state: motor
+        doAfter: 2.4
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaBlueprintCoolingTowerLarge
+        amount: 1
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 8
+      - !type:SpawnPrototype
+        prototype: DystopiaElectricMotor
+        amount: 1
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: s4
+    entity: DystopiaSiteFrameCoolingTowerLargeCore
+    edges:
+    - to: done
+      steps:
+      - material: DystopiaPacking
+        amount: 4
+        doAfter: 2.4
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaBlueprintCoolingTowerLarge
+        amount: 1
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 8
+      - !type:SpawnPrototype
+        prototype: DystopiaElectricMotor
+        amount: 2
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: done
+    entity: DystopiaFrameCoolingTowerLargeCore
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaBlueprintCoolingTowerLarge
+        amount: 1
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 8
+      - !type:SpawnPrototype
+        prototype: DystopiaElectricMotor
+        amount: 2
+      - !type:SpawnPrototype
+        prototype: DystopiaPacking1
+        amount: 4
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 6
+
+- type: constructionGraph
+  id: DystopiaFrameCisternCraft
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: s1
+      steps:
+      - material: Steel
+        amount: 2
+        doAfter: 2.0
+
+  - node: s1
+    entity: DystopiaSiteFrameCistern
+    edges:
+    - to: done
+      steps:
+      - material: MetalRod
+        amount: 1
+        doAfter: 2.0
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 2
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: done
+    entity: DystopiaFrameCistern
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 2
+      - !type:SpawnPrototype
+        prototype: PartRodMetal1
+        amount: 1
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+- type: constructionGraph
+  id: DystopiaBarrelCraft
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: done
+      steps:
+      - material: Steel
+        amount: 4
+        doAfter: 4.0
+
+  - node: done
+    entity: DystopiaBarrel
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 4
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+- type: constructionGraph
+  id: DystopiaFuelOilBurnerCraft
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: s1
+      steps:
+      - material: Steel
+        amount: 2
+        doAfter: 1.67
+
+  - node: s1
+    entity: DystopiaSiteFuelOilBurner
+    edges:
+    - to: s2
+      steps:
+      - material: DystopiaIngotCastIron
+        amount: 1
+        doAfter: 1.67
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 2
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: s2
+    entity: DystopiaSiteFuelOilBurner
+    edges:
+    - to: done
+      steps:
+      - material: DystopiaPacking
+        amount: 1
+        doAfter: 1.67
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 2
+      - !type:SpawnPrototype
+        prototype: DystopiaIngotCastIron1
+        amount: 1
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: done
+    entity: DystopiaFuelOilBurner
+    edges:
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 2
+      - !type:SpawnPrototype
+        prototype: DystopiaIngotCastIron1
+        amount: 1
+      - !type:SpawnPrototype
+        prototype: DystopiaPacking1
+        amount: 1
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+- type: constructionGraph
+  id: DystopiaKeroseneLampCraft
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: done
+      steps:
+      - material: Steel
+        amount: 1
+        doAfter: 1.0
+      - material: Glass
+        amount: 1
+        doAfter: 1.0
+      - material: Cloth
+        amount: 1
+        doAfter: 1.0
+
+  - node: done
+    entity: DystopiaKeroseneLamp
+
+- type: constructionGraph
+  id: DystopiaCarbideLampCraft
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: done
+      steps:
+      - material: Steel
+        amount: 1
+        doAfter: 1.0
+      - material: Glass
+        amount: 1
+        doAfter: 1.0
+      - material: DystopiaPacking
+        amount: 1
+        doAfter: 1.0
+
+  - node: done
+    entity: DystopiaCarbideLamp
+
+- type: constructionGraph
   id: DystopiaForgeElectricCraft
   start: start
   graph:
@@ -4996,8 +5546,8 @@
   - !type:TileNotBlocked
 
 - type: construction
-  id: DystopiaArcFurnaceCraft
-  graph: DystopiaArcFurnaceCraft
+  id: DystopiaFrameArcFurnaceCraft
+  graph: DystopiaFrameArcFurnaceCraft
   startNode: start
   targetNode: done
   category: construction-category-dystopia-industry-furnaces
@@ -5007,6 +5557,21 @@
   canBuildInImpassable: false
   conditions:
   - !type:TileNotBlocked
+  - !type:NoUnstackableInTile
+
+- type: construction
+  id: DystopiaFrameArcFurnaceCoreCraft
+  graph: DystopiaFrameArcFurnaceCoreCraft
+  startNode: start
+  targetNode: done
+  category: construction-category-dystopia-industry-furnaces
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: false
+  conditions:
+  - !type:TileNotBlocked
+  - !type:NoUnstackableInTile
 
 - type: construction
   id: DystopiaJawCrusherCraft
@@ -5397,3 +5962,115 @@
   canBuildInImpassable: false
   conditions:
   - !type:TileNotBlocked
+
+- type: construction
+  id: DystopiaFrameCoolingTowerSmallCraft
+  graph: DystopiaFrameCoolingTowerSmallCraft
+  startNode: start
+  targetNode: done
+  category: construction-category-dystopia-industry-power
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: false
+  conditions:
+  - !type:TileNotBlocked
+  - !type:NoUnstackableInTile
+
+- type: construction
+  id: DystopiaFrameCoolingTowerSmallCoreCraft
+  graph: DystopiaFrameCoolingTowerSmallCoreCraft
+  startNode: start
+  targetNode: done
+  category: construction-category-dystopia-industry-power
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: false
+  conditions:
+  - !type:TileNotBlocked
+  - !type:NoUnstackableInTile
+
+- type: construction
+  id: DystopiaFrameCoolingTowerLargeCraft
+  graph: DystopiaFrameCoolingTowerLargeCraft
+  startNode: start
+  targetNode: done
+  category: construction-category-dystopia-industry-power
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: false
+  conditions:
+  - !type:TileNotBlocked
+  - !type:NoUnstackableInTile
+
+- type: construction
+  id: DystopiaFrameCoolingTowerLargeCoreCraft
+  graph: DystopiaFrameCoolingTowerLargeCoreCraft
+  startNode: start
+  targetNode: done
+  category: construction-category-dystopia-industry-power
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: false
+  conditions:
+  - !type:TileNotBlocked
+  - !type:NoUnstackableInTile
+
+- type: construction
+  id: DystopiaFrameCisternCraft
+  graph: DystopiaFrameCisternCraft
+  startNode: start
+  targetNode: done
+  category: construction-category-dystopia-industry-logistics
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: false
+  conditions:
+  - !type:TileNotBlocked
+  - !type:NoUnstackableInTile
+
+- type: construction
+  id: DystopiaBarrelCraft
+  graph: DystopiaBarrelCraft
+  startNode: start
+  targetNode: done
+  category: construction-category-dystopia-industry-logistics
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: false
+  conditions:
+  - !type:TileNotBlocked
+
+- type: construction
+  id: DystopiaFuelOilBurnerCraft
+  graph: DystopiaFuelOilBurnerCraft
+  startNode: start
+  targetNode: done
+  category: construction-category-dystopia-industry-furnaces
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: false
+  conditions:
+  - !type:TileNotBlocked
+
+- type: construction
+  id: DystopiaKeroseneLampCraft
+  graph: DystopiaKeroseneLampCraft
+  startNode: start
+  targetNode: done
+  category: construction-category-dystopia-industry-tools
+  objectType: Item
+
+- type: construction
+  id: DystopiaCarbideLampCraft
+  graph: DystopiaCarbideLampCraft
+  startNode: start
+  targetNode: done
+  category: construction-category-dystopia-industry-tools
+  objectType: Item

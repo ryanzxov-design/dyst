@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Drawn for Dystopia (ryanzxov-design/dyst).",
+  "size": {
+    "x": 160,
+    "y": 96
+  },
+  "states": [
+    {
+      "name": "icon"
+    }
+  ]
+}

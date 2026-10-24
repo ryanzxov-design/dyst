@@ -383,7 +383,7 @@
         layer: [ MachineLayer ]
 
 - type: entity
-  id: DystopiaSiteArcFurnace
+  id: DystopiaSiteFrameArcFurnace
   name: construction site
   description: Unfinished construction. Examine it to see what goes in next.
   categories: [ HideSpawnMenu ]
@@ -394,24 +394,39 @@
   - type: Clickable
   - type: InteractionOutline
   - type: Sprite
-    sprite: _Dystopia/Structures/Industry/arc_furnace.rsi
-    state: base
+    sprite: _Dystopia/Structures/Industry/frame_arc_furnace.rsi
+    state: frame0
     color: "#FFFFFF80"
-    drawdepth: Objects
+    drawdepth: FloorObjects
     noRot: true
   - type: Construction
-    graph: DystopiaArcFurnaceCraft
+    graph: DystopiaFrameArcFurnaceCraft
     node: s1
-  - type: Physics
-    bodyType: Static
-  - type: Fixtures
-    fixtures:
-      fix1:
-        shape: !type:PhysShapeAabb
-          bounds: "-1.45,-1.45,1.45,1.45"
-        density: 3000
-        mask: [ MachineMask ]
-        layer: [ MachineLayer ]
+  - type: Tag
+    tags: [ Unstackable ]
+
+- type: entity
+  id: DystopiaSiteFrameArcFurnaceCore
+  name: construction site
+  description: Unfinished construction. Examine it to see what goes in next.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _Dystopia/Structures/Industry/frame_arc_furnace.rsi
+    state: core0
+    color: "#FFFFFF80"
+    drawdepth: FloorObjects
+    noRot: true
+  - type: Construction
+    graph: DystopiaFrameArcFurnaceCoreCraft
+    node: s1
+  - type: Tag
+    tags: [ Unstackable ]
 
 - type: entity
   id: DystopiaSiteJawCrusher
@@ -1195,3 +1210,149 @@
         density: 1000
         mask: [ FullTileMask ]
         layer: [ WallLayer ]
+
+- type: entity
+  id: DystopiaSiteFrameCoolingTowerSmall
+  name: construction site
+  description: Unfinished construction. Examine it to see what goes in next.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _Dystopia/Structures/Power/frame_cooling_tower_small.rsi
+    state: frame0
+    color: "#FFFFFF80"
+    drawdepth: FloorObjects
+    noRot: true
+  - type: Construction
+    graph: DystopiaFrameCoolingTowerSmallCraft
+    node: s1
+  - type: Tag
+    tags: [ Unstackable ]
+
+- type: entity
+  id: DystopiaSiteFrameCoolingTowerSmallCore
+  name: construction site
+  description: Unfinished construction. Examine it to see what goes in next.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _Dystopia/Structures/Power/frame_cooling_tower_small.rsi
+    state: core0
+    color: "#FFFFFF80"
+    drawdepth: FloorObjects
+    noRot: true
+  - type: Construction
+    graph: DystopiaFrameCoolingTowerSmallCoreCraft
+    node: s1
+  - type: Tag
+    tags: [ Unstackable ]
+
+- type: entity
+  id: DystopiaSiteFrameCoolingTowerLarge
+  name: construction site
+  description: Unfinished construction. Examine it to see what goes in next.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _Dystopia/Structures/Power/frame_cooling_tower_large.rsi
+    state: frame0
+    color: "#FFFFFF80"
+    drawdepth: FloorObjects
+    noRot: true
+  - type: Construction
+    graph: DystopiaFrameCoolingTowerLargeCraft
+    node: s1
+  - type: Tag
+    tags: [ Unstackable ]
+
+- type: entity
+  id: DystopiaSiteFrameCoolingTowerLargeCore
+  name: construction site
+  description: Unfinished construction. Examine it to see what goes in next.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _Dystopia/Structures/Power/frame_cooling_tower_large.rsi
+    state: core0
+    color: "#FFFFFF80"
+    drawdepth: FloorObjects
+    noRot: true
+  - type: Construction
+    graph: DystopiaFrameCoolingTowerLargeCoreCraft
+    node: s1
+  - type: Tag
+    tags: [ Unstackable ]
+
+- type: entity
+  id: DystopiaSiteFrameCistern
+  name: construction site
+  description: Unfinished construction. Examine it to see what goes in next.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _Dystopia/Structures/Liquids/frame_cistern.rsi
+    state: frame0
+    color: "#FFFFFF80"
+    drawdepth: FloorObjects
+    noRot: true
+  - type: Construction
+    graph: DystopiaFrameCisternCraft
+    node: s1
+  - type: Tag
+    tags: [ Unstackable ]
+
+- type: entity
+  id: DystopiaSiteFuelOilBurner
+  name: construction site
+  description: Unfinished construction. Examine it to see what goes in next.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _Dystopia/Structures/Industry/fuel_burner.rsi
+    state: icon
+    color: "#FFFFFF80"
+    drawdepth: Objects
+    noRot: false
+  - type: Construction
+    graph: DystopiaFuelOilBurnerCraft
+    node: s1
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.35,-0.35,0.35,0.35"
+        density: 300
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]

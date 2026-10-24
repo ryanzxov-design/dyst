@@ -1,0 +1,91 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: готовые многоблоки разбираются ломом обратно в секции каркаса (gen_oil4b.py).
+
+- type: constructionGraph
+  id: DystopiaArcFurnaceAssembly
+  start: start
+  graph:
+  - node: start
+
+  - node: done
+    entity: DystopiaArcFurnace
+    edges:
+    - to: start
+      completed:
+      - !type:EmptyContainer
+        container: dystopia_crucible_charge
+      - !type:EmptyContainer
+        container: dystopia_arc_slag
+      - !type:DystopiaMultiblockDisassemble
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 10
+
+- type: constructionGraph
+  id: DystopiaCoolingTowerSmallAssembly
+  start: start
+  graph:
+  - node: start
+
+  - node: done
+    entity: DystopiaCoolingTowerSmall
+    edges:
+    - to: start
+      completed:
+      - !type:DystopiaMultiblockDisassemble
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 10
+
+- type: constructionGraph
+  id: DystopiaCoolingTowerLargeAssembly
+  start: start
+  graph:
+  - node: start
+
+  - node: done
+    entity: DystopiaCoolingTowerLarge
+    edges:
+    - to: start
+      completed:
+      - !type:DystopiaMultiblockDisassemble
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 10
+
+- type: constructionGraph
+  id: DystopiaCisternVerticalAssembly
+  start: start
+  graph:
+  - node: start
+
+  - node: done
+    entity: DystopiaCisternVertical
+    edges:
+    - to: start
+      completed:
+      - !type:DystopiaMultiblockDisassemble
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 10
+
+- type: constructionGraph
+  id: DystopiaCisternHorizontalAssembly
+  start: start
+  graph:
+  - node: start
+
+  - node: done
+    entity: DystopiaCisternHorizontal
+    edges:
+    - to: start
+      completed:
+      - !type:DystopiaMultiblockDisassemble
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 10

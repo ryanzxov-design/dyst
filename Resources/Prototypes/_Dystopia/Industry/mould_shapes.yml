@@ -28,6 +28,7 @@
     DystopiaMoltenGold: IngotGold1
     DystopiaMoltenSilver: IngotSilver1
     DystopiaMoltenUranium: SheetUranium1
+    DystopiaMoltenCarbide: DystopiaCalciumCarbide1
   settingTime:   # схватывание после последнего налива, с
     DystopiaConcreteMix: 15
   defects:

@@ -1,0 +1,32 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: карбид кальция (gen_oil4b.py). Известь + кокс (3 куска на кусок извести) в дуговой печи →
+# расплав карбида → в слитки (куски карбида). Молотый карбид с водой → сварочное топливо и гашёная
+# известь (в любой ёмкости; в карбидной лампе — прямо кусками).
+
+- type: dystopiaSmeltable
+  id: DystopiaQuicklime
+  meltTemperature: 1873.15  # 1600 °C — плавят в дуговой печи вместе с коксом
+  products:
+    DystopiaMoltenLime: 10
+
+- type: reaction
+  id: DystopiaCarbideSmelt
+  minTemp: 2023.15  # 1750 °C — только дуговая печь (горн с мехами не дотягивает)
+  reactants:
+    DystopiaMoltenLime:
+      amount: 10
+    Carbon:
+      amount: 3
+  products:
+    DystopiaMoltenCarbide: 10
+
+- type: reaction
+  id: DystopiaCarbideHydrolysis   # CaC2 + 2 H2O → C2H2 + Ca(OH)2
+  reactants:
+    DystopiaCalciumCarbide:
+      amount: 1
+    Water:
+      amount: 2
+  products:
+    WeldingFuel: 1
+    DystopiaSlakedLime: 1
