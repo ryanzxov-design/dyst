@@ -24,10 +24,11 @@
         layer: [ MachineLayer ]
   - type: Tag
     tags: [ Structure ]
+  - type: SpriteFade   # верх цистерны выше основания: зашёл за неё — полупрозрачна
   - type: Sprite   # 4 направления: юг/север — вдоль, восток/запад — поперёк
     sprite: _Dystopia/Structures/Liquids/cistern.rsi
     noRot: false
-    drawdepth: Objects
+    drawdepth: Overdoors   # над мобами, как деревья: SpriteFade выцветает только то, что рисуется не ниже игрока
     state: icon
   - type: Solution
     id: tank

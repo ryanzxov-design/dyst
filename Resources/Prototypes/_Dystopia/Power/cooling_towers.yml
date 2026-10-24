@@ -157,10 +157,12 @@
         layer: [ MachineLayer ]
   - type: Tag
     tags: [ Structure ]
+  - type: SpriteFade   # зашёл за башню — она становится полупрозрачной
   - type: Sprite
     sprite: _Dystopia/Structures/Power/cooling_tower_large.rsi
     noRot: true
-    drawdepth: Objects
+    drawdepth: Overdoors   # высокая — над мобами, как деревья (иначе SpriteFade не выцветает)
+    offset: 0,1.5
     layers:
     - state: icon
       map: [ "enum.DystopiaCoolingTowerVisuals.Working" ]
@@ -222,7 +224,7 @@
       jitter: 1.75
       size: 4,7
       additive: false
-      offset: 0,2.0
+      offset: 0,4.8
       activeWhen: enum.DystopiaCoolingTowerVisuals.Working
       colors:
       - "#F0F4F800"

@@ -32,6 +32,12 @@ public sealed partial class DystopiaMultiblockSystem : EntitySystem
 
     private static readonly TimeSpan RetryDelay = TimeSpan.FromSeconds(1);
 
+    /// <summary>
+    /// Секции, уже ушедшие в машину на этом такте. Удаление отложенное (QueueDel), поэтому без этого набора остальные
+    /// секции той же пачки (спавн с Ctrl/Shift ставит много за раз) находили бы их снова и собирали ещё машины.
+    /// </summary>
+    private readonly HashSet<EntityUid> _consumed = new();
+
     /// <summary>Идёт разборка: появляющиеся секции не собираются обратно.</summary>
     private bool _disassembling;
 
@@ -82,11 +88,19 @@ public sealed partial class DystopiaMultiblockSystem : EntitySystem
 
         var list = new List<EntityUid>(_pending);
         _pending.Clear();
+        _consumed.Clear();
         foreach (var uid in list)
         {
-            if (!TerminatingOrDeleted(uid) && TryComp<DystopiaMultiblockFrameComponent>(uid, out var frame))
-                TryAssemble((uid, frame));
+            if (_consumed.Contains(uid) || TerminatingOrDeleted(uid) ||
+                !TryComp<DystopiaMultiblockFrameComponent>(uid, out var frame))
+            {
+                continue;
+            }
+
+            TryAssemble((uid, frame));
         }
+
+        _consumed.Clear();
     }
 
     // ------------------------------------------------------------------ обход секций
@@ -111,7 +125,7 @@ public sealed partial class DystopiaMultiblockSystem : EntitySystem
         foreach (var other in _map.GetAnchoredEntities(grid, grid.Comp, tile))
         {
             if (TryComp<DystopiaMultiblockFrameComponent>(other, out var frame) && frame.Key == key &&
-                !TerminatingOrDeleted(other))
+                !_consumed.Contains(other) && !TerminatingOrDeleted(other))
             {
                 return new Section(other, frame, tile);
             }
@@ -221,6 +235,8 @@ public sealed partial class DystopiaMultiblockSystem : EntitySystem
 
         foreach (var s in sections)
         {
+            _consumed.Add(s.Uid);
+            _retry.Remove(s.Uid);
             QueueDel(s.Uid);
         }
 
