@@ -57,30 +57,13 @@
         doAfter: 10
 
 - type: constructionGraph
-  id: DystopiaCisternVerticalAssembly
+  id: DystopiaCisternAssembly
   start: start
   graph:
   - node: start
 
   - node: done
-    entity: DystopiaCisternVertical
-    edges:
-    - to: start
-      completed:
-      - !type:DystopiaMultiblockDisassemble
-      - !type:DeleteEntity
-      steps:
-      - tool: Prying
-        doAfter: 10
-
-- type: constructionGraph
-  id: DystopiaCisternHorizontalAssembly
-  start: start
-  graph:
-  - node: start
-
-  - node: done
-    entity: DystopiaCisternHorizontal
+    entity: DystopiaCistern
     edges:
     - to: start
       completed:

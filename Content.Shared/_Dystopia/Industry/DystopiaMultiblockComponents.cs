@@ -31,6 +31,10 @@ public sealed partial class DystopiaMultiblockFrameComponent : Component
     [DataField]
     public EntProtoId? ResultRotated;
 
+    /// <summary>Повёрнутый прямоугольник Height×Width даёт ту же машину, повёрнутую на 90° (цистерна).</summary>
+    [DataField]
+    public bool RotateResult;
+
     /// <summary>Это узел многоблока (ставится в центр).</summary>
     [DataField]
     public bool Core;
@@ -52,7 +56,7 @@ public sealed partial class DystopiaMultiblockComponent : Component
     [DataField]
     public EntProtoId? CoreFrame;
 
-    /// <summary>Размер в клетках, как стоит (ширина — по X).</summary>
+    /// <summary>Размер в клетках без поворота (ширина — по X); повёрнутая на 90° машина занимает Height×Width.</summary>
     [DataField(required: true)]
     public int Width = 3;
 

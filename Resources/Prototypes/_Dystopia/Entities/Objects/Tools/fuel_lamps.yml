@@ -186,7 +186,7 @@
 - type: entity
   id: DystopiaCarbideLamp
   name: carbide lamp
-  description: "A miner's acetylene lamp: lumps of carbide and water go into the tank, the gas burns bright white. Ready welding fuel works too. Slaked-lime sludge builds up: drain it now and then."
+  description: "A miner's acetylene lamp: lumps of carbide (up to two) go into the chamber, water into the tank. While lit, water drips onto the carbide and the acetylene burns bright white. Slaked-lime sludge builds up in the chamber: drain it now and then."
   components:
   - type: Construction   # крафт (gen_crafts.py)
     graph: DystopiaCarbideLampCraft
@@ -237,14 +237,17 @@
     softness: 1
     color: "#FFF2DC"
   - type: Pullable
-  - type: Solution
+  - type: Solution   # камера: карбид, ацетилен, шлам
     id: fuel
     solution:
-      maxVol: 60
+      maxVol: 50
       canReact: true
-  - type: RefillableSolution
-    solution: fuel
-  - type: DrainableSolution
+  - type: SolutionManager   # бачок воды над камерой
+    solutions:
+    - DystopiaSolutionCarbideLampWater
+  - type: RefillableSolution   # заливают воду
+    solution: water
+  - type: DrainableSolution    # сливают шлам из камеры
     solution: fuel
   - type: DystopiaFuelLamp
     mountedPrototype: DystopiaWallLampCarbide
@@ -253,6 +256,10 @@
     loadItems:
       DystopiaCalciumCarbide:
         DystopiaCalciumCarbide: 10
+    loadLimits:   # не больше двух кусков карбида в камере
+      DystopiaCalciumCarbide: 20
+    dripSolution: water
+    dripRate: 0.3
   - type: DystopiaParticleEmitter   # копоть над огнём
     emitters:
     # копоть
@@ -319,14 +326,17 @@
     energy: 1.8
     softness: 1
     color: "#FFF2DC"
-  - type: Solution
+  - type: Solution   # камера: карбид, ацетилен, шлам
     id: fuel
     solution:
-      maxVol: 60
+      maxVol: 50
       canReact: true
-  - type: RefillableSolution
-    solution: fuel
-  - type: DrainableSolution
+  - type: SolutionManager   # бачок воды над камерой
+    solutions:
+    - DystopiaSolutionCarbideLampWater
+  - type: RefillableSolution   # заливают воду
+    solution: water
+  - type: DrainableSolution    # сливают шлам из камеры
     solution: fuel
   - type: DystopiaFuelLamp
     itemPrototype: DystopiaCarbideLamp
@@ -335,6 +345,10 @@
     loadItems:
       DystopiaCalciumCarbide:
         DystopiaCalciumCarbide: 10
+    loadLimits:   # не больше двух кусков карбида в камере
+      DystopiaCalciumCarbide: 20
+    dripSolution: water
+    dripRate: 0.3
   - type: DystopiaParticleEmitter
     emitters:
     # копоть
@@ -370,3 +384,14 @@
         solution: fuel
       - !type:DoActsBehavior
         acts: [ Destruction ]
+
+- type: entity
+  id: DystopiaSolutionCarbideLampWater
+  categories: [ HideSpawnMenu ]
+  name: water tank
+  components:
+  - type: Solution
+    id: water
+    solution:
+      maxVol: 30
+      canReact: false

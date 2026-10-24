@@ -22,13 +22,9 @@ ent-DystopiaCoolingTowerLarge = большая градирня
 dystopia-coolingtowerlarge-ports = [color=#c8e4f0]Пар[/color] — газовой трубой в патрубки по бокам (белые фланцы слева и справа). [color=#78bee1]Вода[/color] — жидкостным импортером вплотную к синему крану спереди посередине.
 ent-DystopiaCoolingTowerInlet = патрубок градирни
     .desc = Патрубок пара градирни.
-ent-DystopiaCisternVertical = цистерна
-    .desc = Стальная цистерна на 10 000 единиц для любой жидкости. Наливают и сливают её жидкостными экспортером и импортером вплотную к двум кранам спереди.
-    .suffix = вдоль
-ent-DystopiaCisternHorizontal = цистерна
-    .desc = Стальная цистерна на 10 000 единиц для любой жидкости. Наливают и сливают её жидкостными экспортером и импортером вплотную к двум кранам спереди.
-    .suffix = поперёк
-dystopia-cistern-ports = [color=#e0b830]Краны[/color] — два спереди (латунные): к каждому вплотную жидкостный экспортер (залить) или импортер (слить).
+ent-DystopiaCistern = цистерна
+    .desc = Стальная цистерна на 10 000 единиц для любой жидкости, на бетонном основании с коллектором по периметру: наливают и сливают её жидкостными экспортером и импортером вплотную к любой стороне.
+dystopia-cistern-ports = [color=#e0b830]Коллектор[/color] — по всему периметру основания: жидкостный экспортер (залить) или импортер (слить) вплотную к любой стороне.
 ent-DystopiaBarrel = бочка
     .desc = Стальная бочка на 200 единиц. Наливают ведром или из крана; чтобы налить или слить трубами, прикрутите ключом вплотную к жидкостному экспортеру или импортеру.
 ent-DystopiaBarrelDiesel = бочка
@@ -59,9 +55,11 @@ ent-DystopiaKeroseneLamp = керосиновая лампа
 ent-DystopiaWallLampKerosene = керосиновая лампа на стене
     .desc = Керосиновый фонарь на крюке. Щелчок — зажечь или погасить; ПКМ — снять.
 ent-DystopiaCarbideLamp = карбидная лампа
-    .desc = Шахтёрская ацетиленовая лампа: в бачок — куски карбида и вода, газ горит ярким белым пламенем. Можно залить и готовое сварочное топливо. Шлам гашёной извести копится — иногда сливайте.
+    .desc = Шахтёрская ацетиленовая лампа: в камеру — куски карбида (до двух), в бачок — вода. Пока горит, вода капает на карбид, и ацетилен горит ярким белым пламенем. Шлам гашёной извести копится в камере — иногда сливайте.
 ent-DystopiaWallLampCarbide = карбидная лампа на стене
     .desc = Карбидная лампа на крюке. Щелчок — зажечь или погасить; ПКМ — снять.
+ent-DystopiaSolutionCarbideLampWater = бачок воды
+    .desc = Бачок воды карбидной лампы.
 reagent-name-dystopia-calcium-carbide = карбид кальция
 reagent-desc-dystopia-calcium-carbide = Серый порошок. С водой бурно шипит, выделяя ацетилен — горючий газ для сварки и ламп.
 reagent-physical-desc-dystopia-gritty = зернистое
@@ -101,7 +99,7 @@ dystopia-burner-examine-off = Закрыта.
 dystopia-burner-examine-no-forge = [color=#e05040]Перед соплом нет горна.[/color]
 dystopia-burner-examine-fuel = Топлива: { $amount } из { $max }.
 dystopia-lamp-no-fuel = Нечему гореть.
-dystopia-lamp-full = Бачок полон.
+dystopia-lamp-full = Больше не влезает.
 dystopia-lamp-loaded = Карбид зашипел в бачке.
 dystopia-lamp-verb-mount = Повесить лампу
 dystopia-lamp-verb-unmount = Снять лампу
@@ -110,4 +108,7 @@ dystopia-lamp-verb-off = Погасить
 dystopia-lamp-occupied = Здесь уже висит лампа.
 dystopia-lamp-mounted = Лампа повешена.
 dystopia-lamp-examine-fuel = Топлива примерно на { $minutes } мин.
+dystopia-lamp-no-place = Некуда повесить: подойдите к стене вплотную со свободной стороны.
+dystopia-lamp-examine-load = Карбида в камере: { $amount } из { $max }.
+dystopia-lamp-examine-water = Воды в бачке: { $amount } из { $max }.
 dystopia-lamp-examine-empty = [color=#e05040]Топлива нет.[/color]

@@ -2,7 +2,7 @@
 
 dystopia-coolingtowersmall-ports = [color=#c8e4f0]Steam[/color]: gas pipe into the side inlets (white flanges, left and right). [color=#78bee1]Water[/color]: a liquid importer right against the blue tap at the front centre.
 dystopia-coolingtowerlarge-ports = [color=#c8e4f0]Steam[/color]: gas pipe into the side inlets (white flanges, left and right). [color=#78bee1]Water[/color]: a liquid importer right against the blue tap at the front centre.
-dystopia-cistern-ports = [color=#e0b830]Valves[/color]: two at the front (brass). Put a liquid exporter (fill) or importer (drain) right against each.
+dystopia-cistern-ports = [color=#e0b830]Manifold[/color] all round the base: put a liquid exporter (fill) or importer (drain) right against any side.
 reagent-name-dystopia-calcium-carbide = calcium carbide
 reagent-desc-dystopia-calcium-carbide = A grey powder. With water it fizzes violently, giving off acetylene: fuel for welding and lamps.
 reagent-physical-desc-dystopia-gritty = gritty
@@ -36,7 +36,7 @@ dystopia-burner-examine-off = Closed.
 dystopia-burner-examine-no-forge = [color=#e05040]There is no forge in front of the nozzle.[/color]
 dystopia-burner-examine-fuel = Fuel: { $amount } of { $max }.
 dystopia-lamp-no-fuel = Nothing to burn.
-dystopia-lamp-full = The tank is full.
+dystopia-lamp-full = No more fits.
 dystopia-lamp-loaded = The carbide hisses in the tank.
 dystopia-lamp-verb-mount = Hang lamp
 dystopia-lamp-verb-unmount = Take lamp down
@@ -45,4 +45,7 @@ dystopia-lamp-verb-off = Put out
 dystopia-lamp-occupied = A lamp already hangs here.
 dystopia-lamp-mounted = Lamp hung.
 dystopia-lamp-examine-fuel = Fuel for about { $minutes } min.
+dystopia-lamp-no-place = Nowhere to hang it: stand right next to the wall on an open side.
+dystopia-lamp-examine-load = Carbide in the chamber: { $amount } of { $max }.
+dystopia-lamp-examine-water = Water in the tank: { $amount } of { $max }.
 dystopia-lamp-examine-empty = [color=#e05040]No fuel.[/color]

@@ -475,11 +475,20 @@ public sealed partial class DystopiaLiquidDeviceSystem : EntitySystem
         if (toward == Direction.Invalid)
             return false;
 
-        var center = _map.TileIndicesFor(gridUid, grid, Transform(target).Coordinates);
+        // Устройство стоит снаружи (на клетке устройства машины нет) — значит, вплотную к краю.
+        if (access.Anywhere)
+            return true;
+
+        var targetXform = Transform(target);
+        var center = _map.TileIndicesFor(gridUid, grid, targetXform.Coordinates);
+        var rotation = targetXform.LocalRotation;
         var from = toward.GetOpposite();
         foreach (var point in access.Points)
         {
-            if (center + point.Offset == tile && point.Side == from)
+            var offset = rotation.RotateVec(new System.Numerics.Vector2(point.Offset.X, point.Offset.Y));
+            var cell = center + new Vector2i((int) MathF.Round(offset.X), (int) MathF.Round(offset.Y));
+            var side = (rotation + point.Side.ToAngle()).GetCardinalDir();
+            if (cell == tile && side == from)
                 return true;
         }
 

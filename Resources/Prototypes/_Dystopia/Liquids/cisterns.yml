@@ -2,16 +2,14 @@
 # Dystopia: цистерны 3×5 (вдоль и поперёк, из секций каркаса) и бочки на 200 единиц (gen_oil4b.py).
 
 - type: entity
-  id: DystopiaCisternVertical
+  id: DystopiaCistern
   name: cistern
-  description: "A 10 000-unit steel cistern for any liquid. Fill and drain it with liquid exporters and importers right against its two valves at the front."
-  suffix: Lengthwise
+  description: "A 10 000-unit steel cistern for any liquid on a concrete base with a manifold all round: fill and drain it with liquid exporters and importers right against any side."
   placement:
     mode: SnapgridCenter
   components:
   - type: Transform
     anchored: true
-    noRot: true
   - type: Clickable
   - type: InteractionOutline
   - type: Physics
@@ -26,9 +24,9 @@
         layer: [ MachineLayer ]
   - type: Tag
     tags: [ Structure ]
-  - type: Sprite
-    sprite: _Dystopia/Structures/Liquids/cistern_vertical.rsi
-    noRot: true
+  - type: Sprite   # 4 направления: юг/север — вдоль, восток/запад — поперёк
+    sprite: _Dystopia/Structures/Liquids/cistern.rsi
+    noRot: false
     drawdepth: Objects
     state: icon
   - type: Solution
@@ -42,91 +40,15 @@
     solution: tank
   - type: ExaminableSolution
     solution: tank
-  - type: DystopiaLiquidAccess   # два крана спереди
-    points:
-    - offset: -1,-2
-      side: South
-    - offset: 1,-2
-      side: South
+  - type: DystopiaLiquidAccess   # коллектор по периметру основания — с любой стороны
+    anywhere: true
   - type: DystopiaMultiblock
     frame: DystopiaFrameCistern
     width: 3
     height: 5
     portsHint: dystopia-cistern-ports
   - type: Construction
-    graph: DystopiaCisternVerticalAssembly
-    node: done
-  - type: Damageable
-    damageModifierSet: Metallic
-  - type: Injurable
-    damageContainer: StructuralInorganic
-  - type: Destructible
-    thresholds:
-    - trigger: !type:DamageTrigger
-        damage: 1200
-      behaviors:
-      - !type:PlaySoundBehavior
-        sound:
-          collection: MetalBreak
-      - !type:SpillBehavior
-        solution: tank
-      - !type:DoActsBehavior
-        acts: [ Destruction ]
-
-- type: entity
-  id: DystopiaCisternHorizontal
-  name: cistern
-  description: "A 10 000-unit steel cistern for any liquid. Fill and drain it with liquid exporters and importers right against its two valves at the front."
-  suffix: Crosswise
-  placement:
-    mode: SnapgridCenter
-  components:
-  - type: Transform
-    anchored: true
-    noRot: true
-  - type: Clickable
-  - type: InteractionOutline
-  - type: Physics
-    bodyType: Static
-  - type: Fixtures
-    fixtures:
-      fix1:
-        shape: !type:PhysShapeAabb
-          bounds: "-2.45,-1.45,2.45,1.45"
-        density: 4000
-        mask: [ MachineMask ]
-        layer: [ MachineLayer ]
-  - type: Tag
-    tags: [ Structure ]
-  - type: Sprite
-    sprite: _Dystopia/Structures/Liquids/cistern_horizontal.rsi
-    noRot: true
-    drawdepth: Objects
-    state: icon
-  - type: Solution
-    id: tank
-    solution:
-      maxVol: 10000
-      canReact: false
-  - type: DrainableSolution
-    solution: tank
-  - type: RefillableSolution
-    solution: tank
-  - type: ExaminableSolution
-    solution: tank
-  - type: DystopiaLiquidAccess   # два крана спереди
-    points:
-    - offset: -2,-1
-      side: South
-    - offset: 2,-1
-      side: South
-  - type: DystopiaMultiblock
-    frame: DystopiaFrameCistern
-    width: 5
-    height: 3
-    portsHint: dystopia-cistern-ports
-  - type: Construction
-    graph: DystopiaCisternHorizontalAssembly
+    graph: DystopiaCisternAssembly
     node: done
   - type: Damageable
     damageModifierSet: Metallic

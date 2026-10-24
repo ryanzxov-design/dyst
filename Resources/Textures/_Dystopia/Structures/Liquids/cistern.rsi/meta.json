@@ -4,11 +4,12 @@
   "copyright": "Drawn for Dystopia (ryanzxov-design/dyst).",
   "size": {
     "x": 160,
-    "y": 96
+    "y": 288
   },
   "states": [
     {
-      "name": "icon"
+      "name": "icon",
+      "directions": 4
     }
   ]
 }

@@ -146,10 +146,11 @@ public sealed partial class DystopiaMultiblockSystem : EntitySystem
 
     /// <summary>Сложился ли ровно нужный прямоугольник; что из него выйдет и где центр.</summary>
     private bool Fits(DystopiaMultiblockFrameComponent frame, List<Section> sections, out EntProtoId result,
-        out Vector2i center)
+        out Vector2i center, out bool rotated)
     {
         result = default;
         center = default;
+        rotated = false;
         var min = sections[0].Tile;
         var max = min;
         foreach (var s in sections)
@@ -165,8 +166,13 @@ public sealed partial class DystopiaMultiblockSystem : EntitySystem
 
         if (width == frame.Width && height == frame.Height)
             result = frame.Result;
-        else if (width == frame.Height && height == frame.Width && frame.ResultRotated is { } rotated)
-            result = rotated;
+        else if (width == frame.Height && height == frame.Width && frame.ResultRotated is { } other)
+            result = other;
+        else if (width == frame.Height && height == frame.Width && frame.RotateResult)
+        {
+            result = frame.Result;
+            rotated = true;
+        }
         else
             return false;
 
@@ -195,7 +201,7 @@ public sealed partial class DystopiaMultiblockSystem : EntitySystem
 
         var sections = Scan(ent, grid, tile);
         if (sections.Count > ent.Comp.Width * ent.Comp.Height ||
-            !Fits(ent.Comp, sections, out var result, out var center))
+            !Fits(ent.Comp, sections, out var result, out var center, out var rotated))
         {
             return;
         }
@@ -219,7 +225,7 @@ public sealed partial class DystopiaMultiblockSystem : EntitySystem
         }
 
         var coords = _map.GridTileToLocal(grid, grid.Comp, center);
-        var machine = Spawn(result, coords);
+        var machine = EntityManager.SpawnAtPosition(result, coords, rotated ? Direction.East.ToAngle() : Angle.Zero);
         var xform = Transform(machine);
         if (!xform.Anchored)
             _transform.AnchorEntity((machine, xform), grid);
@@ -241,14 +247,18 @@ public sealed partial class DystopiaMultiblockSystem : EntitySystem
             return;
 
         var center = _map.TileIndicesFor(gridUid, grid, xform.Coordinates);
-        var x0 = center.X - mb.Width / 2;
-        var y0 = center.Y - mb.Height / 2;
+        var dir = xform.LocalRotation.GetCardinalDir();
+        var sideways = dir is Direction.East or Direction.West;
+        var width = sideways ? mb.Height : mb.Width;
+        var height = sideways ? mb.Width : mb.Height;
+        var x0 = center.X - width / 2;
+        var y0 = center.Y - height / 2;
         _disassembling = true;
         try
         {
-            for (var x = 0; x < mb.Width; x++)
+            for (var x = 0; x < width; x++)
             {
-                for (var y = 0; y < mb.Height; y++)
+                for (var y = 0; y < height; y++)
                 {
                     var tile = new Vector2i(x0 + x, y0 + y);
                     var proto = tile == center && mb.CoreFrame is { } core ? core : mb.Frame;
@@ -270,7 +280,7 @@ public sealed partial class DystopiaMultiblockSystem : EntitySystem
             return;
 
         var name = _proto.TryIndex(ent.Comp.Result, out var proto) ? proto.Name : ent.Comp.Result.Id;
-        var size = ent.Comp.ResultRotated != null
+        var size = ent.Comp.ResultRotated != null || ent.Comp.RotateResult
             ? Loc.GetString("dystopia-multiblock-size-either", ("w", ent.Comp.Width), ("h", ent.Comp.Height))
             : Loc.GetString("dystopia-multiblock-size", ("w", ent.Comp.Width), ("h", ent.Comp.Height));
         args.PushMarkup(Loc.GetString("dystopia-multiblock-frame-examine", ("machine", name), ("size", size)));
@@ -291,7 +301,7 @@ public sealed partial class DystopiaMultiblockSystem : EntitySystem
             args.PushMarkup(Loc.GetString("dystopia-multiblock-frame-count", ("count", sections.Count), ("need", need)));
             if (sections.Count == need)
             {
-                args.PushMarkup(Loc.GetString(Fits(ent.Comp, sections, out _, out _)
+                args.PushMarkup(Loc.GetString(Fits(ent.Comp, sections, out _, out _, out _)
                     ? "dystopia-multiblock-frame-blocked"
                     : "dystopia-multiblock-frame-shape"));
             }

@@ -1,7 +1,8 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
-// Dystopia: топливные лампы — керосиновая и карбидная. Ручная: включается в руке, заправляется из любой ёмкости
-// (карбидная — ещё и кусками карбида: карбид с водой тут же даёт ацетилен, на нём она и горит). ПКМ ручной лампой по
-// стене — «Повесить лампу»: появляется настенная с тем же топливом; с неё лампу снимают обратно в руку.
+// Dystopia: топливные лампы — керосиновая и карбидная. Ручная: включается в руке, заправляется из любой ёмкости.
+// Карбидная: два бачка — нижний (камера) для кусков карбида, верхний для воды; пока горит, вода капает на карбид и
+// даёт ацетилен, на нём лампа и горит. У каждого бачка свой предел. ПКМ ручной лампой по стене — «Повесить лампу»:
+// появляется настенная с тем же топливом; с неё лампу снимают обратно в руку.
 
 using Content.Shared.Chemistry.Reagent;
 using Content.Shared.FixedPoint;
@@ -24,6 +25,24 @@ public sealed partial class DystopiaFuelLampComponent : Component
     /// <summary>Что можно засыпать кусками (стопка → вещества за один кусок).</summary>
     [DataField]
     public Dictionary<ProtoId<StackPrototype>, Dictionary<ProtoId<ReagentPrototype>, FixedPoint2>> LoadItems = new();
+
+    /// <summary>Сколько каждого засыпаемого вещества помещается в камеру (предел карбида).</summary>
+    [DataField]
+    public Dictionary<ProtoId<ReagentPrototype>, FixedPoint2> LoadLimits = new();
+
+    /// <summary>Бачок, из которого капает в камеру (вода карбидной лампы); null — нет.</summary>
+    [DataField]
+    public string? DripSolution;
+
+    [DataField]
+    public ProtoId<ReagentPrototype> DripReagent = "Water";
+
+    /// <summary>Сколько капает в секунду, пока в камере топлива меньше DripBelow и есть что смачивать.</summary>
+    [DataField]
+    public float DripRate = 0.3f;
+
+    [DataField]
+    public float DripBelow = 3f;
 
     /// <summary>Ручная лампа: во что превращается, когда её вешают на стену.</summary>
     [DataField]

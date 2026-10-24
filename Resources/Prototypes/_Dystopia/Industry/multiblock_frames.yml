@@ -328,8 +328,8 @@
     key: DystopiaMbCistern
     width: 3
     height: 5
-    result: DystopiaCisternVertical
-    resultRotated: DystopiaCisternHorizontal
+    result: DystopiaCistern
+    rotateResult: true   # 5×3 — та же машина, повёрнутая на 90°
     core: false
     requireCore: false
   - type: Damageable

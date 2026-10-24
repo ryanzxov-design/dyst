@@ -9,6 +9,8 @@ using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Interaction;
 using Content.Shared.Interaction.Events;
 using Content.Shared.Item;
+using Content.Shared.Maps;
+using Content.Shared.Physics;
 using Content.Shared.Popups;
 using Content.Shared.Stacks;
 using Content.Shared.Verbs;
@@ -29,6 +31,7 @@ public sealed partial class DystopiaFuelLampSystem : EntitySystem
     [Dependency] private SharedPopupSystem _popup = default!;
     [Dependency] private SharedStackSystem _stack = default!;
     [Dependency] private SharedHandsSystem _hands = default!;
+    [Dependency] private TurfSystem _turf = default!;
 
     public override void Initialize()
     {
@@ -70,7 +73,7 @@ public sealed partial class DystopiaFuelLampSystem : EntitySystem
 
     private void Toggle(Entity<DystopiaFuelLampComponent> ent, EntityUid user)
     {
-        if (!ent.Comp.On && FuelSeconds(ent) <= 0f)
+        if (!ent.Comp.On && FuelSeconds(ent) <= 0f && !CanDrip(ent))
         {
             _popup.PopupEntity(Loc.GetString("dystopia-lamp-no-fuel"), ent, user);
             return;
@@ -111,6 +114,56 @@ public sealed partial class DystopiaFuelLampSystem : EntitySystem
         return seconds;
     }
 
+    /// <summary>Есть и чем капать, и на что (вода в бачке и карбид в камере).</summary>
+    private bool CanDrip(Entity<DystopiaFuelLampComponent> ent)
+    {
+        if (ent.Comp.DripSolution is not { } drip ||
+            !_solution.TryGetSolution(ent.Owner, drip, out _, out var water) ||
+            !_solution.TryGetSolution(ent.Owner, ent.Comp.Solution, out _, out var chamber) ||
+            water.GetTotalPrototypeQuantity(ent.Comp.DripReagent) <= FixedPoint2.Zero)
+        {
+            return false;
+        }
+
+        foreach (var reagent in ent.Comp.LoadLimits.Keys)
+        {
+            if (chamber.GetTotalPrototypeQuantity(reagent) > FixedPoint2.Zero)
+                return true;
+        }
+
+        return false;
+    }
+
+    /// <summary>Капнуть воды на карбид, если ацетилена мало.</summary>
+    private void Drip(Entity<DystopiaFuelLampComponent> ent)
+    {
+        if (!CanDrip(ent) || FuelSeconds(ent) >= ent.Comp.DripBelow * MinPerUnit(ent) ||
+            !_solution.TryGetSolution(ent.Owner, ent.Comp.DripSolution!, out var waterEnt, out var water) ||
+            !_solution.TryGetSolution(ent.Owner, ent.Comp.Solution, out var chamberEnt, out var chamber))
+        {
+            return;
+        }
+
+        var amount = FixedPoint2.Min(water.GetTotalPrototypeQuantity(ent.Comp.DripReagent),
+            FixedPoint2.Min(chamber.AvailableVolume, FixedPoint2.New(ent.Comp.DripRate * ent.Comp.Interval)));
+        if (amount <= FixedPoint2.Zero)
+            return;
+
+        _solution.RemoveReagent(waterEnt.Value, ent.Comp.DripReagent.Id, amount);
+        _solution.TryAddReagent(chamberEnt.Value, ent.Comp.DripReagent.Id, amount, out _);
+    }
+
+    private static float MinPerUnit(Entity<DystopiaFuelLampComponent> ent)
+    {
+        var min = float.MaxValue;
+        foreach (var perUnit in ent.Comp.Fuels.Values)
+        {
+            min = MathF.Min(min, perUnit);
+        }
+
+        return min == float.MaxValue ? 0f : min;
+    }
+
     public override void Update(float frameTime)
     {
         base.Update(frameTime);
@@ -122,6 +175,7 @@ public sealed partial class DystopiaFuelLampSystem : EntitySystem
                 continue;
 
             lamp.NextUpdate = now + TimeSpan.FromSeconds(lamp.Interval);
+            Drip((uid, lamp));
             if (!Burn((uid, lamp)))
                 SetOn((uid, lamp), false);
         }
@@ -164,7 +218,17 @@ public sealed partial class DystopiaFuelLampSystem : EntitySystem
             need += amount;
         }
 
-        if (solution.AvailableVolume < need)
+        var overLimit = false;
+        foreach (var (reagent, amount) in reagents)
+        {
+            if (ent.Comp.LoadLimits.TryGetValue(reagent, out var limit) &&
+                solution.GetTotalPrototypeQuantity(reagent) + amount > limit)
+            {
+                overLimit = true;
+            }
+        }
+
+        if (overLimit || solution.AvailableVolume < need)
         {
             _popup.PopupEntity(Loc.GetString("dystopia-lamp-full"), ent, args.User);
             return;
@@ -237,11 +301,30 @@ public sealed partial class DystopiaFuelLampSystem : EntitySystem
 
         var wallTile = _map.TileIndicesFor(gridUid, grid, wallXform.Coordinates);
         var userTile = _map.TileIndicesFor(gridUid, grid, Transform(user).Coordinates);
-        var delta = userTile - wallTile;
-        if (delta == Vector2i.Zero)
-            return;
 
-        var dir = Angle.FromWorldVec(new System.Numerics.Vector2(delta.X, delta.Y)).GetCardinalDir();
+        // Свободная (не стена, не глухо занятая) клетка рядом со стеной, ближайшая к игроку.
+        var dir = Direction.Invalid;
+        var best = int.MaxValue;
+        foreach (var candidate in new[] { Direction.South, Direction.North, Direction.East, Direction.West })
+        {
+            var cell = wallTile.Offset(candidate);
+            if (_turf.IsTileBlocked(gridUid, cell, CollisionGroup.Impassable, grid))
+                continue;
+
+            var distance = Math.Abs(cell.X - userTile.X) + Math.Abs(cell.Y - userTile.Y);
+            if (distance < best)
+            {
+                best = distance;
+                dir = candidate;
+            }
+        }
+
+        if (dir == Direction.Invalid || best > 1)
+        {
+            _popup.PopupEntity(Loc.GetString("dystopia-lamp-no-place"), wall, user);
+            return;
+        }
+
         var tile = wallTile.Offset(dir);
         var rotation = dir.ToAngle();
         foreach (var other in _map.GetAnchoredEntities(gridUid, grid, tile))
@@ -279,9 +362,18 @@ public sealed partial class DystopiaFuelLampSystem : EntitySystem
 
     private void MoveFuel(Entity<DystopiaFuelLampComponent> from, EntityUid to)
     {
-        if (!TryComp<DystopiaFuelLampComponent>(to, out var toLamp) ||
-            !_solution.TryGetSolution(from.Owner, from.Comp.Solution, out var fromSoln, out var fromSolution) ||
-            !_solution.TryGetSolution(to, toLamp.Solution, out var toSoln, out _))
+        if (!TryComp<DystopiaFuelLampComponent>(to, out var toLamp))
+            return;
+
+        MoveSolution(from.Owner, from.Comp.Solution, to, toLamp.Solution);
+        if (from.Comp.DripSolution is { } fromDrip && toLamp.DripSolution is { } toDrip)
+            MoveSolution(from.Owner, fromDrip, to, toDrip);
+    }
+
+    private void MoveSolution(EntityUid from, string fromName, EntityUid to, string toName)
+    {
+        if (!_solution.TryGetSolution(from, fromName, out var fromSoln, out var fromSolution) ||
+            !_solution.TryGetSolution(to, toName, out var toSoln, out _))
         {
             return;
         }
@@ -294,6 +386,27 @@ public sealed partial class DystopiaFuelLampSystem : EntitySystem
     {
         if (!args.IsInDetailsRange)
             return;
+
+        if (ent.Comp.DripSolution is { } drip)
+        {
+            // карбидная: сколько карбида в камере и воды в бачке
+            if (_solution.TryGetSolution(ent.Owner, ent.Comp.Solution, out _, out var chamber))
+            {
+                foreach (var (reagent, limit) in ent.Comp.LoadLimits)
+                {
+                    args.PushMarkup(Loc.GetString("dystopia-lamp-examine-load",
+                        ("amount", (int) chamber.GetTotalPrototypeQuantity(reagent).Float()), ("max", (int) limit.Float())));
+                }
+            }
+
+            if (_solution.TryGetSolution(ent.Owner, drip, out _, out var water))
+            {
+                args.PushMarkup(Loc.GetString("dystopia-lamp-examine-water",
+                    ("amount", (int) water.Volume.Float()), ("max", (int) water.MaxVolume.Float())));
+            }
+
+            return;
+        }
 
         var minutes = (int) MathF.Ceiling(FuelSeconds(ent) / 60f);
         args.PushMarkup(minutes > 0
