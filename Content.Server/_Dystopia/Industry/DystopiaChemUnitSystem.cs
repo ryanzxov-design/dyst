@@ -2,6 +2,7 @@
 // Dystopia: химическая установка. Буфер не реагирует; раз в цикл, пока включена и есть ток, установка берёт из буфера
 // сырьё выбранной реакции в её пропорциях (не больше UnitsPerCycle за цикл и не больше, чем влезет готового),
 // катализаторы оставляет на месте, готовое — в бак продукции. Остальное в буфере не трогает.
+// Меню: слот «Контейнер» (любая ёмкость с раствором) — переливание между ним, буфером и баком продукции, вылить.
 
 using Content.Server.Power.EntitySystems;
 using Content.Shared._Dystopia.Industry;
@@ -10,8 +11,10 @@ using Content.Shared.Chemistry.Components;
 using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Chemistry.Reaction;
 using Content.Shared.Chemistry.Reagent;
+using Content.Shared.Containers.ItemSlots;
 using Content.Shared.Examine;
 using Content.Shared.FixedPoint;
+using Robust.Shared.Containers;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 
@@ -26,6 +29,7 @@ public sealed class DystopiaChemUnitSystem : EntitySystem
     [Dependency] private SharedAppearanceSystem _appearance = default!;
     [Dependency] private SharedAmbientSoundSystem _ambient = default!;
     [Dependency] private SharedUserInterfaceSystem _ui = default!;
+    [Dependency] private ItemSlotsSystem _itemSlots = default!;
 
     public override void Initialize()
     {
@@ -36,9 +40,11 @@ public sealed class DystopiaChemUnitSystem : EntitySystem
         {
             subs.Event<DystopiaChemUnitToggleMessage>(OnToggle);
             subs.Event<DystopiaChemUnitSelectMessage>(OnSelect);
-            subs.Event<DystopiaChemUnitToOutputMessage>(OnToOutput);
-            subs.Event<DystopiaChemUnitDiscardMessage>(OnDiscard);
+            subs.Event<DystopiaChemUnitTransferMessage>(OnTransfer);
+            subs.Event<DystopiaChemUnitEjectMessage>(OnEject);
         });
+        SubscribeLocalEvent<DystopiaChemUnitComponent, EntInsertedIntoContainerMessage>(OnContainerChanged);
+        SubscribeLocalEvent<DystopiaChemUnitComponent, EntRemovedFromContainerMessage>(OnContainerChanged);
     }
 
     public override void Update(float frameTime)
@@ -166,35 +172,91 @@ public sealed class DystopiaChemUnitSystem : EntitySystem
         UpdateUi(ent);
     }
 
-    private void OnToOutput(Entity<DystopiaChemUnitComponent> ent, ref DystopiaChemUnitToOutputMessage args)
+    private void OnContainerChanged<T>(Entity<DystopiaChemUnitComponent> ent, ref T args) where T : ContainerModifiedMessage
     {
-        if (!_proto.HasIndex<ReagentPrototype>(args.Reagent) ||
-            !_solution.TryGetSolution(ent.Owner, ent.Comp.Buffer, out var bufferEnt, out var buffer) ||
-            !_solution.TryGetSolution(ent.Owner, ent.Comp.Output, out var outputEnt, out var output))
-        {
-            return;
-        }
+        if (args.Container.ID == ent.Comp.ContainerSlot)
+            UpdateUi(ent);
+    }
 
-        var amount = FixedPoint2.Min(buffer.GetTotalPrototypeQuantity(args.Reagent), output.AvailableVolume);
-        if (amount <= FixedPoint2.Zero)
-            return;
+    private void OnEject(Entity<DystopiaChemUnitComponent> ent, ref DystopiaChemUnitEjectMessage args)
+    {
+        if (_itemSlots.TryGetSlot(ent.Owner, ent.Comp.ContainerSlot, out var slot))
+            _itemSlots.TryEjectToHands(ent, slot, args.Actor);
 
-        var moved = buffer.SplitSolutionWithOnly(amount, args.Reagent);
-        _solution.UpdateChemicals(bufferEnt.Value, false);
-        _solution.TryAddSolution(outputEnt.Value, moved);
         UpdateUi(ent);
     }
 
-    private void OnDiscard(Entity<DystopiaChemUnitComponent> ent, ref DystopiaChemUnitDiscardMessage args)
+    /// <summary>Ёмкость в слоте.</summary>
+    private EntityUid? Container(Entity<DystopiaChemUnitComponent> ent)
     {
-        if (!_proto.HasIndex<ReagentPrototype>(args.Reagent) ||
-            !_solution.TryGetSolution(ent.Owner, args.FromOutput ? ent.Comp.Output : ent.Comp.Buffer, out var solEnt,
-                out var solution))
+        return _itemSlots.GetItemOrNull(ent.Owner, ent.Comp.ContainerSlot);
+    }
+
+    /// <summary>Раствор бака: из ёмкости берём то, что из неё сливается, а льём в то, что в неё наливается.</summary>
+    private Entity<SolutionComponent>? Tank(Entity<DystopiaChemUnitComponent> ent, DystopiaChemUnitTank tank, bool pourInto)
+    {
+        switch (tank)
+        {
+            case DystopiaChemUnitTank.Buffer:
+                return _solution.TryGetSolution(ent.Owner, ent.Comp.Buffer, out var buffer, out _) ? buffer : null;
+            case DystopiaChemUnitTank.Output:
+                return _solution.TryGetSolution(ent.Owner, ent.Comp.Output, out var output, out _) ? output : null;
+            case DystopiaChemUnitTank.Container:
+                if (Container(ent) is not { } item)
+                    return null;
+
+                if (pourInto)
+                {
+                    if (_solution.TryGetRefillableSolution(item, out var refill, out _))
+                        return refill;
+                    if (_solution.TryGetDrainableSolution(item, out var drainAsRefill, out _))
+                        return drainAsRefill;
+                }
+                else
+                {
+                    if (_solution.TryGetDrainableSolution(item, out var drain, out _))
+                        return drain;
+                    if (_solution.TryGetRefillableSolution(item, out var refillAsDrain, out _))
+                        return refillAsDrain;
+                }
+
+                return null;
+        }
+
+        return null;
+    }
+
+    private void OnTransfer(Entity<DystopiaChemUnitComponent> ent, ref DystopiaChemUnitTransferMessage args)
+    {
+        if (args.From == DystopiaChemUnitTank.Discard || args.From == args.To ||
+            !_proto.HasIndex<ReagentPrototype>(args.Reagent) || !float.IsFinite(args.Amount) ||
+            Tank(ent, args.From, false) is not { } source)
         {
             return;
         }
 
-        _solution.RemoveReagent(solEnt.Value, args.Reagent, solution.GetTotalPrototypeQuantity(args.Reagent));
+        var have = source.Comp.Solution.GetTotalPrototypeQuantity(args.Reagent);
+        var amount = args.Amount > 0f ? FixedPoint2.Min(have, FixedPoint2.New(args.Amount)) : have;
+
+        if (args.To == DystopiaChemUnitTank.Discard)
+        {
+            if (amount > FixedPoint2.Zero)
+                _solution.RemoveReagent(source, args.Reagent, amount);
+
+            UpdateUi(ent);
+            return;
+        }
+
+        if (Tank(ent, args.To, true) is not { } target)
+            return;
+
+        amount = FixedPoint2.Min(amount, target.Comp.Solution.AvailableVolume);
+        if (amount <= FixedPoint2.Zero)
+            return;
+
+        var moved = source.Comp.Solution.SplitSolutionWithOnly(amount, args.Reagent);
+        _solution.UpdateChemicals(source, false);
+        _solution.TryAddSolution(target, moved);
         UpdateUi(ent);
     }
 
@@ -218,9 +280,23 @@ public sealed class DystopiaChemUnitSystem : EntitySystem
                 output.Add(new DystopiaChemUnitReagent(quantity.Reagent.Prototype, quantity.Quantity.Float()));
         }
 
+        string? containerName = null;
+        var containerReagents = new List<DystopiaChemUnitReagent>();
+        var containerMax = 0f;
+        if (Container(ent) is { } item)
+        {
+            containerName = Name(item);
+            if (Tank(ent, DystopiaChemUnitTank.Container, false) is { } containerSol)
+            {
+                containerMax = containerSol.Comp.Solution.MaxVolume.Float();
+                foreach (var quantity in containerSol.Comp.Solution.Contents)
+                    containerReagents.Add(new DystopiaChemUnitReagent(quantity.Reagent.Prototype, quantity.Quantity.Float()));
+            }
+        }
+
         _ui.SetUiState(ent.Owner, DystopiaChemUnitUiKey.Key, new DystopiaChemUnitUiState(ent.Comp.On,
             _power.IsPowered(ent), ent.Comp.Working, ent.Comp.Reaction?.Id, ent.Comp.UnitsPerCycle,
-            ent.Comp.CycleTime, buffer, bufferMax, output, outputMax));
+            ent.Comp.CycleTime, buffer, bufferMax, output, outputMax, containerName, containerReagents, containerMax));
     }
 
     // ------------------------------------------------------------------ осмотр

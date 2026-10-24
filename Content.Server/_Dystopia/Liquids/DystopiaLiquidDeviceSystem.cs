@@ -487,6 +487,10 @@ public sealed partial class DystopiaLiquidDeviceSystem : EntitySystem
     /// </summary>
     private Entity<SolutionComponent>? DrainSolution(EntityUid uid)
     {
+        // Химическая установка: забирают только из бака продукции.
+        if (TryComp<DystopiaChemUnitComponent>(uid, out var chem))
+            return _solution.TryGetSolution(uid, chem.Output, out var chemOutput, out _) ? chemOutput : null;
+
         if (TryComp<DystopiaProcessorComponent>(uid, out var processor) && processor.OutputTank is { } output &&
             _solution.TryGetSolution(uid, output, out var product, out _))
         {
@@ -509,6 +513,14 @@ public sealed partial class DystopiaLiquidDeviceSystem : EntitySystem
 
         if (IsCasting(target))
             return _quench.TryQuench(target, net, max);
+
+        // Химическая установка: всё — в буфер (там не смешивается).
+        if (TryComp<DystopiaChemUnitComponent>(target, out var chem))
+        {
+            return _solution.TryGetSolution(target, chem.Buffer, out var chemBuffer, out _)
+                ? MoveIn(net, chemBuffer.Value, max)
+                : FixedPoint2.Zero;
+        }
 
         // Машина с баком — только то, что идёт в её рецепты.
         if (TryComp<DystopiaProcessorComponent>(target, out var processor))

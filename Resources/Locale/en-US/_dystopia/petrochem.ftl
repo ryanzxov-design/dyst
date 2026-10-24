@@ -43,6 +43,15 @@ dystopia-chem-unit-ui-output = Product tank — { $volume } / { $max } u
 dystopia-chem-unit-ui-empty = Empty.
 dystopia-chem-unit-ui-amount = { $amount } u
 dystopia-chem-unit-ui-to-output = To output
+dystopia-chem-unit-ui-to-buffer = To buffer
+dystopia-chem-unit-ui-to-container = To container
+dystopia-chem-unit-ui-container = Container
+dystopia-chem-unit-ui-container-full = Container: { $name } — { $volume } / { $max } u
+dystopia-chem-unit-ui-container-hint = Insert a container: a beaker, a bucket, a jug — anything that holds a solution.
+dystopia-chem-unit-ui-eject = Eject
+dystopia-chem-unit-ui-amount-header = How much to transfer
+dystopia-chem-unit-ui-all-amount = All
+dystopia-chem-unit-slot = container
 dystopia-chem-unit-ui-discard = Discard
 dystopia-chem-unit-nothing = nothing
 dystopia-chem-unit-examine = Making: [color=#d2ae68]{ $reaction }[/color].

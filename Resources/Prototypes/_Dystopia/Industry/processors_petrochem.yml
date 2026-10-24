@@ -335,7 +335,7 @@
 - type: entity
   id: DystopiaChemUnit
   name: chemical unit
-  description: "A reactor with a heater, a cooler and a row of dosing pumps. Whatever is poured into its buffer does not mix. Pick what to make; it takes only the right substances in the right proportions and leaves the rest alone."
+  description: "A reactor with a heater, a cooler and a row of dosing pumps. Put a container in its slot and pour into the buffer from it: there nothing mixes. Pick what to make; it takes only the right substances in the right proportions and leaves the rest alone."
   placement:
     mode: SnapgridCenter
   components:
@@ -396,13 +396,22 @@
     solution:
       maxVol: 1000
       canReact: false
-  - type: RefillableSolution   # заливают ведром или экспортером из трубы
-    solution: buffer
   - type: SolutionManager   # бак продукции
     solutions:
     - DystopiaSolutionChemUnitOutput
-  - type: DrainableSolution   # сливают готовое (и импортером в трубу)
-    solution: output
+  # Напрямую ведром не заливают и не сливают: только через слот «Контейнер» в меню или экспортером (в буфер) и
+  # импортером (из бака продукции) — DystopiaLiquidDeviceSystem.
+  - type: ItemSlots
+    slots:
+      dystopia_chem_container:
+        name: dystopia-chem-unit-slot
+        whitelist:
+          components:
+          - RefillableSolution
+          - DrainableSolution
+  - type: ContainerContainer
+    containers:
+      dystopia_chem_container: !type:ContainerSlot
   - type: ActivatableUI   # клик — меню: что производить, буфер, продукция
     key: enum.DystopiaChemUnitUiKey.Key
   - type: UserInterface
@@ -424,6 +433,7 @@
       - !type:PlaySoundBehavior
         sound:
           collection: MetalBreak
+      - !type:EmptyAllContainersBehaviour
       - !type:SpawnEntitiesBehavior
         spawn:
           SheetSteel1:

@@ -832,5 +832,5 @@
     visuals:
       enum.DystopiaLiquidVisuals.Working:
         enabled:
-          True: { state: pumpPassiveGateOn }
+          True: { state: pumpPassiveGateWorking }
           False: { state: pumpPassiveGate }

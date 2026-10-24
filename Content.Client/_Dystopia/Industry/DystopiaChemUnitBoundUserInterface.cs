@@ -21,8 +21,9 @@ public sealed class DystopiaChemUnitBoundUserInterface(EntityUid owner, Enum uiK
 
         _window.OnToggle += () => SendMessage(new DystopiaChemUnitToggleMessage());
         _window.OnSelect += reaction => SendMessage(new DystopiaChemUnitSelectMessage(reaction));
-        _window.OnToOutput += reagent => SendMessage(new DystopiaChemUnitToOutputMessage(reagent));
-        _window.OnDiscard += (reagent, fromOutput) => SendMessage(new DystopiaChemUnitDiscardMessage(reagent, fromOutput));
+        _window.OnTransfer += (from, to, reagent, amount) =>
+            SendMessage(new DystopiaChemUnitTransferMessage(from, to, reagent, amount));
+        _window.OnEject += () => SendMessage(new DystopiaChemUnitEjectMessage());
     }
 
     protected override void UpdateState(BoundUserInterfaceState state)

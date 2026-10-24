@@ -2,6 +2,8 @@
 // Dystopia: химическая установка. Вещества в буфере не смешиваются и не реагируют (как в химмастере). Игрок выбирает,
 // что производить (ванильную реакцию); установка берёт из буфера только нужные вещества в нужных пропорциях
 // (катализаторы — не тратит), а готовое складывает в бак продукции. Остальное в буфере не трогает.
+// Вещества заливают и забирают через слот «Контейнер» (любая ёмкость с раствором) или жидкостными экспортером
+// (в буфер) и импортером (из бака продукции); напрямую ведром — нельзя.
 
 using Content.Shared.Chemistry.Reaction;
 using Content.Shared.FixedPoint;
@@ -17,9 +19,13 @@ public sealed partial class DystopiaChemUnitComponent : Component
     [DataField]
     public string Buffer = "buffer";
 
-    /// <summary>Бак продукции: отсюда сливают и забирают импортером.</summary>
+    /// <summary>Бак продукции: отсюда забирают в контейнер или импортером.</summary>
     [DataField]
     public string Output = "output";
+
+    /// <summary>Слот для ёмкости (мензурка, ведро, канистра — всё, у чего есть раствор).</summary>
+    [DataField]
+    public string ContainerSlot = "dystopia_chem_container";
 
     /// <summary>Что производить (ванильная реакция). Пусто — ничего.</summary>
     [DataField]
@@ -106,7 +112,10 @@ public sealed class DystopiaChemUnitUiState(
     List<DystopiaChemUnitReagent> buffer,
     float bufferMax,
     List<DystopiaChemUnitReagent> output,
-    float outputMax) : BoundUserInterfaceState
+    float outputMax,
+    string? container,
+    List<DystopiaChemUnitReagent> containerReagents,
+    float containerMax) : BoundUserInterfaceState
 {
     public readonly bool On = on;
     public readonly bool Powered = powered;
@@ -118,6 +127,11 @@ public sealed class DystopiaChemUnitUiState(
     public readonly float BufferMax = bufferMax;
     public readonly List<DystopiaChemUnitReagent> Output = output;
     public readonly float OutputMax = outputMax;
+
+    /// <summary>Название ёмкости в слоте (null — слот пуст).</summary>
+    public readonly string? Container = container;
+    public readonly List<DystopiaChemUnitReagent> ContainerReagents = containerReagents;
+    public readonly float ContainerMax = containerMax;
 }
 
 [Serializable, NetSerializable]
@@ -130,17 +144,29 @@ public sealed class DystopiaChemUnitSelectMessage(string? reaction) : BoundUserI
     public readonly string? Reaction = reaction;
 }
 
-/// <summary>Перелить вещество из буфера в бак продукции как есть (чтобы забрать вместе с готовым).</summary>
+/// <summary>Откуда и куда переливать в меню.</summary>
 [Serializable, NetSerializable]
-public sealed class DystopiaChemUnitToOutputMessage(string reagent) : BoundUserInterfaceMessage
+public enum DystopiaChemUnitTank : byte
 {
-    public readonly string Reagent = reagent;
+    Container,
+    Buffer,
+    Output,
+
+    /// <summary>Только как «куда»: вылить (уничтожить).</summary>
+    Discard,
 }
 
-/// <summary>Вылить вещество: из буфера (fromOutput = false) или из бака продукции.</summary>
+/// <summary>Перелить вещество (amount ≤ 0 — всё) из одного бака в другой или вылить.</summary>
 [Serializable, NetSerializable]
-public sealed class DystopiaChemUnitDiscardMessage(string reagent, bool fromOutput) : BoundUserInterfaceMessage
+public sealed class DystopiaChemUnitTransferMessage(DystopiaChemUnitTank from, DystopiaChemUnitTank to, string reagent,
+    float amount) : BoundUserInterfaceMessage
 {
+    public readonly DystopiaChemUnitTank From = from;
+    public readonly DystopiaChemUnitTank To = to;
     public readonly string Reagent = reagent;
-    public readonly bool FromOutput = fromOutput;
+    public readonly float Amount = amount;
 }
+
+/// <summary>Достать ёмкость из слота в руки.</summary>
+[Serializable, NetSerializable]
+public sealed class DystopiaChemUnitEjectMessage : BoundUserInterfaceMessage;

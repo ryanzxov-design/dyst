@@ -1,7 +1,8 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 // Dystopia: меню химической установки (стиль Города). Слева — что производить: все реакции, которые установка умеет
-// вести, с поиском и фильтром «можно сейчас». Справа — выбранная реакция (формула, на сколько хватит), буфер
-// (вещества не смешиваются; «В выход» — перелить как есть, «Вылить») и бак продукции.
+// вести, с поиском и фильтром «можно сейчас». Справа — выбранная реакция (формула, на сколько хватит), контейнер
+// (ёмкость в слоте — оттуда в буфер), сколько переливать за раз, буфер (вещества не смешиваются) и бак продукции.
+// Переливание: контейнер ↔ буфер ↔ бак продукции, из буфера и бака — в контейнер, «Вылить».
 
 using System.Globalization;
 using System.Linq;
@@ -22,8 +23,11 @@ public sealed class DystopiaChemUnitWindow : CityWindow
 
     public event Action? OnToggle;
     public event Action<string?>? OnSelect;
-    public event Action<string>? OnToOutput;
-    public event Action<string, bool>? OnDiscard;
+    public event Action<DystopiaChemUnitTank, DystopiaChemUnitTank, string, float>? OnTransfer;
+    public event Action? OnEject;
+
+    /// <summary>Сколько переливать за раз (0 — всё), как в химмастере.</summary>
+    private static readonly float[] Amounts = { 1, 5, 10, 15, 20, 30, 40, 60, 120, 0 };
 
     private static readonly Color Ready = Color.FromHex("#78E070");
     private const int MaxShown = 120;
@@ -36,8 +40,11 @@ public sealed class DystopiaChemUnitWindow : CityWindow
     private readonly CityButton _possible;
     private readonly BoxContainer _recipes;
     private readonly BoxContainer _current;
+    private readonly BoxContainer _container;
     private readonly BoxContainer _buffer;
     private readonly BoxContainer _output;
+    private readonly List<(float Amount, CityButton Button)> _amountButtons = new();
+    private float _amount;
 
     /// <summary>Реакции установки: прототип, название (по продуктам), формула.</summary>
     private readonly List<(ReactionPrototype Proto, string Name, string Formula)> _reactions = new();
@@ -133,6 +140,26 @@ public sealed class DystopiaChemUnitWindow : CityWindow
         right.AddChild(CityUi.SectionHeader(Loc.GetString("dystopia-chem-unit-ui-current")));
         _current = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Vertical, SeparationOverride = 4 };
         right.AddChild(_current);
+        _container = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Vertical, SeparationOverride = 2 };
+        right.AddChild(_container);
+
+        // Сколько переливать за раз
+        right.AddChild(CityUi.SectionHeader(Loc.GetString("dystopia-chem-unit-ui-amount-header")));
+        var amounts = new GridContainer { Columns = 5, HorizontalExpand = true };
+        foreach (var amount in Amounts)
+        {
+            var button = CityUi.MakeButton(amount > 0f ? Fmt(amount) : Loc.GetString("dystopia-chem-unit-ui-all-amount"),
+                CityButtonStyle.Tab);
+            button.HorizontalExpand = true;
+            var value = amount;
+            button.OnPressed += _ => SetAmount(value);
+            _amountButtons.Add((amount, button));
+            amounts.AddChild(button);
+        }
+
+        right.AddChild(amounts);
+        SetAmount(0f);
+
         _buffer = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Vertical, SeparationOverride = 2 };
         right.AddChild(_buffer);
         _output = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Vertical, SeparationOverride = 2 };
@@ -202,7 +229,9 @@ public sealed class DystopiaChemUnitWindow : CityWindow
         _speed.Text = Loc.GetString("dystopia-chem-unit-ui-speed",
             ("units", Fmt(state.UnitsPerCycle)), ("seconds", Fmt(state.CycleTime)));
 
-        var key = $"{state.Reaction}|" + string.Join(",", state.Buffer.Select(r => $"{r.Id}={Fmt(r.Amount)}")) + "|" +
+        var key = $"{state.Reaction}|{state.Container}|" +
+                  string.Join(",", state.ContainerReagents.Select(r => $"{r.Id}={Fmt(r.Amount)}")) + "|" +
+                  string.Join(",", state.Buffer.Select(r => $"{r.Id}={Fmt(r.Amount)}")) + "|" +
                   string.Join(",", state.Output.Select(r => $"{r.Id}={Fmt(r.Amount)}"));
         if (key != _tanksKey)
         {
@@ -212,6 +241,13 @@ public sealed class DystopiaChemUnitWindow : CityWindow
         }
 
         RebuildRecipes(force: false);
+    }
+
+    private void SetAmount(float amount)
+    {
+        _amount = amount;
+        foreach (var (value, button) in _amountButtons)
+            button.Active = value == amount;
     }
 
     private void SetOnlyPossible(bool value)
@@ -333,42 +369,87 @@ public sealed class DystopiaChemUnitWindow : CityWindow
         if (_state == null)
             return;
 
-        FillTank(_buffer, Loc.GetString("dystopia-chem-unit-ui-buffer",
-            ("volume", Fmt(_state.Buffer.Sum(r => r.Amount))), ("max", Fmt(_state.BufferMax))), _state.Buffer, false);
-        FillTank(_output, Loc.GetString("dystopia-chem-unit-ui-output",
-            ("volume", Fmt(_state.Output.Sum(r => r.Amount))), ("max", Fmt(_state.OutputMax))), _state.Output, true);
+        // Контейнер
+        _container.RemoveAllChildren();
+        var head = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Horizontal, SeparationOverride = 6 };
+        var title = CityUi.SectionHeader(_state.Container == null
+            ? Loc.GetString("dystopia-chem-unit-ui-container")
+            : Loc.GetString("dystopia-chem-unit-ui-container-full", ("name", _state.Container),
+                ("volume", Fmt(_state.ContainerReagents.Sum(r => r.Amount))), ("max", Fmt(_state.ContainerMax))));
+        title.HorizontalExpand = true;
+        head.AddChild(title);
+        if (_state.Container != null)
+        {
+            var eject = CityUi.MakeButton(Loc.GetString("dystopia-chem-unit-ui-eject"));
+            eject.OnPressed += _ => OnEject?.Invoke();
+            head.AddChild(eject);
+        }
+
+        _container.AddChild(head);
+        if (_state.Container == null)
+            _container.AddChild(CityUi.MakeLabel(Loc.GetString("dystopia-chem-unit-ui-container-hint"), CityUi.Muted));
+        else
+            FillRows(_container, _state.ContainerReagents, DystopiaChemUnitTank.Container);
+
+        // Буфер и бак продукции
+        _buffer.RemoveAllChildren();
+        _buffer.AddChild(CityUi.SectionHeader(Loc.GetString("dystopia-chem-unit-ui-buffer",
+            ("volume", Fmt(_state.Buffer.Sum(r => r.Amount))), ("max", Fmt(_state.BufferMax)))));
+        FillRows(_buffer, _state.Buffer, DystopiaChemUnitTank.Buffer);
+
+        _output.RemoveAllChildren();
+        _output.AddChild(CityUi.SectionHeader(Loc.GetString("dystopia-chem-unit-ui-output",
+            ("volume", Fmt(_state.Output.Sum(r => r.Amount))), ("max", Fmt(_state.OutputMax)))));
+        FillRows(_output, _state.Output, DystopiaChemUnitTank.Output);
     }
 
-    private void FillTank(BoxContainer box, string title, List<DystopiaChemUnitReagent> reagents, bool isOutput)
+    /// <summary>Строки веществ с кнопками «куда перелить»: из контейнера — в буфер; из буфера — в контейнер и в
+    /// выход; из бака продукции — в контейнер и обратно в буфер; везде, кроме контейнера, — «Вылить».</summary>
+    private void FillRows(BoxContainer box, List<DystopiaChemUnitReagent> reagents, DystopiaChemUnitTank from)
     {
-        box.RemoveAllChildren();
-        box.AddChild(CityUi.SectionHeader(title));
         if (reagents.Count == 0)
         {
             box.AddChild(CityUi.MakeLabel(Loc.GetString("dystopia-chem-unit-ui-empty"), CityUi.Muted));
             return;
         }
 
-        foreach (var reagent in reagents.OrderByDescending(r => r.Amount))
+        var targets = from switch
         {
-            var row = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Horizontal, SeparationOverride = 6 };
-            var name = CityUi.MakeLabel("■ " + ReagentName(reagent.Id), ReagentColor(reagent.Id));
+            DystopiaChemUnitTank.Container => new[] { (DystopiaChemUnitTank.Buffer, "dystopia-chem-unit-ui-to-buffer") },
+            DystopiaChemUnitTank.Buffer => new[]
+            {
+                (DystopiaChemUnitTank.Container, "dystopia-chem-unit-ui-to-container"),
+                (DystopiaChemUnitTank.Output, "dystopia-chem-unit-ui-to-output"),
+                (DystopiaChemUnitTank.Discard, "dystopia-chem-unit-ui-discard"),
+            },
+            _ => new[]
+            {
+                (DystopiaChemUnitTank.Container, "dystopia-chem-unit-ui-to-container"),
+                (DystopiaChemUnitTank.Buffer, "dystopia-chem-unit-ui-to-buffer"),
+                (DystopiaChemUnitTank.Discard, "dystopia-chem-unit-ui-discard"),
+            },
+        };
+
+        foreach (var group in reagents.GroupBy(r => r.Id).OrderByDescending(g => g.Sum(r => r.Amount)))
+        {
+            var id = group.Key;
+            var row = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Horizontal, SeparationOverride = 4 };
+            var name = CityUi.MakeLabel("■ " + ReagentName(id), ReagentColor(id));
             name.HorizontalExpand = true;
             name.ClipText = true;
             row.AddChild(name);
-            row.AddChild(CityUi.MakeLabel(Loc.GetString("dystopia-chem-unit-ui-amount", ("amount", Fmt(reagent.Amount))),
+            row.AddChild(CityUi.MakeLabel(Loc.GetString("dystopia-chem-unit-ui-amount", ("amount", Fmt(group.Sum(r => r.Amount)))),
                 CityUi.Text, CityUi.Mono()));
-            var id = reagent.Id;
-            if (!isOutput)
+            foreach (var (to, text) in targets)
             {
-                var toOutput = CityUi.MakeButton(Loc.GetString("dystopia-chem-unit-ui-to-output"));
-                toOutput.OnPressed += _ => OnToOutput?.Invoke(id);
-                row.AddChild(toOutput);
+                var button = CityUi.MakeButton(Loc.GetString(text),
+                    to == DystopiaChemUnitTank.Discard ? CityButtonStyle.Danger : CityButtonStyle.Normal);
+                button.Disabled = to == DystopiaChemUnitTank.Container && _state?.Container == null;
+                var target = to;
+                button.OnPressed += _ => OnTransfer?.Invoke(from, target, id, _amount);
+                row.AddChild(button);
             }
 
-            var discard = CityUi.MakeButton(Loc.GetString("dystopia-chem-unit-ui-discard"), CityButtonStyle.Danger);
-            discard.OnPressed += _ => OnDiscard?.Invoke(id, isOutput);
-            row.AddChild(discard);
             box.AddChild(row);
         }
     }
