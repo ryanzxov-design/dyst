@@ -1,25 +1,25 @@
 {
-    "version": 1,
-    "license": "CC-BY-SA-3.0",
-    "copyright": "Drawn for Dystopia (ryanzxov-design/dyst).",
-    "size": {
-        "x": 32,
-        "y": 32
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Drawn for Dystopia (ryanzxov-design/dyst).",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "icon"
     },
-    "states": [
-        {
-            "name": "icon"
-        },
-        {
-            "name": "working",
-            "delays": [
-                [
-                    0.12,
-                    0.12,
-                    0.12,
-                    0.12
-                ]
-            ]
-        }
-    ]
+    {
+      "name": "working",
+      "delays": [
+        [
+          0.12,
+          0.12,
+          0.12,
+          0.12
+        ]
+      ]
+    }
+  ]
 }

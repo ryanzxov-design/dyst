@@ -1,70 +1,70 @@
 {
-    "version": 1,
-    "license": "CC-BY-SA-3.0",
-    "copyright": "Drawn for Dystopia (ryanzxov-design/dyst).",
-    "size": {
-        "x": 32,
-        "y": 32
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Drawn for Dystopia (ryanzxov-design/dyst).",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "rad0"
     },
-    "states": [
-        {
-            "name": "rad0"
-        },
-        {
-            "name": "rad1"
-        },
-        {
-            "name": "rad2"
-        },
-        {
-            "name": "rad3"
-        },
-        {
-            "name": "rad4"
-        },
-        {
-            "name": "rad5"
-        },
-        {
-            "name": "rad6"
-        },
-        {
-            "name": "rad7"
-        },
-        {
-            "name": "rad8"
-        },
-        {
-            "name": "rad9"
-        },
-        {
-            "name": "rad10"
-        },
-        {
-            "name": "rad11"
-        },
-        {
-            "name": "rad12"
-        },
-        {
-            "name": "rad13"
-        },
-        {
-            "name": "rad14"
-        },
-        {
-            "name": "rad15"
-        },
-        {
-            "name": "running",
-            "delays": [
-                [
-                    0.06,
-                    0.06,
-                    0.06,
-                    0.06
-                ]
-            ]
-        }
-    ]
+    {
+      "name": "rad1"
+    },
+    {
+      "name": "rad2"
+    },
+    {
+      "name": "rad3"
+    },
+    {
+      "name": "rad4"
+    },
+    {
+      "name": "rad5"
+    },
+    {
+      "name": "rad6"
+    },
+    {
+      "name": "rad7"
+    },
+    {
+      "name": "rad8"
+    },
+    {
+      "name": "rad9"
+    },
+    {
+      "name": "rad10"
+    },
+    {
+      "name": "rad11"
+    },
+    {
+      "name": "rad12"
+    },
+    {
+      "name": "rad13"
+    },
+    {
+      "name": "rad14"
+    },
+    {
+      "name": "rad15"
+    },
+    {
+      "name": "running",
+      "delays": [
+        [
+          0.06,
+          0.06,
+          0.06,
+          0.06
+        ]
+      ]
+    }
+  ]
 }

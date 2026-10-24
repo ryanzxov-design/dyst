@@ -1,63 +1,63 @@
 {
-    "version": 1,
-    "license": "CC-BY-SA-3.0",
-    "copyright": "Drawn for Dystopia (ryanzxov-design/dyst).",
-    "size": {
-        "x": 32,
-        "y": 32
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Drawn for Dystopia (ryanzxov-design/dyst).",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "straight"
     },
-    "states": [
-        {
-            "name": "straight"
-        },
-        {
-            "name": "straight-flow",
-            "delays": [
-                [
-                    0.12,
-                    0.12,
-                    0.12
-                ]
-            ]
-        },
-        {
-            "name": "corner"
-        },
-        {
-            "name": "corner-flow",
-            "delays": [
-                [
-                    0.12,
-                    0.12,
-                    0.12
-                ]
-            ]
-        },
-        {
-            "name": "tee"
-        },
-        {
-            "name": "tee-flow",
-            "delays": [
-                [
-                    0.12,
-                    0.12,
-                    0.12
-                ]
-            ]
-        },
-        {
-            "name": "cross"
-        },
-        {
-            "name": "cross-flow",
-            "delays": [
-                [
-                    0.12,
-                    0.12,
-                    0.12
-                ]
-            ]
-        }
-    ]
+    {
+      "name": "straight-flow",
+      "delays": [
+        [
+          0.12,
+          0.12,
+          0.12
+        ]
+      ]
+    },
+    {
+      "name": "corner"
+    },
+    {
+      "name": "corner-flow",
+      "delays": [
+        [
+          0.12,
+          0.12,
+          0.12
+        ]
+      ]
+    },
+    {
+      "name": "tee"
+    },
+    {
+      "name": "tee-flow",
+      "delays": [
+        [
+          0.12,
+          0.12,
+          0.12
+        ]
+      ]
+    },
+    {
+      "name": "cross"
+    },
+    {
+      "name": "cross-flow",
+      "delays": [
+        [
+          0.12,
+          0.12,
+          0.12
+        ]
+      ]
+    }
+  ]
 }
