@@ -84,9 +84,23 @@ public sealed partial class DystopiaLiquidDeviceComponent : Component
     [DataField]
     public Direction TargetSide = Direction.South;
 
-    /// <summary>Сколько единиц в секунду перекачивает.</summary>
+    /// <summary>Сколько единиц в секунду перекачивает (задаётся в меню, от 0 до <see cref="MaxRate"/>).</summary>
     [DataField]
     public float Rate = 20f;
+
+    /// <summary>Предел скорости в меню. 0 — взять Rate из прототипа при появлении.</summary>
+    [DataField]
+    public float MaxRate;
+
+    /// <summary>
+    /// Сколько секунд устройство считается работающим после последней перекачки — чтобы картинка не мигала,
+    /// когда жидкость идёт порциями (машина выдаёт раз в цикл, сеть то полна, то нет).
+    /// </summary>
+    [DataField]
+    public float WorkingHold = 3f;
+
+    [ViewVariables]
+    public TimeSpan LastWorked;
 
     /// <summary>Как часто работает, секунды.</summary>
     [DataField]
@@ -169,4 +183,83 @@ public enum DystopiaLiquidVisuals : byte
 public enum DystopiaLiquidVisualLayers : byte
 {
     Marks,
+}
+
+// ------------------------------------------------------------------ меню жидкостных устройств
+
+[Serializable, NetSerializable]
+public enum DystopiaLiquidDeviceUiKey : byte
+{
+    Key,
+}
+
+/// <summary>Вещество в сети (для меню): id, название, цвет, количество.</summary>
+[Serializable, NetSerializable]
+public sealed class DystopiaLiquidReagentInfo(string id, string name, Color color, float amount)
+{
+    public readonly string Id = id;
+    public readonly string Name = name;
+    public readonly Color Color = color;
+    public readonly float Amount = amount;
+}
+
+/// <summary>Сеть у узла устройства: подпись, заполненность, температура, состав. Connected = false — узел ни к чему не подключён.</summary>
+[Serializable, NetSerializable]
+public sealed class DystopiaLiquidNetInfo(string label, bool connected, float volume, float max, float celsius,
+    List<DystopiaLiquidReagentInfo> reagents)
+{
+    public readonly string Label = label;
+    public readonly bool Connected = connected;
+    public readonly float Volume = volume;
+    public readonly float Max = max;
+    public readonly float Celsius = celsius;
+    public readonly List<DystopiaLiquidReagentInfo> Reagents = reagents;
+}
+
+[Serializable, NetSerializable]
+public sealed class DystopiaLiquidDeviceUiState(
+    DystopiaLiquidDeviceMode mode,
+    bool toggleable,
+    bool on,
+    bool requirePower,
+    bool powered,
+    bool working,
+    float rate,
+    float maxRate,
+    string? filterReagent,
+    List<DystopiaLiquidReagentInfo> filterOptions,
+    string? source,
+    List<DystopiaLiquidNetInfo> nets) : BoundUserInterfaceState
+{
+    public readonly DystopiaLiquidDeviceMode Mode = mode;
+    public readonly bool Toggleable = toggleable;
+    public readonly bool On = on;
+    public readonly bool RequirePower = requirePower;
+    public readonly bool Powered = powered;
+    public readonly bool Working = working;
+    public readonly float Rate = rate;
+    public readonly float MaxRate = maxRate;
+    public readonly string? FilterReagent = filterReagent;
+    public readonly List<DystopiaLiquidReagentInfo> FilterOptions = filterOptions;
+    public readonly string? Source = source;
+    public readonly List<DystopiaLiquidNetInfo> Nets = nets;
+}
+
+[Serializable, NetSerializable]
+public sealed class DystopiaLiquidDeviceToggleMessage(bool on) : BoundUserInterfaceMessage
+{
+    public readonly bool On = on;
+}
+
+[Serializable, NetSerializable]
+public sealed class DystopiaLiquidDeviceSetRateMessage(float rate) : BoundUserInterfaceMessage
+{
+    public readonly float Rate = rate;
+}
+
+/// <summary>Фильтр: какое вещество отводить вбок (null — ничего).</summary>
+[Serializable, NetSerializable]
+public sealed class DystopiaLiquidDeviceSetFilterMessage(string? reagent) : BoundUserInterfaceMessage
+{
+    public readonly string? Reagent = reagent;
 }

@@ -94,6 +94,12 @@
         nodeGroupID: DystopiaLiquid
         pipeDirection: Fourway   # труба подводится с любой стороны
         volume: 10
+  - type: ActivatableUI   # клик — меню (вкл/выкл, скорость, состав сетей)
+    key: enum.DystopiaLiquidDeviceUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.DystopiaLiquidDeviceUiKey.Key:
+        type: DystopiaLiquidDeviceBoundUserInterface
   - type: DystopiaLiquidDevice
     mode: Extractor
     rate: 5

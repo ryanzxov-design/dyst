@@ -604,6 +604,12 @@
         nodeGroupID: DystopiaLiquid
         pipeDirection: South
         volume: 10
+  - type: ActivatableUI   # клик — меню (вкл/выкл, скорость, состав сетей)
+    key: enum.DystopiaLiquidDeviceUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.DystopiaLiquidDeviceUiKey.Key:
+        type: DystopiaLiquidDeviceBoundUserInterface
   - type: DystopiaLiquidDevice
     mode: Pump
     rate: 20
@@ -612,6 +618,7 @@
     requirePower: true
     toggleable: true
     on: false
+    maxRate: 40
   - type: ApcPowerReceiver
     powerLoad: 300
   - type: ExtensionCableReceiver
@@ -706,10 +713,18 @@
         nodeGroupID: DystopiaLiquid
         pipeDirection: North
         volume: 10
+  - type: ActivatableUI   # клик — меню (вкл/выкл, скорость, состав сетей)
+    key: enum.DystopiaLiquidDeviceUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.DystopiaLiquidDeviceUiKey.Key:
+        type: DystopiaLiquidDeviceBoundUserInterface
   - type: DystopiaLiquidDevice
     mode: Exporter
     rate: 5
     targetSide: South
+    toggleable: true
+    maxRate: 20
   - type: GenericVisualizer
     visuals:
       enum.DystopiaLiquidVisuals.Working:
@@ -801,10 +816,18 @@
         nodeGroupID: DystopiaLiquid
         pipeDirection: South
         volume: 10
+  - type: ActivatableUI   # клик — меню (вкл/выкл, скорость, состав сетей)
+    key: enum.DystopiaLiquidDeviceUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.DystopiaLiquidDeviceUiKey.Key:
+        type: DystopiaLiquidDeviceBoundUserInterface
   - type: DystopiaLiquidDevice
     mode: Importer
     rate: 10
     targetSide: North
+    toggleable: true
+    maxRate: 20
   - type: GenericVisualizer
     visuals:
       enum.DystopiaLiquidVisuals.Working:

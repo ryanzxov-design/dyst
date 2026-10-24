@@ -22,3 +22,33 @@ dystopia-liquid-source-fair = [color=#a08a60]There is still a fair amount of oil
 dystopia-liquid-source-poor = [color=#8a7a6a]Oil barely seeps: the reserve is running out.[/color]
 dystopia-liquid-source-depleted = [color=#7a7a7a]Depleted: only a dried crust remains.[/color]
 dystopia-liquid-source-none = [color=#e05050]There is no oil seep under the pumpjack.[/color]
+
+# liquid device menu
+dystopia-liquid-ui-status-off = Off
+dystopia-liquid-ui-status-unpowered = No power
+dystopia-liquid-ui-status-working = Working
+dystopia-liquid-ui-status-idle = Idle
+dystopia-liquid-ui-hint-port = Evens out the level in the pipes and the tank on its tile.
+dystopia-liquid-ui-hint-pump = Pumps liquid from the pipe behind into the pipe in front.
+dystopia-liquid-ui-hint-exporter = Lets liquid out of the pipe into what stands in front: a tank, a machine tank (only its raw materials) or a hot mould.
+dystopia-liquid-ui-hint-importer = Draws from the tank or machine product tank behind into the pipe.
+dystopia-liquid-ui-hint-extractor = Pumps oil from the seep beneath it into the pipe.
+dystopia-liquid-ui-hint-filter = Lets the chosen substance out to the side and passes everything else straight on.
+dystopia-liquid-ui-rate-label = Rate (u/s):
+dystopia-liquid-ui-rate-max = at most { $max }
+dystopia-liquid-ui-set = Set
+dystopia-liquid-ui-max = Max
+dystopia-liquid-ui-filter-current = Now diverting: { $reagent }
+dystopia-liquid-ui-filter-nothing = nothing
+dystopia-liquid-ui-filter-choose = Choose a substance to divert:
+dystopia-liquid-ui-filter-search = Search substance…
+dystopia-liquid-ui-filter-select = Select substance
+dystopia-liquid-ui-filter-present = (in pipe)
+dystopia-liquid-ui-inlet = Inlet
+dystopia-liquid-ui-outlet = Outlet
+dystopia-liquid-ui-side = Side
+dystopia-liquid-ui-net = Pipe
+dystopia-liquid-ui-disconnected = not connected to anything
+dystopia-liquid-ui-empty = empty (holds { $max } u)
+dystopia-liquid-ui-fill = { $percent }% ({ $volume } of { $max } u), { $temperature } °C
+dystopia-liquid-ui-amount = { $amount } u

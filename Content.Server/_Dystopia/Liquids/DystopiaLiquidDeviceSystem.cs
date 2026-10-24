@@ -7,6 +7,7 @@
 // Импортер — из объекта в сеть: цистерны и баки машин; литейное оборудование — нет.
 // Качалка (Extractor) — из природного источника на своей клетке (нефтяной выход) в сеть; источник конечен.
 // Фильтр — выбранное через ПКМ вещество уходит в боковую трубу, остальное проходит прямо; питания не нужно.
+// Меню (клик по устройству): вкл/выкл, скорость, у фильтра — выбор вещества, состав сетей у узлов.
 
 using Content.Server._Dystopia.Industry;
 using Content.Server.Power.EntitySystems;
@@ -14,6 +15,7 @@ using Content.Shared._Dystopia.Industry;
 using Content.Shared._Dystopia.Liquids;
 using Content.Shared.Chemistry.Components;
 using Content.Shared.Chemistry.EntitySystems;
+using System.Linq;
 using Content.Shared.Chemistry.Reagent;
 using Content.Shared.Examine;
 using Content.Shared.FixedPoint;
@@ -40,6 +42,7 @@ public sealed partial class DystopiaLiquidDeviceSystem : EntitySystem
     [Dependency] private DystopiaQuenchSystem _quench = default!;
     [Dependency] private DystopiaProcessorSystem _processor = default!;
     [Dependency] private IRobustRandom _random = default!;
+    [Dependency] private SharedUserInterfaceSystem _ui = default!;
 
     public override void Initialize()
     {
@@ -47,6 +50,14 @@ public sealed partial class DystopiaLiquidDeviceSystem : EntitySystem
         SubscribeLocalEvent<DystopiaLiquidDeviceComponent, GetVerbsEvent<AlternativeVerb>>(OnGetVerbs);
         SubscribeLocalEvent<DystopiaLiquidDeviceComponent, GetVerbsEvent<Verb>>(OnGetFilterVerbs);
         SubscribeLocalEvent<DystopiaLiquidDeviceComponent, ExaminedEvent>(OnExamined);
+        SubscribeLocalEvent<DystopiaLiquidDeviceComponent, MapInitEvent>(OnDeviceMapInit);
+        SubscribeLocalEvent<DystopiaLiquidDeviceComponent, BoundUIOpenedEvent>(OnUiOpened);
+        Subs.BuiEvents<DystopiaLiquidDeviceComponent>(DystopiaLiquidDeviceUiKey.Key, subs =>
+        {
+            subs.Event<DystopiaLiquidDeviceToggleMessage>(OnUiToggle);
+            subs.Event<DystopiaLiquidDeviceSetRateMessage>(OnUiSetRate);
+            subs.Event<DystopiaLiquidDeviceSetFilterMessage>(OnUiSetFilter);
+        });
         SubscribeLocalEvent<DystopiaLiquidSourceComponent, MapInitEvent>(OnSourceMapInit);
         SubscribeLocalEvent<DystopiaLiquidSourceComponent, ExaminedEvent>(OnSourceExamined);
     }
@@ -66,15 +77,35 @@ public sealed partial class DystopiaLiquidDeviceSystem : EntitySystem
 
             device.NextUpdate = now + TimeSpan.FromSeconds(device.Interval);
 
-            var working = false;
-            if (xform.Anchored && device.On && (!device.RequirePower || _power.IsPowered(uid)))
+            if (xform.Anchored && device.On && device.Rate > 0f && (!device.RequirePower || _power.IsPowered(uid)))
             {
                 var max = FixedPoint2.New(device.Rate * device.Interval);
-                working = Act((uid, device), xform, max) > FixedPoint2.Zero;
+                if (Act((uid, device), xform, max) > FixedPoint2.Zero)
+                    device.LastWorked = now;
+            }
+            else
+            {
+                device.LastWorked = TimeSpan.Zero;   // выключили или сняли — гаснет сразу
             }
 
-            _appearance.SetData(uid, DystopiaLiquidVisuals.Working, working);
+            _appearance.SetData(uid, DystopiaLiquidVisuals.Working, IsWorking(device, now));
+
+            if (_ui.IsUiOpen(uid, DystopiaLiquidDeviceUiKey.Key))
+                UpdateUi((uid, device));
         }
+    }
+
+    /// <summary>Работает ли — с задержкой <see cref="DystopiaLiquidDeviceComponent.WorkingHold"/>, чтобы не мигать.</summary>
+    private static bool IsWorking(DystopiaLiquidDeviceComponent device, TimeSpan now)
+    {
+        return device.LastWorked > TimeSpan.Zero &&
+               now - device.LastWorked < TimeSpan.FromSeconds(Math.Max(device.WorkingHold, device.Interval * 1.5f));
+    }
+
+    private void OnDeviceMapInit(Entity<DystopiaLiquidDeviceComponent> ent, ref MapInitEvent args)
+    {
+        if (ent.Comp.MaxRate <= 0f)
+            ent.Comp.MaxRate = ent.Comp.Rate;
     }
 
     private FixedPoint2 Act(Entity<DystopiaLiquidDeviceComponent> ent, TransformComponent xform, FixedPoint2 max)
@@ -145,6 +176,118 @@ public sealed partial class DystopiaLiquidDeviceSystem : EntitySystem
         }
 
         return FixedPoint2.Zero;
+    }
+
+    // ------------------------------------------------------------------ меню
+
+    private void OnUiOpened(Entity<DystopiaLiquidDeviceComponent> ent, ref BoundUIOpenedEvent args)
+    {
+        UpdateUi(ent);
+    }
+
+    private void OnUiToggle(Entity<DystopiaLiquidDeviceComponent> ent, ref DystopiaLiquidDeviceToggleMessage args)
+    {
+        if (!ent.Comp.Toggleable)
+            return;
+
+        ent.Comp.On = args.On;
+        ent.Comp.NextUpdate = TimeSpan.Zero;
+        UpdateUi(ent);
+    }
+
+    private void OnUiSetRate(Entity<DystopiaLiquidDeviceComponent> ent, ref DystopiaLiquidDeviceSetRateMessage args)
+    {
+        if (!float.IsFinite(args.Rate))
+            return;
+
+        ent.Comp.Rate = Math.Clamp(args.Rate, 0f, MaxRate(ent.Comp));
+        UpdateUi(ent);
+    }
+
+    private void OnUiSetFilter(Entity<DystopiaLiquidDeviceComponent> ent, ref DystopiaLiquidDeviceSetFilterMessage args)
+    {
+        if (ent.Comp.Mode != DystopiaLiquidDeviceMode.Filter)
+            return;
+
+        // Клиенту на слово не верим: только настоящее вещество.
+        if (args.Reagent != null && !_proto.HasIndex<ReagentPrototype>(args.Reagent))
+            return;
+
+        ProtoId<ReagentPrototype>? reagent = null;
+        if (args.Reagent != null)
+            reagent = new ProtoId<ReagentPrototype>(args.Reagent);
+
+        ent.Comp.FilterReagent = reagent;
+        UpdateUi(ent);
+    }
+
+    private static float MaxRate(DystopiaLiquidDeviceComponent device)
+    {
+        return device.MaxRate > 0f ? device.MaxRate : device.Rate;
+    }
+
+    private void UpdateUi(Entity<DystopiaLiquidDeviceComponent> ent)
+    {
+        var device = ent.Comp;
+        var nets = new List<DystopiaLiquidNetInfo>();
+        switch (device.Mode)
+        {
+            case DystopiaLiquidDeviceMode.Pump:
+                nets.Add(NetInfo("dystopia-liquid-ui-inlet", _liquid.GetNet(ent, device.Inlet)));
+                nets.Add(NetInfo("dystopia-liquid-ui-outlet", _liquid.GetNet(ent, device.Outlet)));
+                break;
+            case DystopiaLiquidDeviceMode.Filter:
+                nets.Add(NetInfo("dystopia-liquid-ui-inlet", _liquid.GetNet(ent, device.Inlet)));
+                nets.Add(NetInfo("dystopia-liquid-ui-outlet", _liquid.GetNet(ent, device.Outlet)));
+                nets.Add(NetInfo("dystopia-liquid-ui-side", _liquid.GetNet(ent, device.FilterNode)));
+                break;
+            default:
+                nets.Add(NetInfo("dystopia-liquid-ui-net", _liquid.GetNet(ent, device.Inlet)));
+                break;
+        }
+
+        // Фильтр: на выбор — то, что сейчас во входной трубе, плюс уже выбранное.
+        var options = new List<DystopiaLiquidReagentInfo>();
+        if (device.Mode == DystopiaLiquidDeviceMode.Filter)
+        {
+            options.AddRange(nets[0].Reagents);
+            if (device.FilterReagent is { } current && options.All(o => o.Id != current.Id) &&
+                _proto.TryIndex(current, out var proto))
+            {
+                options.Add(new DystopiaLiquidReagentInfo(current.Id, proto.LocalizedName, proto.SubstanceColor, 0f));
+            }
+        }
+
+        string? source = null;
+        if (device.Mode == DystopiaLiquidDeviceMode.Extractor)
+        {
+            source = GetSource(ent, Transform(ent)) is { } src
+                ? SourceReserve(src.Comp)
+                : Loc.GetString("dystopia-liquid-source-none");
+        }
+
+        _ui.SetUiState(ent.Owner, DystopiaLiquidDeviceUiKey.Key, new DystopiaLiquidDeviceUiState(device.Mode,
+            device.Toggleable, device.On, device.RequirePower, !device.RequirePower || _power.IsPowered(ent),
+            IsWorking(device, _timing.CurTime), device.Rate, MaxRate(device), device.FilterReagent?.Id, options,
+            source, nets));
+    }
+
+    private DystopiaLiquidNetInfo NetInfo(string label, DystopiaLiquidNet? net)
+    {
+        var text = Loc.GetString(label);
+        if (net == null)
+            return new DystopiaLiquidNetInfo(text, false, 0f, 0f, 0f, new List<DystopiaLiquidReagentInfo>());
+
+        var solution = net.Solution;
+        var reagents = new List<DystopiaLiquidReagentInfo>();
+        foreach (var (reagent, quantity) in solution.GetReagentPrototypes(_proto).OrderByDescending(p => p.Value.Value))
+        {
+            reagents.Add(new DystopiaLiquidReagentInfo(reagent.ID, reagent.LocalizedName, reagent.SubstanceColor,
+                quantity.Float()));
+        }
+
+        return new DystopiaLiquidNetInfo(text, true, solution.Volume.Float(), solution.MaxVolume.Float(),
+            solution.Temperature - DystopiaCrucibleSystem.KelvinOffset, reagents);
     }
 
     // ------------------------------------------------------------------ фильтр

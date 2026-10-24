@@ -56,12 +56,19 @@
         nodeGroupID: DystopiaLiquid
         pipeDirection: West
         volume: 10
+  - type: ActivatableUI   # клик — меню (вкл/выкл, скорость, состав сетей)
+    key: enum.DystopiaLiquidDeviceUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.DystopiaLiquidDeviceUiKey.Key:
+        type: DystopiaLiquidDeviceBoundUserInterface
   - type: DystopiaLiquidDevice
     mode: Filter
     rate: 20
     inlet: inlet
     outlet: outlet
     filterNode: filter
+    maxRate: 40
     toggleable: true
     on: true
   - type: GenericVisualizer
