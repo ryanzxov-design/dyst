@@ -1,0 +1,25 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: нефть, шаг 3 — нефтехимия. Генератор gen_petrochem.py.
+# Баки продукции нефтехимии (раствор, вещества не реагируют).
+
+- type: entity
+  id: DystopiaSolutionCrackingProduct
+  categories: [ HideSpawnMenu ]
+  name: product tank
+  components:
+  - type: Solution
+    id: product
+    solution:
+      maxVol: 600
+      canReact: false
+
+- type: entity
+  id: DystopiaSolutionChemUnitOutput
+  categories: [ HideSpawnMenu ]
+  name: product tank
+  components:
+  - type: Solution
+    id: output
+    solution:
+      maxVol: 500
+      canReact: false

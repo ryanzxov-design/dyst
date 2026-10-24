@@ -1,0 +1,30 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: нефть, шаг 3 — нефтехимия. Генератор gen_petrochem.py.
+# Материалы: 100 единиц = горсть, ком или лист.
+
+- type: material
+  id: DystopiaCarbonBlack
+  stackEntity: DystopiaCarbonBlack1
+  name: materials-dystopia-carbon-black
+  unit: materials-unit-dystopia-handful
+  icon: { sprite: _Dystopia/Objects/Materials/Petrochem/products.rsi, state: carbon_black }
+  color: "#1c1c20"
+  price: 0.02
+
+- type: material
+  id: DystopiaCaoutchouc
+  stackEntity: DystopiaCaoutchouc1
+  name: materials-dystopia-caoutchouc
+  unit: materials-unit-chunk
+  icon: { sprite: _Dystopia/Objects/Materials/Petrochem/products.rsi, state: caoutchouc }
+  color: "#9a6420"
+  price: 0.05
+
+- type: material
+  id: DystopiaRubber
+  stackEntity: DystopiaSheetRubber1
+  name: materials-dystopia-rubber
+  unit: materials-unit-sheet
+  icon: { sprite: _Dystopia/Objects/Materials/Petrochem/products.rsi, state: rubber_3 }
+  color: "#2c2c30"
+  price: 0.08

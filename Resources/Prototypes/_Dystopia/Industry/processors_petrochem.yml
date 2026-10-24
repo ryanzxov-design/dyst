@@ -1,0 +1,436 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: нефть, шаг 3 — нефтехимия. Генератор gen_petrochem.py.
+# Машины нефтехимии: крекинг-установка (Cracking), реактор полимеризации (Polymerization), вулканизационный пресс
+# (Vulcanization), химическая установка (DystopiaChemUnit). Рецепты — petrochem_recipes.yml. Баки не реагируют.
+# Самостоятельные сущности, без parent.
+
+- type: entity
+  id: DystopiaCrackingUnit
+  name: cracking unit
+  description: "A reactor with a bed of alumina catalyst over an electric furnace. Splits fuel oil and diesel into gasoline and liquefied gases; turns alcohol into butadiene. Load alumina into it; everything comes out mixed into the product tank."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.45"
+        density: 250
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]
+  - type: Pullable
+  - type: Anchorable
+    delay: 2
+  - type: Tag
+    tags: [ Structure ]
+  - type: Sprite
+    sprite: _Dystopia/Structures/Industry/cracking_unit.rsi
+    noRot: true
+    drawdepth: Objects
+    layers:
+    - state: icon
+      map: [ "enum.DystopiaProcessorVisuals.Running" ]
+    - state: unlit
+      map: [ "enum.PowerDeviceVisualLayers.Powered" ]
+      shader: unshaded
+      visible: false
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DystopiaProcessorVisuals.Running:
+        enum.DystopiaProcessorVisuals.Running:
+          True: { state: running }
+          False: { state: icon }
+      enum.PowerDeviceVisuals.Powered:
+        enum.PowerDeviceVisualLayers.Powered:
+          True: { visible: true }
+          False: { visible: false }
+  - type: ApcPowerReceiver
+    powerLoad: 8000
+  - type: ExtensionCableReceiver
+  - type: AmbientSound
+    enabled: false
+    volume: -6
+    range: 5
+    sound:
+      path: /Audio/Ambience/Objects/vending_machine_hum.ogg
+  - type: Solution
+    id: tank
+    solution:
+      maxVol: 400
+      canReact: false   # вещества в баке не реагируют между собой
+  - type: RefillableSolution   # воду — ведром или из цистерны
+    solution: tank
+  - type: SolutionManager   # бак продукции
+    solutions:
+    - DystopiaSolutionCrackingProduct
+  - type: DrainableSolution   # сливают готовое
+    solution: product
+  - type: ContainerContainer
+    containers:
+      dystopia_processor_input: !type:Container {}
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 300
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:EmptyContainersBehaviour
+        containers: [ dystopia_processor_input ]
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 3
+            max: 5
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: DystopiaProcessor
+    group: Cracking
+    container: dystopia_processor_input
+    capacity: 10
+    batchesPerCycle: 1
+    cycleTime: 10
+    manual: false
+    requireAnchored: true
+    tank: tank
+    outputTank: product
+    cycleSound:
+      path: /Audio/Effects/Fluids/splash.ogg
+      params:
+        volume: -6
+    insertSound:
+      path: /Audio/Effects/stonedoor_openclose.ogg
+      params:
+        volume: -8
+
+- type: entity
+  id: DystopiaPolymerReactor
+  name: polymerization reactor
+  description: "A pressure autoclave with a stirrer. Ethylene and propylene come out as sheets of plastic, butadiene as raw rubber."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.45"
+        density: 250
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]
+  - type: Pullable
+  - type: Anchorable
+    delay: 2
+  - type: Tag
+    tags: [ Structure ]
+  - type: Sprite
+    sprite: _Dystopia/Structures/Industry/polymer_reactor.rsi
+    noRot: true
+    drawdepth: Objects
+    layers:
+    - state: icon
+      map: [ "enum.DystopiaProcessorVisuals.Running" ]
+    - state: unlit
+      map: [ "enum.PowerDeviceVisualLayers.Powered" ]
+      shader: unshaded
+      visible: false
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DystopiaProcessorVisuals.Running:
+        enum.DystopiaProcessorVisuals.Running:
+          True: { state: running }
+          False: { state: icon }
+      enum.PowerDeviceVisuals.Powered:
+        enum.PowerDeviceVisualLayers.Powered:
+          True: { visible: true }
+          False: { visible: false }
+  - type: ApcPowerReceiver
+    powerLoad: 5000
+  - type: ExtensionCableReceiver
+  - type: AmbientSound
+    enabled: false
+    volume: -6
+    range: 5
+    sound:
+      path: /Audio/Ambience/Objects/vending_machine_hum.ogg
+  - type: Solution
+    id: tank
+    solution:
+      maxVol: 300
+      canReact: false   # вещества в баке не реагируют между собой
+  - type: RefillableSolution   # воду — ведром или из цистерны
+    solution: tank
+  - type: DrainableSolution
+    solution: tank
+  - type: ContainerContainer
+    containers:
+      dystopia_processor_input: !type:Container {}
+      dystopia_processor_output: !type:Container {}
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 300
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:EmptyAllContainersBehaviour
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 3
+            max: 5
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: DystopiaProcessor
+    group: Polymerization
+    container: dystopia_processor_input
+    capacity: 0
+    batchesPerCycle: 1
+    cycleTime: 5
+    manual: false
+    requireAnchored: true
+    outputContainer: dystopia_processor_output
+    outputCapacity: 60
+    tank: tank
+    cycleSound:
+      path: /Audio/Effects/Fluids/splash.ogg
+      params:
+        volume: -6
+    insertSound:
+      path: /Audio/Effects/stonedoor_openclose.ogg
+      params:
+        volume: -8
+
+- type: entity
+  id: DystopiaVulcanizer
+  name: vulcanization press
+  description: "A press with heated plates. Raw rubber, sulfur and soot go in; sheets of rubber come out."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.45"
+        density: 250
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]
+  - type: Pullable
+  - type: Anchorable
+    delay: 2
+  - type: Tag
+    tags: [ Structure ]
+  - type: Sprite
+    sprite: _Dystopia/Structures/Industry/vulcanizer.rsi
+    noRot: true
+    drawdepth: Objects
+    layers:
+    - state: icon
+      map: [ "enum.DystopiaProcessorVisuals.Running" ]
+    - state: unlit
+      map: [ "enum.PowerDeviceVisualLayers.Powered" ]
+      shader: unshaded
+      visible: false
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DystopiaProcessorVisuals.Running:
+        enum.DystopiaProcessorVisuals.Running:
+          True: { state: running }
+          False: { state: icon }
+      enum.PowerDeviceVisuals.Powered:
+        enum.PowerDeviceVisualLayers.Powered:
+          True: { visible: true }
+          False: { visible: false }
+  - type: ApcPowerReceiver
+    powerLoad: 3000
+  - type: ExtensionCableReceiver
+  - type: AmbientSound
+    enabled: false
+    volume: -6
+    range: 5
+    sound:
+      path: /Audio/Ambience/Objects/vending_machine_hum.ogg
+  - type: ContainerContainer
+    containers:
+      dystopia_processor_input: !type:Container {}
+      dystopia_processor_output: !type:Container {}
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 250
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:EmptyAllContainersBehaviour
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 2
+            max: 4
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: DystopiaProcessor
+    group: Vulcanization
+    container: dystopia_processor_input
+    capacity: 30
+    batchesPerCycle: 1
+    cycleTime: 6
+    manual: false
+    requireAnchored: true
+    outputContainer: dystopia_processor_output
+    outputCapacity: 60
+    cycleSound:
+      path: /Audio/Effects/stonedoor_openclose.ogg
+      params:
+        volume: -6
+    insertSound:
+      path: /Audio/Effects/stonedoor_openclose.ogg
+      params:
+        volume: -8
+
+- type: entity
+  id: DystopiaChemUnit
+  name: chemical unit
+  description: "A reactor with a heater, a cooler and a row of dosing pumps. Whatever is poured into its buffer does not mix. Pick what to make; it takes only the right substances in the right proportions and leaves the rest alone."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.45"
+        density: 250
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]
+  - type: Pullable
+  - type: Anchorable
+    delay: 3
+  - type: Tag
+    tags: [ Structure ]
+  - type: Sprite
+    sprite: _Dystopia/Structures/Industry/chem_unit.rsi
+    noRot: true
+    drawdepth: Objects
+    layers:
+    - state: icon
+      map: [ "enum.DystopiaProcessorVisuals.Running" ]
+    - state: unlit
+      map: [ "enum.PowerDeviceVisualLayers.Powered" ]
+      shader: unshaded
+      visible: false
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DystopiaProcessorVisuals.Running:
+        enum.DystopiaProcessorVisuals.Running:
+          True: { state: running }
+          False: { state: icon }
+      enum.PowerDeviceVisuals.Powered:
+        enum.PowerDeviceVisualLayers.Powered:
+          True: { visible: true }
+          False: { visible: false }
+  - type: ApcPowerReceiver
+    powerLoad: 4000
+  - type: ExtensionCableReceiver
+  - type: AmbientSound
+    enabled: false
+    volume: -6
+    range: 5
+    sound:
+      path: /Audio/Ambience/Objects/vending_machine_hum.ogg
+  - type: Solution   # буфер: вещества не смешиваются и не реагируют
+    id: buffer
+    solution:
+      maxVol: 1000
+      canReact: false
+  - type: RefillableSolution   # заливают ведром или экспортером из трубы
+    solution: buffer
+  - type: SolutionManager   # бак продукции
+    solutions:
+    - DystopiaSolutionChemUnitOutput
+  - type: DrainableSolution   # сливают готовое (и импортером в трубу)
+    solution: output
+  - type: ActivatableUI   # клик — меню: что производить, буфер, продукция
+    key: enum.DystopiaChemUnitUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.DystopiaChemUnitUiKey.Key:
+        type: DystopiaChemUnitBoundUserInterface
+  - type: DystopiaChemUnit
+    unitsPerCycle: 20
+    cycleTime: 2
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 250
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 2
+            max: 4
+          SheetGlass1:
+            min: 1
+            max: 2
+      - !type:DoActsBehavior
+        acts: [ Destruction ]

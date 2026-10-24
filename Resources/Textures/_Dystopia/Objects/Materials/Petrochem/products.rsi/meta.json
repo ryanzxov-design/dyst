@@ -1,0 +1,50 @@
+{
+    "version": 1,
+    "license": "CC-BY-SA-3.0",
+    "copyright": "Coal ore by Alekshhh and others (see Objects/Materials/ore.rsi); ash from Objects/Materials/materials.rsi; plastic sheets from Objects/Materials/Sheets/other.rsi. Recolored for Dystopia.",
+    "size": {
+        "x": 32,
+        "y": 32
+    },
+    "states": [
+        {
+            "name": "carbon_black"
+        },
+        {
+            "name": "carbon_black-inhand-left",
+            "directions": 4
+        },
+        {
+            "name": "carbon_black-inhand-right",
+            "directions": 4
+        },
+        {
+            "name": "caoutchouc"
+        },
+        {
+            "name": "caoutchouc-inhand-left",
+            "directions": 4
+        },
+        {
+            "name": "caoutchouc-inhand-right",
+            "directions": 4
+        },
+        {
+            "name": "rubber"
+        },
+        {
+            "name": "rubber_2"
+        },
+        {
+            "name": "rubber_3"
+        },
+        {
+            "name": "rubber-inhand-left",
+            "directions": 4
+        },
+        {
+            "name": "rubber-inhand-right",
+            "directions": 4
+        }
+    ]
+}

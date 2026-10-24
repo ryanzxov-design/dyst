@@ -1,0 +1,217 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: нефть, шаг 3 — нефтехимия. Генератор gen_petrochem.py.
+# Кок-сагыз — каучуконосный одуванчик: семена, растение, корень с млечным соком. Из ванильной моркови,
+# без parent. Пока только спавн семян.
+
+- type: entity
+  id: DystopiaKokSaghyzPlant
+  name: kok-saghyz
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.5
+        density: 190
+        hard: true
+        layer: [ BulletImpassable ]
+  - type: Sprite
+    sprite: _Dystopia/Objects/Specific/Hydroponics/kok_saghyz.rsi
+    snapCardinals: true
+  - type: Appearance
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Physics
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Biological
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 75
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: RequireProjectileTarget
+  - type: Plant
+    lifespan: 30
+    maturation: 12
+    production: 4
+    yield: 3
+    potency: 15
+    growthStages: 3
+  - type: PlantData
+    name: seeds-dystopia-kok-saghyz-name
+    packetPrototype: DystopiaKokSaghyzSeeds
+    productPrototypes: [ DystopiaKokSaghyzRoot ]
+  - type: PlantHolder
+  - type: PlantHarvest
+  - type: PlantChemicals
+    chemicals:
+      DystopiaLatex:
+        min: 4
+        max: 12
+        potencyDivisor: 5
+  - type: PlantToxins
+  - type: PlantVisuals
+  - type: PlantWeedPest
+  - type: PlantAtmospheric
+  - type: PlantGrowth
+    waterConsumption: 0.6
+  - type: PlantConsumeExudeGas
+
+- type: entity
+  id: DystopiaKokSaghyzSeeds
+  name: packet of kok-saghyz seeds
+  description: Seeds of a rubber-bearing dandelion. The milky juice of its roots gives natural rubber.
+  components:
+  - type: Item
+    size: Tiny
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Specific/Hydroponics/kok_saghyz.rsi
+    layers:
+    - state: seed
+    - state: paper
+      visible: false
+      map: [ enum.PaperLabelVisuals.Layer ]
+      sprite: Objects/Specific/Hydroponics/seeds.rsi
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: ContainerContainer
+    containers:
+      paper_label: !type:ContainerSlot ""
+  - type: ItemSlots
+  - type: PaperLabel
+    labelSlot:
+      insertVerbText: comp-paper-label-insert
+      ejectVerbText: comp-paper-label-eject
+      whitelist:
+        components: [ Paper ]
+      blacklist:
+        tags: [ Book ]
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.PaperLabelVisuals.HasLabel:
+        enum.PaperLabelVisuals.Layer:
+          true:
+            visible: true
+          false:
+            visible: false
+  - type: StaticPrice
+    price: 20
+  - type: PhysicalComposition
+  - type: Seed
+    plantId: DystopiaKokSaghyzPlant
+
+- type: entity
+  id: DystopiaKokSaghyzRoot
+  name: kok-saghyz root
+  description: A pale gnarled root. Snap it and white sticky juice wells up. Grind it to get the latex out.
+  components:
+  - type: Solution
+    solution:
+      maxVol: 60
+      reagents:
+      - ReagentId: DystopiaLatex
+        Quantity: 10
+    id: food
+  - type: Item
+    size: Small
+    heldPrefix: produce
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    state: produce
+    sprite: _Dystopia/Objects/Specific/Hydroponics/kok_saghyz.rsi
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: FlavorProfile
+    flavors: [ bitter ]
+  - type: Edible
+  - type: StaticPrice
+    price: 0
+  - type: SpaceGarbage
+  - type: InjectableSolution
+    solution: food
+  - type: RefillableSolution
+    solution: food
+  - type: Produce
+    plantId: DystopiaKokSaghyzPlant
+  - type: PotencyVisuals
+  - type: Appearance
+  - type: Extractable
+    grindableSolutionName: food
+  - type: Tag
+    tags: [ Vegetable ]

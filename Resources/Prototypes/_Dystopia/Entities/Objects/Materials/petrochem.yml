@@ -1,0 +1,434 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: нефть, шаг 3 — нефтехимия. Генератор gen_petrochem.py.
+# Сажа, каучук, резина. Самостоятельные сущности, без parent.
+
+- type: entity
+  id: DystopiaCarbonBlack
+  name: carbon black
+  description: A greasy black powder that smudges at a glance. It is mixed into rubber to keep it from wearing away.
+  suffix: Soot, Full
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Petrochem/products.rsi
+    heldPrefix: carbon_black
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Petrochem/products.rsi
+    state: carbon_black
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Stack
+    stackType: DystopiaCarbonBlack
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaCarbonBlack: 100
+
+- type: entity
+  id: DystopiaCarbonBlack1
+  name: carbon black
+  description: A greasy black powder that smudges at a glance. It is mixed into rubber to keep it from wearing away.
+  suffix: Soot, Single
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Petrochem/products.rsi
+    heldPrefix: carbon_black
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Petrochem/products.rsi
+    state: carbon_black
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Stack
+    stackType: DystopiaCarbonBlack
+    count: 1
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaCarbonBlack: 100
+
+- type: entity
+  id: DystopiaCaoutchouc
+  name: caoutchouc
+  description: Amber, springy lumps of raw rubber. Sticky in the hand, runny in the heat, stiff in the cold. With sulfur and soot it vulcanises into rubber.
+  suffix: Rubber, Full
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Petrochem/products.rsi
+    heldPrefix: caoutchouc
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Petrochem/products.rsi
+    state: caoutchouc
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Stack
+    stackType: DystopiaCaoutchouc
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaCaoutchouc: 100
+
+- type: entity
+  id: DystopiaCaoutchouc1
+  name: caoutchouc
+  description: Amber, springy lumps of raw rubber. Sticky in the hand, runny in the heat, stiff in the cold. With sulfur and soot it vulcanises into rubber.
+  suffix: Rubber, Single
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Petrochem/products.rsi
+    heldPrefix: caoutchouc
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Petrochem/products.rsi
+    state: caoutchouc
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Stack
+    stackType: DystopiaCaoutchouc
+    count: 1
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaCaoutchouc: 100
+
+- type: entity
+  id: DystopiaSheetRubber
+  name: rubber
+  description: "Sheets of vulcanised rubber: they stretch without tearing and let through neither water nor current."
+  suffix: Rubber, Full
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Petrochem/products.rsi
+    heldPrefix: rubber
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    sprite: _Dystopia/Objects/Materials/Petrochem/products.rsi
+    state: rubber_3
+    layers:
+    - state: rubber_3
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Sheet ]
+  - type: StaticPrice
+    price: 0
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaRubber: 100
+  - type: Stack
+    stackType: DystopiaRubber
+    baseLayer: base
+    layerStates: [ rubber, rubber_2, rubber_3 ]
+
+- type: entity
+  id: DystopiaSheetRubber1
+  name: rubber
+  description: "Sheets of vulcanised rubber: they stretch without tearing and let through neither water nor current."
+  suffix: Rubber, Single
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Petrochem/products.rsi
+    heldPrefix: rubber
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    sprite: _Dystopia/Objects/Materials/Petrochem/products.rsi
+    state: rubber
+    layers:
+    - state: rubber
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Sheet ]
+  - type: StaticPrice
+    price: 0
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaRubber: 100
+  - type: Stack
+    stackType: DystopiaRubber
+    baseLayer: base
+    layerStates: [ rubber, rubber_2, rubber_3 ]
+    count: 1

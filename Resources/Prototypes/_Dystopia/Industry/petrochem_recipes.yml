@@ -1,0 +1,99 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: нефть, шаг 3 — нефтехимия. Генератор gen_petrochem.py.
+# Рецепты нефтехимии (DystopiaProcessRecipe). Крекинг-установка (Cracking): мазут/дизель/спирт на глинозёме.
+# Реактор полимеризации (Polymerization): этилен/пропилен → пластик, бутадиен → каучук. Вулканизационный пресс
+# (Vulcanization): каучук + сера + сажа → резина. Коксовая печь (Coking): мазут → сажа. Чан выщелачивания (Leaching):
+# млечный сок + серная кислота → каучук.
+
+- type: dystopiaProcessRecipe
+  id: DystopiaCrackFuelOil
+  group: Cracking
+  input: DystopiaAlumina
+  inputCount: 1
+  reagents:
+    DystopiaFuelOil: 100
+  produces:
+    DystopiaGasoline: 35
+    DystopiaDiesel: 20
+    DystopiaEthylene: 20
+    DystopiaPropylene: 15
+    DystopiaButadiene: 10
+
+- type: dystopiaProcessRecipe
+  id: DystopiaCrackDiesel
+  group: Cracking
+  input: DystopiaAlumina
+  inputCount: 1
+  reagents:
+    DystopiaDiesel: 100
+  produces:
+    DystopiaGasoline: 50
+    DystopiaEthylene: 25
+    DystopiaPropylene: 15
+    DystopiaButadiene: 10
+
+- type: dystopiaProcessRecipe
+  id: DystopiaLebedevButadiene
+  group: Cracking
+  input: DystopiaAlumina
+  inputCount: 1
+  reagents:
+    Ethanol: 100
+  produces:
+    DystopiaButadiene: 45
+    Water: 45
+    Hydrogen: 10
+
+- type: dystopiaProcessRecipe
+  id: DystopiaPolymerizeEthylene
+  group: Polymerization
+  output: SheetPlastic1
+  amount: 1
+  reagents:
+    DystopiaEthylene: 10
+
+- type: dystopiaProcessRecipe
+  id: DystopiaPolymerizePropylene
+  group: Polymerization
+  output: SheetPlastic1
+  amount: 1
+  reagents:
+    DystopiaPropylene: 10
+
+- type: dystopiaProcessRecipe
+  id: DystopiaPolymerizeButadiene
+  group: Polymerization
+  output: DystopiaCaoutchouc1
+  amount: 1
+  reagents:
+    DystopiaButadiene: 10
+
+- type: dystopiaProcessRecipe
+  id: DystopiaVulcanizeRubber
+  group: Vulcanization
+  input: DystopiaCaoutchouc
+  inputCount: 2
+  extraInputs:
+    DystopiaOreSulfur: 1
+    DystopiaCarbonBlack: 1
+  output: DystopiaSheetRubber1
+  amount: 2
+
+- type: dystopiaProcessRecipe
+  id: DystopiaBakeCarbonBlack
+  group: Coking
+  output: DystopiaCarbonBlack1
+  amount: 2
+  reagents:
+    DystopiaFuelOil: 20
+
+- type: dystopiaProcessRecipe
+  id: DystopiaCoagulateLatex
+  group: Leaching
+  output: DystopiaCaoutchouc1
+  amount: 1
+  reagents:
+    DystopiaLatex: 20
+    SulfuricAcid: 1
+  produces:
+    Water: 15

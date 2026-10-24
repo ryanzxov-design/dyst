@@ -1,0 +1,23 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: нефть, шаг 3 — нефтехимия. Генератор gen_petrochem.py.
+
+- type: stack
+  id: DystopiaCarbonBlack
+  name: stack-dystopia-carbon-black
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Petrochem/products.rsi, state: carbon_black }
+  spawn: DystopiaCarbonBlack1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaCaoutchouc
+  name: stack-dystopia-caoutchouc
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Petrochem/products.rsi, state: caoutchouc }
+  spawn: DystopiaCaoutchouc1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaRubber
+  name: stack-dystopia-rubber
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Petrochem/products.rsi, state: rubber_3 }
+  spawn: DystopiaSheetRubber1
+  maxCount: 30

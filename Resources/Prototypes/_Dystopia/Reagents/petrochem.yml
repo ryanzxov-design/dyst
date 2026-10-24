@@ -1,0 +1,84 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: нефть, шаг 3 — нефтехимия. Генератор gen_petrochem.py.
+# Нефтехимия: сжиженные газы крекинга (текут по нашим трубам) и млечный сок каучуконоса.
+
+- type: reagent
+  id: DystopiaEthylene
+  name: reagent-name-dystopia-ethylene
+  group: Industrial
+  desc: reagent-desc-dystopia-ethylene
+  physicalDesc: reagent-physical-desc-gaseous
+  flavor: bitter
+  color: "#e8eef2"
+  boilingPoint: -104.0
+  meltingPoint: -169.0
+  evaporationSpeed: 0.9
+  tileReactions:
+  - !type:FlammableTileReaction {}
+  metabolisms:
+    Bloodstream:
+      effects:
+      - !type:HealthChange
+        damage:
+          types:
+            Poison: 0.5
+      - !type:Flammable
+        multiplier: 0.6
+
+- type: reagent
+  id: DystopiaPropylene
+  name: reagent-name-dystopia-propylene
+  group: Industrial
+  desc: reagent-desc-dystopia-propylene
+  physicalDesc: reagent-physical-desc-gaseous
+  flavor: bitter
+  color: "#e2e8d8"
+  boilingPoint: -48.0
+  meltingPoint: -185.0
+  evaporationSpeed: 0.8
+  tileReactions:
+  - !type:FlammableTileReaction {}
+  metabolisms:
+    Bloodstream:
+      effects:
+      - !type:HealthChange
+        damage:
+          types:
+            Poison: 0.5
+      - !type:Flammable
+        multiplier: 0.6
+
+- type: reagent
+  id: DystopiaButadiene
+  name: reagent-name-dystopia-butadiene
+  group: Industrial
+  desc: reagent-desc-dystopia-butadiene
+  physicalDesc: reagent-physical-desc-strong-smelling
+  flavor: bitter
+  color: "#f0e6c8"
+  boilingPoint: -4.4
+  meltingPoint: -108.9
+  evaporationSpeed: 0.6
+  tileReactions:
+  - !type:FlammableTileReaction {}
+  metabolisms:
+    Bloodstream:
+      effects:
+      - !type:HealthChange
+        damage:
+          types:
+            Poison: 1
+      - !type:Flammable
+        multiplier: 0.6
+
+- type: reagent
+  id: DystopiaLatex
+  name: reagent-name-dystopia-latex
+  group: Industrial
+  desc: reagent-desc-dystopia-latex
+  physicalDesc: reagent-physical-desc-milky
+  flavor: bitter
+  color: "#f4f1e6"
+  boilingPoint: 100.0
+  meltingPoint: 0.0
+  evaporationSpeed: 0.1
