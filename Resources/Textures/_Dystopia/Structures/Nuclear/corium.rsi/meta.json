@@ -1,0 +1,46 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Lava from Tiles/TileEntities/liquid-lava.rsi (see its meta.json), recolored for Dystopia.",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "full"
+    },
+    {
+      "name": "water0",
+      "directions": 4
+    },
+    {
+      "name": "water1",
+      "directions": 4
+    },
+    {
+      "name": "water2",
+      "directions": 4
+    },
+    {
+      "name": "water3",
+      "directions": 4
+    },
+    {
+      "name": "water4",
+      "directions": 4
+    },
+    {
+      "name": "water5",
+      "directions": 4
+    },
+    {
+      "name": "water6",
+      "directions": 4
+    },
+    {
+      "name": "water7",
+      "directions": 4
+    }
+  ]
+}

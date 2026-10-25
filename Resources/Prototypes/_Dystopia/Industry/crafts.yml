@@ -8254,6 +8254,99 @@
     entity: DystopiaCableControlStack
 
 - type: constructionGraph
+  id: DystopiaSpentFuelPoolCellCraft
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: s1
+      steps:
+      - material: DystopiaConcreteBlock
+        amount: 4
+        doAfter: 3.33
+
+  - node: s1
+    entity: DystopiaSiteSpentFuelPoolCell
+    edges:
+    - to: s2
+      steps:
+      - material: DystopiaSheetStainlessSteel
+        amount: 2
+        doAfter: 3.33
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaConcreteBlock1
+        amount: 4
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: s2
+    entity: DystopiaSiteSpentFuelPoolCell
+    edges:
+    - to: done
+      steps:
+      - material: DystopiaCement
+        amount: 1
+        doAfter: 3.33
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaConcreteBlock1
+        amount: 4
+      - !type:SpawnPrototype
+        prototype: DystopiaSheetStainlessSteel1
+        amount: 2
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: done
+    entity: DystopiaSpentFuelPoolCell
+    edges:
+    - to: start
+      completed:
+      - !type:EmptyContainer
+        container: dystopia_pool_rod
+      - !type:SpawnPrototype
+        prototype: DystopiaConcreteBlock1
+        amount: 4
+      - !type:SpawnPrototype
+        prototype: DystopiaSheetStainlessSteel1
+        amount: 2
+      - !type:SpawnPrototype
+        prototype: DystopiaCement1
+        amount: 1
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 5
+
+- type: constructionGraph
+  id: DystopiaGrabberCraft
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: done
+      steps:
+      - material: Steel
+        amount: 2
+        doAfter: 1.67
+      - material: MetalRod
+        amount: 2
+        doAfter: 1.67
+      - material: DystopiaGear
+        amount: 1
+        doAfter: 1.67
+
+  - node: done
+    entity: DystopiaGrabber
+
+- type: constructionGraph
   id: DystopiaForgeElectricCraft
   start: start
   graph:
@@ -9688,4 +9781,26 @@
   startNode: start
   targetNode: done
   category: construction-category-dystopia-industry-tools
+  objectType: Item
+
+- type: construction
+  id: DystopiaSpentFuelPoolCellCraft
+  graph: DystopiaSpentFuelPoolCellCraft
+  startNode: start
+  targetNode: done
+  category: construction-category-dystopia-industry-nuclear
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: false
+  conditions:
+  - !type:TileNotBlocked
+  - !type:NoUnstackableInTile
+
+- type: construction
+  id: DystopiaGrabberCraft
+  graph: DystopiaGrabberCraft
+  startNode: start
+  targetNode: done
+  category: construction-category-dystopia-industry-nuclear
   objectType: Item

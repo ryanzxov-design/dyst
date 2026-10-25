@@ -1880,7 +1880,12 @@
     drawdepth: Items
     noRot: false
     sprite: _Dystopia/Objects/Materials/Nuclear/fuel_rod.rsi
-    state: rod_E2
+    layers:
+    - state: rod_E2
+    - state: rod_glow
+      map: [ "enum.DystopiaHeatVisuals.Hot" ]
+      shader: unshaded
+      visible: false
   - type: Pullable
   - type: DamageExaminable
   - type: Rotatable
@@ -1900,9 +1905,21 @@
     intensity: 0.1
     slope: 0.5
   - type: DystopiaFuelRod
+    baseRadiation: 0.1
     reactivity: 1.2
     energy: 600000
-
+  - type: DystopiaHotItem   # облучённый ТВЭЛ раскалён остаточным теплом — только захватом
+    burnDamage:
+      types:
+        Heat: 4
+  - type: GenericVisualizer
+    visuals:
+      enum.DystopiaHeatVisuals.Hot:
+        enum.DystopiaHeatVisuals.Hot:
+          True: { visible: true }
+          False: { visible: false }
+  - type: Tag
+    tags: [ DystopiaGrabberGrip ]
 - type: entity
   id: DystopiaFuelRodE4
   name: fuel rod (4%)
@@ -1951,7 +1968,12 @@
     drawdepth: Items
     noRot: false
     sprite: _Dystopia/Objects/Materials/Nuclear/fuel_rod.rsi
-    state: rod_E4
+    layers:
+    - state: rod_E4
+    - state: rod_glow
+      map: [ "enum.DystopiaHeatVisuals.Hot" ]
+      shader: unshaded
+      visible: false
   - type: Pullable
   - type: DamageExaminable
   - type: Rotatable
@@ -1971,9 +1993,21 @@
     intensity: 0.15
     slope: 0.5
   - type: DystopiaFuelRod
+    baseRadiation: 0.15
     reactivity: 1.5
     energy: 1200000
-
+  - type: DystopiaHotItem   # облучённый ТВЭЛ раскалён остаточным теплом — только захватом
+    burnDamage:
+      types:
+        Heat: 4
+  - type: GenericVisualizer
+    visuals:
+      enum.DystopiaHeatVisuals.Hot:
+        enum.DystopiaHeatVisuals.Hot:
+          True: { visible: true }
+          False: { visible: false }
+  - type: Tag
+    tags: [ DystopiaGrabberGrip ]
 - type: entity
   id: DystopiaFuelRodE20
   name: fuel rod (20%)
@@ -2022,7 +2056,12 @@
     drawdepth: Items
     noRot: false
     sprite: _Dystopia/Objects/Materials/Nuclear/fuel_rod.rsi
-    state: rod_E20
+    layers:
+    - state: rod_E20
+    - state: rod_glow
+      map: [ "enum.DystopiaHeatVisuals.Hot" ]
+      shader: unshaded
+      visible: false
   - type: Pullable
   - type: DamageExaminable
   - type: Rotatable
@@ -2042,5 +2081,18 @@
     intensity: 0.4
     slope: 0.5
   - type: DystopiaFuelRod
+    baseRadiation: 0.4
     reactivity: 1.8
     energy: 2400000
+  - type: DystopiaHotItem   # облучённый ТВЭЛ раскалён остаточным теплом — только захватом
+    burnDamage:
+      types:
+        Heat: 4
+  - type: GenericVisualizer
+    visuals:
+      enum.DystopiaHeatVisuals.Hot:
+        enum.DystopiaHeatVisuals.Hot:
+          True: { visible: true }
+          False: { visible: false }
+  - type: Tag
+    tags: [ DystopiaGrabberGrip ]

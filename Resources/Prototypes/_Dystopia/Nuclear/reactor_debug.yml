@@ -1,0 +1,162 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: отладка реактора (gen_energy3b.py) — размещение по шаблону и пульт отладки
+# (DystopiaReactorDebugSystem). Знаки шаблона — legend; F — топливный канал с ТВЭЛом шаблона.
+
+- type: entity
+  id: DystopiaReactorPlacer
+  name: reactor placer
+  description: Debug tool. Click a tile and a reactor is built around it from the chosen template, rods in and drums full. Alternative action switches the template.
+  suffix: Debug
+  components:
+  - type: Item
+    size: Small
+    sprite: _Dystopia/Objects/Devices/reactor_placer.rsi
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Items/multitool_drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Devices/reactor_placer.rsi
+    layers:
+    - state: icon
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: DystopiaReactorPlacer
+    fuelKeys: F
+    legend:
+      G: DystopiaReactorColumnGraphite
+      F: DystopiaReactorColumnFuel
+      E: DystopiaReactorColumnFuel
+      C: DystopiaReactorColumnControl
+      W: DystopiaReactorColumnCoolant
+      B: DystopiaReactorSeparator
+      P: DystopiaReactorConsole
+      S: DystopiaSpentFuelPoolCell
+    layouts:
+    - name: dystopia-reactor-layout-simple
+      rod: DystopiaFuelRodE4
+      rows:
+      - "B G W G B"
+      - "G F C F G"
+      - "W C F C W"
+      - "G F C F G"
+      - "P G W G ."
+    - name: dystopia-reactor-layout-graphite
+      rod: DystopiaFuelRodE4
+      rows:
+      - "B G G G ."
+      - "G F C F G"
+      - "G C F C G"
+      - "G F C F G"
+      - "P G G G ."
+    - name: dystopia-reactor-layout-large
+      rod: DystopiaFuelRodE4
+      rows:
+      - "B G W G W G B"
+      - "G F C F C F G"
+      - "W C F C F C W"
+      - "G F C F C F G"
+      - "W C F C F C W"
+      - "G F C F C F G"
+      - "P G W G W G B"
+    - name: dystopia-reactor-layout-hot
+      rod: DystopiaFuelRodE20
+      rows:
+      - "B G W G B"
+      - "G F C F G"
+      - "W C F C W"
+      - "G F C F G"
+      - "P G W G ."
+    - name: dystopia-reactor-layout-pool
+      rows:
+      - "S S S S"
+      - "S S S S"
+
+- type: entity
+  id: DystopiaReactorDebugTool
+  name: reactor debug panel
+  description: "Debug tool. Click a reactor column, drum or console to link it and open the panel: temperatures, xenon, rods, fuel, water, pressure, time speed and accidents. Use in hand to reopen."
+  suffix: Debug
+  components:
+  - type: Item
+    size: Small
+    sprite: _Dystopia/Objects/Devices/reactor_debug.rsi
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Items/multitool_drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Devices/reactor_debug.rsi
+    layers:
+    - state: icon
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: DystopiaReactorDebugTool
+  - type: UserInterface
+    interfaces:
+      enum.DystopiaReactorDebugUiKey.Key:
+        type: DystopiaReactorDebugBoundUserInterface

@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Graphite ore from _Dystopia/Objects/Materials/NonMetals/ore.rsi (see its meta.json, itself from Objects/Materials/ore.rsi), recolored for Dystopia.",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "debris"
+    },
+    {
+      "name": "debris-inhand-left",
+      "directions": 4
+    },
+    {
+      "name": "debris-inhand-right",
+      "directions": 4
+    }
+  ]
+}

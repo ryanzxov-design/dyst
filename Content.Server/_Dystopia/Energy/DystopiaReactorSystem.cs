@@ -80,6 +80,9 @@ public sealed partial class DystopiaReactorSystem : EntitySystem
         public EntityUid? RadiationCenter;
     }
 
+    /// <summary>Отладка: сколько тактов за секунду (1 — обычное время).</summary>
+    public int Speed = 1;
+
     private readonly List<Reactor> _reactors = new();
     private readonly Dictionary<EntityUid, Reactor> _reactorOf = new();
     private bool _dirty = true;
@@ -101,6 +104,7 @@ public sealed partial class DystopiaReactorSystem : EntitySystem
         SubscribeLocalEvent<DystopiaReactorColumnComponent, ExaminedEvent>(OnColumnExamined);
         SubscribeLocalEvent<DystopiaFuelRodComponent, ExaminedEvent>(OnRodExamined);
         SubscribeLocalEvent<DystopiaReactorSeparatorComponent, ExaminedEvent>(OnSeparatorExamined);
+        InitializeFuel();
     }
 
     private void OnColumnAnchor(Entity<DystopiaReactorColumnComponent> ent, ref AnchorStateChangedEvent args)
@@ -243,17 +247,24 @@ public sealed partial class DystopiaReactorSystem : EntitySystem
         const float dt = 1f;
         _nextTick = now + TimeSpan.FromSeconds(dt);
 
-        if (_dirty)
-            Rebuild();
+        // отладка: Speed тактов за секунду (ускорение времени реактора, топлива и бассейнов)
+        for (var step = 0; step < Math.Clamp(Speed, 1, 50); step++)
+        {
+            if (_dirty)
+                Rebuild();
 
-        foreach (var reactor in _reactors)
-            Tick(reactor, cfg, dt);
+            foreach (var reactor in _reactors)
+                Tick(reactor, cfg, dt);
 
-        UpdateConsoles(cfg);
+            UpdateConsoles(cfg);
 
-        var separators = EntityQueryEnumerator<DystopiaReactorSeparatorComponent>();
-        while (separators.MoveNext(out var uid, out var separator))
-            SeparatorTick((uid, separator), cfg, dt);
+            var separators = EntityQueryEnumerator<DystopiaReactorSeparatorComponent>();
+            while (separators.MoveNext(out var uid, out var separator))
+                SeparatorTick((uid, separator), cfg, dt);
+
+            RodsTick(cfg, dt);
+            _pool.Tick(cfg, dt);
+        }
     }
 
     private EntityUid? Rod(EntityUid column, DystopiaReactorColumnComponent col)
@@ -463,7 +474,10 @@ public sealed partial class DystopiaReactorSystem : EntitySystem
                 col.Xenon = MathF.Max(0f,
                     col.Xenon + (col.Iodine * iodineDecay - col.Xenon * xenonDecay - col.Xenon * cfg.XenonBurn * p) * dt);
                 if (Rod(uid, col) is { } rodUid && TryComp<DystopiaFuelRodComponent>(rodUid, out var rod) && col.Power > 0f)
+                {
                     rod.Burnup = MathF.Min(1f, rod.Burnup + col.Power * dt / MathF.Max(1f, rod.Energy));
+                    rod.Activity += cfg.ActivityGain * p * dt; // продукты деления; распад — в RodsTick
+                }
                 xenonSum += MathF.Min(cfg.MaxXenonPoison, col.Xenon * cfg.XenonWorth);
                 fuelCount++;
                 // вид ТВЭЛа (SetData без изменений ничего не шлёт; нужно и после загрузки карты)
@@ -704,11 +718,24 @@ public sealed partial class DystopiaReactorSystem : EntitySystem
 
     private void OnInteractUsing(Entity<DystopiaReactorColumnComponent> ent, ref InteractUsingEvent args)
     {
-        if (args.Handled || ent.Comp.Kind != DystopiaReactorColumnKind.Fuel ||
-            !HasComp<DystopiaFuelRodComponent>(args.Used))
+        if (args.Handled || ent.Comp.Kind != DystopiaReactorColumnKind.Fuel)
+            return;
+
+        // захват: вынуть ТВЭЛ из канала или поставить зажатый
+        if (TryComp<DystopiaTongsComponent>(args.Used, out var tongs))
         {
+            var channel = _container.EnsureContainer<ContainerSlot>(ent, ent.Comp.FuelSlot);
+            if (TongsExchange((args.Used, tongs), args.User, channel))
+            {
+                args.Handled = true;
+                _appearance.SetData(ent, DystopiaReactorVisuals.Rod, ColumnRodGrade(ent, ent.Comp));
+            }
+
             return;
         }
+
+        if (!HasComp<DystopiaFuelRodComponent>(args.Used))
+            return;
 
         args.Handled = true;
         var slot = _container.EnsureContainer<ContainerSlot>(ent, ent.Comp.FuelSlot);
@@ -744,6 +771,13 @@ public sealed partial class DystopiaReactorSystem : EntitySystem
                 Text = Loc.GetString("dystopia-reactor-verb-extract"),
                 Act = () =>
                 {
+                    // облучённый ТВЭЛ раскалён — только захватом
+                    if (TryComp<DystopiaHotItemComponent>(rod, out var hotRod) && hotRod.Hot)
+                    {
+                        _popup.PopupEntity(Loc.GetString("dystopia-fuel-rod-too-hot"), ent, user);
+                        return;
+                    }
+
                     if (!_container.TryGetContainer(ent, ent.Comp.FuelSlot, out var slot) || !_container.Remove(rod, slot))
                         return;
 
@@ -820,6 +854,7 @@ public sealed partial class DystopiaReactorSystem : EntitySystem
         {
             args.PushMarkup(Loc.GetString(ent.Comp.Burnup >= 1f ? "dystopia-fuel-rod-spent" : "dystopia-fuel-rod-burnup",
                 ("burnup", (int) MathF.Round(ent.Comp.Burnup * 100f))));
+            ExamineActivity(ent, args);
         }
     }
 

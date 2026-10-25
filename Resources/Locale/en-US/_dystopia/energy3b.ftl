@@ -1,0 +1,52 @@
+# Dystopia: энергетика, шаг 3б — облучённое топливо, бассейн, захват, кориум, отладка (gen_energy3b.py).
+
+dystopia-fuel-rod-too-hot = The fuel rod is hot with decay heat: use a grabber.
+dystopia-fuel-rod-irradiated = [color=#ff8a50]Irradiated:[/color] decay heat { $heat } kW, radiation { $rads } rad/s. Keep it under water for about { $minutes } more min.
+dystopia-fuel-rod-cooled = Cooled: decay heat { $heat } kW, radiation { $rads } rad/s. It can go into a lead container.
+dystopia-grabber-placed = The grabber sets { $item } in.
+dystopia-grabber-taken = The grabber pulls { $item } out.
+dystopia-pool-occupied = There is already a fuel rod in the cell.
+dystopia-pool-rod-placed = The fuel rod goes under the water.
+dystopia-pool-examine-water = Water: { $water }%.
+dystopia-pool-examine-rod = In the cell: { $rod }.
+dystopia-pool-examine-empty = The cell is empty.
+dystopia-pool-examine-low = [color=#e05040]Water is low: the rod is not cooled and shines out![/color]
+dystopia-reactor-placer-examine = Template: { $layout }.
+dystopia-reactor-placer-next = Next template
+dystopia-reactor-placer-no-grid = There is no floor here.
+dystopia-reactor-placer-done = Built: { $layout } ({ $count } pieces).
+dystopia-reactor-layout-simple = 5×5, steam-water channels in the ring, 4% fuel
+dystopia-reactor-layout-graphite = 5×5, graphite ring, 4% fuel
+dystopia-reactor-layout-large = 7×7, 13 rods of 4% fuel
+dystopia-reactor-layout-hot = 5×5, 20% fuel
+dystopia-reactor-layout-pool = spent fuel pool 4×2
+dystopia-reactor-debug-title = Reactor debug
+dystopia-reactor-debug-linked = Reactor linked.
+dystopia-reactor-debug-unlinked = No reactor linked: click a column, drum or console with the debug panel.
+dystopia-reactor-debug-summary-1 = { $columns } columns · { $power } MW · hottest { $temperature } °C · xenon { $xenon }%
+dystopia-reactor-debug-summary-2 = { $rods } control rods, { $insertion }% in · { $fuel } fuel rods, burnup { $burnup }%, activity { $activity }
+dystopia-reactor-debug-summary-3 = { $separators } drums · water { $water }/{ $max } · { $pressure } kPa · steam { $steam } mol/s
+dystopia-reactor-debug-value = Value for “Set”:
+dystopia-reactor-debug-speed = Reactor time speed: ×{ $speed }
+dystopia-reactor-debug-set = Set
+dystopia-reactor-debug-clear = Clear
+dystopia-reactor-debug-max = Max
+dystopia-reactor-debug-fill = Fill
+dystopia-reactor-debug-drain = Drain
+dystopia-reactor-debug-explosion = Steam explosion
+dystopia-reactor-debug-meltdown = Meltdown (fuel 1500 °C)
+dystopia-reactor-debug-break = Break a channel
+dystopia-reactor-debug-corium = Corium at the centre
+dystopia-reactor-debug-fire = Burning graphite
+dystopia-reactor-debug-dust = Contamination
+dystopia-reactor-debug-row-temperature = Column temperature
+dystopia-reactor-debug-row-xenon = Xenon and iodine
+dystopia-reactor-debug-row-rods = Rods (instantly)
+dystopia-reactor-debug-row-burnup = Fuel burnup
+dystopia-reactor-debug-row-activity = Fuel activity
+dystopia-reactor-debug-row-water = Drum water
+dystopia-reactor-debug-row-pressure = Drum pressure, kPa
+dystopia-reactor-debug-row-kick = Flux kick
+dystopia-reactor-debug-row-speed = Time speed
+dystopia-reactor-debug-row-accident = Accident
+dystopia-reactor-debug-row-aftermath = Aftermath

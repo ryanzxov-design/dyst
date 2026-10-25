@@ -2060,3 +2060,36 @@
         density: 500
         mask: [ MachineMask ]
         layer: [ MachineLayer ]
+
+- type: entity
+  id: DystopiaSiteSpentFuelPoolCell
+  name: construction site
+  description: Unfinished construction. Examine it to see what goes in next.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _Dystopia/Structures/Nuclear/spent_fuel_pool.rsi
+    state: rim
+    color: "#FFFFFF80"
+    drawdepth: FloorObjects
+    noRot: true
+  - type: Construction
+    graph: DystopiaSpentFuelPoolCellCraft
+    node: s1
+  - type: Tag
+    tags: [ Unstackable ]
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.48,-0.48,0.48,0.48"
+        density: 1000
+        mask: [ TableMask ]
+        layer: [ TableLayer ]

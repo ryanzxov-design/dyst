@@ -79,7 +79,6 @@
       - !type:PlaySoundBehavior
         sound:
           collection: MetalBreak
-      - !type:EmptyAllContainersBehaviour
       - !type:SpawnEntitiesBehavior
         spawn:
           SheetSteel1:

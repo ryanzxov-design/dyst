@@ -1,0 +1,402 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: энергетика, шаг 3б (gen_energy3b.py) — бассейн выдержки, захват, кориум, обломки графита.
+# Поведение — DystopiaSpentFuelPoolSystem, DystopiaReactorSystem.Fuel, DystopiaCoriumSystem.
+
+- type: Tag
+  id: DystopiaGrabberGrip   # что можно взять захватом: ТВЭЛы, куски кориума
+
+- type: entity
+  id: DystopiaSpentFuelPoolCell
+  name: spent fuel pool cell
+  description: "A concrete well lined with stainless steel, deep enough to stand a fuel rod in under water. Cells set side by side make one pool with shared water; fill it from a liquid exporter. Water stops the rod's radiation and carries off its heat, boiling away slowly: keep it topped up."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaSpentFuelPoolCellCraft
+    node: done
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.48,-0.48,0.48,0.48"
+        density: 1000
+        mask: [ TableMask ]
+        layer: [ TableLayer ]
+  - type: Tag
+    tags: [ Structure, Unstackable ]
+  - type: Sprite
+    sprite: _Dystopia/Structures/Nuclear/spent_fuel_pool.rsi
+    noRot: true
+    drawdepth: FloorObjects
+    layers:
+    - state: rim
+    - state: water0
+      map: [ "enum.DystopiaPoolVisuals.Water" ]
+    - state: rod
+      map: [ "enum.DystopiaPoolVisuals.Rod" ]
+      visible: false
+    - state: glow
+      map: [ "enum.DystopiaPoolVisuals.Glow" ]
+      shader: unshaded
+      visible: false
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DystopiaPoolVisuals.Water:
+        enum.DystopiaPoolVisuals.Water:
+          "0": { state: water0 }
+          "1": { state: water1 }
+          "2": { state: water2 }
+      enum.DystopiaPoolVisuals.Rod:
+        enum.DystopiaPoolVisuals.Rod:
+          True: { visible: true }
+          False: { visible: false }
+      enum.DystopiaPoolVisuals.Glow:
+        enum.DystopiaPoolVisuals.Glow:
+          True: { visible: true }
+          False: { visible: false }
+  - type: PointLight   # черенковское свечение видно и без лампы
+    enabled: true
+    radius: 1.2
+    energy: 0.4
+    color: "#58a8ff"
+    castShadows: false
+  - type: Solution
+    id: water
+    solution:
+      maxVol: 400
+      canReact: false
+  - type: RefillableSolution
+    solution: water
+  - type: DrainableSolution
+    solution: water
+  - type: DystopiaLiquidInputFilter   # экспортер наливает только воду
+    solution: water
+    reagents: [ Water ]
+  - type: ContainerContainer
+    containers:
+      dystopia_pool_rod: !type:ContainerSlot
+  - type: DystopiaSpentFuelPoolCell
+    dryDamage:
+      types:
+        Heat: 2
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 300
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:SpillBehavior
+        solution: water
+      - !type:EmptyAllContainersBehaviour
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 1
+            max: 1
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+
+- type: entity
+  id: DystopiaGrabber
+  name: fuel grabber
+  description: A long pole with a sprung jaw for fuel rods and corium lumps. Poke a fuel channel or a pool cell to take a rod out or set the held one in; poke the floor to put it down. The length keeps some of the radiation off your hands.
+  components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaGrabberCraft
+    node: done
+  - type: Item
+    size: Large
+    sprite: _Dystopia/Objects/Industry/grabber.rsi
+    storedRotation: -90
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Items/wirecutter_drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Industry/grabber.rsi
+    layers:
+    - state: icon
+    - state: icon-held
+      map:
+      - enum.DystopiaTongsVisuals.Holding
+      visible: false
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DystopiaTongsVisuals.Holding:
+        enum.DystopiaTongsVisuals.Holding:
+          true:
+            visible: true
+          false:
+            visible: false
+  - type: ContainerContainer
+    containers:
+      dystopia_grabber_grip: !type:ContainerSlot {}
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: MeleeWeapon
+    wideAnimationRotation: -90
+    damage:
+      types:
+        Blunt: 4
+    attackRate: 1.5
+  - type: PhysicalComposition
+    materialComposition:
+      Steel: 25
+  - type: DystopiaTongs
+    slot: dystopia_grabber_grip
+    whitelist:
+      tags: [ DystopiaGrabberGrip ]
+    gripSound:
+      path: /Audio/Items/wirecutter.ogg
+    releaseSound:
+      path: /Audio/Effects/drop.ogg
+    pourSound:
+      path: /Audio/Effects/Fluids/glug.ogg
+  - type: RadiationBlockingContainer
+    resistance: 2
+
+- type: entity
+  id: DystopiaCorium
+  name: corium
+  description: "Molten reactor fuel mixed with the cladding and the graphite. It glows, burns whoever steps in it and shines a lethal dose. In a few minutes it sets into a solid lump."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+  - type: Clickable
+  - type: TileEmission
+    color: "#FF7A20"
+  - type: StepTrigger
+    requiredTriggeredSpeed: 0
+    intersectRatio: 0.1
+  - type: TileEntityEffect
+    effects:
+    - !type:Flammable
+      multiplier: 3.75
+      multiplierOnExisting: 0.75
+    - !type:Ignite
+  - type: SyncSprite
+  - type: Sprite
+    sprite: _Dystopia/Structures/Nuclear/corium.rsi
+    drawdepth: BelowFloor
+  - type: Icon
+    sprite: _Dystopia/Structures/Nuclear/corium.rsi
+    state: full
+  - type: IconSmooth
+    key: dystopiaCorium
+    base: water
+    additionalKeys:
+    - walls
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        layer:
+        - SlipLayer
+        mask:
+        - ItemMask
+        density: 1000
+        hard: false
+  - type: PointLight
+    radius: 2.5
+    energy: 2
+    color: "#ff8a30"
+    castShadows: false
+  - type: RadiationSource
+    intensity: 6
+    slope: 0.5
+  - type: DystopiaCorium
+    solidifyTime: 300
+    solid: DystopiaCoriumSolid
+
+- type: entity
+  id: DystopiaCoriumSolid
+  name: solidified corium
+  description: "A lump of set reactor melt, glassy and cracked, still warm inside. It shines hard. Break it apart with a pickaxe or a sledgehammer and carry the pieces off with a grabber into a lead container."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.4,-0.4,0.4,0.3"
+        density: 2000
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]
+  - type: Sprite
+    sprite: _Dystopia/Structures/Nuclear/corium_solid.rsi
+    noRot: true
+    drawdepth: Objects
+    layers:
+    - state: icon
+    - state: glow
+      shader: unshaded
+  - type: PointLight
+    radius: 1.5
+    energy: 0.8
+    color: "#ff6a20"
+    castShadows: false
+  - type: RadiationSource
+    intensity: 3
+    slope: 0.4
+  - type: Damageable
+    damageModifierSet: Rock
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 300
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/Effects/break_stone.ogg
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          DystopiaCoriumChunk:
+            min: 3
+            max: 3
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+
+- type: entity
+  id: DystopiaCoriumChunk
+  name: corium lump
+  description: "A piece of solidified reactor melt. It is warm and shines hard: carry it only with a grabber and keep it in a lead container."
+  components:
+  - type: Sprite
+    sprite: _Dystopia/Objects/Materials/Nuclear/corium_chunk.rsi
+    state: chunk
+  - type: Item
+    sprite: _Dystopia/Objects/Materials/Nuclear/corium_chunk.rsi
+    heldPrefix: chunk
+    size: Normal
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Physics
+    bodyType: Dynamic
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.2,-0.2,0.2,0.2"
+        density: 200
+        mask: [ ItemMask ]
+  - type: CollisionWake
+  - type: Pullable
+  - type: RadiationSource
+    intensity: 1.5
+    slope: 0.5
+  - type: DystopiaHotItem   # тёплый и светит — руками нельзя, только захватом
+    hot: true
+    burnDamage:
+      types:
+        Heat: 4
+  - type: Tag
+    tags: [ DystopiaGrabberGrip ]
+
+- type: entity
+  id: DystopiaGraphiteDebris
+  name: graphite debris
+  description: "A broken piece of the reactor's graphite stack, irradiated through. Hot graphite burns in air for a long time; put it out with water or an extinguisher, then carry it off to a lead container."
+  components:
+  - type: Sprite
+    sprite: _Dystopia/Objects/Materials/Nuclear/graphite_debris.rsi
+    state: debris
+  - type: Item
+    sprite: _Dystopia/Objects/Materials/Nuclear/graphite_debris.rsi
+    heldPrefix: debris
+    size: Normal
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Physics
+    bodyType: Dynamic
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 100
+        mask: [ ItemMask ]
+  - type: CollisionWake
+  - type: Pullable
+  - type: RadiationSource
+    intensity: 0.8
+    slope: 0.5
+  - type: Flammable   # горит минут десять, если не потушить
+    fireSpread: true
+    canResistFire: false
+    alwaysCombustible: true
+    canExtinguish: true
+    firestacksOnIgnite: 10
+    firestackFade: -0.015
+    damage:
+      types:
+        Heat: 0
+  - type: FireVisuals
+    sprite: Effects/fire.rsi
+    normalState: fire
+  - type: Appearance
+  - type: Tag
+    tags: [ DystopiaGrabberGrip ]

@@ -93,6 +93,23 @@ public sealed partial class DystopiaFuelRodComponent : Component
     /// <summary>Выгорание 0…1.</summary>
     [DataField]
     public float Burnup;
+
+    /// <summary>
+    /// Короткоживущие продукты деления (шаг 3б): копятся, пока ТВЭЛ работает, и распадаются везде. От них остаточное
+    /// тепло (ТВЭЛ раскалён — только захватом), излучение и, на воздухе, разрушение оболочки (радиоактивная пыль).
+    /// </summary>
+    [DataField]
+    public float Activity;
+
+    /// <summary>Излучение свежего ТВЭЛа, рад/с (к нему добавляются выгорание и активность).</summary>
+    [DataField]
+    public float BaseRadiation = 0.1f;
+
+    [ViewVariables]
+    public float LastIntensity = -1f;
+
+    [ViewVariables]
+    public TimeSpan NextShed;
 }
 
 /// <summary>Барабан-сепаратор: вода от экспортера, пар реактора — в газовую трубу (выравнивает давление с ней).</summary>
@@ -249,6 +266,36 @@ public sealed partial class DystopiaReactorPrototype : IPrototype
     // излучение: рад/с в центре реактора на МВт тепловых и за каждый загруженный ТВЭЛ
     [DataField] public float RadsPerMegawatt = 0.4f;
     [DataField] public float RadsPerRod = 0.05f;
+
+    // облучённое топливо (шаг 3б)
+    [DataField] public float ActivityGain = 0.0385f;       // активности в секунду при номинальной мощности канала
+    [DataField] public float ActivityHalfLife = 180f;      // с
+    [DataField] public float RadsPerActivity = 0.4f;       // рад/с на единицу активности
+    [DataField] public float SpentRads = 0.5f;             // рад/с при полном выгорании (долгоживущие)
+    [DataField] public float HotActivity = 1f;             // выше — ТВЭЛ раскалён: голой рукой не взять
+    [DataField] public float DecayHeatPerActivity = 3f;    // кВт остаточного тепла на единицу активности
+    [DataField] public float AirShedActivity = 5f;         // выше — на воздухе оболочка трескается и сыплет пыль
+    [DataField] public float AirShedInterval = 15f;        // с
+    [DataField] public float AirShedUnits = 3f;            // ед. радиоактивной пыли за раз
+    [DataField] public string ShedReagent = "DystopiaRadioactiveDust";
+
+    // авария (шаг 3б)
+    [DataField] public EntProtoId Corium = "DystopiaCorium";
+    [DataField] public EntProtoId GraphiteDebris = "DystopiaGraphiteDebris";
+    [DataField] public float ExplosionMinPower = 1000f;    // кВт: ниже разрыв канала без парового взрыва
+    [DataField] public float ExplosionPerMegawatt = 500f;  // полная сила взрыва на МВт тепловых
+    [DataField] public float ExplosionMinIntensity = 800f;
+    [DataField] public float ExplosionMaxIntensity = 8000f;
+    [DataField] public float ExplosionSlope = 2f;
+    [DataField] public float ExplosionMaxTile = 40f;
+    [DataField] public float ExplosionCooldown = 60f;      // с: один взрыв на одну аварию
+    [DataField] public int DebrisPerGraphite = 1;          // горящих обломков на каждую графитовую колонну
+    [DataField] public float DebrisRadius = 8f;            // клеток
+    [DataField] public int ContaminationPuddles = 80;
+    [DataField] public float ContaminationRadius = 25f;    // клеток
+    [DataField] public float ContaminationMaxUnits = 25f;  // у эпицентра; к краю — до ContaminationMinUnits
+    [DataField] public float ContaminationMinUnits = 3f;
+    [DataField] public int CoriumSpread = 2;               // сколько соседних клеток ещё заливает кориум
 }
 
 [Serializable, NetSerializable]

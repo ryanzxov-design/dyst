@@ -17,6 +17,9 @@
       "name": "rod_E20"
     },
     {
+      "name": "rod_glow"
+    },
+    {
       "name": "rod-inhand-left",
       "directions": 4
     },
