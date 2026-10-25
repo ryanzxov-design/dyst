@@ -78,7 +78,8 @@ public sealed class DystopiaReactorDebugWindow : CityWindow
         Row(rows, "accident",
             (Loc.GetString("dystopia-reactor-debug-explosion"), DystopiaReactorDebugActions.Explosion, 0f),
             (Loc.GetString("dystopia-reactor-debug-meltdown"), DystopiaReactorDebugActions.Meltdown, 0f),
-            (Loc.GetString("dystopia-reactor-debug-break"), DystopiaReactorDebugActions.BreakChannel, 0f));
+            (Loc.GetString("dystopia-reactor-debug-break"), DystopiaReactorDebugActions.BreakChannel, 0f),
+            (Loc.GetString("dystopia-reactor-debug-runaway"), DystopiaReactorDebugActions.Runaway, 0f));
         Row(rows, "aftermath",
             (Loc.GetString("dystopia-reactor-debug-corium"), DystopiaReactorDebugActions.Corium, 0f),
             (Loc.GetString("dystopia-reactor-debug-fire"), DystopiaReactorDebugActions.GraphiteFire, 0f),

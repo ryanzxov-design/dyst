@@ -5,6 +5,7 @@
 // Разрушенный горячий топливный канал — кориум вместо ТВЭЛа; на большой мощности — паровой взрыв: обломки горящего
 // графита по залу и радиоактивная пыль на большую область. Отладка — публичные методы ниже.
 
+using System.Linq;
 using System.Numerics;
 using Content.Server.Atmos.EntitySystems;
 using Content.Server.Explosion.EntitySystems;
@@ -188,9 +189,7 @@ public sealed partial class DystopiaReactorSystem
             return;
 
         var ent = new Entity<DystopiaReactorColumnComponent>(uid, component);
-
-        if (_dirty)
-            Rebuild();
+        // без пересборки: у пересобранного реактора ещё нет мощности прошлого такта
 
         var col = ent.Comp;
         var coords = _xform.GetMoverCoordinates(ent);
@@ -220,6 +219,54 @@ public sealed partial class DystopiaReactorSystem
 
         if (exploding && hot)
             SteamExplosion(reactor!, cfg, false);
+    }
+
+    /// <summary>Сколько тактов подряд реактор (сетка, угол) идёт вразнос.</summary>
+    private readonly Dictionary<(EntityUid, Vector2i), int> _runaway = new();
+
+    /// <summary>
+    /// Разгон: мощность выше RuptureFactor × съёма водой (не меньше 1 МВт) RuptureTime тактов подряд — топливные каналы
+    /// рвёт паром разом (кориум, паровой взрыв — через OnColumnDestroyed).
+    /// </summary>
+    private void CheckRupture(DystopiaReactorPrototype cfg)
+    {
+        if (cfg.RuptureFactor <= 0f)
+            return;
+
+        foreach (var reactor in _reactors.ToArray())
+        {
+            var key = (reactor.Grid, reactor.Min);
+            if (reactor.ThermalPower <= cfg.RuptureFactor * MathF.Max(1000f, CoolingCapacity(reactor)))
+            {
+                _runaway.Remove(key);
+                continue;
+            }
+
+            var ticks = _runaway.GetValueOrDefault(key) + 1;
+            _runaway[key] = ticks;
+            if (ticks < cfg.RuptureTime)
+                continue;
+
+            _runaway.Remove(key);
+            Rupture(reactor, cfg);
+        }
+    }
+
+    /// <summary>Разрыв всех топливных каналов реактора разом (раскалены — значит, кориум и взрыв).</summary>
+    public void Rupture(Reactor reactor, DystopiaReactorPrototype cfg)
+    {
+        SteamExplosion(reactor, cfg, false);
+        foreach (var uid in reactor.Columns.ToArray())
+        {
+            if (TerminatingOrDeleted(uid) || !TryComp<DystopiaReactorColumnComponent>(uid, out var col) ||
+                col.Kind != DystopiaReactorColumnKind.Fuel)
+            {
+                continue;
+            }
+
+            col.Temperature = MathF.Max(col.Temperature, cfg.DamageTemperature + 300f);
+            DamageColumn(uid, 100000f);
+        }
     }
 
     /// <summary>Центр реактора (клетка колонны, ближайшей к середине) в координатах сетки.</summary>

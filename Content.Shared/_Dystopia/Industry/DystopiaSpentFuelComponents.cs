@@ -144,6 +144,7 @@ public static class DystopiaReactorDebugActions
     public const string Contamination = "contamination";
     public const string BreakChannel = "break-channel";
     public const string ResetScram = "reset-scram";
+    public const string Runaway = "runaway";
 }
 
 [Serializable, NetSerializable]

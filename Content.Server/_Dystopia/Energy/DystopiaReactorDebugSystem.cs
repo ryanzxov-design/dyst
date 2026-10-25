@@ -300,10 +300,41 @@ public sealed partial class DystopiaReactorDebugSystem : EntitySystem
                 _reactor.SteamExplosion(reactor, cfg, true);
                 break;
             case DystopiaReactorDebugActions.Meltdown:
+                // топливо раскалено и каналы разрушены сразу: кориум; взрыв — если реактор на мощности
+                foreach (var (uid, col) in Columns(reactor).ToList())
+                {
+                    if (col.Kind != DystopiaReactorColumnKind.Fuel)
+                        continue;
+
+                    col.Temperature = MathF.Max(col.Temperature, 1500f);
+                    _reactor.DamageColumn(uid, 100000f);
+                }
+
+                break;
+            case DystopiaReactorDebugActions.Runaway:
+                // все стержни вынуты, автоматика пультов выключена, толчок потока — разгон до разрыва
                 foreach (var (_, col) in Columns(reactor))
                 {
-                    if (col.Kind == DystopiaReactorColumnKind.Fuel)
-                        col.Temperature = MathF.Max(col.Temperature, 1500f);
+                    if (col.Kind == DystopiaReactorColumnKind.Control)
+                    {
+                        col.Insertion = col.Target = 0f;
+                        col.Scrammed = false;
+                        col.Displacer = false;
+                    }
+                    else if (col.Kind == DystopiaReactorColumnKind.Fuel)
+                    {
+                        col.Flux += 3000f;
+                    }
+                }
+
+                var consoles = EntityQueryEnumerator<DystopiaReactorConsoleComponent>();
+                while (consoles.MoveNext(out var consoleUid, out var console))
+                {
+                    if (_reactor.FindReactor(consoleUid, console.ControlNode) != reactor)
+                        continue;
+
+                    console.AutoScram = false;
+                    console.AutoRegulator = false;
                 }
 
                 break;

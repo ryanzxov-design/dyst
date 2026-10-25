@@ -78,6 +78,10 @@ public sealed partial class DystopiaReactorColumnComponent : Component
 
     [ViewVariables]
     public int HeatLevel;
+
+    /// <summary>Стержень идёт вниз из верхнего положения: вытеснитель ещё в зоне (концевой эффект).</summary>
+    [ViewVariables]
+    public bool Displacer;
 }
 
 /// <summary>ТВЭЛ: сколько даёт нейтронов на пришедший (до выгорания) и сколько тепла в нём, кДж.</summary>
@@ -172,6 +176,10 @@ public sealed partial class DystopiaReactorConsoleComponent : Component
     [DataField]
     public float AutoScramTemperature = 900f;
 
+    /// <summary>Защита по мощности: выше этой кратности того, что каналы снимают водой, — сброс всех стержней.</summary>
+    [DataField]
+    public float AutoScramPower = 2f;
+
     [DataField]
     public SoundSpecifier? AlarmSound = new SoundPathSpecifier("/Audio/Machines/alarm.ogg");
 
@@ -228,7 +236,7 @@ public sealed partial class DystopiaReactorPrototype : IPrototype
     [DataField] public float CoolantCoolingCap = 800f;     // кВт — пароводяной канал
     [DataField] public float PassiveCooling = 0.0002f;     // доля разницы с 20 °C в секунду
     [DataField] public float Doppler = 0.0003f;            // −реактивность на °C выше кипения
-    [DataField] public float VoidBoost = 1.08f;            // без воды — реактивнее
+    [DataField] public float VoidBoost = 1.25f;            // без воды — реактивнее (паровой эффект)
     [DataField] public float SteamEnergy = 240f;           // кДж на моль пара
     [DataField] public float WaterPerMole = 2f;            // ед. воды на моль пара
     [DataField] public float SteamTemperature = 573.15f;   // K
@@ -243,7 +251,17 @@ public sealed partial class DystopiaReactorPrototype : IPrototype
 
     // стержни
     [DataField] public float RodSpeed = 0.05f;
-    [DataField] public float ScramSpeed = 0.2f;
+    [DataField] public float ScramSpeed = 0.08f;           // АЗ: от верха до низа ~12 с
+
+    // концевой эффект: стержень, пошедший вниз почти из верхнего положения (погружение < EndEffectStart), пока не
+    // дошёл до EndEffectDepth, графитовым вытеснителем выдавливает воду — нейтронов через канал больше, а не меньше
+    [DataField] public float EndEffect = 0.6f;
+    [DataField] public float EndEffectStart = 0.1f;
+    [DataField] public float EndEffectDepth = 0.25f;
+
+    // разгон: мощность выше RuptureFactor × съёма водой (не меньше 1 МВт) RuptureTime тактов подряд — каналы рвёт паром
+    [DataField] public float RuptureFactor = 5f;
+    [DataField] public int RuptureTime = 2;
 
     // авторегулятор: шаг уставки стержней группы 1 за такт = усиление × отклонение + демпфер × скорость роста мощности
     [DataField] public float RegulatorGain = 0.02f;

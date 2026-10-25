@@ -256,6 +256,8 @@ public sealed partial class DystopiaReactorSystem : EntitySystem
             foreach (var reactor in _reactors)
                 Tick(reactor, cfg, dt);
 
+            CheckRupture(cfg);
+
             UpdateConsoles(cfg);
 
             var separators = EntityQueryEnumerator<DystopiaReactorSeparatorComponent>();
@@ -348,6 +350,8 @@ public sealed partial class DystopiaReactorSystem : EntitySystem
                         case DystopiaReactorColumnKind.Control:
                             // канал стержня стоит в графитовом блоке (с вытеснителем): замедляет, стержень — поглощает
                             f *= (1f - tc.Insertion * cfg.RodAbsorb) * cfg.ControlPass;
+                            if (tc.Displacer)
+                                f *= 1f + cfg.EndEffect;
                             moderated = true;
                             break;
                         default: // пароводяной или пустой топливный канал — вода в графитовом блоке: замедляет, чуть поглощает
@@ -488,9 +492,23 @@ public sealed partial class DystopiaReactorSystem : EntitySystem
             {
                 var target = col.Scrammed ? 1f : col.Target;
                 var speed = (col.Scrammed ? cfg.ScramSpeed : cfg.RodSpeed) * dt;
+                var previous = col.Insertion;
                 col.Insertion = col.Insertion < target
                     ? MathF.Min(target, col.Insertion + speed)
                     : MathF.Max(target, col.Insertion - speed);
+
+                // концевой эффект: пошёл вниз почти из верхнего положения — вытеснитель в зоне, пока не опустится глубже
+                if (col.Insertion > previous)
+                {
+                    if (previous < cfg.EndEffectStart)
+                        col.Displacer = true;
+                    if (col.Insertion >= cfg.EndEffectDepth)
+                        col.Displacer = false;
+                }
+                else
+                {
+                    col.Displacer = false;
+                }
                 _appearance.SetData(uid, DystopiaReactorVisuals.Insertion, (int) MathF.Round(col.Insertion * 4f));
             }
 
@@ -570,7 +588,9 @@ public sealed partial class DystopiaReactorSystem : EntitySystem
             if (FindReactor(uid, console.ControlNode) is not { } reactor)
                 continue;
 
-            if (console.AutoScram && reactor.MaxTemperature > console.AutoScramTemperature && !AllScrammed(reactor))
+            var overpower = reactor.ThermalPower > console.AutoScramPower * MathF.Max(1000f, CoolingCapacity(reactor));
+            if (console.AutoScram && (reactor.MaxTemperature > console.AutoScramTemperature || overpower) &&
+                !AllScrammed(reactor))
             {
                 Scram(reactor);
                 _audio.PlayPvs(console.AlarmSound, uid);

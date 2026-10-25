@@ -1907,7 +1907,7 @@
   - type: DystopiaFuelRod
     baseRadiation: 0.1
     reactivity: 1.2
-    energy: 600000
+    energy: 3000000
   - type: DystopiaHotItem   # облучённый ТВЭЛ раскалён остаточным теплом — только захватом
     burnDamage:
       types:
@@ -1995,7 +1995,7 @@
   - type: DystopiaFuelRod
     baseRadiation: 0.15
     reactivity: 1.5
-    energy: 1200000
+    energy: 6000000
   - type: DystopiaHotItem   # облучённый ТВЭЛ раскалён остаточным теплом — только захватом
     burnDamage:
       types:
@@ -2083,7 +2083,7 @@
   - type: DystopiaFuelRod
     baseRadiation: 0.4
     reactivity: 1.8
-    energy: 2400000
+    energy: 12000000
   - type: DystopiaHotItem   # облучённый ТВЭЛ раскалён остаточным теплом — только захватом
     burnDamage:
       types:
