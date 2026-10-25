@@ -1,0 +1,53 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Drawn for Dystopia (ryanzxov-design/dyst).",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "fuel"
+    },
+    {
+      "name": "control"
+    },
+    {
+      "name": "graphite"
+    },
+    {
+      "name": "coolant"
+    },
+    {
+      "name": "rod_11"
+    },
+    {
+      "name": "rod_13"
+    },
+    {
+      "name": "rod_18"
+    },
+    {
+      "name": "heat1"
+    },
+    {
+      "name": "heat2"
+    },
+    {
+      "name": "ins0"
+    },
+    {
+      "name": "ins1"
+    },
+    {
+      "name": "ins2"
+    },
+    {
+      "name": "ins3"
+    },
+    {
+      "name": "ins4"
+    }
+  ]
+}

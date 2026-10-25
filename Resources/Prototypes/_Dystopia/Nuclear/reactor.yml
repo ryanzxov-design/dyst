@@ -1,0 +1,471 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: энергетика, шаг 3а (gen_energy3a.py) — реактор РБМК из колонн 1×1, барабан-сепаратор, пульт.
+# Соседние по стороне колонны — один реактор любого размера (DystopiaReactorSystem). Крафт — gen_crafts.py.
+
+- type: dystopiaReactor   # числа физики — значения по умолчанию в DystopiaReactorComponents.cs
+  id: Default
+
+- type: entity
+  id: DystopiaReactorColumnFuel
+  name: fuel channel
+  description: "A stainless tube in the graphite stack, capped by a top plate. Fuel rods go in by hand and come out with the alternative action. A fissioning rod sends neutrons out four ways; without graphite on the way its neighbours barely fission. Water boils in the channel and carries the heat away: a steam separator must stand next to the reactor."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaReactorColumnFuelCraft
+    node: done
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Tag   # по пятаку ходят (без физики, как леса); одна колонна на клетку
+    tags: [ Structure, Unstackable ]
+  - type: Sprite
+    sprite: _Dystopia/Structures/Nuclear/reactor_columns.rsi
+    noRot: true
+    drawdepth: FloorObjects
+    layers:
+    - state: fuel
+    - state: rod_11
+      map: [ "enum.DystopiaReactorVisuals.Rod" ]
+      visible: false
+    - state: heat1
+      map: [ "enum.DystopiaReactorVisuals.Heat" ]
+      shader: unshaded
+      visible: false
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DystopiaReactorVisuals.Rod:   # сорт ТВЭЛа = реактивность ×10
+        enum.DystopiaReactorVisuals.Rod:
+          "0": { visible: false }
+          "11": { visible: true, state: rod_11 }
+          "15": { visible: true, state: rod_13 }
+          "18": { visible: true, state: rod_18 }
+      enum.DystopiaReactorVisuals.Heat:
+        enum.DystopiaReactorVisuals.Heat:
+          "0": { visible: false }
+          "1": { visible: true, state: heat1 }
+          "2": { visible: true, state: heat2 }
+  - type: NodeContainer   # кабель управления под клеткой — связь с пультом
+    examinable: true
+    nodes:
+      control:
+        !type:CableDeviceNode
+        nodeGroupID: DystopiaControl
+  - type: RadiationSource   # реактор светит одним источником у центра (DystopiaReactorSystem)
+    intensity: 0
+    slope: 0.2
+    enabled: false
+  - type: ContainerContainer
+    containers:
+      dystopia_fuel_rod: !type:ContainerSlot
+  - type: DystopiaReactorColumn
+    kind: Fuel
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Repairable   # чинят сваркой
+    fuelCost: 20
+    doAfterDelay: 10
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 300
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:EmptyAllContainersBehaviour
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 2
+            max: 2
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+
+- type: entity
+  id: DystopiaReactorColumnControl
+  name: control rod channel
+  description: "An absorber rod on a drive. Lowered, it soaks up the neutrons passing through it; raised, it lets them by. Driven from the console, singly or in groups; the alternative action drops it by hand."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaReactorColumnControlCraft
+    node: done
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Tag   # по пятаку ходят (без физики, как леса); одна колонна на клетку
+    tags: [ Structure, Unstackable ]
+  - type: Sprite
+    sprite: _Dystopia/Structures/Nuclear/reactor_columns.rsi
+    noRot: true
+    drawdepth: FloorObjects
+    layers:
+    - state: control
+    - state: ins4
+      map: [ "enum.DystopiaReactorVisuals.Insertion" ]
+    - state: heat1
+      map: [ "enum.DystopiaReactorVisuals.Heat" ]
+      shader: unshaded
+      visible: false
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DystopiaReactorVisuals.Insertion:   # глубина стержня, четверти
+        enum.DystopiaReactorVisuals.Insertion:
+          "0": { state: ins0 }
+          "1": { state: ins1 }
+          "2": { state: ins2 }
+          "3": { state: ins3 }
+          "4": { state: ins4 }
+      enum.DystopiaReactorVisuals.Heat:
+        enum.DystopiaReactorVisuals.Heat:
+          "0": { visible: false }
+          "1": { visible: true, state: heat1 }
+          "2": { visible: true, state: heat2 }
+  - type: NodeContainer   # кабель управления под клеткой — связь с пультом
+    examinable: true
+    nodes:
+      control:
+        !type:CableDeviceNode
+        nodeGroupID: DystopiaControl
+  - type: RadiationSource   # реактор светит одним источником у центра (DystopiaReactorSystem)
+    intensity: 0
+    slope: 0.2
+    enabled: false
+  - type: DystopiaReactorColumn
+    kind: Control
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Repairable   # чинят сваркой
+    fuelCost: 20
+    doAfterDelay: 10
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 300
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 2
+            max: 2
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+
+- type: entity
+  id: DystopiaReactorColumnGraphite
+  name: graphite stack
+  description: "Solid graphite blocks. They slow neutrons down, and only slow neutrons split the next fuel rod well. Channels are usually laid out between the graphite."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaReactorColumnGraphiteCraft
+    node: done
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Tag   # по пятаку ходят (без физики, как леса); одна колонна на клетку
+    tags: [ Structure, Unstackable ]
+  - type: Sprite
+    sprite: _Dystopia/Structures/Nuclear/reactor_columns.rsi
+    noRot: true
+    drawdepth: FloorObjects
+    layers:
+    - state: graphite
+    - state: heat1
+      map: [ "enum.DystopiaReactorVisuals.Heat" ]
+      shader: unshaded
+      visible: false
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DystopiaReactorVisuals.Heat:
+        enum.DystopiaReactorVisuals.Heat:
+          "0": { visible: false }
+          "1": { visible: true, state: heat1 }
+          "2": { visible: true, state: heat2 }
+  - type: NodeContainer   # кабель управления под клеткой — связь с пультом
+    examinable: true
+    nodes:
+      control:
+        !type:CableDeviceNode
+        nodeGroupID: DystopiaControl
+  - type: RadiationSource   # реактор светит одним источником у центра (DystopiaReactorSystem)
+    intensity: 0
+    slope: 0.2
+    enabled: false
+  - type: DystopiaReactorColumn
+    kind: Graphite
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Repairable   # чинят сваркой
+    fuelCost: 20
+    doAfterDelay: 10
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 400
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          DystopiaGraphiteElectrode1:
+            min: 2
+            max: 2
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+
+- type: entity
+  id: DystopiaReactorColumnCoolant
+  name: steam-water channel
+  description: "A water tube in a graphite block. It takes heat from its neighbours (up to 800 kW) and passes it to the drum as steam, so the same fuel gives more power. It slows and reflects neutrons like graphite but absorbs a few, and fewer once the water boils off (the void effect)."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaReactorColumnCoolantCraft
+    node: done
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Tag   # по пятаку ходят (без физики, как леса); одна колонна на клетку
+    tags: [ Structure, Unstackable ]
+  - type: Sprite
+    sprite: _Dystopia/Structures/Nuclear/reactor_columns.rsi
+    noRot: true
+    drawdepth: FloorObjects
+    layers:
+    - state: coolant
+    - state: heat1
+      map: [ "enum.DystopiaReactorVisuals.Heat" ]
+      shader: unshaded
+      visible: false
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DystopiaReactorVisuals.Heat:
+        enum.DystopiaReactorVisuals.Heat:
+          "0": { visible: false }
+          "1": { visible: true, state: heat1 }
+          "2": { visible: true, state: heat2 }
+  - type: NodeContainer   # кабель управления под клеткой — связь с пультом
+    examinable: true
+    nodes:
+      control:
+        !type:CableDeviceNode
+        nodeGroupID: DystopiaControl
+  - type: RadiationSource   # реактор светит одним источником у центра (DystopiaReactorSystem)
+    intensity: 0
+    slope: 0.2
+    enabled: false
+  - type: DystopiaReactorColumn
+    kind: Coolant
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Repairable   # чинят сваркой
+    fuelCost: 20
+    doAfterDelay: 10
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 300
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 2
+            max: 2
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+
+- type: entity
+  id: DystopiaReactorSeparator
+  name: steam separator drum
+  description: "A tall drum that stands right against the reactor's columns. Water goes in through a liquid exporter (only water is taken), and the steam the channels raise collects here at 300 °C and leaves through the white branch on top into a gas pipe. Several drums can serve one reactor. If the steam has nowhere to go, the pressure climbs until the drum bursts."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaReactorSeparatorCraft
+    node: done
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.4,-0.45,0.4,0.4"
+        density: 1000
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]
+  - type: Tag
+    tags: [ Structure ]
+  - type: Sprite
+    sprite: _Dystopia/Structures/Nuclear/reactor_separator.rsi
+    noRot: true
+    drawdepth: Objects
+    layers:
+    - state: running
+    - state: unlit
+      shader: unshaded
+  - type: Solution   # питательная вода
+    id: water
+    solution:
+      maxVol: 2000
+      canReact: false
+  - type: RefillableSolution
+    solution: water
+  - type: DrainableSolution
+    solution: water
+  - type: DystopiaLiquidInputFilter   # экспортер наливает только воду
+    solution: water
+    reagents: [ Water ]
+  - type: NodeContainer   # паровой патрубок: к газовой трубе с любой стороны
+    nodes:
+      steam:
+        !type:PipeNode
+        nodeGroupID: Pipe
+        pipeDirection: Fourway
+        volume: 200
+  - type: DystopiaReactorSeparator
+    pressureDamage:
+      types:
+        Blunt: 1
+  - type: Explosive   # барабан рвёт паром
+    explosionType: Default
+    maxIntensity: 30
+    intensitySlope: 4
+    totalIntensity: 60
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Repairable   # чинят сваркой
+    fuelCost: 20
+    doAfterDelay: 10
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 300
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:ExplodeBehavior
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 4
+            max: 4
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+
+- type: entity
+  id: DystopiaReactorConsole
+  name: reactor control console
+  description: "The reactor desk: a map of every channel, the rods singly and in groups, the automatic regulator and protection, and the AZ-5 button. It works when it stands right against any column, or over a control cable laid from under the desk to under any column. A reactor can have several consoles."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaReactorConsoleCraft
+    node: done
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.25"
+        density: 500
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]
+  - type: Tag
+    tags: [ Structure ]
+  - type: Sprite
+    sprite: _Dystopia/Structures/Nuclear/reactor_console.rsi
+    noRot: true
+    drawdepth: Objects
+    layers:
+    - state: running
+    - state: unlit
+      shader: unshaded
+  - type: PointLight
+    radius: 1.6
+    energy: 1.2
+    color: "#78bee1"
+    castShadows: false
+  - type: NodeContainer   # кабель управления под клеткой — связь с пультом
+    examinable: true
+    nodes:
+      control:
+        !type:CableDeviceNode
+        nodeGroupID: DystopiaControl
+  - type: DystopiaReactorConsole
+  - type: ActivatableUI
+    key: enum.DystopiaReactorConsoleUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.DystopiaReactorConsoleUiKey.Key:
+        type: DystopiaReactorConsoleBoundUserInterface
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Repairable   # чинят сваркой
+    fuelCost: 20
+    doAfterDelay: 10
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 200
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 2
+            max: 2
+      - !type:DoActsBehavior
+        acts: [ Destruction ]

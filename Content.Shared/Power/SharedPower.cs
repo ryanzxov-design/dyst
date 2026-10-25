@@ -31,7 +31,8 @@ namespace Content.Shared.Power
         HighVoltage,
         MediumVoltage,
         Apc,
-        ExCable
+        ExCable,
+        DystopiaControl, // Dystopia-Energy: кабель управления (пульт реактора)
     }
 
     [Serializable, NetSerializable]

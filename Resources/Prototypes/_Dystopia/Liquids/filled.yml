@@ -149,6 +149,9 @@
     fillBaseName: fill-
     inHandsMaxFillLevels: 5
     inHandsFillBaseName: "-fill-"
+  - type: Construction
+    graph: JugCraft
+    node: done
   - type: StaticPrice
     price: 60
   - type: Tag
@@ -390,6 +393,9 @@
     fillBaseName: fill-
     inHandsMaxFillLevels: 5
     inHandsFillBaseName: "-fill-"
+  - type: Construction
+    graph: JugCraft
+    node: done
   - type: StaticPrice
     price: 60
   - type: Tag
@@ -631,6 +637,9 @@
     fillBaseName: fill-
     inHandsMaxFillLevels: 5
     inHandsFillBaseName: "-fill-"
+  - type: Construction
+    graph: JugCraft
+    node: done
   - type: StaticPrice
     price: 60
   - type: Tag
@@ -872,6 +881,9 @@
     fillBaseName: fill-
     inHandsMaxFillLevels: 5
     inHandsFillBaseName: "-fill-"
+  - type: Construction
+    graph: JugCraft
+    node: done
   - type: StaticPrice
     price: 60
   - type: Tag
@@ -1113,6 +1125,9 @@
     fillBaseName: fill-
     inHandsMaxFillLevels: 5
     inHandsFillBaseName: "-fill-"
+  - type: Construction
+    graph: JugCraft
+    node: done
   - type: StaticPrice
     price: 60
   - type: Tag
@@ -1354,6 +1369,9 @@
     fillBaseName: fill-
     inHandsMaxFillLevels: 5
     inHandsFillBaseName: "-fill-"
+  - type: Construction
+    graph: JugCraft
+    node: done
   - type: StaticPrice
     price: 60
   - type: Tag
@@ -1595,6 +1613,9 @@
     fillBaseName: fill-
     inHandsMaxFillLevels: 5
     inHandsFillBaseName: "-fill-"
+  - type: Construction
+    graph: JugCraft
+    node: done
   - type: StaticPrice
     price: 60
   - type: Tag
@@ -1836,6 +1857,9 @@
     fillBaseName: fill-
     inHandsMaxFillLevels: 5
     inHandsFillBaseName: "-fill-"
+  - type: Construction
+    graph: JugCraft
+    node: done
   - type: StaticPrice
     price: 60
   - type: Tag
@@ -2077,6 +2101,9 @@
     fillBaseName: fill-
     inHandsMaxFillLevels: 5
     inHandsFillBaseName: "-fill-"
+  - type: Construction
+    graph: JugCraft
+    node: done
   - type: StaticPrice
     price: 60
   - type: Tag
@@ -2318,6 +2345,9 @@
     fillBaseName: fill-
     inHandsMaxFillLevels: 5
     inHandsFillBaseName: "-fill-"
+  - type: Construction
+    graph: JugCraft
+    node: done
   - type: StaticPrice
     price: 60
   - type: Tag
@@ -2559,6 +2589,9 @@
     fillBaseName: fill-
     inHandsMaxFillLevels: 5
     inHandsFillBaseName: "-fill-"
+  - type: Construction
+    graph: JugCraft
+    node: done
   - type: StaticPrice
     price: 60
   - type: Tag
@@ -2800,6 +2833,9 @@
     fillBaseName: fill-
     inHandsMaxFillLevels: 5
     inHandsFillBaseName: "-fill-"
+  - type: Construction
+    graph: JugCraft
+    node: done
   - type: StaticPrice
     price: 60
   - type: Tag
@@ -3041,6 +3077,9 @@
     fillBaseName: fill-
     inHandsMaxFillLevels: 5
     inHandsFillBaseName: "-fill-"
+  - type: Construction
+    graph: JugCraft
+    node: done
   - type: StaticPrice
     price: 60
   - type: Tag
@@ -3282,6 +3321,9 @@
     fillBaseName: fill-
     inHandsMaxFillLevels: 5
     inHandsFillBaseName: "-fill-"
+  - type: Construction
+    graph: JugCraft
+    node: done
   - type: StaticPrice
     price: 60
   - type: Tag
@@ -3523,6 +3565,9 @@
     fillBaseName: fill-
     inHandsMaxFillLevels: 5
     inHandsFillBaseName: "-fill-"
+  - type: Construction
+    graph: JugCraft
+    node: done
   - type: StaticPrice
     price: 60
   - type: Tag
@@ -3701,3 +3746,2199 @@
     solution: tank
   - type: Label
     localizedLabel: reagent-name-dystopia-flotation-reagent
+
+- type: entity
+  id: DystopiaJugHydrofluoricAcid
+  name: jug
+  suffix: HydrofluoricAcid
+  components:
+  - type: Solution
+    solution:
+      maxVol: 240
+      reagents:
+      - ReagentId: DystopiaHydrofluoricAcid
+        Quantity: 240
+    id: drink
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 20
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalCrunch
+          params:
+            volume: -4
+      - !type:SpillBehavior {}
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetPlastic1:
+            min: 0
+            max: 1
+        transferForensics: true
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: DamageOnLand
+    ignoreResistances: true
+    damage:
+      types:
+        Blunt: 1
+  - type: DamageOtherOnHit
+    damage:
+      types:
+        Blunt: 2
+  - type: PhysicalComposition
+    materialComposition:
+      Plastic: 100
+  - type: Item
+    size: Large
+    sprite: Objects/Specific/Chemistry/jug.rsi
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    layers:
+    - state: icon_empty
+      map: [ enum.OpenableVisuals.Layer ]
+    - state: fill-1
+      map:
+      - enum.SolutionContainerLayers.Fill
+      visible: false
+    sprite: Objects/Specific/Chemistry/jug.rsi
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: MeleeWeapon
+    soundNoDamage:
+      path: /Audio/Effects/Fluids/splat.ogg
+    damage:
+      types:
+        Blunt: 0
+  - type: DnaSubstanceTrace
+  - type: Edible
+    edible: Drink
+    destroyOnEmpty: false
+    utensil: None
+    solution: drink
+  - type: Spillable
+    solution: drink
+  - type: MixableSolution
+    solution: drink
+  - type: DrawableSolution
+    solution: drink
+  - type: RefillableSolution
+    solution: drink
+  - type: DrainableSolution
+    solution: drink
+  - type: InjectableSolution
+    solution: drink
+  - type: ExaminableSolution
+    solution: drink
+    examinableWhileClosed: true
+    heldOnly: false
+    exactVolume: true
+  - type: SolutionItemStatus
+    solution: drink
+  - type: SolutionTransfer
+    canChangeTransferAmount: true
+  - type: UserInterface
+    interfaces:
+      enum.TransferAmountUiKey.Key:
+        type: TransferAmountBoundUserInterface
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.OpenableVisuals.Opened:
+        enum.OpenableVisuals.Layer:
+          true:
+            state: icon_open
+          false:
+            state: icon_empty
+  - type: SolutionContainerVisuals
+    solutionName: drink
+    maxFillLevels: 6
+    fillBaseName: fill-
+    inHandsMaxFillLevels: 5
+    inHandsFillBaseName: "-fill-"
+  - type: Construction
+    graph: JugCraft
+    node: done
+  - type: StaticPrice
+    price: 60
+  - type: Tag
+    tags: [ ChemDispensable ]
+  - type: Label
+    localizedLabel: reagent-name-dystopia-hydrofluoric-acid
+
+- type: entity
+  id: DystopiaTankHydrofluoricAcid
+  name: storage tank
+  suffix: HydrofluoricAcid
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Solution
+    id: tank
+    solution:
+      maxVol: 960
+      reagents:
+      - ReagentId: DystopiaHydrofluoricAcid
+        Quantity: 960
+  - type: Transform
+    anchored: false
+    noRot: true
+  - type: Clickable
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.4,-0.4,0.4,0.4"
+        density: 155
+        mask: [ MachineMask ]
+        layer: [ MachineLayer, InteractImpassable ]
+  - type: Pullable
+  - type: Tag
+    tags: [ Structure ]
+  - type: Anchorable
+  - type: Animateable
+  - type: Sprite
+    noRot: true
+    sprite: Structures/Storage/tanks.rsi
+    layers:
+    - state: watertank-2
+    - state: watertank-2-1
+      map:
+      - enum.SolutionContainerLayers.Fill
+      visible: false
+  - type: InteractionOutline
+  - type: DrainableSolution
+    solution: tank
+  - type: ReagentTank
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTypeTrigger
+        damageType: Heat
+        damage: 5
+      behaviors:
+      - !type:SolutionExplosionBehavior
+        solution: tank
+    - trigger: !type:DamageTypeTrigger
+        damageType: Piercing
+        damage: 5
+      behaviors:
+      - !type:SolutionExplosionBehavior
+        solution: tank
+    - trigger: !type:DamageTrigger
+        damage: 20
+      behaviors:
+      - !type:SpillBehavior
+        solution: tank
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+  - type: Damageable
+    damageModifierSet: PlasticMod
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: TileFrictionModifier
+    modifier: 0.4
+  - type: StaticPrice
+    price: 500
+  - type: Appearance
+  - type: SolutionContainerVisuals
+    maxFillLevels: 5
+    fillBaseName: watertank-2-
+  - type: ExaminableSolution
+    solution: tank
+  - type: Label
+    localizedLabel: reagent-name-dystopia-hydrofluoric-acid
+
+- type: entity
+  id: DystopiaJugUF6
+  name: jug
+  suffix: UF6
+  components:
+  - type: Solution
+    solution:
+      maxVol: 240
+      reagents:
+      - ReagentId: DystopiaUF6
+        Quantity: 240
+    id: drink
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 20
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalCrunch
+          params:
+            volume: -4
+      - !type:SpillBehavior {}
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetPlastic1:
+            min: 0
+            max: 1
+        transferForensics: true
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: DamageOnLand
+    ignoreResistances: true
+    damage:
+      types:
+        Blunt: 1
+  - type: DamageOtherOnHit
+    damage:
+      types:
+        Blunt: 2
+  - type: PhysicalComposition
+    materialComposition:
+      Plastic: 100
+  - type: Item
+    size: Large
+    sprite: Objects/Specific/Chemistry/jug.rsi
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    layers:
+    - state: icon_empty
+      map: [ enum.OpenableVisuals.Layer ]
+    - state: fill-1
+      map:
+      - enum.SolutionContainerLayers.Fill
+      visible: false
+    sprite: Objects/Specific/Chemistry/jug.rsi
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: MeleeWeapon
+    soundNoDamage:
+      path: /Audio/Effects/Fluids/splat.ogg
+    damage:
+      types:
+        Blunt: 0
+  - type: DnaSubstanceTrace
+  - type: Edible
+    edible: Drink
+    destroyOnEmpty: false
+    utensil: None
+    solution: drink
+  - type: Spillable
+    solution: drink
+  - type: MixableSolution
+    solution: drink
+  - type: DrawableSolution
+    solution: drink
+  - type: RefillableSolution
+    solution: drink
+  - type: DrainableSolution
+    solution: drink
+  - type: InjectableSolution
+    solution: drink
+  - type: ExaminableSolution
+    solution: drink
+    examinableWhileClosed: true
+    heldOnly: false
+    exactVolume: true
+  - type: SolutionItemStatus
+    solution: drink
+  - type: SolutionTransfer
+    canChangeTransferAmount: true
+  - type: UserInterface
+    interfaces:
+      enum.TransferAmountUiKey.Key:
+        type: TransferAmountBoundUserInterface
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.OpenableVisuals.Opened:
+        enum.OpenableVisuals.Layer:
+          true:
+            state: icon_open
+          false:
+            state: icon_empty
+  - type: SolutionContainerVisuals
+    solutionName: drink
+    maxFillLevels: 6
+    fillBaseName: fill-
+    inHandsMaxFillLevels: 5
+    inHandsFillBaseName: "-fill-"
+  - type: Construction
+    graph: JugCraft
+    node: done
+  - type: StaticPrice
+    price: 60
+  - type: Tag
+    tags: [ ChemDispensable ]
+  - type: Label
+    localizedLabel: reagent-name-dystopia-uf6
+
+- type: entity
+  id: DystopiaTankUF6
+  name: storage tank
+  suffix: UF6
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Solution
+    id: tank
+    solution:
+      maxVol: 960
+      reagents:
+      - ReagentId: DystopiaUF6
+        Quantity: 960
+  - type: Transform
+    anchored: false
+    noRot: true
+  - type: Clickable
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.4,-0.4,0.4,0.4"
+        density: 155
+        mask: [ MachineMask ]
+        layer: [ MachineLayer, InteractImpassable ]
+  - type: Pullable
+  - type: Tag
+    tags: [ Structure ]
+  - type: Anchorable
+  - type: Animateable
+  - type: Sprite
+    noRot: true
+    sprite: Structures/Storage/tanks.rsi
+    layers:
+    - state: watertank-2
+    - state: watertank-2-1
+      map:
+      - enum.SolutionContainerLayers.Fill
+      visible: false
+  - type: InteractionOutline
+  - type: DrainableSolution
+    solution: tank
+  - type: ReagentTank
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTypeTrigger
+        damageType: Heat
+        damage: 5
+      behaviors:
+      - !type:SolutionExplosionBehavior
+        solution: tank
+    - trigger: !type:DamageTypeTrigger
+        damageType: Piercing
+        damage: 5
+      behaviors:
+      - !type:SolutionExplosionBehavior
+        solution: tank
+    - trigger: !type:DamageTrigger
+        damage: 20
+      behaviors:
+      - !type:SpillBehavior
+        solution: tank
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+  - type: Damageable
+    damageModifierSet: PlasticMod
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: TileFrictionModifier
+    modifier: 0.4
+  - type: StaticPrice
+    price: 500
+  - type: Appearance
+  - type: SolutionContainerVisuals
+    maxFillLevels: 5
+    fillBaseName: watertank-2-
+  - type: ExaminableSolution
+    solution: tank
+  - type: Label
+    localizedLabel: reagent-name-dystopia-uf6
+
+- type: entity
+  id: DystopiaJugUF6E2
+  name: jug
+  suffix: UF6E2
+  components:
+  - type: Solution
+    solution:
+      maxVol: 240
+      reagents:
+      - ReagentId: DystopiaUF6E2
+        Quantity: 240
+    id: drink
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 20
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalCrunch
+          params:
+            volume: -4
+      - !type:SpillBehavior {}
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetPlastic1:
+            min: 0
+            max: 1
+        transferForensics: true
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: DamageOnLand
+    ignoreResistances: true
+    damage:
+      types:
+        Blunt: 1
+  - type: DamageOtherOnHit
+    damage:
+      types:
+        Blunt: 2
+  - type: PhysicalComposition
+    materialComposition:
+      Plastic: 100
+  - type: Item
+    size: Large
+    sprite: Objects/Specific/Chemistry/jug.rsi
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    layers:
+    - state: icon_empty
+      map: [ enum.OpenableVisuals.Layer ]
+    - state: fill-1
+      map:
+      - enum.SolutionContainerLayers.Fill
+      visible: false
+    sprite: Objects/Specific/Chemistry/jug.rsi
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: MeleeWeapon
+    soundNoDamage:
+      path: /Audio/Effects/Fluids/splat.ogg
+    damage:
+      types:
+        Blunt: 0
+  - type: DnaSubstanceTrace
+  - type: Edible
+    edible: Drink
+    destroyOnEmpty: false
+    utensil: None
+    solution: drink
+  - type: Spillable
+    solution: drink
+  - type: MixableSolution
+    solution: drink
+  - type: DrawableSolution
+    solution: drink
+  - type: RefillableSolution
+    solution: drink
+  - type: DrainableSolution
+    solution: drink
+  - type: InjectableSolution
+    solution: drink
+  - type: ExaminableSolution
+    solution: drink
+    examinableWhileClosed: true
+    heldOnly: false
+    exactVolume: true
+  - type: SolutionItemStatus
+    solution: drink
+  - type: SolutionTransfer
+    canChangeTransferAmount: true
+  - type: UserInterface
+    interfaces:
+      enum.TransferAmountUiKey.Key:
+        type: TransferAmountBoundUserInterface
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.OpenableVisuals.Opened:
+        enum.OpenableVisuals.Layer:
+          true:
+            state: icon_open
+          false:
+            state: icon_empty
+  - type: SolutionContainerVisuals
+    solutionName: drink
+    maxFillLevels: 6
+    fillBaseName: fill-
+    inHandsMaxFillLevels: 5
+    inHandsFillBaseName: "-fill-"
+  - type: Construction
+    graph: JugCraft
+    node: done
+  - type: StaticPrice
+    price: 60
+  - type: Tag
+    tags: [ ChemDispensable ]
+  - type: Label
+    localizedLabel: reagent-name-dystopia-uf6-e2
+
+- type: entity
+  id: DystopiaTankUF6E2
+  name: storage tank
+  suffix: UF6E2
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Solution
+    id: tank
+    solution:
+      maxVol: 960
+      reagents:
+      - ReagentId: DystopiaUF6E2
+        Quantity: 960
+  - type: Transform
+    anchored: false
+    noRot: true
+  - type: Clickable
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.4,-0.4,0.4,0.4"
+        density: 155
+        mask: [ MachineMask ]
+        layer: [ MachineLayer, InteractImpassable ]
+  - type: Pullable
+  - type: Tag
+    tags: [ Structure ]
+  - type: Anchorable
+  - type: Animateable
+  - type: Sprite
+    noRot: true
+    sprite: Structures/Storage/tanks.rsi
+    layers:
+    - state: watertank-2
+    - state: watertank-2-1
+      map:
+      - enum.SolutionContainerLayers.Fill
+      visible: false
+  - type: InteractionOutline
+  - type: DrainableSolution
+    solution: tank
+  - type: ReagentTank
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTypeTrigger
+        damageType: Heat
+        damage: 5
+      behaviors:
+      - !type:SolutionExplosionBehavior
+        solution: tank
+    - trigger: !type:DamageTypeTrigger
+        damageType: Piercing
+        damage: 5
+      behaviors:
+      - !type:SolutionExplosionBehavior
+        solution: tank
+    - trigger: !type:DamageTrigger
+        damage: 20
+      behaviors:
+      - !type:SpillBehavior
+        solution: tank
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+  - type: Damageable
+    damageModifierSet: PlasticMod
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: TileFrictionModifier
+    modifier: 0.4
+  - type: StaticPrice
+    price: 500
+  - type: Appearance
+  - type: SolutionContainerVisuals
+    maxFillLevels: 5
+    fillBaseName: watertank-2-
+  - type: ExaminableSolution
+    solution: tank
+  - type: Label
+    localizedLabel: reagent-name-dystopia-uf6-e2
+
+- type: entity
+  id: DystopiaJugUF6E4
+  name: jug
+  suffix: UF6E4
+  components:
+  - type: Solution
+    solution:
+      maxVol: 240
+      reagents:
+      - ReagentId: DystopiaUF6E4
+        Quantity: 240
+    id: drink
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 20
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalCrunch
+          params:
+            volume: -4
+      - !type:SpillBehavior {}
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetPlastic1:
+            min: 0
+            max: 1
+        transferForensics: true
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: DamageOnLand
+    ignoreResistances: true
+    damage:
+      types:
+        Blunt: 1
+  - type: DamageOtherOnHit
+    damage:
+      types:
+        Blunt: 2
+  - type: PhysicalComposition
+    materialComposition:
+      Plastic: 100
+  - type: Item
+    size: Large
+    sprite: Objects/Specific/Chemistry/jug.rsi
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    layers:
+    - state: icon_empty
+      map: [ enum.OpenableVisuals.Layer ]
+    - state: fill-1
+      map:
+      - enum.SolutionContainerLayers.Fill
+      visible: false
+    sprite: Objects/Specific/Chemistry/jug.rsi
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: MeleeWeapon
+    soundNoDamage:
+      path: /Audio/Effects/Fluids/splat.ogg
+    damage:
+      types:
+        Blunt: 0
+  - type: DnaSubstanceTrace
+  - type: Edible
+    edible: Drink
+    destroyOnEmpty: false
+    utensil: None
+    solution: drink
+  - type: Spillable
+    solution: drink
+  - type: MixableSolution
+    solution: drink
+  - type: DrawableSolution
+    solution: drink
+  - type: RefillableSolution
+    solution: drink
+  - type: DrainableSolution
+    solution: drink
+  - type: InjectableSolution
+    solution: drink
+  - type: ExaminableSolution
+    solution: drink
+    examinableWhileClosed: true
+    heldOnly: false
+    exactVolume: true
+  - type: SolutionItemStatus
+    solution: drink
+  - type: SolutionTransfer
+    canChangeTransferAmount: true
+  - type: UserInterface
+    interfaces:
+      enum.TransferAmountUiKey.Key:
+        type: TransferAmountBoundUserInterface
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.OpenableVisuals.Opened:
+        enum.OpenableVisuals.Layer:
+          true:
+            state: icon_open
+          false:
+            state: icon_empty
+  - type: SolutionContainerVisuals
+    solutionName: drink
+    maxFillLevels: 6
+    fillBaseName: fill-
+    inHandsMaxFillLevels: 5
+    inHandsFillBaseName: "-fill-"
+  - type: Construction
+    graph: JugCraft
+    node: done
+  - type: StaticPrice
+    price: 60
+  - type: Tag
+    tags: [ ChemDispensable ]
+  - type: Label
+    localizedLabel: reagent-name-dystopia-uf6-e4
+
+- type: entity
+  id: DystopiaTankUF6E4
+  name: storage tank
+  suffix: UF6E4
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Solution
+    id: tank
+    solution:
+      maxVol: 960
+      reagents:
+      - ReagentId: DystopiaUF6E4
+        Quantity: 960
+  - type: Transform
+    anchored: false
+    noRot: true
+  - type: Clickable
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.4,-0.4,0.4,0.4"
+        density: 155
+        mask: [ MachineMask ]
+        layer: [ MachineLayer, InteractImpassable ]
+  - type: Pullable
+  - type: Tag
+    tags: [ Structure ]
+  - type: Anchorable
+  - type: Animateable
+  - type: Sprite
+    noRot: true
+    sprite: Structures/Storage/tanks.rsi
+    layers:
+    - state: watertank-2
+    - state: watertank-2-1
+      map:
+      - enum.SolutionContainerLayers.Fill
+      visible: false
+  - type: InteractionOutline
+  - type: DrainableSolution
+    solution: tank
+  - type: ReagentTank
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTypeTrigger
+        damageType: Heat
+        damage: 5
+      behaviors:
+      - !type:SolutionExplosionBehavior
+        solution: tank
+    - trigger: !type:DamageTypeTrigger
+        damageType: Piercing
+        damage: 5
+      behaviors:
+      - !type:SolutionExplosionBehavior
+        solution: tank
+    - trigger: !type:DamageTrigger
+        damage: 20
+      behaviors:
+      - !type:SpillBehavior
+        solution: tank
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+  - type: Damageable
+    damageModifierSet: PlasticMod
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: TileFrictionModifier
+    modifier: 0.4
+  - type: StaticPrice
+    price: 500
+  - type: Appearance
+  - type: SolutionContainerVisuals
+    maxFillLevels: 5
+    fillBaseName: watertank-2-
+  - type: ExaminableSolution
+    solution: tank
+  - type: Label
+    localizedLabel: reagent-name-dystopia-uf6-e4
+
+- type: entity
+  id: DystopiaJugUF6E20
+  name: jug
+  suffix: UF6E20
+  components:
+  - type: Solution
+    solution:
+      maxVol: 240
+      reagents:
+      - ReagentId: DystopiaUF6E20
+        Quantity: 240
+    id: drink
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 20
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalCrunch
+          params:
+            volume: -4
+      - !type:SpillBehavior {}
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetPlastic1:
+            min: 0
+            max: 1
+        transferForensics: true
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: DamageOnLand
+    ignoreResistances: true
+    damage:
+      types:
+        Blunt: 1
+  - type: DamageOtherOnHit
+    damage:
+      types:
+        Blunt: 2
+  - type: PhysicalComposition
+    materialComposition:
+      Plastic: 100
+  - type: Item
+    size: Large
+    sprite: Objects/Specific/Chemistry/jug.rsi
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    layers:
+    - state: icon_empty
+      map: [ enum.OpenableVisuals.Layer ]
+    - state: fill-1
+      map:
+      - enum.SolutionContainerLayers.Fill
+      visible: false
+    sprite: Objects/Specific/Chemistry/jug.rsi
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: MeleeWeapon
+    soundNoDamage:
+      path: /Audio/Effects/Fluids/splat.ogg
+    damage:
+      types:
+        Blunt: 0
+  - type: DnaSubstanceTrace
+  - type: Edible
+    edible: Drink
+    destroyOnEmpty: false
+    utensil: None
+    solution: drink
+  - type: Spillable
+    solution: drink
+  - type: MixableSolution
+    solution: drink
+  - type: DrawableSolution
+    solution: drink
+  - type: RefillableSolution
+    solution: drink
+  - type: DrainableSolution
+    solution: drink
+  - type: InjectableSolution
+    solution: drink
+  - type: ExaminableSolution
+    solution: drink
+    examinableWhileClosed: true
+    heldOnly: false
+    exactVolume: true
+  - type: SolutionItemStatus
+    solution: drink
+  - type: SolutionTransfer
+    canChangeTransferAmount: true
+  - type: UserInterface
+    interfaces:
+      enum.TransferAmountUiKey.Key:
+        type: TransferAmountBoundUserInterface
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.OpenableVisuals.Opened:
+        enum.OpenableVisuals.Layer:
+          true:
+            state: icon_open
+          false:
+            state: icon_empty
+  - type: SolutionContainerVisuals
+    solutionName: drink
+    maxFillLevels: 6
+    fillBaseName: fill-
+    inHandsMaxFillLevels: 5
+    inHandsFillBaseName: "-fill-"
+  - type: Construction
+    graph: JugCraft
+    node: done
+  - type: StaticPrice
+    price: 60
+  - type: Tag
+    tags: [ ChemDispensable ]
+  - type: Label
+    localizedLabel: reagent-name-dystopia-uf6-e20
+
+- type: entity
+  id: DystopiaTankUF6E20
+  name: storage tank
+  suffix: UF6E20
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Solution
+    id: tank
+    solution:
+      maxVol: 960
+      reagents:
+      - ReagentId: DystopiaUF6E20
+        Quantity: 960
+  - type: Transform
+    anchored: false
+    noRot: true
+  - type: Clickable
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.4,-0.4,0.4,0.4"
+        density: 155
+        mask: [ MachineMask ]
+        layer: [ MachineLayer, InteractImpassable ]
+  - type: Pullable
+  - type: Tag
+    tags: [ Structure ]
+  - type: Anchorable
+  - type: Animateable
+  - type: Sprite
+    noRot: true
+    sprite: Structures/Storage/tanks.rsi
+    layers:
+    - state: watertank-2
+    - state: watertank-2-1
+      map:
+      - enum.SolutionContainerLayers.Fill
+      visible: false
+  - type: InteractionOutline
+  - type: DrainableSolution
+    solution: tank
+  - type: ReagentTank
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTypeTrigger
+        damageType: Heat
+        damage: 5
+      behaviors:
+      - !type:SolutionExplosionBehavior
+        solution: tank
+    - trigger: !type:DamageTypeTrigger
+        damageType: Piercing
+        damage: 5
+      behaviors:
+      - !type:SolutionExplosionBehavior
+        solution: tank
+    - trigger: !type:DamageTrigger
+        damage: 20
+      behaviors:
+      - !type:SpillBehavior
+        solution: tank
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+  - type: Damageable
+    damageModifierSet: PlasticMod
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: TileFrictionModifier
+    modifier: 0.4
+  - type: StaticPrice
+    price: 500
+  - type: Appearance
+  - type: SolutionContainerVisuals
+    maxFillLevels: 5
+    fillBaseName: watertank-2-
+  - type: ExaminableSolution
+    solution: tank
+  - type: Label
+    localizedLabel: reagent-name-dystopia-uf6-e20
+
+- type: entity
+  id: DystopiaJugUF6E60
+  name: jug
+  suffix: UF6E60
+  components:
+  - type: Solution
+    solution:
+      maxVol: 240
+      reagents:
+      - ReagentId: DystopiaUF6E60
+        Quantity: 240
+    id: drink
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 20
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalCrunch
+          params:
+            volume: -4
+      - !type:SpillBehavior {}
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetPlastic1:
+            min: 0
+            max: 1
+        transferForensics: true
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: DamageOnLand
+    ignoreResistances: true
+    damage:
+      types:
+        Blunt: 1
+  - type: DamageOtherOnHit
+    damage:
+      types:
+        Blunt: 2
+  - type: PhysicalComposition
+    materialComposition:
+      Plastic: 100
+  - type: Item
+    size: Large
+    sprite: Objects/Specific/Chemistry/jug.rsi
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    layers:
+    - state: icon_empty
+      map: [ enum.OpenableVisuals.Layer ]
+    - state: fill-1
+      map:
+      - enum.SolutionContainerLayers.Fill
+      visible: false
+    sprite: Objects/Specific/Chemistry/jug.rsi
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: MeleeWeapon
+    soundNoDamage:
+      path: /Audio/Effects/Fluids/splat.ogg
+    damage:
+      types:
+        Blunt: 0
+  - type: DnaSubstanceTrace
+  - type: Edible
+    edible: Drink
+    destroyOnEmpty: false
+    utensil: None
+    solution: drink
+  - type: Spillable
+    solution: drink
+  - type: MixableSolution
+    solution: drink
+  - type: DrawableSolution
+    solution: drink
+  - type: RefillableSolution
+    solution: drink
+  - type: DrainableSolution
+    solution: drink
+  - type: InjectableSolution
+    solution: drink
+  - type: ExaminableSolution
+    solution: drink
+    examinableWhileClosed: true
+    heldOnly: false
+    exactVolume: true
+  - type: SolutionItemStatus
+    solution: drink
+  - type: SolutionTransfer
+    canChangeTransferAmount: true
+  - type: UserInterface
+    interfaces:
+      enum.TransferAmountUiKey.Key:
+        type: TransferAmountBoundUserInterface
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.OpenableVisuals.Opened:
+        enum.OpenableVisuals.Layer:
+          true:
+            state: icon_open
+          false:
+            state: icon_empty
+  - type: SolutionContainerVisuals
+    solutionName: drink
+    maxFillLevels: 6
+    fillBaseName: fill-
+    inHandsMaxFillLevels: 5
+    inHandsFillBaseName: "-fill-"
+  - type: Construction
+    graph: JugCraft
+    node: done
+  - type: StaticPrice
+    price: 60
+  - type: Tag
+    tags: [ ChemDispensable ]
+  - type: Label
+    localizedLabel: reagent-name-dystopia-uf6-e60
+
+- type: entity
+  id: DystopiaTankUF6E60
+  name: storage tank
+  suffix: UF6E60
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Solution
+    id: tank
+    solution:
+      maxVol: 960
+      reagents:
+      - ReagentId: DystopiaUF6E60
+        Quantity: 960
+  - type: Transform
+    anchored: false
+    noRot: true
+  - type: Clickable
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.4,-0.4,0.4,0.4"
+        density: 155
+        mask: [ MachineMask ]
+        layer: [ MachineLayer, InteractImpassable ]
+  - type: Pullable
+  - type: Tag
+    tags: [ Structure ]
+  - type: Anchorable
+  - type: Animateable
+  - type: Sprite
+    noRot: true
+    sprite: Structures/Storage/tanks.rsi
+    layers:
+    - state: watertank-2
+    - state: watertank-2-1
+      map:
+      - enum.SolutionContainerLayers.Fill
+      visible: false
+  - type: InteractionOutline
+  - type: DrainableSolution
+    solution: tank
+  - type: ReagentTank
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTypeTrigger
+        damageType: Heat
+        damage: 5
+      behaviors:
+      - !type:SolutionExplosionBehavior
+        solution: tank
+    - trigger: !type:DamageTypeTrigger
+        damageType: Piercing
+        damage: 5
+      behaviors:
+      - !type:SolutionExplosionBehavior
+        solution: tank
+    - trigger: !type:DamageTrigger
+        damage: 20
+      behaviors:
+      - !type:SpillBehavior
+        solution: tank
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+  - type: Damageable
+    damageModifierSet: PlasticMod
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: TileFrictionModifier
+    modifier: 0.4
+  - type: StaticPrice
+    price: 500
+  - type: Appearance
+  - type: SolutionContainerVisuals
+    maxFillLevels: 5
+    fillBaseName: watertank-2-
+  - type: ExaminableSolution
+    solution: tank
+  - type: Label
+    localizedLabel: reagent-name-dystopia-uf6-e60
+
+- type: entity
+  id: DystopiaJugUF6E90
+  name: jug
+  suffix: UF6E90
+  components:
+  - type: Solution
+    solution:
+      maxVol: 240
+      reagents:
+      - ReagentId: DystopiaUF6E90
+        Quantity: 240
+    id: drink
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 20
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalCrunch
+          params:
+            volume: -4
+      - !type:SpillBehavior {}
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetPlastic1:
+            min: 0
+            max: 1
+        transferForensics: true
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: DamageOnLand
+    ignoreResistances: true
+    damage:
+      types:
+        Blunt: 1
+  - type: DamageOtherOnHit
+    damage:
+      types:
+        Blunt: 2
+  - type: PhysicalComposition
+    materialComposition:
+      Plastic: 100
+  - type: Item
+    size: Large
+    sprite: Objects/Specific/Chemistry/jug.rsi
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    layers:
+    - state: icon_empty
+      map: [ enum.OpenableVisuals.Layer ]
+    - state: fill-1
+      map:
+      - enum.SolutionContainerLayers.Fill
+      visible: false
+    sprite: Objects/Specific/Chemistry/jug.rsi
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: MeleeWeapon
+    soundNoDamage:
+      path: /Audio/Effects/Fluids/splat.ogg
+    damage:
+      types:
+        Blunt: 0
+  - type: DnaSubstanceTrace
+  - type: Edible
+    edible: Drink
+    destroyOnEmpty: false
+    utensil: None
+    solution: drink
+  - type: Spillable
+    solution: drink
+  - type: MixableSolution
+    solution: drink
+  - type: DrawableSolution
+    solution: drink
+  - type: RefillableSolution
+    solution: drink
+  - type: DrainableSolution
+    solution: drink
+  - type: InjectableSolution
+    solution: drink
+  - type: ExaminableSolution
+    solution: drink
+    examinableWhileClosed: true
+    heldOnly: false
+    exactVolume: true
+  - type: SolutionItemStatus
+    solution: drink
+  - type: SolutionTransfer
+    canChangeTransferAmount: true
+  - type: UserInterface
+    interfaces:
+      enum.TransferAmountUiKey.Key:
+        type: TransferAmountBoundUserInterface
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.OpenableVisuals.Opened:
+        enum.OpenableVisuals.Layer:
+          true:
+            state: icon_open
+          false:
+            state: icon_empty
+  - type: SolutionContainerVisuals
+    solutionName: drink
+    maxFillLevels: 6
+    fillBaseName: fill-
+    inHandsMaxFillLevels: 5
+    inHandsFillBaseName: "-fill-"
+  - type: Construction
+    graph: JugCraft
+    node: done
+  - type: StaticPrice
+    price: 60
+  - type: Tag
+    tags: [ ChemDispensable ]
+  - type: Label
+    localizedLabel: reagent-name-dystopia-uf6-e90
+
+- type: entity
+  id: DystopiaTankUF6E90
+  name: storage tank
+  suffix: UF6E90
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Solution
+    id: tank
+    solution:
+      maxVol: 960
+      reagents:
+      - ReagentId: DystopiaUF6E90
+        Quantity: 960
+  - type: Transform
+    anchored: false
+    noRot: true
+  - type: Clickable
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.4,-0.4,0.4,0.4"
+        density: 155
+        mask: [ MachineMask ]
+        layer: [ MachineLayer, InteractImpassable ]
+  - type: Pullable
+  - type: Tag
+    tags: [ Structure ]
+  - type: Anchorable
+  - type: Animateable
+  - type: Sprite
+    noRot: true
+    sprite: Structures/Storage/tanks.rsi
+    layers:
+    - state: watertank-2
+    - state: watertank-2-1
+      map:
+      - enum.SolutionContainerLayers.Fill
+      visible: false
+  - type: InteractionOutline
+  - type: DrainableSolution
+    solution: tank
+  - type: ReagentTank
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTypeTrigger
+        damageType: Heat
+        damage: 5
+      behaviors:
+      - !type:SolutionExplosionBehavior
+        solution: tank
+    - trigger: !type:DamageTypeTrigger
+        damageType: Piercing
+        damage: 5
+      behaviors:
+      - !type:SolutionExplosionBehavior
+        solution: tank
+    - trigger: !type:DamageTrigger
+        damage: 20
+      behaviors:
+      - !type:SpillBehavior
+        solution: tank
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+  - type: Damageable
+    damageModifierSet: PlasticMod
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: TileFrictionModifier
+    modifier: 0.4
+  - type: StaticPrice
+    price: 500
+  - type: Appearance
+  - type: SolutionContainerVisuals
+    maxFillLevels: 5
+    fillBaseName: watertank-2-
+  - type: ExaminableSolution
+    solution: tank
+  - type: Label
+    localizedLabel: reagent-name-dystopia-uf6-e90
+
+- type: entity
+  id: DystopiaJugUF6Depleted
+  name: jug
+  suffix: UF6Depleted
+  components:
+  - type: Solution
+    solution:
+      maxVol: 240
+      reagents:
+      - ReagentId: DystopiaUF6Depleted
+        Quantity: 240
+    id: drink
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 20
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalCrunch
+          params:
+            volume: -4
+      - !type:SpillBehavior {}
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetPlastic1:
+            min: 0
+            max: 1
+        transferForensics: true
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: DamageOnLand
+    ignoreResistances: true
+    damage:
+      types:
+        Blunt: 1
+  - type: DamageOtherOnHit
+    damage:
+      types:
+        Blunt: 2
+  - type: PhysicalComposition
+    materialComposition:
+      Plastic: 100
+  - type: Item
+    size: Large
+    sprite: Objects/Specific/Chemistry/jug.rsi
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    layers:
+    - state: icon_empty
+      map: [ enum.OpenableVisuals.Layer ]
+    - state: fill-1
+      map:
+      - enum.SolutionContainerLayers.Fill
+      visible: false
+    sprite: Objects/Specific/Chemistry/jug.rsi
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: MeleeWeapon
+    soundNoDamage:
+      path: /Audio/Effects/Fluids/splat.ogg
+    damage:
+      types:
+        Blunt: 0
+  - type: DnaSubstanceTrace
+  - type: Edible
+    edible: Drink
+    destroyOnEmpty: false
+    utensil: None
+    solution: drink
+  - type: Spillable
+    solution: drink
+  - type: MixableSolution
+    solution: drink
+  - type: DrawableSolution
+    solution: drink
+  - type: RefillableSolution
+    solution: drink
+  - type: DrainableSolution
+    solution: drink
+  - type: InjectableSolution
+    solution: drink
+  - type: ExaminableSolution
+    solution: drink
+    examinableWhileClosed: true
+    heldOnly: false
+    exactVolume: true
+  - type: SolutionItemStatus
+    solution: drink
+  - type: SolutionTransfer
+    canChangeTransferAmount: true
+  - type: UserInterface
+    interfaces:
+      enum.TransferAmountUiKey.Key:
+        type: TransferAmountBoundUserInterface
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.OpenableVisuals.Opened:
+        enum.OpenableVisuals.Layer:
+          true:
+            state: icon_open
+          false:
+            state: icon_empty
+  - type: SolutionContainerVisuals
+    solutionName: drink
+    maxFillLevels: 6
+    fillBaseName: fill-
+    inHandsMaxFillLevels: 5
+    inHandsFillBaseName: "-fill-"
+  - type: Construction
+    graph: JugCraft
+    node: done
+  - type: StaticPrice
+    price: 60
+  - type: Tag
+    tags: [ ChemDispensable ]
+  - type: Label
+    localizedLabel: reagent-name-dystopia-uf6-depleted
+
+- type: entity
+  id: DystopiaTankUF6Depleted
+  name: storage tank
+  suffix: UF6Depleted
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Solution
+    id: tank
+    solution:
+      maxVol: 960
+      reagents:
+      - ReagentId: DystopiaUF6Depleted
+        Quantity: 960
+  - type: Transform
+    anchored: false
+    noRot: true
+  - type: Clickable
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.4,-0.4,0.4,0.4"
+        density: 155
+        mask: [ MachineMask ]
+        layer: [ MachineLayer, InteractImpassable ]
+  - type: Pullable
+  - type: Tag
+    tags: [ Structure ]
+  - type: Anchorable
+  - type: Animateable
+  - type: Sprite
+    noRot: true
+    sprite: Structures/Storage/tanks.rsi
+    layers:
+    - state: watertank-2
+    - state: watertank-2-1
+      map:
+      - enum.SolutionContainerLayers.Fill
+      visible: false
+  - type: InteractionOutline
+  - type: DrainableSolution
+    solution: tank
+  - type: ReagentTank
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTypeTrigger
+        damageType: Heat
+        damage: 5
+      behaviors:
+      - !type:SolutionExplosionBehavior
+        solution: tank
+    - trigger: !type:DamageTypeTrigger
+        damageType: Piercing
+        damage: 5
+      behaviors:
+      - !type:SolutionExplosionBehavior
+        solution: tank
+    - trigger: !type:DamageTrigger
+        damage: 20
+      behaviors:
+      - !type:SpillBehavior
+        solution: tank
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+  - type: Damageable
+    damageModifierSet: PlasticMod
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: TileFrictionModifier
+    modifier: 0.4
+  - type: StaticPrice
+    price: 500
+  - type: Appearance
+  - type: SolutionContainerVisuals
+    maxFillLevels: 5
+    fillBaseName: watertank-2-
+  - type: ExaminableSolution
+    solution: tank
+  - type: Label
+    localizedLabel: reagent-name-dystopia-uf6-depleted
+
+- type: entity
+  id: DystopiaJugRadioactiveDust
+  name: jug
+  suffix: RadioactiveDust
+  components:
+  - type: Solution
+    solution:
+      maxVol: 240
+      reagents:
+      - ReagentId: DystopiaRadioactiveDust
+        Quantity: 240
+    id: drink
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 20
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalCrunch
+          params:
+            volume: -4
+      - !type:SpillBehavior {}
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetPlastic1:
+            min: 0
+            max: 1
+        transferForensics: true
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: DamageOnLand
+    ignoreResistances: true
+    damage:
+      types:
+        Blunt: 1
+  - type: DamageOtherOnHit
+    damage:
+      types:
+        Blunt: 2
+  - type: PhysicalComposition
+    materialComposition:
+      Plastic: 100
+  - type: Item
+    size: Large
+    sprite: Objects/Specific/Chemistry/jug.rsi
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    layers:
+    - state: icon_empty
+      map: [ enum.OpenableVisuals.Layer ]
+    - state: fill-1
+      map:
+      - enum.SolutionContainerLayers.Fill
+      visible: false
+    sprite: Objects/Specific/Chemistry/jug.rsi
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: MeleeWeapon
+    soundNoDamage:
+      path: /Audio/Effects/Fluids/splat.ogg
+    damage:
+      types:
+        Blunt: 0
+  - type: DnaSubstanceTrace
+  - type: Edible
+    edible: Drink
+    destroyOnEmpty: false
+    utensil: None
+    solution: drink
+  - type: Spillable
+    solution: drink
+  - type: MixableSolution
+    solution: drink
+  - type: DrawableSolution
+    solution: drink
+  - type: RefillableSolution
+    solution: drink
+  - type: DrainableSolution
+    solution: drink
+  - type: InjectableSolution
+    solution: drink
+  - type: ExaminableSolution
+    solution: drink
+    examinableWhileClosed: true
+    heldOnly: false
+    exactVolume: true
+  - type: SolutionItemStatus
+    solution: drink
+  - type: SolutionTransfer
+    canChangeTransferAmount: true
+  - type: UserInterface
+    interfaces:
+      enum.TransferAmountUiKey.Key:
+        type: TransferAmountBoundUserInterface
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.OpenableVisuals.Opened:
+        enum.OpenableVisuals.Layer:
+          true:
+            state: icon_open
+          false:
+            state: icon_empty
+  - type: SolutionContainerVisuals
+    solutionName: drink
+    maxFillLevels: 6
+    fillBaseName: fill-
+    inHandsMaxFillLevels: 5
+    inHandsFillBaseName: "-fill-"
+  - type: Construction
+    graph: JugCraft
+    node: done
+  - type: StaticPrice
+    price: 60
+  - type: Tag
+    tags: [ ChemDispensable ]
+  - type: Label
+    localizedLabel: reagent-name-dystopia-radioactive-dust
+
+- type: entity
+  id: DystopiaTankRadioactiveDust
+  name: storage tank
+  suffix: RadioactiveDust
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Solution
+    id: tank
+    solution:
+      maxVol: 960
+      reagents:
+      - ReagentId: DystopiaRadioactiveDust
+        Quantity: 960
+  - type: Transform
+    anchored: false
+    noRot: true
+  - type: Clickable
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.4,-0.4,0.4,0.4"
+        density: 155
+        mask: [ MachineMask ]
+        layer: [ MachineLayer, InteractImpassable ]
+  - type: Pullable
+  - type: Tag
+    tags: [ Structure ]
+  - type: Anchorable
+  - type: Animateable
+  - type: Sprite
+    noRot: true
+    sprite: Structures/Storage/tanks.rsi
+    layers:
+    - state: watertank-2
+    - state: watertank-2-1
+      map:
+      - enum.SolutionContainerLayers.Fill
+      visible: false
+  - type: InteractionOutline
+  - type: DrainableSolution
+    solution: tank
+  - type: ReagentTank
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTypeTrigger
+        damageType: Heat
+        damage: 5
+      behaviors:
+      - !type:SolutionExplosionBehavior
+        solution: tank
+    - trigger: !type:DamageTypeTrigger
+        damageType: Piercing
+        damage: 5
+      behaviors:
+      - !type:SolutionExplosionBehavior
+        solution: tank
+    - trigger: !type:DamageTrigger
+        damage: 20
+      behaviors:
+      - !type:SpillBehavior
+        solution: tank
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+  - type: Damageable
+    damageModifierSet: PlasticMod
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: TileFrictionModifier
+    modifier: 0.4
+  - type: StaticPrice
+    price: 500
+  - type: Appearance
+  - type: SolutionContainerVisuals
+    maxFillLevels: 5
+    fillBaseName: watertank-2-
+  - type: ExaminableSolution
+    solution: tank
+  - type: Label
+    localizedLabel: reagent-name-dystopia-radioactive-dust

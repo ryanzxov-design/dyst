@@ -53,6 +53,7 @@
   - [color=#d2ae68]моток ВВ-кабеля[/color]: [color=#9ab0c4]медная проволока[/color] × [color=#ff9a50]18[/color], [color=#9ab0c4]резина[/color] × [color=#ff9a50]2[/color], [color=#9ab0c4]лист свинца[/color] × [color=#ff9a50]3[/color]
   - [color=#d2ae68]моток ВВ-кабеля[/color]: [color=#9ab0c4]медная проволока[/color] × [color=#ff9a50]18[/color], [color=#9ab0c4]пластик[/color] × [color=#ff9a50]2[/color], [color=#9ab0c4]лист свинца[/color] × [color=#ff9a50]3[/color]
   - [color=#d2ae68]свинцовый контейнер[/color]: [color=#9ab0c4]лист свинца[/color] × [color=#ff9a50]6[/color], [color=#9ab0c4]стальной лист[/color] × [color=#ff9a50]1[/color]
+  - [color=#d2ae68]моток кабеля управления[/color]: [color=#9ab0c4]медная проволока[/color] × [color=#ff9a50]6[/color], [color=#9ab0c4]ткань[/color] × [color=#ff9a50]3[/color]
 
   Сальниковую набивку не собирают руками: её делает [color=#d2ae68]бетономешалка[/color] из ткани и смолы, [color=#ff9a50]2[/color] мотка за раз.
 
@@ -114,13 +115,19 @@
 
   Ранние нефтяные машины уплотняют [color=#9ab0c4]сальниковой набивкой[/color]: резины ещё нет, она сама получается из нефти. [color=#9ab0c4]Резиновые уплотнители[/color] штампует [color=#d2ae68]вулканизационный пресс[/color] из листа резины ([color=#ff9a50]4[/color] за лист), [color=#9ab0c4]солидол[/color] мешает [color=#d2ae68]бетономешалка[/color] из [color=#7ac8b0]смазочного масла[/color] и [color=#7ac8b0]гашёной извести[/color]. Они нужны химической установке, двигателю и дизель-генератору.
 
-  ## Ядерное топливо
+  ## Атомная энергетика
   - [color=#d2ae68]газовая центрифуга[/color]: [color=#9ab0c4]чертёж[/color], [color=#9ab0c4]лист нержавеющей стали[/color] × [color=#ff9a50]4[/color], [color=#9ab0c4]стальной лист[/color] × [color=#ff9a50]2[/color], [color=#9ab0c4]электромотор[/color] × [color=#ff9a50]1[/color], [color=#9ab0c4]обмоточный провод[/color] × [color=#ff9a50]4[/color], [color=#9ab0c4]резиновый уплотнитель[/color] × [color=#ff9a50]2[/color], [color=#9ab0c4]банка солидола[/color] × [color=#ff9a50]1[/color]
   - [color=#d2ae68]ТВЭЛ (2%)[/color]: [color=#9ab0c4]трубка из нержавеющей стали[/color] × [color=#ff9a50]1[/color], [color=#9ab0c4]топливные таблетки (2%)[/color] × [color=#ff9a50]10[/color]
   - [color=#d2ae68]ТВЭЛ (4%)[/color]: [color=#9ab0c4]трубка из нержавеющей стали[/color] × [color=#ff9a50]1[/color], [color=#9ab0c4]топливные таблетки (4%)[/color] × [color=#ff9a50]10[/color]
   - [color=#d2ae68]ТВЭЛ (20%)[/color]: [color=#9ab0c4]трубка из нержавеющей стали[/color] × [color=#ff9a50]1[/color], [color=#9ab0c4]топливные таблетки (20%)[/color] × [color=#ff9a50]10[/color]
+  - [color=#d2ae68]графитовая кладка[/color]: [color=#9ab0c4]графитовый электрод[/color] × [color=#ff9a50]4[/color], [color=#9ab0c4]стальной лист[/color] × [color=#ff9a50]1[/color]
+  - [color=#d2ae68]пароводяной канал[/color]: [color=#9ab0c4]лист нержавеющей стали[/color] × [color=#ff9a50]2[/color], [color=#9ab0c4]стальной лист[/color] × [color=#ff9a50]2[/color], [color=#9ab0c4]резиновый уплотнитель[/color] × [color=#ff9a50]1[/color]
+  - [color=#d2ae68]топливный канал[/color]: [color=#9ab0c4]чертёж[/color], [color=#9ab0c4]лист нержавеющей стали[/color] × [color=#ff9a50]3[/color], [color=#9ab0c4]стальной лист[/color] × [color=#ff9a50]2[/color], [color=#9ab0c4]графитовый электрод[/color] × [color=#ff9a50]2[/color], [color=#9ab0c4]резиновый уплотнитель[/color] × [color=#ff9a50]1[/color]
+  - [color=#d2ae68]канал регулирующего стержня[/color]: [color=#9ab0c4]чертёж[/color], [color=#9ab0c4]стальной лист[/color] × [color=#ff9a50]4[/color], [color=#9ab0c4]серебряная проволока[/color] × [color=#ff9a50]4[/color], [color=#9ab0c4]электромотор[/color] × [color=#ff9a50]1[/color], [color=#9ab0c4]редуктор[/color] × [color=#ff9a50]1[/color]
+  - [color=#d2ae68]барабан-сепаратор[/color]: [color=#9ab0c4]чертёж[/color], [color=#9ab0c4]стальной лист[/color] × [color=#ff9a50]8[/color], [color=#9ab0c4]лист нержавеющей стали[/color] × [color=#ff9a50]4[/color], [color=#9ab0c4]резиновый уплотнитель[/color] × [color=#ff9a50]2[/color], [color=#9ab0c4]стекло[/color] × [color=#ff9a50]1[/color]
+  - [color=#d2ae68]пульт управления реактором[/color]: [color=#9ab0c4]чертёж[/color], [color=#9ab0c4]стальной лист[/color] × [color=#ff9a50]4[/color], [color=#9ab0c4]стекло[/color] × [color=#ff9a50]2[/color], [color=#9ab0c4]медная проволока[/color] × [color=#ff9a50]6[/color], [color=#9ab0c4]обмоточный провод[/color] × [color=#ff9a50]2[/color]
 
-  Что делают из урана и как, — раздел [textlink="Ядерное топливо" link="DystopiaIndustryNuclear"].
+  Колонны реактора строятся по одной на клетку и проходимы, как леса: по крышкам каналов ходят. Что делают из урана — раздел [textlink="Ядерное топливо" link="DystopiaIndustryNuclear"], как собрать и вести реактор — [textlink="Реактор" link="DystopiaIndustryReactor"]. [color=#9ab0c4]Кабель управления[/color] — в инструментах и деталях.
 
   ## Изделия
   - [color=#d2ae68]изолированные перчатки[/color]: [color=#9ab0c4]резина[/color] × [color=#ff9a50]2[/color]

@@ -18,4 +18,5 @@ public enum NodeGroupID : byte
     Teg,
     ExCable,
     DystopiaLiquid, // Dystopia-Liquids: жидкостные трубы
+    DystopiaControl, // Dystopia-Energy: кабель управления (пульт реактора)
 }

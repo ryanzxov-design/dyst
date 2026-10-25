@@ -1899,6 +1899,9 @@
   - type: RadiationSource
     intensity: 0.1
     slope: 0.5
+  - type: DystopiaFuelRod
+    reactivity: 1.2
+    energy: 600000
 
 - type: entity
   id: DystopiaFuelRodE4
@@ -1967,6 +1970,9 @@
   - type: RadiationSource
     intensity: 0.15
     slope: 0.5
+  - type: DystopiaFuelRod
+    reactivity: 1.5
+    energy: 1200000
 
 - type: entity
   id: DystopiaFuelRodE20
@@ -2035,3 +2041,6 @@
   - type: RadiationSource
     intensity: 0.4
     slope: 0.5
+  - type: DystopiaFuelRod
+    reactivity: 1.8
+    energy: 2400000

@@ -1906,3 +1906,157 @@
         density: 250
         mask: [ MachineMask ]
         layer: [ MachineLayer ]
+
+- type: entity
+  id: DystopiaSiteReactorColumnGraphite
+  name: construction site
+  description: Unfinished construction. Examine it to see what goes in next.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _Dystopia/Structures/Nuclear/reactor_columns.rsi
+    state: graphite
+    color: "#FFFFFF80"
+    drawdepth: FloorObjects
+    noRot: true
+  - type: Construction
+    graph: DystopiaReactorColumnGraphiteCraft
+    node: s1
+  - type: Tag
+    tags: [ Unstackable ]
+
+- type: entity
+  id: DystopiaSiteReactorColumnCoolant
+  name: construction site
+  description: Unfinished construction. Examine it to see what goes in next.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _Dystopia/Structures/Nuclear/reactor_columns.rsi
+    state: coolant
+    color: "#FFFFFF80"
+    drawdepth: FloorObjects
+    noRot: true
+  - type: Construction
+    graph: DystopiaReactorColumnCoolantCraft
+    node: s1
+  - type: Tag
+    tags: [ Unstackable ]
+
+- type: entity
+  id: DystopiaSiteReactorColumnFuel
+  name: construction site
+  description: Unfinished construction. Examine it to see what goes in next.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _Dystopia/Structures/Nuclear/reactor_columns.rsi
+    state: fuel
+    color: "#FFFFFF80"
+    drawdepth: FloorObjects
+    noRot: true
+  - type: Construction
+    graph: DystopiaReactorColumnFuelCraft
+    node: s1
+  - type: Tag
+    tags: [ Unstackable ]
+
+- type: entity
+  id: DystopiaSiteReactorColumnControl
+  name: construction site
+  description: Unfinished construction. Examine it to see what goes in next.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _Dystopia/Structures/Nuclear/reactor_columns.rsi
+    state: control
+    color: "#FFFFFF80"
+    drawdepth: FloorObjects
+    noRot: true
+  - type: Construction
+    graph: DystopiaReactorColumnControlCraft
+    node: s1
+  - type: Tag
+    tags: [ Unstackable ]
+
+- type: entity
+  id: DystopiaSiteReactorSeparator
+  name: construction site
+  description: Unfinished construction. Examine it to see what goes in next.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _Dystopia/Structures/Nuclear/reactor_separator.rsi
+    state: running
+    color: "#FFFFFF80"
+    drawdepth: Objects
+    noRot: true
+  - type: Construction
+    graph: DystopiaReactorSeparatorCraft
+    node: s1
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.4,-0.45,0.4,0.4"
+        density: 1000
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]
+
+- type: entity
+  id: DystopiaSiteReactorConsole
+  name: construction site
+  description: Unfinished construction. Examine it to see what goes in next.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _Dystopia/Structures/Nuclear/reactor_console.rsi
+    state: running
+    color: "#FFFFFF80"
+    drawdepth: Objects
+    noRot: true
+  - type: Construction
+    graph: DystopiaReactorConsoleCraft
+    node: s1
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.25"
+        density: 500
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]
