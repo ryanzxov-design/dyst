@@ -1,0 +1,2037 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: ядерное топливо (gen_energy2.py) — порошок диоксида урана, сырые и спечённые таблетки трёх
+# сортов, трубка из нержавейки, ТВЭЛы, слитки оружейного и обеднённого урана. Светят — RadiationSource.
+
+- type: stack
+  id: DystopiaUraniumDioxideE2
+  name: stack-dystopiauraniumdioxidee2
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Nuclear/uranium_dioxide.rsi, state: powder_E2 }
+  spawn: DystopiaUraniumDioxideE21
+  maxCount: 30
+
+- type: stack
+  id: DystopiaFuelPelletRawE2
+  name: stack-dystopiafuelpelletrawe2
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Nuclear/fuel_pellets.rsi, state: raw_E2_3 }
+  spawn: DystopiaFuelPelletRawE21
+  maxCount: 30
+
+- type: stack
+  id: DystopiaFuelPelletE2
+  name: stack-dystopiafuelpellete2
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Nuclear/fuel_pellets.rsi, state: pellet_E2_3 }
+  spawn: DystopiaFuelPelletE21
+  maxCount: 30
+
+- type: stack
+  id: DystopiaUraniumDioxideE4
+  name: stack-dystopiauraniumdioxidee4
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Nuclear/uranium_dioxide.rsi, state: powder_E4 }
+  spawn: DystopiaUraniumDioxideE41
+  maxCount: 30
+
+- type: stack
+  id: DystopiaFuelPelletRawE4
+  name: stack-dystopiafuelpelletrawe4
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Nuclear/fuel_pellets.rsi, state: raw_E4_3 }
+  spawn: DystopiaFuelPelletRawE41
+  maxCount: 30
+
+- type: stack
+  id: DystopiaFuelPelletE4
+  name: stack-dystopiafuelpellete4
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Nuclear/fuel_pellets.rsi, state: pellet_E4_3 }
+  spawn: DystopiaFuelPelletE41
+  maxCount: 30
+
+- type: stack
+  id: DystopiaUraniumDioxideE20
+  name: stack-dystopiauraniumdioxidee20
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Nuclear/uranium_dioxide.rsi, state: powder_E20 }
+  spawn: DystopiaUraniumDioxideE201
+  maxCount: 30
+
+- type: stack
+  id: DystopiaFuelPelletRawE20
+  name: stack-dystopiafuelpelletrawe20
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Nuclear/fuel_pellets.rsi, state: raw_E20_3 }
+  spawn: DystopiaFuelPelletRawE201
+  maxCount: 30
+
+- type: stack
+  id: DystopiaFuelPelletE20
+  name: stack-dystopiafuelpellete20
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Nuclear/fuel_pellets.rsi, state: pellet_E20_3 }
+  spawn: DystopiaFuelPelletE201
+  maxCount: 30
+
+- type: stack
+  id: DystopiaStainlessTube
+  name: stack-dystopiastainlesstube
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Nuclear/stainless_tube.rsi, state: tube_5 }
+  spawn: DystopiaStainlessTube1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaIngotUraniumWeapon
+  name: stack-dystopiaingoturaniumweapon
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Nuclear/uranium_ingots.rsi, state: weapon_3 }
+  spawn: DystopiaIngotUraniumWeapon1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaIngotUraniumDepleted
+  name: stack-dystopiaingoturaniumdepleted
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/Nuclear/uranium_ingots.rsi, state: depleted_3 }
+  spawn: DystopiaIngotUraniumDepleted1
+  maxCount: 30
+
+- type: entity
+  id: DystopiaUraniumDioxideE2
+  name: uranium dioxide powder (2%)
+  description: Heavy dark-brown powder of 2% enriched uranium. The brick press makes pellets of it.
+  suffix: Full
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Nuclear/uranium_dioxide.rsi
+    heldPrefix: powder
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Nuclear/uranium_dioxide.rsi
+    state: powder_E2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Stack
+    stackType: DystopiaUraniumDioxideE2
+    count: 30
+  - type: RadiationSource
+    intensity: 0.02
+    slope: 0.5
+
+- type: entity
+  id: DystopiaUraniumDioxideE21
+  name: uranium dioxide powder (2%)
+  description: Heavy dark-brown powder of 2% enriched uranium. The brick press makes pellets of it.
+  suffix: Single
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Nuclear/uranium_dioxide.rsi
+    heldPrefix: powder
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Nuclear/uranium_dioxide.rsi
+    state: powder_E2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Stack
+    stackType: DystopiaUraniumDioxideE2
+    count: 1
+  - type: RadiationSource
+    intensity: 0.02
+    slope: 0.5
+
+- type: entity
+  id: DystopiaFuelPelletRawE2
+  name: green fuel pellets (2%)
+  description: "Pressed uranium dioxide pellets (2%), not yet sintered: crumbly. Fire them in a roasting furnace."
+  suffix: Full
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Nuclear/fuel_pellets.rsi
+    heldPrefix: raw
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Nuclear/fuel_pellets.rsi
+    state: raw_E2_3
+    layers:
+    - state: raw_E2_3
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Stack
+    stackType: DystopiaFuelPelletRawE2
+    baseLayer: base
+    layerStates: [ raw_E2, raw_E2_2, raw_E2_3 ]
+    count: 30
+  - type: RadiationSource
+    intensity: 0.02
+    slope: 0.5
+
+- type: entity
+  id: DystopiaFuelPelletRawE21
+  name: green fuel pellets (2%)
+  description: "Pressed uranium dioxide pellets (2%), not yet sintered: crumbly. Fire them in a roasting furnace."
+  suffix: Single
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Nuclear/fuel_pellets.rsi
+    heldPrefix: raw
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Nuclear/fuel_pellets.rsi
+    state: raw_E2
+    layers:
+    - state: raw_E2
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Stack
+    stackType: DystopiaFuelPelletRawE2
+    count: 1
+    baseLayer: base
+    layerStates: [ raw_E2, raw_E2_2, raw_E2_3 ]
+  - type: RadiationSource
+    intensity: 0.02
+    slope: 0.5
+
+- type: entity
+  id: DystopiaFuelPelletE2
+  name: fuel pellets (2%)
+  description: Sintered uranium dioxide pellets, 2% enriched. Ten go into a stainless tube to make a fuel rod.
+  suffix: Full
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Nuclear/fuel_pellets.rsi
+    heldPrefix: pellet
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Nuclear/fuel_pellets.rsi
+    state: pellet_E2_3
+    layers:
+    - state: pellet_E2_3
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Stack
+    stackType: DystopiaFuelPelletE2
+    baseLayer: base
+    layerStates: [ pellet_E2, pellet_E2_2, pellet_E2_3 ]
+    count: 30
+  - type: RadiationSource
+    intensity: 0.03
+    slope: 0.5
+
+- type: entity
+  id: DystopiaFuelPelletE21
+  name: fuel pellets (2%)
+  description: Sintered uranium dioxide pellets, 2% enriched. Ten go into a stainless tube to make a fuel rod.
+  suffix: Single
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Nuclear/fuel_pellets.rsi
+    heldPrefix: pellet
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Nuclear/fuel_pellets.rsi
+    state: pellet_E2
+    layers:
+    - state: pellet_E2
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Stack
+    stackType: DystopiaFuelPelletE2
+    count: 1
+    baseLayer: base
+    layerStates: [ pellet_E2, pellet_E2_2, pellet_E2_3 ]
+  - type: RadiationSource
+    intensity: 0.03
+    slope: 0.5
+
+- type: entity
+  id: DystopiaUraniumDioxideE4
+  name: uranium dioxide powder (4%)
+  description: Heavy dark-brown powder of 4% enriched uranium. The brick press makes pellets of it.
+  suffix: Full
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Nuclear/uranium_dioxide.rsi
+    heldPrefix: powder
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Nuclear/uranium_dioxide.rsi
+    state: powder_E4
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Stack
+    stackType: DystopiaUraniumDioxideE4
+    count: 30
+  - type: RadiationSource
+    intensity: 0.02
+    slope: 0.5
+
+- type: entity
+  id: DystopiaUraniumDioxideE41
+  name: uranium dioxide powder (4%)
+  description: Heavy dark-brown powder of 4% enriched uranium. The brick press makes pellets of it.
+  suffix: Single
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Nuclear/uranium_dioxide.rsi
+    heldPrefix: powder
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Nuclear/uranium_dioxide.rsi
+    state: powder_E4
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Stack
+    stackType: DystopiaUraniumDioxideE4
+    count: 1
+  - type: RadiationSource
+    intensity: 0.02
+    slope: 0.5
+
+- type: entity
+  id: DystopiaFuelPelletRawE4
+  name: green fuel pellets (4%)
+  description: "Pressed uranium dioxide pellets (4%), not yet sintered: crumbly. Fire them in a roasting furnace."
+  suffix: Full
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Nuclear/fuel_pellets.rsi
+    heldPrefix: raw
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Nuclear/fuel_pellets.rsi
+    state: raw_E4_3
+    layers:
+    - state: raw_E4_3
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Stack
+    stackType: DystopiaFuelPelletRawE4
+    baseLayer: base
+    layerStates: [ raw_E4, raw_E4_2, raw_E4_3 ]
+    count: 30
+  - type: RadiationSource
+    intensity: 0.02
+    slope: 0.5
+
+- type: entity
+  id: DystopiaFuelPelletRawE41
+  name: green fuel pellets (4%)
+  description: "Pressed uranium dioxide pellets (4%), not yet sintered: crumbly. Fire them in a roasting furnace."
+  suffix: Single
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Nuclear/fuel_pellets.rsi
+    heldPrefix: raw
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Nuclear/fuel_pellets.rsi
+    state: raw_E4
+    layers:
+    - state: raw_E4
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Stack
+    stackType: DystopiaFuelPelletRawE4
+    count: 1
+    baseLayer: base
+    layerStates: [ raw_E4, raw_E4_2, raw_E4_3 ]
+  - type: RadiationSource
+    intensity: 0.02
+    slope: 0.5
+
+- type: entity
+  id: DystopiaFuelPelletE4
+  name: fuel pellets (4%)
+  description: Sintered uranium dioxide pellets, 4% enriched. Ten go into a stainless tube to make a fuel rod.
+  suffix: Full
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Nuclear/fuel_pellets.rsi
+    heldPrefix: pellet
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Nuclear/fuel_pellets.rsi
+    state: pellet_E4_3
+    layers:
+    - state: pellet_E4_3
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Stack
+    stackType: DystopiaFuelPelletE4
+    baseLayer: base
+    layerStates: [ pellet_E4, pellet_E4_2, pellet_E4_3 ]
+    count: 30
+  - type: RadiationSource
+    intensity: 0.03
+    slope: 0.5
+
+- type: entity
+  id: DystopiaFuelPelletE41
+  name: fuel pellets (4%)
+  description: Sintered uranium dioxide pellets, 4% enriched. Ten go into a stainless tube to make a fuel rod.
+  suffix: Single
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Nuclear/fuel_pellets.rsi
+    heldPrefix: pellet
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Nuclear/fuel_pellets.rsi
+    state: pellet_E4
+    layers:
+    - state: pellet_E4
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Stack
+    stackType: DystopiaFuelPelletE4
+    count: 1
+    baseLayer: base
+    layerStates: [ pellet_E4, pellet_E4_2, pellet_E4_3 ]
+  - type: RadiationSource
+    intensity: 0.03
+    slope: 0.5
+
+- type: entity
+  id: DystopiaUraniumDioxideE20
+  name: uranium dioxide powder (20%)
+  description: Heavy dark-brown powder of 20% enriched uranium. The brick press makes pellets of it.
+  suffix: Full
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Nuclear/uranium_dioxide.rsi
+    heldPrefix: powder
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Nuclear/uranium_dioxide.rsi
+    state: powder_E20
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Stack
+    stackType: DystopiaUraniumDioxideE20
+    count: 30
+  - type: RadiationSource
+    intensity: 0.02
+    slope: 0.5
+
+- type: entity
+  id: DystopiaUraniumDioxideE201
+  name: uranium dioxide powder (20%)
+  description: Heavy dark-brown powder of 20% enriched uranium. The brick press makes pellets of it.
+  suffix: Single
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Nuclear/uranium_dioxide.rsi
+    heldPrefix: powder
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Nuclear/uranium_dioxide.rsi
+    state: powder_E20
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Stack
+    stackType: DystopiaUraniumDioxideE20
+    count: 1
+  - type: RadiationSource
+    intensity: 0.02
+    slope: 0.5
+
+- type: entity
+  id: DystopiaFuelPelletRawE20
+  name: green fuel pellets (20%)
+  description: "Pressed uranium dioxide pellets (20%), not yet sintered: crumbly. Fire them in a roasting furnace."
+  suffix: Full
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Nuclear/fuel_pellets.rsi
+    heldPrefix: raw
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Nuclear/fuel_pellets.rsi
+    state: raw_E20_3
+    layers:
+    - state: raw_E20_3
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Stack
+    stackType: DystopiaFuelPelletRawE20
+    baseLayer: base
+    layerStates: [ raw_E20, raw_E20_2, raw_E20_3 ]
+    count: 30
+  - type: RadiationSource
+    intensity: 0.02
+    slope: 0.5
+
+- type: entity
+  id: DystopiaFuelPelletRawE201
+  name: green fuel pellets (20%)
+  description: "Pressed uranium dioxide pellets (20%), not yet sintered: crumbly. Fire them in a roasting furnace."
+  suffix: Single
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Nuclear/fuel_pellets.rsi
+    heldPrefix: raw
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Nuclear/fuel_pellets.rsi
+    state: raw_E20
+    layers:
+    - state: raw_E20
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Stack
+    stackType: DystopiaFuelPelletRawE20
+    count: 1
+    baseLayer: base
+    layerStates: [ raw_E20, raw_E20_2, raw_E20_3 ]
+  - type: RadiationSource
+    intensity: 0.02
+    slope: 0.5
+
+- type: entity
+  id: DystopiaFuelPelletE20
+  name: fuel pellets (20%)
+  description: Sintered uranium dioxide pellets, 20% enriched. Ten go into a stainless tube to make a fuel rod.
+  suffix: Full
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Nuclear/fuel_pellets.rsi
+    heldPrefix: pellet
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Nuclear/fuel_pellets.rsi
+    state: pellet_E20_3
+    layers:
+    - state: pellet_E20_3
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Stack
+    stackType: DystopiaFuelPelletE20
+    baseLayer: base
+    layerStates: [ pellet_E20, pellet_E20_2, pellet_E20_3 ]
+    count: 30
+  - type: RadiationSource
+    intensity: 0.03
+    slope: 0.5
+
+- type: entity
+  id: DystopiaFuelPelletE201
+  name: fuel pellets (20%)
+  description: Sintered uranium dioxide pellets, 20% enriched. Ten go into a stainless tube to make a fuel rod.
+  suffix: Single
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Nuclear/fuel_pellets.rsi
+    heldPrefix: pellet
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Nuclear/fuel_pellets.rsi
+    state: pellet_E20
+    layers:
+    - state: pellet_E20
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Stack
+    stackType: DystopiaFuelPelletE20
+    count: 1
+    baseLayer: base
+    layerStates: [ pellet_E20, pellet_E20_2, pellet_E20_3 ]
+  - type: RadiationSource
+    intensity: 0.03
+    slope: 0.5
+
+- type: entity
+  id: DystopiaStainlessTube
+  name: stainless steel tube
+  description: A thin seamless tube drawn from a stainless rod. Fuel rod cladding is made of it.
+  suffix: Full
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Nuclear/stainless_tube.rsi
+    heldPrefix: tube
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Nuclear/stainless_tube.rsi
+    state: tube_5
+    layers:
+    - state: tube_5
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+    damageModifierSet: FlimsyMetallic
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Stack
+    stackType: DystopiaStainlessTube
+    baseLayer: base
+    layerStates: [ tube, tube_2, tube_3, tube_4, tube_5 ]
+    count: 30
+
+- type: entity
+  id: DystopiaStainlessTube1
+  name: stainless steel tube
+  description: A thin seamless tube drawn from a stainless rod. Fuel rod cladding is made of it.
+  suffix: Single
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Nuclear/stainless_tube.rsi
+    heldPrefix: tube
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Nuclear/stainless_tube.rsi
+    state: tube
+    layers:
+    - state: tube
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+    damageModifierSet: FlimsyMetallic
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Stack
+    stackType: DystopiaStainlessTube
+    baseLayer: base
+    layerStates: [ tube, tube_2, tube_3, tube_4, tube_5 ]
+    count: 1
+
+- type: entity
+  id: DystopiaIngotUraniumWeapon
+  name: weapons-grade uranium ingot
+  description: "Uranium enriched to 90%. Warm to the touch and dangerous to keep near people: store it in a lead container."
+  suffix: Full
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Nuclear/uranium_ingots.rsi
+    heldPrefix: weapon
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Nuclear/uranium_ingots.rsi
+    state: weapon_3
+    layers:
+    - state: weapon_3
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Stack
+    stackType: DystopiaIngotUraniumWeapon
+    baseLayer: base
+    layerStates: [ weapon, weapon_2, weapon_3 ]
+    count: 30
+  - type: RadiationSource
+    intensity: 0.6
+    slope: 0.5
+
+- type: entity
+  id: DystopiaIngotUraniumWeapon1
+  name: weapons-grade uranium ingot
+  description: "Uranium enriched to 90%. Warm to the touch and dangerous to keep near people: store it in a lead container."
+  suffix: Single
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Nuclear/uranium_ingots.rsi
+    heldPrefix: weapon
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Nuclear/uranium_ingots.rsi
+    state: weapon
+    layers:
+    - state: weapon
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Stack
+    stackType: DystopiaIngotUraniumWeapon
+    baseLayer: base
+    layerStates: [ weapon, weapon_2, weapon_3 ]
+    count: 1
+  - type: RadiationSource
+    intensity: 0.6
+    slope: 0.5
+
+- type: entity
+  id: DystopiaIngotUraniumDepleted
+  name: depleted uranium ingot
+  description: "Uranium with the uranium-235 taken out: very dense and barely radioactive. Kept for armour-piercing rounds."
+  suffix: Full
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Nuclear/uranium_ingots.rsi
+    heldPrefix: depleted
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Nuclear/uranium_ingots.rsi
+    state: depleted_3
+    layers:
+    - state: depleted_3
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Stack
+    stackType: DystopiaIngotUraniumDepleted
+    baseLayer: base
+    layerStates: [ depleted, depleted_2, depleted_3 ]
+    count: 30
+  - type: RadiationSource
+    intensity: 0.01
+    slope: 0.5
+
+- type: entity
+  id: DystopiaIngotUraniumDepleted1
+  name: depleted uranium ingot
+  description: "Uranium with the uranium-235 taken out: very dense and barely radioactive. Kept for armour-piercing rounds."
+  suffix: Single
+  components:
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Nuclear/uranium_ingots.rsi
+    heldPrefix: depleted
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Nuclear/uranium_ingots.rsi
+    state: depleted
+    layers:
+    - state: depleted
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Stack
+    stackType: DystopiaIngotUraniumDepleted
+    baseLayer: base
+    layerStates: [ depleted, depleted_2, depleted_3 ]
+    count: 1
+  - type: RadiationSource
+    intensity: 0.01
+    slope: 0.5
+
+- type: entity
+  id: DystopiaFuelRodE2
+  name: fuel rod (2%)
+  description: A sealed stainless tube with ten uranium dioxide pellets, 2% enriched. Goes into a reactor fuel channel.
+  components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaFuelRodE2Craft
+    node: done
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Nuclear/fuel_rod.rsi
+    heldPrefix: rod
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Nuclear/fuel_rod.rsi
+    state: rod_E2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: RadiationSource
+    intensity: 0.1
+    slope: 0.5
+
+- type: entity
+  id: DystopiaFuelRodE4
+  name: fuel rod (4%)
+  description: A sealed stainless tube with ten uranium dioxide pellets, 4% enriched. Goes into a reactor fuel channel.
+  components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaFuelRodE4Craft
+    node: done
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Nuclear/fuel_rod.rsi
+    heldPrefix: rod
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Nuclear/fuel_rod.rsi
+    state: rod_E4
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: RadiationSource
+    intensity: 0.15
+    slope: 0.5
+
+- type: entity
+  id: DystopiaFuelRodE20
+  name: fuel rod (20%)
+  description: "A sealed stainless tube with ten uranium dioxide pellets, 20% enriched. Goes into a reactor fuel channel. The \"hot\" kind: more power, more danger."
+  components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaFuelRodE20Craft
+    node: done
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/Nuclear/fuel_rod.rsi
+    heldPrefix: rod
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/Nuclear/fuel_rod.rsi
+    state: rod_E20
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: RadiationSource
+    intensity: 0.4
+    slope: 0.5

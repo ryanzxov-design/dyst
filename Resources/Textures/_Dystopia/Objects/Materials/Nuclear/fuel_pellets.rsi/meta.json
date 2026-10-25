@@ -1,0 +1,81 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Drawn for Dystopia (ryanzxov-design/dyst). In-hand sprites from _Dystopia/Objects/Materials/Metals/chemical_processing.rsi (see its meta.json), recolored.",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "raw_E2"
+    },
+    {
+      "name": "raw_E2_2"
+    },
+    {
+      "name": "raw_E2_3"
+    },
+    {
+      "name": "pellet_E2"
+    },
+    {
+      "name": "pellet_E2_2"
+    },
+    {
+      "name": "pellet_E2_3"
+    },
+    {
+      "name": "raw_E4"
+    },
+    {
+      "name": "raw_E4_2"
+    },
+    {
+      "name": "raw_E4_3"
+    },
+    {
+      "name": "pellet_E4"
+    },
+    {
+      "name": "pellet_E4_2"
+    },
+    {
+      "name": "pellet_E4_3"
+    },
+    {
+      "name": "raw_E20"
+    },
+    {
+      "name": "raw_E20_2"
+    },
+    {
+      "name": "raw_E20_3"
+    },
+    {
+      "name": "pellet_E20"
+    },
+    {
+      "name": "pellet_E20_2"
+    },
+    {
+      "name": "pellet_E20_3"
+    },
+    {
+      "name": "pellet-inhand-left",
+      "directions": 4
+    },
+    {
+      "name": "pellet-inhand-right",
+      "directions": 4
+    },
+    {
+      "name": "raw-inhand-left",
+      "directions": 4
+    },
+    {
+      "name": "raw-inhand-right",
+      "directions": 4
+    }
+  ]
+}

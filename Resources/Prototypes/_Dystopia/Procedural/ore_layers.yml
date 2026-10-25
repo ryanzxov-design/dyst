@@ -195,6 +195,18 @@
   maxGroupSize: 6
   radius: 4
 
+- type: biomeMarkerLayer
+  id: DystopiaOreFluorite
+  entityMask:
+    WallRock: DystopiaWallRockFluorite
+    WallRockSand: DystopiaWallRockSandFluorite
+    WallRockSnow: DystopiaWallRockSnowFluorite
+    WallRockChromite: DystopiaWallRockChromiteFluorite
+  maxCount: 14   # medium
+  minGroupSize: 4
+  maxGroupSize: 8
+  radius: 4
+
 # Экспедиции: жилы Города на каждой планете экспедиции.
 
 - type: salvageLoot
@@ -308,3 +320,10 @@
   loots:
     - !type:BiomeMarkerLoot
       proto: DystopiaOreCinnabar
+
+- type: salvageLoot
+  id: DystopiaOreFluorite
+  guaranteed: true
+  loots:
+    - !type:BiomeMarkerLoot
+      proto: DystopiaOreFluorite

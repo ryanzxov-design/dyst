@@ -7334,6 +7334,264 @@
     entity: DystopiaLeadContainer
 
 - type: constructionGraph
+  id: DystopiaGasCentrifugeCraft
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: s1
+      steps:
+      - tag: DystopiaBlueprintGasCentrifuge
+        name: construction-graph-tag-dystopia-blueprint
+        icon:
+          sprite: _Dystopia/Objects/Misc/blueprint.rsi
+          state: icon
+        doAfter: 1.71
+
+  - node: s1
+    entity: DystopiaSiteGasCentrifuge
+    edges:
+    - to: s2
+      steps:
+      - material: DystopiaSheetStainlessSteel
+        amount: 4
+        doAfter: 1.71
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaBlueprintGasCentrifuge
+        amount: 1
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: s2
+    entity: DystopiaSiteGasCentrifuge
+    edges:
+    - to: s3
+      steps:
+      - material: Steel
+        amount: 2
+        doAfter: 1.71
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaBlueprintGasCentrifuge
+        amount: 1
+      - !type:SpawnPrototype
+        prototype: DystopiaSheetStainlessSteel1
+        amount: 4
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: s3
+    entity: DystopiaSiteGasCentrifuge
+    edges:
+    - to: s4
+      steps:
+      - tag: DystopiaPartMotor
+        name: construction-graph-tag-dystopia-motor
+        icon:
+          sprite: _Dystopia/Objects/Materials/Parts/parts.rsi
+          state: motor
+        doAfter: 1.71
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaBlueprintGasCentrifuge
+        amount: 1
+      - !type:SpawnPrototype
+        prototype: DystopiaSheetStainlessSteel1
+        amount: 4
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 2
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: s4
+    entity: DystopiaSiteGasCentrifuge
+    edges:
+    - to: s5
+      steps:
+      - material: DystopiaWinding
+        amount: 4
+        doAfter: 1.71
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaBlueprintGasCentrifuge
+        amount: 1
+      - !type:SpawnPrototype
+        prototype: DystopiaSheetStainlessSteel1
+        amount: 4
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 2
+      - !type:SpawnPrototype
+        prototype: DystopiaElectricMotor
+        amount: 1
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: s5
+    entity: DystopiaSiteGasCentrifuge
+    edges:
+    - to: s6
+      steps:
+      - material: DystopiaRubberSeal
+        amount: 2
+        doAfter: 1.71
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaBlueprintGasCentrifuge
+        amount: 1
+      - !type:SpawnPrototype
+        prototype: DystopiaSheetStainlessSteel1
+        amount: 4
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 2
+      - !type:SpawnPrototype
+        prototype: DystopiaElectricMotor
+        amount: 1
+      - !type:SpawnPrototype
+        prototype: DystopiaWinding1
+        amount: 4
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: s6
+    entity: DystopiaSiteGasCentrifuge
+    edges:
+    - to: done
+      steps:
+      - material: DystopiaGrease
+        amount: 1
+        doAfter: 1.71
+    - to: start
+      completed:
+      - !type:SpawnPrototype
+        prototype: DystopiaBlueprintGasCentrifuge
+        amount: 1
+      - !type:SpawnPrototype
+        prototype: DystopiaSheetStainlessSteel1
+        amount: 4
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 2
+      - !type:SpawnPrototype
+        prototype: DystopiaElectricMotor
+        amount: 1
+      - !type:SpawnPrototype
+        prototype: DystopiaWinding1
+        amount: 4
+      - !type:SpawnPrototype
+        prototype: DystopiaRubberSeal1
+        amount: 2
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 2
+
+  - node: done
+    entity: DystopiaGasCentrifuge
+    edges:
+    - to: start
+      completed:
+      - !type:EmptyContainer
+        container: dystopia_processor_input
+      - !type:SpawnPrototype
+        prototype: DystopiaBlueprintGasCentrifuge
+        amount: 1
+      - !type:SpawnPrototype
+        prototype: DystopiaSheetStainlessSteel1
+        amount: 4
+      - !type:SpawnPrototype
+        prototype: SheetSteel1
+        amount: 2
+      - !type:SpawnPrototype
+        prototype: DystopiaElectricMotor
+        amount: 1
+      - !type:SpawnPrototype
+        prototype: DystopiaWinding1
+        amount: 4
+      - !type:SpawnPrototype
+        prototype: DystopiaRubberSeal1
+        amount: 2
+      - !type:SpawnPrototype
+        prototype: DystopiaGrease1
+        amount: 1
+      - !type:DeleteEntity
+      steps:
+      - tool: Prying
+        doAfter: 6
+
+- type: constructionGraph
+  id: DystopiaFuelRodE2Craft
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: done
+      steps:
+      - material: DystopiaStainlessTube
+        amount: 1
+        doAfter: 3.0
+      - material: DystopiaFuelPelletE2
+        amount: 10
+        doAfter: 3.0
+
+  - node: done
+    entity: DystopiaFuelRodE2
+
+- type: constructionGraph
+  id: DystopiaFuelRodE4Craft
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: done
+      steps:
+      - material: DystopiaStainlessTube
+        amount: 1
+        doAfter: 3.0
+      - material: DystopiaFuelPelletE4
+        amount: 10
+        doAfter: 3.0
+
+  - node: done
+    entity: DystopiaFuelRodE4
+
+- type: constructionGraph
+  id: DystopiaFuelRodE20Craft
+  start: start
+  graph:
+  - node: start
+    edges:
+    - to: done
+      steps:
+      - material: DystopiaStainlessTube
+        amount: 1
+        doAfter: 3.0
+      - material: DystopiaFuelPelletE20
+        amount: 10
+        doAfter: 3.0
+
+  - node: done
+    entity: DystopiaFuelRodE20
+
+- type: constructionGraph
   id: DystopiaForgeElectricCraft
   start: start
   graph:
@@ -8641,4 +8899,41 @@
   startNode: start
   targetNode: done
   category: construction-category-dystopia-industry-tools
+  objectType: Item
+
+- type: construction
+  id: DystopiaGasCentrifugeCraft
+  graph: DystopiaGasCentrifugeCraft
+  startNode: start
+  targetNode: done
+  category: construction-category-dystopia-industry-nuclear
+  objectType: Structure
+  placementMode: SnapgridCenter
+  canRotate: true
+  canBuildInImpassable: false
+  conditions:
+  - !type:TileNotBlocked
+
+- type: construction
+  id: DystopiaFuelRodE2Craft
+  graph: DystopiaFuelRodE2Craft
+  startNode: start
+  targetNode: done
+  category: construction-category-dystopia-industry-nuclear
+  objectType: Item
+
+- type: construction
+  id: DystopiaFuelRodE4Craft
+  graph: DystopiaFuelRodE4Craft
+  startNode: start
+  targetNode: done
+  category: construction-category-dystopia-industry-nuclear
+  objectType: Item
+
+- type: construction
+  id: DystopiaFuelRodE20Craft
+  graph: DystopiaFuelRodE20Craft
+  startNode: start
+  targetNode: done
+  category: construction-category-dystopia-industry-nuclear
   objectType: Item

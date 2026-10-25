@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Stainless rod from _Dystopia/Objects/Materials/Metals/rods.rsi (see its meta.json), recolored for Dystopia.",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "tube"
+    },
+    {
+      "name": "tube_2"
+    },
+    {
+      "name": "tube_3"
+    },
+    {
+      "name": "tube_4"
+    },
+    {
+      "name": "tube_5"
+    },
+    {
+      "name": "tube-inhand-left",
+      "directions": 4
+    },
+    {
+      "name": "tube-inhand-right",
+      "directions": 4
+    }
+  ]
+}

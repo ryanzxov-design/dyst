@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 // Dystopia: паровой котёл с топкой (см. DystopiaBoilerComponent).
 // Раз в такт: топка жжёт топливо по режиму и прогревает котёл; прогретый котёл варит из воды пар нужной температуры
-// в барабан; из барабана пар уходит в газовую трубу, пока давление в ней ниже предела. Некуда уйти — давление растёт:
+// в барабан; барабан и паропровод выравнивают давление (один объём). Пар никто не берёт — давление растёт:
 // тревога, скрип, урон, на пределе — взрыв (Destructible + Explosive в прототипе). Стравить пар — вручную, в воздух
 // под котлом. Горит без воды — урон трубам.
 
@@ -177,19 +177,34 @@ public sealed partial class DystopiaBoilerSystem : EntitySystem
             UpdateVisuals(ent);
     }
 
-    /// <summary>Пар из барабана — в газовую трубу, пока давление в ней ниже предела.</summary>
+    /// <summary>
+    /// Барабан и паропровод — один объём: каждый такт пар перетекает из барабана в трубу, пока давления не сравняются
+    /// (обратно в барабан не течёт). Неподключённый патрубок — тоже объём (200 л), давление растёт сразу.
+    /// </summary>
     private void ToPipe(Entity<DystopiaBoilerComponent> ent, float dt)
     {
         var boiler = ent.Comp;
         boiler.SteamRate = 0f;
-        if (boiler.SteamMoles <= 0.001f || !TryGetPipe(ent, out var pipe) || pipe.Air.Pressure >= boiler.OutletPressure)
+        if (boiler.SteamMoles <= 0.001f || !TryGetPipe(ent, out var pipe))
             return;
 
-        var steam = new GasMixture { Temperature = SteamKelvin(boiler) };
-        steam.AdjustMoles(Gas.WaterVapor, boiler.SteamMoles);
+        // P = nRT/V. Сколько молей x перепустить, чтобы (n − x)·kDrum = Pтрубы + x·kPipe.
+        var temperature = SteamKelvin(boiler);
+        var kDrum = Atmospherics.R * temperature / MathF.Max(1f, boiler.DrumVolume);
+        var kPipe = Atmospherics.R * temperature / MathF.Max(1f, pipe.Air.Volume);
+        var drumPressure = boiler.SteamMoles * kDrum;
+        if (drumPressure <= pipe.Air.Pressure)
+            return;
+
+        var moles = MathF.Min(boiler.SteamMoles, (drumPressure - pipe.Air.Pressure) / (kDrum + kPipe));
+        if (moles <= 0.001f)
+            return;
+
+        var steam = new GasMixture { Temperature = temperature };
+        steam.AdjustMoles(Gas.WaterVapor, moles);
         _atmos.Merge(pipe.Air, steam);
-        boiler.SteamRate = boiler.SteamMoles / dt;
-        boiler.SteamMoles = 0f;
+        boiler.SteamMoles -= moles;
+        boiler.SteamRate = moles / dt;
     }
 
     private bool TryGetPipe(Entity<DystopiaBoilerComponent> ent, out PipeNode pipe)

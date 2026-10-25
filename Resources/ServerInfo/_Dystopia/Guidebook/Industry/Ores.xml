@@ -50,7 +50,8 @@
       <GuideEntityEmbed Entity="DystopiaOreSulfur" Caption=""/>
       <GuideEntityEmbed Entity="DystopiaOrePyrite" Caption=""/>
       <GuideEntityEmbed Entity="SpaceQuartz" Caption=""/>
+      <GuideEntityEmbed Entity="DystopiaOreFluorite" Caption=""/>
   </Box>
 
-  [color=#9ab0c4]Известняк[/color], [color=#9ab0c4]глина[/color], [color=#9ab0c4]шамотная глина[/color], [color=#9ab0c4]гипс[/color], [color=#9ab0c4]самородная сера[/color], [color=#9ab0c4]пирит[/color] и [color=#9ab0c4]кварц[/color] металла почти не дают, но без них не будет ни бетона, ни кирпича, ни стекла, ни кислоты. Из [color=#9ab0c4]графита[/color] в коксовой печи обжигают электроды (см. [textlink="Кокс, сера, соль" link="DystopiaIndustrySulfurSalt"]).
+  [color=#9ab0c4]Известняк[/color], [color=#9ab0c4]глина[/color], [color=#9ab0c4]шамотная глина[/color], [color=#9ab0c4]гипс[/color], [color=#9ab0c4]самородная сера[/color], [color=#9ab0c4]пирит[/color], [color=#9ab0c4]кварц[/color] и [color=#9ab0c4]флюорит[/color] металла почти не дают, но без них не будет ни бетона, ни кирпича, ни стекла, ни кислоты. Из [color=#9ab0c4]графита[/color] в коксовой печи обжигают электроды (см. [textlink="Кокс, сера, соль" link="DystopiaIndustrySulfurSalt"]). Из [color=#9ab0c4]флюорита[/color] получают плавиковую кислоту для урана (см. [textlink="Ядерное топливо" link="DystopiaIndustryNuclear"]).
 </Document>

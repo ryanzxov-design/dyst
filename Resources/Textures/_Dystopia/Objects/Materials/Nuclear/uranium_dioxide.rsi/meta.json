@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Yellowcake from _Dystopia/Objects/Materials/Metals/chemical_processing.rsi (see its meta.json), recolored for Dystopia; grade marks drawn for Dystopia.",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "powder_E2"
+    },
+    {
+      "name": "powder_E4"
+    },
+    {
+      "name": "powder_E20"
+    },
+    {
+      "name": "powder-inhand-left",
+      "directions": 4
+    },
+    {
+      "name": "powder-inhand-right",
+      "directions": 4
+    }
+  ]
+}

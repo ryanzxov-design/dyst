@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Steel ingot from _Dystopia/Objects/Materials/Metals/ingots.rsi (see its meta.json), recolored for Dystopia.",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "weapon"
+    },
+    {
+      "name": "weapon_2"
+    },
+    {
+      "name": "weapon_3"
+    },
+    {
+      "name": "weapon-inhand-left",
+      "directions": 4
+    },
+    {
+      "name": "weapon-inhand-right",
+      "directions": 4
+    },
+    {
+      "name": "depleted"
+    },
+    {
+      "name": "depleted_2"
+    },
+    {
+      "name": "depleted_3"
+    },
+    {
+      "name": "depleted-inhand-left",
+      "directions": 4
+    },
+    {
+      "name": "depleted-inhand-right",
+      "directions": 4
+    }
+  ]
+}

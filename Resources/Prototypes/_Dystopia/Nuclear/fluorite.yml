@@ -1,0 +1,549 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: флюорит — руда, материал, стопка, жилы в четырёх породах (gen_energy2.py; компоненты — как у
+# гипса). Слои в мире — gen_ore_layers.py.
+
+- type: material
+  id: DystopiaRawFluorite
+  stackEntity: DystopiaOreFluorite1
+  name: materials-dystopia-raw-fluorite
+  unit: materials-unit-chunk
+  icon: { sprite: _Dystopia/Objects/Materials/NonMetals/fluorite.rsi, state: fluorite }
+  color: "#9864c8"
+  price: 0.04
+
+- type: stack
+  id: DystopiaOreFluorite
+  name: stack-dystopia-ore-fluorite
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/NonMetals/fluorite.rsi, state: fluorite }
+  spawn: DystopiaOreFluorite1
+  maxCount: 30
+
+- type: ore
+  id: DystopiaFluorite
+  oreEntity: DystopiaOreFluorite1
+  minOreYield: 1
+  maxOreYield: 3
+
+- type: entity
+  id: DystopiaOreFluorite
+  name: fluorite
+  description: Violet glassy crystals that glow faintly under a lamp. With sulfuric acid it gives off hydrofluoric acid, which uranium is fluorinated with.
+  suffix: Fluorite, Full
+  components:
+  - type: Solution
+    solution:
+      canReact: false
+      maxVol: 2
+      reagents:
+      - ReagentId: Fluorine
+        Quantity: 2
+    id: composite
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/NonMetals/fluorite.rsi
+    heldPrefix: fluorite
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/NonMetals/fluorite.rsi
+    state: fluorite
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Extractable
+    grindableSolutionName: composite
+  - type: Stack
+    stackType: DystopiaOreFluorite
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaRawFluorite: 100
+
+- type: entity
+  id: DystopiaOreFluorite1
+  name: fluorite
+  description: Violet glassy crystals that glow faintly under a lamp. With sulfuric acid it gives off hydrofluoric acid, which uranium is fluorinated with.
+  suffix: Fluorite, Single
+  components:
+  - type: Solution
+    solution:
+      canReact: false
+      maxVol: 2
+      reagents:
+      - ReagentId: Fluorine
+        Quantity: 2
+    id: composite
+  - type: Item
+    size: Normal
+    sprite: _Dystopia/Objects/Materials/NonMetals/fluorite.rsi
+    heldPrefix: fluorite
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/NonMetals/fluorite.rsi
+    state: fluorite
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Material
+  - type: Tag
+    tags: [ Ore ]
+  - type: Extractable
+    grindableSolutionName: composite
+  - type: Stack
+    stackType: DystopiaOreFluorite
+    count: 1
+  - type: PhysicalComposition
+    materialComposition:
+      DystopiaRawFluorite: 100
+
+- type: entity
+  id: DystopiaWallRockFluorite
+  name: rock
+  description: A rock seam rich with fluorite.
+  suffix: Fluorite (fluorite)
+  placement:
+    mode: SnapgridCenter
+    snap: [ Wall ]
+  components:
+  - type: OreVein
+    oreChance: 1.0
+    currentOre: DystopiaFluorite
+  - type: Sprite
+    layers:
+    - state: fluorite
+      sprite: _Dystopia/Structures/Walls/fluorite_vein.rsi
+      map:
+      - enum.MiningScannerVisualLayers.Overlay
+    drawdepth: Walls
+    sprite: Structures/Walls/stone-dirt.rsi
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        density: 1000
+        mask: [ FullTileMask ]
+        layer: [ WallLayer ]
+  - type: Pullable
+  - type: Tag
+    tags: [ Structure ]
+  - type: Anchorable
+    flags: [ Anchorable ]
+  - type: Rotatable
+  - type: RangedDamageSound
+    soundGroups:
+      Brute:
+        collection: MetalBulletImpact
+    soundTypes:
+      Heat:
+        collection: MetalLaserImpact
+  - type: Wall
+  - type: IsRoof
+  - type: Icon
+    state: full
+    sprite: Structures/Walls/stone-dirt.rsi
+  - type: PlacementReplacement
+    key: walls
+  - type: Airtight
+  - type: StaticPrice
+    price: 75
+  - type: RadiationBlocker
+    resistance: 2
+  - type: BlockWeather
+  - type: SunShadowCast
+  - type: Occluder
+  - type: StructureAlignerPylon
+    pylons: [ Door, Firelock ]
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 150
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/Effects/break_stone.ogg
+          params:
+            volume: -6
+  - type: Damageable
+    damageModifierSet: RockMod
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: SoundOnGather
+  - type: Gatherable
+    toolWhitelist:
+      tags: [ Pickaxe ]
+  - type: IconSmooth
+    key: stone
+    index: 0
+    base: stone
+  - type: MiningScannerViewable
+  - type: EntityRemap
+    mask:
+      WallRockSand: DystopiaWallRockSandFluorite
+      WallRockSnow: DystopiaWallRockSnowFluorite
+      WallRockChromite: DystopiaWallRockChromiteFluorite
+
+- type: entity
+  id: DystopiaWallRockSandFluorite
+  name: sandstone
+  description: A rock seam rich with fluorite.
+  suffix: Fluorite (fluorite)
+  placement:
+    mode: SnapgridCenter
+    snap: [ Wall ]
+  components:
+  - type: OreVein
+    oreChance: 1.0
+    currentOre: DystopiaFluorite
+  - type: Sprite
+    layers:
+    - state: fluorite
+      sprite: _Dystopia/Structures/Walls/fluorite_vein.rsi
+      map:
+      - enum.MiningScannerVisualLayers.Overlay
+    drawdepth: Walls
+    sprite: Structures/Walls/stone-sand.rsi
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        density: 1000
+        mask: [ FullTileMask ]
+        layer: [ WallLayer ]
+  - type: Pullable
+  - type: Tag
+    tags: [ Structure ]
+  - type: Anchorable
+    flags: [ Anchorable ]
+  - type: Rotatable
+  - type: RangedDamageSound
+    soundGroups:
+      Brute:
+        collection: MetalBulletImpact
+    soundTypes:
+      Heat:
+        collection: MetalLaserImpact
+  - type: Wall
+  - type: IsRoof
+  - type: Icon
+    state: full
+    sprite: Structures/Walls/stone-sand.rsi
+  - type: PlacementReplacement
+    key: walls
+  - type: Airtight
+  - type: StaticPrice
+    price: 75
+  - type: RadiationBlocker
+    resistance: 2
+  - type: BlockWeather
+  - type: SunShadowCast
+  - type: Occluder
+  - type: StructureAlignerPylon
+    pylons: [ Door, Firelock ]
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 150
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/Effects/break_stone.ogg
+          params:
+            volume: -6
+  - type: Damageable
+    damageModifierSet: RockMod
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: SoundOnGather
+  - type: Gatherable
+    toolWhitelist:
+      tags: [ Pickaxe ]
+  - type: IconSmooth
+    key: stone
+    index: 0
+    base: stone
+  - type: MiningScannerViewable
+
+- type: entity
+  id: DystopiaWallRockSnowFluorite
+  name: snowdrift
+  description: A rock seam rich with fluorite.
+  suffix: Fluorite (fluorite)
+  placement:
+    mode: SnapgridCenter
+    snap: [ Wall ]
+  components:
+  - type: OreVein
+    oreChance: 1.0
+    currentOre: DystopiaFluorite
+  - type: Sprite
+    layers:
+    - state: fluorite
+      sprite: _Dystopia/Structures/Walls/fluorite_vein.rsi
+      map:
+      - enum.MiningScannerVisualLayers.Overlay
+    drawdepth: Walls
+    sprite: Structures/Walls/stone-snow.rsi
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        density: 1000
+        mask: [ FullTileMask ]
+        layer: [ WallLayer ]
+  - type: Pullable
+  - type: Tag
+    tags: [ Structure ]
+  - type: Anchorable
+    flags: [ Anchorable ]
+  - type: Rotatable
+  - type: RangedDamageSound
+    soundGroups:
+      Brute:
+        collection: MetalBulletImpact
+    soundTypes:
+      Heat:
+        collection: MetalLaserImpact
+  - type: Wall
+  - type: IsRoof
+  - type: Icon
+    state: full
+    sprite: Structures/Walls/stone-snow.rsi
+  - type: PlacementReplacement
+    key: walls
+  - type: Airtight
+  - type: StaticPrice
+    price: 75
+  - type: RadiationBlocker
+    resistance: 2
+  - type: BlockWeather
+  - type: SunShadowCast
+  - type: Occluder
+  - type: StructureAlignerPylon
+    pylons: [ Door, Firelock ]
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 150
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/Effects/break_stone.ogg
+          params:
+            volume: -6
+  - type: Damageable
+    damageModifierSet: RockMod
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: SoundOnGather
+  - type: Gatherable
+    toolWhitelist:
+      tags: [ Pickaxe ]
+  - type: IconSmooth
+    key: stone
+    index: 0
+    base: stone
+  - type: MiningScannerViewable
+
+- type: entity
+  id: DystopiaWallRockChromiteFluorite
+  name: chromite
+  description: A rock seam rich with fluorite.
+  suffix: Fluorite (fluorite)
+  placement:
+    mode: SnapgridCenter
+    snap: [ Wall ]
+  components:
+  - type: OreVein
+    oreChance: 1.0
+    currentOre: DystopiaFluorite
+  - type: Sprite
+    layers:
+    - state: fluorite
+      sprite: _Dystopia/Structures/Walls/fluorite_vein.rsi
+      map:
+      - enum.MiningScannerVisualLayers.Overlay
+    drawdepth: Walls
+    sprite: Structures/Walls/stone-chromite.rsi
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,0.5,0.5"
+        density: 1000
+        mask: [ FullTileMask ]
+        layer: [ WallLayer ]
+  - type: Pullable
+  - type: Tag
+    tags: [ Structure ]
+  - type: Anchorable
+    flags: [ Anchorable ]
+  - type: Rotatable
+  - type: RangedDamageSound
+    soundGroups:
+      Brute:
+        collection: MetalBulletImpact
+    soundTypes:
+      Heat:
+        collection: MetalLaserImpact
+  - type: Wall
+  - type: IsRoof
+  - type: Icon
+    state: full
+    sprite: Structures/Walls/stone-chromite.rsi
+  - type: PlacementReplacement
+    key: walls
+  - type: Airtight
+  - type: StaticPrice
+    price: 75
+  - type: RadiationBlocker
+    resistance: 2
+  - type: BlockWeather
+  - type: SunShadowCast
+  - type: Occluder
+  - type: StructureAlignerPylon
+    pylons: [ Door, Firelock ]
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 150
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          path: /Audio/Effects/break_stone.ogg
+          params:
+            volume: -6
+  - type: Damageable
+    damageModifierSet: RockMod
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: SoundOnGather
+  - type: Gatherable
+    toolWhitelist:
+      tags: [ Pickaxe ]
+  - type: IconSmooth
+    key: stone
+    index: 0
+    base: stone
+  - type: MiningScannerViewable

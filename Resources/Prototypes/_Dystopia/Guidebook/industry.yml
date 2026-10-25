@@ -22,6 +22,7 @@
   - DystopiaIndustryPetrochem
   - DystopiaIndustryEngines
   - DystopiaIndustrySteam
+  - DystopiaIndustryNuclear
   - DystopiaIndustryRadiation
   - DystopiaIndustrySafety
 
@@ -104,6 +105,11 @@
   id: DystopiaIndustrySteam
   name: guide-entry-dystopia-industry-steam
   text: "/ServerInfo/_Dystopia/Guidebook/Industry/Steam.xml"
+
+- type: guideEntry
+  id: DystopiaIndustryNuclear
+  name: guide-entry-dystopia-industry-nuclear
+  text: "/ServerInfo/_Dystopia/Guidebook/Industry/Nuclear.xml"
 
 - type: guideEntry
   id: DystopiaIndustryRadiation

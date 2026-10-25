@@ -1,0 +1,69 @@
+<Document>
+  # Ядерное топливо
+
+  Путь от руды до ТВЭЛа длинный, но каждую машину вы уже знаете: чан выщелачивания, пресс, обжиговая печь, электролизёр. Новая только [color=#d2ae68]газовая центрифуга[/color].
+
+  ## Флюорит и плавиковая кислота
+  <Box>
+      <GuideEntityEmbed Entity="DystopiaOreFluorite" Caption=""/>
+  </Box>
+
+  [color=#9ab0c4]Флюорит[/color] копают, как любую руду: фиолетовые кристаллы в камне, песчанике, сугробе или перидотите. Кусок флюорита и [color=#ff9a50]5[/color] ед. [color=#7ac8b0]серной кислоты[/color] в [color=#d2ae68]чане выщелачивания[/color] дают [color=#ff9a50]10[/color] ед. [color=#7ac8b0]плавиковой кислоты[/color] в отстойник и кусок [color=#9ab0c4]гипса[/color] на выход.
+
+  ## Гексафторид урана
+  [color=#9ab0c4]Жёлтый кек[/color] (см. [textlink="Металлы без тигля" link="DystopiaIndustryChemical"]) и [color=#ff9a50]10[/color] ед. плавиковой кислоты в баке чана дают [color=#ff9a50]20[/color] ед. [color=#7ac8b0]гексафторида урана[/color] — природного, с [color=#ff9a50]0,7%[/color] урана-235. Это тяжёлая едкая жидкость, её гоняют по трубам. Плавиковую кислоту надо набрать из отстойника и залить обратно в бак чана — или перекачать трубами.
+
+  ## Газовая центрифуга
+  <Box>
+      <GuideEntityEmbed Entity="DystopiaGasCentrifuge" Caption=""/>
+  </Box>
+
+  [color=#d2ae68]Центрифуга[/color] ([color=#ff9a50]3000[/color] Вт) берёт гексафторид в бак и за цикл ([color=#ff9a50]5[/color] секунд) обогащает [color=#ff9a50]10[/color] ед. на одну ступень. Сорт выбирать не нужно — она видит сама, что ей налили:
+  - [color=#ff9a50]0,7%[/color] → [color=#ff9a50]2%[/color]: выходит [color=#ff9a50]5[/color] ед.;
+  - [color=#ff9a50]2%[/color] → [color=#ff9a50]4%[/color]: [color=#ff9a50]4,5[/color] ед.;
+  - [color=#ff9a50]4%[/color] → [color=#ff9a50]20%[/color]: [color=#ff9a50]4[/color] ед.;
+  - [color=#ff9a50]20%[/color] → [color=#ff9a50]60%[/color]: [color=#ff9a50]3,5[/color] ед.;
+  - [color=#ff9a50]60%[/color] → [color=#ff9a50]90%[/color]: [color=#ff9a50]3[/color] ед.
+
+  Остальное — [color=#7ac8b0]обеднённые хвосты[/color]. Всё вместе стекает в бак продукции: импортер забирает, [color=#d2ae68]фильтр[/color] разводит — богатое в следующую центрифугу, хвосты в бочку. Каскад — это цепочка центрифуг и фильтров.
+
+  Сколько нужно природного гексафторида: на [color=#ff9a50]10[/color] ед. сорта 4% — около [color=#ff9a50]45[/color], сорта 20% — около [color=#ff9a50]110[/color], сорта 90% — около [color=#ff9a50]1060[/color].
+
+  ## Таблетки
+  <Box>
+      <GuideEntityEmbed Entity="DystopiaUraniumDioxideE4" Caption=""/>
+      <GuideEntityEmbed Entity="DystopiaFuelPelletRawE4" Caption=""/>
+      <GuideEntityEmbed Entity="DystopiaFuelPelletE4" Caption=""/>
+  </Box>
+
+  В баке чана выщелачивания [color=#ff9a50]10[/color] ед. гексафторида нужного сорта ([color=#ff9a50]2[/color], [color=#ff9a50]4[/color] или [color=#ff9a50]20%[/color]), [color=#ff9a50]10[/color] ед. [color=#7ac8b0]воды[/color] и [color=#ff9a50]5[/color] ед. [color=#7ac8b0]аммиака[/color] выпадают горстью [color=#9ab0c4]порошка диоксида урана[/color] того же сорта; [color=#ff9a50]5[/color] ед. плавиковой кислоты возвращаются в отстойник.
+
+  [color=#d2ae68]Кирпичный пресс[/color] делает из горсти порошка [color=#ff9a50]2[/color] [color=#9ab0c4]сырые таблетки[/color], [color=#d2ae68]обжиговая печь[/color] спекает их в [color=#9ab0c4]топливные таблетки[/color]. Сорт отмечен цветной меткой: зелёная — [color=#ff9a50]2%[/color], синяя — [color=#ff9a50]4%[/color], красная — [color=#ff9a50]20%[/color].
+
+  ## ТВЭЛы
+  <Box>
+      <GuideEntityEmbed Entity="DystopiaStainlessTube" Caption=""/>
+      <GuideEntityEmbed Entity="DystopiaFuelRodE2" Caption=""/>
+      <GuideEntityEmbed Entity="DystopiaFuelRodE4" Caption=""/>
+      <GuideEntityEmbed Entity="DystopiaFuelRodE20" Caption=""/>
+  </Box>
+
+  [color=#9ab0c4]Трубку из нержавейки[/color] тянет волочильный стан из прутка нержавеющей стали. [color=#9ab0c4]ТВЭЛ[/color] собирают в руках через меню строительства («Промышленность: ядерное топливо»): трубка и [color=#ff9a50]10[/color] таблеток одного сорта. ТВЭЛ [color=#ff9a50]2%[/color] — ровный и спокойный, [color=#ff9a50]4%[/color] — рабочий, [color=#ff9a50]20%[/color] — «горячий»: мощнее и опаснее. Ставят их в топливные каналы реактора (реактор — следующим этапом).
+
+  ## Оружейный и обеднённый уран
+  <Box>
+      <GuideEntityEmbed Entity="DystopiaIngotUraniumWeapon" Caption=""/>
+      <GuideEntityEmbed Entity="DystopiaIngotUraniumDepleted" Caption=""/>
+  </Box>
+
+  [color=#d2ae68]Электролизёр[/color] восстанавливает металл из гексафторида:
+  - [color=#ff9a50]10[/color] ед. сорта [color=#ff9a50]90%[/color] — [color=#9ab0c4]слиток оружейного урана[/color]. Он [color=#e05050]сильно светит[/color]: храните в [color=#d2ae68]свинцовом контейнере[/color], носите недолго;
+  - [color=#ff9a50]20[/color] ед. хвостов — [color=#9ab0c4]слиток обеднённого урана[/color]: очень плотный, почти не светит. Его берегут на бронебойные пули.
+
+  В обоих случаях плавиковая кислота возвращается в бак готового.
+
+  ## Осторожно
+  - [color=#e05050]Плавиковая кислота разъедает кожу и травит.[/color] Работайте в перчатках и не разливайте.
+  - [color=#e05050]Пролитый гексафторид урана — радиоактивная лужа.[/color] Убирайте шваброй или очистителем (см. [textlink="Радиация" link="DystopiaIndustryRadiation"]).
+  - Склад таблеток и ТВЭЛов держите за свинцовой стеной.
+</Document>

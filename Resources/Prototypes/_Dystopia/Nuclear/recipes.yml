@@ -1,0 +1,181 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: рецепты ядерного топлива (gen_energy2.py).
+
+- type: dystopiaProcessRecipe
+  id: DystopiaLeachFluorite   # CaF2 + H2SO4 → CaSO4 + 2 HF: плавиковая кислота в отстойник, гипс — на выход
+  group: Leaching
+  input: DystopiaOreFluorite
+  inputCount: 1
+  output: DystopiaOreGypsum1
+  amount: 1
+  reagents:
+    SulfuricAcid: 5
+  produces:
+    DystopiaHydrofluoricAcid: 10
+
+- type: dystopiaProcessRecipe
+  id: DystopiaFluorinateYellowcake   # жёлтый кек + HF → UF6 природный
+  group: Leaching
+  input: DystopiaYellowcake
+  inputCount: 1
+  reagents:
+    DystopiaHydrofluoricAcid: 10
+  produces:
+    DystopiaUF6: 20
+
+- type: dystopiaProcessRecipe
+  id: DystopiaEnrichE2   # UF6 природный → E2: 50% выше, остальное — хвосты
+  group: Centrifuge
+  reagents:
+    DystopiaUF6: 10
+  produces:
+    DystopiaUF6E2: 5
+    DystopiaUF6Depleted: 5
+
+- type: dystopiaProcessRecipe
+  id: DystopiaEnrichE4   # UF6 E2 → E4: 45% выше, остальное — хвосты
+  group: Centrifuge
+  reagents:
+    DystopiaUF6E2: 10
+  produces:
+    DystopiaUF6E4: 4.5
+    DystopiaUF6Depleted: 5.5
+
+- type: dystopiaProcessRecipe
+  id: DystopiaEnrichE20   # UF6 E4 → E20: 40% выше, остальное — хвосты
+  group: Centrifuge
+  reagents:
+    DystopiaUF6E4: 10
+  produces:
+    DystopiaUF6E20: 4
+    DystopiaUF6Depleted: 6
+
+- type: dystopiaProcessRecipe
+  id: DystopiaEnrichE60   # UF6 E20 → E60: 35% выше, остальное — хвосты
+  group: Centrifuge
+  reagents:
+    DystopiaUF6E20: 10
+  produces:
+    DystopiaUF6E60: 3.5
+    DystopiaUF6Depleted: 6.5
+
+- type: dystopiaProcessRecipe
+  id: DystopiaEnrichE90   # UF6 E60 → E90: 30% выше, остальное — хвосты
+  group: Centrifuge
+  reagents:
+    DystopiaUF6E60: 10
+  produces:
+    DystopiaUF6E90: 3
+    DystopiaUF6Depleted: 7
+
+- type: dystopiaProcessRecipe
+  id: DystopiaPrecipitateUraniumE2   # UF6 + вода + аммиак → диоксид урана (через осадок), HF возвращается
+  group: Leaching
+  output: DystopiaUraniumDioxideE21
+  amount: 1
+  reagents:
+    DystopiaUF6E2: 10
+    Water: 10
+    Ammonia: 5
+  produces:
+    DystopiaHydrofluoricAcid: 5
+
+- type: dystopiaProcessRecipe
+  id: DystopiaPressPelletsE2
+  group: BrickPress
+  input: DystopiaUraniumDioxideE2
+  inputCount: 1
+  output: DystopiaFuelPelletRawE21
+  amount: 2
+
+- type: dystopiaProcessRecipe
+  id: DystopiaSinterPelletsE2
+  group: Roasting
+  input: DystopiaFuelPelletRawE2
+  inputCount: 1
+  output: DystopiaFuelPelletE21
+  amount: 1
+
+- type: dystopiaProcessRecipe
+  id: DystopiaPrecipitateUraniumE4   # UF6 + вода + аммиак → диоксид урана (через осадок), HF возвращается
+  group: Leaching
+  output: DystopiaUraniumDioxideE41
+  amount: 1
+  reagents:
+    DystopiaUF6E4: 10
+    Water: 10
+    Ammonia: 5
+  produces:
+    DystopiaHydrofluoricAcid: 5
+
+- type: dystopiaProcessRecipe
+  id: DystopiaPressPelletsE4
+  group: BrickPress
+  input: DystopiaUraniumDioxideE4
+  inputCount: 1
+  output: DystopiaFuelPelletRawE41
+  amount: 2
+
+- type: dystopiaProcessRecipe
+  id: DystopiaSinterPelletsE4
+  group: Roasting
+  input: DystopiaFuelPelletRawE4
+  inputCount: 1
+  output: DystopiaFuelPelletE41
+  amount: 1
+
+- type: dystopiaProcessRecipe
+  id: DystopiaPrecipitateUraniumE20   # UF6 + вода + аммиак → диоксид урана (через осадок), HF возвращается
+  group: Leaching
+  output: DystopiaUraniumDioxideE201
+  amount: 1
+  reagents:
+    DystopiaUF6E20: 10
+    Water: 10
+    Ammonia: 5
+  produces:
+    DystopiaHydrofluoricAcid: 5
+
+- type: dystopiaProcessRecipe
+  id: DystopiaPressPelletsE20
+  group: BrickPress
+  input: DystopiaUraniumDioxideE20
+  inputCount: 1
+  output: DystopiaFuelPelletRawE201
+  amount: 2
+
+- type: dystopiaProcessRecipe
+  id: DystopiaSinterPelletsE20
+  group: Roasting
+  input: DystopiaFuelPelletRawE20
+  inputCount: 1
+  output: DystopiaFuelPelletE201
+  amount: 1
+
+- type: dystopiaProcessRecipe
+  id: DystopiaDrawStainlessTube   # пруток нержавейки → трубка
+  group: WireDrawing
+  input: DystopiaRodStainlessSteel
+  inputCount: 1
+  output: DystopiaStainlessTube1
+  amount: 1
+
+- type: dystopiaProcessRecipe
+  id: DystopiaReduceWeaponUranium   # UF6 90% → слиток оружейного урана
+  group: Electrolysis
+  output: DystopiaIngotUraniumWeapon1
+  amount: 1
+  reagents:
+    DystopiaUF6E90: 10
+  produces:
+    DystopiaHydrofluoricAcid: 5
+
+- type: dystopiaProcessRecipe
+  id: DystopiaReduceDepletedUranium   # хвосты → слиток обеднённого урана
+  group: Electrolysis
+  output: DystopiaIngotUraniumDepleted1
+  amount: 1
+  reagents:
+    DystopiaUF6Depleted: 20
+  produces:
+    DystopiaHydrofluoricAcid: 10

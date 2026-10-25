@@ -46,6 +46,7 @@
           - DystopiaOreSylvite
           - DystopiaOreSpodumene
           - DystopiaOreCinnabar
+          - DystopiaOreFluorite
           - DystopiaOilSeeps
         - type: StationJobs
           availableJobs:

@@ -1,0 +1,34 @@
+# Dystopia: энергетика, шаг 2 — ядерное топливо (gen_energy2.py).
+
+materials-dystopia-raw-fluorite = fluorite
+stack-dystopia-ore-fluorite = fluorite
+reagent-name-dystopia-hydrofluoric-acid = hydrofluoric acid
+reagent-desc-dystopia-hydrofluoric-acid = A fuming colourless acid. It eats even glass and poisons the bones through the skin. Uranium is fluorinated with it.
+reagent-physical-desc-fuming = fuming
+reagent-name-dystopia-uf6 = uranium hexafluoride (natural)
+reagent-desc-dystopia-uf6 = A heavy corrosive liquid with 0,7% uranium-235. A gas centrifuge enriches it one grade further.
+reagent-name-dystopia-uf6-e2 = uranium hexafluoride (2%)
+reagent-desc-dystopia-uf6-e2 = A heavy corrosive liquid with 2% uranium-235. A gas centrifuge enriches it one grade further.
+reagent-name-dystopia-uf6-e4 = uranium hexafluoride (4%)
+reagent-desc-dystopia-uf6-e4 = A heavy corrosive liquid with 4% uranium-235. A gas centrifuge enriches it one grade further.
+reagent-name-dystopia-uf6-e20 = uranium hexafluoride (20%)
+reagent-desc-dystopia-uf6-e20 = A heavy corrosive liquid with 20% uranium-235. A gas centrifuge enriches it one grade further.
+reagent-name-dystopia-uf6-e60 = uranium hexafluoride (60%)
+reagent-desc-dystopia-uf6-e60 = A heavy corrosive liquid with 60% uranium-235. A gas centrifuge enriches it one grade further.
+reagent-name-dystopia-uf6-e90 = uranium hexafluoride (90%)
+reagent-desc-dystopia-uf6-e90 = A heavy corrosive liquid with 90% uranium-235. A gas centrifuge enriches it one grade further.
+reagent-name-dystopia-uf6-depleted = uranium hexafluoride (depleted)
+reagent-desc-dystopia-uf6-depleted = Enrichment tails: hardly any uranium-235 left. Barely radioactive. Stored and made into depleted uranium ingots.
+reagent-physical-desc-dystopia-heavy = heavy
+stack-dystopiauraniumdioxidee2 = uranium dioxide powder (2%)
+stack-dystopiafuelpelletrawe2 = green fuel pellets (2%)
+stack-dystopiafuelpellete2 = fuel pellets (2%)
+stack-dystopiauraniumdioxidee4 = uranium dioxide powder (4%)
+stack-dystopiafuelpelletrawe4 = green fuel pellets (4%)
+stack-dystopiafuelpellete4 = fuel pellets (4%)
+stack-dystopiauraniumdioxidee20 = uranium dioxide powder (20%)
+stack-dystopiafuelpelletrawe20 = green fuel pellets (20%)
+stack-dystopiafuelpellete20 = fuel pellets (20%)
+stack-dystopiastainlesstube = stainless steel tube
+stack-dystopiaingoturaniumweapon = weapons-grade uranium ingot
+stack-dystopiaingoturaniumdepleted = depleted uranium ingot

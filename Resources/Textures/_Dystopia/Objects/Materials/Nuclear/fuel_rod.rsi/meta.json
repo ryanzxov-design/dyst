@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Drawn for Dystopia (ryanzxov-design/dyst). In-hand sprites from _Dystopia/Objects/Materials/Metals/rods.rsi (see its meta.json), recolored.",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "rod_E2"
+    },
+    {
+      "name": "rod_E4"
+    },
+    {
+      "name": "rod_E20"
+    },
+    {
+      "name": "rod-inhand-left",
+      "directions": 4
+    },
+    {
+      "name": "rod-inhand-right",
+      "directions": 4
+    }
+  ]
+}

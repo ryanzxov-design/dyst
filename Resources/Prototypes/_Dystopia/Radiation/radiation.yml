@@ -29,6 +29,13 @@
     Radium: 0.05
     Uranium: 0.02
     DystopiaMoltenUranium: 0.02
+    DystopiaUF6: 0.02          # гексафторид урана по сортам (gen_energy2.py)
+    DystopiaUF6E2: 0.03
+    DystopiaUF6E4: 0.04
+    DystopiaUF6E20: 0.08
+    DystopiaUF6E60: 0.15
+    DystopiaUF6E90: 0.2
+    DystopiaUF6Depleted: 0.01
 
 - type: dystopiaRadiationSickness
   id: Default

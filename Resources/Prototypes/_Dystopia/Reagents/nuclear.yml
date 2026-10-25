@@ -1,0 +1,162 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: плавиковая кислота и гексафторид урана семи сортов (gen_energy2.py).
+
+- type: reagent
+  id: DystopiaHydrofluoricAcid
+  name: reagent-name-dystopia-hydrofluoric-acid
+  group: Industrial
+  desc: reagent-desc-dystopia-hydrofluoric-acid
+  physicalDesc: reagent-physical-desc-fuming
+  flavor: acid
+  color: "#e0f0e8"
+  boilingPoint: 20.0
+  meltingPoint: -83.0
+  metabolisms:
+    Poison:
+      effects:
+      - !type:HealthChange
+        damage:
+          types:
+            Poison: 3
+            Caustic: 2
+  reactiveEffects:
+    Acidic:
+      methods: [ Touch ]
+      effects:
+      - !type:HealthChange
+        damage:
+          types:
+            Caustic: 1.5
+
+- type: reagent
+  id: DystopiaUF6
+  name: reagent-name-dystopia-uf6
+  group: Industrial
+  desc: reagent-desc-dystopia-uf6
+  physicalDesc: reagent-physical-desc-dystopia-heavy
+  flavor: metallic
+  color: "#e8e0c8"
+  boilingPoint: 56.0
+  meltingPoint: 64.0
+  metabolisms:
+    Poison:
+      effects:
+      - !type:HealthChange
+        damage:
+          types:
+            Poison: 2
+            Radiation: 1
+
+- type: reagent
+  id: DystopiaUF6E2
+  name: reagent-name-dystopia-uf6-e2
+  group: Industrial
+  desc: reagent-desc-dystopia-uf6-e2
+  physicalDesc: reagent-physical-desc-dystopia-heavy
+  flavor: metallic
+  color: "#c8e0b0"
+  boilingPoint: 56.0
+  meltingPoint: 64.0
+  metabolisms:
+    Poison:
+      effects:
+      - !type:HealthChange
+        damage:
+          types:
+            Poison: 2
+            Radiation: 1
+
+- type: reagent
+  id: DystopiaUF6E4
+  name: reagent-name-dystopia-uf6-e4
+  group: Industrial
+  desc: reagent-desc-dystopia-uf6-e4
+  physicalDesc: reagent-physical-desc-dystopia-heavy
+  flavor: metallic
+  color: "#a8d8c8"
+  boilingPoint: 56.0
+  meltingPoint: 64.0
+  metabolisms:
+    Poison:
+      effects:
+      - !type:HealthChange
+        damage:
+          types:
+            Poison: 2
+            Radiation: 1
+
+- type: reagent
+  id: DystopiaUF6E20
+  name: reagent-name-dystopia-uf6-e20
+  group: Industrial
+  desc: reagent-desc-dystopia-uf6-e20
+  physicalDesc: reagent-physical-desc-dystopia-heavy
+  flavor: metallic
+  color: "#e8c070"
+  boilingPoint: 56.0
+  meltingPoint: 64.0
+  metabolisms:
+    Poison:
+      effects:
+      - !type:HealthChange
+        damage:
+          types:
+            Poison: 2
+            Radiation: 1
+
+- type: reagent
+  id: DystopiaUF6E60
+  name: reagent-name-dystopia-uf6-e60
+  group: Industrial
+  desc: reagent-desc-dystopia-uf6-e60
+  physicalDesc: reagent-physical-desc-dystopia-heavy
+  flavor: metallic
+  color: "#f0a048"
+  boilingPoint: 56.0
+  meltingPoint: 64.0
+  metabolisms:
+    Poison:
+      effects:
+      - !type:HealthChange
+        damage:
+          types:
+            Poison: 2
+            Radiation: 1
+
+- type: reagent
+  id: DystopiaUF6E90
+  name: reagent-name-dystopia-uf6-e90
+  group: Industrial
+  desc: reagent-desc-dystopia-uf6-e90
+  physicalDesc: reagent-physical-desc-dystopia-heavy
+  flavor: metallic
+  color: "#ff7030"
+  boilingPoint: 56.0
+  meltingPoint: 64.0
+  metabolisms:
+    Poison:
+      effects:
+      - !type:HealthChange
+        damage:
+          types:
+            Poison: 2
+            Radiation: 1
+
+- type: reagent
+  id: DystopiaUF6Depleted
+  name: reagent-name-dystopia-uf6-depleted
+  group: Industrial
+  desc: reagent-desc-dystopia-uf6-depleted
+  physicalDesc: reagent-physical-desc-dystopia-heavy
+  flavor: metallic
+  color: "#9a9a92"
+  boilingPoint: 56.0
+  meltingPoint: 64.0
+  metabolisms:
+    Poison:
+      effects:
+      - !type:HealthChange
+        damage:
+          types:
+            Poison: 2
+            Radiation: 1

@@ -17,6 +17,7 @@ guide-entry-dystopia-industry-oil = Нефть
 guide-entry-dystopia-industry-petrochem = Нефтехимия
 guide-entry-dystopia-industry-engines = Двигатели и генераторы
 guide-entry-dystopia-industry-steam = Паровая энергетика
+guide-entry-dystopia-industry-nuclear = Ядерное топливо
 guide-entry-dystopia-industry-radiation = Радиация
 guide-entry-dystopia-industry-safety = Техника безопасности
 ent-DystopiaBookIndustry = руководство промышленника

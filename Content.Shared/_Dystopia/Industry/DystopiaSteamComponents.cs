@@ -185,10 +185,6 @@ public sealed partial class DystopiaBoilerComponent : Component
     [DataField]
     public string SteamNode = "pipe";
 
-    /// <summary>Выше этого давления в трубе пар из барабана не уходит, кПа.</summary>
-    [DataField]
-    public float OutletPressure = 4500f;
-
     // ------------------------------------------------------------ давление
 
     [DataField]

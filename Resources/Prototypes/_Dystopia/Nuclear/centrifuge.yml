@@ -1,0 +1,131 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: газовая центрифуга (gen_energy2.py; компоненты — как у вакуумного куба). Рецепты —
+# Nuclear/recipes.yml.
+
+- type: entity
+  id: DystopiaGasCentrifuge
+  name: gas centrifuge
+  description: "Two rotors spinning thousands of times a second inside vacuum casings. Uranium hexafluoride goes in; the lighter part comes out one grade richer, the rest as depleted tails, both into the product tank. Separate them with a liquid filter and send the rich part to the next centrifuge."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaGasCentrifugeCraft
+    node: done
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.45"
+        density: 250
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]
+  - type: Pullable
+  - type: Anchorable
+    delay: 2
+  - type: Tag
+    tags: [ Structure ]
+  - type: Sprite
+    sprite: _Dystopia/Structures/Industry/gas_centrifuge.rsi
+    noRot: true
+    drawdepth: Objects
+    layers:
+    - state: icon
+      map: [ "enum.DystopiaProcessorVisuals.Running" ]
+    - state: unlit
+      map: [ "enum.PowerDeviceVisualLayers.Powered" ]
+      shader: unshaded
+      visible: false
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DystopiaProcessorVisuals.Running:
+        enum.DystopiaProcessorVisuals.Running:
+          True: { state: running }
+          False: { state: icon }
+      enum.PowerDeviceVisuals.Powered:
+        enum.PowerDeviceVisualLayers.Powered:
+          True: { visible: true }
+          False: { visible: false }
+  - type: ApcPowerReceiver
+    powerLoad: 3000
+  - type: ExtensionCableReceiver
+  - type: AmbientSound
+    enabled: false
+    volume: -6
+    range: 5
+    sound:
+      path: /Audio/Ambience/Objects/server_fans.ogg
+  - type: Solution
+    id: tank
+    solution:
+      maxVol: 200
+      canReact: false   # вещества в баке не реагируют между собой
+  - type: RefillableSolution   # UF6 — ведром или экспортером
+    solution: tank
+  - type: SolutionManager   # бак продукции
+    solutions:
+    - DystopiaSolutionCentrifugeProduct
+  - type: DrainableSolution   # сливают готовое
+    solution: product
+  - type: ContainerContainer
+    containers:
+      dystopia_processor_input: !type:Container {}
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 250
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:EmptyContainersBehaviour
+        containers: [ dystopia_processor_input ]
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 2
+            max: 4
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: DystopiaProcessor
+    group: Centrifuge
+    container: dystopia_processor_input
+    capacity: 0
+    batchesPerCycle: 1
+    cycleTime: 5
+    manual: false
+    requireAnchored: true
+    tank: tank
+    outputTank: product
+    cycleSound:
+      path: /Audio/Effects/Fluids/glug.ogg
+      params:
+        volume: -6
+    insertSound:
+      path: /Audio/Effects/stonedoor_openclose.ogg
+      params:
+        volume: -8
+
+- type: entity
+  id: DystopiaSolutionCentrifugeProduct
+  categories: [ HideSpawnMenu ]
+  name: product tank
+  components:
+  - type: Solution
+    id: product
+    solution:
+      maxVol: 400
+      canReact: false
