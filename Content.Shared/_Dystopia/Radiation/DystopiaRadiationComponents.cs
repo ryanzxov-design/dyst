@@ -10,6 +10,7 @@
 // противорадиационными препаратами в крови; йодид калия часть облучения не пускает.
 
 using Content.Shared.Chemistry.Reagent;
+using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 
 namespace Content.Shared._Dystopia.Radiation;
@@ -53,6 +54,10 @@ public sealed partial class DystopiaRadiationSicknessPrototype : IPrototype
     [DataField]
     public float Severe = 400f;
 
+    /// <summary>Больше этой дозы не набирается (лечение не растягивается на часы), рад.</summary>
+    [DataField]
+    public float MaxDose = 800f;
+
     /// <summary>Спад дозы: рад/с плюс доля от дозы в секунду.</summary>
     [DataField]
     public float DecayFlat = 0.02f;
@@ -76,12 +81,12 @@ public sealed partial class DystopiaRadiationSicknessPrototype : IPrototype
     public float Interval = 2f;
 }
 
-/// <summary>Набранная доза облучения (ставится при первом облучении).</summary>
-[RegisterComponent]
+/// <summary>Набранная доза облучения (ставится при первом облучении). Видна анализатору здоровья.</summary>
+[RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 public sealed partial class DystopiaRadiationDoseComponent : Component
 {
     /// <summary>Доза, рад (с учётом защиты).</summary>
-    [DataField]
+    [DataField, AutoNetworkedField]
     public float Dose;
 
     [ViewVariables]

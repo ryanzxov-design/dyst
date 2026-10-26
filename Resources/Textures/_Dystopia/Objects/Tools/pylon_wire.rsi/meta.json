@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "HV cable coil from Objects/Tools/cable-coils.rsi (see its meta.json), recolored for Dystopia.",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "wire-10"
+    },
+    {
+      "name": "wire-20"
+    },
+    {
+      "name": "wire-30"
+    },
+    {
+      "name": "wire-inhand-left",
+      "directions": 4
+    },
+    {
+      "name": "wire-inhand-right",
+      "directions": 4
+    }
+  ]
+}

@@ -370,6 +370,17 @@ public sealed partial class DystopiaHealthAnalyzerPanel : BoxContainer
                 if (!_entityManager.TryGetComponent<Content.Shared._Goobstation.Disease.Components.DiseaseComponent>(diseaseUid, out var disease))
                     continue;
 
+                // Dystopia-Radiation: лучевая болезнь — по дозе, а не по генотипу и иммунитету
+                if (IsRadiationSickness(diseaseUid))
+                {
+                    var dose = _entityManager.TryGetComponent<Content.Shared._Dystopia.Radiation.DystopiaRadiationDoseComponent>(
+                        target, out var doseComp) ? doseComp.Dose : 0f;
+                    AddCondition(Loc.GetString("health-analyzer-window-radiation-line",
+                        ("dose", (int) MathF.Round(dose)),
+                        ("severity", (int) MathF.Round(disease.InfectionProgress * 100f))));
+                    continue;
+                }
+
                 AddCondition(Loc.GetString("health-analyzer-window-disease-line",
                     ("genotype", disease.Genotype),
                     ("infection", (int) MathF.Round(disease.InfectionProgress * 100f)),
@@ -583,6 +594,18 @@ public sealed partial class DystopiaHealthAnalyzerPanel : BoxContainer
     }
 
     // ===================== Общее =====================
+
+    private static readonly Robust.Shared.Prototypes.ProtoId<Content.Shared._Dystopia.Radiation.DystopiaRadiationSicknessPrototype>
+        RadiationConfig = "Default";
+
+    /// <summary>Dystopia-Radiation: болезнь — лучевая (прототип из настроек лучевой болезни).</summary>
+    private bool IsRadiationSickness(EntityUid disease)
+    {
+        if (!_prototypes.TryIndex(RadiationConfig, out var config))
+            return false;
+
+        return _entityManager.GetComponentOrNull<MetaDataComponent>(disease)?.EntityPrototype?.ID == config.Disease.Id;
+    }
 
     private void AddCondition(string text)
     {

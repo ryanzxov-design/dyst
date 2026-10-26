@@ -17,6 +17,7 @@ guide-entry-dystopia-industry-oil = Oil
 guide-entry-dystopia-industry-petrochem = Petrochemistry
 guide-entry-dystopia-industry-engines = Engines and Generators
 guide-entry-dystopia-industry-steam = Steam Power
+guide-entry-dystopia-industry-transmission = Long-Distance Transmission
 guide-entry-dystopia-industry-nuclear = Nuclear Fuel
 guide-entry-dystopia-industry-reactor = Reactor
 guide-entry-dystopia-industry-radiation = Radiation

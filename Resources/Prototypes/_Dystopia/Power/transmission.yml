@@ -1,0 +1,832 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: энергетика, шаг 4 (gen_energy4.py) — нефтепровод (терминалы, колодцы, секции трубы), ЛЭП
+# (опоры, провод), повышающие трансформаторы. Крафт — gen_crafts.py.
+
+- type: entity
+  id: DystopiaPipelineTerminal
+  name: pipeline terminal
+  description: "One end of a buried trunk pipeline. Link two terminals with a stack of trunk pipe sections: poke one, then the other; the pipe is laid straight between them, up to 80 tiles, one section per 4 tiles. Connect it to ordinary liquid pipes with an exporter or importer. In the menu one end sends and the other receives; the pump runs on power."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaPipelineTerminalCraft
+    node: done
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.45"
+        density: 500
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]
+  - type: Tag
+    tags: [ Structure ]
+  - type: Sprite
+    sprite: _Dystopia/Structures/Liquids/pipeline_terminal.rsi
+    noRot: true
+    drawdepth: Objects
+    layers:
+    - state: icon
+    - state: mode0
+      map: [ "enum.DystopiaPipelineVisuals.Mode" ]
+      shader: unshaded
+    - state: leak
+      map: [ "enum.DystopiaPipelineVisuals.Leak" ]
+      shader: unshaded
+      visible: false
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.DystopiaPipelineVisuals.Mode:
+        enum.DystopiaPipelineVisuals.Mode:
+          "0": { state: mode0 }
+          "1": { state: mode1 }
+          "2": { state: mode2 }
+      enum.DystopiaPipelineVisuals.Leak:
+        enum.DystopiaPipelineVisuals.Leak:
+          True: { visible: true }
+          False: { visible: false }
+  - type: Solution
+    id: tank
+    solution:
+      maxVol: 1000
+      canReact: false
+  - type: RefillableSolution
+    solution: tank
+  - type: DrainableSolution
+    solution: tank
+  - type: ExaminableSolution
+    solution: tank
+  - type: ApcPowerReceiver   # насос
+    powerLoad: 3000
+  - type: ExtensionCableReceiver
+  - type: DystopiaPipelineTerminal
+  - type: ActivatableUI
+    key: enum.DystopiaPipelineUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.DystopiaPipelineUiKey.Key:
+        type: DystopiaPipelineBoundUserInterface
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Repairable   # чинят сваркой
+    fuelCost: 10
+    doAfterDelay: 6
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 250
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 2
+            max: 2
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+
+- type: entity
+  id: DystopiaPipelineMarker
+  name: pipeline manhole
+  description: "A manhole over the buried trunk pipeline. If it is damaged, the pipe beneath leaks; broken, it bursts. Weld it to repair."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Physics
+    bodyType: Static
+    canCollide: false
+  - type: Fixtures
+  - type: Visibility
+    layer: 1
+  - type: SubFloorHide   # под полом не видно, на голой земле — видно
+  - type: Sprite
+    sprite: _Dystopia/Structures/Liquids/pipeline_marker.rsi
+    noRot: true
+    drawdepth: ThinPipe
+    state: icon
+  - type: DystopiaPipelineMarker
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Repairable   # чинят сваркой
+    fuelCost: 10
+    doAfterDelay: 6
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 400
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+
+- type: entity
+  id: DystopiaPipelineSection
+  name: trunk pipe section
+  description: "A length of thick pipe for a buried trunk pipeline. Poke one pipeline terminal with the stack, then another: the pipe is laid between them, one section per 4 tiles."
+  suffix: Full
+  components:
+  - type: Item
+    size: Large
+    sprite: _Dystopia/Objects/Materials/pipeline_section.rsi
+    heldPrefix: section
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/pipeline_section.rsi
+    state: section_5
+    layers:
+    - state: section_5
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+    damageModifierSet: FlimsyMetallic
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Stack
+    stackType: DystopiaPipelineSection
+    baseLayer: base
+    layerStates: [ section, section_2, section_3, section_4, section_5 ]
+  - type: DystopiaLinker
+    tilesPerItem: 4
+
+- type: entity
+  id: DystopiaPipelineSection10
+  name: trunk pipe section
+  description: "A length of thick pipe for a buried trunk pipeline. Poke one pipeline terminal with the stack, then another: the pipe is laid between them, one section per 4 tiles."
+  suffix: "10"
+  components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaPipelineSection10Craft
+    node: done
+  - type: Item
+    size: Large
+    sprite: _Dystopia/Objects/Materials/pipeline_section.rsi
+    heldPrefix: section
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/pipeline_section.rsi
+    state: section_3
+    layers:
+    - state: section_3
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+    damageModifierSet: FlimsyMetallic
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Stack
+    stackType: DystopiaPipelineSection
+    baseLayer: base
+    layerStates: [ section, section_2, section_3, section_4, section_5 ]
+    count: 10
+  - type: DystopiaLinker
+    tilesPerItem: 4
+
+- type: entity
+  id: DystopiaPipelineSection1
+  name: trunk pipe section
+  description: "A length of thick pipe for a buried trunk pipeline. Poke one pipeline terminal with the stack, then another: the pipe is laid between them, one section per 4 tiles."
+  suffix: "1"
+  components:
+  - type: Item
+    size: Large
+    sprite: _Dystopia/Objects/Materials/pipeline_section.rsi
+    heldPrefix: section
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Materials/pipeline_section.rsi
+    state: section
+    layers:
+    - state: section
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+    damageModifierSet: FlimsyMetallic
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Appearance
+  - type: Stack
+    stackType: DystopiaPipelineSection
+    baseLayer: base
+    layerStates: [ section, section_2, section_3, section_4, section_5 ]
+    count: 1
+  - type: DystopiaLinker
+    tilesPerItem: 4
+
+- type: entity
+  id: DystopiaPylon
+  name: power line pylon
+  description: "A steel lattice tower for an overhead power line. Hang wire from pylon to pylon with a coil of line wire: poke one, then the other, up to 12 tiles apart. Pylons joined by wire are one high-voltage network; connect to it with a high-voltage cable under any pylon. Wirecutters take its wires down."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaPylonCraft
+    node: done
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.2,-0.45,0.2,-0.1"
+        density: 500
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]
+  - type: Tag
+    tags: [ Structure ]
+  - type: SpriteFade
+  - type: Sprite
+    sprite: _Dystopia/Structures/Power/pylon.rsi
+    noRot: true
+    drawdepth: Overdoors
+    offset: 0,0.5
+    state: icon
+  - type: NodeContainer
+    examinable: true
+    nodes:
+      power:
+        !type:DystopiaPylonNode
+        nodeGroupID: HVPower
+  - type: DystopiaPylon
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Repairable   # чинят сваркой
+    fuelCost: 10
+    doAfterDelay: 6
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 300
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 3
+            max: 3
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+
+- type: entity
+  id: DystopiaPylonWire
+  name: power line wire
+  description: "Bare aluminium-steel wire for an overhead line. Poke one pylon, then another: one length per tile of span."
+  suffix: Full
+  components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaPylonWireCraft
+    node: done
+  - type: Item
+    size: Small
+    sprite: _Dystopia/Objects/Tools/pylon_wire.rsi
+    storedRotation: -90
+    heldPrefix: wire
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Tools/pylon_wire.rsi
+    state: wire-30
+    layers:
+    - state: wire-30
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Stack
+    stackType: DystopiaPylonWire
+    baseLayer: base
+    layerStates: [ wire-10, wire-20, wire-30 ]
+  - type: Appearance
+  - type: DystopiaLinker
+    tilesPerItem: 1
+
+- type: entity
+  id: DystopiaPylonWire10
+  name: power line wire
+  description: "Bare aluminium-steel wire for an overhead line. Poke one pylon, then another: one length per tile of span."
+  suffix: "10"
+  components:
+  - type: Item
+    size: Small
+    sprite: _Dystopia/Objects/Tools/pylon_wire.rsi
+    storedRotation: -90
+    heldPrefix: wire
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Tools/pylon_wire.rsi
+    state: wire-10
+    layers:
+    - state: wire-10
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Stack
+    stackType: DystopiaPylonWire
+    baseLayer: base
+    layerStates: [ wire-10, wire-20, wire-30 ]
+    count: 10
+  - type: Appearance
+  - type: DystopiaLinker
+    tilesPerItem: 1
+
+- type: entity
+  id: DystopiaPylonWire1
+  name: power line wire
+  description: "Bare aluminium-steel wire for an overhead line. Poke one pylon, then another: one length per tile of span."
+  suffix: "1"
+  components:
+  - type: Item
+    size: Small
+    sprite: _Dystopia/Objects/Tools/pylon_wire.rsi
+    storedRotation: -90
+    heldPrefix: wire
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Tools/pylon_wire.rsi
+    state: wire-10
+    layers:
+    - state: wire-10
+      map: [ base ]
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Stack
+    stackType: DystopiaPylonWire
+    baseLayer: base
+    layerStates: [ wire-10, wire-20, wire-30 ]
+    count: 1
+  - type: Appearance
+  - type: DystopiaLinker
+    tilesPerItem: 1
+
+- type: entity
+  id: DystopiaTransformerLvMv
+  name: transformer box
+  description: "A step-up transformer: low voltage in, medium voltage out, up to 30 kW, losing 5% on the way. For portable generators. The low-voltage cable goes under it as the input, the medium-voltage one as the output."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaTransformerLvMvCraft
+    node: done
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.45"
+        density: 500
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]
+  - type: Tag
+    tags: [ Structure ]
+  - type: Sprite
+    sprite: _Dystopia/Structures/Power/transformer_lv_mv.rsi
+    noRot: true
+    drawdepth: Objects
+    state: icon
+  - type: NodeContainer
+    examinable: true
+    nodes:
+      input:
+        !type:CableDeviceNode
+        nodeGroupID: Apc
+      output:
+        !type:CableDeviceNode
+        nodeGroupID: MVPower
+  - type: PowerConsumer   # снизу — как потребитель
+    voltage: Apc
+    node: input
+    drawRate: 0
+  - type: PowerSupplier   # наверх — как генератор
+    voltage: Medium
+    node: output
+    supplyRate: 0
+    supplyRampRate: 100000000
+    supplyRampTolerance: 100000000
+  - type: DystopiaTransformer
+    maxPower: 30000
+    efficiency: 0.95
+  - type: AmbientSound
+    volume: -8
+    range: 4
+    sound:
+      path: /Audio/Ambience/Objects/periodic_beep.ogg
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Repairable   # чинят сваркой
+    fuelCost: 10
+    doAfterDelay: 6
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 200
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 2
+            max: 2
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+
+- type: entity
+  id: DystopiaTransformerMvHv
+  name: step-up substation
+  description: "A step-up transformer: medium voltage in, high voltage out, up to 500 kW, losing 5% on the way. For the diesel generator and for the power line. The medium-voltage cable goes under it as the input, the high-voltage one as the output."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Construction   # крафт (gen_crafts.py)
+    graph: DystopiaTransformerMvHvCraft
+    node: done
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.45"
+        density: 500
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]
+  - type: Tag
+    tags: [ Structure ]
+  - type: Sprite
+    sprite: _Dystopia/Structures/Power/transformer_mv_hv.rsi
+    noRot: true
+    drawdepth: Objects
+    state: icon
+  - type: NodeContainer
+    examinable: true
+    nodes:
+      input:
+        !type:CableDeviceNode
+        nodeGroupID: MVPower
+      output:
+        !type:CableDeviceNode
+        nodeGroupID: HVPower
+  - type: PowerConsumer   # снизу — как потребитель
+    voltage: Medium
+    node: input
+    drawRate: 0
+  - type: PowerSupplier   # наверх — как генератор
+    voltage: High
+    node: output
+    supplyRate: 0
+    supplyRampRate: 100000000
+    supplyRampTolerance: 100000000
+  - type: DystopiaTransformer
+    maxPower: 500000
+    efficiency: 0.95
+  - type: AmbientSound
+    volume: -8
+    range: 4
+    sound:
+      path: /Audio/Ambience/Objects/periodic_beep.ogg
+  - type: Damageable
+    damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Repairable   # чинят сваркой
+    fuelCost: 10
+    doAfterDelay: 6
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 300
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 2
+            max: 2
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+
+- type: stack
+  id: DystopiaPipelineSection
+  name: stack-dystopia-pipeline-section
+  icon: { sprite: /Textures/_Dystopia/Objects/Materials/pipeline_section.rsi, state: section_5 }
+  spawn: DystopiaPipelineSection1
+  maxCount: 30
+
+- type: stack
+  id: DystopiaPylonWire
+  name: stack-dystopia-pylon-wire
+  icon: { sprite: /Textures/_Dystopia/Objects/Tools/pylon_wire.rsi, state: wire-30 }
+  spawn: DystopiaPylonWire1
+  maxCount: 30

@@ -101,3 +101,4 @@ dystopia-turbine-ui-status-running = РАБОТАЕТ
 dystopia-turbine-ui-status-nosteam = НЕТ ПАРА
 dystopia-turbine-ui-status-blocked = ВЫХЛОП ЗАПЕРТ!
 dystopia-turbine-ui-status-seized = РОТОР ЗАКЛИНИЛО
+health-analyzer-window-radiation-line = [color=#e0c040]Лучевая болезнь:[/color] доза { $dose } рад, тяжесть { $severity }% (болеет с 40 рад, в полной силе с 400)

@@ -2093,3 +2093,128 @@
         density: 1000
         mask: [ TableMask ]
         layer: [ TableLayer ]
+
+- type: entity
+  id: DystopiaSitePylon
+  name: construction site
+  description: Unfinished construction. Examine it to see what goes in next.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _Dystopia/Structures/Power/pylon.rsi
+    state: icon
+    color: "#FFFFFF80"
+    drawdepth: Overdoors
+    noRot: true
+    offset: 0,0.5
+  - type: Construction
+    graph: DystopiaPylonCraft
+    node: s1
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.2,-0.45,0.2,-0.1"
+        density: 500
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]
+
+- type: entity
+  id: DystopiaSiteTransformerLvMv
+  name: construction site
+  description: Unfinished construction. Examine it to see what goes in next.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _Dystopia/Structures/Power/transformer_lv_mv.rsi
+    state: icon
+    color: "#FFFFFF80"
+    drawdepth: Objects
+    noRot: true
+  - type: Construction
+    graph: DystopiaTransformerLvMvCraft
+    node: s1
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.45"
+        density: 500
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]
+
+- type: entity
+  id: DystopiaSiteTransformerMvHv
+  name: construction site
+  description: Unfinished construction. Examine it to see what goes in next.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _Dystopia/Structures/Power/transformer_mv_hv.rsi
+    state: icon
+    color: "#FFFFFF80"
+    drawdepth: Objects
+    noRot: true
+  - type: Construction
+    graph: DystopiaTransformerMvHvCraft
+    node: s1
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.45"
+        density: 500
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]
+
+- type: entity
+  id: DystopiaSitePipelineTerminal
+  name: construction site
+  description: Unfinished construction. Examine it to see what goes in next.
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Transform
+    anchored: true
+    noRot: true
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Sprite
+    sprite: _Dystopia/Structures/Liquids/pipeline_terminal.rsi
+    state: icon
+    color: "#FFFFFF80"
+    drawdepth: Objects
+    noRot: true
+  - type: Construction
+    graph: DystopiaPipelineTerminalCraft
+    node: s1
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.45,-0.45,0.45,0.45"
+        density: 500
+        mask: [ MachineMask ]
+        layer: [ MachineLayer ]

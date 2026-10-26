@@ -4,7 +4,7 @@
 - type: entity
   id: DystopiaBookIndustry
   name: industrialist's handbook
-  description: A thick workshop handbook with greasy fingerprints on every page. Ores, forges, alloys, ore processing, lime, bricks, glass, oil, engines, steam power, the reactor, radiation.
+  description: A thick workshop handbook with greasy fingerprints on every page. Ores, forges, alloys, ore processing, lime, bricks, glass, oil, engines, steam power, power lines, the reactor, radiation.
   components:
   - type: Item
     size: Small

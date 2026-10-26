@@ -68,3 +68,4 @@ dystopia-turbine-ui-status-running = RUNNING
 dystopia-turbine-ui-status-nosteam = NO STEAM
 dystopia-turbine-ui-status-blocked = EXHAUST BLOCKED!
 dystopia-turbine-ui-status-seized = ROTOR SEIZED
+health-analyzer-window-radiation-line = [color=#e0c040]Radiation sickness:[/color] dose { $dose } rad, severity { $severity }% (sick from 40 rad, full force from 400)

@@ -13,6 +13,7 @@ using Content.Shared.Damage;
 using Content.Shared.Damage.Systems;
 using Content.Shared.FixedPoint;
 using Content.Shared.Radiation.Events;
+using Content.Shared.Rejuvenate;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 
@@ -32,6 +33,15 @@ public sealed partial class DystopiaRadiationSicknessSystem : EntitySystem
     {
         base.Initialize();
         SubscribeLocalEvent<DiseaseCarrierComponent, OnIrradiatedEvent>(OnIrradiated);
+        SubscribeLocalEvent<DystopiaRadiationDoseComponent, RejuvenateEvent>(OnRejuvenate);
+    }
+
+    /// <summary>Полное исцеление снимает и дозу (иначе болезнь через пару секунд вернётся по дозе).</summary>
+    private void OnRejuvenate(Entity<DystopiaRadiationDoseComponent> ent, ref RejuvenateEvent args)
+    {
+        ent.Comp.Dose = 0f;
+        ent.Comp.DiseaseUid = null;
+        Dirty(ent);
     }
 
     private void OnIrradiated(Entity<DiseaseCarrierComponent> ent, ref OnIrradiatedEvent args)
@@ -62,7 +72,9 @@ public sealed partial class DystopiaRadiationSicknessSystem : EntitySystem
         if (rads <= 0f)
             return;
 
-        EnsureComp<DystopiaRadiationDoseComponent>(ent).Dose += rads;
+        var dose = EnsureComp<DystopiaRadiationDoseComponent>(ent);
+        dose.Dose = MathF.Min(config.MaxDose, dose.Dose + rads);
+        Dirty(ent, dose);
     }
 
     private bool InBlood(EntityUid uid, string reagent)
@@ -100,6 +112,7 @@ public sealed partial class DystopiaRadiationSicknessSystem : EntitySystem
             dose.Dose -= (config.DecayFlat + dose.Dose * config.DecayFraction) * speed * dt;
             if (dose.Dose < 0f)
                 dose.Dose = 0f;
+            Dirty(uid, dose);
 
             Sync((uid, dose, carrier), config);
 
