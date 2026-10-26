@@ -28,6 +28,12 @@ public partial class ChatBox : UIWidget, IEntityLinkClickHandler
 
     public bool Main { get; set; }
 
+    /// <summary>
+    /// Dystopia: одноцветный чат (лобби-терминал): цветовые теги сообщений снимаются, остаётся яркость —
+    /// сообщения особых каналов (цвет канала насыщенный) ярче обычных. Цвет люминофора даёт Modulate.
+    /// </summary>
+    public bool Monochrome { get; set; }
+
     public ChatSelectChannel SelectedChannel => ChatInput.ChannelSelector.SelectedChannel;
 
     public ChatBox()
@@ -128,6 +134,13 @@ public partial class ChatBox : UIWidget, IEntityLinkClickHandler
 
     public void AddLine(string message, Color color)
     {
+        if (Monochrome)
+        {
+            message = System.Text.RegularExpressions.Regex.Replace(message, @"\[/?color[^\]]*\]", string.Empty);
+            var saturation = MathF.Max(color.R, MathF.Max(color.G, color.B)) - MathF.Min(color.R, MathF.Min(color.G, color.B));
+            color = saturation > 0.3f ? Color.White : Color.White.WithAlpha(0.72f);
+        }
+
         var formatted = new FormattedMessage(3);
         formatted.PushColor(color);
         formatted.AddMarkupOrThrow(message);

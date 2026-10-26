@@ -1,0 +1,101 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: темы лобби-терминала. Тему выбирает должность на высоком приоритете у выбранного персонажа; кто не попал
+# ни в одну — тема default. Надписи — Locale/*/_dystopia/lobby.ftl (dystopia-lobby-<text>-<часть>).
+
+# граждане, нейтралы, рядовой состав служб (кроме Стражи) — зелёный люминофор
+- type: dystopiaLobbyTheme
+  id: Citizen
+  default: true
+  text: citizen
+  foreground: "#7DFF9B"
+  dim: "#3FA457"
+  glow: "#50FF788C"
+  background: "#071A0C"
+  alert: "#FF5A4A"
+  smoke: "#7DFF9B"
+  boot:
+  - { text: dystopia-lobby-citizen-boot-1, ok: dystopia-lobby-ok }
+  - { text: dystopia-lobby-citizen-boot-2, ok: dystopia-lobby-ok }
+  - { text: dystopia-lobby-citizen-boot-3, ok: dystopia-lobby-ok }
+  - { text: dystopia-lobby-citizen-boot-4, ok: dystopia-lobby-citizen-boot-4-ok }
+  - { text: dystopia-lobby-citizen-boot-5, ok: dystopia-lobby-citizen-boot-5-ok }
+  - { text: dystopia-lobby-citizen-boot-6, ok: dystopia-lobby-citizen-boot-6-ok }
+  - { text: dystopia-lobby-citizen-boot-7, bad: dystopia-lobby-citizen-boot-7-bad }
+
+# Городская Стража, Внешний Патруль, главы служб — синий
+- type: dystopiaLobbyTheme
+  id: Guard
+  text: guard
+  jobs:
+  - DystopiaGuardCaptain
+  - DystopiaGuardSergeant
+  - DystopiaGuardsman
+  - DystopiaGuardRecruit
+  - DystopiaPraetorian
+  - DystopiaGrenadier
+  - DystopiaStormtrooper
+  - DystopiaSoldier
+  - DystopiaChiefSanitaryDoctor
+  - DystopiaChiefIndustrial
+  - DystopiaScienceDirector
+  foreground: "#7CC4FF"
+  dim: "#4A8BC4"
+  glow: "#50AAFF8C"
+  background: "#06111C"
+  alert: "#FF5A4A"
+  smoke: "#7CC4FF"
+  boot:
+  - { text: dystopia-lobby-guard-boot-1, ok: dystopia-lobby-guard-boot-1-ok }
+  - { text: dystopia-lobby-guard-boot-2, ok: dystopia-lobby-ok }
+  - { text: dystopia-lobby-guard-boot-3, ok: dystopia-lobby-guard-boot-3-ok }
+  - { text: dystopia-lobby-guard-boot-4, ok: dystopia-lobby-guard-boot-4-ok }
+  - { text: dystopia-lobby-guard-boot-5, ok: dystopia-lobby-guard-boot-5-ok }
+  - { text: dystopia-lobby-guard-boot-6, ok: dystopia-lobby-ok }
+  - { text: dystopia-lobby-guard-boot-7, bad: dystopia-lobby-guard-boot-7-bad }
+
+# Консул, Гражданский Инспектор, Адъютант — жёлто-оранжевый
+- type: dystopiaLobbyTheme
+  id: Government
+  text: government
+  jobs:
+  - DystopiaConsul
+  - DystopiaCivilInspector
+  - DystopiaAdjutant
+  foreground: "#FFB347"
+  dim: "#C0782A"
+  glow: "#FF96288C"
+  background: "#1C0E03"
+  alert: "#FF5A4A"
+  smoke: "#FFB347"
+  boot:
+  - { text: dystopia-lobby-government-boot-1, ok: dystopia-lobby-government-boot-1-ok }
+  - { text: dystopia-lobby-government-boot-2, ok: dystopia-lobby-government-boot-2-ok }
+  - { text: dystopia-lobby-government-boot-3, ok: dystopia-lobby-ok }
+  - { text: dystopia-lobby-government-boot-4, ok: dystopia-lobby-government-boot-4-ok }
+  - { text: dystopia-lobby-government-boot-5, ok: dystopia-lobby-government-boot-5-ok }
+  - { text: dystopia-lobby-government-boot-6, ok: dystopia-lobby-government-boot-6-ok }
+  - { text: dystopia-lobby-government-boot-7, bad: dystopia-lobby-government-boot-7-bad }
+
+# Культ Плоти — красный, повреждённый терминал
+- type: dystopiaLobbyTheme
+  id: Cult
+  text: cult
+  corrupted: true
+  jobs:
+  - DystopiaFleshApostle
+  - DystopiaFleshCarrier
+  # чистый красный: у прежнего #FF5A4A было много зелёного и синего, на экране он уходил в оранжевый
+  foreground: "#FF3B30"
+  dim: "#C4302A"
+  glow: "#FF1E188C"
+  background: "#1A0404"
+  alert: "#FFE4E0"
+  smoke: "#FF2A1A"
+  boot:
+  - { text: dystopia-lobby-cult-boot-1, ok: dystopia-lobby-cult-boot-1-ok }
+  - { text: dystopia-lobby-cult-boot-2, ok: dystopia-lobby-cult-boot-2-ok }
+  - { text: dystopia-lobby-cult-boot-3, ok: dystopia-lobby-cult-boot-3-ok }
+  - { text: dystopia-lobby-cult-boot-4, ok: dystopia-lobby-cult-boot-4-ok }
+  - { text: dystopia-lobby-cult-boot-5, ok: dystopia-lobby-cult-boot-5-ok }
+  - { text: dystopia-lobby-cult-boot-6, ok: dystopia-lobby-cult-boot-6-ok }
+  - { text: dystopia-lobby-cult-boot-7, bad: dystopia-lobby-cult-boot-7-bad }

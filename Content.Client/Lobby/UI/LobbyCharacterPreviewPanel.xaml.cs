@@ -9,10 +9,11 @@ using Robust.Shared.Prototypes;
 
 namespace Content.Client.Lobby.UI;
 
+// Dystopia: панель переделана в «личное дело» лобби-терминала; кнопка настройки — терминальная (BaseButton).
 [GenerateTypedNameReferences]
 public sealed partial class LobbyCharacterPreviewPanel : Control
 {
-    public Button CharacterSetupButton => CharacterSetup;
+    public BaseButton CharacterSetupButton => CharacterSetup;
 
     public LobbyCharacterPreviewPanel()
     {

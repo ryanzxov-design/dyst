@@ -63,8 +63,7 @@ namespace Content.Client.Lobby
                 ? Loc.GetString("ui-lobby-title", ("serverName", serverName))
                 : lobbyNameCvar;
 
-            var width = _cfg.GetCVar(CCVars.ServerLobbyRightPanelWidth);
-            Lobby.RightSide.SetWidth = width;
+            // Dystopia: ширину колонок лобби-терминала задаёт его разметка (ServerLobbyRightPanelWidth не нужен)
 
             UpdateLobbyUi();
 

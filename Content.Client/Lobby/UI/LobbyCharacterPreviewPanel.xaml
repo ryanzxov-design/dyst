@@ -1,28 +1,34 @@
+<!-- Dystopia: «личное дело» лобби-терминала — спрайт персонажа в рамке-видоискателе, поля дела по теме, распределение
+     по должностям и одна кнопка настройки персонажа (там же выбор другого персонажа и приоритеты). -->
 <Control
     xmlns="https://spacestation14.io"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:controls="clr-namespace:Content.Client.UserInterface.Controls"
+    xmlns:term="clr-namespace:Content.Client._Dystopia.Lobby"
     xmlns:profile="clr-namespace:Content.Client.Lobby.UI.ProfileEditorControls">
-    <BoxContainer Name="VBox" Orientation="Vertical">
-        <controls:NanoHeading Name="Header" Text="{Loc 'lobby-character-preview-panel-header'}">
-
-        </controls:NanoHeading>
-        <BoxContainer Name="Loaded" Orientation="Vertical"
-                      Visible="False">
-            <Label Name="Summary" HorizontalAlignment="Center" Margin="3 3"/>
-            <BoxContainer Name="ViewBox" Orientation="Horizontal" HorizontalAlignment="Center">
-                <profile:ProfilePreviewSpriteView Name="ProfilePreviewSpriteView"
-                                                  OverrideDirection="South"
-                                                  Scale="4 4"
-                                                  MaxSize="112 112"
-                                                  Stretch="Fill"
-                                                  Access="Public" />
+    <term:DystopiaTerminalFrame Name="VBox" TitleKey="dossier" PadTop="28" PadLeft="20" PadRight="20" PadBottom="16">
+        <BoxContainer Orientation="Vertical">
+            <BoxContainer Name="Loaded" Orientation="Vertical" SeparationOverride="14" Visible="False" VerticalExpand="True">
+                <BoxContainer Orientation="Horizontal" SeparationOverride="24">
+                    <term:DystopiaPortraitFrame MinSize="200 250">
+                        <profile:ProfilePreviewSpriteView Name="ProfilePreviewSpriteView"
+                                                          OverrideDirection="South"
+                                                          Scale="5 5"
+                                                          MaxSize="160 160"
+                                                          Stretch="Fill"
+                                                          HorizontalAlignment="Center"
+                                                          VerticalAlignment="Center"
+                                                          Access="Public" />
+                        <term:DystopiaPortraitScan />
+                    </term:DystopiaPortraitFrame>
+                    <term:DystopiaLobbyDossierFields />
+                </BoxContainer>
+                <term:DystopiaTermLabel TextKey="jobs" FontSize="13" Spacing="2" Tone="Dim" />
+                <term:DystopiaLobbyJobs />
+                <Label Name="Summary" Visible="False" />
+                <Control VerticalExpand="True" />
+                <term:DystopiaTerminalButton Name="CharacterSetup" TextKey="edit" HorizontalExpand="True" />
             </BoxContainer>
-            <controls:VSpacer/>
-            <Button Name="CharacterSetup" Text="{Loc 'lobby-character-preview-panel-character-setup-button'}"
-                    HorizontalAlignment="Center"
-                    Margin="0 5 0 0"/>
+            <term:DystopiaTermLabel Name="Unloaded" TextKey="unloaded" Tone="Dim" />
         </BoxContainer>
-        <Label Name="Unloaded" Text="{Loc 'lobby-character-preview-panel-unloaded-preferences-label'}"/>
-    </BoxContainer>
+    </term:DystopiaTerminalFrame>
 </Control>
