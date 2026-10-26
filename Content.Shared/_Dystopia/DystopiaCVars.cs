@@ -13,4 +13,9 @@ public sealed class DystopiaCVars
     /// <summary>Эффекты масок и противогазов.</summary>
     public static readonly CVarDef<bool> VisorEffects =
         CVarDef.Create("dystopia.visor_effects", true, CVar.CLIENTONLY | CVar.ARCHIVE);
+
+    /// <summary>Боевой режим: персонаж поворачивается к курсору плавно (а не по четырём сторонам), фонарик в руке
+    /// светит ровно туда же. Новый поворот отправляется, когда курсор ушёл больше чем на столько градусов.</summary>
+    public static readonly CVarDef<float> AimRotationTolerance =
+        CVarDef.Create("dystopia.aim_rotation_tolerance", 3f, CVar.SERVER | CVar.REPLICATED);
 }

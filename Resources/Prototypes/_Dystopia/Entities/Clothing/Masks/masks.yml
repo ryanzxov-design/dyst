@@ -83,6 +83,9 @@
       - state: equipped-MASK-glow
         shader: unshaded
   - type: Mask
+  # голос сквозь маску — свой шрифт; приспущенная маска не рисуется на лице
+  - type: DystopiaFaceMask
+    speechVerb: DystopiaGuardMask
   - type: BreathMask
   - type: IngestionBlocker
   - type: IdentityBlocker

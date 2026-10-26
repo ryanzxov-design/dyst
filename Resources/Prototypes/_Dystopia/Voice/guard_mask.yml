@@ -1,0 +1,17 @@
+# Dystopia: голос в маске Стражи — консольный шрифт Terminus (сборка Terminess из Nerd Fonts, OFL; оставлены
+# латиница, кириллица и знаки) и сухие глаголы. Пока маска на лице и не приспущена (DystopiaFaceMask на маске),
+# речь и рация идут этим способом речи. Консоли и меню Города шрифт не трогает.
+
+- type: font
+  id: DystopiaGuardVoice
+  path: /Fonts/_Dystopia/Terminus/Terminess-Regular.ttf
+
+- type: speechVerb
+  id: DystopiaGuardMask
+  name: dystopia-speech-verb-name-guard-mask
+  fontId: DystopiaGuardVoice
+  fontSize: 14
+  speechVerbStrings:
+  - dystopia-speech-verb-guard-mask-1
+  - dystopia-speech-verb-guard-mask-2
+  - dystopia-speech-verb-guard-mask-3

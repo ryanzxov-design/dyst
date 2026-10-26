@@ -60,9 +60,11 @@
     storedRotation: -90
   - type: PointLight
     enabled: false
-    lightMask: ConeSingle
+    # Dystopia: луч уже, дальше и ярче (было: ConeSingle, радиус 6, яркость 1)
+    lightMask: DystopiaConeNarrow
     autoRot: true
-    radius: 6
+    radius: 8.5
+    energy: 1.4
     netsync: false
   - type: Appearance
   - type: StaticPrice
@@ -119,7 +121,9 @@
     sprite: Objects/Tools/seclite.rsi
   - type: PointLight
     enabled: false
-    radius: 8
+    # Dystopia: луч дальше и ярче (было: радиус 8, яркость 1)
+    radius: 10.5
+    energy: 1.5
   - type: Clothing
     sprite: Objects/Tools/seclite.rsi
     quickEquip: false

@@ -1,0 +1,10 @@
+# Dystopia: узкий конус фонарика — свет собран в луч (ванильный ConeSingle — широкий, ±37°; этот — ±24°).
+# Направления — как у ванильных масок: 0 — на юг (картинка нарисована лучом вверх).
+
+- type: lightMask
+  id: DystopiaConeNarrow
+  maskPath: /Textures/_Dystopia/Effects/LightMasks/cone_narrow.png
+  lightCones:
+  - direction: 0
+    innerWidth: 20
+    outerWidth: 44
