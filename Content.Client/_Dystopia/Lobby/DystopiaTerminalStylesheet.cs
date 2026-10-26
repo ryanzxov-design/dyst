@@ -20,15 +20,16 @@ namespace Content.Client._Dystopia.Lobby;
 
 public sealed class DystopiaTerminalStylesheet : NanotrasenStylesheet
 {
-    private const int TextSize = 13;
 
     private static readonly Color Black = Color.FromHex("#020302");
 
     // тема для строящегося листа: базовый конструктор уже читает палитры, а поля наследника, заданные инициализаторами,
     // заполняются раньше него — так тема попадает в палитры
     private static DystopiaLobbyThemePrototype? _building;
+    private static int _buildingSize = 13;
 
     private readonly DystopiaLobbyThemePrototype _theme = _building ?? new DystopiaLobbyThemePrototype();
+    private readonly int _textSize = _buildingSize;
 
     public override string StylesheetName => "DystopiaTerminal";
 
@@ -50,10 +51,12 @@ public sealed class DystopiaTerminalStylesheet : NanotrasenStylesheet
         Stylesheet = new Stylesheet(base.Stylesheet.Rules.Concat(TerminalRules()).ToArray());
     }
 
-    /// <summary>Лист для темы (строится заново на каждый вызов — кэширует вызывающий).</summary>
-    public static Stylesheet Build(DystopiaLobbyThemePrototype theme)
+    /// <summary>Лист для темы (строится заново на каждый вызов — кэширует вызывающий). Окна Города берут его же
+    /// со своей палитрой и кеглем 12 (CityUi.Sheet).</summary>
+    public static Stylesheet Build(DystopiaLobbyThemePrototype theme, int textSize = 13)
     {
         _building = theme;
+        _buildingSize = textSize;
         try
         {
             var man = (StylesheetManager) IoCManager.Resolve<IStylesheetManager>();
@@ -62,6 +65,7 @@ public sealed class DystopiaTerminalStylesheet : NanotrasenStylesheet
         finally
         {
             _building = null;
+            _buildingSize = 13;
         }
     }
 
@@ -112,7 +116,7 @@ public sealed class DystopiaTerminalStylesheet : NanotrasenStylesheet
             "/Fonts/NotoSans/NotoSans-Regular.ttf",
             "/Fonts/NotoSans/NotoSansSymbols-Regular.ttf",
             "/Fonts/NotoSans/NotoSansSymbols2-Regular.ttf",
-        }, TextSize);
+        }, _textSize);
 
         var normal = Frame(0.08f);
         var small = Frame(0.08f, 6f, 1f);

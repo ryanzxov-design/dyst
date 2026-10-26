@@ -34,7 +34,7 @@ public sealed class CityVendorWindow : CityWindow
         };
         Contents.AddChild(root);
 
-        root.AddChild(new Label { Text = Loc.GetString("dystopia-vendor-hint"), FontColorOverride = DimColor });
+        root.AddChild(CityUi.Hint(Loc.GetString("dystopia-vendor-hint"), DimColor));
 
         var scroll = new ScrollContainer { HScrollEnabled = false, VerticalExpand = true };
         _grid = new GridContainer { Columns = 4, HorizontalExpand = true };

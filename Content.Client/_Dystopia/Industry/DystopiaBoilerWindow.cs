@@ -22,7 +22,7 @@ public sealed class DystopiaBoilerWindow : CityWindow
 
     private readonly Label _status;
     private readonly CityButton _extinguish;
-    private readonly Label _fuel;
+    private readonly CityWrapLabel _fuel;
     private readonly GridContainer _modes;
     private readonly List<CityButton> _modeButtons = new();
     private readonly Label _modeInfo;
@@ -63,9 +63,9 @@ public sealed class DystopiaBoilerWindow : CityWindow
 
         // Топка
         root.AddChild(CityUi.SectionHeader(Loc.GetString("dystopia-boiler-ui-firebox-header")));
-        _fuel = CityUi.MakeLabel(string.Empty);
+        _fuel = CityUi.Hint(string.Empty, CityUi.Text);
         root.AddChild(_fuel);
-        root.AddChild(CityUi.MakeLabel(Loc.GetString("dystopia-boiler-ui-fuel-hint"), CityUi.Muted));
+        root.AddChild(CityUi.Hint(Loc.GetString("dystopia-boiler-ui-fuel-hint"), CityUi.Muted));
 
         // Режим
         root.AddChild(CityUi.SectionHeader(Loc.GetString("dystopia-boiler-ui-mode-header")));
@@ -73,7 +73,7 @@ public sealed class DystopiaBoilerWindow : CityWindow
         root.AddChild(_modes);
         _modeInfo = CityUi.MakeLabel(string.Empty, CityUi.Dim);
         root.AddChild(_modeInfo);
-        root.AddChild(CityUi.MakeLabel(Loc.GetString("dystopia-boiler-ui-mode-hint"), CityUi.Muted));
+        root.AddChild(CityUi.Hint(Loc.GetString("dystopia-boiler-ui-mode-hint"), CityUi.Muted));
 
         // Барабан
         root.AddChild(CityUi.SectionHeader(Loc.GetString("dystopia-boiler-ui-drum-header")));
@@ -86,6 +86,7 @@ public sealed class DystopiaBoilerWindow : CityWindow
         var ventRow = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Horizontal, SeparationOverride = 8 };
         var ventHint = CityUi.MakeLabel(Loc.GetString("dystopia-boiler-ui-vent-hint"), CityUi.Muted);
         ventHint.HorizontalExpand = true;
+        ventHint.ClipText = true;
         _vent = CityUi.MakeButton(Loc.GetString("dystopia-boiler-ui-vent-open"));
         _vent.OnPressed += _ => OnToggleVent?.Invoke();
         ventRow.AddChild(ventHint);
@@ -98,7 +99,7 @@ public sealed class DystopiaBoilerWindow : CityWindow
         _wear = CityUi.MakeLabel(string.Empty);
         root.AddChild(_water);
         root.AddChild(_wear);
-        root.AddChild(CityUi.MakeLabel(Loc.GetString("dystopia-boiler-ui-water-hint"), CityUi.Muted));
+        root.AddChild(CityUi.Hint(Loc.GetString("dystopia-boiler-ui-water-hint"), CityUi.Muted));
     }
 
     private static string Fmt(float value, string format = "0.#")

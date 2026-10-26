@@ -57,7 +57,7 @@ public sealed class VexelPrinterWindow : CityWindow
             _amount.Text = string.Empty;
         };
         root.AddChild(print);
-        root.AddChild(new Label { Text = Loc.GetString("dystopia-vexel-printer-hint"), FontColorOverride = DimColor });
+        root.AddChild(CityUi.Hint(Loc.GetString("dystopia-vexel-printer-hint"), DimColor));
     }
 
     public void UpdateState(VexelPrinterUiState state)

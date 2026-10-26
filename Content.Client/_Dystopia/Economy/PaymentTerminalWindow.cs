@@ -86,7 +86,8 @@ public sealed class PaymentTerminalWindow : CityWindow
         billRow.AddChild(_cancelBill);
         root.AddChild(billRow);
 
-        root.AddChild(new Label { Text = Loc.GetString("dystopia-payment-terminal-hint"), FontColorOverride = DimColor });
+        // подсказка длинная — переносится по ширине окна, а не уходит за край
+        root.AddChild(CityUi.Hint(Loc.GetString("dystopia-payment-terminal-hint"), DimColor));
     }
 
     /// <summary>Сколько из введённой суммы уйдёт в налог и сколько получит продавец.</summary>

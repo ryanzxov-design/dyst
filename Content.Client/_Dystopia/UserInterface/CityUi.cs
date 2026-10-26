@@ -1,4 +1,6 @@
+using Content.Client._Dystopia.Lobby;
 using Content.Client.Resources;
+using Content.Shared._Dystopia.Lobby;
 using Robust.Client.Graphics;
 using Robust.Client.ResourceManagement;
 using Robust.Client.UserInterface;
@@ -7,12 +9,15 @@ using Robust.Shared.Maths;
 using Robust.Shared.IoC;
 using System.Text;
 using Robust.Shared.Timing;
+using Robust.Shared.Utility;
 
 namespace Content.Client._Dystopia.UserInterface;
 
 /// <summary>
 /// Единый стиль интерфейса городского оборудования: палитра, шрифты и готовые элементы.
 /// Основа — очень тёмный синий фон и безжизненный холодный голубой для элементов.
+/// Терминальный вид (как у лобби): моноширинный PT Mono (запасные — Noto), заголовок окна пиксельным
+/// Press Start 2P, кнопки тонкой рамкой с заливкой при наведении, заголовки разделов — как кромка рамки.
 /// </summary>
 public static class CityUi
 {
@@ -36,14 +41,54 @@ public static class CityUi
 
     public const string EmblemPath = "/Textures/_Dystopia/Interface/Emblem/city_emblem_64.png";
 
+    /// <summary>Тёмный цвет текста на залитой (наведённой) кнопке.</summary>
+    public static readonly Color Ink = Color.FromHex("#06101C");
+
+    private const string MonoPath = "/Fonts/_Dystopia/PTMono/PTMono-Regular.ttf";
+    private const string PixelPath = "/Fonts/_Dystopia/PressStart2P/PressStart2P-Regular.ttf";
+    private const string NotoRegular = "/Fonts/NotoSans/NotoSans-Regular.ttf";
+    private const string NotoBold = "/Fonts/NotoSans/NotoSans-Bold.ttf";
+    private const string NotoSymbols = "/Fonts/NotoSans/NotoSansSymbols-Regular.ttf";
+    private const string NotoSymbols2 = "/Fonts/NotoSans/NotoSansSymbols2-Regular.ttf";
+
+    private static readonly Dictionary<(string, int), Font> Fonts = new();
+    private static Stylesheet? _sheet;
+
     private static IResourceCache Res => IoCManager.Resolve<IResourceCache>();
 
-    public static Font Regular(int size = 12) => Res.GetFont("/Fonts/NotoSans/NotoSans-Regular.ttf", size);
-    public static Font Bold(int size = 12) => Res.GetFont("/Fonts/NotoSans/NotoSans-Bold.ttf", size);
-    public static Font Title(int size = 16) => Res.GetFont("/Fonts/NotoSansDisplay/NotoSansDisplay-Bold.ttf", size);
-    public static Font Mono(int size = 11) => Res.GetFont("/Fonts/RobotoMono/RobotoMono-Regular.ttf", size);
+    // у PT Mono нет жирного начертания и части значков — за ним стоят шрифты Noto
+    public static Font Regular(int size = 12) => Stack(MonoPath, NotoRegular, size);
+    public static Font Bold(int size = 12) => Stack(MonoPath, NotoBold, size);
+    public static Font Title(int size = 16) => Stack(PixelPath, NotoBold, size);
+    public static Font Mono(int size = 11) => Stack(MonoPath, NotoRegular, size);
+
+    private static Font Stack(string main, string fallback, int size)
+    {
+        if (Fonts.TryGetValue((main + fallback, size), out var font))
+            return font;
+
+        font = Res.GetFont(new[] { main, fallback, NotoSymbols, NotoSymbols2 }, size);
+        Fonts[(main + fallback, size)] = font;
+        return font;
+    }
+
+    /// <summary>
+    /// Лист стилей окон Города: ванильные надписи, поля и прокрутки внутри окна — тем же шрифтом и цветами
+    /// (тот же терминальный лист, что у настройки персонажа, но с палитрой Города).
+    /// </summary>
+    public static Stylesheet Sheet => _sheet ??= DystopiaTerminalStylesheet.Build(new DystopiaLobbyThemePrototype
+    {
+        Foreground = Text,
+        Dim = Frame,
+        Glow = Accent.WithAlpha(0.55f),
+        Background = Bg,
+        Alert = Danger,
+    }, 12);
 
     public static Texture Emblem() => Res.GetTexture(EmblemPath);
+
+    /// <summary>Светлая полоса развёртки (та же, что у лобби-терминала).</summary>
+    public static Texture Rollbar() => Res.GetTexture("/Textures/_Dystopia/Interface/Lobby/rollbar.png");
 
     public static StyleBoxFlat Box(Color background, Color border, float thickness = 1, float padH = 0, float padV = 0)
     {
@@ -91,36 +136,83 @@ public static class CityUi
         };
     }
 
-    /// <summary>Заголовок раздела: КАПС акцентным цветом и линия до края.</summary>
+    /// <summary>Заголовок раздела: «─ ЗАГОЛОВОК ───────» — как верхняя кромка рамки с врезанным названием.</summary>
     public static Control SectionHeader(string text)
     {
-        var row = new BoxContainer
-        {
-            Orientation = BoxContainer.LayoutOrientation.Horizontal,
-            HorizontalExpand = true,
-            SeparationOverride = 10,
-            Margin = new Thickness(0, 6, 0, 2),
-        };
-        row.AddChild(MakeLabel(text.ToUpperInvariant(), Accent, Bold(12)));
-        row.AddChild(Separator());
-        return row;
+        return new CitySectionHeader(text.ToUpperInvariant()) { Margin = new Thickness(0, 6, 0, 2) };
     }
 
-    /// <summary>Поле ввода в стиле Города.</summary>
+    /// <summary>Поле ввода в стиле Города: линия снизу, как строка терминала.</summary>
     public static LineEdit Field(string placeholder = "", float minWidth = 0)
     {
+        var box = Box(Input.WithAlpha(0.6f), Frame, 0, 6, 3);
+        box.BorderThickness = new Thickness(0, 0, 0, 1);
         var edit = new LineEdit
         {
             PlaceHolder = placeholder,
             MinWidth = minWidth,
-            StyleBoxOverride = Box(Input, Line, 1, 6, 3),
+            StyleBoxOverride = box,
         };
         return edit;
+    }
+
+    /// <summary>Надпись с переносом строк по ширине окна (длинные подсказки и строки — не уходят за край).</summary>
+    public static CityWrapLabel Hint(string text, Color? color = null)
+    {
+        return new CityWrapLabel(text, color ?? Dim);
     }
 
     public static CityButton MakeButton(string text, CityButtonStyle style = CityButtonStyle.Normal)
     {
         return new CityButton(text.ToUpperInvariant(), style);
+    }
+}
+
+/// <summary>
+/// Надпись с переносом строк: те же Text и FontColorOverride, что у Label, но длинный текст переносится по ширине,
+/// а не уходит за край окна (моноширинный шрифт шире прежнего).
+/// </summary>
+public sealed class CityWrapLabel : Control
+{
+    private readonly RichTextLabel _label = new() { HorizontalExpand = true };
+    private string _text = string.Empty;
+    private Color? _color;
+
+    public CityWrapLabel() : this(string.Empty)
+    {
+    }
+
+    public CityWrapLabel(string text, Color? color = null)
+    {
+        HorizontalExpand = true;
+        AddChild(_label);
+        _color = color;
+        Text = text;
+    }
+
+    public string Text
+    {
+        get => _text;
+        set
+        {
+            _text = value;
+            Refresh();
+        }
+    }
+
+    public Color? FontColorOverride
+    {
+        get => _color;
+        set
+        {
+            _color = value;
+            Refresh();
+        }
+    }
+
+    private void Refresh()
+    {
+        _label.SetMessage(FormattedMessage.FromUnformatted(_text), defaultColor: _color ?? CityUi.Text);
     }
 }
 
@@ -145,6 +237,8 @@ public sealed class CityButton : Button
         _style = style;
         Text = text;
         Label.FontOverride = CityUi.Bold(12);
+        // цвет кнопки — только своя рамка и заливка: ванильная палитра кнопок её не подкрашивает
+        ModulateSelfOverride = Color.White;
         MinHeight = style == CityButtonStyle.Tab ? 34 : 24;
         if (style == CityButtonStyle.Tab)
         {
@@ -306,34 +400,35 @@ public sealed class CityButton : Button
         var hover = DrawMode == DrawModeEnum.Hover;
         var pressed = DrawMode == DrawModeEnum.Pressed || _active;
 
+        // терминальный вид: прозрачная заливка и рамка; наведённая — залита цветом рамки, текст тёмный
         Color fill, border, text;
         switch (_style)
         {
             case CityButtonStyle.Danger:
-                fill = hover ? CityUi.HoverFill : CityUi.Panel2;
+                fill = hover ? CityUi.Danger : Color.Transparent;
                 border = CityUi.Danger;
-                text = CityUi.Danger;
+                text = hover ? CityUi.Ink : CityUi.Danger;
                 break;
             case CityButtonStyle.Primary:
-                fill = hover || pressed ? CityUi.HoverFill : CityUi.ActiveFill;
+                fill = hover ? CityUi.Accent : pressed ? CityUi.HoverFill : CityUi.ActiveFill;
                 border = CityUi.Accent;
-                text = CityUi.Glow;
+                text = hover ? CityUi.Ink : CityUi.Glow;
                 break;
             case CityButtonStyle.Tab:
-                fill = pressed ? CityUi.ActiveFill : hover ? CityUi.Panel2 : CityUi.Panel;
-                border = pressed ? CityUi.Frame : CityUi.Line;
-                text = pressed ? CityUi.Glow : CityUi.Text;
+                fill = hover ? CityUi.Accent : pressed ? CityUi.ActiveFill : CityUi.Panel.WithAlpha(0.6f);
+                border = pressed ? CityUi.Accent : CityUi.Line;
+                text = hover ? CityUi.Ink : pressed ? CityUi.Glow : CityUi.Text;
                 break;
             default:
-                fill = hover || pressed ? CityUi.HoverFill : CityUi.Panel2;
+                fill = hover ? CityUi.Accent : pressed ? CityUi.HoverFill : Color.Transparent;
                 border = hover ? CityUi.Accent : CityUi.Frame;
-                text = CityUi.Text;
+                text = hover ? CityUi.Ink : CityUi.Text;
                 break;
         }
 
         if (disabled)
         {
-            fill = CityUi.Panel;
+            fill = Color.Transparent;
             border = CityUi.Line;
             text = CityUi.Muted;
         }
@@ -345,7 +440,8 @@ public sealed class CityButton : Button
             box.BorderColor = CityUi.Accent;
 
         StyleBoxOverride = box;
-        Label.FontColorOverride = disabled ? text : _textColor ?? text;
+        // свой цвет текста (например, цвет положения Города) — кроме наведения: на заливке текст тёмный
+        Label.FontColorOverride = disabled || hover ? text : _textColor ?? text;
     }
 }
 
@@ -366,6 +462,20 @@ public sealed class CityCard : PanelContainer
 
 public static class CityDraw
 {
+    /// <summary>Строка со свечением цветом glow (копии со сдвигом на пиксель), буквы — по целым пикселям.
+    /// Возвращает ширину.</summary>
+    public static float GlowText(DrawingHandleScreen handle, Font font, System.Numerics.Vector2 pos, string text, float scale,
+        Color color, Color glow, float spacing = 0f)
+    {
+        var halo = glow.WithAlpha(0.18f * color.A);
+        var d = MathF.Max(1f, MathF.Round(scale));
+        DystopiaTerm.Plain(handle, font, pos + new System.Numerics.Vector2(-d, 0f), text, scale, halo, spacing);
+        DystopiaTerm.Plain(handle, font, pos + new System.Numerics.Vector2(d, 0f), text, scale, halo, spacing);
+        DystopiaTerm.Plain(handle, font, pos + new System.Numerics.Vector2(0f, -d), text, scale, halo, spacing);
+        DystopiaTerm.Plain(handle, font, pos + new System.Numerics.Vector2(0f, d), text, scale, halo, spacing);
+        return DystopiaTerm.Plain(handle, font, pos, text, scale, color, spacing);
+    }
+
     /// <summary>Уголки по четырём углам прямоугольника размера size.</summary>
     public static void Corners(DrawingHandleScreen handle, Vector2i size, float scale, Color color, float length)
     {

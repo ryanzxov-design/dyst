@@ -16,7 +16,7 @@ public sealed class DystopiaPipelineWindow : CityWindow
 
     private static readonly Color Good = Color.FromHex("#78E070");
 
-    private readonly Label _route;
+    private readonly CityWrapLabel _route;
     private readonly Label _state;
     private readonly Label _tank;
     private readonly Label _contents;
@@ -36,7 +36,7 @@ public sealed class DystopiaPipelineWindow : CityWindow
         var root = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Vertical, SeparationOverride = 6 };
         Contents.AddChild(root);
 
-        _route = CityUi.MakeLabel(string.Empty, CityUi.Accent, CityUi.Bold(13));
+        _route = CityUi.Hint(string.Empty, CityUi.Accent);
         _state = CityUi.MakeLabel(string.Empty);
         root.AddChild(_route);
         root.AddChild(_state);

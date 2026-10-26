@@ -2,6 +2,8 @@
 
 dystopia-city-ui-footer = Сеть Города: активна  ·  Соединение защищено  ·  Все действия записываются
 dystopia-city-ui-slogan = Порядок. Труд. Повиновение.
+dystopia-city-ui-net = ● СЕТЬ
+dystopia-city-ui-prompt = ГТС:\ГОРОД>{" "}
 
 dystopia-city-console-subtitle = Администрация Города  ·  Терминал № 0001  ·  Доступ: Консул
 dystopia-city-console-nav-mode = Действующее положение

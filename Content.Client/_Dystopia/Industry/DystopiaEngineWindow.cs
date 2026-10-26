@@ -32,7 +32,7 @@ public sealed class DystopiaEngineWindow : CityWindow
     private readonly Label _power;
     private readonly Label _throttle;
     private readonly List<(float Value, CityButton Button)> _presetButtons = new();
-    private readonly Label _temperature;
+    private readonly CityWrapLabel _temperature;
     private readonly Label _wear;
     private readonly BoxContainer _tanks;
 
@@ -95,11 +95,11 @@ public sealed class DystopiaEngineWindow : CityWindow
         }
 
         root.AddChild(presets);
-        root.AddChild(CityUi.MakeLabel(Loc.GetString("dystopia-engine-ui-overload-hint"), CityUi.Muted));
+        root.AddChild(CityUi.Hint(Loc.GetString("dystopia-engine-ui-overload-hint"), CityUi.Muted));
 
         // Состояние
         root.AddChild(CityUi.SectionHeader(Loc.GetString("dystopia-engine-ui-condition-header")));
-        _temperature = CityUi.MakeLabel(string.Empty);
+        _temperature = CityUi.Hint(string.Empty, CityUi.Text);
         _wear = CityUi.MakeLabel(string.Empty);
         root.AddChild(_temperature);
         root.AddChild(_wear);
@@ -190,9 +190,9 @@ public sealed class DystopiaEngineWindow : CityWindow
             state.SteamConnected ? CityUi.Text : Warn));
         if (state.Steam > 0f)
         {
-            _tanks.AddChild(CityUi.MakeLabel(Loc.GetString("dystopia-engine-ui-steam-buffer",
+            _tanks.AddChild(CityUi.Hint(Loc.GetString("dystopia-engine-ui-steam-buffer",
                 ("amount", Fmt(state.Steam)), ("max", Fmt(state.SteamMax))), CityUi.Danger));
         }
-        _tanks.AddChild(CityUi.MakeLabel(Loc.GetString("dystopia-engine-ui-tanks-hint"), CityUi.Muted));
+        _tanks.AddChild(CityUi.Hint(Loc.GetString("dystopia-engine-ui-tanks-hint"), CityUi.Muted));
     }
 }

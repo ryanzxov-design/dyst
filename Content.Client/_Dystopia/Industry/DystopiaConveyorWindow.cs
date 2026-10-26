@@ -117,7 +117,7 @@ public sealed class DystopiaConveyorWindow : CityWindow
 
         if (IsSorter)
         {
-            _top.AddChild(CityUi.MakeLabel(Loc.GetString("dystopia-conveyor-ui-sort-hint"), CityUi.Dim));
+            _top.AddChild(CityUi.Hint(Loc.GetString("dystopia-conveyor-ui-sort-hint"), CityUi.Dim));
             return;
         }
 

@@ -74,7 +74,7 @@ public sealed class DystopiaArcFurnaceWindow : CityWindow
 
         // Разлив
         root.AddChild(CityUi.SectionHeader(Loc.GetString("dystopia-arc-furnace-ui-pour")));
-        root.AddChild(CityUi.MakeLabel(Loc.GetString("dystopia-arc-furnace-ui-pour-hint"), CityUi.Dim));
+        root.AddChild(CityUi.Hint(Loc.GetString("dystopia-arc-furnace-ui-pour-hint"), CityUi.Dim));
         var alloyScroll = new ScrollContainer { HScrollEnabled = false, VerticalExpand = true, MinHeight = 150 };
         _alloys = new GridContainer { Columns = 3, HorizontalExpand = true };
         alloyScroll.AddChild(_alloys);

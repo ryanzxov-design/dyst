@@ -665,7 +665,7 @@ public sealed class PharmacistGuideControl : BoxContainer
             : "pharm-guide-kind-other";
 
         _details.AddChild(CityUi.MakeLabel(Loc.GetString(kind).ToUpperInvariant(), CityUi.Dim, CityUi.Regular(10)));
-        var title = CityUi.MakeLabel(reagent.Name, CityUi.Glow, CityUi.Title(18));
+        var title = CityUi.MakeLabel(reagent.Name, CityUi.Glow, CityUi.Bold(18)); // Title теперь пиксельный — длинные названия реагентов не влезут
         title.ClipText = true;
         title.ToolTip = reagent.Name;
         _details.AddChild(title);

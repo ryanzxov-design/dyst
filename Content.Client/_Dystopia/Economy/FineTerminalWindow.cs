@@ -85,7 +85,7 @@ public sealed class FineTerminalWindow : CityWindow
 
         _pending = new Label { Margin = new Thickness(0, 6, 0, 0) };
         root.AddChild(_pending);
-        root.AddChild(new Label { Text = Loc.GetString("dystopia-fine-terminal-hint"), FontColorOverride = DimColor });
+        root.AddChild(CityUi.Hint(Loc.GetString("dystopia-fine-terminal-hint"), DimColor));
     }
 
     private void UpdateSanction()

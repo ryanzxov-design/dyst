@@ -90,7 +90,7 @@ public sealed class DystopiaSteamTurbineWindow : CityWindow
         }
 
         root.AddChild(presets);
-        root.AddChild(CityUi.MakeLabel(Loc.GetString("dystopia-turbine-ui-valve-hint"), CityUi.Muted));
+        root.AddChild(CityUi.Hint(Loc.GetString("dystopia-turbine-ui-valve-hint"), CityUi.Muted));
 
         // Пар
         root.AddChild(CityUi.SectionHeader(Loc.GetString("dystopia-turbine-ui-steam-header")));
@@ -107,7 +107,7 @@ public sealed class DystopiaSteamTurbineWindow : CityWindow
         _wear = CityUi.MakeLabel(string.Empty);
         root.AddChild(_oil);
         root.AddChild(_wear);
-        root.AddChild(CityUi.MakeLabel(Loc.GetString("dystopia-turbine-ui-oil-hint"), CityUi.Muted));
+        root.AddChild(CityUi.Hint(Loc.GetString("dystopia-turbine-ui-oil-hint"), CityUi.Muted));
     }
 
     private void Step(float delta)
