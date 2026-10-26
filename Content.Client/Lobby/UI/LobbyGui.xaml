@@ -84,7 +84,12 @@
                     <!-- Справа: общий канал во всю высоту -->
                     <BoxContainer Name="RightSide" Access="Public" Orientation="Vertical" MinWidth="420" MaxWidth="420">
                         <term:DystopiaTerminalFrame TitleKey="chat" VerticalExpand="True">
-                            <widgets:ChatBox Name="Chat" Access="Public" VerticalExpand="True" MinHeight="50" />
+                            <BoxContainer Orientation="Vertical" SeparationOverride="8">
+                                <!-- у ChatBox своя наименьшая ширина 465 — шире колонки; её сбрасывает LobbyGui.xaml.cs -->
+                                <widgets:ChatBox Name="Chat" Access="Public" VerticalExpand="True" />
+                                <!-- вкладки каналов вместо ванильного переключателя -->
+                                <term:DystopiaChatChannels Name="ChatChannels" />
+                            </BoxContainer>
                         </term:DystopiaTerminalFrame>
                     </BoxContainer>
                 </BoxContainer>

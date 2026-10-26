@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
-// Dystopia: лобби-терминал — небольшая кнопка в рамке; при наведении заливается цветом люминофора.
+// Dystopia: лобби-терминал — небольшая кнопка в рамке; при наведении (и выбранная — вкладка канала чата) заливается
+// цветом люминофора.
 
 using System.Numerics;
 using Robust.Client.Graphics;
@@ -17,6 +18,9 @@ public sealed class DystopiaTerminalButton : BaseButton
     public string? TextKey { get; set; }
 
     public string? Text { get; set; }
+
+    /// <summary>Выбранная вкладка: залита, как при наведении.</summary>
+    public bool Selected { get; set; }
 
     private DystopiaLobbyThemeController Term => _theme ??= UserInterfaceManager.GetUIController<DystopiaLobbyThemeController>();
 
@@ -53,7 +57,7 @@ public sealed class DystopiaTerminalButton : BaseButton
         var size = PixelSize;
         var t = MathF.Max(1f, MathF.Round(scale));
         var disabled = DrawMode == DrawModeEnum.Disabled;
-        var active = !disabled && DrawMode is DrawModeEnum.Hover or DrawModeEnum.Pressed;
+        var active = !disabled && (Selected || DrawMode is DrawModeEnum.Hover or DrawModeEnum.Pressed);
         var edge = disabled ? theme.Dim : theme.Fg;
 
         if (active)

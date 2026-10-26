@@ -1,3 +1,4 @@
+using System.Numerics;
 using Content.Client._Dystopia.Lobby;
 using Content.Client.Message;
 using Content.Client.UserInterface.Systems.EscapeMenu;
@@ -41,34 +42,26 @@ namespace Content.Client.Lobby.UI
             HeadServer.Getter = () => (_baseClient.GameInfo?.ServerName ?? string.Empty).ToUpperInvariant();
             HeadClock.Getter = () => $"{Term.Text("clock")} {DateTime.Now:HH:mm}";
 
-            // чат — тёмная подложка, текст в цвет люминофора
+            // чат — тёмная подложка, текст в цвет люминофора; по ширине колонки (своя наименьшая у ChatBox — 465)
             Chat.ChatWindowPanel.PanelOverride = new StyleBoxFlat { BackgroundColor = Color.Black.WithAlpha(0.35f) };
             Chat.Monochrome = true;
+            Chat.MinSize = new Vector2(0f, 50f);
 
-            // строка ввода чата: без серых плашек — рамки и текст цветом темы (через Modulate)
-            var line = new StyleBoxFlat
+            // строка ввода чата: без серых плашек — линия сверху и текст цветом темы (через Modulate);
+            // переключатель канала и фильтр спрятаны — каналы выбираются вкладками под строкой
+            Chat.ChatInput.PanelOverride = new StyleBoxFlat
             {
                 BackgroundColor = Color.Transparent,
                 BorderColor = Color.White.WithAlpha(0.45f),
                 BorderThickness = new Thickness(0f, 1f, 0f, 0f),
                 ContentMarginLeftOverride = 6f,
             };
-            var boxed = new StyleBoxFlat
-            {
-                BackgroundColor = Color.Transparent,
-                BorderColor = Color.White.WithAlpha(0.7f),
-                BorderThickness = new Thickness(1f),
-                ContentMarginLeftOverride = 6f,
-                ContentMarginRightOverride = 6f,
-            };
-            Chat.ChatInput.PanelOverride = line;
             Chat.ChatInput.Input.StyleBoxOverride = new StyleBoxFlat
             {
                 BackgroundColor = Color.Transparent,
                 ContentMarginLeftOverride = 6f,
             };
-            Chat.ChatInput.ChannelSelector.StyleBoxOverride = boxed;
-            Chat.ChatInput.FilterButton.StyleBoxOverride = boxed;
+            ChatChannels.Attach(Chat);
         }
 
         private DystopiaLobbyThemeController Term => _theme ??= UserInterfaceManager.GetUIController<DystopiaLobbyThemeController>();

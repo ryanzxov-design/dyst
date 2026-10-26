@@ -58,6 +58,7 @@ dystopia-lobby-link-guide = GUIDEBOOK
 dystopia-lobby-link-changelog = CHANGELOG
 
 dystopia-lobby-chat = OPEN CHANNEL
+dystopia-lobby-chat-prefix = quick pick: start the message with "{ $prefix }"
 dystopia-lobby-ticker = CONSULATE BULLETIN  ▪  LEAVING THE WALL WITHOUT A PASS IS FORBIDDEN  ▪  REPORT FLESH GROWTHS TO THE SANITARY SERVICE  ▪  A RUNNING STABILIZER IS A QUIET SLEEP  ▪  THE QUOTA IS EVERY CITIZEN'S DUTY  ▪
 
 ## boot statuses
