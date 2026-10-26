@@ -1,26 +1,30 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 // Dystopia: лобби-терминал — общее состояние для всех его элементов: тема (по должности на высоком приоритете у
 // выбранного персонажа), профиль, время для анимаций, шрифты, надписи темы, порча текста у повреждённого терминала.
-// Элементы сравнивают Version со своим, чтобы заметить смену персонажа или темы.
+// Элементы сравнивают Version со своим, чтобы заметить смену персонажа или темы. Пока открыта настройка персонажа,
+// весь интерфейс идёт стилем терминала (DystopiaTerminalStylesheet по теме); при выходе из неё и из лобби — обратно.
 
 using System.Linq;
 using System.Text;
 using Content.Client.Lobby;
 using Content.Client.Resources;
+using Content.Client.Stylesheets;
 using Content.Shared._Dystopia.Lobby;
 using Content.Shared.Preferences;
 using Content.Shared.Roles;
 using Robust.Client.Graphics;
 using Robust.Client.ResourceManagement;
+using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controllers;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 
 namespace Content.Client._Dystopia.Lobby;
 
-public sealed class DystopiaLobbyThemeController : UIController
+public sealed class DystopiaLobbyThemeController : UIController, IOnStateExited<LobbyState>
 {
     [Dependency] private IClientPreferencesManager _prefs = default!;
+    [Dependency] private IStylesheetManager _sheets = default!;
     [Dependency] private IPrototypeManager _proto = default!;
     [Dependency] private IResourceCache _res = default!;
 
@@ -29,6 +33,8 @@ public sealed class DystopiaLobbyThemeController : UIController
     private const string Glyphs = "█▓▒?#@/0";
 
     private readonly Dictionary<(bool, int), Font> _fonts = new();
+    private readonly Dictionary<string, Stylesheet> _styles = new();
+    private bool _terminalStyle;
     private DystopiaLobbyThemePrototype? _theme;
 
     /// <summary>Растёт при каждой смене персонажа, его профиля или темы.</summary>
@@ -78,6 +84,36 @@ public sealed class DystopiaLobbyThemeController : UIController
         Profile = profile;
         _theme = Resolve(profile);
         Version++;
+
+        if (_terminalStyle)
+            UIManager.Stylesheet = TerminalStyle();
+    }
+
+    /// <summary>Весь интерфейс — стилем терминала (на время настройки персонажа) или обратно ванильным.</summary>
+    public void SetTerminalStyle(bool on)
+    {
+        if (on == _terminalStyle)
+            return;
+
+        _terminalStyle = on;
+        UIManager.Stylesheet = on ? TerminalStyle() : _sheets.SheetNanotrasen;
+    }
+
+    public void OnStateExited(LobbyState state)
+    {
+        SetTerminalStyle(false);
+    }
+
+    private Stylesheet TerminalStyle()
+    {
+        var theme = Theme;
+        if (!_styles.TryGetValue(theme.ID, out var sheet))
+        {
+            sheet = DystopiaTerminalStylesheet.Build(theme);
+            _styles[theme.ID] = sheet;
+        }
+
+        return sheet;
     }
 
     private DystopiaLobbyThemePrototype Resolve(HumanoidCharacterProfile? profile)

@@ -2,6 +2,7 @@ using System.Linq;
 using System.Numerics;
 using Content.Client.Lobby.UI.Loadouts;
 using Content.Client.Lobby.UI.Roles;
+using Content.Client.Stylesheets; // Dystopia
 using Content.Shared.Clothing;
 using Content.Shared.Preferences;
 using Content.Shared.Preferences.Loadouts;
@@ -165,7 +166,8 @@ public sealed partial class HumanoidProfileEditor
 
                 category.AddChild(new PanelContainer
                 {
-                    PanelOverride = new StyleBoxFlat { BackgroundColor = Color.FromHex("#464966") },
+                    // Dystopia: заголовок службы — цветом стиля (терминал), а не зашитым синим
+                    StyleClasses = { StyleClass.PanelLight },
                     Children =
                         {
                             new Label

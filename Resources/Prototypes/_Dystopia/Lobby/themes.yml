@@ -22,7 +22,7 @@
   - { text: dystopia-lobby-citizen-boot-6, ok: dystopia-lobby-citizen-boot-6-ok }
   - { text: dystopia-lobby-citizen-boot-7, bad: dystopia-lobby-citizen-boot-7-bad }
 
-# Городская Стража, Внешний Патруль, главы служб — синий
+# Городская Стража (с капитаном) и Внешний Патруль — синий
 - type: dystopiaLobbyTheme
   id: Guard
   text: guard
@@ -35,9 +35,6 @@
   - DystopiaGrenadier
   - DystopiaStormtrooper
   - DystopiaSoldier
-  - DystopiaChiefSanitaryDoctor
-  - DystopiaChiefIndustrial
-  - DystopiaScienceDirector
   foreground: "#7CC4FF"
   dim: "#4A8BC4"
   glow: "#50AAFF8C"
@@ -53,7 +50,7 @@
   - { text: dystopia-lobby-guard-boot-6, ok: dystopia-lobby-ok }
   - { text: dystopia-lobby-guard-boot-7, bad: dystopia-lobby-guard-boot-7-bad }
 
-# Консул, Гражданский Инспектор, Адъютант — жёлто-оранжевый
+# Консул, Гражданский Инспектор, Адъютант и главы служб (кроме капитана Стражи) — жёлто-оранжевый
 - type: dystopiaLobbyTheme
   id: Government
   text: government
@@ -61,6 +58,9 @@
   - DystopiaConsul
   - DystopiaCivilInspector
   - DystopiaAdjutant
+  - DystopiaChiefSanitaryDoctor
+  - DystopiaChiefIndustrial
+  - DystopiaScienceDirector
   foreground: "#FFB347"
   dim: "#C0782A"
   glow: "#FF96288C"

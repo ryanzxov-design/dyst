@@ -13,7 +13,8 @@ using Robust.Shared.Timing;
 namespace Content.Client.Lobby.UI
 {
     // Dystopia: лобби переделано в терминал Городской сети (LobbyGui.xaml, Content.Client/_Dystopia/Lobby).
-    // Настройка персонажа открывается на весь экран вместо терминала; ванильные элементы перекрашиваются под тему.
+    // Настройка персонажа открывается на весь экран вместо терминала (тоже терминалом, стилем DystopiaTerminalStylesheet);
+    // ванильные элементы перекрашиваются под тему.
     [GenerateTypedNameReferences]
     public sealed partial class LobbyGui : UIScreen
     {
@@ -90,11 +91,14 @@ namespace Content.Client.Lobby.UI
                     DefaultState.Visible = true;
                     CharacterSetupState.Visible = false;
                     Background.Visible = false;
+                    Term.SetTerminalStyle(false);
                     break;
                 case LobbyGuiState.CharacterSetup:
+                    // Dystopia: настройка персонажа — тоже терминал (свой фон, весь интерфейс стилем терминала)
                     DefaultState.Visible = false;
                     CharacterSetupState.Visible = true;
-                    Background.Visible = true;
+                    Background.Visible = false;
+                    Term.SetTerminalStyle(true);
                     UserInterfaceManager.GetUIController<LobbyUIController>().ReloadCharacterSetup();
                     break;
             }
