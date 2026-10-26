@@ -110,6 +110,6 @@ public sealed partial class HeadsetSystem : SharedHeadsetSystem
         }
 
         if (TryComp(parent, out ActorComponent? actor))
-            _netMan.ServerSendMessage(args.ChatMsg, actor.PlayerSession.Channel);
+            _netMan.ServerSendMessage(_radio.ChatMessageFor(args, parent, actor.PlayerSession), actor.PlayerSession.Channel); // Dystopia-MaskName
     }
 }

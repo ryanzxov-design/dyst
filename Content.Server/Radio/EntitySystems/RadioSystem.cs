@@ -1,3 +1,4 @@
+using Content.Server._Dystopia.Chat; // Dystopia-MaskName
 using Content.Server.Administration.Logs;
 using Content.Server.Chat.Systems;
 using Content.Server.Power.Components;
@@ -24,6 +25,7 @@ public sealed partial class RadioSystem : SharedRadioSystem
     [Dependency] private IAdminLogManager _adminLogger = default!;
     [Dependency] private IRobustRandom _random = default!;
     [Dependency] private ChatSystem _chat = default!;
+    [Dependency] private DystopiaMaskedNameSystem _maskedNames = default!; // Dystopia-MaskName
     [Dependency] private EntityQuery<TelecomExemptComponent> _exemptQuery = default!;
 
     // set used to prevent radio feedback loops.
@@ -48,7 +50,25 @@ public sealed partial class RadioSystem : SharedRadioSystem
     private void OnIntrinsicReceive(EntityUid uid, IntrinsicRadioReceiverComponent component, ref RadioReceiveEvent args)
     {
         if (TryComp(uid, out ActorComponent? actor))
-            _netMan.ServerSendMessage(args.ChatMsg, actor.PlayerSession.Channel);
+            _netMan.ServerSendMessage(ChatMessageFor(args, uid, actor.PlayerSession), actor.PlayerSession.Channel); // Dystopia-MaskName
+    }
+
+    /// <summary>Dystopia-MaskName: сообщение рации для этого слушателя — с номером, настоящим именем или обоими.</summary>
+    public MsgChatMessage ChatMessageFor(RadioReceiveEvent args, EntityUid listener, ICommonSession session)
+    {
+        if (args.RealChatMsg == null || args.FullChatMsg == null)
+            return args.ChatMsg;
+
+        var view = _maskedNames.ViewOf(session, false);
+        if (view == DystopiaNameView.Masked)
+            view = _maskedNames.ViewOf(listener);
+
+        return view switch
+        {
+            DystopiaNameView.Real => args.RealChatMsg,
+            DystopiaNameView.Full => args.FullChatMsg,
+            _ => args.ChatMsg,
+        };
     }
 
     /// <inheritdoc/>
@@ -62,7 +82,12 @@ public sealed partial class RadioSystem : SharedRadioSystem
         RaiseLocalEvent(messageSource, evt);
 
         var name = evt.VoiceName;
-        name = _chat.ChatNameLinks ? $"[textlink=\"{FormattedMessage.EscapeStringParameter(name)}\" entity=\"{GetNetEntity(messageSource)}\" color=\"{channel.Color.ToHex()}\"]" : FormattedMessage.EscapeText(name);
+        // Dystopia-MaskName: из-под маски — номер гражданина (без ссылки); ниже — варианты для своих
+        var masked = _maskedNames.IsMaskedVoice(messageSource, name);
+        string RadioName(string shown, bool link) => link && _chat.ChatNameLinks
+            ? $"[textlink=\"{FormattedMessage.EscapeStringParameter(shown)}\" entity=\"{GetNetEntity(messageSource)}\" color=\"{channel.Color.ToHex()}\"]"
+            : FormattedMessage.EscapeText(shown);
+        name = RadioName(name, !masked);
 
         SpeechVerbPrototype speech;
         if (evt.SpeechVerb != null && ProtoMan.Resolve(evt.SpeechVerb, out var evntProto))
@@ -74,14 +99,17 @@ public sealed partial class RadioSystem : SharedRadioSystem
             ? FormattedMessage.EscapeText(message)
             : message;
 
-        var wrappedMessage = Loc.GetString(speech.Bold ? "chat-radio-message-wrap-bold" : "chat-radio-message-wrap",
+        var verb = Loc.GetString(_random.Pick(speech.SpeechVerbStrings)); // Dystopia-MaskName: один глагол на все варианты
+        string Wrap(string shownName) => Loc.GetString(speech.Bold ? "chat-radio-message-wrap-bold" : "chat-radio-message-wrap",
             ("color", channel.Color),
             ("fontType", speech.FontId),
             ("fontSize", speech.FontSize),
-            ("verb", Loc.GetString(_random.Pick(speech.SpeechVerbStrings))),
+            ("verb", verb),
             ("channel", $"\\[{channel.LocalizedName}\\]"),
-            ("name", name),
+            ("name", shownName),
             ("message", content));
+
+        var wrappedMessage = Wrap(name);
 
         // most radios are relayed to chat, so lets parse the chat message beforehand
         var chat = new ChatMessage(
@@ -91,7 +119,18 @@ public sealed partial class RadioSystem : SharedRadioSystem
             NetEntity.Invalid,
             null);
         var chatMsg = new MsgChatMessage { Message = chat };
-        var ev = new RadioReceiveEvent(message, messageSource, channel, radioSource, chatMsg);
+
+        // Dystopia-MaskName: те же сообщения с настоящим именем и с именем и номером
+        MsgChatMessage? realMsg = null, fullMsg = null;
+        if (masked)
+        {
+            realMsg = new MsgChatMessage { Message = new ChatMessage(ChatChannel.Radio, message,
+                Wrap(RadioName(_maskedNames.LabelFor(messageSource, DystopiaNameView.Real), true)), NetEntity.Invalid, null) };
+            fullMsg = new MsgChatMessage { Message = new ChatMessage(ChatChannel.Radio, message,
+                Wrap(RadioName(_maskedNames.LabelFor(messageSource, DystopiaNameView.Full), true)), NetEntity.Invalid, null) };
+        }
+
+        var ev = new RadioReceiveEvent(message, messageSource, channel, radioSource, chatMsg, realMsg, fullMsg);
 
         var sendAttemptEv = new RadioSendAttemptEvent(channel, radioSource);
         RaiseLocalEvent(ref sendAttemptEv);

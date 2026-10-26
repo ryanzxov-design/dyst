@@ -8,6 +8,7 @@
   name: гарнитура Администрации
   description: An updated, modular intercom that fits over the head. Takes encryption keys.
   components:
+  - type: DystopiaNameSight # видит имена под масками Стражи
   - type: Item
     size: Small
   - type: Animateable
@@ -85,6 +86,7 @@
   name: наушники Администрации
   description: An updated, modular intercom that fits over the head. Takes encryption keys.
   components:
+  - type: DystopiaNameSight # видит имена под масками Стражи
   - type: Item
     size: Small
   - type: Animateable
@@ -163,6 +165,7 @@
   name: наушники Консула
   description: An updated, modular intercom that fits over the head. Takes encryption keys.
   components:
+  - type: DystopiaNameSight # видит имена под масками Стражи
   - type: Item
     size: Small
   - type: Animateable
@@ -245,6 +248,7 @@
   name: наушники капитана Стражи
   description: An updated, modular intercom that fits over the head. Takes encryption keys.
   components:
+  - type: DystopiaNameSight # видит имена под масками Стражи
   - type: Item
     size: Small
   - type: Animateable
@@ -325,6 +329,7 @@
   name: гарнитура Стражи
   description: An updated, modular intercom that fits over the head. Takes encryption keys.
   components:
+  - type: DystopiaNameSight # видит имена под масками Стражи
   - type: Item
     size: Small
   - type: Animateable
@@ -402,6 +407,7 @@
   name: наушники преторианца
   description: An updated, modular intercom that fits over the head. Takes encryption keys.
   components:
+  - type: DystopiaNameSight # видит имена под масками Стражи
   - type: Item
     size: Small
   - type: Animateable
@@ -481,6 +487,7 @@
   name: гарнитура Патруля
   description: An updated, modular intercom that fits over the head. Takes encryption keys.
   components:
+  - type: DystopiaNameSight # видит имена под масками Стражи
   - type: Item
     size: Small
   - type: Animateable
@@ -558,6 +565,7 @@
   name: наушники главы Санитарной Службы
   description: An updated, modular intercom that fits over the head. Takes encryption keys.
   components:
+  - type: DystopiaNameSight # видит имена под масками Стражи
   - type: Item
     size: Small
   - type: Animateable
@@ -714,6 +722,7 @@
   name: наушники главы Промышленной Службы
   description: An updated, modular intercom that fits over the head. Takes encryption keys.
   components:
+  - type: DystopiaNameSight # видит имена под масками Стражи
   - type: Item
     size: Small
   - type: Animateable
@@ -870,6 +879,7 @@
   name: наушники директора Научной службы
   description: An updated, modular intercom that fits over the head. Takes encryption keys.
   components:
+  - type: DystopiaNameSight # видит имена под масками Стражи
   - type: Item
     size: Small
   - type: Animateable

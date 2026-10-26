@@ -8,8 +8,8 @@ namespace Content.Shared._Dystopia.Clothing;
 
 /// <summary>
 /// Dystopia: маска, которая меняет голос и пропадает с лица, когда её приспускают (маска Стражи).
-/// Пока маска надета и не приспущена — речь и рация идут своим способом речи (свой шрифт и глагол), работает ночное
-/// зрение окуляров.
+/// Пока маска надета и не приспущена — речь и рация идут своим способом речи (свой шрифт и глагол), вместо имени —
+/// номер гражданина (HideName), работает ночное зрение окуляров.
 /// </summary>
 [RegisterComponent, NetworkedComponent]
 public sealed partial class DystopiaFaceMaskComponent : Component
@@ -25,4 +25,9 @@ public sealed partial class DystopiaFaceMaskComponent : Component
     /// <summary>Ночное зрение маски (NightVision на ней же) работает, только пока маска на лице.</summary>
     [DataField]
     public bool NightVisionOnlyWhenUp = true;
+
+    /// <summary>Пока маска на лице, вместо имени слышен номер гражданина «[#102628]». Настоящее имя видят только
+    /// носители вещей с <see cref="DystopiaNameSightComponent"/>, призраки и админы.</summary>
+    [DataField]
+    public bool HideName;
 }

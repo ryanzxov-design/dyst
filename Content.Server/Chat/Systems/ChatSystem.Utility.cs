@@ -64,7 +64,8 @@ public sealed partial class ChatSystem
     /// <summary>
     ///     Sends a chat message to the given players in range of the source entity.
     /// </summary>
-    private void SendInVoiceRange(ChatChannel channel, string message, string wrappedMessage, EntityUid source, ChatTransmitRange range, NetUserId? author = null)
+    private void SendInVoiceRange(ChatChannel channel, string message, string wrappedMessage, EntityUid source, ChatTransmitRange range, NetUserId? author = null,
+        Func<ICommonSession, ICChatRecipientData, string>? wrapFor = null) // Dystopia-MaskName: своя обёртка для каждого слушателя
     {
         foreach (var (session, data) in GetRecipients(source, VoiceRange))
         {
@@ -72,7 +73,8 @@ public sealed partial class ChatSystem
             if (entRange == MessageRangeCheckResult.Disallowed)
                 continue;
             var entHideChat = entRange == MessageRangeCheckResult.HideChat;
-            _chatManager.ChatMessageToOne(channel, message, wrappedMessage, source, entHideChat, session.Channel, author: author);
+            var wrapped = wrapFor?.Invoke(session, data) ?? wrappedMessage; // Dystopia-MaskName
+            _chatManager.ChatMessageToOne(channel, message, wrapped, source, entHideChat, session.Channel, author: author);
         }
 
         _replay.RecordServerMessage(new ChatMessage(channel, message, wrappedMessage, GetNetEntity(source), null, MessageRangeHideChatForReplay(range)));

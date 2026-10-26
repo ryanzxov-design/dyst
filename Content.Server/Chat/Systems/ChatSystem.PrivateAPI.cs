@@ -1,4 +1,5 @@
 using System.Linq;
+using Content.Server._Dystopia.Chat; // Dystopia-MaskName
 using Content.Shared.Chat;
 using Content.Shared.Database;
 using Content.Shared.IdentityManagement;
@@ -12,6 +13,16 @@ namespace Content.Server.Chat.Systems;
 
 public sealed partial class ChatSystem
 {
+    [Dependency] private DystopiaMaskedNameSystem _maskedNames = default!; // Dystopia-MaskName
+
+    /// <summary>Dystopia-MaskName: имя в обёртке сообщения — ссылкой (как у ванили) или простым текстом.</summary>
+    private string ChatName(EntityUid source, string name, bool link)
+    {
+        return link && ChatNameLinks
+            ? $"[textlink=\"{FormattedMessage.EscapeStringParameter(name)}\" entity=\"{GetNetEntity(source)}\" entitynamecolor=\"true\"]"
+            : FormattedMessage.EscapeText(name);
+    }
+
     private void SendEntitySpeak(
         EntityUid source,
         string originalMessage,
@@ -47,16 +58,32 @@ public sealed partial class ChatSystem
                 speech = proto;
         }
 
-        name = ChatNameLinks ? $"[textlink=\"{FormattedMessage.EscapeStringParameter(name)}\" entity=\"{GetNetEntity(source)}\" entitynamecolor=\"true\"]" : FormattedMessage.EscapeText(name);
-
-        var wrappedMessage = Loc.GetString(speech.Bold ? "chat-manager-entity-say-bold-wrap-message" : "chat-manager-entity-say-wrap-message",
-            ("entityName", name),
-            ("verb", Loc.GetString(_random.Pick(speech.SpeechVerbStrings))),
+        // Dystopia-MaskName: из-под маски голос — номер гражданина (без ссылки), настоящее имя — тем, кому положено
+        var masked = nameOverride == null && _maskedNames.IsMaskedVoice(source, name);
+        var verb = Loc.GetString(_random.Pick(speech.SpeechVerbStrings));
+        string Wrap(string shownName) => Loc.GetString(speech.Bold ? "chat-manager-entity-say-bold-wrap-message" : "chat-manager-entity-say-wrap-message",
+            ("entityName", shownName),
+            ("verb", verb),
             ("fontType", speech.FontId),
             ("fontSize", speech.FontSize),
             ("message", FormattedMessage.EscapeText(message)));
 
-        SendInVoiceRange(ChatChannel.Local, message, wrappedMessage, source, range);
+        name = ChatName(source, name, !masked);
+        var wrappedMessage = Wrap(name);
+        Func<ICommonSession, ICChatRecipientData, string>? wrapFor = null;
+        if (masked)
+        {
+            var real = Wrap(ChatName(source, _maskedNames.LabelFor(source, DystopiaNameView.Real), true));
+            var full = Wrap(ChatName(source, _maskedNames.LabelFor(source, DystopiaNameView.Full), true));
+            wrapFor = (session, data) => _maskedNames.ViewOf(session, data.Observer) switch
+            {
+                DystopiaNameView.Real => real,
+                DystopiaNameView.Full => full,
+                _ => wrappedMessage,
+            };
+        }
+
+        SendInVoiceRange(ChatChannel.Local, message, wrappedMessage, source, range, wrapFor: wrapFor);
 
         var ev = new EntitySpokeEvent(source, message, originalMessage, null, null);
         RaiseLocalEvent(source, ev, true);
@@ -117,13 +144,29 @@ public sealed partial class ChatSystem
             RaiseLocalEvent(source, nameEv);
             name = nameEv.VoiceName;
         }
-        name = ChatNameLinks ? $"[textlink=\"{FormattedMessage.EscapeStringParameter(name)}\" entity=\"{GetNetEntity(source)}\" entitynamecolor=\"true\"]" : FormattedMessage.EscapeText(name);
+        // Dystopia-MaskName: из-под маски — номер (и издали тоже), настоящее имя — тем, кому положено
+        var masked = nameOverride == null && _maskedNames.IsMaskedVoice(source, name);
+        if (masked)
+            nameIdentity = FormattedMessage.EscapeText(name);
+
+        name = ChatName(source, name, !masked);
 
         var wrappedMessage = Loc.GetString("chat-manager-entity-whisper-wrap-message",
             ("entityName", name), ("message", FormattedMessage.EscapeText(message)));
 
         var wrappedobfuscatedMessage = Loc.GetString("chat-manager-entity-whisper-wrap-message",
             ("entityName", nameIdentity), ("message", FormattedMessage.EscapeText(obfuscatedMessage)));
+
+        // Dystopia-MaskName: обёртки с настоящим именем (и с именем и номером) для своих
+        string WhisperFor(DystopiaNameView view, string text, string fallback)
+        {
+            if (!masked || view == DystopiaNameView.Masked)
+                return fallback;
+
+            return Loc.GetString("chat-manager-entity-whisper-wrap-message",
+                ("entityName", ChatName(source, _maskedNames.LabelFor(source, view), true)),
+                ("message", FormattedMessage.EscapeText(text)));
+        }
 
         var wrappedUnknownMessage = Loc.GetString("chat-manager-entity-whisper-unknown-wrap-message",
             ("message", FormattedMessage.EscapeText(obfuscatedMessage)));
@@ -140,11 +183,12 @@ public sealed partial class ChatSystem
             if (MessageRangeCheck(session, data, range) != MessageRangeCheckResult.Full)
                 continue; // Won't get logged to chat, and ghosts are too far away to see the pop-up, so we just won't send it to them.
 
+            var view = masked ? _maskedNames.ViewOf(session, data.Observer) : DystopiaNameView.Masked; // Dystopia-MaskName
             if (data.Range <= WhisperClearRange || data.Observer)
-                _chatManager.ChatMessageToOne(ChatChannel.Whisper, message, wrappedMessage, source, false, session.Channel);
+                _chatManager.ChatMessageToOne(ChatChannel.Whisper, message, WhisperFor(view, message, wrappedMessage), source, false, session.Channel);
             //If listener is too far, they only hear fragments of the message
             else if (_examineSystem.InRangeUnOccluded(source, listener, WhisperMuffledRange))
-                _chatManager.ChatMessageToOne(ChatChannel.Whisper, obfuscatedMessage, wrappedobfuscatedMessage, source, false, session.Channel);
+                _chatManager.ChatMessageToOne(ChatChannel.Whisper, obfuscatedMessage, WhisperFor(view, obfuscatedMessage, wrappedobfuscatedMessage), source, false, session.Channel);
             //If listener is too far and has no line of sight, they can't identify the whisperer's identity
             else
                 _chatManager.ChatMessageToOne(ChatChannel.Whisper, obfuscatedMessage, wrappedUnknownMessage, source, false, session.Channel);
@@ -189,19 +233,36 @@ public sealed partial class ChatSystem
 
         // get the entity's apparent name (if no override provided).
         var ent = Identity.Entity(source, EntityManager);
-        string name = FormattedMessage.EscapeText(nameOverride ?? Name(ent));
+        // Dystopia-MaskName: в маске Стражи — номер гражданина, своим — настоящее имя
+        var masked = nameOverride == null && _maskedNames.IsMasked(source);
+        string name = FormattedMessage.EscapeText(nameOverride ?? (masked ? _maskedNames.MaskedLabel(source) : Name(ent)));
 
         // Emotes use Identity.Name, since it doesn't actually involve your voice at all.
-        var wrappedMessage = Loc.GetString("chat-manager-entity-me-wrap-message",
-            ("entityName", name),
+        string WrapEmote(string shownName) => Loc.GetString("chat-manager-entity-me-wrap-message",
+            ("entityName", shownName),
             ("entity", ent),
             ("message", FormattedMessage.RemoveMarkupOrThrow(action)));
+
+        var wrappedMessage = WrapEmote(name);
 
         if (checkEmote &&
             !TryEmoteChatInput(source, action))
             return;
 
-        SendInVoiceRange(ChatChannel.Emotes, action, wrappedMessage, source, range, author);
+        Func<ICommonSession, ICChatRecipientData, string>? wrapFor = null;
+        if (masked)
+        {
+            var real = WrapEmote(FormattedMessage.EscapeText(_maskedNames.LabelFor(source, DystopiaNameView.Real)));
+            var full = WrapEmote(FormattedMessage.EscapeText(_maskedNames.LabelFor(source, DystopiaNameView.Full)));
+            wrapFor = (session, data) => _maskedNames.ViewOf(session, data.Observer) switch
+            {
+                DystopiaNameView.Real => real,
+                DystopiaNameView.Full => full,
+                _ => wrappedMessage,
+            };
+        }
+
+        SendInVoiceRange(ChatChannel.Emotes, action, wrappedMessage, source, range, author, wrapFor);
         if (!hideLog)
             if (name != Name(source))
                 _adminLogger.Add(LogType.Chat, LogImpact.Low, $"Emote from {source} as {name}: {action}");

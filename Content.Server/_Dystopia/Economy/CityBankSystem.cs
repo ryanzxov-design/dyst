@@ -120,6 +120,21 @@ public sealed partial class CityBankSystem : EntitySystem
         return account;
     }
 
+    /// <summary>Номер гражданина — номер его счёта (у кого счёта нет — культисты из логова и прочие — null).</summary>
+    public int? CitizenNumber(EntityUid owner)
+    {
+        if (!TryGetBank(out var bank))
+            return null;
+
+        foreach (var account in bank.Comp.Accounts.Values)
+        {
+            if (account.Owner == owner)
+                return account.Id;
+        }
+
+        return null;
+    }
+
     /// <summary>Первый Банк Города на сервере (у нас одна станция).</summary>
     public bool TryGetBank(out Entity<CityBankComponent> bank)
     {
