@@ -2132,3 +2132,169 @@
     stealGroup: IDCard
   - type: PresetIdCard
     job: DystopiaShopkeeper
+
+# Самостоятельный предмет: все свойства выписаны явно
+
+- type: entity
+  id: DystopiaGuardDispatcherIDCard
+  name: ID-карта (диспетчер Стражи)
+  description: A card necessary to access various areas aboard the station.
+  components:
+  - type: Item
+    size: Small
+    heldPrefix: default
+    storedRotation: -90
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Misc/id_cards.rsi
+    layers:
+    - state: default
+    - state: stripe_top
+      color: "#3E5C8A"
+    - state: stripe_bottom
+      color: "#263955"
+    - sprite: _Dystopia/Interface/job_icons.rsi
+      offset: -0.09375, 0.0625
+      state: GuardDispatcher
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Tag
+    tags:
+    - DoorBumpOpener
+    - WhitelistChameleon
+    - WhitelistChameleonIdCard
+  - type: StaticPrice
+    price: 10
+  - type: FlavorProfile
+    flavors:
+    - fiber
+  - type: Clothing
+    slots:
+    - idcard
+    sprite: _Dystopia/Objects/Misc/id_cards.rsi
+  - type: Access
+  - type: IdCard
+  - type: StationRecordKeyStorage
+  - type: StealTarget
+    stealGroup: IDCard
+  - type: PresetIdCard
+    job: DystopiaGuardDispatcher
+
+# Самостоятельный предмет: все свойства выписаны явно
+
+- type: entity
+  id: DystopiaGuardInvestigatorIDCard
+  name: ID-карта (дознаватель Стражи)
+  description: A card necessary to access various areas aboard the station.
+  components:
+  - type: Item
+    size: Small
+    heldPrefix: default
+    storedRotation: -90
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: _Dystopia/Objects/Misc/id_cards.rsi
+    layers:
+    - state: default
+    - state: stripe_top
+      color: "#3E5C8A"
+    - state: stripe_bottom
+      color: "#263955"
+    - sprite: _Dystopia/Interface/job_icons.rsi
+      offset: -0.09375, 0.0625
+      state: GuardInvestigator
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Tag
+    tags:
+    - DoorBumpOpener
+    - WhitelistChameleon
+    - WhitelistChameleonIdCard
+  - type: StaticPrice
+    price: 10
+  - type: FlavorProfile
+    flavors:
+    - fiber
+  - type: Clothing
+    slots:
+    - idcard
+    sprite: _Dystopia/Objects/Misc/id_cards.rsi
+  - type: Access
+  - type: IdCard
+  - type: StationRecordKeyStorage
+  - type: StealTarget
+    stealGroup: IDCard
+  - type: PresetIdCard
+    job: DystopiaGuardInvestigator

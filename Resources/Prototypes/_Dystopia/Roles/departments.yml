@@ -22,6 +22,8 @@
   - DystopiaGuardSergeant
   - DystopiaGuardsman
   - DystopiaGuardRecruit
+  - DystopiaGuardDispatcher
+  - DystopiaGuardInvestigator
 
 - type: department
   id: DystopiaPatrol

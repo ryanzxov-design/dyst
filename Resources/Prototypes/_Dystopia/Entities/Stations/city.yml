@@ -45,6 +45,8 @@
         DystopiaGuardSergeant: 150
         DystopiaGuardsman: 120
         DystopiaGuardRecruit: 70
+        DystopiaGuardDispatcher: 120
+        DystopiaGuardInvestigator: 150
         # Внешний Патруль
         DystopiaPraetorian: 200
         DystopiaGrenadier: 160
@@ -80,6 +82,8 @@
         DystopiaGuardSergeant: 10
         DystopiaGuardsman: 10
         DystopiaGuardRecruit: 10
+        DystopiaGuardDispatcher: 10
+        DystopiaGuardInvestigator: 10
         # Внешний Патруль
         DystopiaPraetorian: 5
         DystopiaGrenadier: 10
@@ -121,6 +125,18 @@
       unidentifiedLimit: 80
       alertChannel: Security     # тревоги камер — на канал Стражи
       alertCooldown: 120         # тревога об одном человеке — не чаще раза в 2 минуты
+      # Соционадзор: лента тревог, речь у камер, слова-маркеры (правятся с консоли соционадзора)
+      alertLimit: 60
+      speechLimit: 40            # сколько реплик помнит камера
+      speechLifetime: 600        # и сколько секунд
+      keywordCooldown: 60        # тревога о слове-маркере у одной камеры — не чаще раза в минуту
+      keywords:                  # слово, начинающееся с маркера, поднимает тревогу («культ» — «культисты»)
+      - культ
+      - плоть
+      - плоти
+      - бунт
+      - восстан
+      - революц
       # Статус Реестра → ванильные криминальные записи (значки на визорах/очках/масках Стражи, КПК «Розыск»)
       securityStatuses:
         Citizen: None
@@ -149,6 +165,8 @@
         DystopiaGuardSergeant: 25
         DystopiaGuardsman: 20
         DystopiaGuardRecruit: 15
+        DystopiaGuardDispatcher: 20
+        DystopiaGuardInvestigator: 25
         # Внешний Патруль
         DystopiaPraetorian: 25
         DystopiaGrenadier: 20

@@ -22,6 +22,12 @@
   id: JobDystopiaGuardRecruit
 
 - type: playTimeTracker
+  id: JobDystopiaGuardDispatcher
+
+- type: playTimeTracker
+  id: JobDystopiaGuardInvestigator
+
+- type: playTimeTracker
   id: JobDystopiaPraetorian
 
 - type: playTimeTracker

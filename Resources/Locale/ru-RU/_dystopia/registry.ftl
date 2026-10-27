@@ -258,7 +258,7 @@ dystopia-passport-console-denied = Нет прав на это действие.
 dystopia-passport-console-issue-failed = Не удалось выдать карту: для этой должности нет бланка.
 dystopia-passport-console-reason-required = Укажите причину аннулирования.
 dystopia-passport-console-select = Выберите гражданина в списке слева.
-dystopia-passport-console-readonly = Только просмотр: выдавать и аннулировать карты можно по ID-карте Гражданской Инспекции или Консула.
+dystopia-passport-console-readonly = Только просмотр: выдавать и аннулировать карты можно по ID-карте Гражданской Инспекции, капитана Стражи или Консула.
 dystopia-passport-col-cards = Карт
 dystopia-passport-citizen = №{ $number } · { $job }
 dystopia-passport-dismissed = ОТСТРАНЁН ОТ ДОЛЖНОСТИ
@@ -297,3 +297,97 @@ dystopia-id-console-save = Сохранить
 dystopia-id-console-access = Доступы
 dystopia-id-console-select-all = Выдать все
 dystopia-id-console-deselect-all = Снять все
+
+## Голос Стражи и тревоги камер (рация)
+
+dystopia-camera-voice = Голос Стражи
+dystopia-camera-voice-personal = [color=#7CC4FF][bold]Голос Стражи[/bold] в маске: { $text }[/color]
+dystopia-camera-voice-personal-name = Голос Стражи → №{ $number }
+dystopia-camera-alert-keyword = [bold]Слово-маркер «{ $word }»:[/bold] { $name } — «{ $text }» — { $place } (камера «{ $camera }»).
+dystopia-surveillance-accepted-radio = Тревога №{ $id } принята: { $author }. { $text } — { $place }.
+
+## Консоль соционадзора
+
+dystopia-surveillance-title = Соционадзор · камеры Города
+dystopia-surveillance-subtitle = Городская Стража · пост наблюдения
+dystopia-surveillance-slogan = Город видит всё
+dystopia-surveillance-denied = Нет прав на это действие.
+dystopia-surveillance-track-failed = Нет такого гражданина (или за ним не следят).
+dystopia-surveillance-keyword-failed = Маркер — одно слово от 3 до 24 букв (не больше 30 маркеров).
+dystopia-surveillance-voice-failed = Сказать нельзя: камера не в эфире (лично — только в надетую маску).
+
+dystopia-surveillance-tab-cameras = Камеры · { $count }
+dystopia-surveillance-tab-alerts = Тревоги · { $count }
+dystopia-surveillance-tab-track = Слежка
+dystopia-surveillance-tab-track-on = Слежка · ведём
+dystopia-surveillance-tab-patrols = Патрули · { $count }
+dystopia-surveillance-tab-keywords = Маркеры · { $count }
+
+dystopia-surveillance-list = Список
+dystopia-surveillance-map = Карта
+dystopia-surveillance-legend = ● камера Города · ▲ закрытая зона · ◆ маска Стражи · серым — нет сигнала
+dystopia-surveillance-group-wall = Город
+dystopia-surveillance-group-restricted = Закрытые зоны
+dystopia-surveillance-group-mask = Маски Стражи
+dystopia-surveillance-no-cameras = На карте нет камер Реестра.
+dystopia-surveillance-down-power = нет питания
+dystopia-surveillance-down-off = отключена
+dystopia-surveillance-off = Выключить экран
+dystopia-surveillance-screen-off = экран выключен — выберите камеру
+dystopia-surveillance-screen-on = { $camera } · { $place } · в эфире
+dystopia-surveillance-screen-dark = { $camera } · { $place } · нет сигнала
+dystopia-surveillance-no-camera = камера не выбрана
+dystopia-surveillance-connecting = подключение…
+dystopia-surveillance-no-signal = нет сигнала
+
+dystopia-surveillance-speech = Эфир · что слышно у камеры
+dystopia-surveillance-speech-off = Выберите камеру, чтобы слышать, что говорят рядом с ней.
+dystopia-surveillance-speech-empty = Тихо. Камера слышит речь в радиусе голоса.
+dystopia-surveillance-speech-line = { $time } { $name }: { $text }
+dystopia-surveillance-voice = Голос
+dystopia-surveillance-voice-placeholder = «Гражданин, остановитесь!»
+dystopia-surveillance-voice-loud = Вслух
+dystopia-surveillance-voice-personal = Лично в маску
+
+dystopia-surveillance-alerts-hint = Тревоги камер Реестра, новые сверху. «Принять» — вызов за вами: на канал Стражи уйдёт, кто принял, чтобы двое не ехали на один.
+dystopia-surveillance-alerts-empty = Тревог нет.
+dystopia-surveillance-accept = Принять
+dystopia-surveillance-accepted = принял { $author } в { $time }
+dystopia-surveillance-resolved = снята в { $time }
+dystopia-surveillance-kind-wanted = Розыск
+dystopia-surveillance-kind-outlaw = Вне закона
+dystopia-surveillance-kind-restricted = Закрытая зона
+dystopia-surveillance-kind-cameradown = Камера погасла
+dystopia-surveillance-kind-keyword = Слово-маркер
+dystopia-surveillance-alert-wanted = Разыскиваемый №{ $number } { $name } (камера «{ $camera }»). Основание: { $reason }
+dystopia-surveillance-alert-outlaw = Поражённый в правах №{ $number } { $name } (камера «{ $camera }»).
+dystopia-surveillance-alert-restricted = Неопознанный в закрытой зоне: { $description } (камера «{ $camera }»).
+dystopia-surveillance-alert-down = Камера «{ $camera }» погасла: { $reason }.
+dystopia-surveillance-alert-destroyed = Камера «{ $camera }» уничтожена.
+dystopia-surveillance-alert-keyword = «{ $word }»: { $name } — «{ $text }» (камера «{ $camera }»).
+
+dystopia-surveillance-track-number = Вести гражданина №
+dystopia-surveillance-track-placeholder = номер
+dystopia-surveillance-track-start = Вести
+dystopia-surveillance-track-stop = Перестать
+dystopia-surveillance-track-hint = Пока гражданин в кадре какой-нибудь камеры, экран сам переходит на неё. Выбор камеры вручную слежку снимает.
+dystopia-surveillance-track-none = Никого не ведём.
+dystopia-surveillance-track-now = Сейчас: { $camera } · { $place }
+dystopia-surveillance-track-lost = Сейчас его не видит ни одна камера.
+dystopia-surveillance-track-path = Путь за последние минуты (новые сверху)
+dystopia-surveillance-track-path-empty = За последние минуты камеры его не видели.
+
+dystopia-surveillance-patrols-hint = Маски Стражи: надета — картинка есть, приспущена или снята — картинки нет. Место — где последний раз была картинка.
+dystopia-surveillance-patrols-empty = В Страже никого.
+dystopia-surveillance-mask-up = маска надета
+dystopia-surveillance-mask-lowered = маска приспущена
+dystopia-surveillance-mask-off = маска снята
+dystopia-surveillance-dark-for = { $place } · нет картинки { $minutes } мин
+dystopia-surveillance-off-shift = не в смене
+
+dystopia-surveillance-keywords-hint = Слово у камеры, начинающееся с маркера, поднимает тревогу: «культ» — и «культа», и «культисты». Маркер — одно слово, лучше основа без окончания.
+dystopia-surveillance-keywords-empty = Маркеров нет.
+dystopia-surveillance-keyword-placeholder = основа слова
+dystopia-surveillance-keyword-add = Добавить
+dystopia-surveillance-keyword-remove = Убрать
+dystopia-surveillance-keyword-line = «{ $word }…»

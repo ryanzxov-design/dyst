@@ -178,3 +178,17 @@
   groups:
   - Inventory # Corvax-Loadouts
   - CargoTechnicianBackpack
+
+- type: roleLoadout
+  id: JobDystopiaGuardDispatcher
+  groups:
+  - Inventory # Corvax-Loadouts
+  - SecurityBackpack
+  - DystopiaGuardBelt
+
+- type: roleLoadout
+  id: JobDystopiaGuardInvestigator
+  groups:
+  - Inventory # Corvax-Loadouts
+  - SecurityBackpack
+  - DystopiaGuardBelt

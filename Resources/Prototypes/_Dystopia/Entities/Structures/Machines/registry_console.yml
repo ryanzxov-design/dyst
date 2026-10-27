@@ -137,6 +137,8 @@
     - DystopiaGuardSergeant
     - DystopiaGuardsman
     - DystopiaGuardRecruit
+    - DystopiaGuardDispatcher
+    - DystopiaGuardInvestigator
     rewardJobs: # поощрения
     - DystopiaConsul
     - DystopiaCivilInspector

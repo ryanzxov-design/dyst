@@ -17,6 +17,7 @@ public sealed partial class DystopiaScreenEffectsSystem : EntitySystem
 
     private CityScreenOverlay _cityOverlay = default!;
     private VisorOverlay _visorOverlay = default!;
+    private CameraMaskNightOverlay _cameraNightOverlay = default!;
 
     public override void Initialize()
     {
@@ -24,6 +25,7 @@ public sealed partial class DystopiaScreenEffectsSystem : EntitySystem
 
         _cityOverlay = new CityScreenOverlay();
         _visorOverlay = new VisorOverlay();
+        _cameraNightOverlay = new CameraMaskNightOverlay();
 
         _cfg.OnValueChanged(DystopiaCVars.ScreenFilter, OnScreenFilterChanged, true);
         _cfg.OnValueChanged(DystopiaCVars.VisorEffects, OnVisorChanged, true);
@@ -36,6 +38,7 @@ public sealed partial class DystopiaScreenEffectsSystem : EntitySystem
         _cfg.UnsubValueChanged(DystopiaCVars.VisorEffects, OnVisorChanged);
         _overlayManager.RemoveOverlay(_cityOverlay);
         _overlayManager.RemoveOverlay(_visorOverlay);
+        _overlayManager.RemoveOverlay(_cameraNightOverlay);
     }
 
     private void OnScreenFilterChanged(bool enabled)
@@ -49,8 +52,14 @@ public sealed partial class DystopiaScreenEffectsSystem : EntitySystem
     private void OnVisorChanged(bool enabled)
     {
         if (enabled)
+        {
             _overlayManager.AddOverlay(_visorOverlay);
+            _overlayManager.AddOverlay(_cameraNightOverlay);
+        }
         else
+        {
             _overlayManager.RemoveOverlay(_visorOverlay);
+            _overlayManager.RemoveOverlay(_cameraNightOverlay);
+        }
     }
 }

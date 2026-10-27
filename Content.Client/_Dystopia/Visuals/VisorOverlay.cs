@@ -3,6 +3,7 @@ using Content.Shared.Clothing.Components;
 using Content.Shared.Inventory;
 using Robust.Client.Graphics;
 using Robust.Client.Player;
+using Robust.Shared.Graphics;
 using Robust.Shared.Enums;
 using Robust.Shared.Prototypes;
 
@@ -43,7 +44,8 @@ public sealed partial class VisorOverlay : Overlay
             !_entityManager.TryGetComponent(player, out EyeComponent? eye) ||
             args.Viewport.Eye != eye.Eye)
         {
-            return false;
+            // Dystopia: картинка с камеры-маски (консоль камер, соционадзор) — через тот же визор
+            return CameraMaskVisor(args.Viewport.Eye);
         }
 
         if (!_inventory.TryGetSlotEntity(player, "mask", out var mask) ||
@@ -58,6 +60,31 @@ public sealed partial class VisorOverlay : Overlay
 
         _visor = visor;
         return true;
+    }
+
+    /// <summary>
+    /// Экран смотрит глазом маски с визором (маска Стражи работает камерой): тот же визор, что видит её носитель.
+    /// Приспущенная маска картинки не даёт вовсе.
+    /// </summary>
+    private bool CameraMaskVisor(IEye? viewportEye)
+    {
+        if (viewportEye == null)
+            return false;
+
+        var query = _entityManager.EntityQueryEnumerator<DystopiaVisorComponent, EyeComponent>();
+        while (query.MoveNext(out var uid, out var visor, out var maskEye))
+        {
+            if (maskEye.Eye == null || maskEye.Eye != viewportEye)
+                continue;
+
+            if (_entityManager.TryGetComponent(uid, out MaskComponent? maskComp) && maskComp.IsToggled)
+                return false;
+
+            _visor = visor;
+            return true;
+        }
+
+        return false;
     }
 
     protected override void Draw(in OverlayDrawArgs args)

@@ -126,13 +126,14 @@
     boardName: wires-board-name-computer
     layoutId: Computer
   - type: AccessReader
-    access: [["DystopiaInspection"], ["DystopiaConsul"]]
+    access: [["DystopiaInspection"], ["DystopiaConsul"], ["DystopiaGuardCaptain"]]
   - type: ActivatableUIRequiresAccess
   # Права — по профессии владельца ID-карты (просмотр — всем, кого пускает AccessReader; отстранённый прав не имеет).
   - type: CityPassportConsole
     issueJobs: # выдача и аннулирование карт, восстановление в должности
     - DystopiaCivilInspector
     - DystopiaConsul
+    - DystopiaGuardCaptain
     supremeJobs: # карты граждан вне учёта лояльности (Консула)
     - DystopiaConsul
   - type: ActivatableUI

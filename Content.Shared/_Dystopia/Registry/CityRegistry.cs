@@ -99,6 +99,35 @@ public sealed partial class CityRegistryComponent : Component
     [DataField]
     public TimeSpan AlertCooldown = TimeSpan.FromMinutes(2);
 
+    /// <summary>Сколько тревог хранить в ленте соционадзора.</summary>
+    [DataField]
+    public int AlertLimit = 60;
+
+    /// <summary>
+    /// Слова-маркеры: прозвучавшее у камеры слово, которое начинается с маркера («культ» — «культа», «культисты»),
+    /// поднимает тревогу. Список правится с консоли соционадзора.
+    /// </summary>
+    [DataField]
+    public List<string> Keywords = new();
+
+    /// <summary>Тревога о слове-маркере у одной камеры — не чаще раза в этот срок.</summary>
+    [DataField]
+    public TimeSpan KeywordCooldown = TimeSpan.FromMinutes(1);
+
+    /// <summary>Сколько реплик помнит камера и как долго.</summary>
+    [DataField]
+    public int SpeechLimit = 40;
+
+    [DataField]
+    public TimeSpan SpeechLifetime = TimeSpan.FromMinutes(10);
+
+    [ViewVariables]
+    public int NextAlert = 1;
+
+    /// <summary>Лента тревог, новые — в конце.</summary>
+    [ViewVariables]
+    public List<CityAlert> Alerts = new();
+
     [ViewVariables]
     public int NextUnidentified = 1;
 

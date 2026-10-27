@@ -6,6 +6,8 @@
 //  • лицо скрыто и карты нет — запись в «Неопознанные» (камера закрытой зоны поднимает тревогу).
 // Замеченный разыскиваемый или поражённый в правах — тревога на канал Стражи. Маска Стражи работает камерой, только
 // пока надета и не приспущена; в консоли камер она видна как «маска Стражи · №…», носитель ничего не замечает.
+// Для соционадзора камера ещё и слушает (речь рядом, слова-маркеры), а тревоги складываются в общую ленту
+// (партиал Surveillance).
 
 using System.Diagnostics.CodeAnalysis;
 using Content.Server.Pinpointer;
@@ -25,6 +27,7 @@ using Content.Shared.Inventory;
 using Content.Shared.NameModifier.EntitySystems;
 using Content.Shared.Radio;
 using Content.Shared.SurveillanceCamera.Components;
+using Content.Shared.Speech.Components;
 using Robust.Shared.Containers;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
@@ -67,10 +70,13 @@ public sealed partial class CityCameraSystem : EntitySystem
         SubscribeLocalEvent<CityCameraComponent, TransformSpeakerNameEvent>(OnSpeakerName);
         SubscribeLocalEvent<CityCameraComponent, RefreshNameModifiersEvent>(OnRefreshName);
         SubscribeLocalEvent<RoundRestartCleanupEvent>(OnRoundRestart);
+        InitializeSurveillance();
     }
 
     private void OnMapInit(Entity<CityCameraComponent> ent, ref MapInitEvent args)
     {
+        EnsureComp<ActiveListenerComponent>(ent);
+
         // маска включается, только когда её наденут
         if (ent.Comp.Mask)
             UpdateMask(ent);
@@ -79,7 +85,7 @@ public sealed partial class CityCameraSystem : EntitySystem
     /// <summary>Тревоги камер звучат на канале Стражи от имени «Камеры Реестра», а не от имени маски или камеры.</summary>
     private void OnSpeakerName(Entity<CityCameraComponent> ent, ref TransformSpeakerNameEvent args)
     {
-        args.VoiceName = Loc.GetString("dystopia-camera-speaker");
+        args.VoiceName = Loc.GetString(_voiceSpeaker == ent.Owner ? "dystopia-camera-voice" : "dystopia-camera-speaker");
     }
 
     /// <summary>Надетая маска в консоли камер: «маска Стражи · №102628».</summary>
@@ -94,6 +100,7 @@ public sealed partial class CityCameraSystem : EntitySystem
         _unidentifiedBodies.Clear();
         _citizenAlerts.Clear();
         _strangerAlerts.Clear();
+        ClearSurveillance();
     }
 
     public override void Update(float frameTime)
@@ -115,10 +122,20 @@ public sealed partial class CityCameraSystem : EntitySystem
         while (query.MoveNext(out var uid, out var camera))
         {
             TryComp<CityCameraComponent>(uid, out var city);
-            if (city == null && !registry.Comp.ScanAllCameras)
-                continue;
+            if (city == null)
+            {
+                if (!registry.Comp.ScanAllCameras)
+                    continue;
 
-            if (city is { Mask: true })
+                // ванильная камера тоже становится камерой Реестра (радиус — по умолчанию)
+                city = EnsureComp<CityCameraComponent>(uid);
+                city.Range = registry.Comp.DefaultCameraRange;
+                EnsureComp<ActiveListenerComponent>(uid);
+            }
+
+            TrackActivity(registry, (uid, camera), city, now);
+
+            if (city.Mask)
             {
                 UpdateMask((uid, city), camera);
                 // в консоли камер маска движется вместе с носителем; снятая (запасная в шкафу) на карте не видна
@@ -157,6 +174,8 @@ public sealed partial class CityCameraSystem : EntitySystem
         {
             ent.Comp.Wearer = wearer;
             ent.Comp.WearerNumber = wearer is { } body ? _registry.NumberOf(body) : null;
+            if (ent.Comp.WearerNumber != null)
+                ent.Comp.LastWearerNumber = ent.Comp.WearerNumber;
             _nameModifier.RefreshNameModifiers(ent.Owner);
         }
 
@@ -171,12 +190,12 @@ public sealed partial class CityCameraSystem : EntitySystem
     private void Scan(
         Entity<CityRegistryComponent> registry,
         Entity<SurveillanceCameraComponent> camera,
-        CityCameraComponent? city,
+        CityCameraComponent city,
         TimeSpan now)
     {
         var origin = _transform.GetMapCoordinates(camera);
-        var range = city?.Range ?? registry.Comp.DefaultCameraRange;
-        var wearer = city?.Wearer;
+        var range = city.Range;
+        var wearer = city.Wearer;
 
         _targets.Clear();
         _lookup.GetEntitiesInRange(origin, range, _targets, LookupFlags.Uncontained);
@@ -458,12 +477,20 @@ public sealed partial class CityCameraSystem : EntitySystem
             return;
         _citizenAlerts[record.Number] = now + registry.Comp.AlertCooldown;
 
+        var cameraName = CameraName(camera, city);
+        var reason = record.StatusReason.Length > 0 ? record.StatusReason : "—";
         Broadcast(registry, camera, Loc.GetString(key,
             ("number", record.Number.ToString()),
             ("name", FormattedMessage.EscapeText(record.Name)),
-            ("camera", FormattedMessage.EscapeText(CameraName(camera, city))),
+            ("camera", FormattedMessage.EscapeText(cameraName)),
             ("place", FormattedMessage.EscapeText(place)),
-            ("reason", record.StatusReason.Length > 0 ? FormattedMessage.EscapeText(record.StatusReason) : "—")));
+            ("reason", FormattedMessage.EscapeText(reason))));
+
+        var outlaw = record.Status == CityCitizenStatus.Disenfranchised;
+        AddAlert(registry, outlaw ? CityAlertKind.Outlaw : CityAlertKind.Wanted,
+            Loc.GetString(outlaw ? "dystopia-surveillance-alert-outlaw" : "dystopia-surveillance-alert-wanted",
+                ("number", record.Number.ToString()), ("name", record.Name), ("camera", cameraName), ("reason", reason)),
+            place, camera, record.Number);
     }
 
     private void AlertStranger(
@@ -481,9 +508,14 @@ public sealed partial class CityCameraSystem : EntitySystem
             ("description", FormattedMessage.EscapeText(sighting.Description)),
             ("camera", FormattedMessage.EscapeText(sighting.Camera)),
             ("place", FormattedMessage.EscapeText(sighting.Place))));
+
+        AddAlert(registry, CityAlertKind.Restricted,
+            Loc.GetString("dystopia-surveillance-alert-restricted",
+                ("description", sighting.Description), ("camera", sighting.Camera)),
+            sighting.Place, camera, null);
     }
 
-    private void Broadcast(Entity<CityRegistryComponent> registry, EntityUid camera, string message)
+    public void Broadcast(Entity<CityRegistryComponent> registry, EntityUid camera, string message)
     {
         if (!_prototype.TryIndex<RadioChannelPrototype>(registry.Comp.AlertChannel, out var channel))
             return;
@@ -496,7 +528,7 @@ public sealed partial class CityCameraSystem : EntitySystem
     #region Имена
 
     /// <summary>Ближайший ориентир навигационной карты.</summary>
-    private string PlaceOf(EntityUid camera)
+    public string PlaceOf(EntityUid camera)
     {
         return _navMap.GetNearestBeaconString(camera, onlyName: true);
     }

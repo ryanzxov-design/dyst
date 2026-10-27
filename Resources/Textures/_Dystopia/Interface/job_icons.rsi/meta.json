@@ -29,6 +29,12 @@
       "name": "GuardRecruit"
     },
     {
+      "name": "GuardDispatcher"
+    },
+    {
+      "name": "GuardInvestigator"
+    },
+    {
       "name": "Praetorian"
     },
     {

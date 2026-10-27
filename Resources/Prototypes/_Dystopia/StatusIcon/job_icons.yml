@@ -261,3 +261,19 @@
   icon:
     sprite: /Textures/_Dystopia/Interface/job_icons.rsi
     state: FleshCarrier
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDystopiaGuardDispatcher
+  icon:
+    sprite: /Textures/_Dystopia/Interface/job_icons.rsi
+    state: GuardDispatcher
+  jobName: job-name-dystopia-guard-dispatcher
+
+- type: jobIcon
+  parent: JobIcon
+  id: JobIconDystopiaGuardInvestigator
+  icon:
+    sprite: /Textures/_Dystopia/Interface/job_icons.rsi
+    state: GuardInvestigator
+  jobName: job-name-dystopia-guard-investigator

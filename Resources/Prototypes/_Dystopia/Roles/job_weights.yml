@@ -11,6 +11,8 @@
     DystopiaGuardSergeant: 10
     DystopiaGuardsman: 0
     DystopiaGuardRecruit: 0
+    DystopiaGuardDispatcher: 0
+    DystopiaGuardInvestigator: 0
     DystopiaPraetorian: 15
     DystopiaGrenadier: 0
     DystopiaStormtrooper: 0

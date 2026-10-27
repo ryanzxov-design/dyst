@@ -151,3 +151,74 @@
   storage:
     back:
     - DystopiaFineTerminal
+
+# Диспетчер Стражи — пост соционадзора: камеры, маски стражников, тревоги, слежка, голос Стражи.
+- type: job
+  id: DystopiaGuardDispatcher
+  name: job-name-dystopia-guard-dispatcher
+  description: job-description-dystopia-guard-dispatcher
+  playTimeTracker: JobDystopiaGuardDispatcher
+  startingGear: DystopiaGuardDispatcherGear
+  icon: "JobIconDystopiaGuardDispatcher"
+  supervisors: dystopia-job-supervisors-guard-captain
+  accessGroups:
+  # ВРЕМЕННО: ванильные доступы для дверей тестовой карты Terra. Убрать вместе с Terra.
+  - Security
+  access:
+  - DystopiaGuard
+  - DystopiaPrison
+  # ВРЕМЕННО: ванильные доступы для дверей тестовой карты Terra. Убрать вместе с Terra.
+  - Maintenance
+
+- type: startingGear
+  id: DystopiaGuardDispatcherGear
+  equipment:
+    jumpsuit: DystopiaClothingUniformGuard
+    head: DystopiaClothingHeadGuardBeret
+    mask: DystopiaClothingMaskGuard
+    gloves: ClothingHandsGlovesColorBlack
+    shoes: ClothingShoesBootsJack
+    id: DystopiaGuardDispatcherPDA
+    ears: ClothingHeadsetDystopiaGuard
+    pocket1: WeaponPistolMk58
+  storage:
+    back:
+    - DystopiaFineTerminal
+
+# Дознаватель Стражи — допросы, улики, отпечатки, сверка маршрутов камер.
+- type: job
+  id: DystopiaGuardInvestigator
+  name: job-name-dystopia-guard-investigator
+  description: job-description-dystopia-guard-investigator
+  playTimeTracker: JobDystopiaGuardInvestigator
+  startingGear: DystopiaGuardInvestigatorGear
+  icon: "JobIconDystopiaGuardInvestigator"
+  supervisors: dystopia-job-supervisors-guard-captain
+  accessGroups:
+  # ВРЕМЕННО: ванильные доступы для дверей тестовой карты Terra. Убрать вместе с Terra.
+  - Security
+  access:
+  - DystopiaGuard
+  - DystopiaPrison
+  - DystopiaGates
+  # ВРЕМЕННО: ванильные доступы для дверей тестовой карты Terra. Убрать вместе с Terra.
+  - Maintenance
+  - External
+
+- type: startingGear
+  id: DystopiaGuardInvestigatorGear
+  equipment:
+    jumpsuit: DystopiaClothingUniformGuard
+    outerClothing: ClothingOuterCoatDetective
+    head: ClothingHeadHatFedoraBrown
+    mask: DystopiaClothingMaskGuard
+    gloves: ClothingHandsGlovesColorBlack
+    shoes: ClothingShoesBootsJack
+    id: DystopiaGuardInvestigatorPDA
+    ears: ClothingHeadsetDystopiaGuard
+    pocket1: WeaponPistolMk58
+    pocket2: ForensicScanner
+  storage:
+    back:
+    - DystopiaFineTerminal
+    - BoxForensicPad

@@ -676,3 +676,57 @@
   - type: SpawnPoint
     spawn_type: Job
     job_id: DystopiaShopkeeper
+
+# Самостоятельный предмет: все свойства выписаны явно
+
+- type: entity
+  id: SpawnPointDystopiaGuardDispatcher
+  name: диспетчер Стражи
+  suffix: Job Spawn
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+  - type: Marker
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Tag
+    tags:
+    - ForceFixRotations
+  - type: Sprite
+    drawdepth: Overdoors
+    sprite: Markers/jobs.rsi
+    layers:
+    - state: green
+    - state: security_officer
+  - type: SpawnPoint
+    spawn_type: Job
+    job_id: DystopiaGuardDispatcher
+
+# Самостоятельный предмет: все свойства выписаны явно
+
+- type: entity
+  id: SpawnPointDystopiaGuardInvestigator
+  name: дознаватель Стражи
+  suffix: Job Spawn
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+  - type: Marker
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Tag
+    tags:
+    - ForceFixRotations
+  - type: Sprite
+    drawdepth: Overdoors
+    sprite: Markers/jobs.rsi
+    layers:
+    - state: green
+    - state: security_officer
+  - type: SpawnPoint
+    spawn_type: Job
+    job_id: DystopiaGuardInvestigator

@@ -38,6 +38,25 @@ public sealed partial class CityCameraComponent : Component
     /// <summary>Номер гражданина-носителя (для имени маски).</summary>
     [ViewVariables]
     public int? WearerNumber;
+
+    /// <summary>Номер последнего носителя маски (чтобы и снятая маска числилась за стражником).</summary>
+    [ViewVariables]
+    public int? LastWearerNumber;
+
+    /// <summary>Работала ли камера при прошлом осмотре (для тревоги «камера погасла»).</summary>
+    [ViewVariables]
+    public bool WasActive;
+
+    /// <summary>Открытая тревога «камера погасла» (снимается, когда камера снова в эфире).</summary>
+    [ViewVariables]
+    public int? DownAlert;
+
+    /// <summary>Когда камера (маска) последний раз давала картинку и где.</summary>
+    [ViewVariables]
+    public TimeSpan? LastActiveAt;
+
+    [ViewVariables]
+    public string LastPlace = string.Empty;
 }
 
 [Serializable, NetSerializable]
