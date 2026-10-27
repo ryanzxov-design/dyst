@@ -89,16 +89,8 @@ public sealed partial class CityBankTerminalSystem : EntitySystem
         if (!_bank.TryGetBank(out var bank) || !bank.Comp.Accounts.TryGetValue(args.AccountId, out var account))
             return;
 
-        if (account.Frozen == args.Frozen)
+        if (!_bank.SetFrozen(bank, account, args.Frozen, Name(args.Actor)))
             return;
-
-        account.Frozen = args.Frozen;
-
-        var actor = Name(args.Actor);
-        _bank.AddLedger(bank, Loc.GetString(args.Frozen ? "dystopia-bank-ledger-frozen" : "dystopia-bank-ledger-unfrozen",
-            ("id", account.Id), ("name", account.Name), ("actor", actor)), null, account.Id);
-        _bank.AddHistory(bank, account, Loc.GetString(args.Frozen ? "dystopia-bank-history-frozen" : "dystopia-bank-history-unfrozen"));
-        _bank.NotifyAccount(account, Loc.GetString(args.Frozen ? "dystopia-bank-frozen-notify" : "dystopia-bank-unfrozen-notify"));
 
         UpdateAllTerminals();
     }

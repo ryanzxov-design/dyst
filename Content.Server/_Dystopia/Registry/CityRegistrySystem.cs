@@ -30,12 +30,14 @@ public sealed partial class CityRegistrySystem : EntitySystem
     [Dependency] private SharedIdCardSystem _idCard = default!;
     [Dependency] private StationRecordsSystem _records = default!;
     [Dependency] private CriminalRecordsSystem _criminal = default!;
+    [Dependency] private CityBankSystem _bank = default!;
 
     /// <summary>Идёт своя запись в криминальные записи — её отголосок (RecordModifiedEvent) не разбираем.</summary>
     private bool _pushing;
 
     public const int MaxReasonLength = 300;
     public const int MaxNotesLength = 1000;
+    public const int MaxDetailsLength = 600;
 
     public override void Initialize()
     {
@@ -177,7 +179,7 @@ public sealed partial class CityRegistrySystem : EntitySystem
             Time = _ticker.RoundDuration(),
             Kind = kind,
             Text = text,
-            Details = Trim(details, MaxReasonLength),
+            Details = Trim(details, MaxDetailsLength),
             LawId = lawId,
             LawNumber = lawNumber,
             SanctionClass = sanctionClass,
@@ -204,8 +206,11 @@ public sealed partial class CityRegistrySystem : EntitySystem
         return next - loyalty;
     }
 
-    /// <summary>Сменить статус с записью в журнал. Консулу статус не меняют. Смерть статус сама не меняет —
-    /// её отмечают через консоль социоучёта.</summary>
+    /// <summary>
+    /// Сменить статус с записью в журнал. Консулу статус не меняют. Смерть статус сама не меняет — её отмечают
+    /// через консоль социоучёта. Поражение в правах («вне закона») замораживает счёт, отстраняет от должности и
+    /// обнуляет лояльность; снятие поражения размораживает только счёт, замороженный им самим.
+    /// </summary>
     public bool SetStatus(
         Entity<CityRegistryComponent> registry,
         CityCitizenRecord record,
@@ -223,13 +228,48 @@ public sealed partial class CityRegistrySystem : EntitySystem
         record.Status = status;
         record.StatusReason = Trim(reason, MaxReasonLength);
 
+        var details = record.StatusReason;
+        var loyaltyDelta = 0;
+        if (status == CityCitizenStatus.Disenfranchised)
+        {
+            if (SetAccountFrozen(record, true, author))
+                record.FrozenByOutlaw = true;
+
+            record.Dismissed = true;
+            loyaltyDelta = -(record.Loyalty ?? 0);
+            details = JoinDetails(details, Loc.GetString("dystopia-registry-outlaw-effects"));
+        }
+        else if (old == CityCitizenStatus.Disenfranchised)
+        {
+            if (record.FrozenByOutlaw)
+            {
+                SetAccountFrozen(record, false, author);
+                record.FrozenByOutlaw = false;
+            }
+
+            details = JoinDetails(details, Loc.GetString("dystopia-registry-outlaw-lifted"));
+        }
+
         AddEntry(registry, record, CityRegistryEntryKind.Service,
             Loc.GetString("dystopia-registry-entry-status",
                 ("old", StatusName(old)), ("new", StatusName(status))),
-            author, record.StatusReason);
+            author, details, loyaltyDelta: loyaltyDelta);
 
         PushToSecurity(registry, record, author);
         return true;
+    }
+
+    /// <summary>Заморозить/разморозить счёт гражданина в Банке Города. true — состояние счёта изменилось.</summary>
+    private bool SetAccountFrozen(CityCitizenRecord record, bool frozen, string author)
+    {
+        return _bank.TryGetBank(out var bank) &&
+               bank.Comp.Accounts.TryGetValue(record.Number, out var account) &&
+               _bank.SetFrozen(bank, account, frozen, author);
+    }
+
+    private static string JoinDetails(string first, string second)
+    {
+        return first.Length == 0 ? second : $"{first} {second}";
     }
 
     public void SetNotes(Entity<CityRegistryComponent> registry, CityCitizenRecord record, string notes, string author)

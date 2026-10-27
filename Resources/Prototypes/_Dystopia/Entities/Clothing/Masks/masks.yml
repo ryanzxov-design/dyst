@@ -83,6 +83,23 @@
       - state: equipped-MASK-glow
         shader: unshaded
   - type: Mask
+  # Маска — камера Реестра: пока надета и не приспущена, отмечает людей в поле зрения, как настенная камера, и видна
+  # в консоли камер Стражи (подсеть Стражи) как «маска Стражи · №…». Носитель этого никак не замечает.
+  - type: Eye
+  - type: SurveillanceCamera
+    active: false
+    useEntityNameAsCameraId: true
+    nameSet: true
+    networkSet: true
+  - type: DeviceNetwork
+    deviceNetId: Wired
+    transmitFrequencyId: SurveillanceCamera
+    receiveFrequencyId: SurveillanceCameraSecurity
+    prefix: device-address-prefix-camera
+  - type: WiredNetworkConnection
+  - type: CityCamera
+    mask: true
+    range: 6
   # голос сквозь маску — свой шрифт и номер гражданина вместо имени; приспущенная маска не рисуется на лице
   - type: DystopiaFaceMask
     speechVerb: DystopiaGuardMask

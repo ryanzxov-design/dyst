@@ -153,6 +153,9 @@ public sealed class CityRegistryDossier
     public HumanoidCharacterProfile? Appearance;
 
     public CityRegistryBankInfo? Bank;
+
+    /// <summary>Маршрут по камерам, новые — последними.</summary>
+    public List<CitySighting> Route = new();
 }
 
 [Serializable, NetSerializable]
@@ -162,6 +165,7 @@ public sealed class CityRegistryConsoleUiState(
     CityRegistryDossier? dossier,
     List<CityRegistryLawEntry> laws,
     List<CitySanctionClass> sanctions,
+    List<CityUnidentifiedSighting> unidentified,
     bool canEdit,
     bool canReward,
     bool canSupreme,
@@ -174,6 +178,9 @@ public sealed class CityRegistryConsoleUiState(
 
     /// <summary>Шкала санкций в порядке возрастания тяжести.</summary>
     public readonly List<CitySanctionClass> Sanctions = sanctions;
+
+    /// <summary>Неопознанные, новые — первыми.</summary>
+    public readonly List<CityUnidentifiedSighting> Unidentified = unidentified;
 
     public readonly bool CanEdit = canEdit;
     public readonly bool CanReward = canReward;
@@ -227,6 +234,29 @@ public sealed class CityRegistryNotesMessage(int number, string notes) : BoundUs
 public sealed class CityRegistryPrintMessage(int number) : BoundUserInterfaceMessage
 {
     public readonly int Number = number;
+}
+
+/// <summary>Опознать: отметку из «Неопознанных» — в маршрут гражданина.</summary>
+[Serializable, NetSerializable]
+public sealed class CityRegistryIdentifyMessage(int sighting, int number) : BoundUserInterfaceMessage
+{
+    public readonly int Sighting = sighting;
+    public readonly int Number = number;
+}
+
+/// <summary>Смотреть через камеру (null — перестать смотреть).</summary>
+[Serializable, NetSerializable]
+public sealed class CityRegistryWatchMessage(NetEntity? camera) : BoundUserInterfaceMessage
+{
+    public readonly NetEntity? Camera = camera;
+}
+
+/// <summary>Сервер → клиент: через какую камеру сейчас смотрит этот пользователь (null — ни через какую).</summary>
+[Serializable, NetSerializable]
+public sealed class CityRegistryWatchingMessage(NetEntity? camera, string title) : BoundUserInterfaceMessage
+{
+    public readonly NetEntity? Camera = camera;
+    public readonly string Title = title;
 }
 
 public static class CityRegistryRules

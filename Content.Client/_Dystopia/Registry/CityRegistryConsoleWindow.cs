@@ -1,8 +1,9 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
-// Dystopia: окно консоли социоучёта. Два вида: общий список граждан (вкладки «Граждане» / «Розыск», поиск,
-// фильтры по службе и статусу) и личное дело (фото, номер, статус, лояльность; вкладки «Сводка», «Журнал»,
-// «Маршрут», «Банк»). Смена статуса — отдельным окошком. Окно перерисовывает списки только при изменениях,
-// поэтому то, что человек набирает в полях, не сбрасывается обновлениями с сервера.
+// Dystopia: окно консоли социоучёта. Два вида: общий список (вкладки «Граждане» / «Розыск» с поиском и фильтрами
+// по службе и статусу, «Неопознанные» — кого камеры видели со скрытым лицом и без карты) и личное дело (фото, номер,
+// статус, лояльность; вкладки «Сводка», «Журнал», «Маршрут», «Банк»). Смена статуса — отдельным окошком, картинка
+// с камеры («Смотреть») — тоже. Окно перерисовывает списки только при изменениях, поэтому то, что человек набирает
+// в полях, не сбрасывается обновлениями с сервера.
 
 using System.Linq;
 using System.Numerics;
@@ -27,6 +28,19 @@ public sealed class CityRegistryConsoleWindow : CityWindow
     public event Action<int, string>? OnNotes;
     public event Action<int>? OnPrint;
 
+    /// <summary>Опознать: запись «Неопознанных» (id) → гражданин (номер).</summary>
+    public event Action<int, int>? OnIdentify;
+
+    /// <summary>Смотреть через камеру (null — перестать).</summary>
+    public event Action<NetEntity?>? OnWatch;
+
+    private enum ListMode : byte
+    {
+        Citizens,
+        Wanted,
+        Unidentified,
+    }
+
     private enum DossierTab : byte
     {
         Summary,
@@ -46,7 +60,7 @@ public sealed class CityRegistryConsoleWindow : CityWindow
     private const int AllId = -1;
 
     private CityRegistryConsoleUiState? _state;
-    private bool _wantedOnly;
+    private ListMode _mode = ListMode.Citizens;
     private DossierTab _tab = DossierTab.Summary;
     private JournalFilter _filter = JournalFilter.All;
 
@@ -54,6 +68,8 @@ public sealed class CityRegistryConsoleWindow : CityWindow
     private readonly BoxContainer _listView;
     private readonly CityButton _tabCitizens;
     private readonly CityButton _tabWanted;
+    private readonly CityButton _tabUnidentified;
+    private readonly BoxContainer _citizensBox;
     private readonly LineEdit _search;
     private readonly CityDropdown _department;
     private readonly CityDropdown _statusFilter;
@@ -62,6 +78,13 @@ public sealed class CityRegistryConsoleWindow : CityWindow
     private readonly List<string> _departmentIds = new();
     private string _departmentsSignature = string.Empty;
     private string _listSignature = string.Empty;
+
+    // --- неопознанные ---
+    private readonly BoxContainer _unidentifiedBox;
+    private readonly BoxContainer _unidentifiedRows;
+    private readonly Label _unidentifiedFooter;
+    private readonly Dictionary<int, Label> _unidentifiedTimes = new();
+    private string _unidentifiedSignature = string.Empty;
 
     // --- личное дело ---
     private readonly BoxContainer _dossierView;
@@ -98,6 +121,12 @@ public sealed class CityRegistryConsoleWindow : CityWindow
     private readonly CityButton _notesCancel;
     private readonly CityButton _printButton;
     private string _fieldsSignature = string.Empty;
+    private readonly BoxContainer _lastSeen;
+    private string _lastSeenSignature = string.Empty;
+
+    // маршрут
+    private readonly BoxContainer _routeRows;
+    private string _routeSignature = string.Empty;
 
     // журнал
     private readonly CityButton _chipAll;
@@ -158,13 +187,26 @@ public sealed class CityRegistryConsoleWindow : CityWindow
         var tabs = Row(4);
         _tabCitizens = new CityButton(string.Empty, CityButtonStyle.Tab) { MinWidth = 180 };
         _tabWanted = new CityButton(string.Empty, CityButtonStyle.Tab) { MinWidth = 180 };
+        _tabUnidentified = new CityButton(string.Empty, CityButtonStyle.Tab) { MinWidth = 180 };
         _tabCitizens.Label.ClipText = false;
         _tabWanted.Label.ClipText = false;
-        _tabCitizens.OnPressed += _ => SetWantedOnly(false);
-        _tabWanted.OnPressed += _ => SetWantedOnly(true);
+        _tabUnidentified.Label.ClipText = false;
+        _tabCitizens.OnPressed += _ => SetMode(ListMode.Citizens);
+        _tabWanted.OnPressed += _ => SetMode(ListMode.Wanted);
+        _tabUnidentified.OnPressed += _ => SetMode(ListMode.Unidentified);
         tabs.AddChild(_tabCitizens);
         tabs.AddChild(_tabWanted);
+        tabs.AddChild(_tabUnidentified);
         _listView.AddChild(tabs);
+
+        _citizensBox = new BoxContainer
+        {
+            Orientation = BoxContainer.LayoutOrientation.Vertical,
+            HorizontalExpand = true,
+            VerticalExpand = true,
+            SeparationOverride = 6,
+        };
+        _listView.AddChild(_citizensBox);
 
         var filters = Row(10);
         filters.AddChild(Caption("dystopia-registry-search"));
@@ -185,7 +227,7 @@ public sealed class CityRegistryConsoleWindow : CityWindow
         }
         _statusFilter.OnItemSelected += _ => RedrawList(true);
         filters.AddChild(_statusFilter);
-        _listView.AddChild(filters);
+        _citizensBox.AddChild(filters);
 
         var table = CityUi.MakePanel(CityUi.Bg2, CityUi.Line, 0);
         table.VerticalExpand = true;
@@ -204,10 +246,31 @@ public sealed class CityRegistryConsoleWindow : CityWindow
         _rows = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Vertical, HorizontalExpand = true };
         scroll.AddChild(_rows);
         tableBox.AddChild(scroll);
-        _listView.AddChild(table);
+        _citizensBox.AddChild(table);
 
         _listFooter = CityUi.MakeLabel(string.Empty, CityUi.Dim, CityUi.Regular(11));
-        _listView.AddChild(_listFooter);
+        _citizensBox.AddChild(_listFooter);
+
+        // --- неопознанные ---
+        _unidentifiedBox = new BoxContainer
+        {
+            Orientation = BoxContainer.LayoutOrientation.Vertical,
+            HorizontalExpand = true,
+            VerticalExpand = true,
+            SeparationOverride = 6,
+            Visible = false,
+        };
+        _unidentifiedBox.AddChild(CityUi.Hint(Loc.GetString("dystopia-registry-unidentified-hint")));
+        var unidentifiedTable = CityUi.MakePanel(CityUi.Bg2, CityUi.Line, 0);
+        unidentifiedTable.VerticalExpand = true;
+        var unidentifiedScroll = new ScrollContainer { HScrollEnabled = false, VerticalExpand = true };
+        _unidentifiedRows = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Vertical, HorizontalExpand = true };
+        unidentifiedScroll.AddChild(_unidentifiedRows);
+        unidentifiedTable.AddChild(unidentifiedScroll);
+        _unidentifiedBox.AddChild(unidentifiedTable);
+        _unidentifiedFooter = CityUi.MakeLabel(string.Empty, CityUi.Dim, CityUi.Regular(11));
+        _unidentifiedBox.AddChild(_unidentifiedFooter);
+        _listView.AddChild(_unidentifiedBox);
 
         // ================= Личное дело =================
         _dossierView = new BoxContainer
@@ -345,7 +408,8 @@ public sealed class CityRegistryConsoleWindow : CityWindow
         var seen = new CityCard();
         var seenBox = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Vertical, SeparationOverride = 2 };
         seenBox.AddChild(Small("dystopia-registry-last-seen"));
-        seenBox.AddChild(CityUi.Hint(Loc.GetString("dystopia-registry-no-cameras")));
+        _lastSeen = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Vertical, SeparationOverride = 2 };
+        seenBox.AddChild(_lastSeen);
         seen.AddChild(seenBox);
         _summaryView.AddChild(seen);
 
@@ -488,7 +552,13 @@ public sealed class CityRegistryConsoleWindow : CityWindow
         // маршрут
         _routeView = Column();
         _routeView.AddChild(Small("dystopia-registry-route-header"));
-        _routeView.AddChild(CityUi.Hint(Loc.GetString("dystopia-registry-route-empty")));
+        var routePanel = CityUi.MakePanel(CityUi.Bg2, CityUi.Line, 0);
+        routePanel.VerticalExpand = true;
+        var routeScroll = new ScrollContainer { HScrollEnabled = false, VerticalExpand = true };
+        _routeRows = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Vertical, HorizontalExpand = true };
+        routeScroll.AddChild(_routeRows);
+        routePanel.AddChild(routeScroll);
+        _routeView.AddChild(routePanel);
         right.AddChild(_routeView);
 
         // банк
@@ -550,6 +620,7 @@ public sealed class CityRegistryConsoleWindow : CityWindow
             _violationDetails.Text = string.Empty;
             _rewardText.Text = string.Empty;
             _journalSignature = _fieldsSignature = _bankSignature = _classesSignature = string.Empty;
+            _routeSignature = _lastSeenSignature = string.Empty;
             _statusWindow?.Close();
         }
 
@@ -565,9 +636,9 @@ public sealed class CityRegistryConsoleWindow : CityWindow
 
     // ======================= Список =======================
 
-    private void SetWantedOnly(bool wanted)
+    private void SetMode(ListMode mode)
     {
-        _wantedOnly = wanted;
+        _mode = mode;
         RedrawList(true);
     }
 
@@ -580,8 +651,21 @@ public sealed class CityRegistryConsoleWindow : CityWindow
         _tabCitizens.Text = Loc.GetString("dystopia-registry-tab-citizens", ("count", citizens.Count)).ToUpperInvariant();
         _tabWanted.Text = Loc.GetString("dystopia-registry-tab-wanted",
             ("count", citizens.Count(c => c.Status == CityCitizenStatus.Wanted))).ToUpperInvariant();
-        _tabCitizens.Active = !_wantedOnly;
-        _tabWanted.Active = _wantedOnly;
+        _tabUnidentified.Text = Loc.GetString("dystopia-registry-tab-unidentified",
+            ("count", _state.Unidentified.Count)).ToUpperInvariant();
+        _tabCitizens.Active = _mode == ListMode.Citizens;
+        _tabWanted.Active = _mode == ListMode.Wanted;
+        _tabUnidentified.Active = _mode == ListMode.Unidentified;
+        _citizensBox.Visible = _mode != ListMode.Unidentified;
+        _unidentifiedBox.Visible = _mode == ListMode.Unidentified;
+
+        if (_mode == ListMode.Unidentified)
+        {
+            RedrawUnidentified(force);
+            return;
+        }
+
+        var wantedOnly = _mode == ListMode.Wanted;
 
         // службы для фильтра
         var departmentsSignature = string.Join(";", _state.Departments.Select(d => d.Id));
@@ -611,7 +695,7 @@ public sealed class CityRegistryConsoleWindow : CityWindow
         var status = _statusFilter.SelectedId;
 
         var shown = citizens.Where(c =>
-                (!_wantedOnly || c.Status == CityCitizenStatus.Wanted) &&
+                (!wantedOnly || c.Status == CityCitizenStatus.Wanted) &&
                 (department == null || c.Department == department) &&
                 (status == AllId || (int) c.Status == status) &&
                 (search.Length == 0 ||
@@ -731,12 +815,13 @@ public sealed class CityRegistryConsoleWindow : CityWindow
 
         // вкладки: у Консула журнал и банк закрыты
         _subJournal.Disabled = outside;
+        _subRoute.Disabled = outside;
         _subBank.Disabled = outside;
         _subJournal.Text = (outside
             ? Loc.GetString("dystopia-registry-subtab-journal-closed")
             : Loc.GetString("dystopia-registry-subtab-journal-count", ("count", dossier.Journal.Count(e => e.Kind != CityRegistryEntryKind.Service)))).ToUpperInvariant();
         _subBank.Text = Loc.GetString(outside ? "dystopia-registry-subtab-bank-closed" : "dystopia-registry-subtab-bank").ToUpperInvariant();
-        if (outside && _tab is DossierTab.Journal or DossierTab.Bank)
+        if (outside && _tab is DossierTab.Journal or DossierTab.Route or DossierTab.Bank)
             SetTab(DossierTab.Summary);
 
         RedrawFields(dossier, outside);
@@ -744,6 +829,8 @@ public sealed class CityRegistryConsoleWindow : CityWindow
         _printButton.Disabled = outside || !state.CanEdit || dossier.Status != CityCitizenStatus.Wanted;
 
         RedrawJournal(dossier, state);
+        RedrawLastSeen(dossier, outside, state.CanEdit);
+        RedrawRoute(dossier, state.CanEdit);
         RedrawBank(dossier);
     }
 
@@ -1026,6 +1113,206 @@ public sealed class CityRegistryConsoleWindow : CityWindow
         OnReward?.Invoke(dossier.Number, amount, _rewardText.Text.Trim());
         _rewardText.Text = string.Empty;
         _rewardForm.Visible = false;
+    }
+
+    // ======================= Неопознанные =======================
+
+    private void RedrawUnidentified(bool force)
+    {
+        if (_state == null)
+            return;
+
+        var list = _state.Unidentified;
+        _unidentifiedFooter.Text = Loc.GetString("dystopia-registry-unidentified-footer",
+            ("count", list.Count), ("restricted", list.Count(u => u.Restricted)));
+
+        // поля номера не должны сбрасываться, пока человек стоит в кадре: строки пересобираются только при смене
+        // состава, а время обновляется на месте
+        var signature = $"{_state.CanEdit}:{string.Join(";", list.Select(u => u.Id))}";
+        if (force || signature != _unidentifiedSignature)
+        {
+            _unidentifiedSignature = signature;
+            _unidentifiedRows.RemoveAllChildren();
+            _unidentifiedTimes.Clear();
+
+            if (list.Count == 0)
+            {
+                var empty = CityUi.MakeLabel(Loc.GetString("dystopia-registry-unidentified-empty"), CityUi.Dim);
+                empty.Margin = new Thickness(8, 6);
+                _unidentifiedRows.AddChild(empty);
+            }
+
+            foreach (var sighting in list)
+            {
+                _unidentifiedRows.AddChild(UnidentifiedRow(sighting, _state.CanEdit));
+            }
+        }
+
+        foreach (var sighting in list)
+        {
+            if (_unidentifiedTimes.TryGetValue(sighting.Id, out var time))
+                time.Text = Span(sighting.Time, sighting.LastTime);
+        }
+    }
+
+    private Control UnidentifiedRow(CityUnidentifiedSighting sighting, bool canEdit)
+    {
+        var row = RowPanel();
+        var line = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Horizontal, SeparationOverride = 10 };
+
+        var time = CityUi.MakeLabel(Span(sighting.Time, sighting.LastTime), CityUi.Dim, CityUi.Regular(11));
+        time.MinWidth = 96;
+        _unidentifiedTimes[sighting.Id] = time;
+        line.AddChild(time);
+
+        var text = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Vertical, HorizontalExpand = true };
+        var head = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Horizontal, SeparationOverride = 8 };
+        head.AddChild(CityUi.MakeLabel(sighting.Description, CityUi.Glow, CityUi.Regular(12)));
+        if (sighting.Restricted)
+            head.AddChild(CityUi.MakeLabel(Loc.GetString("dystopia-registry-unidentified-restricted"), Danger, CityUi.Bold(11)));
+        text.AddChild(head);
+        text.AddChild(CityUi.Hint(Where(sighting.Place, sighting.Camera, sighting.Mask)));
+        line.AddChild(text);
+
+        var watch = CityUi.MakeButton(Loc.GetString("dystopia-registry-watch"));
+        watch.Disabled = !canEdit;
+        var camera = sighting.CameraEntity;
+        watch.OnPressed += _ => OnWatch?.Invoke(camera);
+        watch.VerticalAlignment = VAlignment.Center;
+        line.AddChild(watch);
+
+        var number = CityUi.Field(Loc.GetString("dystopia-registry-identify-placeholder"), 90);
+        number.Editable = canEdit;
+        number.VerticalAlignment = VAlignment.Center;
+        line.AddChild(number);
+
+        var identify = CityUi.MakeButton(Loc.GetString("dystopia-registry-identify"), CityButtonStyle.Primary);
+        identify.Disabled = !canEdit;
+        identify.VerticalAlignment = VAlignment.Center;
+        var id = sighting.Id;
+        identify.OnPressed += _ =>
+        {
+            if (int.TryParse(number.Text.Trim().TrimStart('№', '#'), out var citizen))
+                OnIdentify?.Invoke(id, citizen);
+        };
+        line.AddChild(identify);
+
+        row.AddChild(line);
+        return row;
+    }
+
+    // ======================= Маршрут =======================
+
+    private void RedrawLastSeen(CityRegistryDossier dossier, bool outside, bool canEdit)
+    {
+        // последнее известное местонахождение — отметка, продлённая позже всех
+        var last = dossier.Route.Count > 0 ? dossier.Route.MaxBy(r => r.LastTime) : null;
+        var signature = last == null
+            ? $"{dossier.Number}:{outside}:none"
+            : $"{dossier.Number}:{canEdit}:{last.Time}:{last.LastTime}:{last.Camera}:{last.Method}";
+        if (signature == _lastSeenSignature)
+            return;
+        _lastSeenSignature = signature;
+
+        _lastSeen.RemoveAllChildren();
+        if (last == null)
+        {
+            _lastSeen.AddChild(CityUi.Hint(Loc.GetString(outside
+                ? "dystopia-registry-classified"
+                : "dystopia-registry-last-seen-none")));
+            return;
+        }
+
+        var line = Row(10);
+        var text = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Vertical, HorizontalExpand = true };
+        text.AddChild(CityUi.MakeLabel(last.Place, CityUi.Glow, CityUi.Bold(12)));
+        text.AddChild(CityUi.Hint(
+            $"{Span(last.Time, last.LastTime)} · {Where(null, last.Camera, last.Mask)} · {MethodText(last.Method)}"));
+        line.AddChild(text);
+        line.AddChild(WatchButton(last.CameraEntity, canEdit));
+        _lastSeen.AddChild(line);
+    }
+
+    private void RedrawRoute(CityRegistryDossier dossier, bool canEdit)
+    {
+        var route = dossier.Route;
+        var signature = $"{dossier.Number}:{canEdit}:" +
+                        string.Join(";", route.Select(s => $"{s.Time}:{s.LastTime}:{s.Camera}:{s.Method}"));
+        if (signature == _routeSignature)
+            return;
+        _routeSignature = signature;
+
+        _routeRows.RemoveAllChildren();
+        if (route.Count == 0)
+        {
+            var empty = CityUi.Hint(Loc.GetString("dystopia-registry-route-empty"));
+            empty.Margin = new Thickness(8, 6);
+            _routeRows.AddChild(empty);
+            return;
+        }
+
+        // новые — сверху
+        for (var i = route.Count - 1; i >= 0; i--)
+        {
+            var sighting = route[i];
+            var row = RowPanel();
+            var line = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Horizontal, SeparationOverride = 10 };
+
+            var time = CityUi.MakeLabel(Span(sighting.Time, sighting.LastTime), CityUi.Dim, CityUi.Regular(11));
+            time.MinWidth = 96;
+            line.AddChild(time);
+
+            var text = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Vertical, HorizontalExpand = true };
+            text.AddChild(CityUi.MakeLabel(sighting.Place, i == route.Count - 1 ? CityUi.Glow : CityUi.Text, CityUi.Regular(12)));
+            text.AddChild(CityUi.Hint(Where(null, sighting.Camera, sighting.Mask)));
+            line.AddChild(text);
+
+            var method = CityUi.MakeLabel(MethodText(sighting.Method),
+                sighting.Method == CitySightingMethod.Manual ? Watch : CityUi.Dim, CityUi.Regular(11));
+            method.MinWidth = 120;
+            method.VerticalAlignment = VAlignment.Center;
+            line.AddChild(method);
+            line.AddChild(WatchButton(sighting.CameraEntity, canEdit));
+
+            row.AddChild(line);
+            _routeRows.AddChild(row);
+        }
+    }
+
+    private CityButton WatchButton(NetEntity camera, bool canEdit)
+    {
+        var button = CityUi.MakeButton(Loc.GetString("dystopia-registry-watch"));
+        button.Disabled = !canEdit;
+        button.VerticalAlignment = VAlignment.Center;
+        button.OnPressed += _ => OnWatch?.Invoke(camera);
+        return button;
+    }
+
+    /// <summary>«камера «Рынок-2» · Рынок» / «маска Стражи · №102628».</summary>
+    private static string Where(string? place, string camera, bool mask)
+    {
+        var source = Loc.GetString(mask ? "dystopia-registry-route-mask" : "dystopia-registry-route-camera", ("camera", camera));
+        return place == null ? source : $"{source} · {place}";
+    }
+
+    private static string MethodText(CitySightingMethod method)
+    {
+        return Loc.GetString($"dystopia-registry-method-{method.ToString().ToLowerInvariant()}");
+    }
+
+    /// <summary>«12:03» или «12:03–12:15».</summary>
+    private static string Span(TimeSpan from, TimeSpan to)
+    {
+        var start = Clock(from);
+        var end = Clock(to);
+        return start == end ? start : $"{start}–{end}";
+    }
+
+    private static PanelContainer RowPanel()
+    {
+        var row = new PanelContainer { PanelOverride = CityUi.Box(Color.Transparent, CityUi.Line, 0, 8, 5) };
+        ((StyleBoxFlat) row.PanelOverride).BorderThickness = new Thickness(0, 0, 0, 1);
+        return row;
     }
 
     // ======================= Банк =======================

@@ -1,0 +1,229 @@
+# Городские камеры Реестра. Dystopia. Все предметы в этом файле самостоятельные: без parent, все свойства выписаны явно.
+#
+# Камера Города — ванильная камера наблюдения (картинка в консоли камер, подсеть Стражи) плюс учёт Реестра
+# (CityCamera): каждого в поле зрения она отмечает в маршрут личного дела — по ID-карте в руке или в слоте ID или по
+# открытому лицу. Скрытое лицо без карты — во вкладку «Неопознанные». Разыскиваемый или поражённый в правах в кадре —
+# тревога на канал Стражи.
+# Имя камеры («Рынок-2») задаётся на карте полем id у SurveillanceCamera (или в игре — меню настройки камеры).
+# Место в маршруте — ближайший маяк навигационной карты.
+# Разобрать камеру нельзя (нет графа постройки): только сломать или перерезать провода.
+
+- type: entity
+  id: DystopiaCityCamera
+  name: камера Города
+  description: Камера Реестра граждан. Видит лица и ID-карты всех, кто проходит мимо, и помнит, где их видела.
+  placement:
+    mode: SnapgridCenter
+    snap:
+    - Wallmount
+  components:
+  - type: Transform
+    anchored: true
+  - type: Sprite
+    drawdepth: WallMountedItems
+    sprite: Structures/Wallmounts/camera.rsi
+    offset: 0, -0.5
+    layers:
+    - map: [ "enum.SurveillanceCameraVisualsKey.Layer" ]
+      state: camera
+  - type: Appearance
+  - type: Physics
+    bodyType: Static
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Fixtures
+    fixtures:
+      light:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.5
+        hard: false
+        mask:
+        - GhostImpassable
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,-0.2,-0.15"
+        density: 190
+        mask:
+        - None
+        layer:
+        - TabletopMachineLayer
+  - type: Eye
+  - type: PointLight
+    enabled: false
+    radius: 5
+  - type: Damageable
+    damageModifierSet: SteelMod
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+          params:
+            volume: -8
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 0
+            max: 1
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+  - type: SlimPoweredLight
+    enabled: false
+  - type: Electrified
+    enabled: false
+    usesApcPower: true
+  - type: WallMount
+  - type: ApcPowerReceiver
+  - type: ExtensionCableReceiver
+  - type: WiresPanel
+  - type: Wires
+    alwaysRandomize: true
+    layoutId: SurveillanceCamera
+  - type: DeviceNetwork
+    deviceNetId: Wired
+    transmitFrequencyId: SurveillanceCamera
+    receiveFrequencyId: SurveillanceCameraSecurity
+    prefix: device-address-prefix-camera
+  - type: DeviceNetworkRequiresPower
+  - type: WiredNetworkConnection
+  - type: StationAiVision
+  - type: CameraActiveOnCollide
+    requiresPower: false
+  - type: StaticPrice
+    price: 200
+  - type: SurveillanceCameraVisuals
+    sprites:
+      Active: camera
+      Disabled: camera_off
+      InUse: camera_in_use
+  - type: SurveillanceCamera
+    id: камера Города
+    networkSet: true
+  - type: CityCamera
+    range: 7
+  - type: UserInterface
+    interfaces:
+      enum.SurveillanceCameraSetupUiKey.Camera:
+        type: SurveillanceCameraSetupBoundUi
+      enum.WiresUiKey.Key:
+        type: WiresBoundUserInterface
+
+# Камера закрытой зоны (арсенал, архив, кабинеты): неопознанный в её поле зрения — тревога Страже.
+# Корпус с красной полосой, чтобы отличать на карте.
+- type: entity
+  id: DystopiaCityCameraRestricted
+  name: камера закрытой зоны
+  description: Камера Реестра над закрытой зоной. Если не узнает вошедшего — Стража узнает об этом сразу.
+  placement:
+    mode: SnapgridCenter
+    snap:
+    - Wallmount
+  components:
+  - type: Transform
+    anchored: true
+  - type: Sprite
+    drawdepth: WallMountedItems
+    sprite: Structures/Wallmounts/camera.rsi
+    offset: 0, -0.5
+    color: "#FFC4C4"
+    layers:
+    - map: [ "enum.SurveillanceCameraVisualsKey.Layer" ]
+      state: camera
+  - type: Appearance
+  - type: Physics
+    bodyType: Static
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Fixtures
+    fixtures:
+      light:
+        shape:
+          !type:PhysShapeCircle
+          radius: 0.5
+        hard: false
+        mask:
+        - GhostImpassable
+      fix1:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.5,-0.5,-0.2,-0.15"
+        density: 190
+        mask:
+        - None
+        layer:
+        - TabletopMachineLayer
+  - type: Eye
+  - type: PointLight
+    enabled: false
+    radius: 5
+  - type: Damageable
+    damageModifierSet: SteelMod
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+          params:
+            volume: -8
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 0
+            max: 1
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+  - type: SlimPoweredLight
+    enabled: false
+  - type: Electrified
+    enabled: false
+    usesApcPower: true
+  - type: WallMount
+  - type: ApcPowerReceiver
+  - type: ExtensionCableReceiver
+  - type: WiresPanel
+  - type: Wires
+    alwaysRandomize: true
+    layoutId: SurveillanceCamera
+  - type: DeviceNetwork
+    deviceNetId: Wired
+    transmitFrequencyId: SurveillanceCamera
+    receiveFrequencyId: SurveillanceCameraSecurity
+    prefix: device-address-prefix-camera
+  - type: DeviceNetworkRequiresPower
+  - type: WiredNetworkConnection
+  - type: StationAiVision
+  - type: CameraActiveOnCollide
+    requiresPower: false
+  - type: StaticPrice
+    price: 200
+  - type: SurveillanceCameraVisuals
+    sprites:
+      Active: camera
+      Disabled: camera_off
+      InUse: camera_in_use
+  - type: SurveillanceCamera
+    id: закрытая зона
+    networkSet: true
+  - type: CityCamera
+    range: 7
+    restricted: true
+  - type: UserInterface
+    interfaces:
+      enum.SurveillanceCameraSetupUiKey.Camera:
+        type: SurveillanceCameraSetupBoundUi
+      enum.WiresUiKey.Key:
+        type: WiresBoundUserInterface

@@ -18,6 +18,7 @@ public sealed class CityRegistryStatusWindow : CityWindow
     private readonly Dictionary<CityCitizenStatus, CityButton> _options = new();
     private readonly LineEdit _reason;
     private readonly CityWrapLabel _wantedHint;
+    private readonly CityWrapLabel _outlawHint;
     private readonly CityButton _apply;
 
     private int _number;
@@ -58,6 +59,8 @@ public sealed class CityRegistryStatusWindow : CityWindow
 
         _wantedHint = CityUi.Hint(Loc.GetString("dystopia-registry-status-wanted-hint"), CityRegistryConsoleWindow.Danger);
         Contents.AddChild(_wantedHint);
+        _outlawHint = CityUi.Hint(Loc.GetString("dystopia-registry-status-outlaw-hint"), CityRegistryConsoleWindow.Stripped);
+        Contents.AddChild(_outlawHint);
         Contents.AddChild(CityUi.Hint(Loc.GetString("dystopia-registry-status-sign")));
 
         Contents.AddChild(new Control { VerticalExpand = true });
@@ -128,6 +131,7 @@ public sealed class CityRegistryStatusWindow : CityWindow
     {
         var needsReason = _chosen == CityCitizenStatus.Wanted;
         _wantedHint.Visible = needsReason;
+        _outlawHint.Visible = _chosen == CityCitizenStatus.Disenfranchised && _current != CityCitizenStatus.Disenfranchised;
         _apply.Disabled = !_canEdit ||
                           _chosen == _current ||
                           needsReason && _reason.Text.Trim().Length == 0 ||

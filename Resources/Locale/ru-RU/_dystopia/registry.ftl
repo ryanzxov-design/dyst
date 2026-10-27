@@ -46,9 +46,12 @@ dystopia-registry-console-slogan = Порядок начинается с учё
 dystopia-registry-console-denied = Нет прав на это действие.
 dystopia-registry-console-reason-required = Для розыска нужно основание.
 dystopia-registry-console-not-wanted = Ориентировка печатается только на гражданина в розыске.
+dystopia-registry-console-identify-failed = Не удалось опознать: нет такого гражданина или запись уже ушла.
+dystopia-registry-console-camera-offline = Камера не работает.
 
 dystopia-registry-tab-citizens = Граждане · { $count }
 dystopia-registry-tab-wanted = Розыск · { $count }
+dystopia-registry-tab-unidentified = Неопознанные · { $count }
 dystopia-registry-search = Поиск
 dystopia-registry-search-placeholder = номер или имя
 dystopia-registry-filter-department = Служба
@@ -100,7 +103,7 @@ dystopia-registry-gender-epicene = —
 dystopia-registry-gender-neuter = —
 
 dystopia-registry-last-seen = Последнее известное местонахождение
-dystopia-registry-no-cameras = Нет данных: городские камеры ещё не подключены к Реестру.
+dystopia-registry-last-seen-none = Камеры его пока не видели.
 dystopia-registry-notes = Особые приметы
 dystopia-registry-notes-empty = не указаны
 dystopia-registry-notes-placeholder = шрамы, татуировки, походка, с кем замечен…
@@ -137,8 +140,33 @@ dystopia-registry-form-reward-amount = Добавить
 dystopia-registry-form-reward-range = очков: 1–{ $max }
 dystopia-registry-form-reward-write = Поощрить
 
-dystopia-registry-route-header = Последние отметки камер
-dystopia-registry-route-empty = Маршрут появится, когда городские камеры подключат к Реестру: каждая камера будет отмечать, где и когда она видела гражданина.
+dystopia-registry-route-header = Последние отметки камер (новые сверху)
+dystopia-registry-route-empty = Камеры его пока не видели. Отметка появляется, когда камера Города или маска Стражи видит лицо гражданина или его ID-карту в руке или в слоте.
+dystopia-registry-route-camera = камера «{ $camera }»
+dystopia-registry-route-mask = { $camera }
+dystopia-registry-method-card = по ID-карте
+dystopia-registry-method-face = по лицу
+dystopia-registry-method-manual = опознан Стражей
+dystopia-registry-watch = Смотреть
+
+## Неопознанные
+
+dystopia-registry-unidentified-hint = Кого камеры видели со скрытым лицом и без ID-карты. Записи хранятся ограниченное время. «Опознать» — перенести отметку в маршрут гражданина с указанным номером (и запись в его журнал).
+dystopia-registry-unidentified-footer = записей { $count } · в закрытых зонах { $restricted }
+dystopia-registry-unidentified-empty = Камеры никого не видели со скрытым лицом.
+dystopia-registry-unidentified-restricted = ЗАКРЫТАЯ ЗОНА
+dystopia-registry-identify = Опознать
+dystopia-registry-identify-placeholder = № гражданина
+dystopia-registry-entry-identified = Опознан по записи камеры
+dystopia-registry-entry-identified-details = Камера «{ $camera }», { $place }, { $time }.
+
+## Просмотр камеры
+
+dystopia-registry-camera-title = Камера Реестра
+dystopia-registry-camera-subtitle = Городская Стража · просмотр камеры
+dystopia-registry-camera-slogan = Город видит всё
+dystopia-registry-camera-connecting = Подключение: { $camera }…
+dystopia-registry-camera-connected = { $camera } · в эфире
 
 dystopia-registry-bank-account = Счёт
 dystopia-registry-bank-active = активен
@@ -161,6 +189,7 @@ dystopia-registry-status-supreme = { $status } · Консул
 dystopia-registry-status-reason = Основание (для розыска обязательно)
 dystopia-registry-status-reason-placeholder = статья Свода, что произошло
 dystopia-registry-status-wanted-hint = Розыск: на гражданина можно будет напечатать ориентировку.
+dystopia-registry-status-outlaw-hint = Вне закона: счёт в Банке Города замораживается, гражданин отстраняется от должности, лояльность обнуляется, камеры поднимают тревогу. Снятие поражения размораживает только счёт.
 dystopia-registry-status-sign = Подпись — по ID-карте у вас в руке или в слоте; смена статуса запишется в журнал дела.
 dystopia-registry-status-apply = Применить
 dystopia-registry-status-cancel = Отмена
@@ -172,6 +201,8 @@ dystopia-registry-violation-details = Класс { $class }: { $legal }.
 dystopia-registry-violation-details-repeat = Класс { $class } (повторное): { $legal }.
 dystopia-registry-violation-dismissed = Отстранён от должности.
 dystopia-registry-entry-reward = Поощрение
+dystopia-registry-outlaw-effects = Вне закона: счёт заморожен, отстранён от должности, лояльность обнулена.
+dystopia-registry-outlaw-lifted = Поражение в правах снято. Отстранение от должности остаётся.
 
 dystopia-registry-poster-stamp = Городская Стража
 dystopia-registry-poster-name = ориентировка №{ $poster } (№{ $number })
@@ -188,3 +219,11 @@ dystopia-registry-poster =
     ────────────────────
     {"["}bold]Увидевшему — сообщить ближайшему стражнику. Недонесение карается по ст. 12 Свода законов.[/bold]
     {"["}italic]Выдано: { $time } · { $author }[/italic]
+
+## Городские камеры (тревоги на канал Стражи)
+
+dystopia-camera-speaker = Камеры Реестра
+dystopia-camera-mask-name = { $baseName } · №{ $number }
+dystopia-camera-alert-wanted = Разыскиваемый №{ $number } { $name } — { $place } (камера «{ $camera }»). Основание: { $reason }
+dystopia-camera-alert-outlaw = [bold]ВНЕ ЗАКОНА![/bold] Поражённый в правах №{ $number } { $name } — { $place } (камера «{ $camera }»).
+dystopia-camera-alert-restricted = Неопознанный в закрытой зоне: { $description } — { $place } (камера «{ $camera }»).

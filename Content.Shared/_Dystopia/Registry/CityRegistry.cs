@@ -55,6 +55,59 @@ public sealed partial class CityRegistryComponent : Component
     [DataField]
     public int JournalLimit = 100;
 
+    #region Камеры
+
+    /// <summary>
+    /// Ведут ли учёт и ванильные камеры наблюдения (без CityCamera) с настройками по умолчанию ниже. Нужно, пока
+    /// у Города нет своей карты с городскими камерами.
+    /// </summary>
+    [DataField]
+    public bool ScanAllCameras = true;
+
+    /// <summary>Радиус обзора ванильной камеры, если она ведёт учёт.</summary>
+    [DataField]
+    public float DefaultCameraRange = 7f;
+
+    /// <summary>Как часто камеры осматривают поле зрения (секунды).</summary>
+    [DataField]
+    public float ScanInterval = 2f;
+
+    /// <summary>Сколько последних отметок хранить в маршруте гражданина.</summary>
+    [DataField]
+    public int RouteLength = 10;
+
+    /// <summary>
+    /// Одна камера отмечает одного человека не чаще раза в этот срок. Пока он не уходит из кадра дольше этого срока,
+    /// отметка не дублируется, а продлевается («с 12:03 по 12:15»).
+    /// </summary>
+    [DataField]
+    public TimeSpan SightingCooldown = TimeSpan.FromMinutes(1);
+
+    /// <summary>Сколько хранится запись о неопознанном (от последнего раза, когда его видели).</summary>
+    [DataField]
+    public TimeSpan UnidentifiedLifetime = TimeSpan.FromMinutes(30);
+
+    /// <summary>Сколько записей о неопознанных хранить (старые уходят).</summary>
+    [DataField]
+    public int UnidentifiedLimit = 80;
+
+    /// <summary>Канал тревог камер (канал Стражи).</summary>
+    [DataField]
+    public string AlertChannel = "Security";
+
+    /// <summary>Тревога об одном и том же человеке — не чаще раза в этот срок.</summary>
+    [DataField]
+    public TimeSpan AlertCooldown = TimeSpan.FromMinutes(2);
+
+    [ViewVariables]
+    public int NextUnidentified = 1;
+
+    /// <summary>Неопознанные: лицо скрыто, карты нет. Новые — в конце.</summary>
+    [ViewVariables]
+    public List<CityUnidentifiedSighting> Unidentified = new();
+
+    #endregion
+
     /// <summary>Номер следующей ориентировки.</summary>
     [ViewVariables]
     public int NextPoster = 1;
@@ -165,4 +218,10 @@ public sealed class CityCitizenRecord
 
     /// <summary>Журнал: нарушения, поощрения, служебные записи. Новые — в конце.</summary>
     [ViewVariables] public List<CityRegistryEntry> Journal = new();
+
+    /// <summary>Маршрут: последние отметки камер. Новые — в конце; последняя — последнее известное местонахождение.</summary>
+    [ViewVariables] public List<CitySighting> Sightings = new();
+
+    /// <summary>Счёт заморожен поражением в правах (снятие поражения размораживает только такой счёт).</summary>
+    [ViewVariables] public bool FrozenByOutlaw;
 }

@@ -2,18 +2,22 @@
 // Dystopia: консоль социоучёта (терминал Реестра граждан). Показ списка и личного дела, правка дела: статус,
 // нарушения по Своду законов (класс по статье, повторное нарушение открывает класс выше, лояльность — в пределах
 // класса, тяжкие классы отстраняют и обнуляют лояльность), поощрения, особые приметы, печать ориентировки.
+// Маршрут по городским камерам, «Неопознанные» (опознать — перенести отметку в маршрут гражданина) и «Смотреть» —
+// картинка с камеры, которая отметила человека, прямо в окне консоли.
 // Доступ к консоли — её AccessReader; права на правку — по профессии того, чья ID-карта у пользователя.
 
 using System.Linq;
 using Content.Server._Dystopia.Economy;
 using Content.Server._Dystopia.Laws;
 using Content.Server.Popups;
+using Content.Server.SurveillanceCamera;
 using Content.Shared._Dystopia.Laws;
 using Content.Shared._Dystopia.Registry;
 using Content.Shared.Access.Systems;
 using Content.Shared.GameTicking;
 using Content.Shared.Paper;
 using Content.Shared.Roles;
+using Content.Shared.SurveillanceCamera.Components;
 using Robust.Server.GameObjects;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Prototypes;
@@ -36,6 +40,8 @@ public sealed partial class CityRegistryConsoleSystem : EntitySystem
     [Dependency] private CityRegistrySystem _registry = default!;
     [Dependency] private CityLawsSystem _laws = default!;
     [Dependency] private CityBankSystem _bank = default!;
+    [Dependency] private CityCameraSystem _cityCameras = default!;
+    [Dependency] private SurveillanceCameraSystem _cameras = default!;
 
     /// <summary>Сколько последних банковских операций показывать в деле.</summary>
     private const int BankHistoryShown = 60;
@@ -52,7 +58,21 @@ public sealed partial class CityRegistryConsoleSystem : EntitySystem
         SubscribeLocalEvent<CityRegistryConsoleComponent, CityRegistryRewardMessage>(OnReward);
         SubscribeLocalEvent<CityRegistryConsoleComponent, CityRegistryNotesMessage>(OnNotes);
         SubscribeLocalEvent<CityRegistryConsoleComponent, CityRegistryPrintMessage>(OnPrint);
-        SubscribeLocalEvent<CityRegistryConsoleComponent, ComponentShutdown>((uid, _, _) => _lastActor.Remove(uid));
+        SubscribeLocalEvent<CityRegistryConsoleComponent, CityRegistryIdentifyMessage>(OnIdentify);
+        SubscribeLocalEvent<CityRegistryConsoleComponent, CityRegistryWatchMessage>(OnWatch);
+        SubscribeLocalEvent<CityRegistryConsoleComponent, BoundUIClosedEvent>(OnClosed);
+        SubscribeLocalEvent<CityRegistryConsoleComponent, ComponentShutdown>(OnShutdown);
+        SubscribeLocalEvent<SurveillanceCameraDeactivateEvent>(OnCameraDeactivated);
+    }
+
+    private void OnShutdown(Entity<CityRegistryConsoleComponent> ent, ref ComponentShutdown args)
+    {
+        _lastActor.Remove(ent.Owner);
+        foreach (var (actor, watch) in _watching.ToList())
+        {
+            if (watch.Console == ent.Owner)
+                StopWatching(actor, false);
+        }
     }
 
     public override void Update(float frameTime)
@@ -238,6 +258,89 @@ public sealed partial class CityRegistryConsoleSystem : EntitySystem
         UpdateUi(ent, args.Actor);
     }
 
+    private void OnIdentify(Entity<CityRegistryConsoleComponent> ent, ref CityRegistryIdentifyMessage args)
+    {
+        if (!Check(ent, args.Actor, r => r.Edit))
+            return;
+
+        if (!TryGetCitizen(args.Number, out var registry, out var record) ||
+            CityRegistrySystem.IsOutsideLoyalty(registry, record) ||
+            !_cityCameras.Identify(registry, args.Sighting, record, _registry.AuthorOf(args.Actor)))
+        {
+            Deny(ent, args.Actor, "dystopia-registry-console-identify-failed");
+            return;
+        }
+
+        UpdateUi(ent, args.Actor);
+    }
+
+    #region Смотреть через камеру
+
+    private readonly record struct Watch(EntityUid Console, EntityUid Camera);
+
+    /// <summary>Кто сейчас смотрит через камеру с консоли социоучёта.</summary>
+    private readonly Dictionary<EntityUid, Watch> _watching = new();
+
+    private void OnWatch(Entity<CityRegistryConsoleComponent> ent, ref CityRegistryWatchMessage args)
+    {
+        if (args.Camera is not { } net)
+        {
+            StopWatching(args.Actor, true);
+            return;
+        }
+
+        if (!Check(ent, args.Actor, r => r.Edit))
+            return;
+
+        if (!TryGetEntity(net, out var camera) || !TryComp<SurveillanceCameraComponent>(camera, out var cameraComp) ||
+            !cameraComp.Active)
+        {
+            Deny(ent, args.Actor, "dystopia-registry-console-camera-offline");
+            StopWatching(args.Actor, true);
+            return;
+        }
+
+        StopWatching(args.Actor, false);
+        _cameras.AddActiveViewer(camera.Value, args.Actor, null, cameraComp);
+        _watching[args.Actor] = new Watch(ent.Owner, camera.Value);
+
+        _ui.ServerSendUiMessage(ent.Owner, CityRegistryConsoleUiKey.Key,
+            new CityRegistryWatchingMessage(net, _cityCameras.CameraName(camera.Value)), args.Actor);
+    }
+
+    private void OnClosed(Entity<CityRegistryConsoleComponent> ent, ref BoundUIClosedEvent args)
+    {
+        if (args.UiKey is CityRegistryConsoleUiKey.Key)
+            StopWatching(args.Actor, false);
+    }
+
+    /// <summary>Камера выключилась (обесточена, сломана, маску сняли) — смотревшие через неё теряют картинку.</summary>
+    private void OnCameraDeactivated(SurveillanceCameraDeactivateEvent args)
+    {
+        foreach (var (actor, watch) in _watching.ToList())
+        {
+            if (watch.Camera == args.Camera)
+                StopWatching(actor, true);
+        }
+    }
+
+    private void StopWatching(EntityUid actor, bool notify)
+    {
+        if (!_watching.Remove(actor, out var watch))
+            return;
+
+        if (!TerminatingOrDeleted(watch.Camera))
+            _cameras.RemoveActiveViewer(watch.Camera, actor);
+
+        if (notify && !TerminatingOrDeleted(watch.Console))
+        {
+            _ui.ServerSendUiMessage(watch.Console, CityRegistryConsoleUiKey.Key,
+                new CityRegistryWatchingMessage(null, string.Empty), actor);
+        }
+    }
+
+    #endregion
+
     private void OnPrint(Entity<CityRegistryConsoleComponent> ent, ref CityRegistryPrintMessage args)
     {
         if (!Check(ent, args.Actor, r => r.Edit) || !TryGetCitizen(args.Number, out var registry, out var record))
@@ -317,6 +420,7 @@ public sealed partial class CityRegistryConsoleSystem : EntitySystem
         var citizens = new List<CityRegistryListEntry>();
         var departments = new Dictionary<string, string>();
         CityRegistryDossier? dossier = null;
+        var unidentified = new List<CityUnidentifiedSighting>();
         var maxReward = Math.Max(1, ent.Comp.MaxReward);
 
         if (_registry.TryGetRegistry(out var registry))
@@ -343,6 +447,8 @@ public sealed partial class CityRegistryConsoleSystem : EntitySystem
 
             if (ent.Comp.Selected is { } selected && registry.Comp.Citizens.TryGetValue(selected, out var chosen))
                 dossier = Dossier(registry, chosen);
+
+            unidentified = Enumerable.Reverse(registry.Comp.Unidentified).ToList();
         }
 
         // вне учёта лояльности (Консул) — первым, дальше по службам и именам
@@ -366,7 +472,7 @@ public sealed partial class CityRegistryConsoleSystem : EntitySystem
             .ToList();
 
         _ui.SetUiState(ent.Owner, CityRegistryConsoleUiKey.Key, new CityRegistryConsoleUiState(
-            citizens, departmentList, dossier, laws, sanctions, rights.Edit, rights.Reward, rights.Supreme, maxReward));
+            citizens, departmentList, dossier, laws, sanctions, unidentified, rights.Edit, rights.Reward, rights.Supreme, maxReward));
     }
 
     private readonly Dictionary<EntityUid, EntityUid> _lastActor = new();
@@ -402,6 +508,7 @@ public sealed partial class CityRegistryConsoleSystem : EntitySystem
             Notes = record.Notes,
             Journal = outside ? new() : new List<CityRegistryEntry>(record.Journal),
             Appearance = record.Appearance,
+            Route = outside ? new() : new List<CitySighting>(record.Sightings),
         };
 
         if (!outside && _bank.TryGetBank(out var bank) && bank.Comp.Accounts.TryGetValue(record.Number, out var account))

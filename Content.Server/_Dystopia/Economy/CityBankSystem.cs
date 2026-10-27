@@ -611,6 +611,23 @@ public sealed partial class CityBankSystem : EntitySystem
         return $"[{(int) time.TotalHours:00}:{time.Minutes:00}]";
     }
 
+    /// <summary>
+    /// Заморозить или разморозить счёт: запись в банковский реестр и в историю счёта, уведомление на КПК.
+    /// Возвращает false, если счёт уже в таком состоянии.
+    /// </summary>
+    public bool SetFrozen(Entity<CityBankComponent> bank, CityBankAccount account, bool frozen, string actor)
+    {
+        if (account.Frozen == frozen)
+            return false;
+
+        account.Frozen = frozen;
+        AddLedger(bank, Loc.GetString(frozen ? "dystopia-bank-ledger-frozen" : "dystopia-bank-ledger-unfrozen",
+            ("id", account.Id), ("name", account.Name), ("actor", actor)), null, account.Id);
+        AddHistory(bank, account, Loc.GetString(frozen ? "dystopia-bank-history-frozen" : "dystopia-bank-history-unfrozen"));
+        NotifyAccount(account, Loc.GetString(frozen ? "dystopia-bank-frozen-notify" : "dystopia-bank-unfrozen-notify"));
+        return true;
+    }
+
     /// <summary>Журнал решений Консула (только решения Консула).</summary>
     public void AddLog(Entity<CityBankComponent> bank, string text)
     {
