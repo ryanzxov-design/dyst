@@ -1,4 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
+using Content.Server._Dystopia.Registry;
 using Content.Server.Chat.Managers;
 using Content.Shared._Dystopia.Economy;
 using Content.Shared.Access.Systems;
@@ -32,6 +33,7 @@ public sealed partial class CityBankSystem : EntitySystem
     [Dependency] private GameTicker _ticker = default!;
     [Dependency] private SharedContainerSystem _container = default!;
     [Dependency] private CartridgeLoaderSystem _cartridgeLoader = default!;
+    [Dependency] private CityRegistrySystem _registry = default!;
 
     public override void Initialize()
     {
@@ -80,7 +82,8 @@ public sealed partial class CityBankSystem : EntitySystem
         if (job == null || !bank.Salaries.ContainsKey(job.Value))
             return;
 
-        var account = OpenAccount((ev.Station, bank), Name(ev.Mob), job, ev.Mob);
+        // Номер счёта — номер гражданина из Реестра (Реестр выдаёт его раньше банка). Не гражданин — номер случайный.
+        var account = OpenAccount((ev.Station, bank), Name(ev.Mob), job, ev.Mob, _registry.NumberOf(ev.Mob));
 
         if (_idCard.TryFindIdCard(ev.Mob, out var card))
         {
@@ -93,14 +96,24 @@ public sealed partial class CityBankSystem : EntitySystem
             Loc.GetString("dystopia-bank-account-opened", ("id", account.Id), ("balance", account.Balance)));
     }
 
-    /// <summary>Открывает новый счёт в реестре. Стартовый баланс — несколько зарплат профессии.</summary>
-    public CityBankAccount OpenAccount(Entity<CityBankComponent> bank, string name, ProtoId<JobPrototype>? job, EntityUid? owner)
+    /// <summary>
+    /// Открывает новый счёт. Стартовый баланс — несколько зарплат профессии. number — желаемый номер (номер
+    /// гражданина); если его нет или он занят — случайный.
+    /// </summary>
+    public CityBankAccount OpenAccount(Entity<CityBankComponent> bank, string name, ProtoId<JobPrototype>? job, EntityUid? owner, int? number = null)
     {
         int id;
-        do
+        if (number is { } wanted && !bank.Comp.Accounts.ContainsKey(wanted))
         {
-            id = _random.Next(100000, 1000000);
-        } while (bank.Comp.Accounts.ContainsKey(id));
+            id = wanted;
+        }
+        else
+        {
+            do
+            {
+                id = _random.Next(100000, 1000000);
+            } while (bank.Comp.Accounts.ContainsKey(id));
+        }
 
         var salary = job != null ? bank.Comp.Salaries.GetValueOrDefault(job.Value) : 0;
 
@@ -120,9 +133,12 @@ public sealed partial class CityBankSystem : EntitySystem
         return account;
     }
 
-    /// <summary>Номер гражданина — номер его счёта (у кого счёта нет — культисты из логова и прочие — null).</summary>
+    /// <summary>Номер гражданина: из Реестра; без Реестра — номер счёта (у кого нет ни того ни другого — null).</summary>
     public int? CitizenNumber(EntityUid owner)
     {
+        if (_registry.NumberOf(owner) is { } number)
+            return number;
+
         if (!TryGetBank(out var bank))
             return null;
 
@@ -645,6 +661,10 @@ public sealed partial class CityBankSystem : EntitySystem
     {
         if (!TryGetAccount(card, out _, out var account))
             return;
+
+        // Номер счёта — это и номер гражданина в Реестре.
+        if (_registry.TryGetRecord(account.Id, out _))
+            args.PushMarkup(Loc.GetString("dystopia-registry-card-examine", ("number", account.Id.ToString())));
 
         args.PushMarkup(Loc.GetString("dystopia-bank-card-examine-account", ("id", account.Id)));
 

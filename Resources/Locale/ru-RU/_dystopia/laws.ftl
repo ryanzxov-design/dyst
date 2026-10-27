@@ -11,7 +11,7 @@ dystopia-laws-article-sanction = Санкция: { $sanction }
 dystopia-laws-article-enacted = Принята: { $time }
 dystopia-laws-sanction-class = Класс { $class }
 dystopia-laws-sanction-legal = Правовое наказание: { $text }
-dystopia-laws-sanction-disciplinary = Дисциплинарное (для служащих): { $text }
+dystopia-laws-sanction-disciplinary = Лояльность: { $text }
 dystopia-laws-general-provision = Общее положение
 
 ## Консоль: Законы
@@ -27,7 +27,7 @@ dystopia-city-console-law-delete = Удалить
 dystopia-city-console-law-delete-confirm = Точно удалить?
 dystopia-city-console-sanctions-col-class = Класс
 dystopia-city-console-sanctions-col-legal = Правовое наказание
-dystopia-city-console-sanctions-col-disciplinary = Дисциплинарное (для служащих)
+dystopia-city-console-sanctions-col-disciplinary = Лояльность
 dystopia-city-console-sanctions-save = Сохранить шкалу
 dystopia-city-console-log-law-new = { $actor }: создана статья { $number }.
 dystopia-city-console-log-law-save = { $actor }: изменена статья { $number } «{ $title }».

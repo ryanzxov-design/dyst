@@ -1,13 +1,13 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 // Dystopia: голос из-под маски Стражи. Пока маска на лице (не приспущена):
 //  - способ речи — свой (шрифт Terminus, глаголы «чеканит»…), если его не подменил кто-то другой;
-//  - имя голоса — номер гражданина «[#102628]» (номер счёта; без счёта — «[#——————]»). Подмена — в самом источнике
+//  - имя голоса — номер гражданина «[#102628]» (из Реестра граждан; не гражданин — «[#——————]»). Подмена — в самом источнике
 //    голоса (TransformSpeakerNameEvent), поэтому номер звучит везде: речь, шёпот, рация, интеркомы, динамики, телефон.
 // Настоящее имя возвращают адресно (правки ванили с пометкой Dystopia-MaskName): в речи, шёпоте, эмоциях и наушниках
 // тем, у кого надета вещь с DystopiaNameSight (гарнитуры Стражи и командования, маска Стражи на лице); призраки и
 // админы видят «Имя [#102628]».
 
-using Content.Server._Dystopia.Economy;
+using Content.Server._Dystopia.Registry;
 using Content.Server.Administration.Managers;
 using Content.Shared._Dystopia.Clothing;
 using Content.Shared.Chat;
@@ -34,7 +34,7 @@ public enum DystopiaNameView : byte
 public sealed class DystopiaMaskedNameSystem : EntitySystem
 {
     [Dependency] private IAdminManager _admin = default!;
-    [Dependency] private CityBankSystem _bank = default!;
+    [Dependency] private CityRegistrySystem _registry = default!;
     [Dependency] private InventorySystem _inventory = default!;
 
     private static readonly string[] SightSlots = { "ears", "mask" };
@@ -67,7 +67,7 @@ public sealed class DystopiaMaskedNameSystem : EntitySystem
     /// <summary>Номер вместо имени: «[#102628]».</summary>
     public string MaskedLabel(EntityUid speaker)
     {
-        return _bank.CitizenNumber(speaker) is { } number
+        return _registry.NumberOf(speaker) is { } number
             ? Loc.GetString("dystopia-citizen-masked", ("number", number.ToString()))
             : Loc.GetString("dystopia-citizen-masked-unknown");
     }
@@ -75,7 +75,7 @@ public sealed class DystopiaMaskedNameSystem : EntitySystem
     /// <summary>Имя с номером для призраков и админов: «Надежда Ильина [#102628]».</summary>
     public string FullLabel(EntityUid speaker)
     {
-        return _bank.CitizenNumber(speaker) is { } number
+        return _registry.NumberOf(speaker) is { } number
             ? Loc.GetString("dystopia-citizen-full", ("name", Name(speaker)), ("number", number.ToString()))
             : Loc.GetString("dystopia-citizen-full-unknown", ("name", Name(speaker)));
     }

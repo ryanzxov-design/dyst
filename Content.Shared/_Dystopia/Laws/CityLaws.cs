@@ -26,6 +26,14 @@ public sealed partial class CityLaw
     [DataField]
     public string Sanction = string.Empty;
 
+    /// <summary>
+    /// Классы санкций, которые можно назначить по этой статье (I, II...). Берутся из текста санкции: у статьи их
+    /// может быть несколько («участникам — II, организаторам — IV»). Пусто — любой класс (например, «по классу
+    /// статьи, о нарушении которой не было сообщено»). Повторное нарушение открывает класс на ступень выше.
+    /// </summary>
+    [DataField]
+    public List<string> Classes = new();
+
     /// <summary>Время принятия от начала смены. У Основного закона — 00:00.</summary>
     [DataField]
     public TimeSpan EnactedAt = TimeSpan.Zero;
@@ -39,13 +47,14 @@ public sealed partial class CityLaw
             Title = Title,
             Text = Text,
             Sanction = Sanction,
+            Classes = new List<string>(Classes),
             EnactedAt = EnactedAt,
         };
     }
 }
 
 /// <summary>
-/// Класс санкций: правовое и дисциплинарное наказание.
+/// Класс санкций: правовое наказание и снижение лояльности.
 /// </summary>
 [DataDefinition, Serializable, NetSerializable]
 public sealed partial class CitySanctionClass
@@ -57,12 +66,32 @@ public sealed partial class CitySanctionClass
     [DataField]
     public string Legal = string.Empty;
 
+    /// <summary>Текст второй колонки шкалы — что происходит с лояльностью (раньше — дисциплинарное наказание).</summary>
     [DataField]
     public string Disciplinary = string.Empty;
 
+    /// <summary>Сколько очков лояльности можно снять за нарушение этого класса: от LoyaltyMin до LoyaltyMax.</summary>
+    [DataField]
+    public int LoyaltyMin;
+
+    [DataField]
+    public int LoyaltyMax;
+
+    /// <summary>Нарушение этого класса отстраняет от должности и обнуляет лояльность.</summary>
+    [DataField]
+    public bool Dismissal;
+
     public CitySanctionClass Clone()
     {
-        return new CitySanctionClass { Class = Class, Legal = Legal, Disciplinary = Disciplinary };
+        return new CitySanctionClass
+        {
+            Class = Class,
+            Legal = Legal,
+            Disciplinary = Disciplinary,
+            LoyaltyMin = LoyaltyMin,
+            LoyaltyMax = LoyaltyMax,
+            Dismissal = Dismissal,
+        };
     }
 }
 
