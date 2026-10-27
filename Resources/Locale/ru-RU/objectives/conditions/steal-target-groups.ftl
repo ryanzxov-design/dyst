@@ -7,8 +7,8 @@ steal-target-groups-clothing-shoes-boots-mag-adv = продвинутые маг
 steal-target-groups-box-folder-qm-clipboard = цифровой планшет заявок
 steal-target-groups-clothing-hands-knuckledusters-qm = золотые кастеты
 steal-target-groups-food-meat-corgi = первосортное мясо корги
-steal-target-groups-captain-id-card = ID-карта капитана
-steal-target-groups-jetpack-captain-filled = джетпак капитана
+steal-target-groups-captain-id-card = ID-карта Консула
+steal-target-groups-jetpack-captain-filled = джетпак Консула
 steal-target-groups-weapon-antique-laser = антикварный лазерный пистолет
 steal-target-groups-nuke-disk = диск ядерной аутентификации
 steal-target-groups-weapon-energy-magnum = энергетический магнум
@@ -23,19 +23,19 @@ steal-target-groups-encryption-keys = ключи шифрования
 steal-target-groups-technology-disks = технологические диски
 steal-target-groups-mail = почта
 steal-target-groups-id-cards = ID-карты
-steal-target-groups-officer-handguns = пистолет службы безопасности
+steal-target-groups-officer-handguns = пистолет Городской Стражи
 steal-target-groups-lamps = ЛАМПЫ
 steal-target-groups-huds = HUD
 
 # Thief single item
 steal-target-groups-forensic-scanner = криминалистический сканер
-steal-target-groups-flippo-engraved-lighter = гравированная зажигалка флиппо детектива
+steal-target-groups-flippo-engraved-lighter = гравированная зажигалка флиппо дознавателя
 steal-target-groups-ammo-tech-fab-circuitboard = машинная плата ТехФаба патронов
-steal-target-groups-clothing-head-hat-warden = фуражка смотрителя
-steal-target-groups-clothing-outer-hardsuit-void-paramed = пустотный скафандр парамедика
+steal-target-groups-clothing-head-hat-warden = фуражка лейтенанта Стражи
+steal-target-groups-clothing-outer-hardsuit-void-paramed = пустотный скафандр санитара
 steal-target-groups-medical-tech-fab-circuitboard = машинная плата медицинского ТехФаба
 steal-target-groups-clothing-headset-alt-medical = полноразмерная гарнитура главного врача
-steal-target-groups-research-and-development-server-machine-circuitboard = машинная плата сервера РнД
+steal-target-groups-research-and-development-server-machine-circuitboard = машинная плата сервера Научной Службы
 steal-target-groups-fire-axe = пожарный топор
 steal-target-groups-ame-part-flatpack =  упаковка ДАМ
 steal-target-groups-salvage-expeditions-computer-circuitboard = плата консоли утилизаторских экспедиций
@@ -44,8 +44,8 @@ steal-target-groups-bible = библия
 steal-target-groups-clothing-neck-goldmedal = золотая медаль мастерства экипажа
 steal-target-groups-clothing-neck-clownmedal = медаль клоуна
 steal-target-groups-wanted-list-cartridge = картридж Список разыскиваемых
-steal-target-groups-belt-ce = пояс для инструментов старшего инженера
-steal-target-groups-captain-sword = сабля капитана
+steal-target-groups-belt-ce = пояс для инструментов главы Промышленной Службы
+steal-target-groups-captain-sword = сабля Консула
 
 # Thief structures
 steal-target-groups-teg = часть термоэлектрического генератора
@@ -53,7 +53,7 @@ steal-target-groups-freezer-heater = нагреватель или охлади�
 steal-target-groups-altar-nanotrasen = алтарь Nanotrasen (любой)
 
 steal-target-groups-nuclear-bomb = ядерная боеголовка
-steal-target-groups-fax-machine-captain = факс дальнего действия капитана
+steal-target-groups-fax-machine-captain = факс дальнего действия Консула
 steal-target-groups-chem-dispenser = химический раздатчик
 steal-target-groups-xeno-artifact = инопланетный артефакт
 steal-target-groups-booze-dispenser = раздатчик алкоголя
@@ -61,7 +61,7 @@ steal-target-groups-plant-rd = "комнатное растение научру
 steal-target-groups-toilet-golden-dirty-water = золотой унитаз
 
 # Thief Animal
-steal-target-groups-animal-named-cat = кот главного врача
+steal-target-groups-animal-named-cat = кот главы Санитарной Службы
 
 steal-target-groups-animal-ian = Иан
 steal-target-groups-animal-mc-griff = МакГрифф

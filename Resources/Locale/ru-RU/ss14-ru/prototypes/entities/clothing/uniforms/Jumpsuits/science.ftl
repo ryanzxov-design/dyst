@@ -1,10 +1,10 @@
-ent-ClothingUniformJumpsuitResearchDirector = водолазка директора научной службы
-    .desc = Тёмная водолазка с нашивкой научной службы.
+ent-ClothingUniformJumpsuitResearchDirector = водолазка директора Научной Службы
+    .desc = Тёмная водолазка с нашивкой Научной Службы.
 ent-ClothingUniformJumpsuitScientist = форма исследователя
-    .desc = Белая форма с фиолетовыми полосами научной службы.
-ent-ClothingUniformJumpsuitScientistFormal = торжественный комбинезон учёного
-    .desc = Униформа для взыскательных учёных, которую лучше всего носить с подходящим к ней галстуком.
+    .desc = Белая форма с фиолетовыми полосами Научной Службы.
+ent-ClothingUniformJumpsuitScientistFormal = торжественный комбинезон исследователя
+    .desc = Униформа для взыскательных исследователей, которую лучше всего носить с подходящим к ней галстуком.
 ent-ClothingUniformJumpsuitRoboticist = форма аугментолога
     .desc = Чёрный комбинезон с усиленными швами. Масло и кровь на нём не так заметны.
-ent-ClothingUniformJumpsuitSeniorResearcher = комбинезон ведущего учёного
-    .desc = Признак мастерства и престижа научного отдела.
+ent-ClothingUniformJumpsuitSeniorResearcher = комбинезон ведущего исследователя
+    .desc = Признак мастерства и престижа Научной Службы.

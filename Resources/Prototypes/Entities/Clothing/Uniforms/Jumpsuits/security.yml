@@ -32,12 +32,12 @@
     inhandVisuals:
       left:
       - state: inhand-left
-        color: "#C12D30"
+        color: "#5D75A2" # Dystopia-GuardRecolor: было #C12D30
         sprite: Clothing/Uniforms/Jumpsuits/Color/color.rsi
       - state: overlay-inhand-left
       right:
       - state: inhand-right
-        color: "#C12D30"
+        color: "#5D75A2" # Dystopia-GuardRecolor: было #C12D30
         sprite: Clothing/Uniforms/Jumpsuits/Color/color.rsi
       - state: overlay-inhand-right
   - type: Clothing
@@ -150,12 +150,12 @@
     inhandVisuals:
       left:
       - state: inhand-left
-        color: "#C12D30"
+        color: "#5D75A2" # Dystopia-GuardRecolor: было #C12D30
         sprite: Clothing/Uniforms/Jumpsuits/Color/color.rsi
       - state: overlay-inhand-left
       right:
       - state: inhand-right
-        color: "#C12D30"
+        color: "#5D75A2" # Dystopia-GuardRecolor: было #C12D30
         sprite: Clothing/Uniforms/Jumpsuits/Color/color.rsi
       - state: overlay-inhand-right
 
@@ -204,12 +204,12 @@
     inhandVisuals:
       left:
       - state: inhand-left
-        color: "#C12D30"
+        color: "#5D75A2" # Dystopia-GuardRecolor: было #C12D30
         sprite: Clothing/Uniforms/Jumpsuits/Color/color.rsi
       - state: overlay-inhand-left
       right:
       - state: inhand-right
-        color: "#C12D30"
+        color: "#5D75A2" # Dystopia-GuardRecolor: было #C12D30
         sprite: Clothing/Uniforms/Jumpsuits/Color/color.rsi
       - state: overlay-inhand-right
   - type: Clothing

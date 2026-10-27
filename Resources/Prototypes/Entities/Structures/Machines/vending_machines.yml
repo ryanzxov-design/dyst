@@ -1530,7 +1530,7 @@
   - type: PointLight
     radius: 1.5
     energy: 3.0
-    color: "#d82929"
+    color: "#6380B5" # Dystopia-GuardRecolor: было #d82929
   - type: AccessReader
     access: [["Security"]]
 

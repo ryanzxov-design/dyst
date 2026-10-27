@@ -1,7 +1,7 @@
 ## Dystopia: «Справочник фармацевта»
 
 pharm-guide-title = Справочник фармацевта
-pharm-guide-subtitle = Санитарная служба  ·  Химический справочник  ·  Доступ: все
+pharm-guide-subtitle = Санитарная Служба  ·  Химический справочник  ·  Доступ: все
 pharm-guide-slogan = Лекарство — по рецепту Города.
 
 pharm-guide-section-list = Препараты

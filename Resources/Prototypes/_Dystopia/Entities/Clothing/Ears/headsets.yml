@@ -876,7 +876,7 @@
 
 - type: entity
   id: ClothingHeadsetAltDystopiaScienceDirector
-  name: наушники директора Научной службы
+  name: наушники директора Научной Службы
   description: An updated, modular intercom that fits over the head. Takes encryption keys.
   components:
   - type: DystopiaNameSight # видит имена под масками Стражи

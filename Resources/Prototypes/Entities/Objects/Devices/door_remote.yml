@@ -102,9 +102,9 @@
     layers:
     - state: door_remotebase
     - state: door_remotelightscolour
-      color: "#cb0000"
+      color: "#4B6CAB" # Dystopia-GuardRecolor: было #cb0000
     - state: door_remotescreencolour
-      color: "#830000"
+      color: "#30466E" # Dystopia-GuardRecolor: было #830000
   - type: Access
     groups:
     - Security

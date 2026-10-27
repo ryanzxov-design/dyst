@@ -994,7 +994,7 @@
   id: AirlockDystopiaScienceDirectorLocked
   name: airlock
   description: It opens, it closes, and maybe crushes you.
-  suffix: Город, Кабинет директора Научной службы, Locked
+  suffix: Город, Кабинет директора Научной Службы, Locked
   placement:
     mode: SnapgridCenter
   components:

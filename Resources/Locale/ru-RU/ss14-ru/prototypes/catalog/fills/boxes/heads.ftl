@@ -1,4 +1,4 @@
-ent-BoxCaptainCircuitboards = коробочка печатных плат капитана
+ent-BoxCaptainCircuitboards = коробочка печатных плат Консула
     .desc = { ent-ToteBase.desc }
 ent-BoxCECircuitboards = коробочка печатных плат СИ
     .desc = { ent-ToteBase.desc }

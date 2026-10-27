@@ -339,7 +339,7 @@
 
 - type: entity
   id: DystopiaClothingMaskGasScience
-  name: противогаз Научной службы
+  name: противогаз Научной Службы
   description: Лабораторный противогаз с широким обзором. Не спасёт от того, что вы изучаете, но даст время это записать.
   components:
   - type: Contraband

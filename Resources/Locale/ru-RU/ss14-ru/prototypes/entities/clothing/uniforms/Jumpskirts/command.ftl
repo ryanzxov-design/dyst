@@ -1,8 +1,8 @@
-ent-ClothingUniformJumpskirtCaptain = юбка-комбинезон капитана
-    .desc = Синяя юбка-комбинезон с золотыми нашивками, указывающими на звание капитана.
-ent-ClothingUniformJumpskirtHoP = юбка-комбинезон главы персонала
-    .desc = Довольно безвкусная и невзрачная. Идеально подходит для того, чтобы исчезнуть с лица Вселенной.
-ent-ClothingUniformJumpskirtCommandGeneric = юбка-комбинезон командования
-    .desc = Универсальный комбинезон цвета командования, не связанный с каким-либо конкретным отделом.
-ent-ClothingUniformJumpskirtCapFormalDress = торжественное платье капитана
+ent-ClothingUniformJumpskirtCaptain = юбка-комбинезон Консула
+    .desc = Синяя юбка-комбинезон с золотыми нашивками, указывающими на звание Консула.
+ent-ClothingUniformJumpskirtHoP = китель гражданского инспектора с юбкой
+    .desc = Серый китель с юбкой, без украшений. Инспектор в нём неприметен, пока не достанет бумаги.
+ent-ClothingUniformJumpskirtCommandGeneric = китель администрации с юбкой
+    .desc = Тёмный китель с юбкой и нашивками администрации Консула.
+ent-ClothingUniformJumpskirtCapFormalDress = торжественное платье Консула
     .desc = Платье для особых случаев.

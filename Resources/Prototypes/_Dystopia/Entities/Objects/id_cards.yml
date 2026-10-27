@@ -1562,7 +1562,7 @@
 
 - type: entity
   id: DystopiaScienceDirectorIDCard
-  name: ID-карта (директор Научной службы)
+  name: ID-карта (директор Научной Службы)
   description: A card necessary to access various areas aboard the station.
   components:
   - type: Item

@@ -179,7 +179,7 @@
   components:
   - type: NavMapBeacon
     defaultText: station-beacon-security
-    color: "#DE3A3A"
+    color: "#6D88BA" # Dystopia-GuardRecolor: было #DE3A3A
 
 - type: entity
   parent: DefaultStationBeaconSecurity

@@ -218,9 +218,9 @@
     layers:
     - state: paper
     - state: cover_base
-      color: "#ab1515"
+      color: "#496190" # Dystopia-GuardRecolor: было #ab1515
     - state: decor_wingette
-      color: "#e05334"
+      color: "#6B87BC" # Dystopia-GuardRecolor: было #e05334
     - state: icon_stunbaton
   - type: MeleeWeapon
     wideAnimationRotation: 180

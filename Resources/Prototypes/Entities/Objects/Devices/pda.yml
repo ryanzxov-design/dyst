@@ -1543,7 +1543,7 @@
        !type:String
        pda-brigmedic
   - type: PdaBorderColor
-    borderColor: "#A32D26"
+    borderColor: "#4E6289" # Dystopia-GuardRecolor: было #A32D26
     accentHColor: "#d7d7d0"
     accentVColor: "#d7d7d0"
   - type: Icon

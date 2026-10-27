@@ -491,9 +491,9 @@
     layers:
     - state: default
     - state: stripe_top
-      color: *color-security-top
+      color: "#4B6CAB" # Dystopia-GuardRecolor: было *color-security-top
     - state: stripe_bottom
-      color: *color-security-bottom
+      color: "#30466E" # Dystopia-GuardRecolor: было *color-security-bottom
     - sprite: *icon-rsi
       offset: *icon-offset
       state: Detective
@@ -509,9 +509,9 @@
     layers:
     - state: default
     - state: stripe_top
-      color: *color-security-top
+      color: "#4B6CAB" # Dystopia-GuardRecolor: было *color-security-top
     - state: stripe_bottom
-      color: *color-security-bottom
+      color: "#30466E" # Dystopia-GuardRecolor: было *color-security-bottom
     - sprite: *icon-rsi
       offset: *icon-offset
       state: Brigmedic
@@ -525,9 +525,9 @@
     layers:
     - state: default
     - state: stripe_top
-      color: *color-security-top
+      color: "#4B6CAB" # Dystopia-GuardRecolor: было *color-security-top
     - state: stripe_bottom
-      color: *color-security-bottom
+      color: "#30466E" # Dystopia-GuardRecolor: было *color-security-bottom
     - sprite: *icon-rsi
       offset: *icon-offset
       state: SeniorOfficer

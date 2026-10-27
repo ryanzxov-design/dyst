@@ -376,7 +376,7 @@
   id: DoorElectronicsDystopiaScienceDirector
   name: door electronics
   description: An electronics board used in doors and airlocks.
-  suffix: Город, Кабинет директора Научной службы, Locked
+  suffix: Город, Кабинет директора Научной Службы, Locked
   components:
   - type: Item
     size: Small

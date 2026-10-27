@@ -54,7 +54,7 @@
   components:
   - type: Stamp
     stampedName: stamp-component-stamped-name-captain
-    stampedColor: "#3681bb"
+    stampedColor: "#B8962E" # Dystopia-AdminRecolor: золото Консула, было #3681bb
     stampState: "paper_stamp-cap"
   - type: Sprite
     state: stamp-cap
@@ -63,11 +63,11 @@
       left:
       - state: stamp-inhand-left
       - state: handle-inhand-left
-        color: "#3681bb"
+        color: "#8F7020" # Dystopia-AdminRecolor: было #3681bb
       right:
       - state: stamp-inhand-right
       - state: handle-inhand-right
-        color: "#3681bb"
+        color: "#8F7020" # Dystopia-AdminRecolor: было #3681bb
 
 - type: entity
   name: CentComm rubber stamp
@@ -169,7 +169,7 @@
   components:
   - type: Stamp
     stampedName: stamp-component-stamped-name-ce
-    stampedColor: "#c69b17"
+    stampedColor: "#B5652B" # Dystopia-DeptRecolor: ржавый Промышленной Службы, было #c69b17
     stampState: "paper_stamp-ce"
   - type: Sprite
     state: stamp-ce
@@ -178,11 +178,11 @@
       left:
       - state: stamp-inhand-left
       - state: handle-inhand-left
-        color: "#e09e00"
+        color: "#9A5220" # Dystopia-DeptRecolor: было #e09e00
       right:
       - state: stamp-inhand-right
       - state: handle-inhand-right
-        color: "#e09e00"
+        color: "#9A5220" # Dystopia-DeptRecolor: было #e09e00
 
 - type: entity
   name: chief medical officer's rubber stamp
@@ -192,7 +192,7 @@
   components:
   - type: Stamp
     stampedName: stamp-component-stamped-name-cmo
-    stampedColor: "#33ccff"
+    stampedColor: "#4F8A3C" # Dystopia-DeptRecolor: зелёный Санитарной Службы, было #33ccff
     stampState: "paper_stamp-cmo"
   - type: Sprite
     state: stamp-cmo
@@ -201,11 +201,11 @@
       left:
       - state: stamp-inhand-left
       - state: handle-inhand-left
-        color: "#3366ff"
+        color: "#3B6A2D" # Dystopia-DeptRecolor: было #3366ff
       right:
       - state: stamp-inhand-right
       - state: handle-inhand-right
-        color: "#3366ff"
+        color: "#3B6A2D" # Dystopia-DeptRecolor: было #3366ff
 
 - type: entity
   name: head of personnel's rubber stamp
@@ -215,7 +215,7 @@
   components:
   - type: Stamp
     stampedName: stamp-component-stamped-name-hop
-    stampedColor: "#6ec0ea"
+    stampedColor: "#A0662A" # Dystopia-AdminRecolor: бронза гражданского инспектора, было #6ec0ea
     stampState: "paper_stamp-hop"
   - type: Sprite
     state: stamp-hop
@@ -224,11 +224,11 @@
       left:
       - state: stamp-inhand-left
       - state: handle-inhand-left
-        color: "#004f71"
+        color: "#6B4318" # Dystopia-AdminRecolor: было #004f71
       right:
       - state: stamp-inhand-right
       - state: handle-inhand-right
-        color: "#004f71"
+        color: "#6B4318" # Dystopia-AdminRecolor: было #004f71
 
 - type: entity
   name: head of security's rubber stamp
@@ -238,7 +238,7 @@
   components:
   - type: Stamp
     stampedName: stamp-component-stamped-name-hos
-    stampedColor: "#cc0000"
+    stampedColor: "#4B6CAB" # Dystopia-GuardRecolor: было #cc0000
     stampState: "paper_stamp-hos"
   - type: Sprite
     state: stamp-hos
@@ -308,7 +308,7 @@
   components:
   - type: Stamp
     stampedName: stamp-component-stamped-name-rd
-    stampedColor: "#1f66a0"
+    stampedColor: "#6B4C8F" # Dystopia-DeptRecolor: фиолетовый Научной Службы, было #1f66a0
     stampState: "paper_stamp-rd"
   - type: Sprite
     state: stamp-rd
@@ -378,7 +378,7 @@
   components:
   - type: Stamp
     stampedName: stamp-component-stamped-name-warden
-    stampedColor: "#5b0000"
+    stampedColor: "#2E3D5C" # Dystopia-GuardRecolor: было #5b0000
     stampState: "paper_stamp-warden"
   - type: Sprite
     state: stamp-warden
@@ -387,11 +387,11 @@
       left:
       - state: stamp-inhand-left
       - state: handle-inhand-left
-        color: "#7b1d1f"
+        color: "#3B4A67" # Dystopia-GuardRecolor: было #7b1d1f
       right:
       - state: stamp-inhand-right
       - state: handle-inhand-right
-        color: "#7b1d1f"
+        color: "#3B4A67" # Dystopia-GuardRecolor: было #7b1d1f
 
 - type: entity
   name: APPROVED rubber stamp

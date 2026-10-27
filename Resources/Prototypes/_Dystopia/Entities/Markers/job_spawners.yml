@@ -498,7 +498,7 @@
 
 - type: entity
   id: SpawnPointDystopiaScienceDirector
-  name: директор Научной службы
+  name: директор Научной Службы
   suffix: Job Spawn
   placement:
     mode: SnapgridCenter

@@ -76,7 +76,7 @@
       map: ["enum.PaperVisualLayers.Writing"]
       visible: false
     - state: acquisition_form_header
-      color: "#ff4242"
+      color: "#7D9CD6" # Dystopia-GuardRecolor: было #ff4242
     - state: paper_stamp-generic
       map: ["enum.PaperVisualLayers.Stamp"]
       visible: false

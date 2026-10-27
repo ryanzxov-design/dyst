@@ -711,7 +711,7 @@
     allowedDepartments: []
     allowedJobs: [HeadOfSecurity]
   - type: PdaBorderColor
-    borderColor: "#A32D26"
+    borderColor: "#4E6289"
     accentHColor: "#447987"
   - type: DystopiaPdaPrograms
     programs:
@@ -891,7 +891,7 @@
     allowedDepartments: []
     allowedJobs: [Warden]
   - type: PdaBorderColor
-    borderColor: "#A32D26"
+    borderColor: "#4E6289"
     accentVColor: "#949137"
   - type: DystopiaPdaPrograms
     programs:
@@ -1067,7 +1067,7 @@
   - type: Speech
     speechVerb: Robotic
   - type: PdaBorderColor
-    borderColor: "#A32D26"
+    borderColor: "#4E6289"
   - type: DystopiaPdaPrograms
     programs:
     - DystopiaLawsCartridge
@@ -1247,7 +1247,7 @@
     allowedJobs: [SecurityCadet]
   - type: PdaBorderColor
     borderColor: "#717059"
-    accentVColor: "#A32D26"
+    accentVColor: "#4E6289"
   - type: DystopiaPdaPrograms
     programs:
     - DystopiaLawsCartridge
@@ -1315,10 +1315,10 @@
     increment: 30
   - type: Appearance
     appearanceDataInit:
-      enum.PdaVisuals.PdaType: !type:String pda-security
+      enum.PdaVisuals.PdaType: !type:String pda-patrol
   - type: Icon
     sprite: _Dystopia/Objects/Devices/pda.rsi
-    state: pda-security
+    state: pda-patrol
   - type: Pda
     paiSlot:
       priority: -2
@@ -1422,7 +1422,7 @@
   - type: Speech
     speechVerb: Robotic
   - type: PdaBorderColor
-    borderColor: "#A32D26"
+    borderColor: "#55636F"
   - type: DystopiaPdaPrograms
     programs:
     - DystopiaLawsCartridge
@@ -1490,10 +1490,10 @@
     increment: 30
   - type: Appearance
     appearanceDataInit:
-      enum.PdaVisuals.PdaType: !type:String pda-security
+      enum.PdaVisuals.PdaType: !type:String pda-patrol
   - type: Icon
     sprite: _Dystopia/Objects/Devices/pda.rsi
-    state: pda-security
+    state: pda-patrol
   - type: Pda
     paiSlot:
       priority: -2
@@ -1597,7 +1597,7 @@
   - type: Speech
     speechVerb: Robotic
   - type: PdaBorderColor
-    borderColor: "#A32D26"
+    borderColor: "#55636F"
   - type: DystopiaPdaPrograms
     programs:
     - DystopiaLawsCartridge
@@ -1665,10 +1665,10 @@
     increment: 30
   - type: Appearance
     appearanceDataInit:
-      enum.PdaVisuals.PdaType: !type:String pda-security
+      enum.PdaVisuals.PdaType: !type:String pda-patrol
   - type: Icon
     sprite: _Dystopia/Objects/Devices/pda.rsi
-    state: pda-security
+    state: pda-patrol
   - type: Pda
     paiSlot:
       priority: -2
@@ -1772,7 +1772,7 @@
   - type: Speech
     speechVerb: Robotic
   - type: PdaBorderColor
-    borderColor: "#A32D26"
+    borderColor: "#55636F"
   - type: DystopiaPdaPrograms
     programs:
     - DystopiaLawsCartridge
@@ -1840,10 +1840,10 @@
     increment: 30
   - type: Appearance
     appearanceDataInit:
-      enum.PdaVisuals.PdaType: !type:String pda-security
+      enum.PdaVisuals.PdaType: !type:String pda-patrol
   - type: Icon
     sprite: _Dystopia/Objects/Devices/pda.rsi
-    state: pda-security
+    state: pda-patrol
   - type: Pda
     paiSlot:
       priority: -2
@@ -1947,7 +1947,7 @@
   - type: Speech
     speechVerb: Robotic
   - type: PdaBorderColor
-    borderColor: "#A32D26"
+    borderColor: "#55636F"
   - type: DystopiaPdaPrograms
     programs:
     - DystopiaLawsCartridge
@@ -3399,7 +3399,7 @@
 
 - type: entity
   id: DystopiaScienceDirectorPDA
-  name: КПК (директор Научной службы)
+  name: КПК (директор Научной Службы)
   description: It appears surprisingly ordinary.
   components:
   - type: Item

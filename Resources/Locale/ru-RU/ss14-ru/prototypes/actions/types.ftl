@@ -64,8 +64,8 @@ ent-ActionToggleWagging = Махать хвостом
     .desc = Начать/перестать махать хвостом.
 ent-FakeMindShieldToggleAction = [color=green]Переключить фальшивый Щит разума[/color]
     .desc = Переключить трансляцию фальшивого Щита разума
-ent-ActionToggleParamedicSiren = Переключить сирену парамедика
-    .desc = Включает или выключает сирену парамедика.
+ent-ActionToggleParamedicSiren = Переключить сирену санитара
+    .desc = Включает или выключает сирену санитара.
 ent-ActionToggleNightVision = Переключить ночное зрение
     .desc = Включает и выключает ночное зрение.
 ent-ActionToggleWaggingVulpkanin = { ent-ActionToggleWagging }
