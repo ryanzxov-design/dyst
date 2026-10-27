@@ -156,6 +156,9 @@ public sealed class CityRegistryDossier
 
     /// <summary>Маршрут по камерам, новые — последними.</summary>
     public List<CitySighting> Route = new();
+
+    /// <summary>ID-карты гражданина по порядку выдачи.</summary>
+    public List<CityIdCardEntry> Cards = new();
 }
 
 [Serializable, NetSerializable]

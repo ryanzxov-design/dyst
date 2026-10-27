@@ -242,14 +242,15 @@ public sealed partial class CityCameraSystem : EntitySystem
         return false;
     }
 
+    /// <summary>Чья карта: по метке Реестра (узнаёт и аннулированную), иначе по привязке к счёту.</summary>
     private int? CardNumber(Entity<CityRegistryComponent> registry, EntityUid item)
     {
-        return _idCard.TryGetIdCard(item, out var card) &&
-               TryComp<CityBankCardComponent>(card, out var bankCard) &&
-               bankCard.AccountId is { } number &&
-               registry.Comp.Citizens.ContainsKey(number)
-            ? number
-            : null;
+        if (!_idCard.TryGetIdCard(item, out var card))
+            return null;
+
+        int? number = TryComp<CityIdCardComponent>(card, out var cityCard) ? cityCard.Number
+            : CompOrNull<CityBankCardComponent>(card)?.AccountId;
+        return number is { } found && registry.Comp.Citizens.ContainsKey(found) ? found : null;
     }
 
     #endregion

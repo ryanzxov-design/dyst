@@ -85,8 +85,13 @@ public sealed partial class CityRegistrySystem : EntitySystem
         registry.Citizens[record.Number] = record;
         EnsureComp<CityCitizenComponent>(ev.Mob).Number = record.Number;
 
+        var author = Loc.GetString("dystopia-registry-author-registry");
         AddEntry((ev.Station, registry), record, CityRegistryEntryKind.Service,
-            Loc.GetString("dystopia-registry-entry-registered"), Loc.GetString("dystopia-registry-author-registry"));
+            Loc.GetString("dystopia-registry-entry-registered"), author);
+
+        // карта, с которой гражданин вошёл в Город, — его карта №1
+        if (_idCard.TryFindIdCard(ev.Mob, out var card))
+            RegisterCard((ev.Station, registry), record, card.Owner, author);
     }
 
     /// <summary>Гражданин ли носитель этой профессии (есть ли она в Реестре).</summary>
@@ -235,9 +240,10 @@ public sealed partial class CityRegistrySystem : EntitySystem
             if (SetAccountFrozen(record, true, author))
                 record.FrozenByOutlaw = true;
 
-            record.Dismissed = true;
+            var annulled = AnnulAllCards(registry, record, Loc.GetString("dystopia-registry-outlaw-card-reason"), author);
+            SetDismissed(record, true);
             loyaltyDelta = -(record.Loyalty ?? 0);
-            details = JoinDetails(details, Loc.GetString("dystopia-registry-outlaw-effects"));
+            details = JoinDetails(details, Loc.GetString("dystopia-registry-outlaw-effects", ("cards", annulled)));
         }
         else if (old == CityCitizenStatus.Disenfranchised)
         {

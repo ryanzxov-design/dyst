@@ -189,7 +189,7 @@ dystopia-registry-status-supreme = { $status } · Консул
 dystopia-registry-status-reason = Основание (для розыска обязательно)
 dystopia-registry-status-reason-placeholder = статья Свода, что произошло
 dystopia-registry-status-wanted-hint = Розыск: на гражданина можно будет напечатать ориентировку.
-dystopia-registry-status-outlaw-hint = Вне закона: счёт в Банке Города замораживается, гражданин отстраняется от должности, лояльность обнуляется, камеры поднимают тревогу. Снятие поражения размораживает только счёт.
+dystopia-registry-status-outlaw-hint = Вне закона: счёт в Банке Города замораживается, все ID-карты аннулируются, гражданин отстраняется от должности, лояльность обнуляется, камеры поднимают тревогу. Снятие поражения размораживает только счёт: новые карты и восстановление в должности — в Паспортном столе.
 dystopia-registry-status-sign = Подпись — по ID-карте у вас в руке или в слоте; смена статуса запишется в журнал дела.
 dystopia-registry-status-apply = Применить
 dystopia-registry-status-cancel = Отмена
@@ -201,7 +201,8 @@ dystopia-registry-violation-details = Класс { $class }: { $legal }.
 dystopia-registry-violation-details-repeat = Класс { $class } (повторное): { $legal }.
 dystopia-registry-violation-dismissed = Отстранён от должности.
 dystopia-registry-entry-reward = Поощрение
-dystopia-registry-outlaw-effects = Вне закона: счёт заморожен, отстранён от должности, лояльность обнулена.
+dystopia-registry-outlaw-effects = Вне закона: счёт заморожен, карт аннулировано: { $cards }, отстранён от должности, лояльность обнулена.
+dystopia-registry-outlaw-card-reason = Поражение в правах
 dystopia-registry-outlaw-lifted = Поражение в правах снято. Отстранение от должности остаётся.
 
 dystopia-registry-poster-stamp = Городская Стража
@@ -227,3 +228,48 @@ dystopia-camera-mask-name = { $baseName } · №{ $number }
 dystopia-camera-alert-wanted = Разыскиваемый №{ $number } { $name } — { $place } (камера «{ $camera }»). Основание: { $reason }
 dystopia-camera-alert-outlaw = [bold]ВНЕ ЗАКОНА![/bold] Поражённый в правах №{ $number } { $name } — { $place } (камера «{ $camera }»).
 dystopia-camera-alert-restricted = Неопознанный в закрытой зоне: { $description } — { $place } (камера «{ $camera }»).
+
+## ID-карты граждан
+
+dystopia-card-serial = К-{ $number }-{ $index }
+dystopia-card-examine = Карта [color=gold]{ $serial }[/color] · гражданин Города №{ $number }.
+dystopia-card-examine-annulled = [color=#FF5A4E][bold]АННУЛИРОВАНА[/bold][/color] — недействительна, доступов нет.
+dystopia-card-examine-suspended = [color=#F0954A]Доступы приостановлены: владелец отстранён от должности.[/color]
+dystopia-registry-entry-card-annulled = Карта { $serial } аннулирована
+dystopia-registry-entry-card-issued = Выдана карта { $serial }
+dystopia-registry-entry-reinstated = Восстановлен в должности
+
+## Карты в личном деле (консоль социоучёта)
+
+dystopia-registry-cards = ID-карты
+dystopia-registry-cards-none = Карт нет.
+dystopia-registry-cards-more = …и ещё { $count } (все — в Паспортном столе)
+dystopia-registry-card-live = действует
+dystopia-registry-card-suspended = приостановлена
+dystopia-registry-card-annulled = аннулирована
+dystopia-registry-card-destroyed = уничтожена
+
+## Паспортный стол
+
+dystopia-passport-console-title = Паспортный стол
+dystopia-passport-console-subtitle = Гражданская Инспекция · ID-карты граждан
+dystopia-passport-console-slogan = Каждому — своя карта
+dystopia-passport-console-denied = Нет прав на это действие.
+dystopia-passport-console-issue-failed = Не удалось выдать карту: для этой должности нет бланка.
+dystopia-passport-console-reason-required = Укажите причину аннулирования.
+dystopia-passport-console-select = Выберите гражданина в списке слева.
+dystopia-passport-console-readonly = Только просмотр: выдавать и аннулировать карты можно по ID-карте Гражданской Инспекции или Консула.
+dystopia-passport-col-cards = Карт
+dystopia-passport-citizen = №{ $number } · { $job }
+dystopia-passport-dismissed = ОТСТРАНЁН ОТ ДОЛЖНОСТИ
+dystopia-passport-dismissed-hint = Доступы живых карт приостановлены, зарплата не начисляется.
+dystopia-passport-outlaw-hint = Поражён в правах: восстановить в должности можно только после снятия поражения.
+dystopia-passport-reinstate = Восстановить в должности
+dystopia-passport-issue = Выдать новую карту
+dystopia-passport-issue-hint = Карта печатается по должности гражданина: доступы должности, имя, привязка к его счёту. Бесплатно.
+dystopia-passport-cards = Карты гражданина
+dystopia-passport-card-issued = выдана { $time } · { $author }
+dystopia-passport-card-annulled = аннулирована { $time } · { $author } · { $reason }
+dystopia-passport-annul = Аннулировать
+dystopia-passport-annul-reason = причина: утеряна, украдена…
+dystopia-passport-annul-confirm = Подтвердить

@@ -224,4 +224,7 @@ public sealed class CityCitizenRecord
 
     /// <summary>Счёт заморожен поражением в правах (снятие поражения размораживает только такой счёт).</summary>
     [ViewVariables] public bool FrozenByOutlaw;
+
+    /// <summary>Все ID-карты гражданина, по порядку выдачи.</summary>
+    [ViewVariables] public List<CityIdCardRecord> Cards = new();
 }

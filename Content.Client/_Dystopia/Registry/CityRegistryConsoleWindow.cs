@@ -123,6 +123,8 @@ public sealed class CityRegistryConsoleWindow : CityWindow
     private string _fieldsSignature = string.Empty;
     private readonly BoxContainer _lastSeen;
     private string _lastSeenSignature = string.Empty;
+    private readonly BoxContainer _cardList;
+    private string _cardsSignature = string.Empty;
 
     // маршрут
     private readonly BoxContainer _routeRows;
@@ -413,6 +415,14 @@ public sealed class CityRegistryConsoleWindow : CityWindow
         seen.AddChild(seenBox);
         _summaryView.AddChild(seen);
 
+        var cards = new CityCard();
+        var cardsBox = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Vertical, SeparationOverride = 2 };
+        cardsBox.AddChild(Small("dystopia-registry-cards"));
+        _cardList = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Vertical, SeparationOverride = 2 };
+        cardsBox.AddChild(_cardList);
+        cards.AddChild(cardsBox);
+        _summaryView.AddChild(cards);
+
         var notes = new CityCard();
         var notesBox = new BoxContainer { Orientation = BoxContainer.LayoutOrientation.Vertical, SeparationOverride = 4 };
         var notesHead = Row(6);
@@ -620,7 +630,7 @@ public sealed class CityRegistryConsoleWindow : CityWindow
             _violationDetails.Text = string.Empty;
             _rewardText.Text = string.Empty;
             _journalSignature = _fieldsSignature = _bankSignature = _classesSignature = string.Empty;
-            _routeSignature = _lastSeenSignature = string.Empty;
+            _routeSignature = _lastSeenSignature = _cardsSignature = string.Empty;
             _statusWindow?.Close();
         }
 
@@ -830,6 +840,7 @@ public sealed class CityRegistryConsoleWindow : CityWindow
 
         RedrawJournal(dossier, state);
         RedrawLastSeen(dossier, outside, state.CanEdit);
+        RedrawCards(dossier);
         RedrawRoute(dossier, state.CanEdit);
         RedrawBank(dossier);
     }
@@ -1199,6 +1210,45 @@ public sealed class CityRegistryConsoleWindow : CityWindow
 
         row.AddChild(line);
         return row;
+    }
+
+    // ======================= Карты =======================
+
+    /// <summary>Карты гражданина (только просмотр: выдаёт и аннулирует Паспортный стол).</summary>
+    private void RedrawCards(CityRegistryDossier dossier)
+    {
+        var signature = $"{dossier.Number}:" +
+                        string.Join(";", dossier.Cards.Select(c => $"{c.Index}:{c.Annulled}:{c.Destroyed}:{c.Suspended}"));
+        if (signature == _cardsSignature)
+            return;
+        _cardsSignature = signature;
+
+        _cardList.RemoveAllChildren();
+        if (dossier.Cards.Count == 0)
+        {
+            _cardList.AddChild(CityUi.Hint(Loc.GetString("dystopia-registry-cards-none")));
+            return;
+        }
+
+        // в сводке — последние карты; весь список — в Паспортном столе
+        const int shown = 4;
+        foreach (var card in Enumerable.Reverse(dossier.Cards).Take(shown))
+        {
+            var (key, color) = card.Annulled ? ("dystopia-registry-card-annulled", Danger)
+                : card.Destroyed ? ("dystopia-registry-card-destroyed", CityUi.Dim)
+                : card.Suspended ? ("dystopia-registry-card-suspended", Detained)
+                : ("dystopia-registry-card-live", CityUi.Accent);
+
+            var line = Row(10);
+            var serial = CityUi.MakeLabel(card.Serial, card.Annulled ? CityUi.Dim : CityUi.Glow, CityUi.Regular(12));
+            serial.MinWidth = 130;
+            line.AddChild(serial);
+            line.AddChild(CityUi.MakeLabel(Loc.GetString(key), color, CityUi.Regular(11)));
+            _cardList.AddChild(line);
+        }
+
+        if (dossier.Cards.Count > shown)
+            _cardList.AddChild(CityUi.Hint(Loc.GetString("dystopia-registry-cards-more", ("count", dossier.Cards.Count - shown))));
     }
 
     // ======================= Маршрут =======================

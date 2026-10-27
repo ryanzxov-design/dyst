@@ -109,7 +109,8 @@ public sealed partial class CityRegistryConsoleSystem : EntitySystem
 
     private Rights RightsOf(Entity<CityRegistryConsoleComponent> ent, EntityUid user)
     {
-        if (!_registry.TryGetHolderRecord(user, out var record) || record.Job is not { } job)
+        // отстранённый от должности прав своей должности не имеет
+        if (!_registry.TryGetHolderRecord(user, out var record) || record.Job is not { } job || record.Dismissed)
             return default;
 
         return new Rights(
@@ -202,7 +203,7 @@ public sealed partial class CityRegistryConsoleSystem : EntitySystem
         if (sanction.Dismissal)
         {
             delta = -(record.Loyalty ?? 0);
-            record.Dismissed = true;
+            _registry.SetDismissed(record, true);
         }
         else
         {
@@ -509,6 +510,7 @@ public sealed partial class CityRegistryConsoleSystem : EntitySystem
             Journal = outside ? new() : new List<CityRegistryEntry>(record.Journal),
             Appearance = record.Appearance,
             Route = outside ? new() : new List<CitySighting>(record.Sightings),
+            Cards = _registry.CardEntries(record),
         };
 
         if (!outside && _bank.TryGetBank(out var bank) && bank.Comp.Accounts.TryGetValue(record.Number, out var account))

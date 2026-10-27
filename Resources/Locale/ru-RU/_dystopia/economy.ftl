@@ -11,6 +11,7 @@ dystopia-bank-salary-paid = Зарплата: +{ $net } { $net ->
        *[many] марок
     } (удержан налог: { $tax }). На счету: { $balance }.
 dystopia-bank-salary-unpaid = Казна Города пуста. Зарплата за этот период не выплачена.
+dystopia-bank-salary-dismissed = Вы отстранены от должности. Зарплата не начислена до восстановления в Паспортном столе.
 dystopia-bank-card-examine-account = Привязана к счёту Банка Города [color=gold]№{ $id }[/color].
 dystopia-bank-card-examine-balance = На счету: [color=gold]{ $balance } { $balance ->
         [one] марка

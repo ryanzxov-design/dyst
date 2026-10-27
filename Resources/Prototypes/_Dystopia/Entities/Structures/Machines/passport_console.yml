@@ -1,0 +1,145 @@
+# «Паспортный стол» — консоль Гражданской Инспекции для ID-карт граждан.
+# Dystopia. Самостоятельный предмет: все свойства выписаны явно.
+# Новая карта печатается у консоли по должности гражданина (карта из стартового снаряжения должности; если там КПК —
+# карта из КПК), бесплатно и без ограничений.
+
+- type: entity
+  id: ComputerDystopiaPassportConsole
+  name: "Паспортный стол"
+  description: "Терминал Гражданской Инспекции: ID-карты граждан — выдача новых, аннулирование утерянных, восстановление в должности."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 100
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: GlassBreak
+      - !type:ChangeConstructionNodeBehavior
+        node: monitorBroken
+  - type: Damageable
+    damageModifierSet: GlassReinforcedMod
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Transform
+    anchored: true
+  - type: Clickable
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.35,0.25,0.35"
+        density: 190
+        mask:
+        - MachineMask
+        layer:
+        - MachineLayer
+  - type: Pullable
+  - type: Tag
+    tags:
+    - Structure
+  - type: InteractionOutline
+  - type: Rotatable
+  - type: Anchorable
+  - type: Construction
+    graph: Computer
+    node: computer
+    containers:
+    - board
+  - type: Sprite
+    drawdepth: Objects
+    sprite: _Dystopia/Structures/Machines/computers.rsi
+    layers:
+    - map: ["computerLayerBody"]
+      state: computer
+    - map: ["computerLayerKeyboard"]
+      state: generic_keyboard
+    - map: ["computerLayerScreen"]
+      state: id
+    - map: ["computerLayerKeys"]
+      state: id_key
+    - map: ["enum.WiresVisualLayers.MaintenancePanel"]
+      state: generic_panel_open
+  - type: Animateable
+  - type: MeleeSound
+    soundGroups:
+      Brute:
+        collection: GlassSmash
+  - type: Computer
+  - type: ApcPowerReceiver
+    powerLoad: 50
+  - type: PowerState
+    idlePowerDraw: 50
+    workingPowerDraw: 500
+  - type: UIPowerState
+  - type: ExtensionCableReceiver
+  - type: ActivatableUIRequiresPower
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.ComputerVisuals.Powered:
+        computerLayerScreen:
+          true: {visible: true, shader: unshaded}
+          false: {visible: false}
+        computerLayerKeys:
+          true: {visible: true, shader: unshaded}
+          false: {visible: true, shader: shaded}
+  - type: LitOnPowered
+  - type: PointLight
+    radius: 1.5
+    energy: 1.6
+    enabled: false
+    lightMask: ConeSingle
+    autoRot: true
+    offset: "0, 0.4"
+    castShadows: false
+    color: "#78BEE1"
+  - type: EmitSoundOnUIOpen
+    sound:
+      collection: Keyboard
+      params:
+        volume: -1
+        variation: 0.10
+        pitch: 1.10
+    blacklist:
+      tags:
+      - NoConsoleSound
+  - type: ContainerContainer
+    containers:
+      board: !type:Container
+        ents: []
+  - type: LightningTarget
+    priority: 1
+  - type: RequireProjectileTarget
+  - type: Electrified
+    enabled: false
+    usesApcPower: true
+  - type: WiresPanel
+  - type: WiresVisuals
+  - type: Wires
+    boardName: wires-board-name-computer
+    layoutId: Computer
+  - type: AccessReader
+    access: [["DystopiaInspection"], ["DystopiaConsul"]]
+  - type: ActivatableUIRequiresAccess
+  # Права — по профессии владельца ID-карты (просмотр — всем, кого пускает AccessReader; отстранённый прав не имеет).
+  - type: CityPassportConsole
+    issueJobs: # выдача и аннулирование карт, восстановление в должности
+    - DystopiaCivilInspector
+    - DystopiaConsul
+    supremeJobs: # карты граждан вне учёта лояльности (Консула)
+    - DystopiaConsul
+  - type: ActivatableUI
+    key: enum.CityPassportConsoleUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.CityPassportConsoleUiKey.Key:
+        type: CityPassportConsoleBoundUserInterface
+      enum.WiresUiKey.Key:
+        type: WiresBoundUserInterface

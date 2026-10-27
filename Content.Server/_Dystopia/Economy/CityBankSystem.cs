@@ -390,6 +390,13 @@ public sealed partial class CityBankSystem : EntitySystem
             if (account.Owner is not { } owner || TerminatingOrDeleted(owner) || _mobState.IsDead(owner))
                 continue;
 
+            // отстранённому от должности зарплату не платят, пока Паспортный стол не восстановит его
+            if (_registry.TryGetRecord(account.Id, out var citizen) && citizen.Dismissed)
+            {
+                NotifyAccount(account, Loc.GetString("dystopia-bank-salary-dismissed"));
+                continue;
+            }
+
             // Сколько реально уйдёт из казны: зарплата минус налог (налог и долг остаются в казне).
             var tax = salary * GetTaxRate(bank, account) / 100;
             var afterTax = salary - tax;
@@ -664,23 +671,28 @@ public sealed partial class CityBankSystem : EntitySystem
 
     private void OnCardExamined(Entity<CityBankCardComponent> ent, ref ExaminedEvent args)
     {
-        PushAccountInfo(ent.Owner, ref args);
+        var registered = _registry.PushCardExamine(ent.Owner, args);
+        PushAccountInfo(ent.Owner, ref args, !registered);
     }
 
     // Карта обычно лежит в КПК — показываем счёт и при осмотре КПК.
     private void OnPdaExamined(Entity<PdaComponent> ent, ref ExaminedEvent args)
     {
-        if (ent.Comp.ContainedId is { } card)
-            PushAccountInfo(card, ref args);
+        if (ent.Comp.ContainedId is not { } card)
+            return;
+
+        var registered = _registry.PushCardExamine(card, args);
+        PushAccountInfo(card, ref args, !registered);
     }
 
-    private void PushAccountInfo(EntityUid card, ref ExaminedEvent args)
+    /// <param name="citizenLine">Писать ли «Гражданин Города №» (карты Реестра пишут его сами, с серийным номером).</param>
+    private void PushAccountInfo(EntityUid card, ref ExaminedEvent args, bool citizenLine)
     {
         if (!TryGetAccount(card, out _, out var account))
             return;
 
         // Номер счёта — это и номер гражданина в Реестре.
-        if (_registry.TryGetRecord(account.Id, out _))
+        if (citizenLine && _registry.TryGetRecord(account.Id, out _))
             args.PushMarkup(Loc.GetString("dystopia-registry-card-examine", ("number", account.Id.ToString())));
 
         args.PushMarkup(Loc.GetString("dystopia-bank-card-examine-account", ("id", account.Id)));
