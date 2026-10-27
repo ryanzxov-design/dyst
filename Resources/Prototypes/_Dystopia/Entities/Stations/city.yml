@@ -110,6 +110,23 @@
     # число — норма лояльности, с которой гражданин начинает смену (потолок — maxLoyalty).
     - type: CityRegistry
       maxLoyalty: 50
+      # Статус Реестра → ванильные криминальные записи (значки на визорах/очках/масках Стражи, КПК «Розыск»)
+      securityStatuses:
+        Citizen: None
+        Supervised: Suspected
+        Wanted: Wanted
+        Detained: Detained
+        Disenfranchised: Hostile
+        Dead: Eliminated
+      # Обратно: что поставили в ванильной консоли криминальных записей → статус Реестра (чего нет — Реестр не меняет)
+      fromSecurityStatuses:
+        None: Citizen
+        Suspected: Supervised
+        Paroled: Supervised
+        Wanted: Wanted
+        Detained: Detained
+        Discharged: Citizen
+        Eliminated: Dead
       outsideLoyalty:
       - DystopiaConsul # вне учёта: Консул не может быть лоялен сам себе
       loyaltyNorms:

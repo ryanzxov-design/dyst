@@ -1,0 +1,154 @@
+# Консоль социоучёта — терминал Реестра граждан Города.
+# Dystopia. Самостоятельный предмет: все свойства выписаны явно.
+
+- type: entity
+  id: ComputerDystopiaRegistryConsole
+  name: "консоль социоучёта"
+  description: "Терминал Реестра граждан Города: личные дела, лояльность, статусы, журнал нарушений и поощрений, печать ориентировок."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 100
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: GlassBreak
+      - !type:ChangeConstructionNodeBehavior
+        node: monitorBroken
+  - type: Damageable
+    damageModifierSet: GlassReinforcedMod
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Transform
+    anchored: true
+  - type: Clickable
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Static
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.35,0.25,0.35"
+        density: 190
+        mask:
+        - MachineMask
+        layer:
+        - MachineLayer
+  - type: Pullable
+  - type: Tag
+    tags:
+    - Structure
+  - type: InteractionOutline
+  - type: Rotatable
+  - type: Anchorable
+  - type: Construction
+    graph: Computer
+    node: computer
+    containers:
+    - board
+  - type: Sprite
+    drawdepth: Objects
+    sprite: _Dystopia/Structures/Machines/computers.rsi
+    layers:
+    - map: ["computerLayerBody"]
+      state: computer
+    - map: ["computerLayerKeyboard"]
+      state: generic_keyboard
+    - map: ["computerLayerScreen"]
+      sprite: _Dystopia/Structures/Machines/registry_screen.rsi
+      state: screen
+    - map: ["computerLayerKeys"]
+      sprite: _Dystopia/Structures/Machines/registry_screen.rsi
+      state: keys
+    - map: ["enum.WiresVisualLayers.MaintenancePanel"]
+      state: generic_panel_open
+  - type: Animateable
+  - type: MeleeSound
+    soundGroups:
+      Brute:
+        collection: GlassSmash
+  - type: Computer
+  - type: ApcPowerReceiver
+    powerLoad: 50
+  - type: PowerState
+    idlePowerDraw: 50
+    workingPowerDraw: 500
+  - type: UIPowerState
+  - type: ExtensionCableReceiver
+  - type: ActivatableUIRequiresPower
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.ComputerVisuals.Powered:
+        computerLayerScreen:
+          true: {visible: true, shader: unshaded}
+          false: {visible: false}
+        computerLayerKeys:
+          true: {visible: true, shader: unshaded}
+          false: {visible: true, shader: shaded}
+  - type: LitOnPowered
+  - type: PointLight
+    radius: 1.5
+    energy: 1.6
+    enabled: false
+    lightMask: ConeSingle
+    autoRot: true
+    offset: "0, 0.4"
+    castShadows: false
+    color: "#78BEE1"
+  - type: EmitSoundOnUIOpen
+    sound:
+      collection: Keyboard
+      params:
+        volume: -1
+        variation: 0.10
+        pitch: 1.10
+    blacklist:
+      tags:
+      - NoConsoleSound
+  - type: ContainerContainer
+    containers:
+      board: !type:Container
+        ents: []
+  - type: LightningTarget
+    priority: 1
+  - type: RequireProjectileTarget
+  - type: Electrified
+    enabled: false
+    usesApcPower: true
+  - type: WiresPanel
+  - type: WiresVisuals
+  - type: Wires
+    boardName: wires-board-name-computer
+    layoutId: Computer
+  - type: AccessReader
+    access: [["DystopiaGuard"], ["DystopiaAdministration"], ["DystopiaInspection"]]
+  - type: ActivatableUIRequiresAccess
+  # Права на правку — по профессии владельца ID-карты (просмотр — всем, кого пускает AccessReader).
+  - type: CityRegistryConsole
+    editJobs: # статусы (кроме поражения в правах), нарушения, приметы, ориентировки
+    - DystopiaConsul
+    - DystopiaCivilInspector
+    - DystopiaGuardCaptain
+    - DystopiaGuardSergeant
+    - DystopiaGuardsman
+    - DystopiaGuardRecruit
+    rewardJobs: # поощрения
+    - DystopiaConsul
+    - DystopiaCivilInspector
+    - DystopiaGuardCaptain
+    supremeJobs: # поражение в правах и его снятие
+    - DystopiaConsul
+    maxReward: 10
+  - type: ActivatableUI
+    key: enum.CityRegistryConsoleUiKey.Key
+  - type: UserInterface
+    interfaces:
+      enum.CityRegistryConsoleUiKey.Key:
+        type: CityRegistryConsoleBoundUserInterface
+      enum.WiresUiKey.Key:
+        type: WiresBoundUserInterface

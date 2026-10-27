@@ -1,0 +1,119 @@
+# Dystopia. Все предметы в этом файле самостоятельные: без parent, все свойства выписаны явно.
+
+# Ориентировка Городской Стражи: печатается консолью социоучёта, сразу заверяется печатью Стражи и защищена от
+# правки (editingDisabled). Бумага цвета старого пергамента, своя шапка с гербом Города.
+# Самостоятельный предмет: все свойства выписаны явно (раньше: parent Paper)
+
+- type: entity
+  id: DystopiaWantedPoster
+  name: "ориентировка"
+  description: "Лист Городской Стражи с приметами разыскиваемого. Заверен печатью Стражи — исправить в нём ничего нельзя."
+  components:
+  - type: Item
+    size: Tiny
+    sprite: Objects/Misc/bureaucracy.rsi
+    inhandVisuals:
+      left:
+      - state: paper-inhand-left
+        color: "#E6CF9C"
+      right:
+      - state: paper-inhand-right
+        color: "#E6CF9C"
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: Rotatable
+    increment: 30
+  - type: Sprite
+    drawdepth: Items
+    noRot: false
+    sprite: Objects/Misc/bureaucracy.rsi
+    layers:
+    - state: paper
+      color: "#E6CF9C"
+    - state: paper_words
+      map: ["enum.PaperVisualLayers.Writing"]
+      visible: false
+    - state: paper_stamp-generic
+      map: ["enum.PaperVisualLayers.Stamp"]
+      visible: false
+  - type: Tag
+    tags:
+    - Document
+    - Paper
+  - type: Appearance
+  - type: Paper
+    editingDisabled: true
+  - type: ActivatableUI
+    key: enum.PaperUiKey.Key
+    requiresComplex: false
+  - type: UserInterface
+    interfaces:
+      enum.PaperUiKey.Key:
+        type: PaperBoundUserInterface
+  - type: FaxableObject
+  - type: PaperVisualizer
+  - type: PaperVisuals
+    headerImagePath: "/Textures/_Dystopia/Interface/Paper/wanted_heading.png"
+    headerMargin: 0.0, 8.0, 0.0, 0.0
+    backgroundImagePath: "/Textures/Interface/Paper/paper_background_default.svg.96dpi.png"
+    backgroundModulate: "#E6CF9C"
+    backgroundPatchMargin: 16.0, 16.0, 16.0, 16.0
+    contentMargin: 24.0, 8.0, 24.0, 16.0
+    defaultTextColor: "#2A2016"
+  - type: Reactive
+    groups:
+      Flammable: [ Touch ]
+      Extinguish: [ Touch ]
+  - type: ExtinguishableSetCollisionWake
+  - type: Flammable
+    fireSpread: true
+    alwaysCombustible: true
+    canExtinguish: true
+    damage:
+      types:
+        Heat: 1
+  - type: FireVisuals
+    sprite: Effects/fire.rsi
+    normalState: fire
+  - type: Damageable
+    damageModifierSet: Wood
+  - type: Injurable
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 15
+      behaviors:
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          Ash:
+            min: 1
+            max: 1
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]

@@ -6,23 +6,33 @@
 
 using System.Diagnostics.CodeAnalysis;
 using Content.Server._Dystopia.Economy;
+using Content.Server.CriminalRecords.Systems;
+using Content.Shared.CriminalRecords;
+using Content.Shared.StationRecords;
+using Content.Shared.StationRecords.Events;
+using Content.Shared.StationRecords.Systems;
 using Content.Shared._Dystopia.Economy;
 using Content.Shared._Dystopia.Registry;
 using Content.Shared.Forensics.Components;
 using Content.Shared.GameTicking;
-using Content.Shared.Mobs;
+using Content.Shared.Access.Systems;
 using Content.Shared.Roles;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
-using Robust.Shared.Timing;
 
 namespace Content.Server._Dystopia.Registry;
 
 public sealed partial class CityRegistrySystem : EntitySystem
 {
-    [Dependency] private IGameTiming _timing = default!;
+    [Dependency] private GameTicker _ticker = default!;
     [Dependency] private IRobustRandom _random = default!;
     [Dependency] private IPrototypeManager _prototype = default!;
+    [Dependency] private SharedIdCardSystem _idCard = default!;
+    [Dependency] private StationRecordsSystem _records = default!;
+    [Dependency] private CriminalRecordsSystem _criminal = default!;
+
+    /// <summary>Идёт своя запись в криминальные записи — её отголосок (RecordModifiedEvent) не разбираем.</summary>
+    private bool _pushing;
 
     public const int MaxReasonLength = 300;
     public const int MaxNotesLength = 1000;
@@ -33,7 +43,7 @@ public sealed partial class CityRegistrySystem : EntitySystem
 
         // Раньше банка: банк откроет счёт с уже выданным номером.
         SubscribeLocalEvent<PlayerSpawnCompleteEvent>(OnPlayerSpawn, before: new[] { typeof(CityBankSystem) });
-        SubscribeLocalEvent<CityCitizenComponent, MobStateChangedEvent>(OnMobStateChanged);
+        SubscribeLocalEvent<RecordModifiedEvent>(OnSecurityRecordModified);
     }
 
     #region Внесение в Реестр
@@ -61,7 +71,7 @@ public sealed partial class CityRegistrySystem : EntitySystem
             Dna = CompOrNull<DnaComponent>(ev.Mob)?.DNA,
             Owner = ev.Mob,
             Appearance = profile,
-            JoinedAt = _timing.CurTime,
+            JoinedAt = _ticker.RoundDuration(),
         };
 
         if (!registry.OutsideLoyalty.Contains(job))
@@ -156,6 +166,7 @@ public sealed partial class CityRegistrySystem : EntitySystem
         string text,
         string author,
         string details = "",
+        int? lawId = null,
         int? lawNumber = null,
         string? sanctionClass = null,
         int loyaltyDelta = 0)
@@ -163,10 +174,11 @@ public sealed partial class CityRegistrySystem : EntitySystem
         var applied = ChangeLoyalty(registry, record, loyaltyDelta);
         var entry = new CityRegistryEntry
         {
-            Time = _timing.CurTime,
+            Time = _ticker.RoundDuration(),
             Kind = kind,
             Text = text,
             Details = Trim(details, MaxReasonLength),
+            LawId = lawId,
             LawNumber = lawNumber,
             SanctionClass = sanctionClass,
             LoyaltyDelta = applied,
@@ -192,7 +204,8 @@ public sealed partial class CityRegistrySystem : EntitySystem
         return next - loyalty;
     }
 
-    /// <summary>Сменить статус с записью в журнал. Консулу статус не меняют (кроме смерти — см. ниже).</summary>
+    /// <summary>Сменить статус с записью в журнал. Консулу статус не меняют. Смерть статус сама не меняет —
+    /// её отмечают через консоль социоучёта.</summary>
     public bool SetStatus(
         Entity<CityRegistryComponent> registry,
         CityCitizenRecord record,
@@ -200,7 +213,7 @@ public sealed partial class CityRegistrySystem : EntitySystem
         string reason,
         string author)
     {
-        if (record.Loyalty == null && record.Job is { } job && registry.Comp.OutsideLoyalty.Contains(job))
+        if (IsOutsideLoyalty(registry, record))
             return false;
 
         if (record.Status == status)
@@ -214,6 +227,8 @@ public sealed partial class CityRegistrySystem : EntitySystem
             Loc.GetString("dystopia-registry-entry-status",
                 ("old", StatusName(old)), ("new", StatusName(status))),
             author, record.StatusReason);
+
+        PushToSecurity(registry, record, author);
         return true;
     }
 
@@ -223,27 +238,144 @@ public sealed partial class CityRegistrySystem : EntitySystem
         AddEntry(registry, record, CityRegistryEntryKind.Service, Loc.GetString("dystopia-registry-entry-notes"), author);
     }
 
-    /// <summary>Смерть и оживление меняют статус сами; после оживления возвращается прежний.</summary>
-    private void OnMobStateChanged(Entity<CityCitizenComponent> ent, ref MobStateChangedEvent args)
-    {
-        if (!TryGetRegistry(out var registry) || !registry.Comp.Citizens.TryGetValue(ent.Comp.Number, out var record))
-            return;
+    #endregion
 
-        var author = Loc.GetString("dystopia-registry-author-registry");
-        if (args.NewMobState == MobState.Dead && record.Status != CityCitizenStatus.Dead)
+    #region Криминальные записи (значки розыска, программа «Розыск»)
+
+    /// <summary>
+    /// Статус Реестра → ванильные криминальные записи: от них зависят значки на визорах, очках и масках Стражи.
+    /// Если в записях уже стоит статус, который означает то же самое (например, «освобождён по УДО» при «под
+    /// надзором»), его не трогаем.
+    /// </summary>
+    public void PushToSecurity(Entity<CityRegistryComponent> registry, CityCitizenRecord record, string author)
+    {
+        if (!registry.Comp.SecurityStatuses.TryGetValue(record.Status, out var status) ||
+            FindSecurityKey(registry, record) is not { } key ||
+            !_records.TryGetRecord<CriminalRecord>(key, out var criminal))
         {
-            record.StatusBeforeDeath = record.Status;
-            record.Status = CityCitizenStatus.Dead;
-            AddEntry(registry, record, CityRegistryEntryKind.Service, Loc.GetString("dystopia-registry-entry-died"), author);
+            return;
         }
-        else if (args.OldMobState == MobState.Dead && args.NewMobState != MobState.Dead && record.Status == CityCitizenStatus.Dead)
+
+        if (criminal.Status == status ||
+            registry.Comp.FromSecurityStatuses.TryGetValue(criminal.Status, out var same) && same == record.Status)
         {
-            record.Status = record.StatusBeforeDeath;
-            AddEntry(registry, record, CityRegistryEntryKind.Service, Loc.GetString("dystopia-registry-entry-revived"), author);
+            return;
+        }
+
+        _pushing = true;
+        try
+        {
+            _criminal.OverwriteStatus(key, criminal, status,
+                record.StatusReason.Length > 0 ? record.StatusReason : null, author);
+        }
+        finally
+        {
+            _pushing = false;
         }
     }
 
+    /// <summary>
+    /// Ванильная консоль криминальных записей поменяла статус → Реестр (если у статуса есть пара). Консула и
+    /// поражение в правах она не трогает: такие правки откатываются к статусу Реестра.
+    /// </summary>
+    private void OnSecurityRecordModified(ref RecordModifiedEvent ev)
+    {
+        if (_pushing ||
+            !TryComp<CityRegistryComponent>(ev.Key.OriginStation, out var registryComp) ||
+            !_records.TryGetRecord<CriminalRecord>(ev.Key, out var criminal))
+        {
+            return;
+        }
+
+        Entity<CityRegistryComponent> registry = (ev.Key.OriginStation, registryComp);
+        if (FindCitizen(registry, ev.Key) is not { } record || IsOutsideLoyalty(registry, record))
+            return;
+
+        var author = criminal.InitiatorName ?? Loc.GetString("dystopia-registry-author-security-console");
+        if (!registry.Comp.FromSecurityStatuses.TryGetValue(criminal.Status, out var status) || status == record.Status)
+            return;
+
+        if (status == CityCitizenStatus.Disenfranchised || record.Status == CityCitizenStatus.Disenfranchised)
+        {
+            PushToSecurity(registry, record, Loc.GetString("dystopia-registry-author-registry"));
+            return;
+        }
+
+        SetStatus(registry, record, status, criminal.Reason ?? string.Empty, author);
+    }
+
+    /// <summary>Ключ записи гражданина в станционном учёте: по имени и ДНК (запоминается в деле).</summary>
+    private StationRecordKey? FindSecurityKey(Entity<CityRegistryComponent> registry, CityCitizenRecord record)
+    {
+        if (record.SecurityKey is { } known && _records.TryGetRecord<GeneralStationRecord>(known, out _))
+            return known;
+
+        foreach (var (id, general) in _records.GetRecordsOfType<GeneralStationRecord>(registry.Owner))
+        {
+            if (general.Name != record.Name || record.Dna != null && general.DNA != record.Dna)
+                continue;
+
+            record.SecurityKey = new StationRecordKey(id, registry.Owner);
+            return record.SecurityKey;
+        }
+
+        return null;
+    }
+
+    private CityCitizenRecord? FindCitizen(Entity<CityRegistryComponent> registry, StationRecordKey key)
+    {
+        foreach (var record in registry.Comp.Citizens.Values)
+        {
+            if (record.SecurityKey is { } known && known.Equals(key))
+                return record;
+        }
+
+        // ключ ещё не запоминали — сверяем по имени и ДНК
+        if (!_records.TryGetRecord<GeneralStationRecord>(key, out var general))
+            return null;
+
+        foreach (var record in registry.Comp.Citizens.Values)
+        {
+            if (record.Name != general.Name || record.Dna != null && general.DNA != record.Dna)
+                continue;
+
+            record.SecurityKey = key;
+            return record;
+        }
+
+        return null;
+    }
+
     #endregion
+
+    /// <summary>Вне учёта лояльности (Консул): его дело закрыто для правки.</summary>
+    public static bool IsOutsideLoyalty(Entity<CityRegistryComponent> registry, CityCitizenRecord record)
+    {
+        return record.Job is { } job && registry.Comp.OutsideLoyalty.Contains(job);
+    }
+
+    /// <summary>
+    /// Дело того, чья ID-карта сейчас у пользователя (в руке или в слоте ID). Кто держит карту — от того имени и
+    /// действует, как в банке.
+    /// </summary>
+    public bool TryGetHolderRecord(EntityUid user, [NotNullWhen(true)] out CityCitizenRecord? record)
+    {
+        record = null;
+        return _idCard.TryFindIdCard(user, out var card) &&
+               TryComp<CityBankCardComponent>(card, out var bankCard) &&
+               bankCard.AccountId is { } number &&
+               TryGetRecord(number, out record);
+    }
+
+    /// <summary>Подпись в журнале: «№102628 стражник» (по карте пользователя) или имя, если карты гражданина нет.</summary>
+    public string AuthorOf(EntityUid user)
+    {
+        if (!TryGetHolderRecord(user, out var record))
+            return Name(user);
+
+        var job = record.Job is { } id && _prototype.TryIndex(id, out var proto) ? proto.LocalizedName : string.Empty;
+        return Loc.GetString("dystopia-registry-author", ("number", record.Number.ToString()), ("job", job));
+    }
 
     public string StatusName(CityCitizenStatus status)
     {

@@ -6,6 +6,8 @@
 using Content.Shared.Humanoid.Prototypes;
 using Content.Shared.Preferences;
 using Content.Shared.Roles;
+using Content.Shared.Security;
+using Content.Shared.StationRecords;
 using Robust.Shared.Enums;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
@@ -35,9 +37,27 @@ public sealed partial class CityRegistryComponent : Component
     [DataField]
     public List<ProtoId<JobPrototype>> OutsideLoyalty = new();
 
+    /// <summary>
+    /// Какой статус ставить в ванильных криминальных записях при статусе Реестра. От статуса записей зависят
+    /// значки розыска на визорах, очках и масках Стражи и программа КПК «Розыск».
+    /// </summary>
+    [DataField]
+    public Dictionary<CityCitizenStatus, SecurityStatus> SecurityStatuses = new();
+
+    /// <summary>
+    /// Обратно: статус, поставленный в ванильной консоли криминальных записей, → статус Реестра. Чего здесь нет
+    /// (например, «враждебен»), то Реестр не меняет. Поражение в правах ванильной консолью не ставится и не снимается.
+    /// </summary>
+    [DataField]
+    public Dictionary<SecurityStatus, CityCitizenStatus> FromSecurityStatuses = new();
+
     /// <summary>Сколько записей журнала хранить на одно дело (старые уходят).</summary>
     [DataField]
     public int JournalLimit = 100;
+
+    /// <summary>Номер следующей ориентировки.</summary>
+    [ViewVariables]
+    public int NextPoster = 1;
 
     /// <summary>Личные дела по номеру гражданина.</summary>
     [ViewVariables]
@@ -87,7 +107,8 @@ public sealed class CityRegistryEntry
     /// <summary>Подробности: санкция, основание.</summary>
     public string Details = string.Empty;
 
-    /// <summary>Статья Свода законов (у нарушения).</summary>
+    /// <summary>Статья Свода законов (у нарушения): внутренний идентификатор и номер на момент записи.</summary>
+    public int? LawId;
     public int? LawNumber;
 
     /// <summary>Класс санкции (у нарушения).</summary>
@@ -113,8 +134,11 @@ public sealed class CityCitizenRecord
     [ViewVariables] public string? Fingerprint;
     [ViewVariables] public string? Dna;
 
-    /// <summary>Тело гражданина (для отметок камер, смерти и т.п.).</summary>
+    /// <summary>Тело гражданина (для отметок камер и т.п.).</summary>
     [ViewVariables] public EntityUid? Owner;
+
+    /// <summary>Ключ его записи в ванильном станционном учёте (находится по имени и ДНК при первой сверке).</summary>
+    [ViewVariables] public StationRecordKey? SecurityKey;
 
     /// <summary>Внешность при входе в Город — из неё консоль рисует фото без одежды.</summary>
     [ViewVariables] public HumanoidCharacterProfile? Appearance;
@@ -132,9 +156,6 @@ public sealed class CityCitizenRecord
 
     /// <summary>Основание текущего статуса (для розыска обязательно).</summary>
     [ViewVariables(VVAccess.ReadWrite)] public string StatusReason = string.Empty;
-
-    /// <summary>Статус до смерти — вернётся, если гражданина оживят.</summary>
-    [ViewVariables] public CityCitizenStatus StatusBeforeDeath = CityCitizenStatus.Citizen;
 
     /// <summary>Отстранён от должности (нарушение класса с отстранением).</summary>
     [ViewVariables(VVAccess.ReadWrite)] public bool Dismissed;
