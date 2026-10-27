@@ -364,7 +364,7 @@ dystopia-surveillance-alert-outlaw = Поражённый в правах №{ $
 dystopia-surveillance-alert-restricted = Неопознанный в закрытой зоне: { $description } (камера «{ $camera }»).
 dystopia-surveillance-alert-down = Камера «{ $camera }» погасла: { $reason }.
 dystopia-surveillance-alert-destroyed = Камера «{ $camera }» уничтожена.
-dystopia-surveillance-alert-keyword = «{ $word }»: { $name } — «{ $text }» (камера «{ $camera }»).
+dystopia-surveillance-alert-keyword = «{ $word }»: { $name } — «{ $text }». Слышали: { $camera }.
 
 dystopia-surveillance-track-number = Вести гражданина №
 dystopia-surveillance-track-placeholder = номер
@@ -391,3 +391,37 @@ dystopia-surveillance-keyword-placeholder = основа слова
 dystopia-surveillance-keyword-add = Добавить
 dystopia-surveillance-keyword-remove = Убрать
 dystopia-surveillance-keyword-line = «{ $word }…»
+
+## Соционадзор: «Дозор», датчик Стражи, уборка тревог
+
+dystopia-surveillance-map-beacons = Отделы
+dystopia-surveillance-map-recenter = Центр
+dystopia-surveillance-dismiss = ×
+dystopia-surveillance-dismiss-tooltip = Убрать тревогу из ленты
+dystopia-surveillance-dismiss-all = Убрать обработанные
+dystopia-surveillance-kind-guardcritical = Стражник ранен
+dystopia-surveillance-kind-guarddead = Стражник убит
+dystopia-surveillance-kind-distress = Сигнал бедствия
+
+dystopia-dozor-tab = Дозор · { $up }/{ $total }
+dystopia-dozor-targets = Цели
+dystopia-dozor-trails = Следы 30 с
+dystopia-dozor-list = Стража · датчики масок
+dystopia-dozor-on-map = На карте
+dystopia-dozor-mask = Маска
+dystopia-dozor-distress = СИГНАЛ БЕДСТВИЯ
+dystopia-dozor-no-data = маска снята · нет данных
+dystopia-dozor-no-data-for = маска снята · нет данных { $minutes } мин · { $place }
+dystopia-dozor-no-signal = НЕТ СИГНАЛА
+dystopia-dozor-map-dark = { $number } · { $minutes } мин
+dystopia-dozor-health-ok = в норме
+dystopia-dozor-health-hurt = ранен
+dystopia-dozor-health-critical = тяжёлое состояние
+dystopia-dozor-health-dead = мёртв
+
+dystopia-guard-alert-critical = Стражник №{ $number } в тяжёлом состоянии — { $place }.
+dystopia-guard-alert-critical-radio = [bold]Стражник №{ $number } в тяжёлом состоянии[/bold] — { $place }.
+dystopia-guard-alert-dead = Стражник №{ $number } убит — { $place }.
+dystopia-guard-alert-dead-radio = [bold]Стражник №{ $number } убит[/bold] — { $place }.
+dystopia-guard-alert-distress = Стражник №{ $number } подал сигнал бедствия — { $place }.
+dystopia-guard-alert-distress-radio = [bold]СИГНАЛ БЕДСТВИЯ:[/bold] стражник №{ $number } — { $place }.

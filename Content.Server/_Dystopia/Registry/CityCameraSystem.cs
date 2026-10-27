@@ -317,6 +317,11 @@ public sealed partial class CityCameraSystem : EntitySystem
             Mask = city?.Mask == true,
             CameraEntity = cameraNet,
         };
+        if (TryGridPosition(camera, out var grid, out var position))
+        {
+            added.Grid = GetNetEntity(grid);
+            added.Position = position;
+        }
         AddSighting(registry, record, added);
         Alert(registry, record, camera, city, added.Place, now);
     }

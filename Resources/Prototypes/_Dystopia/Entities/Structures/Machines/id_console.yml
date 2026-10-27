@@ -160,6 +160,8 @@
     - DystopiaScienceDirector
     - DystopiaGuard
     - DystopiaGuardArmory
+    - DystopiaGuardDispatch
+    - DystopiaGuardInvestigation
     - DystopiaPrison
     - DystopiaPatrol
     - DystopiaPatrolArmory

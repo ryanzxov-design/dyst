@@ -6,6 +6,7 @@
 
 using System.Diagnostics.CodeAnalysis;
 using Content.Server._Dystopia.Economy;
+using Content.Server.Administration.Managers;
 using Content.Server.CriminalRecords.Systems;
 using Content.Shared.CriminalRecords;
 using Content.Shared.StationRecords;
@@ -14,6 +15,7 @@ using Content.Shared.StationRecords.Systems;
 using Content.Shared._Dystopia.Economy;
 using Content.Shared._Dystopia.Registry;
 using Content.Shared.Forensics.Components;
+using Content.Shared.Ghost.Components;
 using Content.Shared.GameTicking;
 using Content.Shared.Access.Systems;
 using Content.Shared.Roles;
@@ -31,6 +33,7 @@ public sealed partial class CityRegistrySystem : EntitySystem
     [Dependency] private StationRecordsSystem _records = default!;
     [Dependency] private CriminalRecordsSystem _criminal = default!;
     [Dependency] private CityBankSystem _bank = default!;
+    [Dependency] private IAdminManager _admin = default!;
 
     /// <summary>Идёт своя запись в криминальные записи — её отголосок (RecordModifiedEvent) не разбираем.</summary>
     private bool _pushing;
@@ -411,6 +414,14 @@ public sealed partial class CityRegistrySystem : EntitySystem
                TryComp<CityBankCardComponent>(card, out var bankCard) &&
                bankCard.AccountId is { } number &&
                TryGetRecord(number, out record);
+    }
+
+    /// <summary>
+    /// Админ-призрак (агост): консоли Города пускают его со всеми правами, без ID-карты и должности.
+    /// </summary>
+    public bool IsOverseer(EntityUid user)
+    {
+        return HasComp<GhostComponent>(user) && _admin.IsAdmin(user);
     }
 
     /// <summary>Подпись в журнале: «№102628 стражник» (по карте пользователя) или имя, если карты гражданина нет.</summary>

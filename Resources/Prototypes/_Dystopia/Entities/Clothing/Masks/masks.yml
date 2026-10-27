@@ -100,6 +100,18 @@
   - type: CityCamera
     mask: true
     range: 6
+  # Датчик Стражи: всегда на координатах и состоянии, выключить нельзя; видит только соционадзор («Дозор»).
+  # Работает, пока маска надета (приспущенная тоже); снятая маска данных не даёт.
+  - type: CityGuardSensor
+    hurtDamage: 40
+    trailLength: 30
+    distressCooldown: 30
+  # «Сигнал бедствия» — действие маски, пока она надета
+  - type: ActionGrant
+    actions:
+    - ActionDystopiaGuardDistress
+  - type: ItemActionGrant
+    activeIfWorn: true
   # голос сквозь маску — свой шрифт и номер гражданина вместо имени; приспущенная маска не рисуется на лице
   - type: DystopiaFaceMask
     speechVerb: DystopiaGuardMask

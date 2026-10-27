@@ -124,7 +124,7 @@
     boardName: wires-board-name-computer
     layoutId: Computer
   - type: AccessReader
-    access: [["DystopiaGuard"], ["DystopiaAdministration"], ["DystopiaInspection"]]
+    access: [["DystopiaGuardDispatch"]] # диспетчер, капитан, ГИ (у Консула — все доступы)
   - type: ActivatableUIRequiresAccess
   # Смотреть — всем, кого пускает AccessReader; принимать тревоги, вести, править маркеры, говорить голосом
   # Стражи — по профессии владельца ID-карты (отстранённый прав не имеет).

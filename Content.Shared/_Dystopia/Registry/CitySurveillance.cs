@@ -102,6 +102,15 @@ public enum CityAlertKind : byte
 
     /// <summary>Прозвучало слово-маркер.</summary>
     Keyword,
+
+    /// <summary>Стражник в тяжёлом состоянии (датчик маски).</summary>
+    GuardCritical,
+
+    /// <summary>Стражник убит (датчик маски).</summary>
+    GuardDead,
+
+    /// <summary>Сигнал бедствия из маски.</summary>
+    Distress,
 }
 
 /// <summary>Тревога в ленте соционадзора.</summary>
@@ -157,13 +166,30 @@ public enum CityMaskState : byte
     Off,
 }
 
-/// <summary>Стражник в списке патрулей.</summary>
+/// <summary>Стражник во вкладке «Дозор» (по датчику маски).</summary>
 [Serializable, NetSerializable]
 public sealed class CityPatrolEntry
 {
     public int Number;
     public string JobTitle = string.Empty;
     public CityMaskState Mask;
+
+    /// <summary>Состояние по датчику (маска снята — нет данных).</summary>
+    public CityGuardHealth Health = CityGuardHealth.NoData;
+
+    /// <summary>Где он (или где был, когда маску сняли). Grid — сетка, на которой точка.</summary>
+    public bool HasPosition;
+    public NetEntity Grid;
+    public Vector2 Position;
+
+    /// <summary>След за последние секунды, старые точки — первыми.</summary>
+    public List<Vector2> Trail = new();
+
+    /// <summary>Подал сигнал бедствия недавно (метка мигает).</summary>
+    public bool Distress;
+
+    /// <summary>Маска с датчиком (для выбора метки на карте; Invalid — маски нет).</summary>
+    public NetEntity Sensor;
 
     /// <summary>В смене (игрок в теле).</summary>
     public bool OnShift;
@@ -175,6 +201,19 @@ public sealed class CityPatrolEntry
     public TimeSpan? DarkFor;
 
     public NetEntity? Camera;
+}
+
+/// <summary>Цель на карте «Дозора»: разыскиваемый или поражённый в правах, последняя отметка камер.</summary>
+[Serializable, NetSerializable]
+public sealed class CityDozorTarget
+{
+    public int Number;
+    public string Name = string.Empty;
+    public CityCitizenStatus Status;
+    public NetEntity Grid;
+    public Vector2 Position;
+    public string Place = string.Empty;
+    public TimeSpan Time;
 }
 
 /// <summary>Слежка за гражданином.</summary>
@@ -201,6 +240,7 @@ public sealed class CitySurveillanceUiState(
     CityTrackInfo? track,
     int? tracking,
     List<CityPatrolEntry> patrols,
+    List<CityDozorTarget> targets,
     List<string> keywords,
     bool canUse) : BoundUserInterfaceState
 {
@@ -218,6 +258,7 @@ public sealed class CitySurveillanceUiState(
     public readonly CityTrackInfo? Track = track;
     public readonly int? Tracking = tracking;
     public readonly List<CityPatrolEntry> Patrols = patrols;
+    public readonly List<CityDozorTarget> Targets = targets;
     public readonly List<string> Keywords = keywords;
     public readonly bool CanUse = canUse;
 }
@@ -233,6 +274,13 @@ public sealed class CitySurveillanceSelectMessage(NetEntity? camera) : BoundUser
 public sealed class CitySurveillanceAcceptMessage(int alert) : BoundUserInterfaceMessage
 {
     public readonly int Alert = alert;
+}
+
+/// <summary>Убрать тревогу из ленты (null — убрать все принятые и снятые).</summary>
+[Serializable, NetSerializable]
+public sealed class CitySurveillanceDismissMessage(int? alert) : BoundUserInterfaceMessage
+{
+    public readonly int? Alert = alert;
 }
 
 /// <summary>Вести гражданина (null — перестать).</summary>

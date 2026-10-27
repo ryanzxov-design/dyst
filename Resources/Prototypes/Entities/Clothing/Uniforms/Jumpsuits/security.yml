@@ -127,10 +127,11 @@
       - state: equipped-INNERCLOTHING
         color: "#ff8300"
       - state: prisoner-equipped-INNERCLOTHING
-  - type: SuitSensor
-    controlsLocked: true
-    randomMode: false
-    mode: SensorCords
+  # Dystopia: датчики формы убраны — датчик только у специальной одежды (маска Стражи)
+  # - type: SuitSensor
+  #   controlsLocked: true
+  #   randomMode: false
+  #   mode: SensorCords
   - type: Tag
     tags:
     - ClothMade

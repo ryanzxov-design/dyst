@@ -19,6 +19,7 @@
   - DystopiaGuardCaptain
   - DystopiaGuard
   - DystopiaGuardArmory
+  - DystopiaGuardDispatch # соционадзор
   - DystopiaPrison
   - DystopiaPatrol
   - DystopiaPatrolArmory
@@ -166,6 +167,8 @@
   - Security
   access:
   - DystopiaGuard
+  - DystopiaGuardDispatch
+  - DystopiaGuardArmory
   - DystopiaPrison
   # ВРЕМЕННО: ванильные доступы для дверей тестовой карты Terra. Убрать вместе с Terra.
   - Maintenance
@@ -199,6 +202,7 @@
   - Security
   access:
   - DystopiaGuard
+  - DystopiaGuardInvestigation
   - DystopiaPrison
   - DystopiaGates
   # ВРЕМЕННО: ванильные доступы для дверей тестовой карты Terra. Убрать вместе с Terra.

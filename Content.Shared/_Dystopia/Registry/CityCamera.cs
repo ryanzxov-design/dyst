@@ -93,6 +93,10 @@ public sealed class CitySighting
 
     /// <summary>Камера — для кнопки «Смотреть».</summary>
     public NetEntity CameraEntity;
+
+    /// <summary>Где стояла камера в момент отметки (сетка и точка на ней) — для карты «Дозора».</summary>
+    public NetEntity Grid;
+    public System.Numerics.Vector2 Position;
 }
 
 /// <summary>Неопознанный: лицо скрыто, карты нет.</summary>

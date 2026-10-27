@@ -22,9 +22,10 @@
   - type: Clothing
     sprite: Clothing/Uniforms/Jumpskirts/Special/tacticool_s.rsi
   # Too cool for sensors to be on
-  - type: SuitSensor
-    randomMode: false
-    mode: SensorOff
+  # Dystopia: датчики формы убраны — датчик только у специальной одежды (маска Стражи)
+  # - type: SuitSensor
+  #   randomMode: false
+  #   mode: SensorOff
 
 - type: entity
   parent: [ ClothingUniformSkirtBase, BaseSyndicateContraband ]

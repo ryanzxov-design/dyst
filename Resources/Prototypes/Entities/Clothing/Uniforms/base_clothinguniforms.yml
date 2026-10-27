@@ -43,7 +43,8 @@
   parent: UnsensoredClothingUniformBase
   id: ClothingUniformBase
   components:
-  - type: SuitSensor
+  # Dystopia: датчики формы убраны — датчик только у специальной одежды (маска Стражи)
+  # - type: SuitSensor
   - type: DeviceNetwork
     deviceNetId: Wireless
     transmitFrequencyId: SuitSensor

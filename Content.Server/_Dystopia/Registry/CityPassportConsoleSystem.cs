@@ -68,6 +68,10 @@ public sealed partial class CityPassportConsoleSystem : EntitySystem
 
     private Rights RightsOf(Entity<CityPassportConsoleComponent> ent, EntityUid user)
     {
+        // админ-призрак может всё
+        if (_registry.IsOverseer(user))
+            return new Rights(true, true);
+
         if (!_registry.TryGetHolderRecord(user, out var record) || record.Job is not { } job || record.Dismissed)
             return default;
 

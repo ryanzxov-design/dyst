@@ -96,13 +96,6 @@
       Cloth: 150
   - type: Edible
     requiresSpecialDigestion: true
-  - type: SuitSensor
-  - type: DeviceNetwork
-    deviceNetId: Wireless
-    transmitFrequencyId: SuitSensor
-    savableAddress: false
-  - type: WirelessNetworkConnection
-    range: 1200
   - type: StationLimitedNetwork
 # Самостоятельный предмет: все свойства выписаны явно (раньше: parent ClothingUniformJumpsuitSec)
 
@@ -216,13 +209,6 @@
       Cloth: 150
   - type: Edible
     requiresSpecialDigestion: true
-  - type: SuitSensor
-  - type: DeviceNetwork
-    deviceNetId: Wireless
-    transmitFrequencyId: SuitSensor
-    savableAddress: false
-  - type: WirelessNetworkConnection
-    range: 1200
   - type: StationLimitedNetwork
 # Самостоятельный предмет: все свойства выписаны явно (раньше: parent ClothingUniformJumpsuitWarden)
 
@@ -330,13 +316,6 @@
       Cloth: 150
   - type: Edible
     requiresSpecialDigestion: true
-  - type: SuitSensor
-  - type: DeviceNetwork
-    deviceNetId: Wireless
-    transmitFrequencyId: SuitSensor
-    savableAddress: false
-  - type: WirelessNetworkConnection
-    range: 1200
   - type: StationLimitedNetwork
 # Самостоятельный предмет: все свойства выписаны явно (раньше: parent ClothingUniformJumpsuitHoS)
 
@@ -444,11 +423,4 @@
       Cloth: 150
   - type: Edible
     requiresSpecialDigestion: true
-  - type: SuitSensor
-  - type: DeviceNetwork
-    deviceNetId: Wireless
-    transmitFrequencyId: SuitSensor
-    savableAddress: false
-  - type: WirelessNetworkConnection
-    range: 1200
   - type: StationLimitedNetwork

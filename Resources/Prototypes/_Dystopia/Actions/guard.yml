@@ -1,0 +1,31 @@
+# Действия Городской Стражи. Самостоятельные сущности, без parent.
+
+# Сигнал бедствия из маски Стражи: тревога в ленту соционадзора и на канал Стражи, метка стражника на карте
+# «Дозора» мигает. Подать можно и лёжа в тяжёлом состоянии. Перезарядка — как у датчика маски (distressCooldown).
+- type: entity
+  id: ActionDystopiaGuardDistress
+  name: Сигнал бедствия
+  description: Подать сигнал бедствия через маску — пост соционадзора и вся Стража узнают, где вы.
+  components:
+  - type: Action
+    useDelay: 30
+    itemIconStyle: NoItem
+    checkCanInteract: false
+    checkConsciousness: false
+  - type: Sprite
+    sprite: _Dystopia/Clothing/Mask/guard_mask.rsi
+    layers:
+    - map: ["enum.ActionVisuals.Icon"]
+      state: icon
+    - state: icon-glow
+      shader: unshaded
+      color: "#FF5A4E"
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.ActionState.Toggled:
+        enum.ActionVisuals.Icon:
+          True: { visible: false }
+          False: { visible: true }
+  - type: InstantAction
+    event: !type:CityGuardDistressEvent {}

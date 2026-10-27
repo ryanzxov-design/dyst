@@ -35,10 +35,10 @@ public sealed partial class CitySurveillanceConsoleSystem : EntitySystem
     [Dependency] private AccessReaderSystem _access = default!;
     [Dependency] private PopupSystem _popup = default!;
     [Dependency] private SharedAudioSystem _audio = default!;
-    [Dependency] private InventorySystem _inventory = default!;
     [Dependency] private SurveillanceCameraSystem _cameras = default!;
     [Dependency] private CityCameraSystem _cityCameras = default!;
     [Dependency] private CityRegistrySystem _registry = default!;
+    [Dependency] private CityGuardSensorSystem _sensors = default!;
 
     private float _accumulator;
     private readonly Dictionary<EntityUid, EntityUid> _lastActor = new();
@@ -51,6 +51,7 @@ public sealed partial class CitySurveillanceConsoleSystem : EntitySystem
         SubscribeLocalEvent<CitySurveillanceConsoleComponent, ComponentShutdown>(OnShutdown);
         SubscribeLocalEvent<CitySurveillanceConsoleComponent, CitySurveillanceSelectMessage>(OnSelect);
         SubscribeLocalEvent<CitySurveillanceConsoleComponent, CitySurveillanceAcceptMessage>(OnAccept);
+        SubscribeLocalEvent<CitySurveillanceConsoleComponent, CitySurveillanceDismissMessage>(OnDismiss);
         SubscribeLocalEvent<CitySurveillanceConsoleComponent, CitySurveillanceTrackMessage>(OnTrack);
         SubscribeLocalEvent<CitySurveillanceConsoleComponent, CitySurveillanceKeywordMessage>(OnKeyword);
         SubscribeLocalEvent<CitySurveillanceConsoleComponent, CitySurveillanceVoiceMessage>(OnVoice);
@@ -163,6 +164,10 @@ public sealed partial class CitySurveillanceConsoleSystem : EntitySystem
 
     private bool CanUse(Entity<CitySurveillanceConsoleComponent> ent, EntityUid user)
     {
+        // админ-призрак может всё
+        if (_registry.IsOverseer(user))
+            return true;
+
         return _access.IsAllowed(user, ent.Owner) &&
                _registry.TryGetHolderRecord(user, out var record) &&
                record.Job is { } job && !record.Dismissed &&
@@ -194,6 +199,15 @@ public sealed partial class CitySurveillanceConsoleSystem : EntitySystem
             return;
 
         if (_cityCameras.AcceptAlert(registry, args.Alert, _registry.AuthorOf(args.Actor), ent.Owner))
+            UpdateUi(ent, args.Actor);
+    }
+
+    private void OnDismiss(Entity<CitySurveillanceConsoleComponent> ent, ref CitySurveillanceDismissMessage args)
+    {
+        if (!Check(ent, args.Actor) || !_registry.TryGetRegistry(out var registry))
+            return;
+
+        if (_cityCameras.DismissAlert(registry, args.Alert))
             UpdateUi(ent, args.Actor);
     }
 
@@ -305,23 +319,19 @@ public sealed partial class CitySurveillanceConsoleSystem : EntitySystem
         var alerts = new List<CityAlert>();
         var patrols = new List<CityPatrolEntry>();
         var keywords = new List<string>();
+        var targets = new List<CityDozorTarget>();
         CityTrackInfo? track = null;
 
         var map = Transform(ent).MapID;
-        var masks = new List<(EntityUid Uid, CityCameraComponent City, SurveillanceCameraComponent Camera)>();
         var query = EntityQueryEnumerator<CityCameraComponent, SurveillanceCameraComponent, TransformComponent>();
         while (query.MoveNext(out var uid, out var city, out var camera, out var xform))
         {
             if (xform.MapID != map)
                 continue;
 
-            if (city.Mask)
-            {
-                masks.Add((uid, city, camera));
-                // в списке — только надетые маски (запасные в шкафу не нужны)
-                if (city.Wearer == null)
-                    continue;
-            }
+            // в списке — только надетые маски (запасные в шкафу не нужны)
+            if (city.Mask && city.Wearer == null)
+                continue;
 
             cameras.Add(_cityCameras.Describe((uid, camera), city));
         }
@@ -338,7 +348,8 @@ public sealed partial class CitySurveillanceConsoleSystem : EntitySystem
 
             alerts = Enumerable.Reverse(registry.Comp.Alerts).ToList();
             keywords = new List<string>(registry.Comp.Keywords);
-            patrols = Patrols(ent, registry, masks);
+            patrols = Patrols(ent, registry);
+            targets = Targets(registry);
 
             if (ent.Comp.Tracking is { } number && registry.Comp.Citizens.TryGetValue(number, out var record))
             {
@@ -366,17 +377,25 @@ public sealed partial class CitySurveillanceConsoleSystem : EntitySystem
             track,
             ent.Comp.Tracking,
             patrols,
+            targets,
             keywords,
             canUse));
     }
 
-    /// <summary>Стражники служб патруля и их маски.</summary>
-    private List<CityPatrolEntry> Patrols(
-        Entity<CitySurveillanceConsoleComponent> ent,
-        Entity<CityRegistryComponent> registry,
-        List<(EntityUid Uid, CityCameraComponent City, SurveillanceCameraComponent Camera)> masks)
+    /// <summary>
+    /// «Дозор»: стражники служб патруля по датчикам масок — состояние, где он (или где сняли маску), след.
+    /// Маска на лице сейчас, иначе — последняя маска, которую он носил.
+    /// </summary>
+    private List<CityPatrolEntry> Patrols(Entity<CitySurveillanceConsoleComponent> ent, Entity<CityRegistryComponent> registry)
     {
         var now = _ticker.RoundDuration();
+        var sensors = new List<Entity<CityGuardSensorComponent>>();
+        var query = EntityQueryEnumerator<CityGuardSensorComponent>();
+        while (query.MoveNext(out var uid, out var sensor))
+        {
+            sensors.Add((uid, sensor));
+        }
+
         var list = new List<CityPatrolEntry>();
         foreach (var record in registry.Comp.Citizens.Values)
         {
@@ -388,44 +407,90 @@ public sealed partial class CitySurveillanceConsoleSystem : EntitySystem
                 Number = record.Number,
                 JobTitle = record.Job is { } job && _prototype.TryIndex(job, out var proto) ? proto.LocalizedName : "—",
                 Mask = CityMaskState.Off,
+                Health = CityGuardHealth.NoData,
                 OnShift = record.Owner is { } body && !TerminatingOrDeleted(body) && HasComp<ActorComponent>(body),
             };
 
-            // маска на лице сейчас, иначе — последняя маска, которую он носил
-            var index = -1;
-            if (record.Owner is { } owner && _inventory.TryGetSlotEntity(owner, "mask", out var worn))
-            {
-                var wornMask = worn.Value;
-                index = masks.FindIndex(m => m.Uid == wornMask && m.City.Wearer == owner);
-            }
+            var owner = record.Owner;
+            var index = owner == null ? -1 : sensors.FindIndex(m => m.Comp.Wearer == owner);
             if (index < 0)
-                index = masks.FindIndex(m => m.City.LastWearerNumber == record.Number);
+                index = sensors.FindIndex(m => m.Comp.LastWearerNumber == record.Number);
 
             if (index >= 0)
             {
-                var (maskUid, maskCity, maskCamera) = masks[index];
-                if (maskCity.Wearer != null)
+                var (maskUid, sensor) = sensors[index];
+                entry.Sensor = GetNetEntity(maskUid);
+                var worn = sensor.Wearer != null && sensor.Wearer == owner;
+                entry.Health = worn ? sensor.Health : CityGuardHealth.NoData;
+                entry.Distress = _sensors.RecentDistress(sensor);
+
+                if (worn)
                 {
-                    entry.Mask = maskCamera.Active ? CityMaskState.Up
+                    var active = TryComp<SurveillanceCameraComponent>(maskUid, out var camera) && camera.Active;
+                    entry.Mask = active ? CityMaskState.Up
                         : TryComp<MaskComponent>(maskUid, out var maskComp) && maskComp.IsToggled ? CityMaskState.Lowered
                         : CityMaskState.Off;
+                    if (active)
+                        entry.Camera = GetNetEntity(maskUid);
+                }
+                else if (sensor.LastSeenAt is { } last)
+                {
+                    entry.DarkFor = now - last;
                 }
 
-                entry.Place = maskCity.LastPlace;
-                if (maskCamera.Active)
-                    entry.Camera = GetNetEntity(maskUid);
-                else if (maskCity.LastActiveAt is { } last)
-                    entry.DarkFor = now - last;
+                if (sensor.LastGrid is { } grid && !TerminatingOrDeleted(grid))
+                {
+                    entry.HasPosition = true;
+                    entry.Grid = GetNetEntity(grid);
+                    entry.Position = sensor.LastPosition;
+                    if (worn)
+                        entry.Trail = sensor.Trail.Select(p => p.Position).ToList();
+                }
+
+                entry.Place = TryComp<CityCameraComponent>(maskUid, out var city) ? city.LastPlace : string.Empty;
             }
 
             list.Add(entry);
         }
 
+        // сначала те, кому плохо, потом остальные в смене, потом вне смены
         return list
-            .OrderBy(p => p.OnShift ? 0 : 1)
-            .ThenBy(p => p.Mask)
+            .OrderBy(p => p.Distress ? 0 : p.Health is CityGuardHealth.Critical or CityGuardHealth.Dead ? 1 : 2)
+            .ThenBy(p => p.OnShift ? 0 : 1)
+            .ThenBy(p => p.Health)
             .ThenBy(p => p.Number)
             .ToList();
+    }
+
+    /// <summary>Цели «Дозора»: разыскиваемые и поражённые в правах — последняя отметка камер.</summary>
+    private List<CityDozorTarget> Targets(Entity<CityRegistryComponent> registry)
+    {
+        var list = new List<CityDozorTarget>();
+        foreach (var record in registry.Comp.Citizens.Values)
+        {
+            if (record.Status is not (CityCitizenStatus.Wanted or CityCitizenStatus.Disenfranchised) ||
+                record.Sightings.Count == 0)
+            {
+                continue;
+            }
+
+            var last = record.Sightings.MaxBy(s => s.LastTime)!;
+            if (!last.Grid.IsValid())
+                continue;
+
+            list.Add(new CityDozorTarget
+            {
+                Number = record.Number,
+                Name = record.Name,
+                Status = record.Status,
+                Grid = last.Grid,
+                Position = last.Position,
+                Place = last.Place,
+                Time = last.LastTime,
+            });
+        }
+
+        return list;
     }
 
     #endregion

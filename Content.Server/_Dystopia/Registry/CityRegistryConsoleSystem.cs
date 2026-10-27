@@ -109,6 +109,10 @@ public sealed partial class CityRegistryConsoleSystem : EntitySystem
 
     private Rights RightsOf(Entity<CityRegistryConsoleComponent> ent, EntityUid user)
     {
+        // админ-призрак может всё
+        if (_registry.IsOverseer(user))
+            return new Rights(true, true, true);
+
         // отстранённый от должности прав своей должности не имеет
         if (!_registry.TryGetHolderRecord(user, out var record) || record.Job is not { } job || record.Dismissed)
             return default;

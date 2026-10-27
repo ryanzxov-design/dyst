@@ -59,7 +59,7 @@
             DystopiaGuardSergeant: [ 1, 2 ]
             DystopiaGuardsman: [ 3, 6 ]
             DystopiaGuardRecruit: [ 1, 3 ]
-            DystopiaGuardDispatcher: [ 1, 2 ]
+            DystopiaGuardDispatcher: [ 1, 1 ]
             DystopiaGuardInvestigator: [ 1, 1 ]
             # Внешний Патруль
             DystopiaPraetorian: [ 1, 2 ]

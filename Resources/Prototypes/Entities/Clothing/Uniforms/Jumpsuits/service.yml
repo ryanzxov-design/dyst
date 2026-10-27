@@ -17,10 +17,11 @@
     sprite: Clothing/Uniforms/Jumpsuits/Service/punpun.rsi
   - type: Clothing
     sprite: Clothing/Uniforms/Jumpsuits/Service/punpun.rsi
-  - type: SuitSensor
-    controlsLocked: false
-    randomMode: false
-    mode: SensorCords
+  # Dystopia: датчики формы убраны — датчик только у специальной одежды (маска Стражи)
+  # - type: SuitSensor
+  #   controlsLocked: false
+  #   randomMode: false
+  #   mode: SensorCords
 
 - type: entity
   parent: ClothingUniformBase

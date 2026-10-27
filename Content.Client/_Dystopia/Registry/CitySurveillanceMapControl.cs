@@ -12,7 +12,7 @@ using Robust.Shared.Map;
 
 namespace Content.Client._Dystopia.Registry;
 
-public sealed class CitySurveillanceMapControl : NavMapControl
+public sealed class CitySurveillanceMapControl : CityNavMapControl
 {
     [Dependency] private IResourceCache _resources = default!;
     [Dependency] private IEntityManager _entMan = default!;
@@ -30,10 +30,6 @@ public sealed class CitySurveillanceMapControl : NavMapControl
     public CitySurveillanceMapControl()
     {
         IoCManager.InjectDependencies(this);
-
-        WallColor = CityUi.Frame;
-        TileColor = CityUi.Panel;
-        BackgroundColor = Color.FromSrgb(TileColor.WithAlpha(0.9f));
 
         _wall = _resources.GetTexture("/Textures/Interface/NavMap/beveled_circle.png");
         _restricted = _resources.GetTexture("/Textures/Interface/NavMap/beveled_triangle.png");

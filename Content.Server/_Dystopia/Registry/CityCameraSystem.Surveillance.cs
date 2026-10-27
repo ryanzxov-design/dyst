@@ -42,8 +42,13 @@ public sealed partial class CityCameraSystem
     /// <summary>Что слышала каждая камера.</summary>
     private readonly Dictionary<EntityUid, List<CitySpeechLine>> _speech = new();
 
-    /// <summary>Следующая тревога о слове-маркере у камеры.</summary>
-    private readonly Dictionary<(EntityUid Camera, string Word), TimeSpan> _keywordAlerts = new();
+    /// <summary>Следующая тревога о слове-маркере от этого говорящего.</summary>
+    private readonly Dictionary<(EntityUid Speaker, string Word), TimeSpan> _keywordAlerts = new();
+
+    /// <summary>Недавние реплики со словом-маркером (одна реплика — одна тревога, сколько бы камер её ни слышали).</summary>
+    private readonly Dictionary<(EntityUid Speaker, string Message), Utterance> _utterances = new();
+
+    private static readonly TimeSpan UtteranceWindow = TimeSpan.FromSeconds(2);
 
     private void InitializeSurveillance()
     {
@@ -55,6 +60,7 @@ public sealed partial class CityCameraSystem
     {
         _speech.Clear();
         _keywordAlerts.Clear();
+        _utterances.Clear();
         _voiceSpeaker = null;
     }
 
@@ -159,6 +165,15 @@ public sealed partial class CityCameraSystem
         return alert;
     }
 
+    /// <summary>Убрать тревогу из ленты (null — все принятые и снятые сами).</summary>
+    public bool DismissAlert(Entity<CityRegistryComponent> registry, int? id)
+    {
+        if (id is { } single)
+            return registry.Comp.Alerts.RemoveAll(a => a.Id == single) > 0;
+
+        return registry.Comp.Alerts.RemoveAll(a => a.AcceptedBy.Length > 0 || a.Resolved) > 0;
+    }
+
     /// <summary>Принять вызов: подпись в ленте и сообщение на канал Стражи, кто выехал.</summary>
     public bool AcceptAlert(Entity<CityRegistryComponent> registry, int id, string author, EntityUid console)
     {
@@ -215,22 +230,67 @@ public sealed partial class CityCameraSystem
             return;
 
         var now = _ticker.RoundDuration();
-        if (_keywordAlerts.TryGetValue((ent.Owner, keyword), out var next) && now < next)
-            return;
-        _keywordAlerts[(ent.Owner, keyword)] = now + registry.Comp.KeywordCooldown;
-
         var cameraName = CameraName(ent, ent.Comp);
+
+        // одна реплика — одна тревога: её слышат все камеры рядом, их имена дописываются в ту же тревогу
+        var key = (args.Source, args.Message);
+        if (_utterances.TryGetValue(key, out var heard) && now - heard.Time <= UtteranceWindow)
+        {
+            if (!heard.Cameras.Contains(cameraName))
+            {
+                heard.Cameras.Add(cameraName);
+                if (registry.Comp.Alerts.Find(a => a.Id == heard.AlertId) is { } same)
+                    same.Text = KeywordText(heard);
+            }
+
+            return;
+        }
+
+        // тот же человек, то же слово — тревога не чаще раза в KeywordCooldown
+        if (_keywordAlerts.TryGetValue((args.Source, keyword), out var next) && now < next)
+            return;
+        _keywordAlerts[(args.Source, keyword)] = now + registry.Comp.KeywordCooldown;
+
+        var utterance = new Utterance(now, keyword, name, args.Message);
+        utterance.Cameras.Add(cameraName);
         var place = PlaceOf(ent);
-        AddAlert(registry, CityAlertKind.Keyword,
-            Loc.GetString("dystopia-surveillance-alert-keyword",
-                ("word", keyword), ("name", name), ("text", args.Message), ("camera", cameraName)),
-            place, ent.Owner, _registry.NumberOf(args.Source));
+        var alert = AddAlert(registry, CityAlertKind.Keyword, KeywordText(utterance), place, ent.Owner,
+            _registry.NumberOf(args.Source));
+        utterance.AlertId = alert.Id;
+
+        if (_utterances.Count > 64)
+        {
+            foreach (var old in _utterances.Where(u => now - u.Value.Time > UtteranceWindow).Select(u => u.Key).ToList())
+            {
+                _utterances.Remove(old);
+            }
+        }
+        _utterances[key] = utterance;
+
         Broadcast(registry, ent, Loc.GetString("dystopia-camera-alert-keyword",
             ("word", FormattedMessage.EscapeText(keyword)),
             ("name", FormattedMessage.EscapeText(name)),
             ("text", FormattedMessage.EscapeText(args.Message)),
             ("camera", FormattedMessage.EscapeText(cameraName)),
             ("place", FormattedMessage.EscapeText(place))));
+    }
+
+    private string KeywordText(Utterance utterance)
+    {
+        return Loc.GetString("dystopia-surveillance-alert-keyword",
+            ("word", utterance.Word), ("name", utterance.Name), ("text", utterance.Text),
+            ("camera", string.Join(", ", utterance.Cameras.Select(c => $"«{c}»"))));
+    }
+
+    /// <summary>Реплика со словом-маркером: какие камеры её слышали и в какую тревогу она записана.</summary>
+    private sealed class Utterance(TimeSpan time, string word, string name, string text)
+    {
+        public readonly TimeSpan Time = time;
+        public readonly string Word = word;
+        public readonly string Name = name;
+        public readonly string Text = text;
+        public readonly List<string> Cameras = new();
+        public int AlertId;
     }
 
     /// <summary>Слово-маркер в реплике: слово, которое начинается с маркера («культ» — «культисты»).</summary>
@@ -363,7 +423,6 @@ public sealed partial class CityCameraSystem
     /// <summary>Камера для списка и карты консоли.</summary>
     public CitySurveillanceCamera Describe(Entity<SurveillanceCameraComponent> camera, CityCameraComponent city)
     {
-        var xform = Transform(camera);
         var entry = new CitySurveillanceCamera
         {
             Entity = GetNetEntity(camera),
@@ -380,14 +439,29 @@ public sealed partial class CityCameraSystem
                 : "dystopia-surveillance-down-off");
         }
 
-        if (xform.GridUid is { } grid)
+        if (TryGridPosition(camera, out var grid, out var position))
         {
             entry.Grid = GetNetEntity(grid);
-            var world = _transform.GetWorldPosition(xform);
-            entry.Position = Vector2.Transform(world, _transform.GetInvWorldMatrix(grid));
+            entry.Position = position;
         }
 
         return entry;
+    }
+
+    /// <summary>Точка на сетке Города, где сейчас сущность (для карт консоли).</summary>
+    public bool TryGridPosition(EntityUid uid, out EntityUid grid, out Vector2 position)
+    {
+        var xform = Transform(uid);
+        if (xform.GridUid is not { } found)
+        {
+            grid = default;
+            position = default;
+            return false;
+        }
+
+        grid = found;
+        position = Vector2.Transform(_transform.GetWorldPosition(xform), _transform.GetInvWorldMatrix(found));
+        return true;
     }
 
     #endregion

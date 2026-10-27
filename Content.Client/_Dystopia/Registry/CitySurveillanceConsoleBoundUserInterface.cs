@@ -19,6 +19,7 @@ public sealed partial class CitySurveillanceConsoleBoundUserInterface(EntityUid 
         _window.SetGrid(EntMan.GetComponentOrNull<TransformComponent>(Owner)?.GridUid);
         _window.OnSelect += camera => SendMessage(new CitySurveillanceSelectMessage(camera));
         _window.OnAccept += alert => SendMessage(new CitySurveillanceAcceptMessage(alert));
+        _window.OnDismiss += alert => SendMessage(new CitySurveillanceDismissMessage(alert));
         _window.OnTrack += number => SendMessage(new CitySurveillanceTrackMessage(number));
         _window.OnKeyword += (word, add) => SendMessage(new CitySurveillanceKeywordMessage(word, add));
         _window.OnVoice += (text, personal) => SendMessage(new CitySurveillanceVoiceMessage(text, personal));

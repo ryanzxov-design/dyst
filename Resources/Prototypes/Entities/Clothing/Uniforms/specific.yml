@@ -28,9 +28,10 @@
       - state: equipped-FEET
         color: "#1d1d1d"
       - state: soles-equipped-FEET
-  - type: SuitSensor
-    randomMode: false
-    mode: SensorOff
+  # Dystopia: датчики формы убраны — датчик только у специальной одежды (маска Стражи)
+  # - type: SuitSensor
+  #   randomMode: false
+  #   mode: SensorOff
   - type: Tag
     tags: # ignore "WhitelistChameleon" tag
     - ClothMade

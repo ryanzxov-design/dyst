@@ -37,6 +37,14 @@
   name: id-card-access-level-dystopia-guard-armory
 
 - type: accessLevel
+  id: DystopiaGuardDispatch
+  name: id-card-access-level-dystopia-guard-dispatch
+
+- type: accessLevel
+  id: DystopiaGuardInvestigation
+  name: id-card-access-level-dystopia-guard-investigation
+
+- type: accessLevel
   id: DystopiaPrison
   name: id-card-access-level-dystopia-prison
 
@@ -117,6 +125,8 @@
   - DystopiaScienceDirector
   - DystopiaGuard
   - DystopiaGuardArmory
+  - DystopiaGuardDispatch
+  - DystopiaGuardInvestigation
   - DystopiaPrison
   - DystopiaPatrol
   - DystopiaPatrolArmory
