@@ -98,7 +98,7 @@ public sealed class CityRegistryConsoleWindow : CityWindow
     private readonly CityCard _loyaltyBox;
     private readonly Label _loyaltyValue;
     private readonly CityLoyaltyBar _loyaltyBar;
-    private readonly Label _loyaltyHint;
+    private readonly CityWrapLabel _loyaltyHint;
     private readonly CityCard _outsideBox;
     private readonly Label _dismissed;
     private readonly CityWrapLabel _rightsHint;
@@ -358,7 +358,8 @@ public sealed class CityRegistryConsoleWindow : CityWindow
         loyalty.AddChild(loyaltyHead);
         _loyaltyBar = new CityLoyaltyBar();
         loyalty.AddChild(_loyaltyBar);
-        _loyaltyHint = CityUi.MakeLabel(string.Empty, CityUi.Dim, CityUi.Regular(10));
+        // в колонку шириной 230 «норма должности — 40 · −40 по журналу» одной строкой не влезает — переносим
+        _loyaltyHint = CityUi.Hint(string.Empty);
         loyalty.AddChild(_loyaltyHint);
         _loyaltyBox.AddChild(loyalty);
         left.AddChild(_loyaltyBox);
@@ -484,14 +485,18 @@ public sealed class CityRegistryConsoleWindow : CityWindow
         chips.AddChild(_chipViolations);
         chips.AddChild(_chipRewards);
         chips.AddChild(_chipService);
-        chips.AddChild(new Control { HorizontalExpand = true });
+        _journalView.AddChild(chips);
+
+        // кнопки записи — отдельной строкой: рядом с фильтрами они не влезают в ширину вкладки
+        var addRow = Row(6);
+        addRow.AddChild(new Control { HorizontalExpand = true });
         _addViolation = CityUi.MakeButton(Loc.GetString("dystopia-registry-add-violation"), CityButtonStyle.Danger);
         _addViolation.OnPressed += _ => ToggleForm(true);
         _addReward = CityUi.MakeButton(Loc.GetString("dystopia-registry-add-reward"));
         _addReward.OnPressed += _ => ToggleForm(false);
-        chips.AddChild(_addViolation);
-        chips.AddChild(_addReward);
-        _journalView.AddChild(chips);
+        addRow.AddChild(_addViolation);
+        addRow.AddChild(_addReward);
+        _journalView.AddChild(addRow);
 
         var journalPanel = CityUi.MakePanel(CityUi.Bg2, CityUi.Line, 0);
         journalPanel.VerticalExpand = true;

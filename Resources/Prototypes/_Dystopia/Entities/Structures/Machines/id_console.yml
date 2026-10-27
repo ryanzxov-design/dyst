@@ -182,7 +182,7 @@
   - type: UserInterface
     interfaces:
       enum.IdCardConsoleUiKey.Key:
-        type: IdCardConsoleBoundUserInterface
+        type: CityIdConsoleBoundUserInterface # Dystopia: окно в оформлении Города
       enum.WiresUiKey.Key:
         type: WiresBoundUserInterface
   - type: CrewManifestViewer

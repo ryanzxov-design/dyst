@@ -273,3 +273,27 @@ dystopia-passport-card-annulled = аннулирована { $time } · { $autho
 dystopia-passport-annul = Аннулировать
 dystopia-passport-annul-reason = причина: утеряна, украдена…
 dystopia-passport-annul-confirm = Подтвердить
+
+## Консоль Гражданской Инспекции (ID-карты: имя, должность, доступы)
+
+dystopia-id-console-title = Гражданская Инспекция
+dystopia-id-console-subtitle = Инспекция · назначение на работы и доступы
+dystopia-id-console-slogan = У каждого своё место
+dystopia-id-console-privileged = Карта инспектора
+dystopia-id-console-target = Карта гражданина
+dystopia-id-console-insert = Вставить
+dystopia-id-console-eject = Извлечь
+dystopia-id-console-empty = — слот пуст —
+dystopia-id-console-manifest = Штатный список
+dystopia-id-console-status-no-privileged = Вставьте карту инспектора: без неё консоль только показывает.
+dystopia-id-console-status-unauthorized = Карта инспектора не даёт права менять карты граждан.
+dystopia-id-console-status-no-target = Вставьте карту гражданина, которую нужно изменить.
+dystopia-id-console-status-ready = Карта гражданина открыта для правки. Изменения записываются сразу.
+dystopia-id-console-full-name = Имя
+dystopia-id-console-job-title = Должность
+dystopia-id-console-job = Профессия
+dystopia-id-console-job-hint = Профессия задаёт значок на карте и набор доступов; должность — просто надпись. Новые карты и аннулирование — в Паспортном столе.
+dystopia-id-console-save = Сохранить
+dystopia-id-console-access = Доступы
+dystopia-id-console-select-all = Выдать все
+dystopia-id-console-deselect-all = Снять все
