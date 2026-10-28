@@ -1,0 +1,12 @@
+- files:
+  - "dmr37.ogg"
+  - "garand.ogg"
+  - "sniper_empty.ogg"
+  - "svd.ogg"
+  - "svd_reload.ogg"
+  - "svd_unload.ogg"
+  - "tl-127_bolt.ogg"
+  - "tl122.ogg"
+  license: "CC-BY-SA-3.0"
+  copyright: "Taken from Backmen (Rxup/space-station-14, Resources/Audio/Weapons/Guns64), where no attribution is given; the sounds appear to originate from TGMC / CM-SS13 (CC-BY-SA 3.0). Ported to Dystopia."
+  source: "https://github.com/Rxup/space-station-14/tree/master/Resources/Audio/Weapons/Guns64"

@@ -42,23 +42,27 @@
   name: Kardashev-Mosin
   parent: [BaseCorvaxContraband434DepartmentsSecurity, BaseWeaponSniper, BaseGunWieldable, SolutionDart, BaseMajorContraband] # Corvax-Contraband
   id: WeaponSniperMosin
-  description: A true relic, the Kardashev-Mosin has served in nearly every armed conflict since its creation 670 years ago. The bolt-action design of the rifle remains virtually identical to its original design, whether used for hunting, sniping, or endless trench warfare. Loads 10 rounds of .30 rifle.
+  # Dystopia: Мосин заменён версией из Backmen (github.com/Rxup/space-station-14) — спрайт, звук, калибр 7,62×54R.
+  # Подсветка яда на штыке (SolutionContainerVisuals, слой base1) убрана: в новом спрайте её нет; сам яд работает.
+  description: A true relic, the Kardashev-Mosin has served in nearly every armed conflict since its creation. The bolt-action design remains virtually identical to the original, whether used for hunting, sniping, or endless trench warfare. Loads 5 rounds of 7.62x54mmR, by hand or from a stripper clip.
   components:
   - type: Sprite
     sprite: Objects/Weapons/Guns/Snipers/bolt_gun_wood.rsi
     layers:
     - state: base
-    - state: base1
-      map: [ "enum.SolutionContainerLayers.Fill" ]
-      visible: false
+  - type: Item # Dystopia: руки и спина — отдельный .rsi (иконка 64×32)
+    sprite: Objects/Weapons/Guns/Snipers/bolt_gun_wood_inhands.rsi
+  - type: Clothing # Dystopia
+    sprite: Objects/Weapons/Guns/Snipers/bolt_gun_wood_inhands.rsi
   - type: Appearance
-  - type: SolutionContainerVisuals
-    maxFillLevels: 1
-    fillBaseName: base
-    inHandsFillBaseName: -fill-
-    inHandsMaxFillLevels: 1
-    equippedFillBaseName: -fill-
-    equippedMaxFillLevels: 1
+  - type: Gun # Dystopia: 7,62×54R
+    fireRate: 0.8
+  - type: BallisticAmmoProvider # Dystopia: 5 патронов 7,62×54R
+    capacity: 5
+    proto: Cartridge762x54R
+    whitelist:
+      tags:
+      - Cartridge762x54R
   - type: MeleeWeapon
     wideAnimationRotation: -135
     damage:
@@ -85,7 +89,6 @@
   - type: GunRequiresWield
   - type: StaticPrice
     price: 500
-
 - type: entity
   name: Hristov
   parent: [BaseCorvaxContraband434DepartmentsSecurity, BaseWeaponSniper, BaseGunWieldable, BaseSyndicateContraband] # Corvax-Contraband

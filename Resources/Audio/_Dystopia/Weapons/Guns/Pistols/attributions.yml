@@ -1,0 +1,8 @@
+- files:
+  - "deagle.ogg"
+  - "deagle_empty.ogg"
+  - "deagle_reload.ogg"
+  - "deagle_unload.ogg"
+  license: "CC-BY-SA-3.0"
+  copyright: "Taken from Backmen (Rxup/space-station-14, Resources/Audio/Weapons/Guns64), where no attribution is given; the sounds appear to originate from TGMC / CM-SS13 (CC-BY-SA 3.0). Ported to Dystopia."
+  source: "https://github.com/Rxup/space-station-14/tree/master/Resources/Audio/Weapons/Guns64"

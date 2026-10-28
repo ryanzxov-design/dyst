@@ -1,68 +1,20 @@
 {
-    "version": 1,
-    "license": "CC-BY-SA-3.0",
-    "copyright": "Taken from InterBay13 at https://github.com/AndySok/InterBay13/commit/84824582fe1381d9ea6282b9da407994ab8ab509, backpack sling sprite edited by Boaz1111, wield sprites by RiceMar1244. Reagent fill sprites by RedBookcase on Github.",
-    "size": {
-        "x": 32,
-        "y": 32
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "Taken/modified vgstation at https://github.com/vgstation-coders/vgstation13/pull/20330/commits/1604c9cc61a48585e25b5f9eba3e179c06362372, backpack sprite by Peptide (copy of Atreides) Ported to Dystopia from Backmen (github.com/Rxup/space-station-14), replacing the vanilla sprite.",
+  "size": {
+    "x": 64,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "icon"
     },
-    "states": [
-        {
-            "name": "base"
-        },
-        {
-            "name": "base1"
-        },
-        {
-            "name": "bolt-open"
-        },
-        {
-            "name": "inhand-left",
-            "directions": 4
-        },
-        {
-            "name": "inhand-left-fill-1",
-            "directions": 4
-        },
-        {
-            "name": "inhand-right",
-            "directions": 4
-        },
-        {
-            "name": "inhand-right-fill-1",
-            "directions": 4
-        },
-        {
-            "name": "wielded-inhand-left",
-            "directions": 4
-        },
-        {
-            "name": "wielded-inhand-left-fill-1",
-            "directions": 4
-        },
-        {
-            "name": "wielded-inhand-right",
-            "directions": 4
-        },
-        {
-            "name": "wielded-inhand-right-fill-1",
-            "directions": 4
-        },
-        {
-            "name": "equipped-BACKPACK",
-            "directions": 4
-        },
-        {
-            "name": "equipped-back-fill-1",
-            "directions": 4
-        },
-        {
-            "name": "equipped-SUITSTORAGE",
-            "directions": 4
-        },
-        {
-            "name": "equipped-suitstorage-fill-1",
-            "directions": 4
-        }
-    ]
+    {
+      "name": "bolt-open"
+    },
+    {
+      "name": "base"
+    }
+  ]
 }

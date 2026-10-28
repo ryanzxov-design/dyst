@@ -57,7 +57,8 @@
   name: AKMS
   parent: [BaseCorvaxContraband434DepartmentsSecurity, BaseWeaponRifle, BaseSecurityContraband] # Corvax-Contraband
   id: WeaponRifleAk
-  description: A somewhat battered combat rifle of a design originating from old Earth. Favored by criminals, militias, and terrorists due to its famed reliability and easy-to-manufacture design. Feeds from .30 rifle magazines.
+  # Dystopia: АКМС заменён версией из Backmen (github.com/Rxup/space-station-14) — спрайт, звуки, калибр 7,62×39 мм.
+  description: The folding-stock Kalashnikov in 7.62x39mm. Favored by criminals, militias and terrorists for its famed reliability and easy-to-manufacture design. 30-round magazines.
   components:
   - type: Sprite
     sprite: Objects/Weapons/Guns/Rifles/ak.rsi
@@ -66,14 +67,25 @@
         map: ["enum.GunVisualLayers.Base"]
       - state: mag-0
         map: ["enum.GunVisualLayers.Mag"]
-  - type: GunWieldBonus
-    minAngle: -20
-    maxAngle: -16
-  - type: Gun
-    angleIncrease: 1.5
-    angleDecay: 9.5
+  - type: Item # Dystopia: руки и спина — отдельный .rsi (иконка 64×32)
+    sprite: Objects/Weapons/Guns/Rifles/ak_inhands.rsi
+  - type: Clothing # Dystopia
+    sprite: Objects/Weapons/Guns/Rifles/ak_inhands.rsi
+  - type: WieldedCameraRecoil # Dystopia
+    cameraRecoilScalar: -4
+  - type: GunWieldBonus # Dystopia: числа Backmen
+    minAngle: -23
+    maxAngle: 0
+    angleIncrease: -3
+  - type: Gun # Dystopia: числа и звук Backmen
+    angleDecay: 30
+    angleIncrease: 5
+    cameraRecoilScalar: 5
+    minAngle: 24
+    maxAngle: 35
+    fireRate: 5
     soundGunshot:
-      path: /Audio/Weapons/Guns/Gunshots/rifle2.ogg
+      path: /Audio/_Dystopia/Weapons/Guns/Rifles/ak47.ogg
   - type: ChamberMagazineAmmoProvider
     soundRack:
       path: /Audio/Weapons/Guns/Cock/ltrifle_cock.ogg
@@ -81,20 +93,21 @@
     slots:
       gun_magazine:
         name: Magazine
-        startingItem: MagazineLightRifle
-        insertSound: /Audio/Weapons/Guns/MagIn/ltrifle_magin.ogg
-        ejectSound: /Audio/Weapons/Guns/MagOut/ltrifle_magout.ogg
+        startingItem: Magazine762x39AK # Dystopia: 7,62×39 мм
+        insertSound: /Audio/_Dystopia/Weapons/Guns/Rifles/ak47_reload.ogg
+        ejectSound: /Audio/_Dystopia/Weapons/Guns/Rifles/ak47_unload.ogg
         priority: 2
         whitelist:
           tags:
-            - MagazineLightRifle
+            - Magazine762x39AK # Dystopia
         whitelistFailPopup: gun-magazine-whitelist-fail
       gun_chamber:
         name: Chamber
+        startingItem: Cartridge762x39 # Dystopia
         priority: 1
         whitelist:
           tags:
-            - CartridgeLightRifle
+            - Cartridge762x39 # Dystopia
   - type: ContainerContainer
     containers:
       gun_magazine: !type:ContainerSlot
@@ -104,7 +117,6 @@
     steps: 1
     zeroVisible: true
   - type: Appearance
-
 - type: entity
   name: Lecter
   parent: [BaseCorvaxContraband434DepartmentsSecurity, BaseWeaponRifle, BaseSecurityContraband] # Corvax-Contraband

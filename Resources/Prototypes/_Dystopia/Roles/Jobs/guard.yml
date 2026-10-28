@@ -49,7 +49,7 @@
     pocket1: WeaponRevolverMateba
   storage:
     back:
-    - SpeedLoaderMagnum
+    - SpeedLoader44Mag # Матеба под .44 Magnum (оружие из Backmen)
     - DystopiaFineTerminal
 
 - type: job

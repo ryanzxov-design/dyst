@@ -1,0 +1,215 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: пистолеты, перенесённые из Backmen (github.com/Rxup/space-station-14, AGPL-3.0).
+# Калибры и магазины — Ammunition/calibers.yml, Ammunition/magazines.yml. Спрайты — Бекмена (CC-BY-SA 3.0,
+# авторы в meta.json), звуки — Audio/_Dystopia/Weapons/Guns (attributions.yml). Самостоятельные сущности (без parent).
+
+- type: entity
+  id: DystopiaWeaponPistolPM
+  name: PM
+  description: "The Makarov pistol: compact, reliable and familiar to everyone. Feeds from 8-round 9x18mm magazines."
+  components:
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Pistols/makarovbel.rsi
+    layers:
+    - state: base
+      map: [ enum.GunVisualLayers.Base ]
+    - state: mag-0
+      map: [ enum.GunVisualLayers.Mag ]
+    drawdepth: Items
+    noRot: false
+  - type: Clothing
+    sprite: _Dystopia/Objects/Weapons/Guns/Pistols/makarovbel.rsi
+    quickEquip: false
+    slots: [ suitStorage, Belt ]
+  - type: Item
+    size: Small
+    shape:
+    - 0,0,0,0
+    - 0,1,0,1
+    storedOffset: 0,-4
+    sprite: _Dystopia/Objects/Weapons/Guns/Pistols/makarovbel.rsi
+  - type: Gun
+    fireRate: 5
+    availableModes: [ SemiAuto ]
+    soundGunshot:
+      path: /Audio/Weapons/Guns/Gunshots/mk58.ogg
+    selectedMode: SemiAuto
+  - type: Tag
+    tags: [ Sidearm ]
+  - type: ChamberMagazineAmmoProvider
+    soundRack:
+      path: /Audio/Weapons/Guns/Cock/pistol_cock.ogg
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Magazine
+        startingItem: Magazine9x18PM
+        insertSound: /Audio/Weapons/Guns/MagIn/pistol_magin.ogg
+        ejectSound: /Audio/Weapons/Guns/MagOut/pistol_magout.ogg
+        priority: 2
+        whitelist:
+          tags: [ Magazine9x18PM ]
+        whitelistFailPopup: gun-magazine-whitelist-fail
+      gun_chamber:
+        name: Chamber
+        priority: 1
+        whitelist:
+          tags: [ Cartridge9x18 ]
+        startingItem: Cartridge9x18
+  - type: ContainerContainer
+    containers:
+      gun_magazine: !type:ContainerSlot
+      gun_chamber: !type:ContainerSlot
+  - type: AmmoCounter
+  - type: MagazineVisuals
+    magState: mag
+    steps: 1
+    zeroVisible: true
+  - type: Appearance
+  - type: StaticPrice
+    price: 500
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+
+- type: entity
+  id: DystopiaWeaponPistolDesertEagle
+  name: Desert Eagle
+  description: A heavy self-loading pistol in .50 AE. The recoil is brutal, but one hit is usually enough. Feeds from 7-round magazines.
+  components:
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Pistols/deagle/big.rsi
+    layers:
+    - state: base
+      map: [ enum.GunVisualLayers.Base ]
+    - state: mag-0
+      map: [ enum.GunVisualLayers.Mag ]
+    drawdepth: Items
+    noRot: false
+  - type: Item
+    sprite: _Dystopia/Objects/Weapons/Guns/Pistols/deagle/tiny.rsi
+    size: Small
+    shape:
+    - 0,0,1,0
+    - 0,1,0,1
+    storedOffset: 0,-4
+  - type: Gun
+    fireRate: 3
+    angleDecay: 15
+    angleIncrease: 10
+    cameraRecoilScalar: 2
+    maxAngle: 15
+    minAngle: 1
+    selectedMode: SemiAuto
+    availableModes: [ SemiAuto ]
+    soundGunshot:
+      path: /Audio/_Dystopia/Weapons/Guns/Pistols/deagle.ogg
+    soundEmpty:
+      path: /Audio/_Dystopia/Weapons/Guns/Pistols/deagle_empty.ogg
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Magazine
+        startingItem: Magazine50AEDeagle
+        insertSound: /Audio/_Dystopia/Weapons/Guns/Pistols/deagle_reload.ogg
+        ejectSound: /Audio/_Dystopia/Weapons/Guns/Pistols/deagle_unload.ogg
+        priority: 2
+        whitelist:
+          tags: [ Magazine50AEDeagle ]
+        whitelistFailPopup: gun-magazine-whitelist-fail
+      gun_chamber:
+        name: Chamber
+        priority: 1
+        whitelist:
+          tags: [ Cartridge50AE ]
+        startingItem: Cartridge50AE
+  - type: MagazineVisuals
+    magState: mag
+    steps: 1
+    zeroVisible: true
+  - type: ContainerContainer
+    containers:
+      gun_magazine: !type:ContainerSlot
+      gun_chamber: !type:ContainerSlot
+  - type: Tag
+    tags: [ Sidearm ]
+  - type: Clothing
+    sprite: _Dystopia/Objects/Weapons/Guns/Pistols/deagle/tiny.rsi
+    quickEquip: false
+    slots: [ suitStorage, Belt ]
+  - type: ChamberMagazineAmmoProvider
+    soundRack:
+      path: /Audio/Weapons/Guns/Cock/pistol_cock.ogg
+  - type: AmmoCounter
+  - type: Appearance
+  - type: StaticPrice
+    price: 500
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30

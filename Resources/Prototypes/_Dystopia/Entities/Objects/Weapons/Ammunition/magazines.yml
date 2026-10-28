@@ -1,0 +1,2083 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: магазины, ленты, обоймы и ранец для оружия, перенесённого из Backmen
+# (github.com/Rxup/space-station-14). Спрайты магазинов — Бекмена (CC-BY-SA 3.0, авторы в meta.json).
+# Снаряжены FMJ; другие виды набиваются вручную из коробок. Самостоятельные сущности (без parent).
+
+- type: Tag
+  id: Magazine9x18PM
+
+- type: Tag
+  id: Magazine50AEDeagle
+
+- type: Tag
+  id: Magazine9x19MP5
+
+- type: Tag
+  id: Magazine9x19MP38
+
+- type: Tag
+  id: Magazine9x19Uzi
+
+- type: Tag
+  id: Magazine9x19Vityaz
+
+- type: Tag
+  id: Magazine32ACPSkorpion
+
+- type: Tag
+  id: Magazine45ACPVector
+
+- type: Tag
+  id: Magazine762x25PPSh
+
+- type: Tag
+  id: Magazine57x28P90
+
+- type: Tag
+  id: Magazine46x30MP7
+
+- type: Tag
+  id: Magazine545x39AK
+
+- type: Tag
+  id: Magazine762x39AK
+
+- type: Tag
+  id: Magazine762x39RPD
+
+- type: Tag
+  id: Magazine556x45STANAG
+
+- type: Tag
+  id: Magazine556x45G36
+
+- type: Tag
+  id: Magazine556x45AUG
+
+- type: Tag
+  id: Magazine556x45FAMAS
+
+- type: Tag
+  id: Magazine792x33STG
+
+- type: Tag
+  id: Magazine762x54RSVD
+
+- type: Tag
+  id: Magazine792x57MG42
+
+- type: Tag
+  id: Magazine127x99M2
+
+- type: Tag
+  id: MagazineShotgunAA12
+
+- type: Tag
+  id: Clip762x54RMosin
+
+- type: Tag
+  id: Clip3006Garand
+
+- type: Tag
+  id: SpeedLoader44Mag
+
+- type: Tag
+  id: Powerpack762x51
+
+- type: entity
+  id: Magazine9x18PM
+  name: PM magazine (9x18mm)
+  description: Holds 8 rounds of 9x18mm.
+  components:
+  - type: Tag
+    tags: [ Magazine9x18PM ]
+  - type: BallisticAmmoProvider
+    proto: Cartridge9x18
+    capacity: 8
+    whitelist:
+      tags: [ Cartridge9x18 ]
+    mayTransfer: true
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Magazines/Pistol/pistol_mag.rsi
+    layers:
+    - state: base
+      map: [ enum.GunVisualLayers.Base ]
+    - state: mag-1
+      map: [ enum.GunVisualLayers.Mag ]
+    drawdepth: Items
+    noRot: false
+  - type: MagazineVisuals
+    magState: mag
+    steps: 3
+    zeroVisible: false
+  - type: Item
+    size: Small
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: Appearance
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+
+- type: entity
+  id: Magazine50AEDeagle
+  name: Desert Eagle magazine (.50 AE)
+  description: Holds 7 rounds of .50 AE.
+  components:
+  - type: Tag
+    tags: [ Magazine50AEDeagle ]
+  - type: BallisticAmmoProvider
+    proto: Cartridge50AE
+    capacity: 7
+    whitelist:
+      tags: [ Cartridge50AE ]
+    mayTransfer: true
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Magazines/Magnum/magnum_pistol_mag.rsi
+    layers:
+    - state: base
+      map: [ enum.GunVisualLayers.Base ]
+    - state: mag-1
+      map: [ enum.GunVisualLayers.Mag ]
+    drawdepth: Items
+    noRot: false
+  - type: MagazineVisuals
+    magState: mag
+    steps: 6
+    zeroVisible: false
+  - type: Item
+    size: Small
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: Appearance
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+
+- type: entity
+  id: Magazine9x19MP5
+  name: MP5 magazine (9x19mm)
+  description: Holds 30 rounds of 9x19mm.
+  components:
+  - type: Tag
+    tags: [ Magazine9x19MP5 ]
+  - type: BallisticAmmoProvider
+    proto: Cartridge9x19
+    capacity: 30
+    whitelist:
+      tags: [ Cartridge9x19 ]
+    mayTransfer: true
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Magazines/Pistol/submachinegun.rsi
+    layers:
+    - state: base
+      map: [ enum.GunVisualLayers.Base ]
+    - state: mag-1
+      map: [ enum.GunVisualLayers.Mag ]
+    drawdepth: Items
+    noRot: false
+  - type: MagazineVisuals
+    magState: mag
+    steps: 3
+    zeroVisible: false
+  - type: Item
+    size: Small
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: Appearance
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+
+- type: entity
+  id: Magazine9x19MP38
+  name: MP-38 magazine (9x19mm)
+  description: Holds 32 rounds of 9x19mm.
+  components:
+  - type: Tag
+    tags: [ Magazine9x19MP38 ]
+  - type: BallisticAmmoProvider
+    proto: Cartridge9x19
+    capacity: 32
+    whitelist:
+      tags: [ Cartridge9x19 ]
+    mayTransfer: true
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Magazines/Pistol/submachinegun_boxmag.rsi
+    layers:
+    - state: base
+      map: [ enum.GunVisualLayers.Base ]
+    - state: mag-1
+      map: [ enum.GunVisualLayers.Mag ]
+    drawdepth: Items
+    noRot: false
+  - type: MagazineVisuals
+    magState: mag
+    steps: 3
+    zeroVisible: false
+  - type: Item
+    size: Small
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: Appearance
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+
+- type: entity
+  id: Magazine9x19Uzi
+  name: Uzi magazine (9x19mm)
+  description: Holds 32 rounds of 9x19mm.
+  components:
+  - type: Tag
+    tags: [ Magazine9x19Uzi ]
+  - type: BallisticAmmoProvider
+    proto: Cartridge9x19
+    capacity: 32
+    whitelist:
+      tags: [ Cartridge9x19 ]
+    mayTransfer: true
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Magazines/Pistol/submachinegun_boxmag.rsi
+    layers:
+    - state: base
+      map: [ enum.GunVisualLayers.Base ]
+    - state: mag-1
+      map: [ enum.GunVisualLayers.Mag ]
+    drawdepth: Items
+    noRot: false
+  - type: MagazineVisuals
+    magState: mag
+    steps: 3
+    zeroVisible: false
+  - type: Item
+    size: Small
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: Appearance
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+
+- type: entity
+  id: Magazine9x19Vityaz
+  name: Vityaz magazine (9x19mm)
+  description: Holds 30 rounds of 9x19mm.
+  components:
+  - type: Tag
+    tags: [ Magazine9x19Vityaz ]
+  - type: BallisticAmmoProvider
+    proto: Cartridge9x19
+    capacity: 30
+    whitelist:
+      tags: [ Cartridge9x19 ]
+    mayTransfer: true
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Magazines/Pistol/submachinegun.rsi
+    layers:
+    - state: base
+      map: [ enum.GunVisualLayers.Base ]
+    - state: mag-1
+      map: [ enum.GunVisualLayers.Mag ]
+    drawdepth: Items
+    noRot: false
+  - type: MagazineVisuals
+    magState: mag
+    steps: 3
+    zeroVisible: false
+  - type: Item
+    size: Small
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: Appearance
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+
+- type: entity
+  id: Magazine32ACPSkorpion
+  name: Skorpion magazine (.32 ACP)
+  description: Holds 20 rounds of .32 ACP.
+  components:
+  - type: Tag
+    tags: [ Magazine32ACPSkorpion ]
+  - type: BallisticAmmoProvider
+    proto: Cartridge32ACP
+    capacity: 20
+    whitelist:
+      tags: [ Cartridge32ACP ]
+    mayTransfer: true
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Magazines/Pistol/submachinegun_scorpion.rsi
+    layers:
+    - state: base
+      map: [ enum.GunVisualLayers.Base ]
+    - state: mag-1
+      map: [ enum.GunVisualLayers.Mag ]
+    drawdepth: Items
+    noRot: false
+  - type: MagazineVisuals
+    magState: mag
+    steps: 3
+    zeroVisible: false
+  - type: Item
+    size: Small
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: Appearance
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+
+- type: entity
+  id: Magazine45ACPVector
+  name: Vector magazine (.45 ACP)
+  description: Holds 25 rounds of .45 ACP.
+  components:
+  - type: Tag
+    tags: [ Magazine45ACPVector ]
+  - type: BallisticAmmoProvider
+    proto: Cartridge45ACP
+    capacity: 25
+    whitelist:
+      tags: [ Cartridge45ACP ]
+    mayTransfer: true
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Magazines/Pistol/submachinegun_vector.rsi
+    layers:
+    - state: base
+      map: [ enum.GunVisualLayers.Base ]
+    - state: mag-1
+      map: [ enum.GunVisualLayers.Mag ]
+    drawdepth: Items
+    noRot: false
+  - type: MagazineVisuals
+    magState: mag
+    steps: 3
+    zeroVisible: false
+  - type: Item
+    size: Small
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: Appearance
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+
+- type: entity
+  id: Magazine762x25PPSh
+  name: PPSh drum magazine (7.62x25mm)
+  description: Holds 71 rounds of 7.62x25mm.
+  components:
+  - type: Tag
+    tags: [ Magazine762x25PPSh ]
+  - type: BallisticAmmoProvider
+    proto: Cartridge762x25
+    capacity: 71
+    whitelist:
+      tags: [ Cartridge762x25 ]
+    mayTransfer: true
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Magazines/Pistol/submachinegun_drummag.rsi
+    layers:
+    - state: base
+      map: [ enum.GunVisualLayers.Base ]
+    - state: mag-1
+      map: [ enum.GunVisualLayers.Mag ]
+    drawdepth: Items
+    noRot: false
+  - type: MagazineVisuals
+    magState: mag
+    steps: 3
+    zeroVisible: false
+  - type: Item
+    size: Normal
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: Appearance
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+
+- type: entity
+  id: Magazine57x28P90
+  name: P90 magazine (5.7x28mm)
+  description: Holds 50 rounds of 5.7x28mm.
+  components:
+  - type: Tag
+    tags: [ Magazine57x28P90 ]
+  - type: BallisticAmmoProvider
+    proto: Cartridge57x28
+    capacity: 50
+    whitelist:
+      tags: [ Cartridge57x28 ]
+    mayTransfer: true
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Magazines/Pistol/submachinegun_top_moumted_mag.rsi
+    layers:
+    - state: base
+      map: [ enum.GunVisualLayers.Base ]
+    - state: mag-1
+      map: [ enum.GunVisualLayers.Mag ]
+    drawdepth: Items
+    noRot: false
+  - type: MagazineVisuals
+    magState: mag
+    steps: 6
+    zeroVisible: false
+  - type: Item
+    size: Small
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: Appearance
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+
+- type: entity
+  id: Magazine46x30MP7
+  name: MP7 magazine (4.6x30mm)
+  description: Holds 40 rounds of 4.6x30mm.
+  components:
+  - type: Tag
+    tags: [ Magazine46x30MP7 ]
+  - type: BallisticAmmoProvider
+    proto: Cartridge46x30
+    capacity: 40
+    whitelist:
+      tags: [ Cartridge46x30 ]
+    mayTransfer: true
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Magazines/Pistol/submachinegun_mp7.rsi
+    layers:
+    - state: base
+      map: [ enum.GunVisualLayers.Base ]
+    - state: mag-1
+      map: [ enum.GunVisualLayers.Mag ]
+    drawdepth: Items
+    noRot: false
+  - type: MagazineVisuals
+    magState: mag
+    steps: 3
+    zeroVisible: false
+  - type: Item
+    size: Small
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: Appearance
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+
+- type: entity
+  id: Magazine545x39AK
+  name: AK-74 magazine (5.45x39mm)
+  description: Holds 30 rounds of 5.45x39mm.
+  components:
+  - type: Tag
+    tags: [ Magazine545x39AK ]
+  - type: BallisticAmmoProvider
+    proto: Cartridge545x39
+    capacity: 30
+    whitelist:
+      tags: [ Cartridge545x39 ]
+    mayTransfer: true
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Magazines/Rifle/ak_mag.rsi
+    layers:
+    - state: base
+      map: [ enum.GunVisualLayers.Base ]
+    - state: mag-1
+      map: [ enum.GunVisualLayers.Mag ]
+    drawdepth: Items
+    noRot: false
+  - type: MagazineVisuals
+    magState: mag
+    steps: 3
+    zeroVisible: false
+  - type: Item
+    size: Small
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: Appearance
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+
+- type: entity
+  id: Magazine762x39AK
+  name: AKM magazine (7.62x39mm)
+  description: Holds 30 rounds of 7.62x39mm.
+  components:
+  - type: Tag
+    tags: [ Magazine762x39AK ]
+  - type: BallisticAmmoProvider
+    proto: Cartridge762x39
+    capacity: 30
+    whitelist:
+      tags: [ Cartridge762x39 ]
+    mayTransfer: true
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Magazines/Rifle/ak_mag.rsi
+    layers:
+    - state: base
+      map: [ enum.GunVisualLayers.Base ]
+    - state: mag-1
+      map: [ enum.GunVisualLayers.Mag ]
+    drawdepth: Items
+    noRot: false
+  - type: MagazineVisuals
+    magState: mag
+    steps: 3
+    zeroVisible: false
+  - type: Item
+    size: Small
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: Appearance
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+
+- type: entity
+  id: Magazine762x39RPD
+  name: RPD belt drum (7.62x39mm)
+  description: Holds 100 rounds of 7.62x39mm.
+  components:
+  - type: Tag
+    tags: [ Magazine762x39RPD ]
+  - type: BallisticAmmoProvider
+    proto: Cartridge762x39
+    capacity: 100
+    whitelist:
+      tags: [ Cartridge762x39 ]
+    mayTransfer: true
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Magazines/Heavy/rpd.rsi
+    layers:
+    - state: base
+      map: [ enum.GunVisualLayers.Base ]
+    - state: mag-1
+      map: [ enum.GunVisualLayers.Mag ]
+    drawdepth: Items
+    noRot: false
+  - type: MagazineVisuals
+    magState: mag
+    steps: 3
+    zeroVisible: false
+  - type: Item
+    size: Normal
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: Appearance
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+
+- type: entity
+  id: Magazine556x45STANAG
+  name: STANAG magazine (5.56x45mm)
+  description: Holds 30 rounds of 5.56x45mm.
+  components:
+  - type: Tag
+    tags: [ Magazine556x45STANAG ]
+  - type: BallisticAmmoProvider
+    proto: Cartridge556x45
+    capacity: 30
+    whitelist:
+      tags: [ Cartridge556x45 ]
+    mayTransfer: true
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Magazines/Rifle/m16_mag.rsi
+    layers:
+    - state: base
+      map: [ enum.GunVisualLayers.Base ]
+    - state: mag-1
+      map: [ enum.GunVisualLayers.Mag ]
+    drawdepth: Items
+    noRot: false
+  - type: MagazineVisuals
+    magState: mag
+    steps: 3
+    zeroVisible: false
+  - type: Item
+    size: Small
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: Appearance
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+
+- type: entity
+  id: Magazine556x45G36
+  name: G36 magazine (5.56x45mm)
+  description: Holds 30 rounds of 5.56x45mm.
+  components:
+  - type: Tag
+    tags: [ Magazine556x45G36 ]
+  - type: BallisticAmmoProvider
+    proto: Cartridge556x45
+    capacity: 30
+    whitelist:
+      tags: [ Cartridge556x45 ]
+    mayTransfer: true
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Magazines/Rifle/ar_mag.rsi
+    layers:
+    - state: base
+      map: [ enum.GunVisualLayers.Base ]
+    - state: mag-1
+      map: [ enum.GunVisualLayers.Mag ]
+    drawdepth: Items
+    noRot: false
+  - type: MagazineVisuals
+    magState: mag
+    steps: 3
+    zeroVisible: false
+  - type: Item
+    size: Small
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: Appearance
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+
+- type: entity
+  id: Magazine556x45AUG
+  name: AUG magazine (5.56x45mm)
+  description: Holds 30 rounds of 5.56x45mm.
+  components:
+  - type: Tag
+    tags: [ Magazine556x45AUG ]
+  - type: BallisticAmmoProvider
+    proto: Cartridge556x45
+    capacity: 30
+    whitelist:
+      tags: [ Cartridge556x45 ]
+    mayTransfer: true
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Magazines/Rifle/ar_mag.rsi
+    layers:
+    - state: base
+      map: [ enum.GunVisualLayers.Base ]
+    - state: mag-1
+      map: [ enum.GunVisualLayers.Mag ]
+    drawdepth: Items
+    noRot: false
+  - type: MagazineVisuals
+    magState: mag
+    steps: 3
+    zeroVisible: false
+  - type: Item
+    size: Small
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: Appearance
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+
+- type: entity
+  id: Magazine556x45FAMAS
+  name: FAMAS magazine (5.56x45mm)
+  description: Holds 25 rounds of 5.56x45mm.
+  components:
+  - type: Tag
+    tags: [ Magazine556x45FAMAS ]
+  - type: BallisticAmmoProvider
+    proto: Cartridge556x45
+    capacity: 25
+    whitelist:
+      tags: [ Cartridge556x45 ]
+    mayTransfer: true
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Magazines/Rifle/famas_mag.rsi
+    layers:
+    - state: base
+      map: [ enum.GunVisualLayers.Base ]
+    - state: mag-1
+      map: [ enum.GunVisualLayers.Mag ]
+    drawdepth: Items
+    noRot: false
+  - type: MagazineVisuals
+    magState: mag
+    steps: 3
+    zeroVisible: false
+  - type: Item
+    size: Small
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: Appearance
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+
+- type: entity
+  id: Magazine792x33STG
+  name: STG 44 magazine (7.92x33mm)
+  description: Holds 30 rounds of 7.92x33mm.
+  components:
+  - type: Tag
+    tags: [ Magazine792x33STG ]
+  - type: BallisticAmmoProvider
+    proto: Cartridge792x33
+    capacity: 30
+    whitelist:
+      tags: [ Cartridge792x33 ]
+    mayTransfer: true
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Magazines/Rifle/ak_long_mag.rsi
+    layers:
+    - state: base
+      map: [ enum.GunVisualLayers.Base ]
+    - state: mag-1
+      map: [ enum.GunVisualLayers.Mag ]
+    drawdepth: Items
+    noRot: false
+  - type: MagazineVisuals
+    magState: mag
+    steps: 3
+    zeroVisible: false
+  - type: Item
+    size: Small
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: Appearance
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+
+- type: entity
+  id: Magazine762x54RSVD
+  name: SVD magazine (7.62x54mmR)
+  description: Holds 10 rounds of 7.62x54mmR.
+  components:
+  - type: Tag
+    tags: [ Magazine762x54RSVD ]
+  - type: BallisticAmmoProvider
+    proto: Cartridge762x54R
+    capacity: 10
+    whitelist:
+      tags: [ Cartridge762x54R ]
+    mayTransfer: true
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Magazines/Rifle/svd_mag.rsi
+    layers:
+    - state: base
+      map: [ enum.GunVisualLayers.Base ]
+    - state: mag-1
+      map: [ enum.GunVisualLayers.Mag ]
+    drawdepth: Items
+    noRot: false
+  - type: MagazineVisuals
+    magState: mag
+    steps: 3
+    zeroVisible: false
+  - type: Item
+    size: Small
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: Appearance
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+
+- type: entity
+  id: Magazine792x57MG42
+  name: MG-42 belt drum (7.92x57mm)
+  description: Holds 50 rounds of 7.92x57mm.
+  components:
+  - type: Tag
+    tags: [ Magazine792x57MG42 ]
+  - type: BallisticAmmoProvider
+    proto: Cartridge792x57
+    capacity: 50
+    whitelist:
+      tags: [ Cartridge792x57 ]
+    mayTransfer: true
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Magazines/Heavy/mg42.rsi
+    layers:
+    - state: base
+      map: [ enum.GunVisualLayers.Base ]
+    - state: mag-1
+      map: [ enum.GunVisualLayers.Mag ]
+    drawdepth: Items
+    noRot: false
+  - type: MagazineVisuals
+    magState: mag
+    steps: 3
+    zeroVisible: false
+  - type: Item
+    size: Normal
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: Appearance
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+
+- type: entity
+  id: Magazine127x99M2
+  name: M2 belt box (12.7x99mm)
+  description: Holds 100 rounds of 12.7x99mm.
+  components:
+  - type: Tag
+    tags: [ Magazine127x99M2 ]
+  - type: BallisticAmmoProvider
+    proto: Cartridge127x99
+    capacity: 100
+    whitelist:
+      tags: [ Cartridge127x99 ]
+    mayTransfer: true
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Magazines/Heavy/v41.rsi
+    layers:
+    - state: base
+      map: [ enum.GunVisualLayers.Base ]
+    - state: mag-1
+      map: [ enum.GunVisualLayers.Mag ]
+    drawdepth: Items
+    noRot: false
+  - type: MagazineVisuals
+    magState: mag
+    steps: 3
+    zeroVisible: false
+  - type: Item
+    size: Large
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: Appearance
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+
+- type: entity
+  id: MagazineShotgunAA12
+  name: AA-12 drum (12 gauge)
+  description: Holds 20 shotgun shells.
+  components:
+  - type: Tag
+    tags: [ MagazineShotgunAA12 ]
+  - type: BallisticAmmoProvider
+    capacity: 20
+    proto: ShellShotgun
+    mayTransfer: true
+    whitelist:
+      tags: [ ShellShotgun ]
+    soundRack:
+      path: /Audio/Corvax/Weapons/Guns/Cock/shotgun_cock.ogg
+  - type: Item
+    size: Small
+    inhandVisuals:
+      left:
+      - state: inhand-left-mag
+      - state: inhand-left-stripe
+        color: "#d73307"
+      right:
+      - state: inhand-right-mag
+      - state: inhand-right-stripe
+        color: "#d73307"
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Ammunition/Magazine/Shotgun/m12.rsi
+    layers:
+    - state: base
+      map: [ enum.GunVisualLayers.Base ]
+    - state: mag-1
+      map: [ enum.GunVisualLayers.Mag ]
+    drawdepth: Items
+    noRot: false
+  - type: MagazineVisuals
+    magState: mag
+    steps: 2
+    zeroVisible: false
+  - type: Appearance
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+
+- type: entity
+  id: Clip762x54RMosin
+  name: Mosin stripper clip (7.62x54mmR)
+  description: Holds 5 rounds of 7.62x54mmR for quick reloading.
+  components:
+  - type: Tag
+    tags: [ Clip762x54RMosin ]
+  - type: BallisticAmmoProvider
+    proto: Cartridge762x54R
+    capacity: 5
+    whitelist:
+      tags: [ Cartridge762x54R ]
+    mayTransfer: true
+  - type: SpeedLoader
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Ammunition/SpeedLoaders/LightRifle/light_rifle_speed_loader.rsi
+    layers:
+    - state: base
+      map: [ enum.GunVisualLayers.Base ]
+    - state: mag-5
+      map: [ enum.GunVisualLayers.Mag ]
+    drawdepth: Items
+    noRot: false
+  - type: MagazineVisuals
+    magState: mag
+    steps: 6
+    zeroVisible: false
+  - type: Appearance
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+        ents: []
+  - type: Item
+    size: Small
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Contraband
+    allowedDepartments: [ Security ]
+    severity: Corvax431
+    allowedJobs: []
+
+- type: entity
+  id: Clip3006Garand
+  name: Garand en-bloc clip (.30-06)
+  description: Holds 8 rounds of .30-06 for quick reloading.
+  components:
+  - type: Tag
+    tags: [ Clip3006Garand ]
+  - type: BallisticAmmoProvider
+    proto: Cartridge3006
+    capacity: 8
+    whitelist:
+      tags: [ Cartridge3006 ]
+    mayTransfer: true
+  - type: SpeedLoader
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Ammunition/SpeedLoaders/LightRifle/light_rifle_speed_loader.rsi
+    layers:
+    - state: base
+      map: [ enum.GunVisualLayers.Base ]
+    - state: mag-5
+      map: [ enum.GunVisualLayers.Mag ]
+    drawdepth: Items
+    noRot: false
+  - type: MagazineVisuals
+    magState: mag
+    steps: 6
+    zeroVisible: false
+  - type: Appearance
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+        ents: []
+  - type: Item
+    size: Small
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Contraband
+    allowedDepartments: [ Security ]
+    severity: Corvax431
+    allowedJobs: []
+
+- type: entity
+  id: SpeedLoader44Mag
+  name: speed loader (.44 Magnum)
+  description: Holds 6 rounds of .44 Magnum for quick reloading.
+  components:
+  - type: Tag
+    tags: [ SpeedLoader44Mag ]
+  - type: BallisticAmmoProvider
+    proto: Cartridge44Mag
+    capacity: 6
+    whitelist:
+      tags: [ Cartridge44Mag ]
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Ammunition/SpeedLoaders/Magnum/magnum_speed_loader.rsi
+    layers:
+    - state: base
+      map: [ enum.GunVisualLayers.Base ]
+    - state: base-6
+      map: [ enum.GunVisualLayers.Mag ]
+    drawdepth: Items
+    noRot: false
+  - type: MagazineVisuals
+    magState: base
+    steps: 7
+    zeroVisible: false
+  - type: Appearance
+  - type: Item
+    inhandVisuals:
+      left:
+      - state: inhand-left-mag
+      - state: inhand-left-ammo
+      right:
+      - state: inhand-right-mag
+      - state: inhand-right-ammo
+    size: Small
+  - type: SpeedLoader
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+        ents: []
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+
+- type: entity
+  id: Powerpack762x51
+  name: minigun ammo pack (7.62x51mm)
+  description: A backpack with a 1000-round belt that feeds the minigun through a flexible chute. Heavy.
+  components:
+  - type: Tag
+    tags: [ Powerpack762x51 ]
+  - type: Item
+    size: Huge
+  - type: Clothing
+    slots: [ Back ]
+    sprite: _Dystopia/Clothing/Back/powerpack.rsi
+    equipDelay: 10
+    unequipDelay: 10
+  - type: BallisticAmmoProvider
+    mayTransfer: true
+    capacity: 1000
+    proto: Cartridge762x51
+    whitelist:
+      tags: [ Cartridge762x51 ]
+  - type: ClothingSpeedModifier
+    walkModifier: 0.6
+    sprintModifier: 0.6
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: Sprite
+    sprite: _Dystopia/Clothing/Back/powerpack.rsi
+    layers:
+    - state: mag-0
+      map: [ enum.GunVisualLayers.Base ]
+    - state: mag-1
+      map: [ enum.GunVisualLayers.Mag ]
+    drawdepth: Items
+    noRot: false
+  - type: MagazineVisuals
+    magState: mag
+    steps: 2
+    zeroVisible: false
+  - type: Appearance
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30

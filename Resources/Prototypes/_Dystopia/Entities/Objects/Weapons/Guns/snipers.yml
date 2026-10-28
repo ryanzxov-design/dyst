@@ -1,0 +1,360 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: снайперские и затворные винтовки, перенесённые из Backmen (github.com/Rxup/space-station-14, AGPL-3.0).
+# Калибры и магазины — Ammunition/calibers.yml, Ammunition/magazines.yml. Спрайты — Бекмена (CC-BY-SA 3.0,
+# авторы в meta.json), звуки — Audio/_Dystopia/Weapons/Guns (attributions.yml). Самостоятельные сущности (без parent).
+
+- type: entity
+  id: DystopiaWeaponSniperSVD
+  name: SVD
+  description: The Dragunov sniper rifle in 7.62x54mmR. Self-loading, with 10-round magazines.
+  components:
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Snipers/dragunov/big.rsi
+    layers:
+    - state: base
+      map: [ enum.GunVisualLayers.Base ]
+    - state: mag-0
+      map: [ enum.GunVisualLayers.Mag ]
+    drawdepth: Items
+    noRot: false
+  - type: Clothing
+    sprite: _Dystopia/Objects/Weapons/Guns/Snipers/dragunov/tiny.rsi
+    quickEquip: false
+    slots: [ Back, suitStorage ]
+  - type: Item
+    sprite: _Dystopia/Objects/Weapons/Guns/Snipers/dragunov/tiny.rsi
+    size: Huge
+    shape:
+    - 0,0,3,2
+  - type: WieldedCameraRecoil
+    cameraRecoilScalar: -5
+  - type: GunWieldBonus
+    minAngle: -23
+    maxAngle: -44
+  - type: Gun
+    selectedMode: SemiAuto
+    availableModes: [ SemiAuto ]
+    minAngle: 24
+    maxAngle: 45
+    cameraRecoilScalar: 10
+    fireRate: 3
+    soundGunshot:
+      path: /Audio/_Dystopia/Weapons/Guns/Snipers/svd.ogg
+      params:
+        volume: -5
+  - type: ChamberMagazineAmmoProvider
+    soundRack:
+      path: /Audio/Weapons/Guns/Cock/sf_rifle_cock.ogg
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Magazine
+        startingItem: Magazine762x54RSVD
+        insertSound: /Audio/_Dystopia/Weapons/Guns/Snipers/svd_reload.ogg
+        ejectSound: /Audio/_Dystopia/Weapons/Guns/Snipers/svd_unload.ogg
+        priority: 2
+        whitelist:
+          tags: [ Magazine762x54RSVD ]
+        whitelistFailPopup: gun-magazine-whitelist-fail
+      gun_chamber:
+        name: Chamber
+        priority: 1
+        whitelist:
+          tags: [ Cartridge762x54R ]
+        startingItem: Cartridge762x54R
+  - type: ContainerContainer
+    containers:
+      gun_magazine: !type:ContainerSlot
+      gun_chamber: !type:ContainerSlot
+  - type: MagazineVisuals
+    magState: mag
+    steps: 1
+    zeroVisible: true
+  - type: Appearance
+  - type: Wieldable
+    unwieldOnUse: false
+  - type: UseDelay
+    delay: 1.5
+  - type: AmmoCounter
+  - type: StaticPrice
+    price: 500
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+
+- type: entity
+  id: DystopiaWeaponSniperGarand
+  name: M1 Garand
+  description: A self-loading .30-06 rifle. Loads from 8-round en-bloc clips; the empty clip ejects with a famous ping.
+  components:
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Snipers/garand/big.rsi
+    layers:
+    - state: base
+      map: [ enum.GunVisualLayers.Base ]
+    drawdepth: Items
+    noRot: false
+  - type: Clothing
+    sprite: _Dystopia/Objects/Weapons/Guns/Snipers/garand/tiny.rsi
+    quickEquip: false
+    slots: [ Back, suitStorage ]
+  - type: Item
+    sprite: _Dystopia/Objects/Weapons/Guns/Snipers/garand/tiny.rsi
+    size: Large
+  - type: BallisticAmmoProvider
+    capacity: 8
+    proto: Cartridge3006
+    whitelist:
+      tags: [ Cartridge3006 ]
+  - type: Gun
+    fireRate: 0.8
+    soundGunshot:
+      path: /Audio/_Dystopia/Weapons/Guns/Snipers/garand.ogg
+    soundEmpty:
+      path: /Audio/_Dystopia/Weapons/Guns/Snipers/sniper_empty.ogg
+    selectedMode: SemiAuto
+    availableModes: [ SemiAuto ]
+  - type: Wieldable
+  - type: UseDelay
+    delay: 0.8
+  - type: GunRequiresWield
+  - type: AmmoCounter
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+        ents: []
+  - type: StaticPrice
+    price: 500
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+
+- type: entity
+  id: DystopiaWeaponSniperRemington700
+  name: Remington 700
+  description: A bolt-action hunting rifle in 7.62x51mm. Internal 4-round magazine.
+  components:
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Snipers/remington700/big.rsi
+    layers:
+    - state: base
+      map: [ enum.GunVisualLayers.Base ]
+    drawdepth: Items
+    noRot: false
+  - type: Clothing
+    sprite: _Dystopia/Objects/Weapons/Guns/Snipers/remington700/tiny.rsi
+    quickEquip: false
+    slots: [ Back, suitStorage ]
+  - type: Item
+    sprite: _Dystopia/Objects/Weapons/Guns/Snipers/remington700/tiny.rsi
+    size: Large
+  - type: Gun
+    fireRate: 0.8
+    soundGunshot:
+      path: /Audio/_Dystopia/Weapons/Guns/Snipers/dmr37.ogg
+    soundEmpty:
+      path: /Audio/_Dystopia/Weapons/Guns/Snipers/sniper_empty.ogg
+    selectedMode: SemiAuto
+    availableModes: [ SemiAuto ]
+  - type: BallisticAmmoProvider
+    capacity: 4
+    proto: Cartridge762x51
+    whitelist:
+      tags: [ Cartridge762x51 ]
+  - type: Wieldable
+  - type: UseDelay
+    delay: 2.8
+  - type: UseDelayOnShoot
+  - type: GunRequiresWield
+  - type: AmmoCounter
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+        ents: []
+  - type: StaticPrice
+    price: 500
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+
+- type: entity
+  id: DystopiaWeaponSniperPTRD
+  name: PTRD
+  description: A single-shot 14.5x114mm anti-tank rifle. Long, heavy and able to punch through almost anything.
+  components:
+  - type: Wieldable
+  - type: GunRequiresWield
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Snipers/ptrdm/big.rsi
+    layers:
+    - state: base
+      map: [ enum.GunVisualLayers.Base ]
+    drawdepth: Items
+    noRot: false
+  - type: Clothing
+    sprite: _Dystopia/Objects/Weapons/Guns/Snipers/ptrdm/tiny.rsi
+    quickEquip: false
+    slots: [ Back, suitStorage ]
+  - type: Item
+    sprite: _Dystopia/Objects/Weapons/Guns/Snipers/ptrdm/tiny.rsi
+    size: Large
+  - type: Gun
+    fireRate: 1
+    cameraRecoilScalar: 5
+    soundGunshot:
+      path: /Audio/_Dystopia/Weapons/Guns/Snipers/tl122.ogg
+      params:
+        volume: -2
+    soundEmpty:
+      path: /Audio/_Dystopia/Weapons/Guns/Rifles/m41a_empty.ogg
+    selectedMode: SemiAuto
+    availableModes: [ SemiAuto ]
+  - type: BallisticAmmoProvider
+    soundRack:
+      path: /Audio/_Dystopia/Weapons/Guns/Snipers/tl-127_bolt.ogg
+    whitelist:
+      tags: [ Cartridge145x114 ]
+    capacity: 1
+    proto: Cartridge145x114
+  - type: AmmoCounter
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+        ents: []
+  - type: StaticPrice
+    price: 500
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30

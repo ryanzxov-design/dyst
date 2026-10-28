@@ -30,26 +30,35 @@
   name: minigun
   id: WeaponMinigun
   parent: [BaseCorvaxContraband434DepartmentsSecurity, BaseWeaponHeavyMachineGun, BaseMajorContraband] # Corvax-Contraband
-  description: Vzzzzzt! Rahrahrahrah! Vrrrrr! Uses .10 rifle ammo.
+  # Dystopia: миниган заменён версией из Backmen (github.com/Rxup/space-station-14) — спрайт, звук, калибр 7,62×51 мм;
+  # патроны идут из ранца с лентой на спине (Powerpack762x51), своего магазина нет.
+  description: A six-barreled rotary machine gun in 7.62x51mm, the ultimate in man-portable firepower. Fed by a belt from an ammo pack worn on the back.
   components:
   - type: Sprite
     sprite: Objects/Weapons/Guns/HMGs/minigun.rsi
     layers:
     - state: icon
   - type: Item
-    sprite: Objects/Weapons/Guns/HMGs/minigun.rsi
+    sprite: Objects/Weapons/Guns/HMGs/minigun_inhands.rsi # Dystopia: руки — отдельный .rsi (иконка 64×32)
     shape:
     - 0,0,2,0
     - 0,1,6,2
     - 1,3,4,4
-  - type: Gun
+  - type: Gun # Dystopia: числа и звук Backmen
+    minAngle: 1
+    maxAngle: 30
+    angleDecay: 10
+    angleIncrease: 1.5
+    cameraRecoilScalar: 0.5
     fireRate: 15
     soundGunshot:
-      path: /Audio/Weapons/Guns/Gunshots/minigun.ogg
-  - type: BallisticAmmoProvider
-    proto: CartridgeMinigun
-    capacity: 1000
-  - type: ContainerContainer
-    containers:
-      ballistic-ammo: !type:Container
-        ents: []
+      path: /Audio/_Dystopia/Weapons/Guns/LMGs/minigunSG.ogg
+  - type: ClothingSlotAmmoProvider # Dystopia: лента из ранца на спине
+  - type: SlotBasedConnectedContainer
+    targetSlot: BACK
+    containerWhitelist:
+      tags:
+      - Powerpack762x51
+  - type: UseDelay # Dystopia
+    delay: 2.3
+  - type: AmmoCounter

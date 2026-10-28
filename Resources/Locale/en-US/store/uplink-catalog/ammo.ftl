@@ -15,8 +15,9 @@ uplink-magazine-bulldog-slug-desc = Shotgun magazine with 8 shells filled with s
 uplink-pistol-magazine-caseless-name = Pistol Magazine (.25 caseless)
 uplink-pistol-magazine-caseless-desc = Pistol magazine with 10 cartridges. Compatible with the Cobra.
 
-uplink-mosin-ammo-name = Ammunition box (.30 rifle)
-uplink-mosin-ammo-desc = A box of 60 cartridges for the surplus rifle.
+# Dystopia: the Mosin now uses 7.62x54mmR
+uplink-mosin-ammo-name = Ammunition box (7.62x54mmR)
+uplink-mosin-ammo-desc = A box of 50 cartridges for the Mosin.
 
 uplink-estoc-ammo-name = Rifle magazine (.20 rifle)
 uplink-estoc-ammo-desc = A rifle magazine with 25 cartridges. Compatible with the Estoc DMR.

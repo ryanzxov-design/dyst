@@ -108,27 +108,46 @@
   name: Mateba
   parent: [BaseCorvaxContraband434DepartmentsSecurity, BaseWeaponRevolver, BaseMajorContraband] # Corvax-Contraband
   id: WeaponRevolverMateba
-  description: A modern revolver used by Nanotrasen’s elite, near mythical ‘Death Squad’ task force. Its unique trigger action and barrel placement enable a high fire rate with minimal muzzle flip. Many have looked down this barrel, but few have lived to tell of it. Loads 6 rounds of .45 magnum.
+  # Dystopia: Матеба заменена версией из Backmen (github.com/Rxup/space-station-14) — спрайт, звуки, калибр .44 Magnum.
+  description: A modern revolver with its barrel aligned to the bottom chamber. The unique trigger action and barrel placement enable a high fire rate with minimal muzzle flip. Loads 6 rounds of .44 Magnum.
   components:
   - type: Sprite
     sprite: Objects/Weapons/Guns/Revolvers/mateba.rsi
   - type: Clothing
-    sprite: Objects/Weapons/Guns/Revolvers/mateba.rsi
+    sprite: Objects/Weapons/Guns/Revolvers/mateba_inhands.rsi # Dystopia: руки и пояс — отдельный .rsi (иконка 64×32)
   - type: Item
+    sprite: Objects/Weapons/Guns/Revolvers/mateba_inhands.rsi # Dystopia
     storedOffset: 0,-3
   - type: Gun
-    fireRate: 3
+    fireRate: 2.5 # Dystopia: числа и звук Backmen
+    cameraRecoilScalar: 3
     soundGunshot:
-      path: /Audio/Weapons/Guns/Gunshots/mateba.ogg
-
+      path: /Audio/_Dystopia/Weapons/Guns/Revolvers/mateba.ogg
+  - type: RevolverAmmoProvider # Dystopia: .44 Magnum
+    whitelist:
+      tags:
+        - Cartridge44Mag
+        - SpeedLoader44Mag
+    proto: Cartridge44Mag
+    soundInsert:
+      path: /Audio/_Dystopia/Weapons/Guns/Revolvers/revolver_load.ogg
+    soundEject:
+      path: /Audio/_Dystopia/Weapons/Guns/Revolvers/revolver_unload.ogg
 - type: entity
   parent: WeaponRevolverMateba
   id: WeaponRevolverMatebaAP # For deathsquad
   suffix: armor-piercing
   components:
   - type: RevolverAmmoProvider
-    proto: CartridgeMagnumAP
-
+    proto: Cartridge44MagAP # Dystopia: .44 Magnum AP
+    whitelist: # Dystopia: поле заменяется целиком — повторяем
+      tags:
+        - Cartridge44Mag
+        - SpeedLoader44Mag
+    soundInsert:
+      path: /Audio/_Dystopia/Weapons/Guns/Revolvers/revolver_load.ogg
+    soundEject:
+      path: /Audio/_Dystopia/Weapons/Guns/Revolvers/revolver_unload.ogg
 - type: entity
   name: Python
   parent: [BaseCorvaxContraband434DepartmentsSecurity, BaseWeaponRevolver, BaseSyndicateContraband] # Corvax-Contraband

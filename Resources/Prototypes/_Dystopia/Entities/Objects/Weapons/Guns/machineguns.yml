@@ -1,0 +1,349 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: пулемёты, перенесённые из Backmen (github.com/Rxup/space-station-14, AGPL-3.0).
+# Калибры и магазины — Ammunition/calibers.yml, Ammunition/magazines.yml. Спрайты — Бекмена (CC-BY-SA 3.0,
+# авторы в meta.json), звуки — Audio/_Dystopia/Weapons/Guns (attributions.yml). Самостоятельные сущности (без parent).
+
+- type: entity
+  id: DystopiaWeaponMachineGunRPD
+  name: RPD
+  description: The Degtyaryov light machine gun in 7.62x39mm, fed from a 100-round belt drum.
+  components:
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/LMGs/rpd/big.rsi
+    layers:
+    - state: base
+      map: [ enum.GunVisualLayers.Base ]
+    - state: mag-0
+      map: [ enum.GunVisualLayers.Mag ]
+    drawdepth: Items
+    noRot: false
+  - type: Clothing
+    sprite: _Dystopia/Objects/Weapons/Guns/LMGs/rpd/tiny.rsi
+    quickEquip: false
+    slots: [ Back, suitStorage ]
+  - type: Item
+    sprite: _Dystopia/Objects/Weapons/Guns/LMGs/rpd/tiny.rsi
+    size: Huge
+    shape:
+    - 0,0,4,3
+  - type: WieldedCameraRecoil
+    cameraRecoilScalar: -4
+  - type: GunWieldBonus
+    minAngle: -30
+    maxAngle: -50
+  - type: Gun
+    minAngle: 34
+    maxAngle: 55
+    cameraRecoilScalar: 5
+    fireRate: 5
+    soundGunshot:
+      path: /Audio/_Dystopia/Weapons/Guns/Rifles/ak47.ogg
+    angleIncrease: 4
+    angleDecay: 16
+    selectedMode: FullAuto
+    availableModes: [ FullAuto ]
+    soundEmpty:
+      path: /Audio/Weapons/Guns/Empty/lmg_empty.ogg
+  - type: ChamberMagazineAmmoProvider
+    soundRack:
+      path: /Audio/Weapons/Guns/Cock/lmg_cock.ogg
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Magazine
+        startingItem: Magazine762x39RPD
+        insertSound: /Audio/_Dystopia/Weapons/Guns/Rifles/ak47_reload.ogg
+        ejectSound: /Audio/_Dystopia/Weapons/Guns/Rifles/ak47_unload.ogg
+        priority: 2
+        whitelist:
+          tags: [ Magazine762x39RPD ]
+        whitelistFailPopup: gun-magazine-whitelist-fail
+      gun_chamber:
+        name: Chamber
+        priority: 1
+        whitelist:
+          tags: [ Cartridge762x39 ]
+        startingItem: Cartridge762x39
+  - type: ContainerContainer
+    containers:
+      gun_magazine: !type:ContainerSlot
+      gun_chamber: !type:ContainerSlot
+  - type: MagazineVisuals
+    magState: mag
+    steps: 2
+    zeroVisible: true
+  - type: Appearance
+  - type: Wieldable
+    unwieldOnUse: false
+  - type: UseDelay
+    delay: 1.9
+  - type: ClothingSpeedModifier
+    walkModifier: 1
+    sprintModifier: 0.8
+  - type: HeldSpeedModifier
+  - type: AmmoCounter
+  - type: StaticPrice
+    price: 500
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+
+- type: entity
+  id: DystopiaWeaponMachineGunMG42
+  name: MG-42
+  description: A 7.92x57mm general-purpose machine gun with a huge rate of fire. 50-round belt drum.
+  components:
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/LMGs/mg42/big.rsi
+    layers:
+    - state: base
+      map: [ enum.GunVisualLayers.Base ]
+    - state: mag-0
+      map: [ enum.GunVisualLayers.Mag ]
+    drawdepth: Items
+    noRot: false
+  - type: Clothing
+    sprite: _Dystopia/Objects/Weapons/Guns/LMGs/mg42/tiny.rsi
+    quickEquip: false
+    slots: [ Back, suitStorage ]
+  - type: Item
+    sprite: _Dystopia/Objects/Weapons/Guns/LMGs/mg42/tiny.rsi
+    size: Huge
+    shape:
+    - 0,0,4,3
+  - type: WieldedCameraRecoil
+    cameraRecoilScalar: -4
+  - type: GunWieldBonus
+    minAngle: -30
+    maxAngle: -50
+  - type: Gun
+    minAngle: 34
+    maxAngle: 55
+    cameraRecoilScalar: 5
+    fireRate: 12
+    soundGunshot:
+      path: /Audio/_Dystopia/Weapons/Guns/LMGs/t27.ogg
+      params:
+        volume: -3
+    angleIncrease: 4
+    angleDecay: 16
+    selectedMode: FullAuto
+    availableModes: [ FullAuto ]
+    soundEmpty:
+      path: /Audio/Weapons/Guns/Empty/lmg_empty.ogg
+  - type: ChamberMagazineAmmoProvider
+    soundRack:
+      path: /Audio/Weapons/Guns/Cock/lmg_cock.ogg
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Magazine
+        startingItem: Magazine792x57MG42
+        insertSound: /Audio/_Dystopia/Weapons/Guns/LMGs/t42_reload.ogg
+        ejectSound: /Audio/_Dystopia/Weapons/Guns/LMGs/t42_unload.ogg
+        priority: 2
+        whitelist:
+          tags: [ Magazine792x57MG42 ]
+        whitelistFailPopup: gun-magazine-whitelist-fail
+      gun_chamber:
+        name: Chamber
+        priority: 1
+        whitelist:
+          tags: [ Cartridge792x57 ]
+        startingItem: Cartridge792x57
+  - type: ContainerContainer
+    containers:
+      gun_magazine: !type:ContainerSlot
+      gun_chamber: !type:ContainerSlot
+  - type: MagazineVisuals
+    magState: mag
+    steps: 2
+    zeroVisible: true
+  - type: Appearance
+  - type: Wieldable
+    unwieldOnUse: false
+  - type: UseDelay
+    delay: 1.9
+  - type: GunRequiresWield
+  - type: ClothingSpeedModifier
+    walkModifier: 1
+    sprintModifier: 0.5
+  - type: HeldSpeedModifier
+  - type: AmmoCounter
+  - type: StaticPrice
+    price: 500
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+
+- type: entity
+  id: DystopiaWeaponMachineGunM2
+  name: M2 'Ma Deuce'
+  description: A 12.7x99mm heavy machine gun. Carrying it is an ordeal, firing it even more so. 100-round belt box.
+  components:
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/LMGs/madeuce/big.rsi
+    layers:
+    - state: base
+      map: [ enum.GunVisualLayers.Base ]
+    - state: mag-0
+      map: [ enum.GunVisualLayers.Mag ]
+    drawdepth: Items
+    noRot: false
+  - type: Item
+    sprite: _Dystopia/Objects/Weapons/Guns/LMGs/madeuce/tiny.rsi
+    size: Huge
+    shape:
+    - 0,0,3,2
+  - type: Gun
+    fireRate: 12
+    soundGunshot:
+      path: /Audio/_Dystopia/Weapons/Guns/LMGs/m60.ogg
+    selectedMode: FullAuto
+    availableModes: [ FullAuto, SemiAuto ]
+    minAngle: 21
+    maxAngle: 32
+  - type: ChamberMagazineAmmoProvider
+    soundRack:
+      path: /Audio/Weapons/Guns/Cock/sf_rifle_cock.ogg
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Magazine
+        startingItem: Magazine127x99M2
+        insertSound: /Audio/_Dystopia/Weapons/Guns/LMGs/m60_reload.ogg
+        ejectSound: /Audio/_Dystopia/Weapons/Guns/LMGs/m60_unload.ogg
+        priority: 2
+        whitelist:
+          tags: [ Magazine127x99M2 ]
+        whitelistFailPopup: gun-magazine-whitelist-fail
+      gun_chamber:
+        name: Chamber
+        priority: 1
+        whitelist:
+          tags: [ Cartridge127x99 ]
+        startingItem: Cartridge127x99
+  - type: ContainerContainer
+    containers:
+      gun_magazine: !type:ContainerSlot
+      gun_chamber: !type:ContainerSlot
+  - type: MagazineVisuals
+    magState: mag
+    steps: 2
+    zeroVisible: true
+  - type: Appearance
+  - type: AmmoCounter
+  - type: StaticPrice
+    price: 500
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Wieldable
+    unwieldOnUse: false
+  - type: GunWieldBonus
+    minAngle: -20
+    maxAngle: -30
+  - type: GunRequiresWield
+  - type: ClothingSpeedModifier
+    walkModifier: 0.8
+    sprintModifier: 0.6
+  - type: HeldSpeedModifier

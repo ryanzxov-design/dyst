@@ -15,8 +15,9 @@ uplink-magazine-bulldog-slug-desc = Магазин для дробовика, н
 uplink-pistol-magazine-caseless-name = Пистолетный магазин (.25 безгильзовые)
 uplink-pistol-magazine-caseless-desc = Пистолетный магазин на 10 патронов. Совместим с "Коброй".
 
-uplink-mosin-ammo-name = Коробка патронов (.30 винтовочные)
-uplink-mosin-ammo-desc = Коробка с 60 патронами для резервной винтовки.
+# Dystopia: Мосин под 7,62×54R
+uplink-mosin-ammo-name = Коробка патронов (7,62×54R)
+uplink-mosin-ammo-desc = Коробка с 50 патронами для Мосина.
 
 uplink-estoc-ammo-name = Винтовочный магазин (.20 винтовочный)
 uplink-estoc-ammo-desc = Винтовочный магазин на 25 патронов. Совместим с марксманской винтовкой Эсток.

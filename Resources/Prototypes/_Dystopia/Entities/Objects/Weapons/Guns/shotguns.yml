@@ -1,0 +1,389 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: дробовики, перенесённые из Backmen (github.com/Rxup/space-station-14, AGPL-3.0).
+# Калибры и магазины — Ammunition/calibers.yml, Ammunition/magazines.yml. Спрайты — Бекмена (CC-BY-SA 3.0,
+# авторы в meta.json), звуки — Audio/_Dystopia/Weapons/Guns (attributions.yml). Самостоятельные сущности (без parent).
+
+- type: entity
+  id: DystopiaWeaponShotgunXM1014
+  name: XM1014
+  description: A semi-automatic 12 gauge combat shotgun. 7-round tube magazine.
+  components:
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Shotguns/sh-39/big.rsi
+    layers:
+    - state: icon
+      map: [ enum.GunVisualLayers.Base ]
+    drawdepth: Items
+    noRot: false
+  - type: Item
+    sprite: _Dystopia/Objects/Weapons/Guns/Shotguns/sh-39/tiny.rsi
+    size: Large
+    shape:
+    - 0,0,4,0
+  - type: Clothing
+    sprite: _Dystopia/Objects/Weapons/Guns/Shotguns/sh-39/tiny.rsi
+    quickEquip: false
+    slots: [ Back, suitStorage ]
+  - type: BallisticAmmoProvider
+    capacity: 7
+    whitelist:
+      tags: [ ShellShotgun ]
+    proto: ShellShotgun
+    soundInsert:
+      path: /Audio/Weapons/Guns/MagIn/shotgun_insert.ogg
+  - type: Wieldable
+  - type: UseDelay
+    delay: 1.3
+  - type: GunRequiresWield
+  - type: Gun
+    cameraRecoilScalar: 2
+    soundGunshot:
+      path: /Audio/_Dystopia/Weapons/Guns/Shotguns/sh39.ogg
+    fireRate: 2
+    selectedMode: SemiAuto
+    availableModes: [ SemiAuto ]
+    soundEmpty:
+      path: /Audio/Weapons/Guns/Empty/empty.ogg
+  - type: AmmoCounter
+  - type: CustomSpriteAmmoCounter
+    loadedAmmoSprite: Interface/ItemStatus/Shotgun_Shells/not_spent.png
+    spentAmmoSprite: Interface/ItemStatus/Shotgun_Shells/spent.png
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+        ents: []
+  - type: StaticPrice
+    price: 500
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+
+- type: entity
+  id: DystopiaWeaponShotgunXM1014Tactical
+  name: XM1014 (tactical)
+  description: An XM1014 with a flashlight and laser sight.
+  components:
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Shotguns/sh-39/bigsuper.rsi
+    layers:
+    - state: laser
+      shader: unshaded
+    - state: base
+    drawdepth: Items
+    noRot: false
+  - type: Clothing
+    sprite: _Dystopia/Objects/Weapons/Guns/Shotguns/sh-39/tinysuper.rsi
+    quickEquip: false
+    slots: [ Back, suitStorage ]
+  - type: Item
+    sprite: _Dystopia/Objects/Weapons/Guns/Shotguns/sh-39/tinysuper.rsi
+    size: Large
+    shape:
+    - 0,0,4,0
+  - type: UseDelay
+    delay: 0.3
+  - type: Gun
+    cameraRecoilScalar: 1
+    soundGunshot:
+      path: /Audio/_Dystopia/Weapons/Guns/Shotguns/sh39.ogg
+    fireRate: 2
+    selectedMode: SemiAuto
+    availableModes: [ SemiAuto ]
+    soundEmpty:
+      path: /Audio/Weapons/Guns/Empty/empty.ogg
+  - type: UnpoweredFlashlight
+  - type: PointLight
+    enabled: false
+    autoRot: true
+    radius: 8
+    lightMask: ConeSingle
+  - type: BallisticAmmoProvider
+    capacity: 7
+    whitelist:
+      tags: [ ShellShotgun ]
+    proto: ShellShotgun
+    soundInsert:
+      path: /Audio/Weapons/Guns/MagIn/shotgun_insert.ogg
+  - type: Wieldable
+  - type: GunRequiresWield
+  - type: AmmoCounter
+  - type: CustomSpriteAmmoCounter
+    loadedAmmoSprite: Interface/ItemStatus/Shotgun_Shells/not_spent.png
+    spentAmmoSprite: Interface/ItemStatus/Shotgun_Shells/spent.png
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+        ents: []
+  - type: StaticPrice
+    price: 500
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+
+- type: entity
+  id: DystopiaWeaponShotgunSPAS12
+  name: SPAS-12
+  description: A pump-action 12 gauge shotgun. 8-round tube magazine.
+  components:
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Shotguns/spas-16/big.rsi
+    layers:
+    - state: icon
+      map: [ enum.GunVisualLayers.Base ]
+    drawdepth: Items
+    noRot: false
+  - type: Item
+    sprite: _Dystopia/Objects/Weapons/Guns/Shotguns/spas-16/tiny.rsi
+    size: Large
+    shape:
+    - 0,0,4,0
+  - type: Clothing
+    sprite: _Dystopia/Objects/Weapons/Guns/Shotguns/spas-16/tiny.rsi
+    quickEquip: false
+    slots: [ Back, suitStorage ]
+  - type: BallisticAmmoProvider
+    capacity: 8
+    whitelist:
+      tags: [ ShellShotgun ]
+    proto: ShellShotgun
+    soundInsert:
+      path: /Audio/Weapons/Guns/MagIn/shotgun_insert.ogg
+  - type: Wieldable
+  - type: UseDelay
+    delay: 1.3
+  - type: GunRequiresWield
+  - type: Gun
+    fireRate: 1.5
+    cameraRecoilScalar: 2
+    soundGunshot:
+      path: /Audio/_Dystopia/Weapons/Guns/Shotguns/t35.ogg
+    selectedMode: SemiAuto
+    availableModes: [ SemiAuto ]
+    soundEmpty:
+      path: /Audio/Weapons/Guns/Empty/empty.ogg
+  - type: AmmoCounter
+  - type: CustomSpriteAmmoCounter
+    loadedAmmoSprite: Interface/ItemStatus/Shotgun_Shells/not_spent.png
+    spentAmmoSprite: Interface/ItemStatus/Shotgun_Shells/spent.png
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+        ents: []
+  - type: StaticPrice
+    price: 500
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+
+- type: entity
+  id: DystopiaWeaponShotgunAA12
+  name: AA-12
+  description: A fully automatic 12 gauge shotgun fed from a 20-round drum.
+  components:
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Shotguns/aa12/big.rsi
+    layers:
+    - state: base
+      map: [ enum.GunVisualLayers.Base ]
+    - state: mag-0
+      map: [ enum.GunVisualLayers.Mag ]
+    drawdepth: Items
+    noRot: false
+  - type: Item
+    sprite: _Dystopia/Objects/Weapons/Guns/Shotguns/aa12/tiny.rsi
+    size: Large
+  - type: Clothing
+    sprite: _Dystopia/Objects/Weapons/Guns/Shotguns/aa12/tiny.rsi
+    quickEquip: false
+    slots: [ Back, suitStorage ]
+  - type: Wieldable
+    unwieldOnUse: false
+  - type: UseDelay
+    delay: 1.3
+  - type: GunRequiresWield
+  - type: Gun
+    fireRate: 3
+    cameraRecoilScalar: 2
+    selectedMode: FullAuto
+    availableModes: [ FullAuto ]
+    soundGunshot:
+      path: /Audio/Corvax/Weapons/Guns/Gunshots/shotgun_auto.ogg
+    soundEmpty:
+      path: /Audio/Weapons/Guns/Empty/empty.ogg
+    minAngle: 21
+    maxAngle: 32
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Magazine
+        startingItem: MagazineShotgunAA12
+        insertSound: /Audio/Weapons/Guns/MagIn/smg_magin.ogg
+        ejectSound: /Audio/Weapons/Guns/MagOut/smg_magout.ogg
+        priority: 2
+        whitelist:
+          tags: [ MagazineShotgunAA12 ]
+        whitelistFailPopup: gun-magazine-whitelist-fail
+      gun_chamber:
+        name: Chamber
+        priority: 1
+        whitelist:
+          tags: [ ShellShotgun ]
+  - type: AmmoCounter
+  - type: CustomSpriteAmmoCounter
+    loadedAmmoSprite: Interface/ItemStatus/Shotgun_Shells/not_spent.png
+    spentAmmoSprite: Interface/ItemStatus/Shotgun_Shells/spent.png
+  - type: ContainerContainer
+    containers:
+      gun_magazine: !type:ContainerSlot
+      gun_chamber: !type:ContainerSlot
+  - type: MagazineAmmoProvider
+  - type: MagazineVisuals
+    magState: mag
+    steps: 1
+    zeroVisible: true
+  - type: Appearance
+  - type: StaticPrice
+    price: 5000
+  - type: Contraband
+    severity: Corvax434
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: GunWieldBonus
+    minAngle: -20
+    maxAngle: -30
+  - type: ChamberMagazineAmmoProvider

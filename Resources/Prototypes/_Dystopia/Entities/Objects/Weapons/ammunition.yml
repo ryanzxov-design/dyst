@@ -1,5 +1,6 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 # Dystopia: виды патронов. Ванильные патроны — FMJ, ванильные зажигательные остаются зажигательными.
+# Сущности самостоятельные (без parent): всё, что раньше приходило от ванильных баз, выписано явно.
 # Здесь — то, чего не было: JHP (экспансивные), AP (бронебойные), бронебойно-зажигательные, WP (фосфорные),
 # HE (разрывные) и ружейные патроны. Только те виды, что существуют для калибра.
 # Пробитие — ArmorPenetration (острое, мм / тупое, МПа), броня — _Dystopia/Health/Armor/.
@@ -7,269 +8,1000 @@
 # Названия и описания на русском — Locale/ru-RU/_dystopia/ammunition.ftl
 
 # ===================== .35 auto =====================
+
 - type: entity
-  parent: BulletPistol
   id: BulletPistolJHP
-  categories: [ HideSpawnMenu ]
   name: bullet (.35 auto JHP)
+  description: If you can see this you're probably dead!
+  categories: [ HideSpawnMenu ]
   components:
   - type: Projectile
     damage:
       types:
         Piercing: 20
+    impactEffect: BulletImpactEffect
+    soundHit:
+      path: /Audio/Weapons/Guns/Hits/bullet_hit.ogg
   - type: ArmorPenetration
     sharp: 2
     blunt: 10.4
+  - type: Sprite
+    noRot: false
+    sprite: _Dystopia/Objects/Weapons/Guns/Projectiles/projectiles2.rsi
+    layers:
+    - state: bullet
+      shader: unshaded
+  - type: Reflective
+  - type: FlyBySound
+  - type: Clickable
+  - type: Physics
+    bodyType: Dynamic
+  - type: TileFrictionModifier
+    modifier: 0
+  - type: Fixtures
+    fixtures:
+      projectile:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.1,-0.10,0.1,0.30"
+        hard: false
+        mask: [ Impassable, BulletImpassable ]
+      fly-by:
+        shape: !type:PhysShapeCircle
+          radius: 1.5
+        layer: [ Impassable, MidImpassable, HighImpassable, LowImpassable ]
+        hard: false
+  - type: TimedDespawn
+    lifetime: 10
 
 - type: entity
-  parent: BaseCartridgePistol
   id: CartridgePistolJHP
   name: cartridge (.35 auto JHP)
-  description: "A .35 auto cartridge with a jacketed hollow point. The bullet mushrooms on impact and leaves a nasty wound, but body armor stops it cold."
+  description: A .35 auto cartridge with a jacketed hollow point. The bullet mushrooms on impact and leaves a nasty wound, but body armor stops it cold.
   components:
   - type: CartridgeAmmo
     proto: BulletPistolJHP
   - type: Sprite
     layers:
     - state: base
-      map: [ "enum.AmmoVisualLayers.Base" ]
+      map: [ enum.AmmoVisualLayers.Base ]
     - state: tip
-      map: [ "enum.AmmoVisualLayers.Tip" ]
+      map: [ enum.AmmoVisualLayers.Tip ]
       color: "#b5651d"
+    sprite: _Dystopia/Objects/Weapons/Guns/Ammunition/Casings/ammo_casing.rsi
+    drawdepth: Items
+    noRot: false
+  - type: Tag
+    tags: [ CartridgePistol ]
+  - type: Appearance
+  - type: SpentAmmoVisuals
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.10,-0.05,0.10,0.05"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Item
+    size: Tiny
+  - type: SpaceGarbage
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Weapons/Guns/Casings/casing_fall_2.ogg
+      params:
+        volume: -1
+  - type: StaticPrice
+    price: 1
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
 
 - type: entity
-  parent: BaseMagazineBoxPistol
   id: MagazineBoxPistolJHP
   name: ammunition box (.35 auto JHP)
-  description: "A cardboard box of .35 auto hollow point rounds."
+  description: A cardboard box of .35 auto hollow point rounds.
   components:
   - type: BallisticAmmoProvider
     proto: CartridgePistolJHP
+    mayTransfer: true
+    whitelist:
+      tags: [ CartridgePistol ]
+    capacity: 60
   - type: Sprite
     layers:
     - state: base
-      map: ["enum.GunVisualLayers.Base"]
+      map: [ enum.GunVisualLayers.Base ]
     - state: mag-1
-      map: ["enum.GunVisualLayers.Mag"]
+      map: [ enum.GunVisualLayers.Mag ]
     - sprite: _Dystopia/Objects/Weapons/ammo_marks.rsi
       state: box-pistol
       color: "#b5651d"
+    sprite: _Dystopia/Objects/Weapons/Guns/Ammunition/Boxes/pistol.rsi
+    drawdepth: Items
+    noRot: false
+  - type: Item
+    size: Small
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: MagazineVisuals
+    magState: mag
+    steps: 3
+    zeroVisible: false
+  - type: Appearance
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
 
 - type: entity
-  parent: BulletPistol
   id: BulletPistolAP
-  categories: [ HideSpawnMenu ]
   name: bullet (.35 auto AP)
+  description: If you can see this you're probably dead!
+  categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
-    sprite: Objects/Weapons/Guns/Projectiles/projectiles2.rsi
+    sprite: _Dystopia/Objects/Weapons/Guns/Projectiles/projectiles2.rsi
     layers:
     - state: piercing
+    noRot: false
   - type: Projectile
     damage:
       types:
         Piercing: 12
+    impactEffect: BulletImpactEffect
+    soundHit:
+      path: /Audio/Weapons/Guns/Hits/bullet_hit.ogg
   - type: ArmorPenetration
     sharp: 7
     blunt: 10.4
+  - type: Reflective
+  - type: FlyBySound
+  - type: Clickable
+  - type: Physics
+    bodyType: Dynamic
+  - type: TileFrictionModifier
+    modifier: 0
+  - type: Fixtures
+    fixtures:
+      projectile:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.1,-0.10,0.1,0.30"
+        hard: false
+        mask: [ Impassable, BulletImpassable ]
+      fly-by:
+        shape: !type:PhysShapeCircle
+          radius: 1.5
+        layer: [ Impassable, MidImpassable, HighImpassable, LowImpassable ]
+        hard: false
+  - type: TimedDespawn
+    lifetime: 10
 
 - type: entity
-  parent: BaseCartridgePistol
   id: CartridgePistolAP
   name: cartridge (.35 auto AP)
-  description: "A .35 auto cartridge with a hardened steel core under the jacket. It gets through vests that would catch a regular bullet, at the cost of a cleaner wound."
+  description: A .35 auto cartridge with a hardened steel core under the jacket. It gets through vests that would catch a regular bullet, at the cost of a cleaner wound.
   components:
   - type: CartridgeAmmo
     proto: BulletPistolAP
   - type: Sprite
     layers:
     - state: base
-      map: [ "enum.AmmoVisualLayers.Base" ]
+      map: [ enum.AmmoVisualLayers.Base ]
     - state: tip
-      map: [ "enum.AmmoVisualLayers.Tip" ]
+      map: [ enum.AmmoVisualLayers.Tip ]
       color: "#0a0a0a"
+    sprite: _Dystopia/Objects/Weapons/Guns/Ammunition/Casings/ammo_casing.rsi
+    drawdepth: Items
+    noRot: false
+  - type: Tag
+    tags: [ CartridgePistol ]
+  - type: Appearance
+  - type: SpentAmmoVisuals
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.10,-0.05,0.10,0.05"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Item
+    size: Tiny
+  - type: SpaceGarbage
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Weapons/Guns/Casings/casing_fall_2.ogg
+      params:
+        volume: -1
+  - type: StaticPrice
+    price: 1
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
 
 - type: entity
-  parent: BaseMagazineBoxPistol
   id: MagazineBoxPistolAP
   name: ammunition box (.35 auto AP)
-  description: "A cardboard box of .35 auto armor-piercing rounds."
+  description: A cardboard box of .35 auto armor-piercing rounds.
   components:
   - type: BallisticAmmoProvider
     proto: CartridgePistolAP
+    mayTransfer: true
+    whitelist:
+      tags: [ CartridgePistol ]
+    capacity: 60
   - type: Sprite
     layers:
     - state: base
-      map: ["enum.GunVisualLayers.Base"]
+      map: [ enum.GunVisualLayers.Base ]
     - state: mag-1
-      map: ["enum.GunVisualLayers.Mag"]
+      map: [ enum.GunVisualLayers.Mag ]
     - sprite: _Dystopia/Objects/Weapons/ammo_marks.rsi
       state: box-pistol
       color: "#0a0a0a"
+    sprite: _Dystopia/Objects/Weapons/Guns/Ammunition/Boxes/pistol.rsi
+    drawdepth: Items
+    noRot: false
+  - type: Item
+    size: Small
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: MagazineVisuals
+    magState: mag
+    steps: 3
+    zeroVisible: false
+  - type: Appearance
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
 
 
 # ===================== .45 magnum =====================
+
 - type: entity
-  parent: BulletMagnum
   id: BulletMagnumJHP
-  categories: [ HideSpawnMenu ]
   name: bullet (.45 magnum JHP)
+  description: If you can see this you're probably dead!
+  categories: [ HideSpawnMenu ]
   components:
   - type: Projectile
     damage:
       types:
         Piercing: 44
+    impactEffect: BulletImpactEffect
+    soundHit:
+      path: /Audio/Weapons/Guns/Hits/bullet_hit.ogg
   - type: ArmorPenetration
     sharp: 4
     blunt: 30
+  - type: Sprite
+    noRot: false
+    sprite: _Dystopia/Objects/Weapons/Guns/Projectiles/projectiles2.rsi
+    layers:
+    - state: bullet
+      shader: unshaded
+  - type: Reflective
+  - type: FlyBySound
+  - type: Clickable
+  - type: Physics
+    bodyType: Dynamic
+  - type: TileFrictionModifier
+    modifier: 0
+  - type: Fixtures
+    fixtures:
+      projectile:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.1,-0.10,0.1,0.30"
+        hard: false
+        mask: [ Impassable, BulletImpassable ]
+      fly-by:
+        shape: !type:PhysShapeCircle
+          radius: 1.5
+        layer: [ Impassable, MidImpassable, HighImpassable, LowImpassable ]
+        hard: false
+  - type: TimedDespawn
+    lifetime: 10
 
 - type: entity
-  parent: BaseCartridgeMagnum
   id: CartridgeMagnumJHP
   name: cartridge (.45 magnum JHP)
-  description: "A .45 magnum cartridge with a jacketed hollow point. The bullet mushrooms on impact and leaves a nasty wound, but body armor stops it cold."
+  description: A .45 magnum cartridge with a jacketed hollow point. The bullet mushrooms on impact and leaves a nasty wound, but body armor stops it cold.
   components:
   - type: CartridgeAmmo
     proto: BulletMagnumJHP
   - type: Sprite
     layers:
     - state: base
-      map: [ "enum.AmmoVisualLayers.Base" ]
+      map: [ enum.AmmoVisualLayers.Base ]
     - state: tip
-      map: [ "enum.AmmoVisualLayers.Tip" ]
+      map: [ enum.AmmoVisualLayers.Tip ]
       color: "#b5651d"
+    sprite: _Dystopia/Objects/Weapons/Guns/Ammunition/Casings/ammo_casing.rsi
+    drawdepth: Items
+    noRot: false
+  - type: Tag
+    tags: [ CartridgeMagnum ]
+  - type: Appearance
+  - type: SpentAmmoVisuals
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.10,-0.05,0.10,0.05"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Item
+    size: Tiny
+  - type: SpaceGarbage
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Weapons/Guns/Casings/casing_fall_2.ogg
+      params:
+        volume: -1
+  - type: StaticPrice
+    price: 1
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
 
 - type: entity
-  parent: BaseMagazineBoxMagnum
   id: MagazineBoxMagnumJHP
   name: ammunition box (.45 magnum JHP)
-  description: "A cardboard box of .45 magnum hollow point rounds."
+  description: A cardboard box of .45 magnum hollow point rounds.
   components:
   - type: BallisticAmmoProvider
     proto: CartridgeMagnumJHP
+    mayTransfer: true
+    whitelist:
+      tags: [ CartridgeMagnum ]
+    capacity: 12
   - type: Sprite
     layers:
     - state: base
-      map: ["enum.GunVisualLayers.Base"]
+      map: [ enum.GunVisualLayers.Base ]
     - state: mag-1
-      map: ["enum.GunVisualLayers.Mag"]
+      map: [ enum.GunVisualLayers.Mag ]
     - sprite: _Dystopia/Objects/Weapons/ammo_marks.rsi
       state: box-magnum
       color: "#b5651d"
+    sprite: _Dystopia/Objects/Weapons/Guns/Ammunition/Boxes/magnum.rsi
+    drawdepth: Items
+    noRot: false
+  - type: Item
+    size: Small
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: MagazineVisuals
+    magState: mag
+    steps: 4
+    zeroVisible: false
+  - type: Appearance
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
 
 
 # ===================== .30 rifle =====================
+
 - type: entity
-  parent: BulletLightRifle
   id: BulletLightRifleJHP
-  categories: [ HideSpawnMenu ]
   name: bullet (.30 rifle JHP)
+  description: If you can see this you're probably dead!
+  categories: [ HideSpawnMenu ]
   components:
   - type: Projectile
     damage:
       types:
         Piercing: 24
+    impactEffect: BulletImpactEffect
+    soundHit:
+      path: /Audio/Weapons/Guns/Hits/bullet_hit.ogg
   - type: ArmorPenetration
     sharp: 10
     blunt: 41
+  - type: Sprite
+    noRot: false
+    sprite: _Dystopia/Objects/Weapons/Guns/Projectiles/projectiles2.rsi
+    layers:
+    - state: bullet
+      shader: unshaded
+  - type: Reflective
+  - type: FlyBySound
+  - type: Clickable
+  - type: Physics
+    bodyType: Dynamic
+  - type: TileFrictionModifier
+    modifier: 0
+  - type: Fixtures
+    fixtures:
+      projectile:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.1,-0.10,0.1,0.30"
+        hard: false
+        mask: [ Impassable, BulletImpassable ]
+      fly-by:
+        shape: !type:PhysShapeCircle
+          radius: 1.5
+        layer: [ Impassable, MidImpassable, HighImpassable, LowImpassable ]
+        hard: false
+  - type: TimedDespawn
+    lifetime: 10
 
 - type: entity
-  parent: BaseCartridgeLightRifle
   id: CartridgeLightRifleJHP
   name: cartridge (.30 rifle JHP)
-  description: "A .30 rifle cartridge with a jacketed hollow point. The bullet mushrooms on impact and leaves a nasty wound, but body armor stops it cold."
+  description: A .30 rifle cartridge with a jacketed hollow point. The bullet mushrooms on impact and leaves a nasty wound, but body armor stops it cold.
   components:
   - type: CartridgeAmmo
     proto: BulletLightRifleJHP
   - type: Sprite
     layers:
     - state: base
-      map: [ "enum.AmmoVisualLayers.Base" ]
+      map: [ enum.AmmoVisualLayers.Base ]
     - state: tip
-      map: [ "enum.AmmoVisualLayers.Tip" ]
+      map: [ enum.AmmoVisualLayers.Tip ]
       color: "#b5651d"
+    sprite: _Dystopia/Objects/Weapons/Guns/Ammunition/Casings/ammo_casing.rsi
+    drawdepth: Items
+    noRot: false
+  - type: Tag
+    tags: [ CartridgeLightRifle ]
+  - type: Appearance
+  - type: SpentAmmoVisuals
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.10,-0.05,0.10,0.05"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Item
+    size: Tiny
+  - type: SpaceGarbage
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Weapons/Guns/Casings/casing_fall_2.ogg
+      params:
+        volume: -1
+  - type: StaticPrice
+    price: 1
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
 
 - type: entity
-  parent: BaseMagazineBoxLightRifle
   id: MagazineBoxLightRifleJHP
   name: ammunition box (.30 rifle JHP)
-  description: "A cardboard box of .30 rifle hollow point rounds."
+  description: A cardboard box of .30 rifle hollow point rounds.
   components:
   - type: BallisticAmmoProvider
     proto: CartridgeLightRifleJHP
+    mayTransfer: true
+    whitelist:
+      tags: [ CartridgeLightRifle ]
+    capacity: 60
   - type: Sprite
     layers:
     - state: base
-      map: ["enum.GunVisualLayers.Base"]
+      map: [ enum.GunVisualLayers.Base ]
     - state: mag-1
-      map: ["enum.GunVisualLayers.Mag"]
+      map: [ enum.GunVisualLayers.Mag ]
     - sprite: _Dystopia/Objects/Weapons/ammo_marks.rsi
       state: box-light-rifle
       color: "#b5651d"
+    sprite: _Dystopia/Objects/Weapons/Guns/Ammunition/Boxes/light_rifle.rsi
+    drawdepth: Items
+    noRot: false
+  - type: Item
+    size: Small
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: MagazineVisuals
+    magState: mag
+    steps: 4
+    zeroVisible: false
+  - type: Appearance
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
 
 - type: entity
-  parent: BulletLightRifle
   id: BulletLightRifleAP
-  categories: [ HideSpawnMenu ]
   name: bullet (.30 rifle AP)
+  description: If you can see this you're probably dead!
+  categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
-    sprite: Objects/Weapons/Guns/Projectiles/projectiles2.rsi
+    sprite: _Dystopia/Objects/Weapons/Guns/Projectiles/projectiles2.rsi
     layers:
     - state: piercing
+    noRot: false
   - type: Projectile
     damage:
       types:
         Piercing: 14
+    impactEffect: BulletImpactEffect
+    soundHit:
+      path: /Audio/Weapons/Guns/Hits/bullet_hit.ogg
   - type: ArmorPenetration
     sharp: 17
     blunt: 41
+  - type: Reflective
+  - type: FlyBySound
+  - type: Clickable
+  - type: Physics
+    bodyType: Dynamic
+  - type: TileFrictionModifier
+    modifier: 0
+  - type: Fixtures
+    fixtures:
+      projectile:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.1,-0.10,0.1,0.30"
+        hard: false
+        mask: [ Impassable, BulletImpassable ]
+      fly-by:
+        shape: !type:PhysShapeCircle
+          radius: 1.5
+        layer: [ Impassable, MidImpassable, HighImpassable, LowImpassable ]
+        hard: false
+  - type: TimedDespawn
+    lifetime: 10
 
 - type: entity
-  parent: BaseCartridgeLightRifle
   id: CartridgeLightRifleAP
   name: cartridge (.30 rifle AP)
-  description: "A .30 rifle cartridge with a hardened steel core under the jacket. It gets through vests that would catch a regular bullet, at the cost of a cleaner wound."
+  description: A .30 rifle cartridge with a hardened steel core under the jacket. It gets through vests that would catch a regular bullet, at the cost of a cleaner wound.
   components:
   - type: CartridgeAmmo
     proto: BulletLightRifleAP
   - type: Sprite
     layers:
     - state: base
-      map: [ "enum.AmmoVisualLayers.Base" ]
+      map: [ enum.AmmoVisualLayers.Base ]
     - state: tip
-      map: [ "enum.AmmoVisualLayers.Tip" ]
+      map: [ enum.AmmoVisualLayers.Tip ]
       color: "#0a0a0a"
+    sprite: _Dystopia/Objects/Weapons/Guns/Ammunition/Casings/ammo_casing.rsi
+    drawdepth: Items
+    noRot: false
+  - type: Tag
+    tags: [ CartridgeLightRifle ]
+  - type: Appearance
+  - type: SpentAmmoVisuals
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.10,-0.05,0.10,0.05"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Item
+    size: Tiny
+  - type: SpaceGarbage
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Weapons/Guns/Casings/casing_fall_2.ogg
+      params:
+        volume: -1
+  - type: StaticPrice
+    price: 1
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
 
 - type: entity
-  parent: BaseMagazineBoxLightRifle
   id: MagazineBoxLightRifleAP
   name: ammunition box (.30 rifle AP)
-  description: "A cardboard box of .30 rifle armor-piercing rounds."
+  description: A cardboard box of .30 rifle armor-piercing rounds.
   components:
   - type: BallisticAmmoProvider
     proto: CartridgeLightRifleAP
+    mayTransfer: true
+    whitelist:
+      tags: [ CartridgeLightRifle ]
+    capacity: 60
   - type: Sprite
     layers:
     - state: base
-      map: ["enum.GunVisualLayers.Base"]
+      map: [ enum.GunVisualLayers.Base ]
     - state: mag-1
-      map: ["enum.GunVisualLayers.Mag"]
+      map: [ enum.GunVisualLayers.Mag ]
     - sprite: _Dystopia/Objects/Weapons/ammo_marks.rsi
       state: box-light-rifle
       color: "#0a0a0a"
+    sprite: _Dystopia/Objects/Weapons/Guns/Ammunition/Boxes/light_rifle.rsi
+    drawdepth: Items
+    noRot: false
+  - type: Item
+    size: Small
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: MagazineVisuals
+    magState: mag
+    steps: 4
+    zeroVisible: false
+  - type: Appearance
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
 
 - type: entity
-  parent: BulletLightRifle
   id: BulletLightRifleWP
-  categories: [ HideSpawnMenu ]
   name: bullet (.30 rifle WP)
+  description: If you can see this you're probably dead!
+  categories: [ HideSpawnMenu ]
   components:
   - type: Projectile
     damage:
       types:
         Piercing: 14
         Heat: 2
+    impactEffect: BulletImpactEffect
+    soundHit:
+      path: /Audio/Weapons/Guns/Hits/bullet_hit.ogg
   - type: PhosphorusOnHit
     duration: 10
     fireStacks: 3
@@ -281,51 +1013,198 @@
   - type: ArmorPenetration
     sharp: 12
     blunt: 41
+  - type: Sprite
+    noRot: false
+    sprite: _Dystopia/Objects/Weapons/Guns/Projectiles/projectiles2.rsi
+    layers:
+    - state: bullet
+      shader: unshaded
+  - type: Reflective
+  - type: FlyBySound
+  - type: Clickable
+  - type: Physics
+    bodyType: Dynamic
+  - type: TileFrictionModifier
+    modifier: 0
+  - type: Fixtures
+    fixtures:
+      projectile:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.1,-0.10,0.1,0.30"
+        hard: false
+        mask: [ Impassable, BulletImpassable ]
+      fly-by:
+        shape: !type:PhysShapeCircle
+          radius: 1.5
+        layer: [ Impassable, MidImpassable, HighImpassable, LowImpassable ]
+        hard: false
+  - type: TimedDespawn
+    lifetime: 10
 
 - type: entity
-  parent: BaseCartridgeLightRifle
   id: CartridgeLightRifleWP
   name: cartridge (.30 rifle WP)
-  description: "A .30 rifle cartridge with a white phosphorus filler. On impact the phosphorus splashes over the target and burns for about ten seconds; water won't put it out."
+  description: A .30 rifle cartridge with a white phosphorus filler. On impact the phosphorus splashes over the target and burns for about ten seconds; water won't put it out.
   components:
   - type: CartridgeAmmo
     proto: BulletLightRifleWP
   - type: Sprite
     layers:
     - state: base
-      map: [ "enum.AmmoVisualLayers.Base" ]
+      map: [ enum.AmmoVisualLayers.Base ]
     - state: tip
-      map: [ "enum.AmmoVisualLayers.Tip" ]
+      map: [ enum.AmmoVisualLayers.Tip ]
       color: "#e8e8e8"
+    sprite: _Dystopia/Objects/Weapons/Guns/Ammunition/Casings/ammo_casing.rsi
+    drawdepth: Items
+    noRot: false
+  - type: Tag
+    tags: [ CartridgeLightRifle ]
+  - type: Appearance
+  - type: SpentAmmoVisuals
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.10,-0.05,0.10,0.05"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Item
+    size: Tiny
+  - type: SpaceGarbage
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Weapons/Guns/Casings/casing_fall_2.ogg
+      params:
+        volume: -1
+  - type: StaticPrice
+    price: 1
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
 
 - type: entity
-  parent: BaseMagazineBoxLightRifle
   id: MagazineBoxLightRifleWP
   name: ammunition box (.30 rifle WP)
-  description: "A cardboard box of .30 rifle white phosphorus rounds."
+  description: A cardboard box of .30 rifle white phosphorus rounds.
   components:
   - type: BallisticAmmoProvider
     proto: CartridgeLightRifleWP
+    mayTransfer: true
+    whitelist:
+      tags: [ CartridgeLightRifle ]
+    capacity: 60
   - type: Sprite
     layers:
     - state: base
-      map: ["enum.GunVisualLayers.Base"]
+      map: [ enum.GunVisualLayers.Base ]
     - state: mag-1
-      map: ["enum.GunVisualLayers.Mag"]
+      map: [ enum.GunVisualLayers.Mag ]
     - sprite: _Dystopia/Objects/Weapons/ammo_marks.rsi
       state: box-light-rifle
       color: "#e8e8e8"
+    sprite: _Dystopia/Objects/Weapons/Guns/Ammunition/Boxes/light_rifle.rsi
+    drawdepth: Items
+    noRot: false
+  - type: Item
+    size: Small
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: MagazineVisuals
+    magState: mag
+    steps: 4
+    zeroVisible: false
+  - type: Appearance
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
 
 - type: entity
-  parent: BulletLightRifle
   id: BulletLightRifleHE
-  categories: [ HideSpawnMenu ]
   name: bullet (.30 rifle HE)
+  description: If you can see this you're probably dead!
+  categories: [ HideSpawnMenu ]
   components:
   - type: Projectile
     damage:
       types:
         Piercing: 19
+    impactEffect: BulletImpactEffect
+    soundHit:
+      path: /Audio/Weapons/Guns/Hits/bullet_hit.ogg
   - type: TriggerOnCollide
     fixtureID: projectile
     maxTriggers: 1
@@ -340,154 +1219,591 @@
   - type: ArmorPenetration
     sharp: 12
     blunt: 41
+  - type: Sprite
+    noRot: false
+    sprite: _Dystopia/Objects/Weapons/Guns/Projectiles/projectiles2.rsi
+    layers:
+    - state: bullet
+      shader: unshaded
+  - type: Reflective
+  - type: FlyBySound
+  - type: Clickable
+  - type: Physics
+    bodyType: Dynamic
+  - type: TileFrictionModifier
+    modifier: 0
+  - type: Fixtures
+    fixtures:
+      projectile:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.1,-0.10,0.1,0.30"
+        hard: false
+        mask: [ Impassable, BulletImpassable ]
+      fly-by:
+        shape: !type:PhysShapeCircle
+          radius: 1.5
+        layer: [ Impassable, MidImpassable, HighImpassable, LowImpassable ]
+        hard: false
+  - type: TimedDespawn
+    lifetime: 10
 
 - type: entity
-  parent: BaseCartridgeLightRifle
   id: CartridgeLightRifleHE
   name: cartridge (.30 rifle HE)
-  description: "A .30 rifle cartridge with an explosive bullet. A small charge inside goes off on impact."
+  description: A .30 rifle cartridge with an explosive bullet. A small charge inside goes off on impact.
   components:
   - type: CartridgeAmmo
     proto: BulletLightRifleHE
   - type: Sprite
     layers:
     - state: base
-      map: [ "enum.AmmoVisualLayers.Base" ]
+      map: [ enum.AmmoVisualLayers.Base ]
     - state: tip
-      map: [ "enum.AmmoVisualLayers.Tip" ]
+      map: [ enum.AmmoVisualLayers.Tip ]
       color: "#e5c100"
+    sprite: _Dystopia/Objects/Weapons/Guns/Ammunition/Casings/ammo_casing.rsi
+    drawdepth: Items
+    noRot: false
+  - type: Tag
+    tags: [ CartridgeLightRifle ]
+  - type: Appearance
+  - type: SpentAmmoVisuals
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.10,-0.05,0.10,0.05"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Item
+    size: Tiny
+  - type: SpaceGarbage
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Weapons/Guns/Casings/casing_fall_2.ogg
+      params:
+        volume: -1
+  - type: StaticPrice
+    price: 1
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
 
 - type: entity
-  parent: BaseMagazineBoxLightRifle
   id: MagazineBoxLightRifleHE
   name: ammunition box (.30 rifle HE)
-  description: "A cardboard box of .30 rifle explosive rounds."
+  description: A cardboard box of .30 rifle explosive rounds.
   components:
   - type: BallisticAmmoProvider
     proto: CartridgeLightRifleHE
+    mayTransfer: true
+    whitelist:
+      tags: [ CartridgeLightRifle ]
+    capacity: 60
   - type: Sprite
     layers:
     - state: base
-      map: ["enum.GunVisualLayers.Base"]
+      map: [ enum.GunVisualLayers.Base ]
     - state: mag-1
-      map: ["enum.GunVisualLayers.Mag"]
+      map: [ enum.GunVisualLayers.Mag ]
     - sprite: _Dystopia/Objects/Weapons/ammo_marks.rsi
       state: box-light-rifle
       color: "#e5c100"
+    sprite: _Dystopia/Objects/Weapons/Guns/Ammunition/Boxes/light_rifle.rsi
+    drawdepth: Items
+    noRot: false
+  - type: Item
+    size: Small
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: MagazineVisuals
+    magState: mag
+    steps: 4
+    zeroVisible: false
+  - type: Appearance
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
 
 
 # ===================== .20 rifle =====================
+
 - type: entity
-  parent: BulletRifle
   id: BulletRifleJHP
-  categories: [ HideSpawnMenu ]
   name: bullet (.20 rifle JHP)
+  description: If you can see this you're probably dead!
+  categories: [ HideSpawnMenu ]
   components:
   - type: Projectile
     damage:
       types:
         Piercing: 21
+    impactEffect: BulletImpactEffect
+    soundHit:
+      path: /Audio/Weapons/Guns/Hits/bullet_hit.ogg
   - type: ArmorPenetration
     sharp: 9.5
     blunt: 27
+  - type: Sprite
+    noRot: false
+    sprite: _Dystopia/Objects/Weapons/Guns/Projectiles/projectiles2.rsi
+    layers:
+    - state: bullet
+      shader: unshaded
+  - type: Reflective
+  - type: FlyBySound
+  - type: Clickable
+  - type: Physics
+    bodyType: Dynamic
+  - type: TileFrictionModifier
+    modifier: 0
+  - type: Fixtures
+    fixtures:
+      projectile:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.1,-0.10,0.1,0.30"
+        hard: false
+        mask: [ Impassable, BulletImpassable ]
+      fly-by:
+        shape: !type:PhysShapeCircle
+          radius: 1.5
+        layer: [ Impassable, MidImpassable, HighImpassable, LowImpassable ]
+        hard: false
+  - type: TimedDespawn
+    lifetime: 10
 
 - type: entity
-  parent: BaseCartridgeRifle
   id: CartridgeRifleJHP
   name: cartridge (.20 rifle JHP)
-  description: "A .20 rifle cartridge with a jacketed hollow point. The bullet mushrooms on impact and leaves a nasty wound, but body armor stops it cold."
+  description: A .20 rifle cartridge with a jacketed hollow point. The bullet mushrooms on impact and leaves a nasty wound, but body armor stops it cold.
   components:
   - type: CartridgeAmmo
     proto: BulletRifleJHP
   - type: Sprite
     layers:
     - state: base
-      map: [ "enum.AmmoVisualLayers.Base" ]
+      map: [ enum.AmmoVisualLayers.Base ]
     - state: tip
-      map: [ "enum.AmmoVisualLayers.Tip" ]
+      map: [ enum.AmmoVisualLayers.Tip ]
       color: "#b5651d"
+    sprite: _Dystopia/Objects/Weapons/Guns/Ammunition/Casings/ammo_casing.rsi
+    drawdepth: Items
+    noRot: false
+  - type: Tag
+    tags: [ CartridgeRifle ]
+  - type: Appearance
+  - type: SpentAmmoVisuals
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.10,-0.05,0.10,0.05"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Item
+    size: Tiny
+  - type: SpaceGarbage
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Weapons/Guns/Casings/casing_fall_2.ogg
+      params:
+        volume: -1
+  - type: StaticPrice
+    price: 1
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
 
 - type: entity
-  parent: BaseMagazineBoxRifle
   id: MagazineBoxRifleJHP
   name: ammunition box (.20 rifle JHP)
-  description: "A cardboard box of .20 rifle hollow point rounds."
+  description: A cardboard box of .20 rifle hollow point rounds.
   components:
   - type: BallisticAmmoProvider
     proto: CartridgeRifleJHP
+    mayTransfer: true
+    whitelist:
+      tags: [ CartridgeRifle ]
+    capacity: 50
   - type: Sprite
     layers:
     - state: base
-      map: ["enum.GunVisualLayers.Base"]
+      map: [ enum.GunVisualLayers.Base ]
     - state: mag-1
-      map: ["enum.GunVisualLayers.Mag"]
+      map: [ enum.GunVisualLayers.Mag ]
     - sprite: _Dystopia/Objects/Weapons/ammo_marks.rsi
       state: box-rifle
       color: "#b5651d"
+    sprite: _Dystopia/Objects/Weapons/Guns/Ammunition/Boxes/rifle.rsi
+    drawdepth: Items
+    noRot: false
+  - type: Item
+    size: Small
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: MagazineVisuals
+    magState: mag
+    steps: 4
+    zeroVisible: false
+  - type: Appearance
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
 
 - type: entity
-  parent: BulletRifle
   id: BulletRifleAP
-  categories: [ HideSpawnMenu ]
   name: bullet (.20 rifle AP)
+  description: If you can see this you're probably dead!
+  categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
-    sprite: Objects/Weapons/Guns/Projectiles/projectiles2.rsi
+    sprite: _Dystopia/Objects/Weapons/Guns/Projectiles/projectiles2.rsi
     layers:
     - state: piercing
+    noRot: false
   - type: Projectile
     damage:
       types:
         Piercing: 13
+    impactEffect: BulletImpactEffect
+    soundHit:
+      path: /Audio/Weapons/Guns/Hits/bullet_hit.ogg
   - type: ArmorPenetration
     sharp: 17
     blunt: 27
+  - type: Reflective
+  - type: FlyBySound
+  - type: Clickable
+  - type: Physics
+    bodyType: Dynamic
+  - type: TileFrictionModifier
+    modifier: 0
+  - type: Fixtures
+    fixtures:
+      projectile:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.1,-0.10,0.1,0.30"
+        hard: false
+        mask: [ Impassable, BulletImpassable ]
+      fly-by:
+        shape: !type:PhysShapeCircle
+          radius: 1.5
+        layer: [ Impassable, MidImpassable, HighImpassable, LowImpassable ]
+        hard: false
+  - type: TimedDespawn
+    lifetime: 10
 
 - type: entity
-  parent: BaseCartridgeRifle
   id: CartridgeRifleAP
   name: cartridge (.20 rifle AP)
-  description: "A .20 rifle cartridge with a hardened steel core under the jacket. It gets through vests that would catch a regular bullet, at the cost of a cleaner wound."
+  description: A .20 rifle cartridge with a hardened steel core under the jacket. It gets through vests that would catch a regular bullet, at the cost of a cleaner wound.
   components:
   - type: CartridgeAmmo
     proto: BulletRifleAP
   - type: Sprite
     layers:
     - state: base
-      map: [ "enum.AmmoVisualLayers.Base" ]
+      map: [ enum.AmmoVisualLayers.Base ]
     - state: tip
-      map: [ "enum.AmmoVisualLayers.Tip" ]
+      map: [ enum.AmmoVisualLayers.Tip ]
       color: "#0a0a0a"
+    sprite: _Dystopia/Objects/Weapons/Guns/Ammunition/Casings/ammo_casing.rsi
+    drawdepth: Items
+    noRot: false
+  - type: Tag
+    tags: [ CartridgeRifle ]
+  - type: Appearance
+  - type: SpentAmmoVisuals
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.10,-0.05,0.10,0.05"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Item
+    size: Tiny
+  - type: SpaceGarbage
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Weapons/Guns/Casings/casing_fall_2.ogg
+      params:
+        volume: -1
+  - type: StaticPrice
+    price: 1
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
 
 - type: entity
-  parent: BaseMagazineBoxRifle
   id: MagazineBoxRifleAP
   name: ammunition box (.20 rifle AP)
-  description: "A cardboard box of .20 rifle armor-piercing rounds."
+  description: A cardboard box of .20 rifle armor-piercing rounds.
   components:
   - type: BallisticAmmoProvider
     proto: CartridgeRifleAP
+    mayTransfer: true
+    whitelist:
+      tags: [ CartridgeRifle ]
+    capacity: 50
   - type: Sprite
     layers:
     - state: base
-      map: ["enum.GunVisualLayers.Base"]
+      map: [ enum.GunVisualLayers.Base ]
     - state: mag-1
-      map: ["enum.GunVisualLayers.Mag"]
+      map: [ enum.GunVisualLayers.Mag ]
     - sprite: _Dystopia/Objects/Weapons/ammo_marks.rsi
       state: box-rifle
       color: "#0a0a0a"
+    sprite: _Dystopia/Objects/Weapons/Guns/Ammunition/Boxes/rifle.rsi
+    drawdepth: Items
+    noRot: false
+  - type: Item
+    size: Small
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: MagazineVisuals
+    magState: mag
+    steps: 4
+    zeroVisible: false
+  - type: Appearance
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
 
 - type: entity
-  parent: BulletRifle
   id: BulletRifleWP
-  categories: [ HideSpawnMenu ]
   name: bullet (.20 rifle WP)
+  description: If you can see this you're probably dead!
+  categories: [ HideSpawnMenu ]
   components:
   - type: Projectile
     damage:
       types:
         Piercing: 13
         Heat: 2
+    impactEffect: BulletImpactEffect
+    soundHit:
+      path: /Audio/Weapons/Guns/Hits/bullet_hit.ogg
   - type: PhosphorusOnHit
     duration: 10
     fireStacks: 3
@@ -499,212 +1815,801 @@
   - type: ArmorPenetration
     sharp: 11.5
     blunt: 27
+  - type: Sprite
+    noRot: false
+    sprite: _Dystopia/Objects/Weapons/Guns/Projectiles/projectiles2.rsi
+    layers:
+    - state: bullet
+      shader: unshaded
+  - type: Reflective
+  - type: FlyBySound
+  - type: Clickable
+  - type: Physics
+    bodyType: Dynamic
+  - type: TileFrictionModifier
+    modifier: 0
+  - type: Fixtures
+    fixtures:
+      projectile:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.1,-0.10,0.1,0.30"
+        hard: false
+        mask: [ Impassable, BulletImpassable ]
+      fly-by:
+        shape: !type:PhysShapeCircle
+          radius: 1.5
+        layer: [ Impassable, MidImpassable, HighImpassable, LowImpassable ]
+        hard: false
+  - type: TimedDespawn
+    lifetime: 10
 
 - type: entity
-  parent: BaseCartridgeRifle
   id: CartridgeRifleWP
   name: cartridge (.20 rifle WP)
-  description: "A .20 rifle cartridge with a white phosphorus filler. On impact the phosphorus splashes over the target and burns for about ten seconds; water won't put it out."
+  description: A .20 rifle cartridge with a white phosphorus filler. On impact the phosphorus splashes over the target and burns for about ten seconds; water won't put it out.
   components:
   - type: CartridgeAmmo
     proto: BulletRifleWP
   - type: Sprite
     layers:
     - state: base
-      map: [ "enum.AmmoVisualLayers.Base" ]
+      map: [ enum.AmmoVisualLayers.Base ]
     - state: tip
-      map: [ "enum.AmmoVisualLayers.Tip" ]
+      map: [ enum.AmmoVisualLayers.Tip ]
       color: "#e8e8e8"
+    sprite: _Dystopia/Objects/Weapons/Guns/Ammunition/Casings/ammo_casing.rsi
+    drawdepth: Items
+    noRot: false
+  - type: Tag
+    tags: [ CartridgeRifle ]
+  - type: Appearance
+  - type: SpentAmmoVisuals
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.10,-0.05,0.10,0.05"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Item
+    size: Tiny
+  - type: SpaceGarbage
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Weapons/Guns/Casings/casing_fall_2.ogg
+      params:
+        volume: -1
+  - type: StaticPrice
+    price: 1
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
 
 - type: entity
-  parent: BaseMagazineBoxRifle
   id: MagazineBoxRifleWP
   name: ammunition box (.20 rifle WP)
-  description: "A cardboard box of .20 rifle white phosphorus rounds."
+  description: A cardboard box of .20 rifle white phosphorus rounds.
   components:
   - type: BallisticAmmoProvider
     proto: CartridgeRifleWP
+    mayTransfer: true
+    whitelist:
+      tags: [ CartridgeRifle ]
+    capacity: 50
   - type: Sprite
     layers:
     - state: base
-      map: ["enum.GunVisualLayers.Base"]
+      map: [ enum.GunVisualLayers.Base ]
     - state: mag-1
-      map: ["enum.GunVisualLayers.Mag"]
+      map: [ enum.GunVisualLayers.Mag ]
     - sprite: _Dystopia/Objects/Weapons/ammo_marks.rsi
       state: box-rifle
       color: "#e8e8e8"
+    sprite: _Dystopia/Objects/Weapons/Guns/Ammunition/Boxes/rifle.rsi
+    drawdepth: Items
+    noRot: false
+  - type: Item
+    size: Small
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: MagazineVisuals
+    magState: mag
+    steps: 4
+    zeroVisible: false
+  - type: Appearance
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
 
 
 # ===================== .25 caseless =====================
+
 - type: entity
-  parent: BulletCaselessRifle
   id: BulletCaselessRifleJHP
-  categories: [ HideSpawnMenu ]
   name: bullet (.25 caseless JHP)
+  description: If you can see this you're probably dead!
+  categories: [ HideSpawnMenu ]
   components:
   - type: Projectile
     damage:
       types:
         Piercing: 24
+    impactEffect: BulletImpactEffect
+    soundHit:
+      path: /Audio/Weapons/Guns/Hits/bullet_hit.ogg
   - type: ArmorPenetration
     sharp: 9.5
     blunt: 28
+  - type: Sprite
+    noRot: false
+    sprite: _Dystopia/Objects/Weapons/Guns/Projectiles/projectiles2.rsi
+    layers:
+    - state: bullet
+      shader: unshaded
+  - type: Reflective
+  - type: FlyBySound
+  - type: Clickable
+  - type: Physics
+    bodyType: Dynamic
+  - type: TileFrictionModifier
+    modifier: 0
+  - type: Fixtures
+    fixtures:
+      projectile:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.1,-0.10,0.1,0.30"
+        hard: false
+        mask: [ Impassable, BulletImpassable ]
+      fly-by:
+        shape: !type:PhysShapeCircle
+          radius: 1.5
+        layer: [ Impassable, MidImpassable, HighImpassable, LowImpassable ]
+        hard: false
+  - type: TimedDespawn
+    lifetime: 10
 
 - type: entity
-  parent: BaseCartridgeCaselessRifle
   id: CartridgeCaselessRifleJHP
   name: cartridge (.25 caseless JHP)
-  description: "A .25 caseless cartridge with a jacketed hollow point. The bullet mushrooms on impact and leaves a nasty wound, but body armor stops it cold."
+  description: A .25 caseless cartridge with a jacketed hollow point. The bullet mushrooms on impact and leaves a nasty wound, but body armor stops it cold.
   components:
   - type: CartridgeAmmo
     proto: BulletCaselessRifleJHP
+    deleteOnSpawn: true
   - type: Sprite
     layers:
     - state: base
-      map: [ "enum.AmmoVisualLayers.Base" ]
+      map: [ enum.AmmoVisualLayers.Base ]
     - state: tip
-      map: [ "enum.AmmoVisualLayers.Tip" ]
+      map: [ enum.AmmoVisualLayers.Tip ]
       color: "#b5651d"
+    noRot: false
+    sprite: _Dystopia/Objects/Weapons/Guns/Ammunition/Casings/ammo_casing.rsi
+    drawdepth: Items
+  - type: Tag
+    tags: [ CartridgeCaselessRifle ]
+  - type: Appearance
+  - type: SpentAmmoVisuals
+  - type: StaticPrice
+    price: 10
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.10,-0.05,0.10,0.05"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Item
+    size: Tiny
+  - type: SpaceGarbage
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Weapons/Guns/Casings/casing_fall_2.ogg
+      params:
+        volume: -1
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
 
 - type: entity
-  parent: BaseMagazineBoxCaselessRifle
   id: MagazineBoxCaselessRifleJHP
   name: ammunition box (.25 caseless JHP)
-  description: "A cardboard box of .25 caseless hollow point rounds."
+  description: A cardboard box of .25 caseless hollow point rounds.
   components:
   - type: BallisticAmmoProvider
     proto: CartridgeCaselessRifleJHP
+    mayTransfer: true
+    whitelist:
+      tags: [ CartridgeCaselessRifle ]
+    capacity: 60
   - type: Sprite
     layers:
     - state: base
-      map: ["enum.GunVisualLayers.Base"]
+      map: [ enum.GunVisualLayers.Base ]
     - state: mag-1
-      map: ["enum.GunVisualLayers.Mag"]
+      map: [ enum.GunVisualLayers.Mag ]
     - sprite: _Dystopia/Objects/Weapons/ammo_marks.rsi
       state: box-caseless-rifle
       color: "#b5651d"
+    sprite: _Dystopia/Objects/Weapons/Guns/Ammunition/Boxes/caseless_rifle.rsi
+    drawdepth: Items
+    noRot: false
+  - type: Item
+    size: Small
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: MagazineVisuals
+    magState: mag
+    steps: 4
+    zeroVisible: false
+  - type: Appearance
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
 
 - type: entity
-  parent: BulletCaselessRifle
   id: BulletCaselessRifleAP
-  categories: [ HideSpawnMenu ]
   name: bullet (.25 caseless AP)
+  description: If you can see this you're probably dead!
+  categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
-    sprite: Objects/Weapons/Guns/Projectiles/projectiles2.rsi
+    sprite: _Dystopia/Objects/Weapons/Guns/Projectiles/projectiles2.rsi
     layers:
     - state: piercing
+    noRot: false
   - type: Projectile
     damage:
       types:
         Piercing: 14
+    impactEffect: BulletImpactEffect
+    soundHit:
+      path: /Audio/Weapons/Guns/Hits/bullet_hit.ogg
   - type: ArmorPenetration
     sharp: 17
     blunt: 28
+  - type: Reflective
+  - type: FlyBySound
+  - type: Clickable
+  - type: Physics
+    bodyType: Dynamic
+  - type: TileFrictionModifier
+    modifier: 0
+  - type: Fixtures
+    fixtures:
+      projectile:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.1,-0.10,0.1,0.30"
+        hard: false
+        mask: [ Impassable, BulletImpassable ]
+      fly-by:
+        shape: !type:PhysShapeCircle
+          radius: 1.5
+        layer: [ Impassable, MidImpassable, HighImpassable, LowImpassable ]
+        hard: false
+  - type: TimedDespawn
+    lifetime: 10
 
 - type: entity
-  parent: BaseCartridgeCaselessRifle
   id: CartridgeCaselessRifleAP
   name: cartridge (.25 caseless AP)
-  description: "A .25 caseless cartridge with a hardened steel core under the jacket. It gets through vests that would catch a regular bullet, at the cost of a cleaner wound."
+  description: A .25 caseless cartridge with a hardened steel core under the jacket. It gets through vests that would catch a regular bullet, at the cost of a cleaner wound.
   components:
   - type: CartridgeAmmo
     proto: BulletCaselessRifleAP
+    deleteOnSpawn: true
   - type: Sprite
     layers:
     - state: base
-      map: [ "enum.AmmoVisualLayers.Base" ]
+      map: [ enum.AmmoVisualLayers.Base ]
     - state: tip
-      map: [ "enum.AmmoVisualLayers.Tip" ]
+      map: [ enum.AmmoVisualLayers.Tip ]
       color: "#0a0a0a"
+    noRot: false
+    sprite: _Dystopia/Objects/Weapons/Guns/Ammunition/Casings/ammo_casing.rsi
+    drawdepth: Items
+  - type: Tag
+    tags: [ CartridgeCaselessRifle ]
+  - type: Appearance
+  - type: SpentAmmoVisuals
+  - type: StaticPrice
+    price: 10
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.10,-0.05,0.10,0.05"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Item
+    size: Tiny
+  - type: SpaceGarbage
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Weapons/Guns/Casings/casing_fall_2.ogg
+      params:
+        volume: -1
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
 
 - type: entity
-  parent: BaseMagazineBoxCaselessRifle
   id: MagazineBoxCaselessRifleAP
   name: ammunition box (.25 caseless AP)
-  description: "A cardboard box of .25 caseless armor-piercing rounds."
+  description: A cardboard box of .25 caseless armor-piercing rounds.
   components:
   - type: BallisticAmmoProvider
     proto: CartridgeCaselessRifleAP
+    mayTransfer: true
+    whitelist:
+      tags: [ CartridgeCaselessRifle ]
+    capacity: 60
   - type: Sprite
     layers:
     - state: base
-      map: ["enum.GunVisualLayers.Base"]
+      map: [ enum.GunVisualLayers.Base ]
     - state: mag-1
-      map: ["enum.GunVisualLayers.Mag"]
+      map: [ enum.GunVisualLayers.Mag ]
     - sprite: _Dystopia/Objects/Weapons/ammo_marks.rsi
       state: box-caseless-rifle
       color: "#0a0a0a"
+    sprite: _Dystopia/Objects/Weapons/Guns/Ammunition/Boxes/caseless_rifle.rsi
+    drawdepth: Items
+    noRot: false
+  - type: Item
+    size: Small
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: MagazineVisuals
+    magState: mag
+    steps: 4
+    zeroVisible: false
+  - type: Appearance
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
 
 
 # ===================== .60 anti-materiel =====================
+
 - type: entity
-  parent: BulletAntiMateriel
   id: BulletAntiMaterielAP
-  categories: [ HideSpawnMenu ]
   name: bullet (.60 anti-materiel AP)
+  description: If you can see this you're probably dead!
+  categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
-    sprite: Objects/Weapons/Guns/Projectiles/projectiles2.rsi
+    sprite: _Dystopia/Objects/Weapons/Guns/Projectiles/projectiles2.rsi
     layers:
     - state: piercing
+    noRot: false
   - type: Projectile
     damage:
       types:
         Piercing: 56
         Structural: 100
+    penetrationThreshold: 601
+    penetrationDamageTypeRequirement: [ Structural ]
+    impactEffect: BulletImpactEffect
+    soundHit:
+      path: /Audio/Weapons/Guns/Hits/bullet_hit.ogg
   - type: ArmorPenetration
     sharp: 36
     blunt: 330
+  - type: StaminaDamageOnCollide
+    damage: 60
+  - type: Reflective
+  - type: FlyBySound
+  - type: Clickable
+  - type: Physics
+    bodyType: Dynamic
+  - type: TileFrictionModifier
+    modifier: 0
+  - type: Fixtures
+    fixtures:
+      projectile:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.1,-0.10,0.1,0.30"
+        hard: false
+        mask: [ Impassable, BulletImpassable ]
+      fly-by:
+        shape: !type:PhysShapeCircle
+          radius: 1.5
+        layer: [ Impassable, MidImpassable, HighImpassable, LowImpassable ]
+        hard: false
+  - type: TimedDespawn
+    lifetime: 10
 
 - type: entity
-  parent: CartridgeAntiMateriel
   id: CartridgeAntiMaterielAP
   name: cartridge (.60 anti-materiel AP)
-  description: "A .60 anti-materiel cartridge with a hardened steel core under the jacket. It gets through vests that would catch a regular bullet, at the cost of a cleaner wound."
+  description: A .60 anti-materiel cartridge with a hardened steel core under the jacket. It gets through vests that would catch a regular bullet, at the cost of a cleaner wound.
   components:
   - type: CartridgeAmmo
     proto: BulletAntiMaterielAP
   - type: Sprite
     layers:
     - state: base
-      map: [ "enum.AmmoVisualLayers.Base" ]
+      map: [ enum.AmmoVisualLayers.Base ]
     - sprite: _Dystopia/Objects/Weapons/ammo_marks.rsi
       state: large-tip
-      map: [ "enum.AmmoVisualLayers.Tip" ]
+      map: [ enum.AmmoVisualLayers.Tip ]
       color: "#0a0a0a"
+    sprite: _Dystopia/Objects/Weapons/Guns/Ammunition/Casings/large_casing.rsi
+    drawdepth: Items
+    noRot: false
+  - type: Tag
+    tags: [ CartridgeAntiMateriel ]
+  - type: Appearance
+  - type: SpentAmmoVisuals
+  - type: StaticPrice
+    price: 20
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.10,-0.05,0.10,0.05"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Item
+    size: Tiny
+  - type: SpaceGarbage
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Weapons/Guns/Casings/casing_fall_2.ogg
+      params:
+        volume: -1
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Contraband
+    severity: Corvax434
+    allowedDepartments: []
+    allowedJobs: []
 
 - type: entity
-  parent: BaseMagazineBoxAntiMateriel
   id: MagazineBoxAntiMaterielAP
   name: ammunition box (.60 anti-materiel AP)
-  description: "A cardboard box of .60 anti-materiel armor-piercing rounds."
+  description: A cardboard box of .60 anti-materiel armor-piercing rounds.
   components:
   - type: BallisticAmmoProvider
     proto: CartridgeAntiMaterielAP
+    mayTransfer: true
+    whitelist:
+      tags: [ CartridgeAntiMateriel ]
+    capacity: 10
   - type: Sprite
     layers:
     - state: base
-      map: ["enum.GunVisualLayers.Base"]
+      map: [ enum.GunVisualLayers.Base ]
     - state: mag-1
-      map: ["enum.GunVisualLayers.Mag"]
+      map: [ enum.GunVisualLayers.Mag ]
+    sprite: _Dystopia/Objects/Weapons/Guns/Ammunition/Boxes/anti_materiel.rsi
+    drawdepth: Items
+    noRot: false
+  - type: Item
+    size: Small
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: MagazineVisuals
+    magState: mag
+    steps: 4
+    zeroVisible: false
+  - type: Appearance
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
 
 - type: entity
-  parent: BulletAntiMateriel
   id: BulletAntiMaterielIncendiary
-  categories: [ HideSpawnMenu ]
   name: bullet (.60 anti-materiel API)
+  description: If you can see this you're probably dead!
+  categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
-    sprite: Objects/Weapons/Guns/Projectiles/projectiles2.rsi
+    sprite: _Dystopia/Objects/Weapons/Guns/Projectiles/projectiles2.rsi
     layers:
     - state: piercing
+    noRot: false
   - type: Projectile
     damage:
       types:
         Piercing: 56
         Heat: 15
         Structural: 100
+    penetrationThreshold: 601
+    penetrationDamageTypeRequirement: [ Structural ]
+    impactEffect: BulletImpactEffect
+    soundHit:
+      path: /Audio/Weapons/Guns/Hits/bullet_hit.ogg
   - type: IgniteOnCollide
     fireStacks: 1
   - type: PointLight
@@ -715,44 +2620,184 @@
   - type: ArmorPenetration
     sharp: 29
     blunt: 330
+  - type: StaminaDamageOnCollide
+    damage: 60
+  - type: Reflective
+  - type: FlyBySound
+  - type: Clickable
+  - type: Physics
+    bodyType: Dynamic
+  - type: TileFrictionModifier
+    modifier: 0
+  - type: Fixtures
+    fixtures:
+      projectile:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.1,-0.10,0.1,0.30"
+        hard: false
+        mask: [ Impassable, BulletImpassable ]
+      fly-by:
+        shape: !type:PhysShapeCircle
+          radius: 1.5
+        layer: [ Impassable, MidImpassable, HighImpassable, LowImpassable ]
+        hard: false
+  - type: TimedDespawn
+    lifetime: 10
 
 - type: entity
-  parent: CartridgeAntiMateriel
   id: CartridgeAntiMaterielIncendiary
   name: cartridge (.60 anti-materiel API)
-  description: "A .60 anti-materiel cartridge with an armor-piercing incendiary bullet. The hard core gets through armor and the compound in the nose flares up on impact."
+  description: A .60 anti-materiel cartridge with an armor-piercing incendiary bullet. The hard core gets through armor and the compound in the nose flares up on impact.
   components:
   - type: CartridgeAmmo
     proto: BulletAntiMaterielIncendiary
   - type: Sprite
     layers:
     - state: base
-      map: [ "enum.AmmoVisualLayers.Base" ]
+      map: [ enum.AmmoVisualLayers.Base ]
     - sprite: _Dystopia/Objects/Weapons/ammo_marks.rsi
       state: large-tip
-      map: [ "enum.AmmoVisualLayers.Tip" ]
+      map: [ enum.AmmoVisualLayers.Tip ]
       color: "#ff6e52"
+    sprite: _Dystopia/Objects/Weapons/Guns/Ammunition/Casings/large_casing.rsi
+    drawdepth: Items
+    noRot: false
+  - type: Tag
+    tags: [ CartridgeAntiMateriel ]
+  - type: Appearance
+  - type: SpentAmmoVisuals
+  - type: StaticPrice
+    price: 20
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.10,-0.05,0.10,0.05"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Item
+    size: Tiny
+  - type: SpaceGarbage
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Weapons/Guns/Casings/casing_fall_2.ogg
+      params:
+        volume: -1
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Contraband
+    severity: Corvax434
+    allowedDepartments: []
+    allowedJobs: []
 
 - type: entity
-  parent: BaseMagazineBoxAntiMateriel
   id: MagazineBoxAntiMaterielIncendiary
   name: ammunition box (.60 anti-materiel API)
-  description: "A cardboard box of .60 anti-materiel armor-piercing incendiary rounds."
+  description: A cardboard box of .60 anti-materiel armor-piercing incendiary rounds.
   components:
   - type: BallisticAmmoProvider
     proto: CartridgeAntiMaterielIncendiary
+    mayTransfer: true
+    whitelist:
+      tags: [ CartridgeAntiMateriel ]
+    capacity: 10
   - type: Sprite
     layers:
     - state: base
-      map: ["enum.GunVisualLayers.Base"]
+      map: [ enum.GunVisualLayers.Base ]
     - state: mag-1
-      map: ["enum.GunVisualLayers.Mag"]
+      map: [ enum.GunVisualLayers.Mag ]
+    sprite: _Dystopia/Objects/Weapons/Guns/Ammunition/Boxes/anti_materiel.rsi
+    drawdepth: Items
+    noRot: false
+  - type: Item
+    size: Small
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: MagazineVisuals
+    magState: mag
+    steps: 4
+    zeroVisible: false
+  - type: Appearance
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
 
 - type: entity
-  parent: BulletAntiMateriel
   id: BulletAntiMaterielWP
-  categories: [ HideSpawnMenu ]
   name: bullet (.60 anti-materiel WP)
+  description: If you can see this you're probably dead!
+  categories: [ HideSpawnMenu ]
   components:
   - type: Projectile
     damage:
@@ -760,6 +2805,11 @@
         Piercing: 56
         Heat: 5
         Structural: 100
+    penetrationThreshold: 601
+    penetrationDamageTypeRequirement: [ Structural ]
+    impactEffect: BulletImpactEffect
+    soundHit:
+      path: /Audio/Weapons/Guns/Hits/bullet_hit.ogg
   - type: PhosphorusOnHit
     duration: 10
     fireStacks: 4
@@ -771,50 +2821,201 @@
   - type: ArmorPenetration
     sharp: 24
     blunt: 330
+  - type: StaminaDamageOnCollide
+    damage: 60
+  - type: Sprite
+    noRot: false
+    sprite: _Dystopia/Objects/Weapons/Guns/Projectiles/projectiles2.rsi
+    layers:
+    - state: bullet
+      shader: unshaded
+  - type: Reflective
+  - type: FlyBySound
+  - type: Clickable
+  - type: Physics
+    bodyType: Dynamic
+  - type: TileFrictionModifier
+    modifier: 0
+  - type: Fixtures
+    fixtures:
+      projectile:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.1,-0.10,0.1,0.30"
+        hard: false
+        mask: [ Impassable, BulletImpassable ]
+      fly-by:
+        shape: !type:PhysShapeCircle
+          radius: 1.5
+        layer: [ Impassable, MidImpassable, HighImpassable, LowImpassable ]
+        hard: false
+  - type: TimedDespawn
+    lifetime: 10
 
 - type: entity
-  parent: CartridgeAntiMateriel
   id: CartridgeAntiMaterielWP
   name: cartridge (.60 anti-materiel WP)
-  description: "A .60 anti-materiel cartridge with a white phosphorus filler. On impact the phosphorus splashes over the target and burns for about ten seconds; water won't put it out."
+  description: A .60 anti-materiel cartridge with a white phosphorus filler. On impact the phosphorus splashes over the target and burns for about ten seconds; water won't put it out.
   components:
   - type: CartridgeAmmo
     proto: BulletAntiMaterielWP
   - type: Sprite
     layers:
     - state: base
-      map: [ "enum.AmmoVisualLayers.Base" ]
+      map: [ enum.AmmoVisualLayers.Base ]
     - sprite: _Dystopia/Objects/Weapons/ammo_marks.rsi
       state: large-tip
-      map: [ "enum.AmmoVisualLayers.Tip" ]
+      map: [ enum.AmmoVisualLayers.Tip ]
       color: "#e8e8e8"
+    sprite: _Dystopia/Objects/Weapons/Guns/Ammunition/Casings/large_casing.rsi
+    drawdepth: Items
+    noRot: false
+  - type: Tag
+    tags: [ CartridgeAntiMateriel ]
+  - type: Appearance
+  - type: SpentAmmoVisuals
+  - type: StaticPrice
+    price: 20
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.10,-0.05,0.10,0.05"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Item
+    size: Tiny
+  - type: SpaceGarbage
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Weapons/Guns/Casings/casing_fall_2.ogg
+      params:
+        volume: -1
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Contraband
+    severity: Corvax434
+    allowedDepartments: []
+    allowedJobs: []
 
 - type: entity
-  parent: BaseMagazineBoxAntiMateriel
   id: MagazineBoxAntiMaterielWP
   name: ammunition box (.60 anti-materiel WP)
-  description: "A cardboard box of .60 anti-materiel white phosphorus rounds."
+  description: A cardboard box of .60 anti-materiel white phosphorus rounds.
   components:
   - type: BallisticAmmoProvider
     proto: CartridgeAntiMaterielWP
+    mayTransfer: true
+    whitelist:
+      tags: [ CartridgeAntiMateriel ]
+    capacity: 10
   - type: Sprite
     layers:
     - state: base
-      map: ["enum.GunVisualLayers.Base"]
+      map: [ enum.GunVisualLayers.Base ]
     - state: mag-1
-      map: ["enum.GunVisualLayers.Mag"]
+      map: [ enum.GunVisualLayers.Mag ]
+    sprite: _Dystopia/Objects/Weapons/Guns/Ammunition/Boxes/anti_materiel.rsi
+    drawdepth: Items
+    noRot: false
+  - type: Item
+    size: Small
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: MagazineVisuals
+    magState: mag
+    steps: 4
+    zeroVisible: false
+  - type: Appearance
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
 
 - type: entity
-  parent: BulletAntiMateriel
   id: BulletAntiMaterielHE
-  categories: [ HideSpawnMenu ]
   name: bullet (.60 anti-materiel HE)
+  description: If you can see this you're probably dead!
+  categories: [ HideSpawnMenu ]
   components:
   - type: Projectile
     damage:
       types:
         Piercing: 75
         Structural: 100
+    penetrationThreshold: 601
+    penetrationDamageTypeRequirement: [ Structural ]
+    impactEffect: BulletImpactEffect
+    soundHit:
+      path: /Audio/Weapons/Guns/Hits/bullet_hit.ogg
   - type: TriggerOnCollide
     fixtureID: projectile
     maxTriggers: 1
@@ -829,84 +3030,322 @@
   - type: ArmorPenetration
     sharp: 24
     blunt: 330
+  - type: StaminaDamageOnCollide
+    damage: 60
+  - type: Sprite
+    noRot: false
+    sprite: _Dystopia/Objects/Weapons/Guns/Projectiles/projectiles2.rsi
+    layers:
+    - state: bullet
+      shader: unshaded
+  - type: Reflective
+  - type: FlyBySound
+  - type: Clickable
+  - type: Physics
+    bodyType: Dynamic
+  - type: TileFrictionModifier
+    modifier: 0
+  - type: Fixtures
+    fixtures:
+      projectile:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.1,-0.10,0.1,0.30"
+        hard: false
+        mask: [ Impassable, BulletImpassable ]
+      fly-by:
+        shape: !type:PhysShapeCircle
+          radius: 1.5
+        layer: [ Impassable, MidImpassable, HighImpassable, LowImpassable ]
+        hard: false
+  - type: TimedDespawn
+    lifetime: 10
 
 - type: entity
-  parent: CartridgeAntiMateriel
   id: CartridgeAntiMaterielHE
   name: cartridge (.60 anti-materiel HE)
-  description: "A .60 anti-materiel cartridge with an explosive bullet. A small charge inside goes off on impact."
+  description: A .60 anti-materiel cartridge with an explosive bullet. A small charge inside goes off on impact.
   components:
   - type: CartridgeAmmo
     proto: BulletAntiMaterielHE
   - type: Sprite
     layers:
     - state: base
-      map: [ "enum.AmmoVisualLayers.Base" ]
+      map: [ enum.AmmoVisualLayers.Base ]
     - sprite: _Dystopia/Objects/Weapons/ammo_marks.rsi
       state: large-tip
-      map: [ "enum.AmmoVisualLayers.Tip" ]
+      map: [ enum.AmmoVisualLayers.Tip ]
       color: "#e5c100"
+    sprite: _Dystopia/Objects/Weapons/Guns/Ammunition/Casings/large_casing.rsi
+    drawdepth: Items
+    noRot: false
+  - type: Tag
+    tags: [ CartridgeAntiMateriel ]
+  - type: Appearance
+  - type: SpentAmmoVisuals
+  - type: StaticPrice
+    price: 20
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.10,-0.05,0.10,0.05"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Item
+    size: Tiny
+  - type: SpaceGarbage
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Weapons/Guns/Casings/casing_fall_2.ogg
+      params:
+        volume: -1
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+  - type: Contraband
+    severity: Corvax434
+    allowedDepartments: []
+    allowedJobs: []
 
 - type: entity
-  parent: BaseMagazineBoxAntiMateriel
   id: MagazineBoxAntiMaterielHE
   name: ammunition box (.60 anti-materiel HE)
-  description: "A cardboard box of .60 anti-materiel explosive rounds."
+  description: A cardboard box of .60 anti-materiel explosive rounds.
   components:
   - type: BallisticAmmoProvider
     proto: CartridgeAntiMaterielHE
+    mayTransfer: true
+    whitelist:
+      tags: [ CartridgeAntiMateriel ]
+    capacity: 10
   - type: Sprite
     layers:
     - state: base
-      map: ["enum.GunVisualLayers.Base"]
+      map: [ enum.GunVisualLayers.Base ]
     - state: mag-1
-      map: ["enum.GunVisualLayers.Mag"]
+      map: [ enum.GunVisualLayers.Mag ]
+    sprite: _Dystopia/Objects/Weapons/Guns/Ammunition/Boxes/anti_materiel.rsi
+    drawdepth: Items
+    noRot: false
+  - type: Item
+    size: Small
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: MagazineVisuals
+    magState: mag
+    steps: 4
+    zeroVisible: false
+  - type: Appearance
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
 
 
 # ===================== .50 shotgun =====================
+
 - type: entity
-  parent: PelletShotgunSlug
   id: PelletShotgunSlugAP
-  categories: [ HideSpawnMenu ]
   name: pellet (.50 slugap)
+  description: If you can see this you're probably dead!
+  categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
-    sprite: Objects/Weapons/Guns/Projectiles/projectiles2.rsi
+    sprite: _Dystopia/Objects/Weapons/Guns/Projectiles/projectiles2.rsi
     layers:
     - state: piercing
+    state: slug
+    noRot: false
   - type: Projectile
     damage:
       types:
         Piercing: 34
         Structural: 30
+    impactEffect: BulletImpactEffect
+    soundHit:
+      path: /Audio/Weapons/Guns/Hits/bullet_hit.ogg
   - type: ArmorPenetration
     sharp: 10
     blunt: 40
+  - type: Reflective
+  - type: FlyBySound
+  - type: Clickable
+  - type: Physics
+    bodyType: Dynamic
+  - type: TileFrictionModifier
+    modifier: 0
+  - type: Fixtures
+    fixtures:
+      projectile:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.1,-0.10,0.1,0.30"
+        hard: false
+        mask: [ Impassable, BulletImpassable ]
+      fly-by:
+        shape: !type:PhysShapeCircle
+          radius: 1.5
+        layer: [ Impassable, MidImpassable, HighImpassable, LowImpassable ]
+        hard: false
+  - type: TimedDespawn
+    lifetime: 10
 
 - type: entity
-  parent: [ BaseShellShotgun, BaseSecurityContraband ]
   id: ShellShotgunSlugAP
   name: shell (.50 AP sabot)
-  description: "A shotgun shell with an armor-piercing sabot slug. The steel penetrator rides in a plastic sabot, flies faster than a regular slug and gets through body armor, but leaves a smaller wound."
+  description: A shotgun shell with an armor-piercing sabot slug. The steel penetrator rides in a plastic sabot, flies faster than a regular slug and gets through body armor, but leaves a smaller wound.
   components:
   - type: Sprite
     layers:
     - state: slug
-      map: [ "enum.AmmoVisualLayers.Base" ]
+      map: [ enum.AmmoVisualLayers.Base ]
       color: "#0a0a0a"
+    sprite: _Dystopia/Objects/Weapons/Guns/Ammunition/Casings/shotgun_shell.rsi
+    drawdepth: Items
+    noRot: false
   - type: CartridgeAmmo
     proto: PelletShotgunSlugAP
+    soundEject:
+      collection: ShellEject
   - type: SpentAmmoVisuals
-    state: "slug"
+    state: slug
+  - type: Tag
+    tags: [ ShellShotgun ]
+  - type: Appearance
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.10,-0.05,0.10,0.05"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Item
+    size: Tiny
+  - type: SpaceGarbage
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Weapons/Guns/Casings/casing_fall_2.ogg
+      params:
+        volume: -1
+  - type: StaticPrice
+    price: 1
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
 
 - type: entity
-  parent: AmmoProviderShotgunShell
   id: BoxShotgunSlugAP
   name: ammunition box (.50 AP sabot)
-  description: "A cardboard box of .50 shotgun shells. A shotgun shell with an armor-piercing sabot slug. The steel penetrator rides in a plastic sabot, flies faster than a regular slug and gets through body armor, but leaves a smaller wound."
+  description: A cardboard box of .50 shotgun shells. A shotgun shell with an armor-piercing sabot slug. The steel penetrator rides in a plastic sabot, flies faster than a regular slug and gets through body armor, but leaves a smaller wound.
   components:
   - type: BallisticAmmoProvider
     proto: ShellShotgunSlugAP
+    mayTransfer: true
+    whitelist:
+      tags: [ ShellShotgun ]
+    capacity: 16
   - type: MagazineVisuals
     magState: mag-slug
     steps: 5
@@ -914,23 +3353,71 @@
   - type: Sprite
     layers:
     - state: base
-      map: ["enum.GunVisualLayers.Base"]
+      map: [ enum.GunVisualLayers.Base ]
     - state: mag-slug-1
-      map: ["enum.GunVisualLayers.Mag"]
+      map: [ enum.GunVisualLayers.Mag ]
     - state: slug
       color: "#0a0a0a"
+    sprite: _Dystopia/Objects/Weapons/Guns/Ammunition/Boxes/shotgun.rsi
+    drawdepth: Items
+    noRot: false
+  - type: Appearance
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: Item
+    size: Normal
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
 
 - type: entity
-  parent: PelletShotgunSlug
   id: PelletShotgunFrag
-  categories: [ HideSpawnMenu ]
   name: pellet (.50 frag)
+  description: If you can see this you're probably dead!
+  categories: [ HideSpawnMenu ]
   components:
   - type: Projectile
     damage:
       types:
         Piercing: 10
         Structural: 30
+    impactEffect: BulletImpactEffect
+    soundHit:
+      path: /Audio/Weapons/Guns/Hits/bullet_hit.ogg
   - type: TriggerOnCollide
     fixtureID: projectile
     maxTriggers: 1
@@ -945,31 +3432,124 @@
   - type: ArmorPenetration
     sharp: 3.5
     blunt: 25
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Projectiles/projectiles2.rsi
+    state: slug
+    noRot: false
+    layers:
+    - state: bullet
+      shader: unshaded
+  - type: Reflective
+  - type: FlyBySound
+  - type: Clickable
+  - type: Physics
+    bodyType: Dynamic
+  - type: TileFrictionModifier
+    modifier: 0
+  - type: Fixtures
+    fixtures:
+      projectile:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.1,-0.10,0.1,0.30"
+        hard: false
+        mask: [ Impassable, BulletImpassable ]
+      fly-by:
+        shape: !type:PhysShapeCircle
+          radius: 1.5
+        layer: [ Impassable, MidImpassable, HighImpassable, LowImpassable ]
+        hard: false
+  - type: TimedDespawn
+    lifetime: 10
 
 - type: entity
-  parent: [ BaseShellShotgun, BaseSecurityContraband ]
   id: ShellShotgunFrag
   name: shell (.50 FRAG-12)
-  description: "A FRAG-12 shotgun shell. Instead of a slug it fires a small fin-stabilized grenade that explodes on impact."
+  description: A FRAG-12 shotgun shell. Instead of a slug it fires a small fin-stabilized grenade that explodes on impact.
   components:
   - type: Sprite
     layers:
     - state: slug
-      map: [ "enum.AmmoVisualLayers.Base" ]
+      map: [ enum.AmmoVisualLayers.Base ]
       color: "#e5c100"
+    sprite: _Dystopia/Objects/Weapons/Guns/Ammunition/Casings/shotgun_shell.rsi
+    drawdepth: Items
+    noRot: false
   - type: CartridgeAmmo
     proto: PelletShotgunFrag
+    soundEject:
+      collection: ShellEject
   - type: SpentAmmoVisuals
-    state: "slug"
+    state: slug
+  - type: Tag
+    tags: [ ShellShotgun ]
+  - type: Appearance
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.10,-0.05,0.10,0.05"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Item
+    size: Tiny
+  - type: SpaceGarbage
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Weapons/Guns/Casings/casing_fall_2.ogg
+      params:
+        volume: -1
+  - type: StaticPrice
+    price: 1
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
 
 - type: entity
-  parent: AmmoProviderShotgunShell
   id: BoxShotgunFrag
   name: ammunition box (.50 FRAG-12)
-  description: "A cardboard box of .50 shotgun shells. A FRAG-12 shotgun shell. Instead of a slug it fires a small fin-stabilized grenade that explodes on impact."
+  description: A cardboard box of .50 shotgun shells. A FRAG-12 shotgun shell. Instead of a slug it fires a small fin-stabilized grenade that explodes on impact.
   components:
   - type: BallisticAmmoProvider
     proto: ShellShotgunFrag
+    mayTransfer: true
+    whitelist:
+      tags: [ ShellShotgun ]
+    capacity: 16
   - type: MagazineVisuals
     magState: mag-slug
     steps: 5
@@ -977,38 +3557,150 @@
   - type: Sprite
     layers:
     - state: base
-      map: ["enum.GunVisualLayers.Base"]
+      map: [ enum.GunVisualLayers.Base ]
     - state: mag-slug-1
-      map: ["enum.GunVisualLayers.Mag"]
+      map: [ enum.GunVisualLayers.Mag ]
     - state: slug
       color: "#e5c100"
+    sprite: _Dystopia/Objects/Weapons/Guns/Ammunition/Boxes/shotgun.rsi
+    drawdepth: Items
+    noRot: false
+  - type: Appearance
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: Item
+    size: Normal
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
 
 - type: entity
-  parent: PelletShotgun
   id: PelletShotgunBirdshot
-  categories: [ HideSpawnMenu ]
   name: pellet (.50 birdshot)
+  description: If you can see this you're probably dead!
+  categories: [ HideSpawnMenu ]
   components:
   - type: Projectile
     damage:
       types:
         Piercing: 4
+    impactEffect: BulletImpactEffect
+    soundHit:
+      path: /Audio/Weapons/Guns/Hits/bullet_hit.ogg
   - type: ArmorPenetration
     sharp: 1.5
     blunt: 3
+  - type: Sprite
+    noRot: false
+    sprite: _Dystopia/Objects/Weapons/Guns/Projectiles/projectiles2.rsi
+    layers:
+    - state: bullet
+      shader: unshaded
+  - type: Reflective
+  - type: FlyBySound
+  - type: Clickable
+  - type: Physics
+    bodyType: Dynamic
+  - type: TileFrictionModifier
+    modifier: 0
+  - type: Fixtures
+    fixtures:
+      projectile:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.1,-0.10,0.1,0.30"
+        hard: false
+        mask: [ Impassable, BulletImpassable ]
+      fly-by:
+        shape: !type:PhysShapeCircle
+          radius: 1.5
+        layer: [ Impassable, MidImpassable, HighImpassable, LowImpassable ]
+        hard: false
+  - type: TimedDespawn
+    lifetime: 10
 
 - type: entity
-  parent: PelletShotgunBirdshot
   id: PelletShotgunBirdshotSpread
+  name: pellet (.50 birdshot)
+  description: If you can see this you're probably dead!
   categories: [ HideSpawnMenu ]
   components:
   - type: ProjectileSpread
     proto: PelletShotgunBirdshot
     count: 12
     spread: 25
+  - type: Projectile
+    damage:
+      types:
+        Piercing: 4
+    impactEffect: BulletImpactEffect
+    soundHit:
+      path: /Audio/Weapons/Guns/Hits/bullet_hit.ogg
+  - type: ArmorPenetration
+    sharp: 1.5
+    blunt: 3
+  - type: Sprite
+    noRot: false
+    sprite: _Dystopia/Objects/Weapons/Guns/Projectiles/projectiles2.rsi
+    layers:
+    - state: bullet
+      shader: unshaded
+  - type: Reflective
+  - type: FlyBySound
+  - type: Clickable
+  - type: Physics
+    bodyType: Dynamic
+  - type: TileFrictionModifier
+    modifier: 0
+  - type: Fixtures
+    fixtures:
+      projectile:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.1,-0.10,0.1,0.30"
+        hard: false
+        mask: [ Impassable, BulletImpassable ]
+      fly-by:
+        shape: !type:PhysShapeCircle
+          radius: 1.5
+        layer: [ Impassable, MidImpassable, HighImpassable, LowImpassable ]
+        hard: false
+  - type: TimedDespawn
+    lifetime: 10
 
 - type: entity
-  parent: [ BaseShellShotgun, BaseSecurityContraband ]
   id: ShellShotgunBirdshot
   name: shell (.50 birdshot)
   description: "A hunting shotgun shell loaded with birdshot. A dozen light pellets in a wide cone: nasty up close, but even a light vest stops it."
@@ -1016,21 +3708,87 @@
   - type: Sprite
     layers:
     - state: slug
-      map: [ "enum.AmmoVisualLayers.Base" ]
+      map: [ enum.AmmoVisualLayers.Base ]
       color: "#4f8f3f"
+    sprite: _Dystopia/Objects/Weapons/Guns/Ammunition/Casings/shotgun_shell.rsi
+    drawdepth: Items
+    noRot: false
   - type: CartridgeAmmo
     proto: PelletShotgunBirdshotSpread
+    soundEject:
+      collection: ShellEject
   - type: SpentAmmoVisuals
-    state: "slug"
+    state: slug
+  - type: Tag
+    tags: [ ShellShotgun ]
+  - type: Appearance
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.10,-0.05,0.10,0.05"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Item
+    size: Tiny
+  - type: SpaceGarbage
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Weapons/Guns/Casings/casing_fall_2.ogg
+      params:
+        volume: -1
+  - type: StaticPrice
+    price: 1
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
 
 - type: entity
-  parent: AmmoProviderShotgunShell
   id: BoxShotgunBirdshot
   name: ammunition box (.50 birdshot)
   description: "A cardboard box of .50 shotgun shells. A hunting shotgun shell loaded with birdshot. A dozen light pellets in a wide cone: nasty up close, but even a light vest stops it."
   components:
   - type: BallisticAmmoProvider
     proto: ShellShotgunBirdshot
+    mayTransfer: true
+    whitelist:
+      tags: [ ShellShotgun ]
+    capacity: 16
   - type: MagazineVisuals
     magState: mag-slug
     steps: 5
@@ -1038,60 +3796,238 @@
   - type: Sprite
     layers:
     - state: base
-      map: ["enum.GunVisualLayers.Base"]
+      map: [ enum.GunVisualLayers.Base ]
     - state: mag-slug-1
-      map: ["enum.GunVisualLayers.Mag"]
+      map: [ enum.GunVisualLayers.Mag ]
     - state: slug
       color: "#4f8f3f"
+    sprite: _Dystopia/Objects/Weapons/Guns/Ammunition/Boxes/shotgun.rsi
+    drawdepth: Items
+    noRot: false
+  - type: Appearance
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: Item
+    size: Normal
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
 
 - type: entity
-  parent: PelletShotgun
   id: PelletShotgunFlechette
-  categories: [ HideSpawnMenu ]
   name: pellet (.50 flechette)
+  description: If you can see this you're probably dead!
+  categories: [ HideSpawnMenu ]
   components:
   - type: Projectile
     damage:
       types:
         Piercing: 7
+    impactEffect: BulletImpactEffect
+    soundHit:
+      path: /Audio/Weapons/Guns/Hits/bullet_hit.ogg
   - type: ArmorPenetration
     sharp: 6
     blunt: 4
+  - type: Sprite
+    noRot: false
+    sprite: _Dystopia/Objects/Weapons/Guns/Projectiles/projectiles2.rsi
+    layers:
+    - state: bullet
+      shader: unshaded
+  - type: Reflective
+  - type: FlyBySound
+  - type: Clickable
+  - type: Physics
+    bodyType: Dynamic
+  - type: TileFrictionModifier
+    modifier: 0
+  - type: Fixtures
+    fixtures:
+      projectile:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.1,-0.10,0.1,0.30"
+        hard: false
+        mask: [ Impassable, BulletImpassable ]
+      fly-by:
+        shape: !type:PhysShapeCircle
+          radius: 1.5
+        layer: [ Impassable, MidImpassable, HighImpassable, LowImpassable ]
+        hard: false
+  - type: TimedDespawn
+    lifetime: 10
 
 - type: entity
-  parent: PelletShotgunFlechette
   id: PelletShotgunFlechetteSpread
+  name: pellet (.50 flechette)
+  description: If you can see this you're probably dead!
   categories: [ HideSpawnMenu ]
   components:
   - type: ProjectileSpread
     proto: PelletShotgunFlechette
     count: 8
     spread: 8
+  - type: Projectile
+    damage:
+      types:
+        Piercing: 7
+    impactEffect: BulletImpactEffect
+    soundHit:
+      path: /Audio/Weapons/Guns/Hits/bullet_hit.ogg
+  - type: ArmorPenetration
+    sharp: 6
+    blunt: 4
+  - type: Sprite
+    noRot: false
+    sprite: _Dystopia/Objects/Weapons/Guns/Projectiles/projectiles2.rsi
+    layers:
+    - state: bullet
+      shader: unshaded
+  - type: Reflective
+  - type: FlyBySound
+  - type: Clickable
+  - type: Physics
+    bodyType: Dynamic
+  - type: TileFrictionModifier
+    modifier: 0
+  - type: Fixtures
+    fixtures:
+      projectile:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.1,-0.10,0.1,0.30"
+        hard: false
+        mask: [ Impassable, BulletImpassable ]
+      fly-by:
+        shape: !type:PhysShapeCircle
+          radius: 1.5
+        layer: [ Impassable, MidImpassable, HighImpassable, LowImpassable ]
+        hard: false
+  - type: TimedDespawn
+    lifetime: 10
 
 - type: entity
-  parent: [ BaseShellShotgun, BaseSecurityContraband ]
   id: ShellShotgunFlechette
   name: shell (.50 flechette)
-  description: "A shotgun shell packed with flechettes. The thin steel darts fly in a tight group and get through light armor better than buckshot."
+  description: A shotgun shell packed with flechettes. The thin steel darts fly in a tight group and get through light armor better than buckshot.
   components:
   - type: Sprite
     layers:
     - state: slug
-      map: [ "enum.AmmoVisualLayers.Base" ]
+      map: [ enum.AmmoVisualLayers.Base ]
       color: "#4a78b5"
+    sprite: _Dystopia/Objects/Weapons/Guns/Ammunition/Casings/shotgun_shell.rsi
+    drawdepth: Items
+    noRot: false
   - type: CartridgeAmmo
     proto: PelletShotgunFlechetteSpread
+    soundEject:
+      collection: ShellEject
   - type: SpentAmmoVisuals
-    state: "slug"
+    state: slug
+  - type: Tag
+    tags: [ ShellShotgun ]
+  - type: Appearance
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.10,-0.05,0.10,0.05"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Item
+    size: Tiny
+  - type: SpaceGarbage
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Weapons/Guns/Casings/casing_fall_2.ogg
+      params:
+        volume: -1
+  - type: StaticPrice
+    price: 1
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
 
 - type: entity
-  parent: AmmoProviderShotgunShell
   id: BoxShotgunFlechette
   name: ammunition box (.50 flechette)
-  description: "A cardboard box of .50 shotgun shells. A shotgun shell packed with flechettes. The thin steel darts fly in a tight group and get through light armor better than buckshot."
+  description: A cardboard box of .50 shotgun shells. A shotgun shell packed with flechettes. The thin steel darts fly in a tight group and get through light armor better than buckshot.
   components:
   - type: BallisticAmmoProvider
     proto: ShellShotgunFlechette
+    mayTransfer: true
+    whitelist:
+      tags: [ ShellShotgun ]
+    capacity: 16
   - type: MagazineVisuals
     magState: mag-slug
     steps: 5
@@ -1099,66 +4035,240 @@
   - type: Sprite
     layers:
     - state: base
-      map: ["enum.GunVisualLayers.Base"]
+      map: [ enum.GunVisualLayers.Base ]
     - state: mag-slug-1
-      map: ["enum.GunVisualLayers.Mag"]
+      map: [ enum.GunVisualLayers.Mag ]
     - state: slug
       color: "#4a78b5"
+    sprite: _Dystopia/Objects/Weapons/Guns/Ammunition/Boxes/shotgun.rsi
+    drawdepth: Items
+    noRot: false
+  - type: Appearance
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: Item
+    size: Normal
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
 
 - type: entity
-  parent: PelletShotgun
   id: PelletShotgunRubber
-  categories: [ HideSpawnMenu ]
   name: pellet (.50 rubber)
+  description: If you can see this you're probably dead!
+  categories: [ HideSpawnMenu ]
   components:
   - type: Sprite
-    sprite: Objects/Weapons/Guns/Projectiles/projectiles2.rsi
+    sprite: _Dystopia/Objects/Weapons/Guns/Projectiles/projectiles2.rsi
     layers:
     - state: bullet
+    noRot: false
   - type: Projectile
     damage:
       types:
         Blunt: 6
+    impactEffect: BulletImpactEffect
+    soundHit:
+      path: /Audio/Weapons/Guns/Hits/bullet_hit.ogg
   - type: StaminaDamageOnCollide
     damage: 10
   - type: ArmorPenetration
     sharp: 0
     blunt: 8
+  - type: Reflective
+  - type: FlyBySound
+  - type: Clickable
+  - type: Physics
+    bodyType: Dynamic
+  - type: TileFrictionModifier
+    modifier: 0
+  - type: Fixtures
+    fixtures:
+      projectile:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.1,-0.10,0.1,0.30"
+        hard: false
+        mask: [ Impassable, BulletImpassable ]
+      fly-by:
+        shape: !type:PhysShapeCircle
+          radius: 1.5
+        layer: [ Impassable, MidImpassable, HighImpassable, LowImpassable ]
+        hard: false
+  - type: TimedDespawn
+    lifetime: 10
 
 - type: entity
-  parent: PelletShotgunRubber
   id: PelletShotgunRubberSpread
+  name: pellet (.50 rubber)
+  description: If you can see this you're probably dead!
   categories: [ HideSpawnMenu ]
   components:
   - type: ProjectileSpread
     proto: PelletShotgunRubber
     count: 6
     spread: 15
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Projectiles/projectiles2.rsi
+    layers:
+    - state: bullet
+    noRot: false
+  - type: Projectile
+    damage:
+      types:
+        Blunt: 6
+    impactEffect: BulletImpactEffect
+    soundHit:
+      path: /Audio/Weapons/Guns/Hits/bullet_hit.ogg
+  - type: StaminaDamageOnCollide
+    damage: 10
+  - type: ArmorPenetration
+    sharp: 0
+    blunt: 8
+  - type: Reflective
+  - type: FlyBySound
+  - type: Clickable
+  - type: Physics
+    bodyType: Dynamic
+  - type: TileFrictionModifier
+    modifier: 0
+  - type: Fixtures
+    fixtures:
+      projectile:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.1,-0.10,0.1,0.30"
+        hard: false
+        mask: [ Impassable, BulletImpassable ]
+      fly-by:
+        shape: !type:PhysShapeCircle
+          radius: 1.5
+        layer: [ Impassable, MidImpassable, HighImpassable, LowImpassable ]
+        hard: false
+  - type: TimedDespawn
+    lifetime: 10
 
 - type: entity
-  parent: [ BaseShellShotgun, BaseSecurityContraband ]
   id: ShellShotgunRubber
   name: shell (.50 rubber buckshot)
-  description: "A shotgun shell loaded with rubber buckshot. Knocks people down and leaves bruises, but rarely kills."
+  description: A shotgun shell loaded with rubber buckshot. Knocks people down and leaves bruises, but rarely kills.
   components:
   - type: Sprite
     layers:
     - state: slug
-      map: [ "enum.AmmoVisualLayers.Base" ]
+      map: [ enum.AmmoVisualLayers.Base ]
       color: "#d9822b"
+    sprite: _Dystopia/Objects/Weapons/Guns/Ammunition/Casings/shotgun_shell.rsi
+    drawdepth: Items
+    noRot: false
   - type: CartridgeAmmo
     proto: PelletShotgunRubberSpread
+    soundEject:
+      collection: ShellEject
   - type: SpentAmmoVisuals
-    state: "slug"
+    state: slug
+  - type: Tag
+    tags: [ ShellShotgun ]
+  - type: Appearance
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.10,-0.05,0.10,0.05"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Item
+    size: Tiny
+  - type: SpaceGarbage
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Weapons/Guns/Casings/casing_fall_2.ogg
+      params:
+        volume: -1
+  - type: StaticPrice
+    price: 1
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
 
 - type: entity
-  parent: AmmoProviderShotgunShell
   id: BoxShotgunRubber
   name: ammunition box (.50 rubber buckshot)
-  description: "A cardboard box of .50 shotgun shells. A shotgun shell loaded with rubber buckshot. Knocks people down and leaves bruises, but rarely kills."
+  description: A cardboard box of .50 shotgun shells. A shotgun shell loaded with rubber buckshot. Knocks people down and leaves bruises, but rarely kills.
   components:
   - type: BallisticAmmoProvider
     proto: ShellShotgunRubber
+    mayTransfer: true
+    whitelist:
+      tags: [ ShellShotgun ]
+    capacity: 16
   - type: MagazineVisuals
     magState: mag-slug
     steps: 5
@@ -1166,8 +4276,53 @@
   - type: Sprite
     layers:
     - state: base
-      map: ["enum.GunVisualLayers.Base"]
+      map: [ enum.GunVisualLayers.Base ]
     - state: mag-slug-1
-      map: ["enum.GunVisualLayers.Mag"]
+      map: [ enum.GunVisualLayers.Mag ]
     - state: slug
       color: "#d9822b"
+    sprite: _Dystopia/Objects/Weapons/Guns/Ammunition/Boxes/shotgun.rsi
+    drawdepth: Items
+    noRot: false
+  - type: Appearance
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: Item
+    size: Normal
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
