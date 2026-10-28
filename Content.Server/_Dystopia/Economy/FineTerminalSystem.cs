@@ -1,7 +1,9 @@
 using System.Linq;
 using Content.Server._Dystopia.Laws;
+using Content.Server._Dystopia.Registry;
 using Content.Server.Popups;
 using Content.Shared._Dystopia.Economy;
+using Content.Shared._Dystopia.Registry;
 using Content.Shared.Access.Systems;
 using Content.Shared.DoAfter;
 using Content.Shared.IdentityManagement;
@@ -27,6 +29,7 @@ public sealed partial class FineTerminalSystem : EntitySystem
     [Dependency] private PopupSystem _popup = default!;
     [Dependency] private SharedDoAfterSystem _doAfter = default!;
     [Dependency] private AudioSystem _audio = default!;
+    [Dependency] private CityRegistrySystem _registry = default!;
 
     private static readonly SoundSpecifier PrintSound = new SoundPathSpecifier("/Audio/Machines/printer.ogg");
     private static readonly SoundSpecifier DeniedSound = new SoundPathSpecifier("/Audio/Machines/custom_deny.ogg");
@@ -79,12 +82,20 @@ public sealed partial class FineTerminalSystem : EntitySystem
             return;
 
         var article = string.Empty;
+        int? pendingLawId = null;
+        int? pendingLawNumber = null;
+        var pendingLawTitle = string.Empty;
         var lawId = args.LawId; // ref-параметр нельзя использовать внутри лямбды
         if (lawId >= 0 && _laws.TryGetLaws(out var codex))
         {
             var law = codex.Comp.Laws.FirstOrDefault(l => l.Id == lawId);
             if (law != null)
+            {
                 article = Loc.GetString("dystopia-laws-article-header", ("number", law.Number), ("title", law.Title));
+                pendingLawId = law.Id;
+                pendingLawNumber = law.Number;
+                pendingLawTitle = law.Title;
+            }
         }
 
         var reason = args.Reason.Trim();
@@ -94,6 +105,9 @@ public sealed partial class FineTerminalSystem : EntitySystem
         ent.Comp.PendingAmount = args.Amount;
         ent.Comp.PendingArticle = article;
         ent.Comp.PendingReason = reason;
+        ent.Comp.PendingLawId = pendingLawId;
+        ent.Comp.PendingLawNumber = pendingLawNumber;
+        ent.Comp.PendingLawTitle = pendingLawTitle;
         UpdateUi(ent);
     }
 
@@ -108,6 +122,9 @@ public sealed partial class FineTerminalSystem : EntitySystem
         ent.Comp.PendingAmount = 0;
         ent.Comp.PendingArticle = string.Empty;
         ent.Comp.PendingReason = string.Empty;
+        ent.Comp.PendingLawId = null;
+        ent.Comp.PendingLawNumber = null;
+        ent.Comp.PendingLawTitle = string.Empty;
     }
 
     private void OnAfterInteract(Entity<FineTerminalComponent> ent, ref AfterInteractEvent args)
@@ -149,6 +166,23 @@ public sealed partial class FineTerminalSystem : EntitySystem
         _popup.PopupEntity(Loc.GetString("dystopia-fine-terminal-writing-target"), target, target, PopupType.MediumCaution);
     }
 
+    /// <summary>Штраф — в журнал дела нарушителя (лояльность не меняется: это уже санкция).</summary>
+    private void WriteJournal(Entity<FineTerminalComponent> ent, int number, int amount, int taken, int debt, string officer)
+    {
+        if (!_registry.TryGetRegistry(out var registry) || !_registry.TryGetRecord(number, out var record))
+            return;
+
+        var text = ent.Comp.PendingLawNumber is { } lawNumber
+            ? Loc.GetString("dystopia-registry-entry-fine", ("number", lawNumber), ("title", ent.Comp.PendingLawTitle))
+            : Loc.GetString("dystopia-registry-entry-fine-free");
+        var details = Loc.GetString("dystopia-registry-fine-details", ("amount", amount), ("taken", taken), ("debt", debt));
+        if (ent.Comp.PendingReason.Length > 0)
+            details += " " + ent.Comp.PendingReason;
+
+        _registry.AddEntry(registry, record, CityRegistryEntryKind.Fine, text, officer, details,
+            ent.Comp.PendingLawId, ent.Comp.PendingLawNumber);
+    }
+
     private string IdentityName(EntityUid uid)
     {
         return Identity.Name(uid, EntityManager);
@@ -177,8 +211,11 @@ public sealed partial class FineTerminalSystem : EntitySystem
         if (reason.Length == 0)
             reason = Loc.GetString("dystopia-city-console-no-reason");
 
+        // Dystopia: подпись — как в журнале дела («№102628 стражник»), а не имя из-под маски
+        var officer = _registry.AuthorOf(args.User);
         var (taken, toDebt) = _bank.Fine(bank, account, amount, Loc.GetString("dystopia-fine-terminal-reason",
-            ("reason", reason), ("officer", Name(args.User))));
+            ("reason", reason), ("officer", officer)));
+        WriteJournal(ent, account.Id, amount, taken, toDebt, officer);
 
         ClearPending(ent);
         _audio.PlayPvs(PrintSound, ent.Owner);

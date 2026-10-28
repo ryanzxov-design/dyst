@@ -425,3 +425,27 @@ dystopia-guard-alert-dead = Стражник №{ $number } убит — { $plac
 dystopia-guard-alert-dead-radio = [bold]Стражник №{ $number } убит[/bold] — { $place }.
 dystopia-guard-alert-distress = Стражник №{ $number } подал сигнал бедствия — { $place }.
 dystopia-guard-alert-distress-radio = [bold]СИГНАЛ БЕДСТВИЯ:[/bold] стражник №{ $number } — { $place }.
+
+## Штраф в журнале дела (штрафной терминал Стражи)
+
+dystopia-registry-entry-fine = Штраф · ст. { $number } «{ $title }»
+dystopia-registry-entry-fine-free = Штраф
+dystopia-registry-fine-details = Сумма { $amount }: списано { $taken }, в долг { $debt }.
+
+## Программа КПК «Мой статус»
+
+dystopia-status-program-name = Мой статус
+dystopia-status-no-card = В КПК нет ID-карты гражданина Города.
+dystopia-status-dismissed = ОТСТРАНЁН ОТ ДОЛЖНОСТИ
+dystopia-status-section-status = Статус
+dystopia-status-reason = Основание: { $reason }
+dystopia-status-section-loyalty = Лояльность
+dystopia-status-outside = Вне системы лояльности.
+dystopia-status-loyalty-ok = Норма должности — { $norm }. Город вами доволен.
+dystopia-status-loyalty-below = Ниже нормы должности ({ $norm }). Город наблюдает.
+dystopia-status-loyalty-zero = Лояльность исчерпана. Город наблюдает.
+dystopia-status-section-card = ID-карта
+dystopia-status-card-annulled = АННУЛИРОВАНА — обратитесь в Паспортный стол
+dystopia-status-card-unknown = Серийный номер карты не записан.
+dystopia-status-section-journal = Журнал дела
+dystopia-status-journal-empty = Записей нет.

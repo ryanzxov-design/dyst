@@ -19,6 +19,16 @@ public sealed partial class FineTerminalComponent : Component
     [ViewVariables(VVAccess.ReadWrite)]
     public string PendingReason = string.Empty;
 
+    /// <summary>Статья подготовленного штрафа (для журнала дела): внутренний id и номер на момент подготовки.</summary>
+    [ViewVariables]
+    public int? PendingLawId;
+
+    [ViewVariables]
+    public int? PendingLawNumber;
+
+    [ViewVariables]
+    public string PendingLawTitle = string.Empty;
+
     /// <summary>Сколько секунд выписывается штраф (нарушитель может уйти).</summary>
     [DataField]
     public float FineDelay = 3f;

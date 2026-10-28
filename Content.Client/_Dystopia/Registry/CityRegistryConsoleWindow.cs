@@ -921,7 +921,7 @@ public sealed class CityRegistryConsoleWindow : CityWindow
     {
         var journal = dossier.Journal;
         _chipAll.Text = ChipText(JournalFilter.All, journal.Count);
-        _chipViolations.Text = ChipText(JournalFilter.Violations, journal.Count(e => e.Kind == CityRegistryEntryKind.Violation));
+        _chipViolations.Text = ChipText(JournalFilter.Violations, journal.Count(e => e.Kind is CityRegistryEntryKind.Violation or CityRegistryEntryKind.Fine));
         _chipRewards.Text = ChipText(JournalFilter.Rewards, journal.Count(e => e.Kind == CityRegistryEntryKind.Reward));
         _chipService.Text = ChipText(JournalFilter.Service, journal.Count(e => e.Kind == CityRegistryEntryKind.Service));
         _chipAll.Active = _filter == JournalFilter.All;
@@ -948,7 +948,8 @@ public sealed class CityRegistryConsoleWindow : CityWindow
         _journalRows.RemoveAllChildren();
         var shown = journal.Where(e => _filter switch
             {
-                JournalFilter.Violations => e.Kind == CityRegistryEntryKind.Violation,
+                // штрафы — среди нарушений
+                JournalFilter.Violations => e.Kind is CityRegistryEntryKind.Violation or CityRegistryEntryKind.Fine,
                 JournalFilter.Rewards => e.Kind == CityRegistryEntryKind.Reward,
                 JournalFilter.Service => e.Kind == CityRegistryEntryKind.Service,
                 _ => true,
@@ -970,6 +971,7 @@ public sealed class CityRegistryConsoleWindow : CityWindow
             {
                 CityRegistryEntryKind.Violation => Danger,
                 CityRegistryEntryKind.Reward => CityUi.Accent,
+                CityRegistryEntryKind.Fine => Gold,
                 _ => CityUi.Text,
             };
 
@@ -1463,7 +1465,7 @@ public sealed class CityRegistryConsoleWindow : CityWindow
         return Loc.GetString($"dystopia-registry-status-{status.ToString().ToLowerInvariant()}");
     }
 
-    private static Color LoyaltyColor(int loyalty, int? norm)
+    public static Color LoyaltyColor(int loyalty, int? norm)
     {
         if (loyalty <= 0)
             return Danger;

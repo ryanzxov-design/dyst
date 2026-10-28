@@ -176,6 +176,9 @@ public enum CityRegistryEntryKind : byte
 
     /// <summary>Служебная запись: смена статуса, приметы, внесение в Реестр.</summary>
     Service,
+
+    /// <summary>Штраф штрафным терминалом Стражи (лояльность не меняет).</summary>
+    Fine,
 }
 
 /// <summary>Запись журнала личного дела.</summary>

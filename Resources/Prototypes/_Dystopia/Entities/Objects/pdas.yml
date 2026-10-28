@@ -178,6 +178,7 @@
     programs:
     - DystopiaLawsCartridge
     - DystopiaBankCartridge
+    - DystopiaStatusCartridge
 # Самостоятельный предмет: все свойства выписаны явно (раньше: parent LawyerPDA)
 
 - type: entity
@@ -298,6 +299,7 @@
     range: 500
   - type: CartridgeLoader
     uiKey: enum.PdaUiKey.Key
+    diskSpace: 10 # Dystopia: место под программы Города («Мой статус») и свои картриджи
     cartridgeSlot:
       priority: -1
       name: device-pda-slot-component-slot-name-cartridge
@@ -357,6 +359,7 @@
     programs:
     - DystopiaLawsCartridge
     - DystopiaBankCartridge
+    - DystopiaStatusCartridge
 # Самостоятельный предмет: все свойства выписаны явно (раньше: parent HoPPDA)
 
 - type: entity
@@ -536,6 +539,7 @@
     programs:
     - DystopiaLawsCartridge
     - DystopiaBankCartridge
+    - DystopiaStatusCartridge
 # Самостоятельный предмет: все свойства выписаны явно (раньше: parent HoSPDA)
 
 - type: entity
@@ -656,6 +660,7 @@
     range: 500
   - type: CartridgeLoader
     uiKey: enum.PdaUiKey.Key
+    diskSpace: 10 # Dystopia: место под программы Города («Мой статус») и свои картриджи
     cartridgeSlot:
       priority: -1
       name: device-pda-slot-component-slot-name-cartridge
@@ -717,6 +722,7 @@
     programs:
     - DystopiaLawsCartridge
     - DystopiaBankCartridge
+    - DystopiaStatusCartridge
 # Самостоятельный предмет: все свойства выписаны явно (раньше: parent WardenPDA)
 
 - type: entity
@@ -837,6 +843,7 @@
     range: 500
   - type: CartridgeLoader
     uiKey: enum.PdaUiKey.Key
+    diskSpace: 10 # Dystopia: место под программы Города («Мой статус») и свои картриджи
     cartridgeSlot:
       priority: -1
       name: device-pda-slot-component-slot-name-cartridge
@@ -897,6 +904,7 @@
     programs:
     - DystopiaLawsCartridge
     - DystopiaBankCartridge
+    - DystopiaStatusCartridge
 # Самостоятельный предмет: все свойства выписаны явно (раньше: parent SecurityPDA)
 
 - type: entity
@@ -1017,6 +1025,7 @@
     range: 500
   - type: CartridgeLoader
     uiKey: enum.PdaUiKey.Key
+    diskSpace: 10 # Dystopia: место под программы Города («Мой статус») и свои картриджи
     cartridgeSlot:
       priority: -1
       name: device-pda-slot-component-slot-name-cartridge
@@ -1072,6 +1081,7 @@
     programs:
     - DystopiaLawsCartridge
     - DystopiaBankCartridge
+    - DystopiaStatusCartridge
 # Самостоятельный предмет: все свойства выписаны явно (раньше: parent SecurityCadetPDA)
 
 - type: entity
@@ -1192,6 +1202,7 @@
     range: 500
   - type: CartridgeLoader
     uiKey: enum.PdaUiKey.Key
+    diskSpace: 10 # Dystopia: место под программы Города («Мой статус») и свои картриджи
     cartridgeSlot:
       priority: -1
       name: device-pda-slot-component-slot-name-cartridge
@@ -1252,6 +1263,7 @@
     programs:
     - DystopiaLawsCartridge
     - DystopiaBankCartridge
+    - DystopiaStatusCartridge
 # Самостоятельный предмет: все свойства выписаны явно (раньше: parent SecurityPDA)
 
 - type: entity
@@ -1372,6 +1384,7 @@
     range: 500
   - type: CartridgeLoader
     uiKey: enum.PdaUiKey.Key
+    diskSpace: 10 # Dystopia: место под программы Города («Мой статус») и свои картриджи
     cartridgeSlot:
       priority: -1
       name: device-pda-slot-component-slot-name-cartridge
@@ -1427,6 +1440,7 @@
     programs:
     - DystopiaLawsCartridge
     - DystopiaBankCartridge
+    - DystopiaStatusCartridge
 # Самостоятельный предмет: все свойства выписаны явно (раньше: parent SecurityPDA)
 
 - type: entity
@@ -1547,6 +1561,7 @@
     range: 500
   - type: CartridgeLoader
     uiKey: enum.PdaUiKey.Key
+    diskSpace: 10 # Dystopia: место под программы Города («Мой статус») и свои картриджи
     cartridgeSlot:
       priority: -1
       name: device-pda-slot-component-slot-name-cartridge
@@ -1602,6 +1617,7 @@
     programs:
     - DystopiaLawsCartridge
     - DystopiaBankCartridge
+    - DystopiaStatusCartridge
 # Самостоятельный предмет: все свойства выписаны явно (раньше: parent SecurityPDA)
 
 - type: entity
@@ -1722,6 +1738,7 @@
     range: 500
   - type: CartridgeLoader
     uiKey: enum.PdaUiKey.Key
+    diskSpace: 10 # Dystopia: место под программы Города («Мой статус») и свои картриджи
     cartridgeSlot:
       priority: -1
       name: device-pda-slot-component-slot-name-cartridge
@@ -1777,6 +1794,7 @@
     programs:
     - DystopiaLawsCartridge
     - DystopiaBankCartridge
+    - DystopiaStatusCartridge
 # Самостоятельный предмет: все свойства выписаны явно (раньше: parent SecurityPDA)
 
 - type: entity
@@ -1897,6 +1915,7 @@
     range: 500
   - type: CartridgeLoader
     uiKey: enum.PdaUiKey.Key
+    diskSpace: 10 # Dystopia: место под программы Города («Мой статус») и свои картриджи
     cartridgeSlot:
       priority: -1
       name: device-pda-slot-component-slot-name-cartridge
@@ -1952,6 +1971,7 @@
     programs:
     - DystopiaLawsCartridge
     - DystopiaBankCartridge
+    - DystopiaStatusCartridge
 # Самостоятельный предмет: все свойства выписаны явно (раньше: parent CMOPDA)
 
 - type: entity
@@ -2134,6 +2154,7 @@
     programs:
     - DystopiaLawsCartridge
     - DystopiaBankCartridge
+    - DystopiaStatusCartridge
     - DystopiaPharmacistGuideCartridge # Dystopia-Pharmacy: справочник фармацевта
 # Самостоятельный предмет: все свойства выписаны явно (раньше: parent MedicalPDA)
 
@@ -2255,6 +2276,7 @@
     range: 500
   - type: CartridgeLoader
     uiKey: enum.PdaUiKey.Key
+    diskSpace: 10 # Dystopia: место под программы Города («Мой статус») и свои картриджи
     cartridgeSlot:
       priority: -1
       name: device-pda-slot-component-slot-name-cartridge
@@ -2314,6 +2336,7 @@
     programs:
     - DystopiaLawsCartridge
     - DystopiaBankCartridge
+    - DystopiaStatusCartridge
 # Самостоятельный предмет: все свойства выписаны явно (раньше: parent MedicalPDA)
 
 - type: entity
@@ -2434,6 +2457,7 @@
     range: 500
   - type: CartridgeLoader
     uiKey: enum.PdaUiKey.Key
+    diskSpace: 10 # Dystopia: место под программы Города («Мой статус») и свои картриджи
     cartridgeSlot:
       priority: -1
       name: device-pda-slot-component-slot-name-cartridge
@@ -2493,6 +2517,7 @@
     programs:
     - DystopiaLawsCartridge
     - DystopiaBankCartridge
+    - DystopiaStatusCartridge
 # Самостоятельный предмет: все свойства выписаны явно (раньше: parent EngineerPDA)
 
 - type: entity
@@ -2672,6 +2697,7 @@
     programs:
     - DystopiaLawsCartridge
     - DystopiaBankCartridge
+    - DystopiaStatusCartridge
 # Самостоятельный предмет: все свойства выписаны явно (раньше: parent EngineerPDA)
 
 - type: entity
@@ -2851,6 +2877,7 @@
     programs:
     - DystopiaLawsCartridge
     - DystopiaBankCartridge
+    - DystopiaStatusCartridge
 # Самостоятельный предмет: все свойства выписаны явно (раньше: parent EngineerPDA)
 
 - type: entity
@@ -3030,6 +3057,7 @@
     programs:
     - DystopiaLawsCartridge
     - DystopiaBankCartridge
+    - DystopiaStatusCartridge
 # Самостоятельный предмет: все свойства выписаны явно (раньше: parent ChemistryPDA)
 
 - type: entity
@@ -3211,6 +3239,7 @@
     programs:
     - DystopiaLawsCartridge
     - DystopiaBankCartridge
+    - DystopiaStatusCartridge
     - DystopiaPharmacistGuideCartridge # Dystopia-Pharmacy: справочник фармацевта
 # Самостоятельный предмет: все свойства выписаны явно (раньше: parent MedicalInternPDA)
 
@@ -3332,6 +3361,7 @@
     range: 500
   - type: CartridgeLoader
     uiKey: enum.PdaUiKey.Key
+    diskSpace: 10 # Dystopia: место под программы Города («Мой статус») и свои картриджи
     cartridgeSlot:
       priority: -1
       name: device-pda-slot-component-slot-name-cartridge
@@ -3395,6 +3425,7 @@
     programs:
     - DystopiaLawsCartridge
     - DystopiaBankCartridge
+    - DystopiaStatusCartridge
 # Самостоятельный предмет: все свойства выписаны явно (раньше: parent RnDPDA)
 
 - type: entity
@@ -3576,6 +3607,7 @@
     programs:
     - DystopiaLawsCartridge
     - DystopiaBankCartridge
+    - DystopiaStatusCartridge
     - DystopiaPharmacistGuideCartridge # Dystopia-Pharmacy: справочник фармацевта
 # Самостоятельный предмет: все свойства выписаны явно (раньше: parent SciencePDA)
 
@@ -3752,6 +3784,7 @@
     programs:
     - DystopiaLawsCartridge
     - DystopiaBankCartridge
+    - DystopiaStatusCartridge
 # Самостоятельный предмет: все свойства выписаны явно (раньше: parent SciencePDA)
 
 - type: entity
@@ -3928,6 +3961,7 @@
     programs:
     - DystopiaLawsCartridge
     - DystopiaBankCartridge
+    - DystopiaStatusCartridge
     - DystopiaPharmacistGuideCartridge # Dystopia-Pharmacy: справочник фармацевта
 # Самостоятельный предмет: все свойства выписаны явно (раньше: parent SciencePDA)
 
@@ -4104,6 +4138,7 @@
     programs:
     - DystopiaLawsCartridge
     - DystopiaBankCartridge
+    - DystopiaStatusCartridge
 # Самостоятельный предмет: все свойства выписаны явно (раньше: parent ResearchAssistantPDA)
 
 - type: entity
@@ -4283,6 +4318,7 @@
     programs:
     - DystopiaLawsCartridge
     - DystopiaBankCartridge
+    - DystopiaStatusCartridge
 # Самостоятельный предмет: все свойства выписаны явно (раньше: parent PassengerPDA)
 
 - type: entity
@@ -4457,6 +4493,7 @@
     programs:
     - DystopiaLawsCartridge
     - DystopiaBankCartridge
+    - DystopiaStatusCartridge
 # Самостоятельный предмет: все свойства выписаны явно (раньше: parent CargoPDA)
 
 - type: entity
@@ -4635,6 +4672,7 @@
     programs:
     - DystopiaLawsCartridge
     - DystopiaBankCartridge
+    - DystopiaStatusCartridge
 
 # Самостоятельный предмет: все свойства выписаны явно
 
@@ -4756,6 +4794,7 @@
     range: 500
   - type: CartridgeLoader
     uiKey: enum.PdaUiKey.Key
+    diskSpace: 10 # Dystopia: место под программы Города («Мой статус») и свои картриджи
     cartridgeSlot:
       priority: -1
       name: device-pda-slot-component-slot-name-cartridge
@@ -4811,6 +4850,7 @@
     programs:
     - DystopiaLawsCartridge
     - DystopiaBankCartridge
+    - DystopiaStatusCartridge
 
 # Самостоятельный предмет: все свойства выписаны явно
 
@@ -4932,6 +4972,7 @@
     range: 500
   - type: CartridgeLoader
     uiKey: enum.PdaUiKey.Key
+    diskSpace: 10 # Dystopia: место под программы Города («Мой статус») и свои картриджи
     cartridgeSlot:
       priority: -1
       name: device-pda-slot-component-slot-name-cartridge
@@ -4987,3 +5028,4 @@
     programs:
     - DystopiaLawsCartridge
     - DystopiaBankCartridge
+    - DystopiaStatusCartridge
