@@ -1,0 +1,378 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: табельное оружие Стражи в выборе снаряжения. Пистолет и патроны — одна группа: магазины у каждого
+# пистолета свои, а группы снаряжения друг о друге не знают. Пистолет заряжен выбранными патронами + 1 запасной
+# магазин (у Матебы — спидлоадер) в сумке. Сгенерировано: /tmp/claude-0/scripts/weap (data.GUARD_SIDEARMS).
+
+- type: loadoutGroup
+  id: DystopiaGuardSidearmRecruit
+  name: loadout-group-dystopia-guard-sidearm
+  loadouts:
+  - DystopiaGuardSidearmGlock22FMJ
+  - DystopiaGuardSidearmGlock22JHP
+
+- type: loadoutGroup
+  id: DystopiaGuardSidearmGuardsman
+  name: loadout-group-dystopia-guard-sidearm
+  loadouts:
+  - DystopiaGuardSidearmGlock22FMJ
+  - DystopiaGuardSidearmGlock22JHP
+  - DystopiaGuardSidearmGlock23FMJ
+  - DystopiaGuardSidearmGlock23JHP
+
+- type: loadoutGroup
+  id: DystopiaGuardSidearmSergeant
+  name: loadout-group-dystopia-guard-sidearm
+  loadouts:
+  - DystopiaGuardSidearmGlock22FMJ
+  - DystopiaGuardSidearmGlock22JHP
+  - DystopiaGuardSidearmGlock22AP
+  - DystopiaGuardSidearmGlock23FMJ
+  - DystopiaGuardSidearmGlock23JHP
+  - DystopiaGuardSidearmGlock23AP
+  - DystopiaGuardSidearmACP14FMJ
+  - DystopiaGuardSidearmACP14JHP
+  - DystopiaGuardSidearmACP14AP
+
+- type: loadoutGroup
+  id: DystopiaGuardSidearmInvestigator
+  name: loadout-group-dystopia-guard-sidearm
+  loadouts:
+  - DystopiaGuardSidearmVP78FMJ
+  - DystopiaGuardSidearmVP78JHP
+
+- type: loadoutGroup
+  id: DystopiaGuardSidearmDispatcher
+  name: loadout-group-dystopia-guard-sidearm
+  loadouts:
+  - DystopiaGuardSidearmACP14FMJ
+  - DystopiaGuardSidearmACP14JHP
+
+- type: loadoutGroup
+  id: DystopiaGuardSidearmCaptain
+  name: loadout-group-dystopia-guard-sidearm
+  loadouts:
+  - DystopiaGuardSidearmMatebaFMJ
+  - DystopiaGuardSidearmMatebaJHP
+  - DystopiaGuardSidearmMatebaAP
+  - DystopiaGuardSidearmDeagleFMJ
+  - DystopiaGuardSidearmDeagleJHP
+  - DystopiaGuardSidearmACP14FMJ
+  - DystopiaGuardSidearmACP14JHP
+  - DystopiaGuardSidearmACP14AP
+  - DystopiaGuardSidearmGlock22FMJ
+  - DystopiaGuardSidearmGlock22JHP
+  - DystopiaGuardSidearmGlock22AP
+  - DystopiaGuardSidearmGlock23FMJ
+  - DystopiaGuardSidearmGlock23JHP
+  - DystopiaGuardSidearmGlock23AP
+  - DystopiaGuardSidearmVP78FMJ
+  - DystopiaGuardSidearmVP78JHP
+  - DystopiaGuardSidearmVP78AP
+
+# --- пункты: пистолет + запасной магазин
+- type: loadout
+  id: DystopiaGuardSidearmGlock22FMJ
+  dummyEntity: LoadoutDummyGuardSidearmGlock22FMJ
+  equipment:
+    pocket1: DystopiaWeaponPistolGlock22
+  storage:
+    back:
+    - Magazine40SWGlock
+
+- type: loadout
+  id: DystopiaGuardSidearmGlock22JHP
+  dummyEntity: LoadoutDummyGuardSidearmGlock22JHP
+  equipment:
+    pocket1: DystopiaWeaponPistolGlock22JHP
+  storage:
+    back:
+    - Magazine40SWGlockJHP
+
+- type: loadout
+  id: DystopiaGuardSidearmGlock23FMJ
+  dummyEntity: LoadoutDummyGuardSidearmGlock23FMJ
+  equipment:
+    pocket1: DystopiaWeaponPistolGlock23
+  storage:
+    back:
+    - Magazine40SWGlock
+
+- type: loadout
+  id: DystopiaGuardSidearmGlock23JHP
+  dummyEntity: LoadoutDummyGuardSidearmGlock23JHP
+  equipment:
+    pocket1: DystopiaWeaponPistolGlock23JHP
+  storage:
+    back:
+    - Magazine40SWGlockJHP
+
+- type: loadout
+  id: DystopiaGuardSidearmGlock22AP
+  dummyEntity: LoadoutDummyGuardSidearmGlock22AP
+  equipment:
+    pocket1: DystopiaWeaponPistolGlock22AP
+  storage:
+    back:
+    - Magazine40SWGlockAP
+
+- type: loadout
+  id: DystopiaGuardSidearmGlock23AP
+  dummyEntity: LoadoutDummyGuardSidearmGlock23AP
+  equipment:
+    pocket1: DystopiaWeaponPistolGlock23AP
+  storage:
+    back:
+    - Magazine40SWGlockAP
+
+- type: loadout
+  id: DystopiaGuardSidearmACP14FMJ
+  dummyEntity: LoadoutDummyGuardSidearmACP14FMJ
+  equipment:
+    pocket1: DystopiaWeaponPistolACP14
+  storage:
+    back:
+    - Magazine45ACPACP14
+
+- type: loadout
+  id: DystopiaGuardSidearmACP14JHP
+  dummyEntity: LoadoutDummyGuardSidearmACP14JHP
+  equipment:
+    pocket1: DystopiaWeaponPistolACP14JHP
+  storage:
+    back:
+    - Magazine45ACPACP14JHP
+
+- type: loadout
+  id: DystopiaGuardSidearmACP14AP
+  dummyEntity: LoadoutDummyGuardSidearmACP14AP
+  equipment:
+    pocket1: DystopiaWeaponPistolACP14AP
+  storage:
+    back:
+    - Magazine45ACPACP14AP
+
+- type: loadout
+  id: DystopiaGuardSidearmVP78FMJ
+  dummyEntity: LoadoutDummyGuardSidearmVP78FMJ
+  equipment:
+    pocket1: DystopiaWeaponPistolVP78
+  storage:
+    back:
+    - Magazine9x19VP78
+
+- type: loadout
+  id: DystopiaGuardSidearmVP78JHP
+  dummyEntity: LoadoutDummyGuardSidearmVP78JHP
+  equipment:
+    pocket1: DystopiaWeaponPistolVP78JHP
+  storage:
+    back:
+    - Magazine9x19VP78JHP
+
+- type: loadout
+  id: DystopiaGuardSidearmMatebaFMJ
+  dummyEntity: LoadoutDummyGuardSidearmMatebaFMJ
+  equipment:
+    pocket1: WeaponRevolverMateba
+  storage:
+    back:
+    - SpeedLoader44Mag
+
+- type: loadout
+  id: DystopiaGuardSidearmMatebaJHP
+  dummyEntity: LoadoutDummyGuardSidearmMatebaJHP
+  equipment:
+    pocket1: DystopiaWeaponRevolverMatebaJHP
+  storage:
+    back:
+    - SpeedLoader44MagJHP
+
+- type: loadout
+  id: DystopiaGuardSidearmMatebaAP
+  dummyEntity: LoadoutDummyGuardSidearmMatebaAP
+  equipment:
+    pocket1: WeaponRevolverMatebaAP
+  storage:
+    back:
+    - SpeedLoader44MagAP
+
+- type: loadout
+  id: DystopiaGuardSidearmDeagleFMJ
+  dummyEntity: LoadoutDummyGuardSidearmDeagleFMJ
+  equipment:
+    pocket1: DystopiaWeaponPistolDesertEagle
+  storage:
+    back:
+    - Magazine50AEDeagle
+
+- type: loadout
+  id: DystopiaGuardSidearmDeagleJHP
+  dummyEntity: LoadoutDummyGuardSidearmDeagleJHP
+  equipment:
+    pocket1: DystopiaWeaponPistolDesertEagleJHP
+  storage:
+    back:
+    - Magazine50AEDeagleJHP
+
+- type: loadout
+  id: DystopiaGuardSidearmVP78AP
+  dummyEntity: LoadoutDummyGuardSidearmVP78AP
+  equipment:
+    pocket1: DystopiaWeaponPistolVP78AP
+  storage:
+    back:
+    - Magazine9x19VP78AP
+
+# --- образцы для меню (название и иконка пункта)
+- type: entity
+  id: LoadoutDummyGuardSidearmGlock22FMJ
+  categories: [ HideSpawnMenu ]
+  name: Glock 22 — FMJ
+  components:
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Pistols/glock22/big.rsi
+    state: icon
+
+- type: entity
+  id: LoadoutDummyGuardSidearmGlock22JHP
+  categories: [ HideSpawnMenu ]
+  name: Glock 22 — JHP
+  components:
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Pistols/glock22/big.rsi
+    state: icon
+
+- type: entity
+  id: LoadoutDummyGuardSidearmGlock23FMJ
+  categories: [ HideSpawnMenu ]
+  name: Glock 23 — FMJ
+  components:
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Pistols/service_pistol23/big.rsi
+    state: icon
+
+- type: entity
+  id: LoadoutDummyGuardSidearmGlock23JHP
+  categories: [ HideSpawnMenu ]
+  name: Glock 23 — JHP
+  components:
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Pistols/service_pistol23/big.rsi
+    state: icon
+
+- type: entity
+  id: LoadoutDummyGuardSidearmGlock22AP
+  categories: [ HideSpawnMenu ]
+  name: Glock 22 — AP
+  components:
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Pistols/glock22/big.rsi
+    state: icon
+
+- type: entity
+  id: LoadoutDummyGuardSidearmGlock23AP
+  categories: [ HideSpawnMenu ]
+  name: Glock 23 — AP
+  components:
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Pistols/service_pistol23/big.rsi
+    state: icon
+
+- type: entity
+  id: LoadoutDummyGuardSidearmACP14FMJ
+  categories: [ HideSpawnMenu ]
+  name: ACP-14 — FMJ
+  components:
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Pistols/acp14/big.rsi
+    state: icon
+
+- type: entity
+  id: LoadoutDummyGuardSidearmACP14JHP
+  categories: [ HideSpawnMenu ]
+  name: ACP-14 — JHP
+  components:
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Pistols/acp14/big.rsi
+    state: icon
+
+- type: entity
+  id: LoadoutDummyGuardSidearmACP14AP
+  categories: [ HideSpawnMenu ]
+  name: ACP-14 — AP
+  components:
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Pistols/acp14/big.rsi
+    state: icon
+
+- type: entity
+  id: LoadoutDummyGuardSidearmVP78FMJ
+  categories: [ HideSpawnMenu ]
+  name: VP-78 — FMJ
+  components:
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Pistols/vp78/big.rsi
+    state: icon
+
+- type: entity
+  id: LoadoutDummyGuardSidearmVP78JHP
+  categories: [ HideSpawnMenu ]
+  name: VP-78 — JHP
+  components:
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Pistols/vp78/big.rsi
+    state: icon
+
+- type: entity
+  id: LoadoutDummyGuardSidearmMatebaFMJ
+  categories: [ HideSpawnMenu ]
+  name: Mateba — FMJ
+  components:
+  - type: Sprite
+    sprite: Objects/Weapons/Guns/Revolvers/mateba.rsi
+    state: icon
+
+- type: entity
+  id: LoadoutDummyGuardSidearmMatebaJHP
+  categories: [ HideSpawnMenu ]
+  name: Mateba — JHP
+  components:
+  - type: Sprite
+    sprite: Objects/Weapons/Guns/Revolvers/mateba.rsi
+    state: icon
+
+- type: entity
+  id: LoadoutDummyGuardSidearmMatebaAP
+  categories: [ HideSpawnMenu ]
+  name: Mateba — AP
+  components:
+  - type: Sprite
+    sprite: Objects/Weapons/Guns/Revolvers/mateba.rsi
+    state: icon
+
+- type: entity
+  id: LoadoutDummyGuardSidearmDeagleFMJ
+  categories: [ HideSpawnMenu ]
+  name: Desert Eagle — FMJ
+  components:
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Pistols/deagle/big.rsi
+    state: icon
+
+- type: entity
+  id: LoadoutDummyGuardSidearmDeagleJHP
+  categories: [ HideSpawnMenu ]
+  name: Desert Eagle — JHP
+  components:
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Pistols/deagle/big.rsi
+    state: icon
+
+- type: entity
+  id: LoadoutDummyGuardSidearmVP78AP
+  categories: [ HideSpawnMenu ]
+  name: VP-78 — AP
+  components:
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Pistols/vp78/big.rsi
+    state: icon

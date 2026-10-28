@@ -8,3 +8,12 @@
   - direction: 0
     innerWidth: 20
     outerWidth: 44
+
+# Dystopia: очень узкий луч (±7°) — фонарь на Glock 23: свет собран в пятно и бьёт далеко.
+- type: lightMask
+  id: DystopiaConeTight
+  maskPath: /Textures/_Dystopia/Effects/LightMasks/cone_tight.png
+  lightCones:
+  - direction: 0
+    innerWidth: 8
+    outerWidth: 18

@@ -39,17 +39,14 @@
   id: DystopiaGuardCaptainGear
   equipment:
     jumpsuit: DystopiaClothingUniformGuardCaptain
-    outerClothing: ClothingOuterCoatHoSGreatcoat
-    head: ClothingHeadHatBeretHoS
     mask: DystopiaClothingMaskGuard
     gloves: ClothingHandsGlovesCombat
     shoes: ClothingShoesBootsJack
     id: DystopiaGuardCaptainPDA
     ears: ClothingHeadsetAltDystopiaGuardCaptain
-    pocket1: WeaponRevolverMateba
+  # оружие, голова и броня — в выборе снаряжения (Loadouts/loadouts.yml, guard_sidearms.yml)
   storage:
     back:
-    - SpeedLoader44Mag # Матеба под .44 Magnum (оружие из Backmen)
     - DystopiaFineTerminal
 
 - type: job
@@ -77,14 +74,12 @@
   id: DystopiaGuardSergeantGear
   equipment:
     jumpsuit: DystopiaClothingUniformGuardSergeant
-    outerClothing: ClothingOuterArmorBasic
-    head: DystopiaClothingHeadGuardBeret
     mask: DystopiaClothingMaskGuard
     gloves: ClothingHandsGlovesColorBlack
     shoes: ClothingShoesBootsJack
     id: DystopiaGuardSergeantPDA
     ears: ClothingHeadsetDystopiaGuard
-    pocket1: WeaponPistolMk58
+  # оружие, голова и броня — в выборе снаряжения
   storage:
     back:
     - DystopiaFineTerminal
@@ -113,13 +108,13 @@
   equipment:
     jumpsuit: DystopiaClothingUniformGuard
     outerClothing: ClothingOuterArmorBasic
-    head: DystopiaClothingHeadGuardBeret
+    head: ClothingHeadHelmetBasic # шлем стражи — обязателен и единственен
     mask: DystopiaClothingMaskGuard
     gloves: ClothingHandsGlovesColorBlack
     shoes: ClothingShoesBootsJack
     id: DystopiaGuardsmanPDA
     ears: ClothingHeadsetDystopiaGuard
-    pocket1: WeaponPistolMk58
+  # табельный пистолет — в выборе снаряжения
   storage:
     back:
     - DystopiaFineTerminal
@@ -142,13 +137,14 @@
   id: DystopiaGuardRecruitGear
   equipment:
     jumpsuit: DystopiaClothingUniformGuard
-    head: DystopiaClothingHeadGuardBeret
+    outerClothing: ClothingOuterArmorBasic
+    head: ClothingHeadHelmetBasic # шлем стражи — обязателен и единственен
     mask: DystopiaClothingMaskGuard
     gloves: ClothingHandsGlovesColorBlack
     shoes: ClothingShoesBootsJack
     id: DystopiaGuardRecruitPDA
     ears: ClothingHeadsetDystopiaGuard
-    pocket1: WeaponPistolMk58
+  # табельный пистолет — в выборе снаряжения
   storage:
     back:
     - DystopiaFineTerminal
@@ -177,13 +173,12 @@
   id: DystopiaGuardDispatcherGear
   equipment:
     jumpsuit: DystopiaClothingUniformGuard
-    head: DystopiaClothingHeadGuardBeret
     mask: DystopiaClothingMaskGuard
     gloves: ClothingHandsGlovesColorBlack
     shoes: ClothingShoesBootsJack
     id: DystopiaGuardDispatcherPDA
     ears: ClothingHeadsetDystopiaGuard
-    pocket1: WeaponPistolMk58
+  # оружие и голова — в выборе снаряжения; брони нет (при нужде — в оружейной)
   storage:
     back:
     - DystopiaFineTerminal
@@ -214,14 +209,12 @@
   equipment:
     jumpsuit: DystopiaClothingUniformGuard
     outerClothing: ClothingOuterCoatDetective
-    head: ClothingHeadHatFedoraBrown
     mask: DystopiaClothingMaskGuard
     gloves: ClothingHandsGlovesColorBlack
     shoes: ClothingShoesBootsJack
     id: DystopiaGuardInvestigatorPDA
     ears: ClothingHeadsetDystopiaGuard
-    pocket1: WeaponPistolMk58
-    pocket2: ForensicScanner
+    pocket2: ForensicScanner # пистолет (pocket1) и голова — в выборе снаряжения
   storage:
     back:
     - DystopiaFineTerminal

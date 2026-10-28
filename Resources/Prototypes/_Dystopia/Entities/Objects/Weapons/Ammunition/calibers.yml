@@ -14,6 +14,9 @@
   id: Cartridge9x19
 
 - type: Tag
+  id: Cartridge40SW
+
+- type: Tag
   id: Cartridge32ACP
 
 - type: Tag
@@ -1556,6 +1559,584 @@
     - sprite: _Dystopia/Objects/Weapons/ammo_marks.rsi
       state: box-pistol
       color: "#d9822b"
+    sprite: _Dystopia/Objects/Weapons/Guns/Ammunition/Boxes/pistol.rsi
+    drawdepth: Items
+    noRot: false
+  - type: Item
+    size: Small
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: MagazineVisuals
+    magState: mag
+    steps: 3
+    zeroVisible: false
+  - type: Appearance
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+
+# ===================== .40 S&W (.40 S&W) =====================
+
+- type: entity
+  id: Bullet40SW
+  name: bullet (.40 S&W)
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Projectile
+    damage:
+      types:
+        Piercing: 17
+    impactEffect: BulletImpactEffect
+    soundHit:
+      path: /Audio/Weapons/Guns/Hits/bullet_hit.ogg
+  - type: ArmorPenetration
+    sharp: 4.5
+    blunt: 12
+  - type: Sprite
+    noRot: false
+    sprite: _Dystopia/Objects/Weapons/Guns/Projectiles/projectiles2.rsi
+    layers:
+    - state: bullet
+      shader: unshaded
+  - type: Reflective
+  - type: FlyBySound
+  - type: Clickable
+  - type: Physics
+    bodyType: Dynamic
+  - type: TileFrictionModifier
+    modifier: 0
+  - type: Fixtures
+    fixtures:
+      projectile:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.1,-0.10,0.1,0.30"
+        hard: false
+        mask: [ Impassable, BulletImpassable ]
+      fly-by:
+        shape: !type:PhysShapeCircle
+          radius: 1.5
+        layer: [ Impassable, MidImpassable, HighImpassable, LowImpassable ]
+        hard: false
+  - type: TimedDespawn
+    lifetime: 10
+
+- type: entity
+  id: Cartridge40SW
+  name: cartridge (.40 S&W)
+  description: "A .40 S&W pistol round. A full metal jacket bullet: the standard combat load."
+  components:
+  - type: Tag
+    tags: [ Cartridge40SW ]
+  - type: CartridgeAmmo
+    proto: Bullet40SW
+  - type: Sprite
+    layers:
+    - state: base
+      map: [ enum.AmmoVisualLayers.Base ]
+    sprite: _Dystopia/Objects/Weapons/Guns/Ammunition/Casings/ammo_casing.rsi
+    drawdepth: Items
+    noRot: false
+  - type: Appearance
+  - type: SpentAmmoVisuals
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.10,-0.05,0.10,0.05"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Item
+    size: Tiny
+  - type: SpaceGarbage
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Weapons/Guns/Casings/casing_fall_2.ogg
+      params:
+        volume: -1
+  - type: StaticPrice
+    price: 1
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+
+- type: entity
+  id: MagazineBox40SW
+  name: ammunition box (.40 S&W)
+  description: A cardboard box of 60 .40 S&W rounds.
+  components:
+  - type: BallisticAmmoProvider
+    proto: Cartridge40SW
+    capacity: 60
+    whitelist:
+      tags: [ Cartridge40SW ]
+    mayTransfer: true
+  - type: Sprite
+    layers:
+    - state: base
+      map: [ enum.GunVisualLayers.Base ]
+    - state: mag-1
+      map: [ enum.GunVisualLayers.Mag ]
+    sprite: _Dystopia/Objects/Weapons/Guns/Ammunition/Boxes/pistol.rsi
+    drawdepth: Items
+    noRot: false
+  - type: Item
+    size: Small
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: MagazineVisuals
+    magState: mag
+    steps: 3
+    zeroVisible: false
+  - type: Appearance
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+
+- type: entity
+  id: Bullet40SWJHP
+  name: bullet (.40 S&W JHP)
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Projectile
+    damage:
+      types:
+        Piercing: 21
+    impactEffect: BulletImpactEffect
+    soundHit:
+      path: /Audio/Weapons/Guns/Hits/bullet_hit.ogg
+  - type: ArmorPenetration
+    sharp: 2.5
+    blunt: 12
+  - type: Sprite
+    noRot: false
+    sprite: _Dystopia/Objects/Weapons/Guns/Projectiles/projectiles2.rsi
+    layers:
+    - state: bullet
+      shader: unshaded
+  - type: Reflective
+  - type: FlyBySound
+  - type: Clickable
+  - type: Physics
+    bodyType: Dynamic
+  - type: TileFrictionModifier
+    modifier: 0
+  - type: Fixtures
+    fixtures:
+      projectile:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.1,-0.10,0.1,0.30"
+        hard: false
+        mask: [ Impassable, BulletImpassable ]
+      fly-by:
+        shape: !type:PhysShapeCircle
+          radius: 1.5
+        layer: [ Impassable, MidImpassable, HighImpassable, LowImpassable ]
+        hard: false
+  - type: TimedDespawn
+    lifetime: 10
+
+- type: entity
+  id: Cartridge40SWJHP
+  name: cartridge (.40 S&W JHP)
+  description: A .40 S&W pistol round. A jacketed hollow point. The bullet mushrooms on impact and leaves a nasty wound, but body armor stops it cold.
+  components:
+  - type: Tag
+    tags: [ Cartridge40SW ]
+  - type: CartridgeAmmo
+    proto: Bullet40SWJHP
+  - type: Sprite
+    layers:
+    - state: base
+      map: [ enum.AmmoVisualLayers.Base ]
+    - state: tip
+      map: [ enum.AmmoVisualLayers.Tip ]
+      color: "#b5651d"
+    sprite: _Dystopia/Objects/Weapons/Guns/Ammunition/Casings/ammo_casing.rsi
+    drawdepth: Items
+    noRot: false
+  - type: Appearance
+  - type: SpentAmmoVisuals
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.10,-0.05,0.10,0.05"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Item
+    size: Tiny
+  - type: SpaceGarbage
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Weapons/Guns/Casings/casing_fall_2.ogg
+      params:
+        volume: -1
+  - type: StaticPrice
+    price: 1
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+
+- type: entity
+  id: MagazineBox40SWJHP
+  name: ammunition box (.40 S&W JHP)
+  description: A cardboard box of 60 .40 S&W JHP rounds.
+  components:
+  - type: BallisticAmmoProvider
+    proto: Cartridge40SWJHP
+    capacity: 60
+    whitelist:
+      tags: [ Cartridge40SW ]
+    mayTransfer: true
+  - type: Sprite
+    layers:
+    - state: base
+      map: [ enum.GunVisualLayers.Base ]
+    - state: mag-1
+      map: [ enum.GunVisualLayers.Mag ]
+    - sprite: _Dystopia/Objects/Weapons/ammo_marks.rsi
+      state: box-pistol
+      color: "#b5651d"
+    sprite: _Dystopia/Objects/Weapons/Guns/Ammunition/Boxes/pistol.rsi
+    drawdepth: Items
+    noRot: false
+  - type: Item
+    size: Small
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: MagazineVisuals
+    magState: mag
+    steps: 3
+    zeroVisible: false
+  - type: Appearance
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+
+- type: entity
+  id: Bullet40SWAP
+  name: bullet (.40 S&W AP)
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Projectile
+    damage:
+      types:
+        Piercing: 13
+    impactEffect: BulletImpactEffect
+    soundHit:
+      path: /Audio/Weapons/Guns/Hits/bullet_hit.ogg
+  - type: ArmorPenetration
+    sharp: 7.5
+    blunt: 12
+  - type: Sprite
+    noRot: false
+    sprite: _Dystopia/Objects/Weapons/Guns/Projectiles/projectiles2.rsi
+    layers:
+    - state: bullet
+      shader: unshaded
+  - type: Reflective
+  - type: FlyBySound
+  - type: Clickable
+  - type: Physics
+    bodyType: Dynamic
+  - type: TileFrictionModifier
+    modifier: 0
+  - type: Fixtures
+    fixtures:
+      projectile:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.1,-0.10,0.1,0.30"
+        hard: false
+        mask: [ Impassable, BulletImpassable ]
+      fly-by:
+        shape: !type:PhysShapeCircle
+          radius: 1.5
+        layer: [ Impassable, MidImpassable, HighImpassable, LowImpassable ]
+        hard: false
+  - type: TimedDespawn
+    lifetime: 10
+
+- type: entity
+  id: Cartridge40SWAP
+  name: cartridge (.40 S&W AP)
+  description: A .40 S&W pistol round. An armor-piercing bullet with a hardened steel core under the jacket. It gets through vests that would catch a regular bullet, at the cost of a cleaner wound.
+  components:
+  - type: Tag
+    tags: [ Cartridge40SW ]
+  - type: CartridgeAmmo
+    proto: Bullet40SWAP
+  - type: Sprite
+    layers:
+    - state: base
+      map: [ enum.AmmoVisualLayers.Base ]
+    - state: tip
+      map: [ enum.AmmoVisualLayers.Tip ]
+      color: "#0a0a0a"
+    sprite: _Dystopia/Objects/Weapons/Guns/Ammunition/Casings/ammo_casing.rsi
+    drawdepth: Items
+    noRot: false
+  - type: Appearance
+  - type: SpentAmmoVisuals
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.10,-0.05,0.10,0.05"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Item
+    size: Tiny
+  - type: SpaceGarbage
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Weapons/Guns/Casings/casing_fall_2.ogg
+      params:
+        volume: -1
+  - type: StaticPrice
+    price: 1
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: Damageable
+  - type: Injurable
+    damageContainer: Inorganic
+  - type: Destructible
+    thresholds:
+    - trigger: !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ Destruction ]
+
+- type: entity
+  id: MagazineBox40SWAP
+  name: ammunition box (.40 S&W AP)
+  description: A cardboard box of 60 .40 S&W AP rounds.
+  components:
+  - type: BallisticAmmoProvider
+    proto: Cartridge40SWAP
+    capacity: 60
+    whitelist:
+      tags: [ Cartridge40SW ]
+    mayTransfer: true
+  - type: Sprite
+    layers:
+    - state: base
+      map: [ enum.GunVisualLayers.Base ]
+    - state: mag-1
+      map: [ enum.GunVisualLayers.Mag ]
+    - sprite: _Dystopia/Objects/Weapons/ammo_marks.rsi
+      state: box-pistol
+      color: "#0a0a0a"
     sprite: _Dystopia/Objects/Weapons/Guns/Ammunition/Boxes/pistol.rsi
     drawdepth: Items
     noRot: false

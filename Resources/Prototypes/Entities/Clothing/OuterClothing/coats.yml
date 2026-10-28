@@ -19,6 +19,9 @@
     sprite: Clothing/OuterClothing/Coats/detective.rsi
   - type: Clothing
     sprite: Clothing/OuterClothing/Coats/detective.rsi
+  # Dystopia: тренч дознавателя — Бр2 (_Dystopia/Health/Armor/armor_classes.yml); спрайт перекрашен темнее
+  - type: ArmorRating
+    armorClass: Br2
   - type: EntityTableContainerFill
     containers:
       storagebase: !type:AllSelector

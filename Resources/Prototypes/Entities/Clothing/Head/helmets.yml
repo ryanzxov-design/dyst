@@ -32,32 +32,22 @@
 
 #Security Helmet
 - type: entity
-  parent: [BaseCorvaxContraband432DepartmentsSecurity, ClothingHeadHelmetArmoredBase, BaseFoldable, BaseSecurityContraband] # Corvax-Contraband
+  # Dystopia: шлем стражи без забрала — убраны BaseFoldable, Foldable, FoldableClothing и слой с забралом
+  parent: [BaseCorvaxContraband432DepartmentsSecurity, ClothingHeadHelmetArmoredBase, BaseSecurityContraband] # Corvax-Contraband
   id: ClothingHeadHelmetBasic
   name: security helmet
-  description: Standard security gear. Protects the head from impacts, and comes with a visor which can be lowered to protect the eyes.
+  description: Standard security gear. Protects the head from impacts.
   components:
   - type: Sprite
     sprite: Clothing/Head/Helmets/security.rsi
     layers:
     - state: icon
-      map: [ "unfoldedLayer" ]
-    - state: icon-visor
-      map: [ "foldedLayer" ]
-      visible: false
   - type: Clothing
     sprite: Clothing/Head/Helmets/security.rsi
   - type: Tag
     tags:
     - WhitelistChameleon
     - SecurityHelmet
-  - type: Foldable
-    canFoldInsideContainer: true
-    unfoldVerbText: fold-raise-visor-verb
-    foldVerbText: fold-lower-visor-verb
-  - type: FoldableClothing
-    foldedEquippedPrefix: visor
-    foldedHeldPrefix: visor
   - type: HideLayerClothing
     layers:
       Hair: HEAD

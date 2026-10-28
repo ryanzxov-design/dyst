@@ -1,6 +1,7 @@
 # Выбор снаряжения (лоадауты) для ролей Города.
 # Сумки — ванильные группы (рюкзак / сумка / вещмешок в цветах службы).
-# Стража дополнительно выбирает пояс или РПС (обе уже заполнены).
+# Стража дополнительно выбирает пояс или РПС (обе уже заполнены), табельный пистолет с патронами
+# (Loadouts/guard_sidearms.yml), а старшие чины — головной убор и броню.
 
 - type: loadoutGroup
   id: DystopiaGuardBelt
@@ -18,6 +19,100 @@
   id: DystopiaGuardWebbing
   equipment:
     belt: DystopiaClothingBeltGuardWebbingFilled
+
+# --- Стража: головной убор (у Стражника и Рекрута — только шлем, он в startingGear)
+- type: loadout
+  id: DystopiaGuardHeadHelmet
+  equipment:
+    head: ClothingHeadHelmetBasic
+
+- type: loadout
+  id: DystopiaGuardHeadBeret
+  equipment:
+    head: DystopiaClothingHeadGuardBeret
+
+- type: loadout
+  id: DystopiaGuardHeadFedora
+  equipment:
+    head: ClothingHeadHatFedoraBrown
+
+- type: loadout
+  id: DystopiaGuardHeadCaptainBeret
+  equipment:
+    head: ClothingHeadHatBeretHoS
+
+- type: loadout
+  id: DystopiaGuardHeadCaptainCap
+  equipment:
+    head: ClothingHeadHatCapHoS
+
+- type: loadout
+  id: DystopiaGuardHeadCaptainHat
+  equipment:
+    head: ClothingHeadHatHoshat
+
+- type: loadoutGroup
+  id: DystopiaGuardHeadSergeant
+  name: loadout-group-dystopia-guard-head
+  loadouts:
+  - DystopiaGuardHeadBeret
+  - DystopiaGuardHeadHelmet
+
+- type: loadoutGroup
+  id: DystopiaGuardHeadDispatcher
+  name: loadout-group-dystopia-guard-head
+  loadouts:
+  - DystopiaGuardHeadBeret
+  - DystopiaGuardHeadHelmet
+
+- type: loadoutGroup
+  id: DystopiaGuardHeadInvestigator
+  name: loadout-group-dystopia-guard-head
+  loadouts:
+  - DystopiaGuardHeadFedora
+  - DystopiaGuardHeadBeret
+  - DystopiaGuardHeadHelmet
+
+- type: loadoutGroup
+  id: DystopiaGuardHeadCaptain
+  name: loadout-group-dystopia-guard-head
+  loadouts:
+  - DystopiaGuardHeadCaptainBeret
+  - DystopiaGuardHeadCaptainCap
+  - DystopiaGuardHeadCaptainHat
+  - DystopiaGuardHeadHelmet
+
+# --- Стража: броня и верхняя одежда (Рекрут, Стражник — бронежилет в startingGear; Диспетчер — без брони,
+# берёт в оружейной; Дознаватель — тренч в startingGear)
+- type: loadout
+  id: DystopiaGuardOuterVest
+  equipment:
+    outerClothing: ClothingOuterArmorBasic
+
+- type: loadout
+  id: DystopiaGuardOuterBulletproof
+  equipment:
+    outerClothing: ClothingOuterArmorBulletproof
+
+- type: loadout
+  id: DystopiaGuardOuterCaptainGreatcoat
+  equipment:
+    outerClothing: ClothingOuterCoatHoSGreatcoat
+
+- type: loadoutGroup
+  id: DystopiaGuardOuterSergeant
+  name: loadout-group-dystopia-guard-outer
+  loadouts:
+  - DystopiaGuardOuterVest
+  - DystopiaGuardOuterBulletproof
+
+- type: loadoutGroup
+  id: DystopiaGuardOuterCaptain
+  name: loadout-group-dystopia-guard-outer
+  loadouts:
+  - DystopiaGuardOuterCaptainGreatcoat
+  - DystopiaGuardOuterVest
+  - DystopiaGuardOuterBulletproof
 
 - type: roleLoadout
   id: JobDystopiaConsul
@@ -43,6 +138,9 @@
   - Inventory # Corvax-Loadouts
   - SecurityBackpack
   - DystopiaGuardBelt
+  - DystopiaGuardSidearmCaptain
+  - DystopiaGuardHeadCaptain
+  - DystopiaGuardOuterCaptain
 
 - type: roleLoadout
   id: JobDystopiaGuardSergeant
@@ -50,6 +148,9 @@
   - Inventory # Corvax-Loadouts
   - SecurityBackpack
   - DystopiaGuardBelt
+  - DystopiaGuardSidearmSergeant
+  - DystopiaGuardHeadSergeant
+  - DystopiaGuardOuterSergeant
 
 - type: roleLoadout
   id: JobDystopiaGuardsman
@@ -57,6 +158,7 @@
   - Inventory # Corvax-Loadouts
   - SecurityBackpack
   - DystopiaGuardBelt
+  - DystopiaGuardSidearmGuardsman
 
 - type: roleLoadout
   id: JobDystopiaGuardRecruit
@@ -64,6 +166,7 @@
   - Inventory # Corvax-Loadouts
   - SecurityBackpack
   - DystopiaGuardBelt
+  - DystopiaGuardSidearmRecruit
 
 - type: roleLoadout
   id: JobDystopiaPraetorian
@@ -185,6 +288,8 @@
   - Inventory # Corvax-Loadouts
   - SecurityBackpack
   - DystopiaGuardBelt
+  - DystopiaGuardSidearmDispatcher
+  - DystopiaGuardHeadDispatcher
 
 - type: roleLoadout
   id: JobDystopiaGuardInvestigator
@@ -192,3 +297,5 @@
   - Inventory # Corvax-Loadouts
   - SecurityBackpack
   - DystopiaGuardBelt
+  - DystopiaGuardSidearmInvestigator
+  - DystopiaGuardHeadInvestigator

@@ -399,8 +399,7 @@
           - SmokeOnTrigger
   - type: Appearance
   - type: StorageFill
-    contents:
-    - id: MagazinePistol
+    contents: # запасной магазин к табельному — в выборе снаряжения
     - id: DystopiaGuardBaton
     - id: Handcuffs
       amount: 2
@@ -540,8 +539,7 @@
           - SmokeOnTrigger
   - type: Appearance
   - type: StorageFill
-    contents:
-    - id: MagazinePistol
+    contents: # запасной магазин к табельному — в выборе снаряжения
     - id: DystopiaGuardBaton
     - id: Handcuffs
       amount: 2

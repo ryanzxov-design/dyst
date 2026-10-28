@@ -1,0 +1,36 @@
+# Dystopia: образцы табельного оружия Стражи в выборе снаряжения. Prototypes: _Dystopia/Loadouts/guard_sidearms.yml
+
+ent-LoadoutDummyGuardSidearmGlock22FMJ = Glock 22 — FMJ
+    .desc = Табельный Glock 22 (.40 S&W), заряжен оболочечными (FMJ) патронами. Запасной магазин — в сумке.
+ent-LoadoutDummyGuardSidearmGlock22JHP = Glock 22 — JHP
+    .desc = Табельный Glock 22 (.40 S&W), заряжен экспансивными (JHP) патронами. Запасной магазин — в сумке.
+ent-LoadoutDummyGuardSidearmGlock23FMJ = Glock 23 — FMJ
+    .desc = Табельный Glock 23 (.40 S&W), заряжен оболочечными (FMJ) патронами. Запасной магазин — в сумке.
+ent-LoadoutDummyGuardSidearmGlock23JHP = Glock 23 — JHP
+    .desc = Табельный Glock 23 (.40 S&W), заряжен экспансивными (JHP) патронами. Запасной магазин — в сумке.
+ent-LoadoutDummyGuardSidearmGlock22AP = Glock 22 — AP
+    .desc = Табельный Glock 22 (.40 S&W), заряжен бронебойными (AP) патронами. Запасной магазин — в сумке.
+ent-LoadoutDummyGuardSidearmGlock23AP = Glock 23 — AP
+    .desc = Табельный Glock 23 (.40 S&W), заряжен бронебойными (AP) патронами. Запасной магазин — в сумке.
+ent-LoadoutDummyGuardSidearmACP14FMJ = ACP-14 — FMJ
+    .desc = Табельный ACP-14 (.45 ACP), заряжен оболочечными (FMJ) патронами. Запасной магазин — в сумке.
+ent-LoadoutDummyGuardSidearmACP14JHP = ACP-14 — JHP
+    .desc = Табельный ACP-14 (.45 ACP), заряжен экспансивными (JHP) патронами. Запасной магазин — в сумке.
+ent-LoadoutDummyGuardSidearmACP14AP = ACP-14 — AP
+    .desc = Табельный ACP-14 (.45 ACP), заряжен бронебойными (AP) патронами. Запасной магазин — в сумке.
+ent-LoadoutDummyGuardSidearmVP78FMJ = VP-78 — FMJ
+    .desc = Табельный VP-78 (9×19 мм), заряжен оболочечными (FMJ) патронами. Запасной магазин — в сумке.
+ent-LoadoutDummyGuardSidearmVP78JHP = VP-78 — JHP
+    .desc = Табельный VP-78 (9×19 мм), заряжен экспансивными (JHP) патронами. Запасной магазин — в сумке.
+ent-LoadoutDummyGuardSidearmMatebaFMJ = Матеба — FMJ
+    .desc = Табельный Матеба (.44 Magnum), заряжен оболочечными (FMJ) патронами. Запасной спидлоадер — в сумке.
+ent-LoadoutDummyGuardSidearmMatebaJHP = Матеба — JHP
+    .desc = Табельный Матеба (.44 Magnum), заряжен экспансивными (JHP) патронами. Запасной спидлоадер — в сумке.
+ent-LoadoutDummyGuardSidearmMatebaAP = Матеба — AP
+    .desc = Табельный Матеба (.44 Magnum), заряжен бронебойными (AP) патронами. Запасной спидлоадер — в сумке.
+ent-LoadoutDummyGuardSidearmDeagleFMJ = Desert Eagle — FMJ
+    .desc = Табельный Desert Eagle (.50 AE), заряжен оболочечными (FMJ) патронами. Запасной магазин — в сумке.
+ent-LoadoutDummyGuardSidearmDeagleJHP = Desert Eagle — JHP
+    .desc = Табельный Desert Eagle (.50 AE), заряжен экспансивными (JHP) патронами. Запасной магазин — в сумке.
+ent-LoadoutDummyGuardSidearmVP78AP = VP-78 — AP
+    .desc = Табельный VP-78 (9×19 мм), заряжен бронебойными (AP) патронами. Запасной магазин — в сумке.

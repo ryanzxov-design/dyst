@@ -16,8 +16,9 @@
           Piercing: 0.4
           Heat: 0.7
     # Dystopia-Health: класс защиты (_Dystopia/Health/Armor/armor_classes.yml)
+    # Dystopia: шинель капитана стражи — Бр5 (было Бр3)
     - type: ArmorRating
-      armorClass: Br3
+      armorClass: Br5
 
 - type: entity
   parent: ClothingOuterCoatDetectiveLoadout

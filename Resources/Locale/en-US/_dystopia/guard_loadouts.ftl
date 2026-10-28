@@ -1,0 +1,36 @@
+# Dystopia: Guard service sidearm entries in the loadout menu. Prototypes: _Dystopia/Loadouts/guard_sidearms.yml
+
+ent-LoadoutDummyGuardSidearmGlock22FMJ = Glock 22 — FMJ
+    .desc = Service Glock 22 (.40 S&W), loaded with FMJ rounds. A spare magazine is in the bag.
+ent-LoadoutDummyGuardSidearmGlock22JHP = Glock 22 — JHP
+    .desc = Service Glock 22 (.40 S&W), loaded with JHP rounds. A spare magazine is in the bag.
+ent-LoadoutDummyGuardSidearmGlock23FMJ = Glock 23 — FMJ
+    .desc = Service Glock 23 (.40 S&W), loaded with FMJ rounds. A spare magazine is in the bag.
+ent-LoadoutDummyGuardSidearmGlock23JHP = Glock 23 — JHP
+    .desc = Service Glock 23 (.40 S&W), loaded with JHP rounds. A spare magazine is in the bag.
+ent-LoadoutDummyGuardSidearmGlock22AP = Glock 22 — AP
+    .desc = Service Glock 22 (.40 S&W), loaded with AP rounds. A spare magazine is in the bag.
+ent-LoadoutDummyGuardSidearmGlock23AP = Glock 23 — AP
+    .desc = Service Glock 23 (.40 S&W), loaded with AP rounds. A spare magazine is in the bag.
+ent-LoadoutDummyGuardSidearmACP14FMJ = ACP-14 — FMJ
+    .desc = Service ACP-14 (.45 ACP), loaded with FMJ rounds. A spare magazine is in the bag.
+ent-LoadoutDummyGuardSidearmACP14JHP = ACP-14 — JHP
+    .desc = Service ACP-14 (.45 ACP), loaded with JHP rounds. A spare magazine is in the bag.
+ent-LoadoutDummyGuardSidearmACP14AP = ACP-14 — AP
+    .desc = Service ACP-14 (.45 ACP), loaded with AP rounds. A spare magazine is in the bag.
+ent-LoadoutDummyGuardSidearmVP78FMJ = VP-78 — FMJ
+    .desc = Service VP-78 (9x19mm), loaded with FMJ rounds. A spare magazine is in the bag.
+ent-LoadoutDummyGuardSidearmVP78JHP = VP-78 — JHP
+    .desc = Service VP-78 (9x19mm), loaded with JHP rounds. A spare magazine is in the bag.
+ent-LoadoutDummyGuardSidearmMatebaFMJ = Mateba — FMJ
+    .desc = Service Матеба (.44 Magnum), loaded with FMJ rounds. A spare speed loader is in the bag.
+ent-LoadoutDummyGuardSidearmMatebaJHP = Mateba — JHP
+    .desc = Service Матеба (.44 Magnum), loaded with JHP rounds. A spare speed loader is in the bag.
+ent-LoadoutDummyGuardSidearmMatebaAP = Mateba — AP
+    .desc = Service Матеба (.44 Magnum), loaded with AP rounds. A spare speed loader is in the bag.
+ent-LoadoutDummyGuardSidearmDeagleFMJ = Desert Eagle — FMJ
+    .desc = Service Desert Eagle (.50 AE), loaded with FMJ rounds. A spare magazine is in the bag.
+ent-LoadoutDummyGuardSidearmDeagleJHP = Desert Eagle — JHP
+    .desc = Service Desert Eagle (.50 AE), loaded with JHP rounds. A spare magazine is in the bag.
+ent-LoadoutDummyGuardSidearmVP78AP = VP-78 — AP
+    .desc = Service VP-78 (9x19mm), loaded with AP rounds. A spare magazine is in the bag.

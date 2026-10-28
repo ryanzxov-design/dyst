@@ -1,11 +1,13 @@
-ent-ClothingOuterCoatHoSGreatcoat = шинель стражи
-    .desc = Длинная тёмная шинель с броневыми вставками. Положена капитану стражи.
+# Dystopia: шинель капитана стражи (Бр5)
+ent-ClothingOuterCoatHoSGreatcoat = шинель капитана стражи
+    .desc = Длинная тёмная шинель с тяжёлыми броневыми вставками. Положена только капитану стражи.
 ent-ClothingOuterCoatDetectiveDark = нуарный плащ
     .desc = Тёмный плащ дознавателя.
 ent-ClothingOuterCoatWardenAlt = куртка надзирателя
     .desc = Тёмно-синяя бронекуртка с нашивкой надзирателя на кармане.
-ent-ClothingOuterCoatSecurityOvercoat = кожаная шинель стражи
-    .desc = Кожаная шинель с лёгкими броневыми вставками. Её носят старшие чины стражи.
+# Dystopia: теперь шинель гражданского инспектора
+ent-ClothingOuterCoatSecurityOvercoat = шинель гражданского инспектора
+    .desc = Строгая кожаная шинель с лёгкими броневыми вставками. Её носит гражданский инспектор.
 ent-ClothingOuterCoatLabSecurityMedic = халат санитара стражи
     .desc = Белый халат с нашивкой стражи.
 ent-ClothingOuterCoatCaptain = торжественная куртка Консула

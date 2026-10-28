@@ -213,3 +213,1755 @@
   - type: DamageExaminable
   - type: Rotatable
     increment: 30
+
+- type: entity
+  id: DystopiaWeaponPistolDesertEagleJHP
+  name: Desert Eagle
+  description: A heavy self-loading pistol in .50 AE. The recoil is brutal, but one hit is usually enough. Feeds from 7-round magazines.
+  suffix: JHP
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Pistols/deagle/big.rsi
+    layers:
+    - state: base
+      map: [ enum.GunVisualLayers.Base ]
+    - state: mag-0
+      map: [ enum.GunVisualLayers.Mag ]
+    drawdepth: Items
+    noRot: false
+  - type: Item
+    sprite: _Dystopia/Objects/Weapons/Guns/Pistols/deagle/tiny.rsi
+    size: Small
+    shape:
+    - 0,0,1,0
+    - 0,1,0,1
+    storedOffset: 0,-4
+  - type: Gun
+    fireRate: 3
+    angleDecay: 15
+    angleIncrease: 10
+    cameraRecoilScalar: 2
+    maxAngle: 15
+    minAngle: 1
+    selectedMode: SemiAuto
+    availableModes: [ SemiAuto ]
+    soundGunshot:
+      path: /Audio/_Dystopia/Weapons/Guns/Pistols/deagle.ogg
+    soundEmpty:
+      path: /Audio/_Dystopia/Weapons/Guns/Pistols/deagle_empty.ogg
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Magazine
+        startingItem: Magazine50AEDeagleJHP
+        insertSound: /Audio/_Dystopia/Weapons/Guns/Pistols/deagle_reload.ogg
+        ejectSound: /Audio/_Dystopia/Weapons/Guns/Pistols/deagle_unload.ogg
+        priority: 2
+        whitelist:
+          tags: [ Magazine50AEDeagle ]
+        whitelistFailPopup: gun-magazine-whitelist-fail
+      gun_chamber:
+        name: Chamber
+        priority: 1
+        whitelist:
+          tags: [ Cartridge50AE ]
+        startingItem: Cartridge50AEJHP
+  - type: MagazineVisuals
+    magState: mag
+    steps: 1
+    zeroVisible: true
+  - type: ContainerContainer
+    containers:
+      gun_magazine: !type:ContainerSlot
+      gun_chamber: !type:ContainerSlot
+  - type: Tag
+    tags: [ Sidearm ]
+  - type: Clothing
+    sprite: _Dystopia/Objects/Weapons/Guns/Pistols/deagle/tiny.rsi
+    quickEquip: false
+    slots: [ suitStorage, Belt ]
+  - type: ChamberMagazineAmmoProvider
+    soundRack:
+      path: /Audio/Weapons/Guns/Cock/pistol_cock.ogg
+  - type: AmmoCounter
+  - type: Appearance
+  - type: StaticPrice
+    price: 500
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+
+- type: entity
+  id: DystopiaWeaponPistolGlock22
+  name: Glock 22
+  description: A full-size polymer pistol in .40 S&W, a police favorite. 15-round magazines.
+  components:
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Pistols/glock22/big.rsi
+    layers:
+    - state: base
+      map: [ enum.GunVisualLayers.Base ]
+    - state: mag-0
+      map: [ enum.GunVisualLayers.Mag ]
+    drawdepth: Items
+    noRot: false
+  - type: Item
+    sprite: _Dystopia/Objects/Weapons/Guns/Pistols/glock22/tiny.rsi
+    size: Small
+    shape:
+    - 0,0,1,0
+    - 0,1,0,1
+    storedOffset: 0,-4
+  - type: Gun
+    angleDecay: 7
+    angleIncrease: 2
+    cameraRecoilScalar: 0.5
+    maxAngle: 15
+    minAngle: 1
+    soundGunshot:
+      path: /Audio/_Dystopia/Weapons/Guns/Pistols/beretta_shot.ogg
+    soundEmpty:
+      path: /Audio/_Dystopia/Weapons/Guns/Pistols/beretta_empty.ogg
+    fireRate: 6
+    selectedMode: SemiAuto
+    availableModes: [ SemiAuto, FullAuto ]
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Magazine
+        startingItem: Magazine40SWGlock
+        insertSound: /Audio/_Dystopia/Weapons/Guns/Pistols/beretta_reload.ogg
+        ejectSound: /Audio/_Dystopia/Weapons/Guns/Pistols/beretta_unload.ogg
+        priority: 2
+        whitelist:
+          tags: [ Magazine40SWGlock ]
+        whitelistFailPopup: gun-magazine-whitelist-fail
+      gun_chamber:
+        name: Chamber
+        priority: 1
+        whitelist:
+          tags: [ Cartridge40SW ]
+        startingItem: Cartridge40SW
+  - type: MagazineVisuals
+    magState: mag
+    steps: 1
+    zeroVisible: true
+  - type: ContainerContainer
+    containers:
+      gun_magazine: !type:ContainerSlot
+      gun_chamber: !type:ContainerSlot
+  - type: Tag
+    tags: [ Sidearm ]
+  - type: Clothing
+    sprite: _Dystopia/Objects/Weapons/Guns/Pistols/glock22/tiny.rsi
+    quickEquip: false
+    slots: [ suitStorage, Belt ]
+  - type: ChamberMagazineAmmoProvider
+    soundRack:
+      path: /Audio/Weapons/Guns/Cock/pistol_cock.ogg
+  - type: AmmoCounter
+  - type: Appearance
+  - type: StaticPrice
+    price: 500
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+
+- type: entity
+  id: DystopiaWeaponPistolGlock22JHP
+  name: Glock 22
+  description: A full-size polymer pistol in .40 S&W, a police favorite. 15-round magazines.
+  suffix: JHP
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Pistols/glock22/big.rsi
+    layers:
+    - state: base
+      map: [ enum.GunVisualLayers.Base ]
+    - state: mag-0
+      map: [ enum.GunVisualLayers.Mag ]
+    drawdepth: Items
+    noRot: false
+  - type: Item
+    sprite: _Dystopia/Objects/Weapons/Guns/Pistols/glock22/tiny.rsi
+    size: Small
+    shape:
+    - 0,0,1,0
+    - 0,1,0,1
+    storedOffset: 0,-4
+  - type: Gun
+    angleDecay: 7
+    angleIncrease: 2
+    cameraRecoilScalar: 0.5
+    maxAngle: 15
+    minAngle: 1
+    soundGunshot:
+      path: /Audio/_Dystopia/Weapons/Guns/Pistols/beretta_shot.ogg
+    soundEmpty:
+      path: /Audio/_Dystopia/Weapons/Guns/Pistols/beretta_empty.ogg
+    fireRate: 6
+    selectedMode: SemiAuto
+    availableModes: [ SemiAuto, FullAuto ]
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Magazine
+        startingItem: Magazine40SWGlockJHP
+        insertSound: /Audio/_Dystopia/Weapons/Guns/Pistols/beretta_reload.ogg
+        ejectSound: /Audio/_Dystopia/Weapons/Guns/Pistols/beretta_unload.ogg
+        priority: 2
+        whitelist:
+          tags: [ Magazine40SWGlock ]
+        whitelistFailPopup: gun-magazine-whitelist-fail
+      gun_chamber:
+        name: Chamber
+        priority: 1
+        whitelist:
+          tags: [ Cartridge40SW ]
+        startingItem: Cartridge40SWJHP
+  - type: MagazineVisuals
+    magState: mag
+    steps: 1
+    zeroVisible: true
+  - type: ContainerContainer
+    containers:
+      gun_magazine: !type:ContainerSlot
+      gun_chamber: !type:ContainerSlot
+  - type: Tag
+    tags: [ Sidearm ]
+  - type: Clothing
+    sprite: _Dystopia/Objects/Weapons/Guns/Pistols/glock22/tiny.rsi
+    quickEquip: false
+    slots: [ suitStorage, Belt ]
+  - type: ChamberMagazineAmmoProvider
+    soundRack:
+      path: /Audio/Weapons/Guns/Cock/pistol_cock.ogg
+  - type: AmmoCounter
+  - type: Appearance
+  - type: StaticPrice
+    price: 500
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+
+- type: entity
+  id: DystopiaWeaponPistolGlock22AP
+  name: Glock 22
+  description: A full-size polymer pistol in .40 S&W, a police favorite. 15-round magazines.
+  suffix: AP
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Pistols/glock22/big.rsi
+    layers:
+    - state: base
+      map: [ enum.GunVisualLayers.Base ]
+    - state: mag-0
+      map: [ enum.GunVisualLayers.Mag ]
+    drawdepth: Items
+    noRot: false
+  - type: Item
+    sprite: _Dystopia/Objects/Weapons/Guns/Pistols/glock22/tiny.rsi
+    size: Small
+    shape:
+    - 0,0,1,0
+    - 0,1,0,1
+    storedOffset: 0,-4
+  - type: Gun
+    angleDecay: 7
+    angleIncrease: 2
+    cameraRecoilScalar: 0.5
+    maxAngle: 15
+    minAngle: 1
+    soundGunshot:
+      path: /Audio/_Dystopia/Weapons/Guns/Pistols/beretta_shot.ogg
+    soundEmpty:
+      path: /Audio/_Dystopia/Weapons/Guns/Pistols/beretta_empty.ogg
+    fireRate: 6
+    selectedMode: SemiAuto
+    availableModes: [ SemiAuto, FullAuto ]
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Magazine
+        startingItem: Magazine40SWGlockAP
+        insertSound: /Audio/_Dystopia/Weapons/Guns/Pistols/beretta_reload.ogg
+        ejectSound: /Audio/_Dystopia/Weapons/Guns/Pistols/beretta_unload.ogg
+        priority: 2
+        whitelist:
+          tags: [ Magazine40SWGlock ]
+        whitelistFailPopup: gun-magazine-whitelist-fail
+      gun_chamber:
+        name: Chamber
+        priority: 1
+        whitelist:
+          tags: [ Cartridge40SW ]
+        startingItem: Cartridge40SWAP
+  - type: MagazineVisuals
+    magState: mag
+    steps: 1
+    zeroVisible: true
+  - type: ContainerContainer
+    containers:
+      gun_magazine: !type:ContainerSlot
+      gun_chamber: !type:ContainerSlot
+  - type: Tag
+    tags: [ Sidearm ]
+  - type: Clothing
+    sprite: _Dystopia/Objects/Weapons/Guns/Pistols/glock22/tiny.rsi
+    quickEquip: false
+    slots: [ suitStorage, Belt ]
+  - type: ChamberMagazineAmmoProvider
+    soundRack:
+      path: /Audio/Weapons/Guns/Cock/pistol_cock.ogg
+  - type: AmmoCounter
+  - type: Appearance
+  - type: StaticPrice
+    price: 500
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+
+- type: entity
+  id: DystopiaWeaponPistolGlock23
+  name: Glock 23
+  description: A compact .40 S&W Glock with an underbarrel flashlight. Takes 15-round Glock 22 magazines.
+  components:
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Pistols/service_pistol23/big.rsi
+    layers:
+    - state: base
+      map: [ enum.GunVisualLayers.Base ]
+    - state: mag-0
+      map: [ enum.GunVisualLayers.Mag ]
+    drawdepth: Items
+    noRot: false
+  - type: Item
+    sprite: _Dystopia/Objects/Weapons/Guns/Pistols/service_pistol23/tiny.rsi
+    size: Small
+    shape:
+    - 0,0,1,0
+    - 0,1,0,1
+    storedOffset: 0,-4
+  - type: Gun
+    angleDecay: 15
+    angleIncrease: 5
+    maxAngle: 15
+    minAngle: 1
+    selectedMode: SemiAuto
+    availableModes: [ SemiAuto ]
+    soundGunshot:
+      path: /Audio/_Dystopia/Weapons/Guns/Pistols/colt.ogg
+    fireRate: 6
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Magazine
+        startingItem: Magazine40SWGlock
+        insertSound: /Audio/_Dystopia/Weapons/Guns/Pistols/colt_reload.ogg
+        ejectSound: /Audio/_Dystopia/Weapons/Guns/Pistols/colt_unload.ogg
+        priority: 2
+        whitelist:
+          tags: [ Magazine40SWGlock ]
+        whitelistFailPopup: gun-magazine-whitelist-fail
+      gun_chamber:
+        name: Chamber
+        priority: 1
+        whitelist:
+          tags: [ Cartridge40SW ]
+        startingItem: Cartridge40SW
+  - type: MagazineVisuals
+    magState: mag
+    steps: 1
+    zeroVisible: true
+  - type: ContainerContainer
+    containers:
+      gun_magazine: !type:ContainerSlot
+      gun_chamber: !type:ContainerSlot
+  - type: UnpoweredFlashlight
+  - type: PointLight
+    enabled: false
+    autoRot: true
+    lightMask: DystopiaConeTight
+    radius: 12
+    energy: 2.5
+    softness: 1
+  - type: Tag
+    tags: [ Sidearm ]
+  - type: Clothing
+    sprite: _Dystopia/Objects/Weapons/Guns/Pistols/service_pistol23/tiny.rsi
+    quickEquip: false
+    slots: [ suitStorage, Belt ]
+  - type: ChamberMagazineAmmoProvider
+    soundRack:
+      path: /Audio/Weapons/Guns/Cock/pistol_cock.ogg
+  - type: AmmoCounter
+  - type: Appearance
+  - type: StaticPrice
+    price: 500
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+
+- type: entity
+  id: DystopiaWeaponPistolGlock23JHP
+  name: Glock 23
+  description: A compact .40 S&W Glock with an underbarrel flashlight. Takes 15-round Glock 22 magazines.
+  suffix: JHP
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Pistols/service_pistol23/big.rsi
+    layers:
+    - state: base
+      map: [ enum.GunVisualLayers.Base ]
+    - state: mag-0
+      map: [ enum.GunVisualLayers.Mag ]
+    drawdepth: Items
+    noRot: false
+  - type: Item
+    sprite: _Dystopia/Objects/Weapons/Guns/Pistols/service_pistol23/tiny.rsi
+    size: Small
+    shape:
+    - 0,0,1,0
+    - 0,1,0,1
+    storedOffset: 0,-4
+  - type: Gun
+    angleDecay: 15
+    angleIncrease: 5
+    maxAngle: 15
+    minAngle: 1
+    selectedMode: SemiAuto
+    availableModes: [ SemiAuto ]
+    soundGunshot:
+      path: /Audio/_Dystopia/Weapons/Guns/Pistols/colt.ogg
+    fireRate: 6
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Magazine
+        startingItem: Magazine40SWGlockJHP
+        insertSound: /Audio/_Dystopia/Weapons/Guns/Pistols/colt_reload.ogg
+        ejectSound: /Audio/_Dystopia/Weapons/Guns/Pistols/colt_unload.ogg
+        priority: 2
+        whitelist:
+          tags: [ Magazine40SWGlock ]
+        whitelistFailPopup: gun-magazine-whitelist-fail
+      gun_chamber:
+        name: Chamber
+        priority: 1
+        whitelist:
+          tags: [ Cartridge40SW ]
+        startingItem: Cartridge40SWJHP
+  - type: MagazineVisuals
+    magState: mag
+    steps: 1
+    zeroVisible: true
+  - type: ContainerContainer
+    containers:
+      gun_magazine: !type:ContainerSlot
+      gun_chamber: !type:ContainerSlot
+  - type: UnpoweredFlashlight
+  - type: PointLight
+    enabled: false
+    autoRot: true
+    lightMask: DystopiaConeTight
+    radius: 12
+    energy: 2.5
+    softness: 1
+  - type: Tag
+    tags: [ Sidearm ]
+  - type: Clothing
+    sprite: _Dystopia/Objects/Weapons/Guns/Pistols/service_pistol23/tiny.rsi
+    quickEquip: false
+    slots: [ suitStorage, Belt ]
+  - type: ChamberMagazineAmmoProvider
+    soundRack:
+      path: /Audio/Weapons/Guns/Cock/pistol_cock.ogg
+  - type: AmmoCounter
+  - type: Appearance
+  - type: StaticPrice
+    price: 500
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+
+- type: entity
+  id: DystopiaWeaponPistolGlock23AP
+  name: Glock 23
+  description: A compact .40 S&W Glock with an underbarrel flashlight. Takes 15-round Glock 22 magazines.
+  suffix: AP
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Pistols/service_pistol23/big.rsi
+    layers:
+    - state: base
+      map: [ enum.GunVisualLayers.Base ]
+    - state: mag-0
+      map: [ enum.GunVisualLayers.Mag ]
+    drawdepth: Items
+    noRot: false
+  - type: Item
+    sprite: _Dystopia/Objects/Weapons/Guns/Pistols/service_pistol23/tiny.rsi
+    size: Small
+    shape:
+    - 0,0,1,0
+    - 0,1,0,1
+    storedOffset: 0,-4
+  - type: Gun
+    angleDecay: 15
+    angleIncrease: 5
+    maxAngle: 15
+    minAngle: 1
+    selectedMode: SemiAuto
+    availableModes: [ SemiAuto ]
+    soundGunshot:
+      path: /Audio/_Dystopia/Weapons/Guns/Pistols/colt.ogg
+    fireRate: 6
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Magazine
+        startingItem: Magazine40SWGlockAP
+        insertSound: /Audio/_Dystopia/Weapons/Guns/Pistols/colt_reload.ogg
+        ejectSound: /Audio/_Dystopia/Weapons/Guns/Pistols/colt_unload.ogg
+        priority: 2
+        whitelist:
+          tags: [ Magazine40SWGlock ]
+        whitelistFailPopup: gun-magazine-whitelist-fail
+      gun_chamber:
+        name: Chamber
+        priority: 1
+        whitelist:
+          tags: [ Cartridge40SW ]
+        startingItem: Cartridge40SWAP
+  - type: MagazineVisuals
+    magState: mag
+    steps: 1
+    zeroVisible: true
+  - type: ContainerContainer
+    containers:
+      gun_magazine: !type:ContainerSlot
+      gun_chamber: !type:ContainerSlot
+  - type: UnpoweredFlashlight
+  - type: PointLight
+    enabled: false
+    autoRot: true
+    lightMask: DystopiaConeTight
+    radius: 12
+    energy: 2.5
+    softness: 1
+  - type: Tag
+    tags: [ Sidearm ]
+  - type: Clothing
+    sprite: _Dystopia/Objects/Weapons/Guns/Pistols/service_pistol23/tiny.rsi
+    quickEquip: false
+    slots: [ suitStorage, Belt ]
+  - type: ChamberMagazineAmmoProvider
+    soundRack:
+      path: /Audio/Weapons/Guns/Cock/pistol_cock.ogg
+  - type: AmmoCounter
+  - type: Appearance
+  - type: StaticPrice
+    price: 500
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+
+- type: entity
+  id: DystopiaWeaponPistolM1911
+  name: M1911
+  description: "An old service pistol in .45 ACP: heavy, reliable and hard-hitting. 7-round magazines."
+  components:
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Pistols/m1911/big.rsi
+    layers:
+    - state: base
+      map: [ enum.GunVisualLayers.Base ]
+    - state: mag-0
+      map: [ enum.GunVisualLayers.Mag ]
+    drawdepth: Items
+    noRot: false
+  - type: Item
+    sprite: _Dystopia/Objects/Weapons/Guns/Pistols/m1911/tiny.rsi
+    size: Small
+    shape:
+    - 0,0,1,0
+    - 0,1,0,1
+    storedOffset: 0,-4
+  - type: Gun
+    angleDecay: 15
+    angleIncrease: 5
+    cameraRecoilScalar: 0.5
+    maxAngle: 15
+    minAngle: 1
+    selectedMode: SemiAuto
+    availableModes: [ SemiAuto ]
+    soundGunshot:
+      path: /Audio/_Dystopia/Weapons/Guns/Pistols/colt.ogg
+    fireRate: 6
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Magazine
+        startingItem: Magazine45ACPM1911
+        insertSound: /Audio/_Dystopia/Weapons/Guns/Pistols/colt_reload.ogg
+        ejectSound: /Audio/_Dystopia/Weapons/Guns/Pistols/colt_unload.ogg
+        priority: 2
+        whitelist:
+          tags: [ Magazine45ACPM1911 ]
+        whitelistFailPopup: gun-magazine-whitelist-fail
+      gun_chamber:
+        name: Chamber
+        priority: 1
+        whitelist:
+          tags: [ Cartridge45ACP ]
+        startingItem: Cartridge45ACP
+  - type: MagazineVisuals
+    magState: mag
+    steps: 1
+    zeroVisible: true
+  - type: ContainerContainer
+    containers:
+      gun_magazine: !type:ContainerSlot
+      gun_chamber: !type:ContainerSlot
+  - type: Tag
+    tags: [ Sidearm ]
+  - type: Clothing
+    sprite: _Dystopia/Objects/Weapons/Guns/Pistols/m1911/tiny.rsi
+    quickEquip: false
+    slots: [ suitStorage, Belt ]
+  - type: ChamberMagazineAmmoProvider
+    soundRack:
+      path: /Audio/Weapons/Guns/Cock/pistol_cock.ogg
+  - type: AmmoCounter
+  - type: Appearance
+  - type: StaticPrice
+    price: 500
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+
+- type: entity
+  id: DystopiaWeaponPistolHiPower
+  name: Browning Hi-Power
+  description: A classic 9x19mm pistol with a 13-round double-stack magazine.
+  components:
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Pistols/hi_power_br/big.rsi
+    layers:
+    - state: base
+      map: [ enum.GunVisualLayers.Base ]
+    - state: mag-0
+      map: [ enum.GunVisualLayers.Mag ]
+    drawdepth: Items
+    noRot: false
+  - type: Item
+    sprite: _Dystopia/Objects/Weapons/Guns/Pistols/hi_power_br/tiny.rsi
+    size: Small
+    shape:
+    - 0,0,1,0
+    - 0,1,0,1
+    storedOffset: 0,-4
+  - type: Gun
+    angleDecay: 15
+    angleIncrease: 5
+    cameraRecoilScalar: 0.5
+    maxAngle: 15
+    minAngle: 1
+    soundGunshot:
+      path: /Audio/_Dystopia/Weapons/Guns/Pistols/vp70_shot.ogg
+    soundEmpty:
+      path: /Audio/_Dystopia/Weapons/Guns/Pistols/vp70_empty.ogg
+    fireRate: 6
+    selectedMode: SemiAuto
+    availableModes: [ SemiAuto, FullAuto ]
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Magazine
+        startingItem: Magazine9x19HiPower
+        insertSound: /Audio/_Dystopia/Weapons/Guns/Pistols/vp70_reload.ogg
+        ejectSound: /Audio/_Dystopia/Weapons/Guns/Pistols/vp70_unload.ogg
+        priority: 2
+        whitelist:
+          tags: [ Magazine9x19HiPower ]
+        whitelistFailPopup: gun-magazine-whitelist-fail
+      gun_chamber:
+        name: Chamber
+        priority: 1
+        whitelist:
+          tags: [ Cartridge9x19 ]
+        startingItem: Cartridge9x19
+  - type: MagazineVisuals
+    magState: mag
+    steps: 1
+    zeroVisible: true
+  - type: ContainerContainer
+    containers:
+      gun_magazine: !type:ContainerSlot
+      gun_chamber: !type:ContainerSlot
+  - type: Tag
+    tags: [ Sidearm ]
+  - type: Clothing
+    sprite: _Dystopia/Objects/Weapons/Guns/Pistols/hi_power_br/tiny.rsi
+    quickEquip: false
+    slots: [ suitStorage, Belt ]
+  - type: ChamberMagazineAmmoProvider
+    soundRack:
+      path: /Audio/Weapons/Guns/Cock/pistol_cock.ogg
+  - type: AmmoCounter
+  - type: Appearance
+  - type: StaticPrice
+    price: 500
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+
+- type: entity
+  id: DystopiaWeaponPistolACP14
+  name: ACP-14
+  description: A reliable .45 ACP service pistol with a 14-round magazine.
+  components:
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Pistols/acp14/big.rsi
+    layers:
+    - state: base
+      map: [ enum.GunVisualLayers.Base ]
+    - state: mag-0
+      map: [ enum.GunVisualLayers.Mag ]
+    drawdepth: Items
+    noRot: false
+  - type: Item
+    sprite: _Dystopia/Objects/Weapons/Guns/Pistols/acp14/tiny.rsi
+    size: Small
+    shape:
+    - 0,0,1,0
+    - 0,1,0,1
+    storedOffset: 0,-4
+  - type: Gun
+    angleIncrease: 8
+    angleDecay: 10
+    cameraRecoilScalar: 1
+    maxAngle: 15
+    minAngle: 1
+    selectedMode: SemiAuto
+    availableModes: [ SemiAuto ]
+    soundGunshot:
+      path: /Audio/_Dystopia/Weapons/Guns/Pistols/acp14_shot.ogg
+    fireRate: 6
+  - type: ChamberMagazineAmmoProvider
+    soundRack:
+      path: /Audio/Weapons/Guns/Cock/pistol_cock.ogg
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Magazine
+        startingItem: Magazine45ACPACP14
+        insertSound: /Audio/_Dystopia/Weapons/Guns/Pistols/acp14_reload.ogg
+        ejectSound: /Audio/Weapons/Guns/MagOut/pistol_magout.ogg
+        priority: 2
+        whitelist:
+          tags: [ Magazine45ACPACP14 ]
+        whitelistFailPopup: gun-magazine-whitelist-fail
+      gun_chamber:
+        name: Chamber
+        priority: 1
+        whitelist:
+          tags: [ Cartridge45ACP ]
+        startingItem: Cartridge45ACP
+  - type: MagazineVisuals
+    magState: mag
+    steps: 1
+    zeroVisible: true
+  - type: ContainerContainer
+    containers:
+      gun_magazine: !type:ContainerSlot
+      gun_chamber: !type:ContainerSlot
+  - type: Tag
+    tags: [ Sidearm ]
+  - type: Clothing
+    sprite: _Dystopia/Objects/Weapons/Guns/Pistols/acp14/tiny.rsi
+    quickEquip: false
+    slots: [ suitStorage, Belt ]
+  - type: AmmoCounter
+  - type: Appearance
+  - type: StaticPrice
+    price: 500
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+
+- type: entity
+  id: DystopiaWeaponPistolACP14JHP
+  name: ACP-14
+  description: A reliable .45 ACP service pistol with a 14-round magazine.
+  suffix: JHP
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Pistols/acp14/big.rsi
+    layers:
+    - state: base
+      map: [ enum.GunVisualLayers.Base ]
+    - state: mag-0
+      map: [ enum.GunVisualLayers.Mag ]
+    drawdepth: Items
+    noRot: false
+  - type: Item
+    sprite: _Dystopia/Objects/Weapons/Guns/Pistols/acp14/tiny.rsi
+    size: Small
+    shape:
+    - 0,0,1,0
+    - 0,1,0,1
+    storedOffset: 0,-4
+  - type: Gun
+    angleIncrease: 8
+    angleDecay: 10
+    cameraRecoilScalar: 1
+    maxAngle: 15
+    minAngle: 1
+    selectedMode: SemiAuto
+    availableModes: [ SemiAuto ]
+    soundGunshot:
+      path: /Audio/_Dystopia/Weapons/Guns/Pistols/acp14_shot.ogg
+    fireRate: 6
+  - type: ChamberMagazineAmmoProvider
+    soundRack:
+      path: /Audio/Weapons/Guns/Cock/pistol_cock.ogg
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Magazine
+        startingItem: Magazine45ACPACP14JHP
+        insertSound: /Audio/_Dystopia/Weapons/Guns/Pistols/acp14_reload.ogg
+        ejectSound: /Audio/Weapons/Guns/MagOut/pistol_magout.ogg
+        priority: 2
+        whitelist:
+          tags: [ Magazine45ACPACP14 ]
+        whitelistFailPopup: gun-magazine-whitelist-fail
+      gun_chamber:
+        name: Chamber
+        priority: 1
+        whitelist:
+          tags: [ Cartridge45ACP ]
+        startingItem: Cartridge45ACPJHP
+  - type: MagazineVisuals
+    magState: mag
+    steps: 1
+    zeroVisible: true
+  - type: ContainerContainer
+    containers:
+      gun_magazine: !type:ContainerSlot
+      gun_chamber: !type:ContainerSlot
+  - type: Tag
+    tags: [ Sidearm ]
+  - type: Clothing
+    sprite: _Dystopia/Objects/Weapons/Guns/Pistols/acp14/tiny.rsi
+    quickEquip: false
+    slots: [ suitStorage, Belt ]
+  - type: AmmoCounter
+  - type: Appearance
+  - type: StaticPrice
+    price: 500
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+
+- type: entity
+  id: DystopiaWeaponPistolACP14AP
+  name: ACP-14
+  description: A reliable .45 ACP service pistol with a 14-round magazine.
+  suffix: AP
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Pistols/acp14/big.rsi
+    layers:
+    - state: base
+      map: [ enum.GunVisualLayers.Base ]
+    - state: mag-0
+      map: [ enum.GunVisualLayers.Mag ]
+    drawdepth: Items
+    noRot: false
+  - type: Item
+    sprite: _Dystopia/Objects/Weapons/Guns/Pistols/acp14/tiny.rsi
+    size: Small
+    shape:
+    - 0,0,1,0
+    - 0,1,0,1
+    storedOffset: 0,-4
+  - type: Gun
+    angleIncrease: 8
+    angleDecay: 10
+    cameraRecoilScalar: 1
+    maxAngle: 15
+    minAngle: 1
+    selectedMode: SemiAuto
+    availableModes: [ SemiAuto ]
+    soundGunshot:
+      path: /Audio/_Dystopia/Weapons/Guns/Pistols/acp14_shot.ogg
+    fireRate: 6
+  - type: ChamberMagazineAmmoProvider
+    soundRack:
+      path: /Audio/Weapons/Guns/Cock/pistol_cock.ogg
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Magazine
+        startingItem: Magazine45ACPACP14AP
+        insertSound: /Audio/_Dystopia/Weapons/Guns/Pistols/acp14_reload.ogg
+        ejectSound: /Audio/Weapons/Guns/MagOut/pistol_magout.ogg
+        priority: 2
+        whitelist:
+          tags: [ Magazine45ACPACP14 ]
+        whitelistFailPopup: gun-magazine-whitelist-fail
+      gun_chamber:
+        name: Chamber
+        priority: 1
+        whitelist:
+          tags: [ Cartridge45ACP ]
+        startingItem: Cartridge45ACPAP
+  - type: MagazineVisuals
+    magState: mag
+    steps: 1
+    zeroVisible: true
+  - type: ContainerContainer
+    containers:
+      gun_magazine: !type:ContainerSlot
+      gun_chamber: !type:ContainerSlot
+  - type: Tag
+    tags: [ Sidearm ]
+  - type: Clothing
+    sprite: _Dystopia/Objects/Weapons/Guns/Pistols/acp14/tiny.rsi
+    quickEquip: false
+    slots: [ suitStorage, Belt ]
+  - type: AmmoCounter
+  - type: Appearance
+  - type: StaticPrice
+    price: 500
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+
+- type: entity
+  id: DystopiaWeaponPistolVP78
+  name: VP-78
+  description: A massive automatic pistol in 9x19mm, capable of fully automatic fire. 18-round magazines.
+  components:
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Pistols/vp78/big.rsi
+    layers:
+    - state: base
+      map: [ enum.GunVisualLayers.Base ]
+    - state: mag-0
+      map: [ enum.GunVisualLayers.Mag ]
+    drawdepth: Items
+    noRot: false
+  - type: Item
+    sprite: _Dystopia/Objects/Weapons/Guns/Pistols/vp78/tiny.rsi
+    size: Small
+    shape:
+    - 0,0,1,0
+    - 0,1,0,1
+    storedOffset: 0,-4
+  - type: Gun
+    angleIncrease: 2
+    angleDecay: 10
+    cameraRecoilScalar: 0.5
+    maxAngle: 15
+    minAngle: 1
+    selectedMode: FullAuto
+    availableModes: [ FullAuto ]
+    soundGunshot:
+      path: /Audio/_Dystopia/Weapons/Guns/Pistols/vp70_shot.ogg
+    soundEmpty:
+      path: /Audio/_Dystopia/Weapons/Guns/Pistols/vp70_empty.ogg
+    fireRate: 6
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Magazine
+        startingItem: Magazine9x19VP78
+        insertSound: /Audio/_Dystopia/Weapons/Guns/Pistols/vp70_reload.ogg
+        ejectSound: /Audio/_Dystopia/Weapons/Guns/Pistols/vp70_unload.ogg
+        priority: 2
+        whitelist:
+          tags: [ Magazine9x19VP78 ]
+        whitelistFailPopup: gun-magazine-whitelist-fail
+      gun_chamber:
+        name: Chamber
+        priority: 1
+        whitelist:
+          tags: [ Cartridge9x19 ]
+        startingItem: Cartridge9x19
+  - type: MagazineVisuals
+    magState: mag
+    steps: 1
+    zeroVisible: true
+  - type: ContainerContainer
+    containers:
+      gun_magazine: !type:ContainerSlot
+      gun_chamber: !type:ContainerSlot
+  - type: Tag
+    tags: [ Sidearm ]
+  - type: Clothing
+    sprite: _Dystopia/Objects/Weapons/Guns/Pistols/vp78/tiny.rsi
+    quickEquip: false
+    slots: [ suitStorage, Belt ]
+  - type: ChamberMagazineAmmoProvider
+    soundRack:
+      path: /Audio/Weapons/Guns/Cock/pistol_cock.ogg
+  - type: AmmoCounter
+  - type: Appearance
+  - type: StaticPrice
+    price: 500
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+
+- type: entity
+  id: DystopiaWeaponPistolVP78JHP
+  name: VP-78
+  description: A massive automatic pistol in 9x19mm, capable of fully automatic fire. 18-round magazines.
+  suffix: JHP
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Pistols/vp78/big.rsi
+    layers:
+    - state: base
+      map: [ enum.GunVisualLayers.Base ]
+    - state: mag-0
+      map: [ enum.GunVisualLayers.Mag ]
+    drawdepth: Items
+    noRot: false
+  - type: Item
+    sprite: _Dystopia/Objects/Weapons/Guns/Pistols/vp78/tiny.rsi
+    size: Small
+    shape:
+    - 0,0,1,0
+    - 0,1,0,1
+    storedOffset: 0,-4
+  - type: Gun
+    angleIncrease: 2
+    angleDecay: 10
+    cameraRecoilScalar: 0.5
+    maxAngle: 15
+    minAngle: 1
+    selectedMode: FullAuto
+    availableModes: [ FullAuto ]
+    soundGunshot:
+      path: /Audio/_Dystopia/Weapons/Guns/Pistols/vp70_shot.ogg
+    soundEmpty:
+      path: /Audio/_Dystopia/Weapons/Guns/Pistols/vp70_empty.ogg
+    fireRate: 6
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Magazine
+        startingItem: Magazine9x19VP78JHP
+        insertSound: /Audio/_Dystopia/Weapons/Guns/Pistols/vp70_reload.ogg
+        ejectSound: /Audio/_Dystopia/Weapons/Guns/Pistols/vp70_unload.ogg
+        priority: 2
+        whitelist:
+          tags: [ Magazine9x19VP78 ]
+        whitelistFailPopup: gun-magazine-whitelist-fail
+      gun_chamber:
+        name: Chamber
+        priority: 1
+        whitelist:
+          tags: [ Cartridge9x19 ]
+        startingItem: Cartridge9x19JHP
+  - type: MagazineVisuals
+    magState: mag
+    steps: 1
+    zeroVisible: true
+  - type: ContainerContainer
+    containers:
+      gun_magazine: !type:ContainerSlot
+      gun_chamber: !type:ContainerSlot
+  - type: Tag
+    tags: [ Sidearm ]
+  - type: Clothing
+    sprite: _Dystopia/Objects/Weapons/Guns/Pistols/vp78/tiny.rsi
+    quickEquip: false
+    slots: [ suitStorage, Belt ]
+  - type: ChamberMagazineAmmoProvider
+    soundRack:
+      path: /Audio/Weapons/Guns/Cock/pistol_cock.ogg
+  - type: AmmoCounter
+  - type: Appearance
+  - type: StaticPrice
+    price: 500
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+
+- type: entity
+  id: DystopiaWeaponPistolVP78AP
+  name: VP-78
+  description: A massive automatic pistol in 9x19mm, capable of fully automatic fire. 18-round magazines.
+  suffix: AP
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Pistols/vp78/big.rsi
+    layers:
+    - state: base
+      map: [ enum.GunVisualLayers.Base ]
+    - state: mag-0
+      map: [ enum.GunVisualLayers.Mag ]
+    drawdepth: Items
+    noRot: false
+  - type: Item
+    sprite: _Dystopia/Objects/Weapons/Guns/Pistols/vp78/tiny.rsi
+    size: Small
+    shape:
+    - 0,0,1,0
+    - 0,1,0,1
+    storedOffset: 0,-4
+  - type: Gun
+    angleIncrease: 2
+    angleDecay: 10
+    cameraRecoilScalar: 0.5
+    maxAngle: 15
+    minAngle: 1
+    selectedMode: FullAuto
+    availableModes: [ FullAuto ]
+    soundGunshot:
+      path: /Audio/_Dystopia/Weapons/Guns/Pistols/vp70_shot.ogg
+    soundEmpty:
+      path: /Audio/_Dystopia/Weapons/Guns/Pistols/vp70_empty.ogg
+    fireRate: 6
+  - type: ItemSlots
+    slots:
+      gun_magazine:
+        name: Magazine
+        startingItem: Magazine9x19VP78AP
+        insertSound: /Audio/_Dystopia/Weapons/Guns/Pistols/vp70_reload.ogg
+        ejectSound: /Audio/_Dystopia/Weapons/Guns/Pistols/vp70_unload.ogg
+        priority: 2
+        whitelist:
+          tags: [ Magazine9x19VP78 ]
+        whitelistFailPopup: gun-magazine-whitelist-fail
+      gun_chamber:
+        name: Chamber
+        priority: 1
+        whitelist:
+          tags: [ Cartridge9x19 ]
+        startingItem: Cartridge9x19AP
+  - type: MagazineVisuals
+    magState: mag
+    steps: 1
+    zeroVisible: true
+  - type: ContainerContainer
+    containers:
+      gun_magazine: !type:ContainerSlot
+      gun_chamber: !type:ContainerSlot
+  - type: Tag
+    tags: [ Sidearm ]
+  - type: Clothing
+    sprite: _Dystopia/Objects/Weapons/Guns/Pistols/vp78/tiny.rsi
+    quickEquip: false
+    slots: [ suitStorage, Belt ]
+  - type: ChamberMagazineAmmoProvider
+    soundRack:
+      path: /Audio/Weapons/Guns/Cock/pistol_cock.ogg
+  - type: AmmoCounter
+  - type: Appearance
+  - type: StaticPrice
+    price: 500
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+
+- type: entity
+  id: DystopiaWeaponRevolverMatebaJHP
+  name: Mateba
+  description: A modern revolver with its barrel aligned to the bottom chamber. The unique trigger action and barrel placement enable a high fire rate with minimal muzzle flip. Loads 6 rounds of .44 Magnum.
+  suffix: JHP
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Revolvers/mateba.rsi
+    state: icon
+    drawdepth: Items
+    noRot: false
+  - type: Clothing
+    sprite: _Dystopia/Objects/Weapons/Guns/Revolvers/mateba_inhands.rsi
+    quickEquip: false
+    slots: [ suitStorage, Belt ]
+  - type: Item
+    sprite: _Dystopia/Objects/Weapons/Guns/Revolvers/mateba_inhands.rsi
+    storedOffset: 0,-3
+    size: Small
+    shape:
+    - 0,0,1,0
+    - 0,1,0,1
+  - type: Gun
+    fireRate: 2.5
+    cameraRecoilScalar: 3
+    soundGunshot:
+      path: /Audio/_Dystopia/Weapons/Guns/Revolvers/mateba.ogg
+    selectedMode: SemiAuto
+    availableModes: [ SemiAuto ]
+  - type: RevolverAmmoProvider
+    whitelist:
+      tags: [ Cartridge44Mag, SpeedLoader44Mag ]
+    proto: Cartridge44MagJHP
+    soundInsert:
+      path: /Audio/_Dystopia/Weapons/Guns/Revolvers/revolver_load.ogg
+    soundEject:
+      path: /Audio/_Dystopia/Weapons/Guns/Revolvers/revolver_unload.ogg
+    capacity: 6
+    chambers: [ true, true, true, true, true, true ]
+    ammoSlots: [ null, null, null, null, null, null ]
+  - type: Contraband
+    severity: Corvax434
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Tag
+    tags: [ Sidearm ]
+  - type: AmmoCounter
+  - type: UseDelay
+    delay: 0.66
+  - type: ContainerContainer
+    containers:
+      revolver-ammo: !type:Container
+  - type: StaticPrice
+    price: 500
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30

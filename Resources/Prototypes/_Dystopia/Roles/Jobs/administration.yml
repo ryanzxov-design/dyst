@@ -99,6 +99,7 @@
   id: DystopiaCivilInspectorGear
   equipment:
     jumpsuit: ClothingUniformJumpsuitHoP
+    outerClothing: ClothingOuterCoatSecurityOvercoat # шинель гражданского инспектора
     mask: DystopiaClothingMaskGasSanitary
     shoes: ClothingShoesColorBrown
     id: DystopiaCivilInspectorPDA

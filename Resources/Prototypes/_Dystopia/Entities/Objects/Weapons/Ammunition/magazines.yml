@@ -10,6 +10,21 @@
   id: Magazine50AEDeagle
 
 - type: Tag
+  id: Magazine40SWGlock
+
+- type: Tag
+  id: Magazine45ACPM1911
+
+- type: Tag
+  id: Magazine45ACPACP14
+
+- type: Tag
+  id: Magazine9x19HiPower
+
+- type: Tag
+  id: Magazine9x19VP78
+
+- type: Tag
   id: Magazine9x19MP5
 
 - type: Tag
@@ -172,6 +187,882 @@
     mayTransfer: true
   - type: Sprite
     sprite: _Dystopia/Objects/Weapons/Guns/Magazines/Magnum/magnum_pistol_mag.rsi
+    layers:
+    - state: base
+      map: [ enum.GunVisualLayers.Base ]
+    - state: mag-1
+      map: [ enum.GunVisualLayers.Mag ]
+    drawdepth: Items
+    noRot: false
+  - type: MagazineVisuals
+    magState: mag
+    steps: 6
+    zeroVisible: false
+  - type: Item
+    size: Small
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: Appearance
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+
+- type: entity
+  id: Magazine50AEDeagleJHP
+  name: Desert Eagle magazine (.50 AE JHP)
+  description: Holds 7 rounds of .50 AE. Loaded with JHP.
+  components:
+  - type: Tag
+    tags: [ Magazine50AEDeagle ]
+  - type: BallisticAmmoProvider
+    proto: Cartridge50AEJHP
+    capacity: 7
+    whitelist:
+      tags: [ Cartridge50AE ]
+    mayTransfer: true
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Magazines/Magnum/magnum_pistol_mag.rsi
+    layers:
+    - state: base
+      map: [ enum.GunVisualLayers.Base ]
+    - state: mag-1
+      map: [ enum.GunVisualLayers.Mag ]
+    drawdepth: Items
+    noRot: false
+  - type: MagazineVisuals
+    magState: mag
+    steps: 6
+    zeroVisible: false
+  - type: Item
+    size: Small
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: Appearance
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+
+- type: entity
+  id: Magazine40SWGlock
+  name: Glock magazine (.40 S&W)
+  description: Holds 15 rounds of .40 S&W.
+  components:
+  - type: Tag
+    tags: [ Magazine40SWGlock ]
+  - type: BallisticAmmoProvider
+    proto: Cartridge40SW
+    capacity: 15
+    whitelist:
+      tags: [ Cartridge40SW ]
+    mayTransfer: true
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Magazines/Pistol/pistol_high_capacity_mag.rsi
+    layers:
+    - state: base
+      map: [ enum.GunVisualLayers.Base ]
+    - state: mag-1
+      map: [ enum.GunVisualLayers.Mag ]
+    drawdepth: Items
+    noRot: false
+  - type: MagazineVisuals
+    magState: mag
+    steps: 6
+    zeroVisible: false
+  - type: Item
+    size: Small
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: Appearance
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+
+- type: entity
+  id: Magazine40SWGlockJHP
+  name: Glock magazine (.40 S&W JHP)
+  description: Holds 15 rounds of .40 S&W. Loaded with JHP.
+  components:
+  - type: Tag
+    tags: [ Magazine40SWGlock ]
+  - type: BallisticAmmoProvider
+    proto: Cartridge40SWJHP
+    capacity: 15
+    whitelist:
+      tags: [ Cartridge40SW ]
+    mayTransfer: true
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Magazines/Pistol/pistol_high_capacity_mag.rsi
+    layers:
+    - state: base
+      map: [ enum.GunVisualLayers.Base ]
+    - state: mag-1
+      map: [ enum.GunVisualLayers.Mag ]
+    drawdepth: Items
+    noRot: false
+  - type: MagazineVisuals
+    magState: mag
+    steps: 6
+    zeroVisible: false
+  - type: Item
+    size: Small
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: Appearance
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+
+- type: entity
+  id: Magazine40SWGlockAP
+  name: Glock magazine (.40 S&W AP)
+  description: Holds 15 rounds of .40 S&W. Loaded with AP.
+  components:
+  - type: Tag
+    tags: [ Magazine40SWGlock ]
+  - type: BallisticAmmoProvider
+    proto: Cartridge40SWAP
+    capacity: 15
+    whitelist:
+      tags: [ Cartridge40SW ]
+    mayTransfer: true
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Magazines/Pistol/pistol_high_capacity_mag.rsi
+    layers:
+    - state: base
+      map: [ enum.GunVisualLayers.Base ]
+    - state: mag-1
+      map: [ enum.GunVisualLayers.Mag ]
+    drawdepth: Items
+    noRot: false
+  - type: MagazineVisuals
+    magState: mag
+    steps: 6
+    zeroVisible: false
+  - type: Item
+    size: Small
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: Appearance
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+
+- type: entity
+  id: Magazine45ACPM1911
+  name: M1911 magazine (.45 ACP)
+  description: Holds 7 rounds of .45 ACP.
+  components:
+  - type: Tag
+    tags: [ Magazine45ACPM1911 ]
+  - type: BallisticAmmoProvider
+    proto: Cartridge45ACP
+    capacity: 7
+    whitelist:
+      tags: [ Cartridge45ACP ]
+    mayTransfer: true
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Magazines/Pistol/pistol_mag_45acp.rsi
+    layers:
+    - state: base
+      map: [ enum.GunVisualLayers.Base ]
+    - state: mag-1
+      map: [ enum.GunVisualLayers.Mag ]
+    drawdepth: Items
+    noRot: false
+  - type: MagazineVisuals
+    magState: mag
+    steps: 6
+    zeroVisible: false
+  - type: Item
+    size: Small
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: Appearance
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+
+- type: entity
+  id: Magazine45ACPACP14
+  name: ACP-14 magazine (.45 ACP)
+  description: Holds 14 rounds of .45 ACP.
+  components:
+  - type: Tag
+    tags: [ Magazine45ACPACP14 ]
+  - type: BallisticAmmoProvider
+    proto: Cartridge45ACP
+    capacity: 14
+    whitelist:
+      tags: [ Cartridge45ACP ]
+    mayTransfer: true
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Magazines/Pistol/pistol_mag_45acp.rsi
+    layers:
+    - state: base
+      map: [ enum.GunVisualLayers.Base ]
+    - state: mag-1
+      map: [ enum.GunVisualLayers.Mag ]
+    drawdepth: Items
+    noRot: false
+  - type: MagazineVisuals
+    magState: mag
+    steps: 6
+    zeroVisible: false
+  - type: Item
+    size: Small
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: Appearance
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+
+- type: entity
+  id: Magazine45ACPACP14JHP
+  name: ACP-14 magazine (.45 ACP JHP)
+  description: Holds 14 rounds of .45 ACP. Loaded with JHP.
+  components:
+  - type: Tag
+    tags: [ Magazine45ACPACP14 ]
+  - type: BallisticAmmoProvider
+    proto: Cartridge45ACPJHP
+    capacity: 14
+    whitelist:
+      tags: [ Cartridge45ACP ]
+    mayTransfer: true
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Magazines/Pistol/pistol_mag_45acp.rsi
+    layers:
+    - state: base
+      map: [ enum.GunVisualLayers.Base ]
+    - state: mag-1
+      map: [ enum.GunVisualLayers.Mag ]
+    drawdepth: Items
+    noRot: false
+  - type: MagazineVisuals
+    magState: mag
+    steps: 6
+    zeroVisible: false
+  - type: Item
+    size: Small
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: Appearance
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+
+- type: entity
+  id: Magazine45ACPACP14AP
+  name: ACP-14 magazine (.45 ACP AP)
+  description: Holds 14 rounds of .45 ACP. Loaded with AP.
+  components:
+  - type: Tag
+    tags: [ Magazine45ACPACP14 ]
+  - type: BallisticAmmoProvider
+    proto: Cartridge45ACPAP
+    capacity: 14
+    whitelist:
+      tags: [ Cartridge45ACP ]
+    mayTransfer: true
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Magazines/Pistol/pistol_mag_45acp.rsi
+    layers:
+    - state: base
+      map: [ enum.GunVisualLayers.Base ]
+    - state: mag-1
+      map: [ enum.GunVisualLayers.Mag ]
+    drawdepth: Items
+    noRot: false
+  - type: MagazineVisuals
+    magState: mag
+    steps: 6
+    zeroVisible: false
+  - type: Item
+    size: Small
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: Appearance
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+
+- type: entity
+  id: Magazine9x19HiPower
+  name: Hi-Power magazine (9x19mm)
+  description: Holds 13 rounds of 9x19mm.
+  components:
+  - type: Tag
+    tags: [ Magazine9x19HiPower ]
+  - type: BallisticAmmoProvider
+    proto: Cartridge9x19
+    capacity: 13
+    whitelist:
+      tags: [ Cartridge9x19 ]
+    mayTransfer: true
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Magazines/Pistol/pistol_mag.rsi
+    layers:
+    - state: base
+      map: [ enum.GunVisualLayers.Base ]
+    - state: mag-1
+      map: [ enum.GunVisualLayers.Mag ]
+    drawdepth: Items
+    noRot: false
+  - type: MagazineVisuals
+    magState: mag
+    steps: 3
+    zeroVisible: false
+  - type: Item
+    size: Small
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: Appearance
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+
+- type: entity
+  id: Magazine9x19VP78
+  name: VP-78 magazine (9x19mm)
+  description: Holds 18 rounds of 9x19mm.
+  components:
+  - type: Tag
+    tags: [ Magazine9x19VP78 ]
+  - type: BallisticAmmoProvider
+    proto: Cartridge9x19
+    capacity: 18
+    whitelist:
+      tags: [ Cartridge9x19 ]
+    mayTransfer: true
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Magazines/Pistol/pistol_high_capacity_mag.rsi
+    layers:
+    - state: base
+      map: [ enum.GunVisualLayers.Base ]
+    - state: mag-1
+      map: [ enum.GunVisualLayers.Mag ]
+    drawdepth: Items
+    noRot: false
+  - type: MagazineVisuals
+    magState: mag
+    steps: 6
+    zeroVisible: false
+  - type: Item
+    size: Small
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: Appearance
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+
+- type: entity
+  id: Magazine9x19VP78JHP
+  name: VP-78 magazine (9x19mm JHP)
+  description: Holds 18 rounds of 9x19mm. Loaded with JHP.
+  components:
+  - type: Tag
+    tags: [ Magazine9x19VP78 ]
+  - type: BallisticAmmoProvider
+    proto: Cartridge9x19JHP
+    capacity: 18
+    whitelist:
+      tags: [ Cartridge9x19 ]
+    mayTransfer: true
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Magazines/Pistol/pistol_high_capacity_mag.rsi
+    layers:
+    - state: base
+      map: [ enum.GunVisualLayers.Base ]
+    - state: mag-1
+      map: [ enum.GunVisualLayers.Mag ]
+    drawdepth: Items
+    noRot: false
+  - type: MagazineVisuals
+    magState: mag
+    steps: 6
+    zeroVisible: false
+  - type: Item
+    size: Small
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+  - type: Appearance
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+
+- type: entity
+  id: Magazine9x19VP78AP
+  name: VP-78 magazine (9x19mm AP)
+  description: Holds 18 rounds of 9x19mm. Loaded with AP.
+  components:
+  - type: Tag
+    tags: [ Magazine9x19VP78 ]
+  - type: BallisticAmmoProvider
+    proto: Cartridge9x19AP
+    capacity: 18
+    whitelist:
+      tags: [ Cartridge9x19 ]
+    mayTransfer: true
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Magazines/Pistol/pistol_high_capacity_mag.rsi
     layers:
     - state: base
       map: [ enum.GunVisualLayers.Base ]
@@ -1933,6 +2824,168 @@
     tags: [ SpeedLoader44Mag ]
   - type: BallisticAmmoProvider
     proto: Cartridge44Mag
+    capacity: 6
+    whitelist:
+      tags: [ Cartridge44Mag ]
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Ammunition/SpeedLoaders/Magnum/magnum_speed_loader.rsi
+    layers:
+    - state: base
+      map: [ enum.GunVisualLayers.Base ]
+    - state: base-6
+      map: [ enum.GunVisualLayers.Mag ]
+    drawdepth: Items
+    noRot: false
+  - type: MagazineVisuals
+    magState: base
+    steps: 7
+    zeroVisible: false
+  - type: Appearance
+  - type: Item
+    inhandVisuals:
+      left:
+      - state: inhand-left-mag
+      - state: inhand-left-ammo
+      right:
+      - state: inhand-right-mag
+      - state: inhand-right-ammo
+    size: Small
+  - type: SpeedLoader
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+        ents: []
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+
+- type: entity
+  id: SpeedLoader44MagJHP
+  name: speed loader (.44 Magnum JHP)
+  description: Holds 6 rounds of .44 Magnum for quick reloading. Loaded with JHP.
+  components:
+  - type: Tag
+    tags: [ SpeedLoader44Mag ]
+  - type: BallisticAmmoProvider
+    proto: Cartridge44MagJHP
+    capacity: 6
+    whitelist:
+      tags: [ Cartridge44Mag ]
+  - type: Sprite
+    sprite: _Dystopia/Objects/Weapons/Guns/Ammunition/SpeedLoaders/Magnum/magnum_speed_loader.rsi
+    layers:
+    - state: base
+      map: [ enum.GunVisualLayers.Base ]
+    - state: base-6
+      map: [ enum.GunVisualLayers.Mag ]
+    drawdepth: Items
+    noRot: false
+  - type: MagazineVisuals
+    magState: base
+    steps: 7
+    zeroVisible: false
+  - type: Appearance
+  - type: Item
+    inhandVisuals:
+      left:
+      - state: inhand-left-mag
+      - state: inhand-left-ammo
+      right:
+      - state: inhand-right-mag
+      - state: inhand-right-ammo
+    size: Small
+  - type: SpeedLoader
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
+        ents: []
+  - type: Contraband
+    severity: Corvax433
+    allowedDepartments: [ Security ]
+    allowedJobs: []
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+
+- type: entity
+  id: SpeedLoader44MagAP
+  name: speed loader (.44 Magnum AP)
+  description: Holds 6 rounds of .44 Magnum for quick reloading. Loaded with AP.
+  components:
+  - type: Tag
+    tags: [ SpeedLoader44Mag ]
+  - type: BallisticAmmoProvider
+    proto: Cartridge44MagAP
     capacity: 6
     whitelist:
       tags: [ Cartridge44Mag ]

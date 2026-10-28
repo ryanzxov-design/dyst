@@ -3,8 +3,9 @@ ent-ClothingHeadHelmetBase = { ent-ClothingHeadBase }
     .desc = { ent-ClothingHeadBase.desc }
 ent-ClothingHeadHelmetArmoredBase = { ent-ClothingHeadHelmetBase }
     .desc = { ent-ClothingHeadHelmetBase.desc }
+# Dystopia: шлем без забрала
 ent-ClothingHeadHelmetBasic = шлем стражи
-    .desc = Стальной шлем с забралом. Держит удар дубинкой и пистолетную пулю.
+    .desc = Стальной шлем. Держит удар дубинкой и пистолетную пулю.
 ent-ClothingHeadHelmetMerc = шлем наёмника
     .desc = Боевой шлем обычно используется наёмниками, он прочный, лёгкий и пахнет порохом и джунглями.
 ent-ClothingHeadHelmetSwat = шлем спецназа

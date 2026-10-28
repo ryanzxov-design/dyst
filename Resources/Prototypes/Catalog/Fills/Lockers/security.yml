@@ -98,8 +98,7 @@
       prob: 0.02
     - id: PlushieLizardJobSecurityofficer
       prob: 0.02
-    - id: ClothingOuterCoatSecurityOvercoat # Corvax-SecFashion
-      prob: 0.2
+    # Dystopia: кожаная шинель (ClothingOuterCoatSecurityOvercoat) — теперь шинель гражданского инспектора, у Стражи её нет
 
 - type: entity
   id: LockerBrigmedicFilled
