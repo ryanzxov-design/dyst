@@ -1,8 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 // Dystopia: программа КПК «Мой статус». Показывает дело владельца карты, лежащей в КПК (как «Банк» — счёт этой
-// карты): статус, лояльность, должность, карту и последние записи журнала, которые гражданину положено видеть.
+// карты): статус, лояльность, должность и карту.
 
-using System.Linq;
 using Content.Shared._Dystopia.Economy;
 using Content.Shared._Dystopia.Registry;
 using Content.Shared.CartridgeLoader;
@@ -91,16 +90,6 @@ public sealed partial class CityStatusCartridgeSystem : EntitySystem
         {
             state.CardSerial = idCard.Serial;
             state.CardAnnulled = idCard.Annulled;
-        }
-
-        // у Консула журнал закрыт, как и в консоли соцучёта
-        if (!outside)
-        {
-            state.Journal = record.Journal
-                .Where(e => comp.JournalKinds.Contains(e.Kind))
-                .Reverse()
-                .Take(Math.Max(0, comp.JournalLimit))
-                .ToList();
         }
 
         return state;

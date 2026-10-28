@@ -1,3 +1,4 @@
+using Content.Client._Dystopia.Pda;
 using Content.Client.UserInterface.Fragments;
 using Content.Shared._Dystopia.Laws;
 using Robust.Client.UserInterface;
@@ -32,8 +33,9 @@ public sealed partial class CityLawsUi : UIFragment
 
 public sealed class CityLawsUiFragment : BoxContainer
 {
-    private static readonly Color AccentColor = Color.FromHex("#78BEE1");
-    private static readonly Color DimColor = Color.FromHex("#607A92");
+    // Dystopia: цвета экрана КПК Города (янтарный терминал)
+    private static readonly Color AccentColor = CityPdaUi.Bright;
+    private static readonly Color DimColor = CityPdaUi.Dim;
 
     private readonly Button _articlesTab;
     private readonly Button _sanctionsTab;
@@ -146,7 +148,7 @@ public sealed class CityLawsUiFragment : BoxContainer
     private static RichTextLabel MakeText(string text)
     {
         var label = new RichTextLabel { HorizontalExpand = true };
-        label.SetMessage(FormattedMessage.FromUnformatted(text));
+        label.SetMessage(FormattedMessage.FromUnformatted(text), defaultColor: CityPdaUi.Amber);
         return label;
     }
 

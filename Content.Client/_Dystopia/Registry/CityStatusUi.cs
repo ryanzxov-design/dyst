@@ -1,11 +1,10 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
-// Dystopia: программа КПК «Мой статус» — дело владельца карты в КПК глазами самого гражданина.
+// Dystopia: программа КПК «Мой статус» — дело владельца карты в КПК глазами самого гражданина. Экран КПК Города:
+// один янтарный цвет, важное — инверсией, тревожное (розыск, аннулированная карта) мигает.
 
-using System.Linq;
-using Content.Client._Dystopia.UserInterface;
+using Content.Client._Dystopia.Pda;
 using Content.Client.UserInterface.Fragments;
 using Content.Shared._Dystopia.Registry;
-using Robust.Client.Graphics;
 using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 
@@ -42,14 +41,13 @@ public sealed class CityStatusUiFragment : BoxContainer
         Orientation = LayoutOrientation.Vertical;
         HorizontalExpand = true;
         VerticalExpand = true;
-        Margin = new Thickness(4);
 
         var scroll = new ScrollContainer { HScrollEnabled = false, HorizontalExpand = true, VerticalExpand = true };
         _content = new BoxContainer
         {
             Orientation = LayoutOrientation.Vertical,
             HorizontalExpand = true,
-            SeparationOverride = 4,
+            SeparationOverride = 2,
         };
         scroll.AddChild(_content);
         AddChild(scroll);
@@ -57,7 +55,7 @@ public sealed class CityStatusUiFragment : BoxContainer
 
     public void UpdateState(CityStatusUiState state)
     {
-        // перестраиваем только когда что-то поменялось: иначе список прыгает каждые 2 секунды
+        // перестраиваем только когда что-то поменялось
         var signature = Signature(state);
         if (signature == _signature)
             return;
@@ -66,124 +64,77 @@ public sealed class CityStatusUiFragment : BoxContainer
         _content.RemoveAllChildren();
         if (!state.HasRecord)
         {
-            _content.AddChild(CityUi.Hint(Loc.GetString("dystopia-status-no-card")));
+            _content.AddChild(CityPdaUi.Wrap(Loc.GetString("dystopia-status-no-card"), CityPdaUi.Dim));
             return;
         }
 
         // кто
-        _content.AddChild(CityUi.MakeLabel($"№{state.Number} · {state.Name}", CityUi.Glow, CityUi.Bold(14)));
-        _content.AddChild(CityUi.MakeLabel($"{state.JobTitle} · {state.Department}", CityUi.Dim, CityUi.Regular(11)));
+        _content.AddChild(CityPdaUi.Text($"№{state.Number}  {state.Name.ToUpperInvariant()}"));
+        _content.AddChild(CityPdaUi.Text($"{state.JobTitle} · {state.Department}".ToUpperInvariant(), CityPdaUi.Dim));
         if (state.Dismissed)
-            _content.AddChild(CityUi.MakeLabel(Loc.GetString("dystopia-status-dismissed"), CityRegistryConsoleWindow.Danger, CityUi.Bold(12)));
+            _content.AddChild(Blink(CityPdaUi.Inverse(Loc.GetString("dystopia-status-dismissed"))));
 
         // статус
-        _content.AddChild(Section("dystopia-status-section-status"));
-        _content.AddChild(CityUi.MakeLabel(CityRegistryConsoleWindow.StatusText(state.Status).ToUpperInvariant(),
-            CityRegistryConsoleWindow.StatusColor(state.Status), CityUi.Bold(14)));
+        _content.AddChild(CityPdaUi.Section(Loc.GetString("dystopia-status-section-status")));
+        var status = CityPdaUi.Inverse(CityRegistryConsoleWindow.StatusText(state.Status).ToUpperInvariant());
+        var alarming = state.Status is CityCitizenStatus.Wanted or CityCitizenStatus.Disenfranchised;
+        _content.AddChild(CityPdaUi.Field(Loc.GetString("dystopia-status-field-status"), alarming ? Blink(status) : status));
         if (state.StatusReason.Length > 0)
-            _content.AddChild(CityUi.Hint(Loc.GetString("dystopia-status-reason", ("reason", state.StatusReason))));
+            _content.AddChild(CityPdaUi.Wrap(Loc.GetString("dystopia-status-reason", ("reason", state.StatusReason)), CityPdaUi.Dim));
 
         // лояльность
-        _content.AddChild(Section("dystopia-status-section-loyalty"));
+        _content.AddChild(CityPdaUi.Section(Loc.GetString("dystopia-status-section-loyalty")));
         if (state.Outside || state.Loyalty is not { } loyalty)
         {
-            _content.AddChild(CityUi.Hint(Loc.GetString("dystopia-status-outside"), CityRegistryConsoleWindow.Gold));
+            _content.AddChild(CityPdaUi.Text(Loc.GetString("dystopia-status-outside").ToUpperInvariant(), CityPdaUi.Dim));
         }
         else
         {
-            var color = CityRegistryConsoleWindow.LoyaltyColor(loyalty, state.LoyaltyNorm);
-            _content.AddChild(CityUi.MakeLabel($"{loyalty} / {state.MaxLoyalty}", color, CityUi.Bold(14)));
-            var bar = new CityLoyaltyBar();
-            bar.Set(loyalty, state.MaxLoyalty, state.LoyaltyNorm, color);
+            _content.AddChild(CityPdaUi.Field(Loc.GetString("dystopia-status-field-loyalty"), $"{loyalty} / {state.MaxLoyalty}"));
+            var bar = new CityPdaBar { Margin = new Thickness(0, 2) };
+            bar.Set(loyalty, state.MaxLoyalty, state.LoyaltyNorm);
             _content.AddChild(bar);
             if (state.LoyaltyNorm is { } norm)
             {
                 var key = loyalty <= 0 ? "dystopia-status-loyalty-zero"
                     : loyalty < norm ? "dystopia-status-loyalty-below"
                     : "dystopia-status-loyalty-ok";
-                _content.AddChild(CityUi.Hint(Loc.GetString(key, ("norm", norm))));
+                _content.AddChild(CityPdaUi.Wrap(Loc.GetString(key, ("norm", norm)), CityPdaUi.Dim));
             }
         }
 
         // карта
-        _content.AddChild(Section("dystopia-status-section-card"));
-        if (state.CardSerial.Length > 0)
+        _content.AddChild(CityPdaUi.Section(Loc.GetString("dystopia-status-section-card")));
+        if (state.CardSerial.Length == 0)
         {
-            _content.AddChild(CityUi.MakeLabel(state.CardSerial, CityUi.Text, CityUi.Mono(12)));
-            if (state.CardAnnulled)
-                _content.AddChild(CityUi.MakeLabel(Loc.GetString("dystopia-status-card-annulled"), CityRegistryConsoleWindow.Danger, CityUi.Bold(11)));
+            _content.AddChild(CityPdaUi.Text(Loc.GetString("dystopia-status-card-unknown"), CityPdaUi.Dim));
+            return;
+        }
+
+        _content.AddChild(CityPdaUi.Field(Loc.GetString("dystopia-status-field-serial"), state.CardSerial));
+        if (state.CardAnnulled)
+        {
+            _content.AddChild(CityPdaUi.Field(Loc.GetString("dystopia-status-field-card-state"),
+                Blink(CityPdaUi.Inverse(Loc.GetString("dystopia-status-card-annulled")))));
+            _content.AddChild(CityPdaUi.Text(Loc.GetString("dystopia-status-card-annulled-hint"), CityPdaUi.Dim));
         }
         else
         {
-            _content.AddChild(CityUi.Hint(Loc.GetString("dystopia-status-card-unknown")));
-        }
-
-        // журнал
-        if (state.Outside)
-            return;
-
-        _content.AddChild(Section("dystopia-status-section-journal"));
-        if (state.Journal.Count == 0)
-        {
-            _content.AddChild(CityUi.Hint(Loc.GetString("dystopia-status-journal-empty")));
-            return;
-        }
-
-        foreach (var entry in state.Journal)
-        {
-            _content.AddChild(EntryRow(entry));
+            _content.AddChild(CityPdaUi.Field(Loc.GetString("dystopia-status-field-card-state"),
+                Loc.GetString("dystopia-status-card-valid")));
         }
     }
 
-    private static Control Section(string key)
+    private static Control Blink(Control inner)
     {
-        var label = CityUi.MakeLabel(Loc.GetString(key).ToUpperInvariant(), CityUi.Accent, CityUi.Bold(11));
-        label.Margin = new Thickness(0, 8, 0, 0);
-        return label;
-    }
-
-    private static Control EntryRow(CityRegistryEntry entry)
-    {
-        var color = entry.Kind switch
-        {
-            CityRegistryEntryKind.Violation => CityRegistryConsoleWindow.Danger,
-            CityRegistryEntryKind.Reward => CityUi.Accent,
-            CityRegistryEntryKind.Fine => CityRegistryConsoleWindow.Gold,
-            _ => CityUi.Text,
-        };
-
-        var row = new PanelContainer { PanelOverride = CityUi.Box(Color.Transparent, CityUi.Line, 0, 0, 4) };
-        ((StyleBoxFlat) row.PanelOverride).BorderThickness = new Thickness(0, 0, 0, 1);
-        var line = new BoxContainer { Orientation = LayoutOrientation.Horizontal, SeparationOverride = 8 };
-
-        var time = CityUi.MakeLabel($"{(int) entry.Time.TotalHours:00}:{entry.Time.Minutes:00}", CityUi.Dim, CityUi.Regular(11));
-        time.MinWidth = 40;
-        time.VerticalAlignment = VAlignment.Top;
-        line.AddChild(time);
-
-        var text = new BoxContainer { Orientation = LayoutOrientation.Vertical, HorizontalExpand = true };
-        text.AddChild(new CityWrapLabel(entry.Text, color));
-        if (entry.Details.Length > 0)
-            text.AddChild(CityUi.Hint(entry.Details));
-        text.AddChild(CityUi.MakeLabel(entry.Author, CityUi.Dim, CityUi.Regular(10)));
-        line.AddChild(text);
-
-        var delta = CityUi.MakeLabel(entry.LoyaltyDelta == 0 ? "—" : entry.LoyaltyDelta > 0 ? $"+{entry.LoyaltyDelta}" : entry.LoyaltyDelta.ToString(),
-            entry.LoyaltyDelta < 0 ? CityRegistryConsoleWindow.Danger : entry.LoyaltyDelta > 0 ? CityUi.Accent : CityUi.Dim,
-            CityUi.Bold(12));
-        delta.MinWidth = 32;
-        delta.Align = Label.AlignMode.Right;
-        delta.VerticalAlignment = VAlignment.Top;
-        line.AddChild(delta);
-
-        row.AddChild(line);
-        return row;
+        var blink = new CityPdaBlink();
+        blink.AddChild(inner);
+        return blink;
     }
 
     private static string Signature(CityStatusUiState s)
     {
         return $"{s.HasRecord}:{s.Number}:{s.Name}:{s.JobTitle}:{s.Department}:{s.Status}:{s.StatusReason}:{s.Dismissed}:" +
-               $"{s.Outside}:{s.Loyalty}:{s.LoyaltyNorm}:{s.MaxLoyalty}:{s.CardSerial}:{s.CardAnnulled}:" +
-               string.Join("|", s.Journal.Select(e => $"{e.Time.Ticks}:{e.Kind}:{e.Text}"));
+               $"{s.Outside}:{s.Loyalty}:{s.LoyaltyNorm}:{s.MaxLoyalty}:{s.CardSerial}:{s.CardAnnulled}";
     }
 }

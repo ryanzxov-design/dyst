@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 // Dystopia: программа КПК «Мой статус» — что Город знает о владельце карты, лежащей в КПК: статус, лояльность,
-// должность, ID-карта и последние записи журнала дела (нарушения, штрафы, поощрения). Служебные записи
-// (опознание камерой, приметы) и заметки Стражи гражданину не показываются.
+// должность и ID-карта. Журнал дела, заметки Стражи и маршрут гражданину не показываются.
 
 using Robust.Shared.Serialization;
 
@@ -10,19 +9,6 @@ namespace Content.Shared._Dystopia.Registry;
 [RegisterComponent]
 public sealed partial class CityStatusCartridgeComponent : Component
 {
-    /// <summary>Какие записи журнала дела видит сам гражданин.</summary>
-    [DataField]
-    public List<CityRegistryEntryKind> JournalKinds = new()
-    {
-        CityRegistryEntryKind.Violation,
-        CityRegistryEntryKind.Fine,
-        CityRegistryEntryKind.Reward,
-    };
-
-    /// <summary>Сколько последних записей показывать.</summary>
-    [DataField]
-    public int JournalLimit = 15;
-
     /// <summary>Показывать ли основание статуса («в розыске: …»).</summary>
     [DataField]
     public bool ShowStatusReason = true;
@@ -50,7 +36,7 @@ public sealed class CityStatusUiState : BoundUserInterfaceState
     public string StatusReason = string.Empty;
     public bool Dismissed;
 
-    /// <summary>Вне системы лояльности (Консул): лояльность и журнал не ведутся.</summary>
+    /// <summary>Вне системы лояльности (Консул): лояльность не ведётся.</summary>
     public bool Outside;
     public int? Loyalty;
     public int? LoyaltyNorm;
@@ -59,7 +45,4 @@ public sealed class CityStatusUiState : BoundUserInterfaceState
     /// <summary>Карта в КПК: серийный номер и не аннулирована ли.</summary>
     public string CardSerial = string.Empty;
     public bool CardAnnulled;
-
-    /// <summary>Последние записи журнала, новые — первыми.</summary>
-    public List<CityRegistryEntry> Journal = new();
 }

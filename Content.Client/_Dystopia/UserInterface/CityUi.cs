@@ -62,6 +62,9 @@ public static class CityUi
     public static Font Title(int size = 16) => Stack(PixelPath, NotoBold, size);
     public static Font Mono(int size = 11) => Stack(MonoPath, NotoRegular, size);
 
+    /// <summary>Свой шрифт (например, Terminus у КПК) с теми же запасными Noto.</summary>
+    public static Font Custom(string path, int size) => Stack(path, NotoRegular, size);
+
     private static Font Stack(string main, string fallback, int size)
     {
         if (Fonts.TryGetValue((main + fallback, size), out var font))

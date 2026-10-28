@@ -88,6 +88,16 @@
         - IdCard
     id: DystopiaConsulIDCard
   - type: PdaVisuals
+  - type: CityPdaCase # Dystopia: корпус окна КПК, цвета со спрайта КПК должности
+    style: Steel
+    body: "#AA9100"
+    trim: "#836D00"
+    edge: "#353526"
+    stripe: "#0060B8"
+    lights:
+    - "#FF0000"
+    stencil: "#2E2600"
+    label: dystopia-pda-label-administration
   - type: ContainerContainer
     containers:
       PDA-id: !type:ContainerSlot {}
@@ -142,7 +152,7 @@
   - type: UserInterface
     interfaces:
       enum.PdaUiKey.Key:
-        type: PdaBoundUserInterface
+        type: CityPdaBoundUserInterface # Dystopia: КПК — старый янтарный терминал
       enum.StoreUiKey.Key:
         type: StoreBoundUserInterface
       enum.RingerUiKey.Key:
@@ -267,6 +277,16 @@
         - IdCard
     id: DystopiaAdjutantIDCard
   - type: PdaVisuals
+  - type: CityPdaCase # Dystopia: корпус окна КПК, цвета со спрайта КПК должности
+    style: Steel
+    body: "#6F6192"
+    trim: "#564B70"
+    edge: "#353526"
+    stripe: "#F7E062"
+    lights:
+    - "#EB9B1F"
+    stencil: "#E2DCF0"
+    label: dystopia-pda-label-administration
   - type: ContainerContainer
     containers:
       PDA-id: !type:ContainerSlot {}
@@ -323,7 +343,7 @@
   - type: UserInterface
     interfaces:
       enum.PdaUiKey.Key:
-        type: PdaBoundUserInterface
+        type: CityPdaBoundUserInterface # Dystopia: КПК — старый янтарный терминал
       enum.StoreUiKey.Key:
         type: StoreBoundUserInterface
       enum.RingerUiKey.Key:
@@ -448,6 +468,18 @@
         - IdCard
     id: DystopiaCivilInspectorIDCard
   - type: PdaVisuals
+  - type: CityPdaCase # Dystopia: корпус окна КПК, цвета со спрайта КПК должности
+    style: Steel
+    body: "#789876"
+    trim: "#5A7C5C"
+    edge: "#353526"
+    marks:
+    - "#3C94C5"
+    - "#CCCC00"
+    lights:
+    - "#A92323"
+    stencil: "#1F2A1F"
+    label: dystopia-pda-label-administration
   - type: ContainerContainer
     containers:
       PDA-id: !type:ContainerSlot {}
@@ -502,7 +534,7 @@
   - type: UserInterface
     interfaces:
       enum.PdaUiKey.Key:
-        type: PdaBoundUserInterface
+        type: CityPdaBoundUserInterface # Dystopia: КПК — старый янтарный терминал
       enum.StoreUiKey.Key:
         type: StoreBoundUserInterface
       enum.RingerUiKey.Key:
@@ -628,6 +660,20 @@
         - IdCard
     id: DystopiaGuardCaptainIDCard
   - type: PdaVisuals
+  - type: CityPdaCase # Dystopia: корпус окна КПК, цвета со спрайта КПК должности
+    style: Tablet
+    body: "#262B35"
+    trim: "#6A81AB"
+    edge: "#121418"
+    marks:
+    - "#3C94C5"
+    - "#CCCC00"
+    lights:
+    - "#339900"
+    - "#339900"
+    stencil: "#8FA3C8"
+    keycap: "#3A4458"
+    label: dystopia-pda-label-guard
   - type: ContainerContainer
     containers:
       PDA-id: !type:ContainerSlot {}
@@ -685,7 +731,7 @@
   - type: UserInterface
     interfaces:
       enum.PdaUiKey.Key:
-        type: PdaBoundUserInterface
+        type: CityPdaBoundUserInterface # Dystopia: КПК — старый янтарный терминал
       enum.StoreUiKey.Key:
         type: StoreBoundUserInterface
       enum.RingerUiKey.Key:
@@ -811,6 +857,18 @@
         - IdCard
     id: DystopiaGuardSergeantIDCard
   - type: PdaVisuals
+  - type: CityPdaCase # Dystopia: корпус окна КПК, цвета со спрайта КПК должности
+    style: Tablet
+    body: "#262B35"
+    trim: "#6A81AB"
+    edge: "#121418"
+    stripe: "#CCCC00"
+    lights:
+    - "#339900"
+    - "#339900"
+    stencil: "#8FA3C8"
+    keycap: "#3A4458"
+    label: dystopia-pda-label-guard
   - type: ContainerContainer
     containers:
       PDA-id: !type:ContainerSlot {}
@@ -867,7 +925,7 @@
   - type: UserInterface
     interfaces:
       enum.PdaUiKey.Key:
-        type: PdaBoundUserInterface
+        type: CityPdaBoundUserInterface # Dystopia: КПК — старый янтарный терминал
       enum.StoreUiKey.Key:
         type: StoreBoundUserInterface
       enum.RingerUiKey.Key:
@@ -993,6 +1051,17 @@
         - IdCard
     id: DystopiaGuardsmanIDCard
   - type: PdaVisuals
+  - type: CityPdaCase # Dystopia: корпус окна КПК, цвета со спрайта КПК должности
+    style: Tablet
+    body: "#262B35"
+    trim: "#6A81AB"
+    edge: "#121418"
+    lights:
+    - "#339900"
+    - "#339900"
+    stencil: "#8FA3C8"
+    keycap: "#3A4458"
+    label: dystopia-pda-label-guard
   - type: ContainerContainer
     containers:
       PDA-id: !type:ContainerSlot {}
@@ -1049,7 +1118,7 @@
   - type: UserInterface
     interfaces:
       enum.PdaUiKey.Key:
-        type: PdaBoundUserInterface
+        type: CityPdaBoundUserInterface # Dystopia: КПК — старый янтарный терминал
       enum.StoreUiKey.Key:
         type: StoreBoundUserInterface
       enum.RingerUiKey.Key:
@@ -1170,6 +1239,18 @@
         - IdCard
     id: DystopiaGuardRecruitIDCard
   - type: PdaVisuals
+  - type: CityPdaCase # Dystopia: корпус окна КПК, цвета со спрайта КПК должности
+    style: Tablet
+    body: "#2B2A22"
+    trim: "#999875"
+    edge: "#121418"
+    stripe: "#6A81AB"
+    lights:
+    - "#339900"
+    - "#339900"
+    stencil: "#B5B494"
+    keycap: "#46453A"
+    label: dystopia-pda-label-guard
   - type: ContainerContainer
     containers:
       PDA-id: !type:ContainerSlot {}
@@ -1226,7 +1307,7 @@
   - type: UserInterface
     interfaces:
       enum.PdaUiKey.Key:
-        type: PdaBoundUserInterface
+        type: CityPdaBoundUserInterface # Dystopia: КПК — старый янтарный терминал
       enum.StoreUiKey.Key:
         type: StoreBoundUserInterface
       enum.RingerUiKey.Key:
@@ -1352,6 +1433,15 @@
         - IdCard
     id: DystopiaPraetorianIDCard
   - type: PdaVisuals
+  - type: CityPdaCase # Dystopia: корпус окна КПК, цвета со спрайта КПК должности
+    style: Steel
+    body: "#96A9BC"
+    trim: "#738493"
+    edge: "#353526"
+    lights:
+    - "#339900"
+    stencil: "#232B33"
+    label: dystopia-pda-label-patrol
   - type: ContainerContainer
     containers:
       PDA-id: !type:ContainerSlot {}
@@ -1408,7 +1498,7 @@
   - type: UserInterface
     interfaces:
       enum.PdaUiKey.Key:
-        type: PdaBoundUserInterface
+        type: CityPdaBoundUserInterface # Dystopia: КПК — старый янтарный терминал
       enum.StoreUiKey.Key:
         type: StoreBoundUserInterface
       enum.RingerUiKey.Key:
@@ -1529,6 +1619,15 @@
         - IdCard
     id: DystopiaGrenadierIDCard
   - type: PdaVisuals
+  - type: CityPdaCase # Dystopia: корпус окна КПК, цвета со спрайта КПК должности
+    style: Steel
+    body: "#96A9BC"
+    trim: "#738493"
+    edge: "#353526"
+    lights:
+    - "#339900"
+    stencil: "#232B33"
+    label: dystopia-pda-label-patrol
   - type: ContainerContainer
     containers:
       PDA-id: !type:ContainerSlot {}
@@ -1585,7 +1684,7 @@
   - type: UserInterface
     interfaces:
       enum.PdaUiKey.Key:
-        type: PdaBoundUserInterface
+        type: CityPdaBoundUserInterface # Dystopia: КПК — старый янтарный терминал
       enum.StoreUiKey.Key:
         type: StoreBoundUserInterface
       enum.RingerUiKey.Key:
@@ -1706,6 +1805,15 @@
         - IdCard
     id: DystopiaStormtrooperIDCard
   - type: PdaVisuals
+  - type: CityPdaCase # Dystopia: корпус окна КПК, цвета со спрайта КПК должности
+    style: Steel
+    body: "#96A9BC"
+    trim: "#738493"
+    edge: "#353526"
+    lights:
+    - "#339900"
+    stencil: "#232B33"
+    label: dystopia-pda-label-patrol
   - type: ContainerContainer
     containers:
       PDA-id: !type:ContainerSlot {}
@@ -1762,7 +1870,7 @@
   - type: UserInterface
     interfaces:
       enum.PdaUiKey.Key:
-        type: PdaBoundUserInterface
+        type: CityPdaBoundUserInterface # Dystopia: КПК — старый янтарный терминал
       enum.StoreUiKey.Key:
         type: StoreBoundUserInterface
       enum.RingerUiKey.Key:
@@ -1883,6 +1991,15 @@
         - IdCard
     id: DystopiaSoldierIDCard
   - type: PdaVisuals
+  - type: CityPdaCase # Dystopia: корпус окна КПК, цвета со спрайта КПК должности
+    style: Steel
+    body: "#96A9BC"
+    trim: "#738493"
+    edge: "#353526"
+    lights:
+    - "#339900"
+    stencil: "#232B33"
+    label: dystopia-pda-label-patrol
   - type: ContainerContainer
     containers:
       PDA-id: !type:ContainerSlot {}
@@ -1939,7 +2056,7 @@
   - type: UserInterface
     interfaces:
       enum.PdaUiKey.Key:
-        type: PdaBoundUserInterface
+        type: CityPdaBoundUserInterface # Dystopia: КПК — старый янтарный терминал
       enum.StoreUiKey.Key:
         type: StoreBoundUserInterface
       enum.RingerUiKey.Key:
@@ -2060,6 +2177,19 @@
         - IdCard
     id: DystopiaChiefSanitaryDoctorIDCard
   - type: PdaVisuals
+  - type: CityPdaCase # Dystopia: корпус окна КПК, цвета со спрайта КПК должности
+    style: Steel
+    body: "#E2E2E2"
+    trim: "#5D99BE"
+    edge: "#353526"
+    stripe: "#407CA1"
+    marks:
+    - "#3C94C5"
+    - "#CCCC00"
+    lights:
+    - "#000099"
+    stencil: "#3A3A3A"
+    label: dystopia-pda-label-sanitary
   - type: ContainerContainer
     containers:
       PDA-id: !type:ContainerSlot {}
@@ -2116,7 +2246,7 @@
   - type: UserInterface
     interfaces:
       enum.PdaUiKey.Key:
-        type: PdaBoundUserInterface
+        type: CityPdaBoundUserInterface # Dystopia: КПК — старый янтарный терминал
       enum.StoreUiKey.Key:
         type: StoreBoundUserInterface
       enum.RingerUiKey.Key:
@@ -2244,6 +2374,16 @@
         - IdCard
     id: DystopiaHealerIDCard
   - type: PdaVisuals
+  - type: CityPdaCase # Dystopia: корпус окна КПК, цвета со спрайта КПК должности
+    style: Steel
+    body: "#E2E2E2"
+    trim: "#5D99BE"
+    edge: "#353526"
+    stripe: "#407CA1"
+    lights:
+    - "#000099"
+    stencil: "#3A3A3A"
+    label: dystopia-pda-label-sanitary
   - type: ContainerContainer
     containers:
       PDA-id: !type:ContainerSlot {}
@@ -2300,7 +2440,7 @@
   - type: UserInterface
     interfaces:
       enum.PdaUiKey.Key:
-        type: PdaBoundUserInterface
+        type: CityPdaBoundUserInterface # Dystopia: КПК — старый янтарный терминал
       enum.StoreUiKey.Key:
         type: StoreBoundUserInterface
       enum.RingerUiKey.Key:
@@ -2425,6 +2565,16 @@
         - IdCard
     id: DystopiaDisinfectorIDCard
   - type: PdaVisuals
+  - type: CityPdaCase # Dystopia: корпус окна КПК, цвета со спрайта КПК должности
+    style: Steel
+    body: "#E2E2E2"
+    trim: "#5D99BE"
+    edge: "#353526"
+    stripe: "#407CA1"
+    lights:
+    - "#000099"
+    stencil: "#3A3A3A"
+    label: dystopia-pda-label-sanitary
   - type: ContainerContainer
     containers:
       PDA-id: !type:ContainerSlot {}
@@ -2481,7 +2631,7 @@
   - type: UserInterface
     interfaces:
       enum.PdaUiKey.Key:
-        type: PdaBoundUserInterface
+        type: CityPdaBoundUserInterface # Dystopia: КПК — старый янтарный терминал
       enum.StoreUiKey.Key:
         type: StoreBoundUserInterface
       enum.RingerUiKey.Key:
@@ -2606,6 +2756,18 @@
         - IdCard
     id: DystopiaChiefIndustrialIDCard
   - type: PdaVisuals
+  - type: CityPdaCase # Dystopia: корпус окна КПК, цвета со спрайта КПК должности
+    style: Steel
+    body: "#CECA2B"
+    trim: "#94911F"
+    edge: "#353526"
+    marks:
+    - "#3C94C5"
+    - "#CCCC00"
+    lights:
+    - "#339900"
+    stencil: "#2E2C08"
+    label: dystopia-pda-label-industry
   - type: ContainerContainer
     containers:
       PDA-id: !type:ContainerSlot {}
@@ -2660,7 +2822,7 @@
   - type: UserInterface
     interfaces:
       enum.PdaUiKey.Key:
-        type: PdaBoundUserInterface
+        type: CityPdaBoundUserInterface # Dystopia: КПК — старый янтарный терминал
       enum.StoreUiKey.Key:
         type: StoreBoundUserInterface
       enum.RingerUiKey.Key:
@@ -2786,6 +2948,16 @@
         - IdCard
     id: DystopiaEngineerIDCard
   - type: PdaVisuals
+  - type: CityPdaCase # Dystopia: корпус окна КПК, цвета со спрайта КПК должности
+    style: Steel
+    body: "#CECA2B"
+    trim: "#CC4242"
+    edge: "#353526"
+    stripe: "#A02C2C"
+    lights:
+    - "#A92323"
+    stencil: "#2E2C08"
+    label: dystopia-pda-label-industry
   - type: ContainerContainer
     containers:
       PDA-id: !type:ContainerSlot {}
@@ -2840,7 +3012,7 @@
   - type: UserInterface
     interfaces:
       enum.PdaUiKey.Key:
-        type: PdaBoundUserInterface
+        type: CityPdaBoundUserInterface # Dystopia: КПК — старый янтарный терминал
       enum.StoreUiKey.Key:
         type: StoreBoundUserInterface
       enum.RingerUiKey.Key:
@@ -2966,6 +3138,16 @@
         - IdCard
     id: DystopiaJuniorTechnicianIDCard
   - type: PdaVisuals
+  - type: CityPdaCase # Dystopia: корпус окна КПК, цвета со спрайта КПК должности
+    style: Steel
+    body: "#999875"
+    trim: "#CECA2B"
+    edge: "#353526"
+    stripe: "#94911F"
+    lights:
+    - "#A92323"
+    stencil: "#2A2A1E"
+    label: dystopia-pda-label-industry
   - type: ContainerContainer
     containers:
       PDA-id: !type:ContainerSlot {}
@@ -3020,7 +3202,7 @@
   - type: UserInterface
     interfaces:
       enum.PdaUiKey.Key:
-        type: PdaBoundUserInterface
+        type: CityPdaBoundUserInterface # Dystopia: КПК — старый янтарный терминал
       enum.StoreUiKey.Key:
         type: StoreBoundUserInterface
       enum.RingerUiKey.Key:
@@ -3146,6 +3328,16 @@
         - IdCard
     id: DystopiaPharmacistIDCard
   - type: PdaVisuals
+  - type: CityPdaCase # Dystopia: корпус окна КПК, цвета со спрайта КПК должности
+    style: Steel
+    body: "#E2E2E2"
+    trim: "#EA6400"
+    edge: "#353526"
+    stripe: "#B74E00"
+    lights:
+    - "#A92323"
+    stencil: "#3A3A3A"
+    label: dystopia-pda-label-sanitary
   - type: ContainerContainer
     containers:
       PDA-id: !type:ContainerSlot {}
@@ -3202,7 +3394,7 @@
   - type: UserInterface
     interfaces:
       enum.PdaUiKey.Key:
-        type: PdaBoundUserInterface
+        type: CityPdaBoundUserInterface # Dystopia: КПК — старый янтарный терминал
       enum.StoreUiKey.Key:
         type: StoreBoundUserInterface
       enum.RingerUiKey.Key:
@@ -3329,6 +3521,16 @@
         - IdCard
     id: DystopiaJuniorOrderlyIDCard
   - type: PdaVisuals
+  - type: CityPdaCase # Dystopia: корпус окна КПК, цвета со спрайта КПК должности
+    style: Steel
+    body: "#999875"
+    trim: "#5D99BE"
+    edge: "#353526"
+    stripe: "#407CA1"
+    lights:
+    - "#000099"
+    stencil: "#2A2A1E"
+    label: dystopia-pda-label-sanitary
   - type: ContainerContainer
     containers:
       PDA-id: !type:ContainerSlot {}
@@ -3385,7 +3587,7 @@
   - type: UserInterface
     interfaces:
       enum.PdaUiKey.Key:
-        type: PdaBoundUserInterface
+        type: CityPdaBoundUserInterface # Dystopia: КПК — старый янтарный терминал
       enum.StoreUiKey.Key:
         type: StoreBoundUserInterface
       enum.RingerUiKey.Key:
@@ -3514,6 +3716,19 @@
         - IdCard
     id: DystopiaScienceDirectorIDCard
   - type: PdaVisuals
+  - type: CityPdaCase # Dystopia: корпус окна КПК, цвета со спрайта КПК должности
+    style: Steel
+    body: "#E2E2E2"
+    trim: "#9E00EA"
+    edge: "#353526"
+    stripe: "#8900C9"
+    marks:
+    - "#3C94C5"
+    - "#CCCC00"
+    lights:
+    - "#000099"
+    stencil: "#3A3A3A"
+    label: dystopia-pda-label-science
   - type: ContainerContainer
     containers:
       PDA-id: !type:ContainerSlot {}
@@ -3569,7 +3784,7 @@
   - type: UserInterface
     interfaces:
       enum.PdaUiKey.Key:
-        type: PdaBoundUserInterface
+        type: CityPdaBoundUserInterface # Dystopia: КПК — старый янтарный терминал
       enum.StoreUiKey.Key:
         type: StoreBoundUserInterface
       enum.RingerUiKey.Key:
@@ -3697,6 +3912,16 @@
         - IdCard
     id: DystopiaAugmentologistIDCard
   - type: PdaVisuals
+  - type: CityPdaCase # Dystopia: корпус окна КПК, цвета со спрайта КПК должности
+    style: Steel
+    body: "#E2E2E2"
+    trim: "#9E00EA"
+    edge: "#353526"
+    stripe: "#8900C9"
+    lights:
+    - "#000099"
+    stencil: "#3A3A3A"
+    label: dystopia-pda-label-science
   - type: ContainerContainer
     containers:
       PDA-id: !type:ContainerSlot {}
@@ -3751,7 +3976,7 @@
   - type: UserInterface
     interfaces:
       enum.PdaUiKey.Key:
-        type: PdaBoundUserInterface
+        type: CityPdaBoundUserInterface # Dystopia: КПК — старый янтарный терминал
       enum.StoreUiKey.Key:
         type: StoreBoundUserInterface
       enum.RingerUiKey.Key:
@@ -3873,6 +4098,16 @@
         - IdCard
     id: DystopiaPathobiologistIDCard
   - type: PdaVisuals
+  - type: CityPdaCase # Dystopia: корпус окна КПК, цвета со спрайта КПК должности
+    style: Steel
+    body: "#E2E2E2"
+    trim: "#9E00EA"
+    edge: "#353526"
+    stripe: "#8900C9"
+    lights:
+    - "#000099"
+    stencil: "#3A3A3A"
+    label: dystopia-pda-label-science
   - type: ContainerContainer
     containers:
       PDA-id: !type:ContainerSlot {}
@@ -3928,7 +4163,7 @@
   - type: UserInterface
     interfaces:
       enum.PdaUiKey.Key:
-        type: PdaBoundUserInterface
+        type: CityPdaBoundUserInterface # Dystopia: КПК — старый янтарный терминал
       enum.StoreUiKey.Key:
         type: StoreBoundUserInterface
       enum.RingerUiKey.Key:
@@ -4051,6 +4286,16 @@
         - IdCard
     id: DystopiaResearcherIDCard
   - type: PdaVisuals
+  - type: CityPdaCase # Dystopia: корпус окна КПК, цвета со спрайта КПК должности
+    style: Steel
+    body: "#E2E2E2"
+    trim: "#9E00EA"
+    edge: "#353526"
+    stripe: "#8900C9"
+    lights:
+    - "#000099"
+    stencil: "#3A3A3A"
+    label: dystopia-pda-label-science
   - type: ContainerContainer
     containers:
       PDA-id: !type:ContainerSlot {}
@@ -4105,7 +4350,7 @@
   - type: UserInterface
     interfaces:
       enum.PdaUiKey.Key:
-        type: PdaBoundUserInterface
+        type: CityPdaBoundUserInterface # Dystopia: КПК — старый янтарный терминал
       enum.StoreUiKey.Key:
         type: StoreBoundUserInterface
       enum.RingerUiKey.Key:
@@ -4227,6 +4472,16 @@
         - IdCard
     id: DystopiaLabAssistantIDCard
   - type: PdaVisuals
+  - type: CityPdaCase # Dystopia: корпус окна КПК, цвета со спрайта КПК должности
+    style: Steel
+    body: "#999875"
+    trim: "#9E00EA"
+    edge: "#353526"
+    stripe: "#8900C9"
+    lights:
+    - "#000099"
+    stencil: "#2A2A1E"
+    label: dystopia-pda-label-science
   - type: ContainerContainer
     containers:
       PDA-id: !type:ContainerSlot {}
@@ -4281,7 +4536,7 @@
   - type: UserInterface
     interfaces:
       enum.PdaUiKey.Key:
-        type: PdaBoundUserInterface
+        type: CityPdaBoundUserInterface # Dystopia: КПК — старый янтарный терминал
       enum.StoreUiKey.Key:
         type: StoreBoundUserInterface
       enum.RingerUiKey.Key:
@@ -4407,6 +4662,15 @@
         - IdCard
     id: DystopiaProletarianIDCard
   - type: PdaVisuals
+  - type: CityPdaCase # Dystopia: корпус окна КПК, цвета со спрайта КПК должности
+    style: Steel
+    body: "#999875"
+    trim: "#7B7A5B"
+    edge: "#353526"
+    lights:
+    - "#A92323"
+    stencil: "#2A2A1E"
+    label: dystopia-pda-label-citizen
   - type: ContainerContainer
     containers:
       PDA-id: !type:ContainerSlot {}
@@ -4461,7 +4725,7 @@
   - type: UserInterface
     interfaces:
       enum.PdaUiKey.Key:
-        type: PdaBoundUserInterface
+        type: CityPdaBoundUserInterface # Dystopia: КПК — старый янтарный терминал
       enum.StoreUiKey.Key:
         type: StoreBoundUserInterface
       enum.RingerUiKey.Key:
@@ -4582,6 +4846,15 @@
         - IdCard
     id: DystopiaShopkeeperIDCard
   - type: PdaVisuals
+  - type: CityPdaCase # Dystopia: корпус окна КПК, цвета со спрайта КПК должности
+    style: Steel
+    body: "#E39751"
+    trim: "#C17733"
+    edge: "#353526"
+    lights:
+    - "#A92323"
+    stencil: "#3A2410"
+    label: dystopia-pda-label-trade
   - type: ContainerContainer
     containers:
       PDA-id: !type:ContainerSlot {}
@@ -4636,7 +4909,7 @@
   - type: UserInterface
     interfaces:
       enum.PdaUiKey.Key:
-        type: PdaBoundUserInterface
+        type: CityPdaBoundUserInterface # Dystopia: КПК — старый янтарный терминал
       enum.StoreUiKey.Key:
         type: StoreBoundUserInterface
       enum.RingerUiKey.Key:
@@ -4762,6 +5035,17 @@
         - IdCard
     id: DystopiaGuardDispatcherIDCard
   - type: PdaVisuals
+  - type: CityPdaCase # Dystopia: корпус окна КПК, цвета со спрайта КПК должности
+    style: Tablet
+    body: "#262B35"
+    trim: "#6A81AB"
+    edge: "#121418"
+    lights:
+    - "#339900"
+    - "#339900"
+    stencil: "#8FA3C8"
+    keycap: "#3A4458"
+    label: dystopia-pda-label-guard
   - type: ContainerContainer
     containers:
       PDA-id: !type:ContainerSlot {}
@@ -4818,7 +5102,7 @@
   - type: UserInterface
     interfaces:
       enum.PdaUiKey.Key:
-        type: PdaBoundUserInterface
+        type: CityPdaBoundUserInterface # Dystopia: КПК — старый янтарный терминал
       enum.StoreUiKey.Key:
         type: StoreBoundUserInterface
       enum.RingerUiKey.Key:
@@ -4940,6 +5224,17 @@
         - IdCard
     id: DystopiaGuardInvestigatorIDCard
   - type: PdaVisuals
+  - type: CityPdaCase # Dystopia: корпус окна КПК, цвета со спрайта КПК должности
+    style: Tablet
+    body: "#262B35"
+    trim: "#6A81AB"
+    edge: "#121418"
+    lights:
+    - "#339900"
+    - "#339900"
+    stencil: "#8FA3C8"
+    keycap: "#3A4458"
+    label: dystopia-pda-label-guard
   - type: ContainerContainer
     containers:
       PDA-id: !type:ContainerSlot {}
@@ -4996,7 +5291,7 @@
   - type: UserInterface
     interfaces:
       enum.PdaUiKey.Key:
-        type: PdaBoundUserInterface
+        type: CityPdaBoundUserInterface # Dystopia: КПК — старый янтарный терминал
       enum.StoreUiKey.Key:
         type: StoreBoundUserInterface
       enum.RingerUiKey.Key:

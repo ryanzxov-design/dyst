@@ -27,9 +27,11 @@ public sealed class DystopiaTerminalStylesheet : NanotrasenStylesheet
     // заполняются раньше него — так тема попадает в палитры
     private static DystopiaLobbyThemePrototype? _building;
     private static int _buildingSize = 13;
+    private static string? _buildingFont;
 
     private readonly DystopiaLobbyThemePrototype _theme = _building ?? new DystopiaLobbyThemePrototype();
     private readonly int _textSize = _buildingSize;
+    private readonly string _fontPath = _buildingFont ?? DystopiaLobbyThemeController.MonoFontPath;
 
     public override string StylesheetName => "DystopiaTerminal";
 
@@ -52,11 +54,12 @@ public sealed class DystopiaTerminalStylesheet : NanotrasenStylesheet
     }
 
     /// <summary>Лист для темы (строится заново на каждый вызов — кэширует вызывающий). Окна Города берут его же
-    /// со своей палитрой и кеглем 12 (CityUi.Sheet).</summary>
-    public static Stylesheet Build(DystopiaLobbyThemePrototype theme, int textSize = 13)
+    /// со своей палитрой и кеглем 12 (CityUi.Sheet), КПК — янтарной палитрой и шрифтом Terminus (CityPdaUi.Sheet).</summary>
+    public static Stylesheet Build(DystopiaLobbyThemePrototype theme, int textSize = 13, string? fontPath = null)
     {
         _building = theme;
         _buildingSize = textSize;
+        _buildingFont = fontPath;
         try
         {
             var man = (StylesheetManager) IoCManager.Resolve<IStylesheetManager>();
@@ -66,6 +69,7 @@ public sealed class DystopiaTerminalStylesheet : NanotrasenStylesheet
         {
             _building = null;
             _buildingSize = 13;
+            _buildingFont = null;
         }
     }
 
@@ -112,7 +116,7 @@ public sealed class DystopiaTerminalStylesheet : NanotrasenStylesheet
         var ink = DystopiaLobbyThemeController.Ink;
         var font = ResCache.GetFont(new[]
         {
-            DystopiaLobbyThemeController.MonoFontPath,
+            _fontPath,
             "/Fonts/NotoSans/NotoSans-Regular.ttf",
             "/Fonts/NotoSans/NotoSansSymbols-Regular.ttf",
             "/Fonts/NotoSans/NotoSansSymbols2-Regular.ttf",

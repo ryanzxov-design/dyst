@@ -1,3 +1,4 @@
+using Content.Client._Dystopia.Pda;
 using Content.Client.UserInterface.Fragments;
 using Content.Shared._Dystopia.Economy;
 using Content.Shared.CartridgeLoader;
@@ -32,9 +33,10 @@ public sealed partial class CityBankUi : UIFragment
 
 public sealed class CityBankUiFragment : BoxContainer
 {
-    private static readonly Color AccentColor = Color.FromHex("#78BEE1");
-    private static readonly Color DimColor = Color.FromHex("#607A92");
-    private static readonly Color WarnColor = Color.FromHex("#E05A4F");
+    // Dystopia: цвета экрана КПК Города (янтарный терминал)
+    private static readonly Color AccentColor = CityPdaUi.Amber;
+    private static readonly Color DimColor = CityPdaUi.Dim;
+    private static readonly Color WarnColor = CityPdaUi.Bright;
 
     public event Action<int, int, string>? OnTransfer;
 
@@ -64,7 +66,7 @@ public sealed class CityBankUiFragment : BoxContainer
         AddChild(_debt);
 
         _transferBox = new BoxContainer { Orientation = LayoutOrientation.Vertical, HorizontalExpand = true, SeparationOverride = 2 };
-        _transferBox.AddChild(new Label { Text = Loc.GetString("dystopia-bank-ui-transfer-header"), FontColorOverride = AccentColor, Margin = new Thickness(0, 6, 0, 0) });
+        _transferBox.AddChild(CityPdaUi.Section(Loc.GetString("dystopia-bank-ui-transfer-header")));
         _to = new LineEdit { HorizontalExpand = true, PlaceHolder = Loc.GetString("dystopia-bank-ui-to") };
         _amount = new LineEdit { HorizontalExpand = true, PlaceHolder = Loc.GetString("dystopia-bank-ui-amount") };
         _comment = new LineEdit { HorizontalExpand = true, PlaceHolder = Loc.GetString("dystopia-bank-ui-comment") };
@@ -84,7 +86,7 @@ public sealed class CityBankUiFragment : BoxContainer
         _transferBox.AddChild(send);
         AddChild(_transferBox);
 
-        AddChild(new Label { Text = Loc.GetString("dystopia-bank-ui-history-header"), FontColorOverride = AccentColor, Margin = new Thickness(0, 6, 0, 0) });
+        AddChild(CityPdaUi.Section(Loc.GetString("dystopia-bank-ui-history-header")));
         var scroll = new ScrollContainer { HScrollEnabled = false, VerticalExpand = true, HorizontalExpand = true };
         _history = new BoxContainer { Orientation = LayoutOrientation.Vertical, HorizontalExpand = true };
         scroll.AddChild(_history);
@@ -126,7 +128,7 @@ public sealed class CityBankUiFragment : BoxContainer
         foreach (var line in state.History)
         {
             var label = new RichTextLabel { HorizontalExpand = true };
-            label.SetMessage(Robust.Shared.Utility.FormattedMessage.FromUnformatted(line));
+            label.SetMessage(Robust.Shared.Utility.FormattedMessage.FromUnformatted(line), defaultColor: AccentColor);
             _history.AddChild(label);
         }
     }
