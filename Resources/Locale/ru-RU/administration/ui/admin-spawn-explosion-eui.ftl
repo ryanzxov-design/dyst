@@ -1,3 +1,4 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 admin-explosion-eui-title = Создание взрывов
 
 admin-explosion-eui-label-type = Тип взрыва
@@ -15,7 +16,7 @@ admin-explosion-eui-label-spread = Радиус
 admin-explosion-eui-label-distance = Дистанция
 admin-explosion-eui-label-spawn = Бабах!
 
-cmd-explosionui-desc = Открывает окно для удобного доступа к уничтожению станции.
+cmd-explosionui-desc = Открывает окно для удобного доступа к уничтожению Города.
 cmd-explosionui-help = Использование: explosionui
 
 cmd-explosion-desc = Поезд сделал бум

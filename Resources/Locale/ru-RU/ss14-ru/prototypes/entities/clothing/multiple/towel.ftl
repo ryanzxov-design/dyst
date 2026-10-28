@@ -1,10 +1,11 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 ent-BaseTowel = базовое полотенце
     .desc = Если вы хотите выжить здесь, вы должны знать, где находится ваше полотенце.
 ent-TowelColorWhite = белое полотенце
     .desc = { ent-BaseTowel.desc }
-ent-TowelColorNT = полотенце марки Nanotrasen
+ent-TowelColorNT = полотенце марки Города
     .desc = { ent-BaseTowel.desc }
-ent-TowelColorCentcom = полотенце ЦК
+ent-TowelColorCentcom = полотенце Консулата
     .desc = { ent-BaseTowel.desc }
 ent-TowelColorSyndicate = полотенце Синдиката
     .desc = { ent-BaseTowel.desc }

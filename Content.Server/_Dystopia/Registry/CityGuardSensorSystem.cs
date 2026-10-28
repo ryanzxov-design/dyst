@@ -24,9 +24,6 @@ public sealed partial class CityGuardSensorSystem : EntitySystem
     [Dependency] private CityRegistrySystem _registry = default!;
     [Dependency] private CityCameraSystem _cameras = default!;
 
-    /// <summary>Как долго метка стражника мигает после сигнала бедствия.</summary>
-    private static readonly TimeSpan DistressShown = TimeSpan.FromMinutes(1);
-
     private float _accumulator;
 
     public override void Initialize()
@@ -140,7 +137,7 @@ public sealed partial class CityGuardSensorSystem : EntitySystem
     public bool RecentDistress(CityGuardSensorComponent sensor)
     {
         return sensor.NextDistress > TimeSpan.Zero &&
-               _ticker.RoundDuration() < sensor.NextDistress - sensor.DistressCooldown + DistressShown;
+               _ticker.RoundDuration() < sensor.NextDistress - sensor.DistressCooldown + sensor.DistressShown;
     }
 
     private void Raise(Entity<CityRegistryComponent> registry, Entity<CityGuardSensorComponent> ent, CityAlertKind kind, string key)

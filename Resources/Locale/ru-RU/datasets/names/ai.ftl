@@ -1,3 +1,4 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 names-ai-dataset-1 = 16-20
 names-ai-dataset-2 = 512k
 
@@ -105,7 +106,7 @@ names-ai-dataset-76 = Мультивак
 names-ai-dataset-77 = ЗЕТ-2
 
 # A play on both NT as in NanoTrasen and NT as in windows NT, of which version 6.0 is windows vista
-names-ai-dataset-78 = NT v6.0
+names-ai-dataset-78 = Город v6.0
 
 names-ai-dataset-79 = Пакард Бэлл
 names-ai-dataset-80 = ЗЕТ-3
@@ -119,7 +120,7 @@ names-ai-dataset-87 = С.О.Ф.И
 names-ai-dataset-88 = Самаритянин
 names-ai-dataset-89 = Сорокопут
 names-ai-dataset-90 = Соло
-names-ai-dataset-91 = Программа Контроля Станции
+names-ai-dataset-91 = Программа Контроля Города
 names-ai-dataset-92 = ЗЕД
 names-ai-dataset-93 = Супер 35
 names-ai-dataset-94 = Генеральный хирург

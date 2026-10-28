@@ -1,3 +1,4 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 names-operation-suffix-dataset-1 = Бездна
 names-operation-suffix-dataset-2 = Действие
 names-operation-suffix-dataset-3 = Аннигиляция
@@ -86,7 +87,7 @@ names-operation-suffix-dataset-85 = Паук
 names-operation-suffix-dataset-86 = Шпиль
 names-operation-suffix-dataset-87 = Персонал
 names-operation-suffix-dataset-88 = Звезда
-names-operation-suffix-dataset-89 = Станция
+names-operation-suffix-dataset-89 = Город
 names-operation-suffix-dataset-90 = Шторм
 names-operation-suffix-dataset-91 = Путник
 names-operation-suffix-dataset-92 = Страйк

@@ -1,3 +1,4 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 ent-ClothingUniformJumpsuitSuperstarCop = форма полицейского суперзвезды
     .desc = Расклёшенные брюки и грязная рубашка, которая могла бы быть стильной, пока кто-то не помочился в подмышки. Это одежда суперзвезды.
 ent-ClothingUniformJumpsuitAerostatic = костюм воздухоплавателя
@@ -5,7 +6,7 @@ ent-ClothingUniformJumpsuitAerostatic = костюм воздухоплават�
 ent-ClothingUniformJumpsuitCentcomOfficerBlack = униформа офицера специальных операций
     .desc = Чёрная униформа офицера специальных операций, ничего такого. Хотя... Если у вас есть время читать это, то уже поздно...
 ent-ClothingUniformJumpsuitCentcomAdmiral = униформа адмирала
-    .desc = Униформа, которую носят офицеры в звании адмирала флота Nanotrasen.
+    .desc = Униформа, которую носят офицеры в звании адмирала флота Города.
 ent-ClothingUniformJumpsuitCapTurtleneck = водолазка Консула
     .desc = Это водолазка настоящего Консула.
 ent-ClothingUniformJumpsuitHoPTurtleneck = водолазка адъютанта

@@ -1,3 +1,4 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 ent-SignalSwitch = переключатель сигнала
     .desc = Это переключатель питания устройств.
 ent-SignalButton = кнопка сигнала
@@ -108,7 +109,7 @@ ent-LockableButtonAtmospherics = { ent-LockableButton }
     .suffix = Атмосферный
 ent-LockableButtonCentcomm = { ent-LockableButton }
     .desc = { ent-LockableButton.desc }
-    .suffix = ЦК
+    .suffix = Консулат
 ent-ButtonFrame = каркас кнопки
     .desc = Это каркас, помогающий визуально различать переключатели.
 ent-ButtonFrameGrey = { ent-ButtonFrame }

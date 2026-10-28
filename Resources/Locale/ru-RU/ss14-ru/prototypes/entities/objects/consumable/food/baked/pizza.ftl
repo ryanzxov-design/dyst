@@ -1,3 +1,4 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 ent-FoodPizzaBase = { ent-SolutionNormal }
     .desc = { ent-SolutionNormal.desc }
 ent-FoodPizzaSliceBase = { ent-SolutionVeryTiny }
@@ -15,9 +16,9 @@ ent-FoodPizzaMushroom = грибная пицца
 ent-FoodPizzaMushroomSlice = кусок грибной пиццы
     .desc = Может быть, это последний кусок пиццы в вашей жизни.
 ent-FoodPizzaVegetable = овощная пицца
-    .desc = Вегетарианцы станции скажут вам спасибо за это.
+    .desc = Вегетарианцы Города скажут вам спасибо за это.
 ent-FoodPizzaVegetableSlice = кусок овощной пиццы
-    .desc = Одного кусочка достаточно, чтобы удовлетворить даже самый придирчивый персонал станции.
+    .desc = Одного кусочка достаточно, чтобы удовлетворить даже самый придирчивый персонал Города.
 ent-FoodPizzaDonkpocket = пицца донк-покет
     .desc = Кто подумал, что это будет хорошая идея?
 ent-FoodPizzaDonkpocketSlice = кусок пиццы донк-покет

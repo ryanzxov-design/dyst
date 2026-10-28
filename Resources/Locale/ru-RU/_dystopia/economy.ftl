@@ -30,7 +30,7 @@ cmd-citybank_deposit-help = Использование: { $command } <номер
 cmd-citybank_payday-desc = Немедленно выплатить зарплаты.
 cmd-citybank_payday-help = Использование: { $command }
 
-cmd-citybank-no-bank = Банк Города не найден: на станции нет компонента CityBank.
+cmd-citybank-no-bank = Банк Города не найден: у Города нет компонента CityBank.
 cmd-citybank-bad-amount = Неверные аргументы. Суммы и номера счетов — целые числа.
 cmd-citybank-no-account = Счёт №{ $id } не найден.
 cmd-citybank-info-header = Казна: { $treasury }. Счетов: { $accounts }. Следующая выплата через { $next } сек.
@@ -90,7 +90,7 @@ dystopia-city-console-log-seize = { $actor }: изъятие у { $name } (№{ 
 
 dystopia-city-console-sender = Консул Города
 dystopia-city-console-current-mode = Действующее положение: { $name }
-dystopia-city-console-no-modes = Положения Города недоступны на этой станции.
+dystopia-city-console-no-modes = Положения Города здесь недоступны.
 dystopia-city-console-modes-header = Ввести положение
 dystopia-city-console-announce-header = Консульское уведомление
 dystopia-city-console-announce-placeholder = Текст уведомления для всего Города

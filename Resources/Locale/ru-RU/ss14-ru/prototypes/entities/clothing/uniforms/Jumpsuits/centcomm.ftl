@@ -1,12 +1,13 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 ent-ClothingUniformJumpsuitDeathSquad = униформа Эскадрона смерти
     .desc = Усовершенствованный бронированный комбинезон, используемый спецподразделениями при проведении специальных операций.
-ent-ClothingUniformJumpsuitCentcomAgent = комбинезон агента ЦК
-    .desc = Костюм, который носят сотрудники Юридического отдела Центрального командования. Пахнет подгоревшим кофе.
-ent-ClothingUniformJumpsuitCentcomOfficial = комбинезон офицера ЦК
-    .desc = Это комбинезон, который носят офицеры Центрального командования.
-ent-ClothingUniformJumpsuitCentcomOfficer = водолазка офицера ЦК
-    .desc = Водолазка, которую носят офицеры Центрального командования.
-ent-ClothingUniformJumpsuitCentcomFormal = торжественный костюм ЦК
+ent-ClothingUniformJumpsuitCentcomAgent = комбинезон агента Консулата
+    .desc = Костюм, который носят сотрудники Юридического отдела Консулата. Пахнет подгоревшим кофе.
+ent-ClothingUniformJumpsuitCentcomOfficial = комбинезон офицера Консулата
+    .desc = Это комбинезон, который носят офицеры Консулата.
+ent-ClothingUniformJumpsuitCentcomOfficer = водолазка офицера Консулата
+    .desc = Водолазка, которую носят офицеры Консулата.
+ent-ClothingUniformJumpsuitCentcomFormal = торжественный костюм Консулата
     .desc = Костюм для особых случаев.
 ent-ClothingUniformJumpsuitERTChaplain = униформа священника ОБР
     .desc = Специальный костюм, созданный для элитных священников.

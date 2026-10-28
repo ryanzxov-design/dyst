@@ -1,3 +1,4 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 teleporter-console-slot-name = Диск
 teleporter-console-chip-record = Координаты сохранены!
 
@@ -14,7 +15,7 @@ teleporter-console-user-interface-cut-connection = Разорвать соеди
 teleporter-console-user-interface-no-power = Без питания
 
 teleporter-console-user-interface-no-teleporters = Нет телепортов
-teleporter-console-user-interface-unknown-station = Неизвестная станция
+teleporter-console-user-interface-unknown-station = Неизвестный город
 teleporter-console-user-interface-flavor-left = Компания-производитель не несет юридической ответственности в случаях нестабильности врат или резонансного каскада.
 teleporter-console-user-interface-flavor-right = v0.666
 

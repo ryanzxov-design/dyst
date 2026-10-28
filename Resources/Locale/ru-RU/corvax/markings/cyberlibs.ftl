@@ -1,3 +1,4 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 # Bishop
 marking-CyberlimbRArmBishop = Протез, правая рука (Бисшоп)
 marking-CyberlimbLArmBishop = Протез, левая рука (Бисшоп)
@@ -60,15 +61,15 @@ marking-CyberlimbLFootZenghu = Протез, правая стопа (Зенху
 marking-CyberlimbRFootZenghu = Протез, левая стопа (Зенху)
 marking-CyberlimbTorsoZenghu = Протез, туловище (Зенху)
 # Nanotrasen
-marking-CyberlimbRArmNanotrasen = Протез, правая рука (Nanotrasen)
-marking-CyberlimbLArmNanotrasen = Протез, левая рука (Nanotrasen)
-marking-CyberlimbRHandNanotrasen = Протез, кисть правой руки (Nanotrasen)
-marking-CyberlimbLHandNanotrasen = Протез, кисть левой руки (Nanotrasen)
-marking-CyberlimbRLegNanotrasen = Протез, правая нога (Nanotrasen)
-marking-CyberlimbLLegNanotrasen = Протез, левая нога (Nanotrasen)
-marking-CyberlimbRFootNanotrasen = Протез, правая стопа (Nanotrasen)
-marking-CyberlimbLFootNanotrasen = Протез, левая стопа (Nanotrasen)
-marking-CyberlimbTorsoNanotrasen = Протез, туловище (Nanotrasen)
+marking-CyberlimbRArmNanotrasen = Протез, правая рука (Города)
+marking-CyberlimbLArmNanotrasen = Протез, левая рука (Города)
+marking-CyberlimbRHandNanotrasen = Протез, кисть правой руки (Города)
+marking-CyberlimbLHandNanotrasen = Протез, кисть левой руки (Города)
+marking-CyberlimbRLegNanotrasen = Протез, правая нога (Города)
+marking-CyberlimbLLegNanotrasen = Протез, левая нога (Города)
+marking-CyberlimbRFootNanotrasen = Протез, правая стопа (Города)
+marking-CyberlimbLFootNanotrasen = Протез, левая стопа (Города)
+marking-CyberlimbTorsoNanotrasen = Протез, туловище (Города)
 # Xion
 marking-CyberlimbRArmXion = Протез, правая рука (Ксион)
 marking-CyberlimbLArmXion = Протез, левая рука (Ксион)

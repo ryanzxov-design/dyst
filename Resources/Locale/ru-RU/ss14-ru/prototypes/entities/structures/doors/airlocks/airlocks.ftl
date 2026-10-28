@@ -1,3 +1,4 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 ent-AirlockFreezer = { ent-Airlock }
     .desc = { ent-Airlock.desc }
     .suffix = Холодильник
@@ -44,7 +45,7 @@ ent-AirlockMining = { ent-AirlockCargo }
     .suffix = Шахтёры (Утилизаторы)
 ent-AirlockCentralCommand = { ent-AirlockCommand }
     .desc = { ent-AirlockCommand.desc }
-    .suffix = ЦК
+    .suffix = Консулат
 ent-AirlockHatch = герметичный люк
     .desc = { ent-Airlock.desc }
 ent-AirlockXenoborg = мехадермический шлюз
@@ -98,7 +99,7 @@ ent-AirlockMiningGlass = { ent-AirlockCargoGlass }
     .suffix = Шахтёры (Утилизаторы)
 ent-AirlockCentralCommandGlass = { ent-AirlockCommandGlass }
     .desc = { ent-AirlockCommandGlass.desc }
-    .suffix = ЦК
+    .suffix = Консулат
 ent-AirlockStandardGlass = { ent-AirlockGlass }
     .desc = { ent-AirlockGlass.desc }
     .suffix = Сервис

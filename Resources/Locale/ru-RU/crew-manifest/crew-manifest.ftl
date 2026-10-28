@@ -1,4 +1,8 @@
-crew-manifest-window-title = Манифест экипажа
-crew-manifest-button-label = Манифест экипажа
-crew-manifest-button-description = Показать список членов экипажа
-crew-manifest-no-valid-station = Некорректная станция или пустой манифест!
+# Dystopia: лор Города
+crew-manifest-window-title = Список граждан
+# Dystopia: лор Города
+crew-manifest-button-label = Список граждан
+# Dystopia: лор Города
+crew-manifest-button-description = Показать список граждан на смене
+# Dystopia: лор Города
+crew-manifest-no-valid-station = Город не найден или список пуст!

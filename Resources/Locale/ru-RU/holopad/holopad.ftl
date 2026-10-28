@@ -1,3 +1,4 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 # Window headers
 holopad-window-title = { CAPITALIZE($title) }
 holopad-window-subtitle = [color=white][bold]Система голографической связи[/bold][/color]
@@ -19,7 +20,7 @@ holopad-window-controls-unlock-countdown = Оно автоматически р�
 # Buttons
 holopad-window-answer-call = Ответить на звонок
 holopad-window-end-call = Завершить звонок
-holopad-window-request-station-ai = Запросить станционный ИИ
+holopad-window-request-station-ai = Запросить городской ИИ
 holopad-window-activate-projector = Активировать проектор
 holopad-window-emergency-broadcast = Экстренная трансляция
 holopad-window-emergency-broadcast-with-countdown = Экстренная трансляция ({ $countdown })
@@ -154,8 +155,8 @@ holopad-ai-entrance = ИИ — Вход
 holopad-ai-chute = ИИ — Транспортный блок
 
 # Long Range
-holopad-station-bridge = Станция — Мостик
-holopad-station-cargo-bay = Станция — Грузовой отсек
+holopad-station-bridge = Город — Мостик
+holopad-station-cargo-bay = Город — Грузовой отсек
 
 # CentComm
-holopad-centcomm-evac = ЦК — Эвакуационный шаттл
+holopad-centcomm-evac = Консулат — Эвакуационный шаттл

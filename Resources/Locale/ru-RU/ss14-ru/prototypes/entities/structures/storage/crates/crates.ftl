@@ -1,3 +1,4 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 ent-CrateGenericSteel = стальной ящик
     .desc = { ent-CrateBaseWeldable.desc }
 ent-CratePlastic = пластиковый ящик
@@ -84,7 +85,7 @@ ent-CrateLockBoxService = сервисный ящик с замком
     .desc = { ent-CrateBaseLockBox.desc }
     .suffix = { ent-CrateBaseLockBox.suffix }
 ent-CratePirate = пиратский сундук
-    .desc = Сундук космического пирата, не для станционных крыс.
+    .desc = Сундук космического пирата, не для городских крыс.
 ent-CrateToyBox = коробка игрушек
     .desc = Коробка, переполненная весельем.
     .suffix = Пустой

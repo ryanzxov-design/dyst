@@ -1,3 +1,4 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 ent-ClothingOuterWinterCoat = зимняя куртка
     .desc = Тяжёлая куртка из «синтетического» меха животных.
 ent-ClothingOuterWinterCoatToggleable = зимняя куртка с капюшоном
@@ -12,7 +13,7 @@ ent-ClothingOuterWinterCargo = зимняя куртка грузчика
     .desc = { ent-ClothingOuterWinterCoatToggleable.desc }
 ent-ClothingOuterWinterCE = зимняя куртка главы Промышленной Службы
     .desc = { ent-ClothingOuterWinterCoatToggleable.desc }
-ent-ClothingOuterWinterCentcom = зимняя куртка ЦК
+ent-ClothingOuterWinterCentcom = зимняя куртка Консулата
     .desc = { ent-ClothingOuterWinterCoatToggleable.desc }
 ent-ClothingOuterWinterChef = морозильная куртка шеф-повара
     .desc = Куртка, разработанная специально для работы в холодильных камерах, столь необходимая хладнокровным поварам-унатхам.

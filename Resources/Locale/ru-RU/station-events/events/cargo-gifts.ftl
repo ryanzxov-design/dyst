@@ -1,6 +1,8 @@
-cargo-gifts-event-announcement = Поздравляем! { $sender } решили отправить { $description } { $dest } станции. Всё прибудет со следующей партией груза.
+# Dystopia: лор Города
+cargo-gifts-event-announcement = Поздравляем! { $sender } решили отправить { $description } { $dest } Города. Всё прибудет со следующей партией груза.
 cargo-gift-default-description = набор подарков
-cargo-gift-default-sender = Nanotrasen
+# Dystopia: лор Города
+cargo-gift-default-sender = Власти Города
 cargo-gift-default-dest = отделу снабжения
 
 cargo-gift-dest-bar = бару

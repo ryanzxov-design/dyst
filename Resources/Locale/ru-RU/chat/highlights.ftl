@@ -1,3 +1,4 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 # Command
 highlights-captain = Капитан, "кеп", "кэп", "мостик", "командование"
 highlights-headofpersonnel = глава персонала, "гп", сервис, мостик, "командование"
@@ -53,4 +54,4 @@ highlights-psychologist = психолог
 # Silicon
 highlights-personal-ai = персональный ии, "пии"
 highlights-borg = киборг, борг
-highlights-stationai = станционный ии, "ии", "сии"
+highlights-stationai = городской ии, "ии", "сии"

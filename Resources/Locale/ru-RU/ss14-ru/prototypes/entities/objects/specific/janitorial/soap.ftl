@@ -1,3 +1,4 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 ent-BaseSoap = мыло
     .desc = { ent-SolutionSoapBase.desc }
 ent-SolutionSoapBase = { ent-SolutionFood }
@@ -5,7 +6,7 @@ ent-SolutionSoapBase = { ent-SolutionFood }
 ent-Soap = { ent-BaseSoap }
     .desc = Дешёвый брусок мыла. Не пахнет.
 ent-SoapNT = { ent-Soap }
-    .desc = Брусок мыла бренда Nanotrasen. Пахнет плазмой.
+    .desc = Брусок мыла бренда Города. Пахнет плазмой.
 ent-SoapDeluxe = { ent-Soap }
     .desc = Брусок мыла престижного бренда Waffle Co. Пахнет земляникой.
 ent-SoapSyndie = { ent-Soap }

@@ -1,3 +1,4 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 ent-BaseObjective = { "" }
     .desc = { "" }
 ent-BaseLivingObjective = { ent-BaseObjective }
@@ -23,4 +24,4 @@ ent-BaseCodeObjective = { ent-BaseObjective }
 ent-BaseFreeObjective = { ent-BaseObjective }
     .desc = { ent-BaseObjective.desc }
 ent-BaseCounterObjective = { ent-BaseObjective }
-    .desc = Нас интересует корреспонденция Nanotrasen. Инструмент для вскрытия писем не прилагается.
+    .desc = Нас интересует корреспонденция Города. Инструмент для вскрытия писем не прилагается.

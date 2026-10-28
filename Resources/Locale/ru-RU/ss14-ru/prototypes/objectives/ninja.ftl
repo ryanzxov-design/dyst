@@ -1,3 +1,4 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 ent-BaseNinjaObjective = { ent-BaseObjective }
     .desc = { ent-BaseObjective.desc }
 ent-DoorjackObjective = { ent-BaseNinjaObjective }
@@ -9,6 +10,6 @@ ent-SpiderChargeObjective = { ent-BaseNinjaObjective }
 ent-NinjaSurviveObjective = Выжить
     .desc = Вы не будете хорошим ниндзя, если умрёте, не так ли?
 ent-TerrorObjective = Призвать угрозу
-    .desc = Используйте свои перчатки на консоли связи, чтобы навлечь на станцию ещё одну угрозу.
+    .desc = Используйте свои перчатки на консоли связи, чтобы навлечь на Город ещё одну угрозу.
 ent-MassArrestObjective = Объявите всех в розыск
-    .desc = С помощью перчаток взломайте консоль криминальных записей и объявите всю станцию в розыск!
+    .desc = С помощью перчаток взломайте консоль криминальных записей и объявите весь Город в розыск!

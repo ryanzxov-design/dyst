@@ -1,28 +1,29 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 ent-StationTeleporter = телепортатор
     .desc = Вершина блюспейс технологий. Гигантский телепорт, позволяющий перемещаться на огромные расстояния в мгновение ока.
     .suffix = Неизвестные координаты, Без автоподключения
 ent-StationTeleporterNanotrasen = { ent-StationTeleporter }
     .desc = { ent-StationTeleporter.desc }
-    .suffix = Неизвестные координаты, Сеть Nanotrasen
+    .suffix = Неизвестные координаты, Сеть Города
 ent-StationTeleporterCenter = { ent-StationTeleporterNanotrasen }
     .desc = { ent-StationTeleporterNanotrasen.desc }
-    .suffix = Центр, Сеть Nanotrasen
+    .suffix = Центр, Сеть Города
 ent-StationTeleporterSalvage = { ent-StationTeleporterNanotrasen }
     .desc = { ent-StationTeleporterNanotrasen.desc }
-    .suffix = Утилизаторский, Сеть Nanotrasen
+    .suffix = Утилизаторский, Сеть Города
 ent-StationTeleporterMedical = { ent-StationTeleporterNanotrasen }
     .desc = { ent-StationTeleporterNanotrasen.desc }
-    .suffix = Медицинский, Сеть Nanotrasen
+    .suffix = Медицинский, Сеть Города
 ent-StationTeleporterEngineering = { ent-StationTeleporterNanotrasen }
     .desc = { ent-StationTeleporterNanotrasen.desc }
-    .suffix = Инженерный, Сеть Nanotrasen
+    .suffix = Инженерный, Сеть Города
 ent-StationTeleporterSecurity = { ent-StationTeleporterNanotrasen }
     .desc = { ent-StationTeleporterNanotrasen.desc }
-    .suffix = Безопасность, Сеть Nanotrasen
+    .suffix = Безопасность, Сеть Города
 ent-StationTeleporterScience = { ent-StationTeleporterNanotrasen }
     .desc = { ent-StationTeleporterNanotrasen.desc }
-    .suffix = Научный, Сеть Nanotrasen
+    .suffix = Научный, Сеть Города
 ent-StationTeleporterCargo = { ent-StationTeleporterNanotrasen }
     .desc = { ent-StationTeleporterNanotrasen.desc }
-    .suffix = Снабжение, Сеть Nanotrasen
+    .suffix = Снабжение, Сеть Города
 

@@ -106,6 +106,7 @@
     hurtDamage: 40
     trailLength: 30
     distressCooldown: 30
+    distressShown: 60 # сколько секунд метка мигает в «Дозоре» после сигнала
   # «Сигнал бедствия» — действие маски, пока она надета
   - type: ActionGrant
     actions:

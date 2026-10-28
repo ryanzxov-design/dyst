@@ -1,3 +1,4 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 # Chat window radio wrap (prefix and postfix)
 # Dystopia: имя шрифта в кавычках — без них разметка читает его как цвет и всегда берёт шрифт по умолчанию
 chat-radio-message-wrap = [color={ $color }]{ $channel } [bold]{ $name }[/bold] { $verb }, [font="{ $fontType }" size={ $fontSize }]{ chat-manager-speech-double-quote-begin }{ $message }{ chat-manager-speech-double-quote-end }[/font][/color]
@@ -6,7 +7,7 @@ chat-radio-message-wrap-bold = [color={ $color }]{ $channel } [bold]{ $name }[/b
 examine-headset-default-channel = Канал по умолчанию этой гарнитуры [color={ $color }]{ $channel }[/color].
 
 chat-radio-common = Общий
-chat-radio-centcom = ЦК
+chat-radio-centcom = Консулат
 chat-radio-command = Командный
 chat-radio-engineering = Инженерный
 chat-radio-medical = Медицинский

@@ -1,8 +1,9 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 ent-ClothingHeadsetAlt = полноразмерная гарнитура
     .desc = Модифицированный модульный интерком, надеваемый на голову. Принимает ключи шифрования.
 ent-ClothingHeadsetAltCargo = полноразмерная гарнитура КМ
     .desc = { ent-ClothingHeadsetAlt.desc }
-ent-ClothingHeadsetAltCentCom = полноразмерная гарнитура ЦК
+ent-ClothingHeadsetAltCentCom = полноразмерная гарнитура Консулата
     .desc = { ent-ClothingHeadsetAlt.desc }
 ent-ClothingHeadsetAltCommand = полноразмерная гарнитура командования
     .desc = { ent-ClothingHeadsetAlt.desc }

@@ -1,8 +1,9 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 ent-BaseSiliconLawboard = { ent-BaseElectronics }
     .desc = Электронная плата, хранящая набор законов.
     .suffix = { ent-BaseElectronics.suffix }
-ent-NTDefaultCircuitBoard = плата законов (NT стандарт)
-    .desc = Электронная плата, хранящая набор законов 'NT стандарт'.
+ent-NTDefaultCircuitBoard = плата законов (Городской стандарт)
+    .desc = Электронная плата, хранящая набор законов 'Городской стандарт'.
     .suffix = { ent-BaseSiliconLawboard.suffix }
 ent-AsimovCircuitBoard = плата законов (Крюзимов)
     .desc = Электронная плата, хранящая набор законов ИИ 'Крюзимов'.
@@ -19,8 +20,8 @@ ent-PaladinCircuitBoard = плата законов (Паладин)
 ent-LiveLetLiveCircuitBoard = плата законов (Живи и дай жить другим)
     .desc = Электронная плата, хранящая набор законов 'Живи и дай жить другим'.
     .suffix = { ent-BaseSiliconLawboard.suffix }
-ent-StationEfficiencyCircuitBoard = плата законов (Эффективность станции)
-    .desc = Электронная плата, хранящая набор законов 'Эффективность станции'.
+ent-StationEfficiencyCircuitBoard = плата законов (Эффективность Города)
+    .desc = Электронная плата, хранящая набор законов 'Эффективность Города'.
     .suffix = { ent-BaseSiliconLawboard.suffix }
 ent-RobocopCircuitBoard = плата законов (Робокоп)
     .desc = Электронная плата, хранящая набор законов 'Робокоп'.

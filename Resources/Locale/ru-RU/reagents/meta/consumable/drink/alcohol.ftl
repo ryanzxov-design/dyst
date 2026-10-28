@@ -1,3 +1,4 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 reagent-name-absinthe = абсент
 reagent-desc-absinthe = Спиртной напиток со вкусом аниса, полученный из растений.
 
@@ -203,7 +204,7 @@ reagent-name-manhattan = Манхэттен
 reagent-desc-manhattan = Любимый напиток Детектива под прикрытием. Он никогда не переносил джин...
 
 reagent-name-manhattan-project = Манхэттенский Проект
-reagent-desc-manhattan-project = Напиток для учёных, размышляющих о том, как взорвать станцию.
+reagent-desc-manhattan-project = Напиток для учёных, размышляющих о том, как взорвать Город.
 
 reagent-name-manly-dorf = Мужественный Дворф
 reagent-desc-manly-dorf = Пиво и эль, соединённые в восхитительный коктейль. Предназначено только для крепких гномов.

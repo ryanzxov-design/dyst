@@ -1,4 +1,5 @@
-role-type-crew-aligned-name = Экипаж или их союзник
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
+role-type-crew-aligned-name = Граждане или их союзник
 role-type-solo-antagonist-name = Соло-антагонист
 role-type-team-antagonist-name = Командный антагонист
 role-type-free-agent-name = Свободный агент

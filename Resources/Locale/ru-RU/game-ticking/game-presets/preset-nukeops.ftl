@@ -1,24 +1,25 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 nukeops-title = Ядерные оперативники
-nukeops-description = Ядерные оперативники нацелились на станцию. Постарайтесь не дать им взвести и взорвать ядерную бомбу, защищая ядерный диск!
+nukeops-description = Ядерные оперативники нацелились на Город. Постарайтесь не дать им взвести и взорвать ядерную бомбу, защищая ядерный диск!
 
 nukeops-welcome =
     Вы — ядерный оперативник. Ваша задача — взорвать { $station } и убедиться, что от неё осталась лишь груда обломков. Ваше руководство, Синдикат, снабдило вас всем необходимым для выполнения этой задачи.
-    Операция "{ $name }" началась! Смерть Nanotrasen!
+    Операция "{ $name }" началась! Смерть Городу!
 nukeops-briefing = Ваши задачи просты. Доставить бомбу и убраться до того, как она взорвётся. Начинайте миссию.
 
 nukeops-opsmajor = [color=crimson]Крупная победа Синдиката![/color]
 nukeops-opsminor = [color=crimson]Малая победа Синдиката![/color]
 nukeops-neutral = [color=yellow]Ничейный исход![/color]
-nukeops-crewminor = [color=green]Малая победа экипажа![/color]
-nukeops-crewmajor = [color=green]Разгромная победа экипажа![/color]
+nukeops-crewminor = [color=green]Малая победа граждан![/color]
+nukeops-crewmajor = [color=green]Разгромная победа граждан![/color]
 
-nukeops-cond-nukeexplodedoncorrectstation = Ядерным оперативникам удалось взорвать станцию.
+nukeops-cond-nukeexplodedoncorrectstation = Ядерным оперативникам удалось взорвать Город.
 nukeops-cond-nukeexplodedonnukieoutpost = Аванпост ядерных оперативников был уничтожен ядерным взрывом!
-nukeops-cond-nukeexplodedonincorrectlocation = Ядерная бомба взорвалась вне станции.
-nukeops-cond-nukeactiveinstation = Ядерная бомба была оставлена взведённой на станции.
-nukeops-cond-nukeactiveatcentcom = Ядерная бомба была доставлена Центральному командованию!
-nukeops-cond-nukediskoncentcom = Экипаж улетел с диском ядерной аутентификации.
-nukeops-cond-nukedisknotoncentcom = Экипаж оставил диск ядерной аутентификации на станции.
+nukeops-cond-nukeexplodedonincorrectlocation = Ядерная бомба взорвалась вне Города.
+nukeops-cond-nukeactiveinstation = Ядерная бомба была оставлена взведённой в Городе.
+nukeops-cond-nukeactiveatcentcom = Ядерная бомба была доставлена Консулату!
+nukeops-cond-nukediskoncentcom = Граждане улетелии с диском ядерной аутентификации.
+nukeops-cond-nukedisknotoncentcom = Граждане оставилии диск ядерной аутентификации в Городе.
 nukeops-cond-nukiesabandoned = Ядерные оперативники были брошены.
 nukeops-cond-allnukiesdead = Все ядерные оперативники погибли.
 nukeops-cond-somenukiesalive = Несколько ядерных оперативников погибли.

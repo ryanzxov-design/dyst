@@ -1,8 +1,9 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 reagent-name-cola = Спейс Кола
 reagent-desc-cola = Сладкий газированный безалкогольный напиток. Не содержит кофеина.
 
 reagent-name-shirley-temple = Ширли Темпл
-reagent-desc-shirley-temple = Фаворит среди более юных членов экипажа.
+reagent-desc-shirley-temple = Фаворит среди более юных граждан.
 
 reagent-name-changeling-sting = Жало Генокрада
 reagent-desc-changeling-sting = Слабоалкогольная газировка. Вы делаете маленький глоток и чувствуете жжение...
@@ -11,7 +12,7 @@ reagent-name-dr-gibb = доктор Гибб
 reagent-desc-dr-gibb = Восхитительная смесь из 42 различных вкусов.
 
 reagent-name-energy-drink = Ред Булеан
-reagent-desc-energy-drink = Доза энергии! Nanotrasen не несёт ответственности, если у вас вырастут птичьи придатки.
+reagent-desc-energy-drink = Доза энергии! Города не несёт ответственности, если у вас вырастут птичьи придатки.
 
 reagent-name-grape-soda = виноградная газировка
 reagent-desc-grape-soda = Это винограааааад!

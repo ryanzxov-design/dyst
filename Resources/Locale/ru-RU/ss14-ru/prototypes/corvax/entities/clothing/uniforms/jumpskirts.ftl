@@ -1,7 +1,8 @@
-ent-ClothingUniformJumpskirtCentcomOfficial = юбка-комбинезон офицера ЦК
-    .desc = Это комбинезон с юбкой, который носят офицеры Центрального командования.
-ent-ClothingUniformJumpskirtCentcomOfficer = водолазка с юбкой ЦК
-    .desc = Версия водолазки Центрального командования с юбкой, более редкая и востребованная, чем оригинал.
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
+ent-ClothingUniformJumpskirtCentcomOfficial = юбка-комбинезон офицера Консулата
+    .desc = Это комбинезон с юбкой, который носят офицеры Консулата.
+ent-ClothingUniformJumpskirtCentcomOfficer = водолазка с юбкой Консулата
+    .desc = Версия водолазки Консулата с юбкой, более редкая и востребованная, чем оригинал.
 ent-ClothingUniformJumpskirtElegantMaid = элегантная форма горничной
     .desc = Назови меня хозяином и принеси пивчански.
 ent-ClothingUniformJumpskirtSchool = школьная юбка

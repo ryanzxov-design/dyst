@@ -1,3 +1,4 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 ent-BaseMech = { "" }
     .desc = { "" }
 ent-MechRipley = Рипли АВП
@@ -16,7 +17,7 @@ ent-MechHamtrBattery = { ent-MechHamtr }
     .desc = { ent-MechHamtr.desc }
     .suffix = Батарея
 ent-MechVim = ВИМ
-    .desc = Миниатюрный экзокостюм компании Nanotrasen, разработанный для того, чтобы позволить незаменимым питомцам станции прожить немного дольше.
+    .desc = Миниатюрный экзокостюм Города, разработанный для того, чтобы позволить незаменимым питомцам Города прожить немного дольше.
 ent-MechVimBattery = { ent-MechVim }
     .desc = { ent-MechVim.desc }
     .suffix = Батарея

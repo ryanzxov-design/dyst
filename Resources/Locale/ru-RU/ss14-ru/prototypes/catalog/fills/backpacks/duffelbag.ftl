@@ -1,3 +1,4 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 ent-ClothingBackpackDuffelSurgeryFilled = хирургический вещмешок
     .desc = Большой вещевой мешок для хранения дополнительного медицинского снаряжения — похоже, этот мешок предназначен для хранения хирургических инструментов.
 ent-ClothingBackpackDuffelSyndicateFilledMedical = хирургический вещмешок Синдиката
@@ -42,7 +43,7 @@ ent-ClothingBackpackDuffelSyndicateEliteHardsuitBundle = набор элитны
 ent-ClothingBackpackDuffelSyndicateHardsuitExtrasBundle = набор дополнений скафандров Синдиката
     .desc = Содержит снаряжение, которое обязательно нужно иметь при покупке скафандра.
 ent-ClothingBackpackDuffelZombieBundle = зомби набор Синдиката
-    .desc = Универсальный набор для создания зомби на станции.
+    .desc = Универсальный набор для создания зомби в Городе.
 ent-ClothingBackpackDuffelSyndicateMedicalBundleFilled = набор медикаментов
     .desc = Все, что нужно для возвращения в строй ваших товарищей: главным образом, боевая аптечка, дефибриллятор и три боевых медипена.
 ent-ClothingBackpackDuffelSyndicateDecoyKitFilled = набор обманок

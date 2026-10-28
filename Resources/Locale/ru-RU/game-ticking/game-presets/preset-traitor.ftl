@@ -1,3 +1,4 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 ## Traitor
 
 traitor-round-end-codewords = Кодовыми словами были: [color=White]{ $codewords }[/color].
@@ -16,7 +17,7 @@ traitor-no-one-ready = Нет готовых игроков! Нельзя зап
 ## TraitorDeathMatch
 traitor-death-match-title = Бой насмерть предателей
 traitor-death-match-description = Все — предатели. Все хотят смерти друг друга.
-traitor-death-match-station-is-too-unsafe-announcement = На станции слишком опасно, чтобы продолжать. У вас есть одна минута.
+traitor-death-match-station-is-too-unsafe-announcement = В Городе слишком опасно, чтобы продолжать. У вас есть одна минута.
 traitor-death-match-end-round-description-first-line = КПК были восстановлены...
 traitor-death-match-end-round-description-entry = КПК { $originalName }, с { $tcBalance } ТК
 
@@ -26,7 +27,7 @@ traitor-death-match-end-round-description-entry = КПК { $originalName }, с {
 traitor-role-greeting =
     Вы — агент организации { $corporation } на задании [color = darkred]Синдиката.[/color].
     Ваши цели и кодовые слова перечислены в меню персонажа. Воспользуйтесь своим аплинком, чтобы приобрести всё необходимое для выполнения работы.
-    Смерть Nanotrasen!
+    Смерть Городу!
 traitor-role-codewords =
     Кодовые слова следующие: [color = lightgray]
     { $codewords }.[/color]
@@ -34,7 +35,7 @@ traitor-role-codewords =
     Прислушивайтесь к ним и храните их в тайне.
 traitor-role-uplink-code =
     Установите рингтон Вашего КПК на [color = lightgray]{ $code }[/color] чтобы заблокировать или разблокировать аплинк.
-    Не забудьте заблокировать его и сменить код, иначе кто угодно из экипажа станции сможет обнаружить его!
+    Не забудьте заблокировать его и сменить код, иначе кто угодно из граждан Города сможет обнаружить его!
 traitor-role-uplink-implant =
     Ваш имплант аплинк активирован, воспользуйтесь им из хотбара.
     Аплинк надёжно защищён, пока кто-нибудь не извлечёт его из вашего тела.

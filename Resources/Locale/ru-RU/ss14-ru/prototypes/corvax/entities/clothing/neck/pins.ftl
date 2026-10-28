@@ -1,3 +1,4 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 ent-ClothingNeckAtharaPin = значок звёздного неба
     .desc = Значок со звёздным небом.
 ent-ClothingNeckUSSPPin = значок СССП
@@ -20,8 +21,8 @@ ent-ClothingNeckDeForestPin = значок DeForest
     .desc = Значок корпорации DeForest.
 ent-ClothingNeckNakamuraPin = значок Nakamura
     .desc = Значок корпорации Nakamura Engineering.
-ent-ClothingNeckNanoTrasenPin = значок Nanotrasen
-    .desc = Значок корпорации Nanotrasen.
+ent-ClothingNeckNanoTrasenPin = значок Города
+    .desc = Значок Города.
 ent-ClothingNeckNebulaPin = значок туманности
     .desc = Значок с туманностью.
 ent-ClothingNeckNovaPin = значок планетарного кольца

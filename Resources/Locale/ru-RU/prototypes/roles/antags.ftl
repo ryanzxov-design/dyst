@@ -1,3 +1,4 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 roles-antag-generic-solo-antagonist-name = Соло-антагонист
 
 roles-antag-generic-free-agent-name = Свободный агент
@@ -13,25 +14,25 @@ roles-antag-syndicate-agent-sleeper-name = Спящий агент Синдик�
 roles-antag-syndicate-agent-sleeper-objective = Разновидность агента Синдиката, который может активироваться и начать действие в любой момент смены.
 
 roles-antag-initial-infected-name = Нулевой заражённый
-roles-antag-initial-infected-objective = После превращения заразите как можно больше других членов экипажа.
+roles-antag-initial-infected-objective = После превращения заразите как можно больше других граждан.
 
 roles-antag-zombie-name = Зомби
-roles-antag-zombie-objective = Превратите как можно больше членов экипажа в зомби.
+roles-antag-zombie-objective = Превратите как можно больше граждан в зомби.
 
 roles-antag-nuclear-operative-commander-name = Командир ядерных оперативников
-roles-antag-nuclear-operative-commander-objective = Приведите свой отряд к уничтожению станции.
+roles-antag-nuclear-operative-commander-objective = Приведите свой отряд к уничтожению Города.
 
 roles-antag-nuclear-operative-agent-name = Медик ядерных оперативников
 roles-antag-nuclear-operative-agent-objective = Медик ядерных оперативников. Лечите свою команду для победы!
 
 roles-antag-nuclear-operative-name = Ядерный оперативник
-roles-antag-nuclear-operative-objective = Найдите ядерный диск и взорвите станцию.
+roles-antag-nuclear-operative-objective = Найдите ядерный диск и взорвите Город.
 
 roles-antag-subverted-silicon-name = Взломанный борг
-roles-antag-subverted-silicon-objective = Следуйте своим новым законам и творите зло на станции.
+roles-antag-subverted-silicon-objective = Следуйте своим новым законам и творите зло в Городе.
 
 roles-antag-space-ninja-name = Космический ниндзя
-roles-antag-space-ninja-objective = Используйте свою скрытность, чтобы устроить диверсию на станции, подпитывайтесь от электрических проводов.
+roles-antag-space-ninja-objective = Используйте свою скрытность, чтобы устроить диверсию в Городе, подпитывайтесь от электрических проводов.
 
 roles-antag-paradox-clone-name = Парадоксальный клон
 roles-antag-paradox-clone-objective = Странная пространственно-временная аномалия телепортировала вас в другую реальность! Теперь вам предстоит найти своего двойника, убить и заменить его.
@@ -39,7 +40,7 @@ roles-antag-paradox-clone-objective = Странная пространстве�
 roles-antag-pirate-name = Пират
 
 roles-antag-thief-name = Вор
-roles-antag-thief-objective = Пополните свою личную коллекцию имуществом Nanotrasen, не прибегая к насилию.
+roles-antag-thief-objective = Пополните свою личную коллекцию имуществом Города, не прибегая к насилию.
 
 roles-antag-dragon-name = Космический дракон
 roles-antag-dragon-objective = Создайте армию карпов для захвата квадранта.

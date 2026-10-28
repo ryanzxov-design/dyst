@@ -1,3 +1,4 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 ### Interaction Popup component
 
 ## Petting animals
@@ -86,7 +87,7 @@ petting-failure-salvage-cyborg = Вы тянетесь погладить { $tar
 petting-failure-engineer-cyborg = Вы тянетесь погладить { $target }, но { SUBJECT($target) } занят починкой!
 petting-failure-janitor-cyborg = Вы тянетесь погладить { $target }, но { SUBJECT($target) } занят уборкой!
 petting-failure-medical-cyborg = Вы тянетесь погладить { $target }, но { SUBJECT($target) } занят спасением жизней!
-petting-failure-service-cyborg = Вы тянетесь погладить { $target }, но { SUBJECT($target) } занят обслуживанием экипажа!
+petting-failure-service-cyborg = Вы тянетесь погладить { $target }, но { SUBJECT($target) } занят обслуживанием граждан!
 petting-failure-syndicate-cyborg = Вы тянетесь погладить { $target }, но { POSS-ADJ($target) } предательская натура заставляет вас передумать.
 petting-failure-derelict-cyborg = Вы тянетесь погладить { $target }, но { POSS-ADJ($target) } ржавый и рваный внешний вид заставляет вас передумать.
 petting-failure-station-ai = Вы тянетесь погладить { $target }, но { POSS-ADJ($target) } разряд заставляет вас отдёрнуть руку.

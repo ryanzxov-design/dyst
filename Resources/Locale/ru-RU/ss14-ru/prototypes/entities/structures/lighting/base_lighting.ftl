@@ -1,3 +1,4 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 ent-BaseWallLight = { "" }
     .desc = { "" }
 ent-AlwaysPoweredWallLight = светильник
@@ -44,7 +45,7 @@ ent-PoweredWarmSmallLight = { ent-PoweredSmallLightEmpty }
 ent-PoweredSmallLight = { ent-PoweredSmallLightEmpty }
     .desc = { ent-PoweredSmallLightEmpty.desc }
 ent-EmergencyLight = аварийная лампа
-    .desc = Маленькая лампочка с внутренним аккумулятором, которая включается, как только перестаёт получать питание извне. Технология Nanotrasen позволяет ей адаптировать свой цвет для оповещения экипажа об обстановке на станции.
+    .desc = Маленькая лампочка с внутренним аккумулятором, которая включается, как только перестаёт получать питание извне. Технология Города позволяет ей адаптировать свой цвет для оповещения граждан об обстановке в Городе.
 ent-PoweredlightColor = { ent-Poweredlight }
     .desc = { ent-Poweredlight.desc }
 ent-AlwaysPoweredlightColor = { ent-AlwaysPoweredWallLight }

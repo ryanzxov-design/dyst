@@ -1,8 +1,9 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 stamp-component-stamped-name-default = VIP
 stamp-component-stamped-name-detective = Дознаватель
 stamp-component-stamped-name-mime = Мим
 stamp-component-stamped-name-captain = Консул
-stamp-component-stamped-name-centcom = Центральное командование
+stamp-component-stamped-name-centcom = Консулат
 stamp-component-stamped-name-chaplain = Священник
 stamp-component-stamped-name-lawyer = Адвокат
 stamp-component-stamped-name-clown = Клоун

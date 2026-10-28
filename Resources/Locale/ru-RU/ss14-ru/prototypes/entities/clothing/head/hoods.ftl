@@ -1,3 +1,4 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 ent-ClothingHeadHatHoodBioGeneral = капюшон биозащитного костюма
     .desc = Капюшон, защищающий голову и лицо от биологического заражения.
     .suffix = Обычный
@@ -44,8 +45,8 @@ ent-ClothingHeadHatHoodWinterCargo = капюшон зимней куртки г
     .desc = { ent-ClothingHeadHatHoodWinterBase.desc }
 ent-ClothingHeadHatHoodWinterCE = капюшон зимней куртки главы Промышленной Службы
     .desc = { ent-ClothingHeadHatHoodWinterBase.desc }
-ent-ClothingHeadHatHoodWinterCentcom = капюшон зимней куртки ЦК
-    .desc = Капюшон для защиты головы офицера Центрального командования от холода.
+ent-ClothingHeadHatHoodWinterCentcom = капюшон зимней куртки Консулата
+    .desc = Капюшон для защиты головы офицера Консулата от холода.
 ent-ClothingHeadHatHoodWinterChem = капюшон зимней куртки фармацевта
     .desc = { ent-ClothingHeadHatHoodWinterBase.desc }
 ent-ClothingHeadHatHoodWinterCMO = капюшон зимней куртки главы Санитарной Службы

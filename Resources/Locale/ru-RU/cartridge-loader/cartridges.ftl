@@ -3,11 +3,14 @@ device-pda-slot-component-slot-name-cartridge = Картридж
 default-program-name = Программа
 notekeeper-program-name = Заметки
 nano-task-program-name = НаноДела
-news-read-program-name = Новости станции
+# Dystopia: лор Города
+news-read-program-name = Новости Города
 
-crew-manifest-program-name = Манифест экипажа
+# Dystopia: лор Города
+crew-manifest-program-name = Список граждан
 crew-manifest-cartridge-loading = Загрузка...
-crew-manifest-cartridge-loading-failed = Ошибка загрузки манифеста экипажа!
+# Dystopia: лор Города
+crew-manifest-cartridge-loading-failed = Ошибка загрузки списка граждан!
 
 net-probe-program-name = Зонд сетей
 net-probe-scan = Просканирован { $device }!
@@ -66,7 +69,8 @@ nano-task-ui-new-task = Новая задача
 nano-task-ui-description-label = Описание:
 nano-task-ui-description-placeholder = Взять что-то важное
 nano-task-ui-requester-label = Заявитель:
-nano-task-ui-requester-placeholder = Джон Нанотрейзен
+# Dystopia: лор Города
+nano-task-ui-requester-placeholder = Иван Иванов
 nano-task-ui-item-title = Редактировать задачу
 nano-task-printed-description = [bold]Описание:[/bold] { $description }
 nano-task-printed-requester = [bold]Заявитель:[/bold] { $requester }

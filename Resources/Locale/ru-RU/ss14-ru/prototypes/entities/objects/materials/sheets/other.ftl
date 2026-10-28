@@ -1,5 +1,6 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 ent-SheetOtherBase = { ent-BaseSheet }
-    .desc = Лист материала, широко применяемого на станции в различных целях.
+    .desc = Лист материала, широко применяемого в Городе в различных целях.
 ent-SheetPaper = бумага
     .desc = { ent-SheetOtherBase.desc }
     .suffix = Полный

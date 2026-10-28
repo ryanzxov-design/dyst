@@ -6,13 +6,13 @@
   </ColorBox>
 
   # Общие СРП
-  ### ЦК обязан
+  ### Консулат обязан
   <FTLTextpart Key="guidebook-SOP-centcomm-general-must"/>
 
-  ### ЦК имеет право
+  ### Консулат имеет право
   <FTLTextpart Key="guidebook-SOP-centcomm-general-right"/>
 
-  ### ЦК запрещено
+  ### Консулату запрещено
   <FTLTextpart Key="guidebook-SOP-centcomm-general-prohibited"/>
 
   # Должностные СРП

@@ -1,3 +1,4 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 ent-BaseChangelingObjective = { ent-BaseObjective }
     .desc = { ent-BaseObjective.desc }
 ent-ChangelingSurviveObjective = Выживите.
@@ -9,7 +10,7 @@ ent-ChangelingEscapeIdentityObjective = { ent-BaseChangelingObjective }
 ent-ChangelingEscapeDepartmentObjective = { ent-BaseChangelingObjective }
     .desc = Мы должны скрыться, используя личность и её ID-карту из этого отдела.
 ent-ChangelingKillRandomPersonObjective = { ent-BaseChangelingObjective }
-    .desc = Данная личность наша добыча. Мы должны убедиться, что она останется мертвой на станции.
+    .desc = Данная личность наша добыча. Мы должны убедиться, что она останется мертвой в Городе.
 ent-ChangelingMostDevouredObjective = Поглотите как можно больше гуманоидов.
     .desc = Мы должны поглотить больше уникальных гуманоидов, чем все остальные генокрады.
 ent-ChangelingMostExtractedObjective = Извлеките как можно больше личностей.

@@ -1,3 +1,4 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 ## UI
 
 cargo-console-menu-title = Консоль заказа грузов
@@ -41,7 +42,7 @@ cargo-console-menu-account-action-option-transfer = Перевести день�
 
 # Orders
 cargo-console-order-not-allowed = Доступ запрещён
-cargo-console-station-not-found = Нет доступной станции
+cargo-console-station-not-found = Нет доступного Города
 cargo-console-invalid-product = Неверный ID продукта
 cargo-console-too-many = Слишком много одобренных заказов
 cargo-console-snip-snip = Заказ урезан до вместимости

@@ -25,7 +25,8 @@ chat-manager-speech-double-quote-begin = "
 chat-manager-speech-double-quote-end = "
 
 chat-manager-server-wrap-message = [bold]{ $message }[/bold]
-chat-manager-sender-announcement = Центральное командование
+# Dystopia: лор Города
+chat-manager-sender-announcement = Консулата
 chat-manager-sender-announcement-wrap-message = [font size=14][bold]Объявление { $sender }:[/font][font size=12]
                                                 { $message }[/bold][/font]
 # Dystopia: имя шрифта в кавычках — без них разметка читает его как цвет и всегда берёт шрифт по умолчанию

@@ -1,5 +1,6 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 ent-SheetMetalBase = { ent-BaseSheet }
-    .desc = Металлический лист, широко применяемый на станции в различных целях.
+    .desc = Металлический лист, широко применяемый в Городе в различных целях.
 # Dystopia-Metals
 ent-SheetSteel = стальной лист
     .desc = { ent-SheetMetalBase.desc }

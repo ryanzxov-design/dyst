@@ -1,7 +1,8 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 # named frequencies
 device-frequency-prototype-name-atmos = Атмосферные приборы
 device-frequency-prototype-name-suit-sensors = Сенсоры костюмов
-device-frequency-prototype-name-crew-monitor = Монитор экипажа
+device-frequency-prototype-name-crew-monitor = Монитор граждан
 device-frequency-prototype-name-lights = Умное освещение
 device-frequency-prototype-name-mailing-units = Почтовый блок
 device-frequency-prototype-name-pdas = КПК

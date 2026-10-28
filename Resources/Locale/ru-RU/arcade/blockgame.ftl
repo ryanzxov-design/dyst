@@ -1,3 +1,4 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 
 ### UI
 
@@ -12,7 +13,7 @@ blockgame-menu-gameover-info = Глобальный счёт: { $global }
     Локальный счёт: { $local }
     Очки: { $points }
 
-blockgame-menu-title = Блоки Nanotrasen
+blockgame-menu-title = Блоки Города
 blockgame-menu-button-new-game = Новая игра
 blockgame-menu-button-scoreboard = Таблица лидеров
 blockgame-menu-button-pause = Пауза
@@ -22,5 +23,5 @@ blockgame-menu-label-highscores = Рекорды
 blockgame-menu-button-back = Назад
 blockgame-menu-label-next = Следующее
 blockgame-menu-label-hold = Удерживать
-blockgame-menu-text-station = Станция
-blockgame-menu-text-nanotrasen = Nanotrasen
+blockgame-menu-text-station = Город
+blockgame-menu-text-nanotrasen = Город

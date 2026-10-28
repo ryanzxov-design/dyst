@@ -1,3 +1,4 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 # Ejection verb label.
 cryo-pod-verb-noun-occupant = Пациент
 # Examine text showing whether there's a beaker in the pod and if it is empty.
@@ -6,7 +7,7 @@ cryo-pod-empty-beaker = Тут пусто!
 # Shown when a normal ejection through the eject verb is attempted on a locked pod.
 cryo-pod-locked = Механизм извлечения не реагирует!
 
-cryo-pod-window-product-name = Nanotrasen CRPX-229
+cryo-pod-window-product-name = Городской CRPX-229
 cryo-pod-window-product-subtitle = Cryogenic Restoration Pod
 cryo-pod-window-loading = Инициализация
 cryo-pod-window-atmos-pressure = Давление
@@ -28,7 +29,7 @@ cryo-pod-window-high-temperature-warning = Температура слишком
 
 cryo-pod-window-error-header = ОШИБКА
 # Shown when the eject button is pressed on a locked pod.
-cryo-pod-window-eject-error = Сбой механизма извлечения. Обратитесь к сертифицированному инженеру Nanotrasen для помощи.
+cryo-pod-window-eject-error = Сбой механизма извлечения. Обратитесь к сертифицированному инженеру Города для помощи.
 
 cryo-pod-window-chems-no-beaker = Ёмкость не вставлена
 cryo-pod-window-chems-empty-beaker = Ёмкость пуста

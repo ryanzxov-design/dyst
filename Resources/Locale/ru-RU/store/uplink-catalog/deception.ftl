@@ -1,3 +1,4 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 # Deception
 
 uplink-syndicate-id-card-name = ID-карта Синдиката
@@ -37,4 +38,4 @@ uplink-smuggler-satchel-name = Сумка контрабандиста
 uplink-smuggler-satchel-desc = Удобная, подозрительная на вид сумка. Достаточно плоская, чтобы поместиться под напольной плиткой.
 
 uplink-weighted-coin-name = Нечестная монета
-uplink-weighted-coin-desc = Специальная монета, которая всегда выпадает решкой, имитирует монеты со станций Nanotrasen.
+uplink-weighted-coin-desc = Специальная монета, которая всегда выпадает решкой, имитирует монеты Города.

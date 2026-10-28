@@ -1,3 +1,4 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 ent-AirlockAssemblyAtmospherics = { ent-AirlockAssembly }
     .desc = { ent-AirlockAssembly.desc }
     .suffix = Атмосферный
@@ -84,10 +85,10 @@ ent-AirlockAssemblyVirologyGlass = { ent-AirlockAssembly }
     .suffix = Вирусология, Стеклянный
 ent-AirlockAssemblyCentralCommand = { ent-AirlockAssembly }
     .desc = { ent-AirlockAssembly.desc }
-    .suffix = ЦК
+    .suffix = Консулат
 ent-AirlockAssemblyCentralCommandGlass = { ent-AirlockAssembly }
     .desc = { ent-AirlockAssembly.desc }
-    .suffix = ЦК, Стеклянный
+    .suffix = Консулат, Стеклянный
 ent-AirlockAssemblyMining = { ent-AirlockAssembly }
     .desc = { ent-AirlockAssembly.desc }
     .suffix = Шахтёрский

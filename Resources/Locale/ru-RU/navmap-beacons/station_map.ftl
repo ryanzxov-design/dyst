@@ -1,10 +1,13 @@
-station-map-window-title = Карта станции
+# Dystopia: лор Города
+station-map-window-title = Карта Города
 station-map-user-interface-flavor-left = Не паникуй
 station-map-user-interface-flavor-right = v1.42
 station-map-filter-placeholder = Поиск по названию
-station-map-unknown-station = Неизвестная станция
+# Dystopia: лор Города
+station-map-unknown-station = Неизвестный город
 
-nav-beacon-window-title = Станционный маяк
+# Dystopia: лор Города
+nav-beacon-window-title = Городской маяк
 nav-beacon-toggle-visible = Видимый
 nav-beacon-toggle-invisible = Невидимый
 nav-beacon-text-label = Метка:

@@ -1,3 +1,4 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 ent-RandomHumanoidSpawnerDeathSquad = Агент Эскадрона смерти
     .desc = { "" }
     .suffix = Роль ОБР, Эскадрон смерти
@@ -81,7 +82,7 @@ ent-RandomHumanoidSpawnerCBURNUnit = Агент РХБЗЗ
     .desc = { "" }
 
 # misc
-ent-RandomHumanoidSpawnerCentcomOfficial = Представитель ЦК
+ent-RandomHumanoidSpawnerCentcomOfficial = Представитель Консулата
     .desc = { "" }
 ent-RandomHumanoidSpawnerSyndicateAgent = Агент Синдиката
     .desc = { "" }

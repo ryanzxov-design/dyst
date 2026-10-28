@@ -1,5 +1,6 @@
+# Dystopia: лор Города
 ent-BaseIntercom = интерком
-    .desc = Интерком. На случай, когда необходимо что-то сообщить станции.
+    .desc = Интерком. На случай, когда необходимо что-то сообщить Городу.
 ent-IntercomAssembly = каркас интеркома
     .desc = Интерком. На данный момент он бесполезен.
 ent-IntercomConstructed = { ent-BaseIntercom }

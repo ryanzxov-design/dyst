@@ -1,3 +1,4 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 ent-AdminObserver = админ наблюдатель
     .desc = { ent-MobObserverBase.desc }
 ent-BaseAGhostAction = { ent-BaseAction }
@@ -10,7 +11,7 @@ ent-ActionAGhostShowRadar = Интерфейс сканера массы
     .desc = Просмотр интерфейса сканера массы.
 ent-ActionAGhostShowCargo = Интерфейс заказа товаров
     .desc = Просмотр интерфейса заказа товаров.
-ent-ActionAGhostShowCrewMonitoring = Интерфейс мониторинга экипажа
-    .desc = Просмотр интерфейса мониторинга экипажа.
-ent-ActionAGhostShowStationRecords = Интерфейс станционного учёта
-    .desc = Просмотр интерфейса станционного учёта.
+ent-ActionAGhostShowCrewMonitoring = Интерфейс мониторинга граждан
+    .desc = Просмотр интерфейса мониторинга граждан.
+ent-ActionAGhostShowStationRecords = Интерфейс городского учёта
+    .desc = Просмотр интерфейса городского учёта.

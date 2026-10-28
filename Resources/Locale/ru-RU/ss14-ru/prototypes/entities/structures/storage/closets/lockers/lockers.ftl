@@ -1,3 +1,4 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 ent-LockerBooze = шкафчик со спиртным
     .desc = Здесь бармен хранит алкоголь.
 ent-LockerSteel = защищённый шкаф
@@ -92,10 +93,10 @@ ent-LockerSyndicatePersonal = оружейный шкаф
     .suffix = Locked
 ent-LockerBluespaceStation = блюспейс шкаф
     .desc = Передовая технология шкафчикостроения.
-    .suffix = Один на станцию
+    .suffix = Один на Город
 ent-LockerClown = шкаф клоуна
     .desc = { ent-LockerBase.desc }
 ent-LockerMime = шкаф мима
     .desc = { ent-LockerBase.desc }
-ent-LockerRepresentative = шкаф представителя Nanotrasen
+ent-LockerRepresentative = шкаф представителя Города
     .desc = { ent-LockerBase.desc }

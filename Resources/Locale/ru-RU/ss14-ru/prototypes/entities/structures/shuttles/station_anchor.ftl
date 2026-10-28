@@ -1,5 +1,6 @@
-ent-StationAnchorBase = станционный якорь
-    .desc = Предотвращает смещение станций.
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
+ent-StationAnchorBase = городской якорь
+    .desc = Предотвращает смещение городов.
     .suffix = Включён
 ent-StationAnchorIndestructible = { ent-StationAnchorBase }
     .desc = { ent-StationAnchorBase.desc }

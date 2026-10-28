@@ -1,3 +1,4 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 ent-FoodDonkpocketBase = { ent-SolutionTiny }
     .desc = { ent-SolutionTiny.desc }
 ent-FoodDonkpocket = донк-покет
@@ -15,9 +16,9 @@ ent-FoodDonkpocketSpicy = спайси-покет
 ent-FoodDonkpocketSpicyWarm = тёплый спайси-покет
     .desc = Классическая закуска, теперь слишком острая.
 ent-FoodDonkpocketTeriyaki = терияки-покет
-    .desc = Восточноазиатский вариант классической станционной закуски.
+    .desc = Восточноазиатский вариант классической городской закуски.
 ent-FoodDonkpocketTeriyakiWarm = тёплый терияки-покет
-    .desc = Восточноазиатский вариант классической станционной закуски, горячий и распаренный.
+    .desc = Восточноазиатский вариант классической городской закуски, горячий и распаренный.
 ent-FoodDonkpocketPizza = пицца-покет
     .desc = Вкусные, сырные и удивительно сытные.
 ent-FoodDonkpocketPizzaWarm = тёплый пицца-покет

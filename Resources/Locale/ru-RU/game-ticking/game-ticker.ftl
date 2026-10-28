@@ -7,7 +7,8 @@ game-ticker-unknown-role = Неизвестный
 game-ticker-delay-start = Начало раунда было отложено на { $seconds } секунд.
 game-ticker-pause-start = Начало раунда было приостановлено.
 game-ticker-pause-start-resumed = Отсчёт начала раунда возобновлён.
-game-ticker-player-join-game-message = Добро пожаловать на Космическую Станцию 14! Если вы играете впервые, обязательно нажмите ESC на клавиатуре и прочитайте правила игры, а также не бойтесь просить помощи в "Админ помощь".
+# Dystopia: лор Города
+game-ticker-player-join-game-message = Добро пожаловать в Город! Если вы играете впервые, обязательно нажмите ESC на клавиатуре и прочитайте правила игры, а также не бойтесь просить помощи в "Админ помощь".
 # Dystopia: сводка сервера в лобби-терминале — коротко, без цветов (терминал красит её сам)
 game-ticker-get-info-text = СМЕНА: №{ $roundId }
     КАРТА: { $mapName }
@@ -27,16 +28,21 @@ player-first-join-message = Игрок { $name } зашёл на сервер в
 # Displayed in chat to admins when a player leaves
 player-leave-message = Игрок { $name } вышел!
 
+# Dystopia: лор Города
 latejoin-arrival-announcement = { $character } ({ $job }) { GENDER($entity) ->
     [male] прибыл
     [female] прибыла
     [epicene] прибыли
     *[neuter] прибыло
-} на станцию!
-latejoin-arrival-announcement-special = { $job } { $character } на палубе!
-latejoin-arrival-sender = Станции
-latejoin-arrivals-direction = Вскоре прибудет шаттл, который доставит вас на станцию.
-latejoin-arrivals-direction-time = Шаттл, который доставит вас на станцию, прибудет через { $time }.
+} в Город!
+# Dystopia: лор Города
+latejoin-arrival-announcement-special = { $job } { $character } в Городе!
+# Dystopia: лор Города
+latejoin-arrival-sender = Города
+# Dystopia: лор Города
+latejoin-arrivals-direction = Вскоре прибудет транспорт, который доставит вас в Город.
+# Dystopia: лор Города
+latejoin-arrivals-direction-time = Транспорт, который доставит вас в Город, прибудет через { $time }.
 latejoin-arrivals-dumped-from-shuttle = Таинственная сила не позволяет вам улететь на шаттле прибытия.
 latejoin-arrivals-teleport-to-spawn = Таинственная сила телепортирует вас с шаттла прибытия. Удачной смены!
 

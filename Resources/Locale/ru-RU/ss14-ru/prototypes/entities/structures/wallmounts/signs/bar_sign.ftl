@@ -1,3 +1,4 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 ent-BaseBarSign = вывеска бара
     .desc = { ent-BaseWallmountGlass.desc }
 ent-BarSign = вывеска бара
@@ -52,6 +53,6 @@ ent-BarSignSpacebucks = Спейсбакс.
 ent-BarSignMaltroach = Пивная Моль
     .desc = Сквик!
 ent-BarSignWhiskeyEchoes = Виски Эхо
-    .desc = Элитный бар для элитных опер... Подождите, это же станция Nanotrasen. Почему эта вывеска в базе данных?
+    .desc = Элитный бар для элитных опер... Подождите, это же Город. Почему эта вывеска в базе данных?
 ent-BarSignEmped = глючащая вывеска бара
     .desc = Кажется хороший удар все исправит.

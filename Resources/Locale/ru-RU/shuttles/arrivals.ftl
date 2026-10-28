@@ -1,3 +1,4 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 cmd-arrivals-enable-hint = Включает прибытие
 cmd-arrivals-disable-hint = Отключает прибытие
 
@@ -7,4 +8,4 @@ cmd-arrivals-returns-hint = Переключает возможность воз
 cmd-arrivals-invalid = Предоставлен неверный аргумент.
 
 cmd-arrivals-force-hint = Вынуждает игроков прибывать.
-cmd-arrivals-forced = Вынуждает { $uid } прибыть на станцию.
+cmd-arrivals-forced = Вынуждает { $uid } прибыть в Город.

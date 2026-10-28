@@ -1,3 +1,4 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 ent-BaseWeaponSubMachineGun = BaseSMG
     .desc = Дерзай — налетай, целься и стреляй.
 ent-WeaponSubMachineGunAtreides = Атрейдес
@@ -9,7 +10,7 @@ ent-WeaponSubMachineGunC20rROW = C-20r ROW
 ent-WeaponSubMachineGunDrozd = Дрозд
     .desc = Превосходный полностью автоматический тяжёлый пистолет-пулемёт. Использует патроны калибра .35 авто.
 ent-WeaponSubMachineGunWt550 = WT550
-    .desc = Отличный пистолет-пулемёт, производства NanoTrasen's Small Arms Division. Использует патроны калибра .35 авто.
+    .desc = Отличный пистолет-пулемёт, производства оружейных мастерских Города. Использует патроны калибра .35 авто.
 ent-WeaponSubMachineGunBriefcase = коричневый чемодан
     .desc = Пригодится для переноски предметов в руках.
     .suffix = Оружие

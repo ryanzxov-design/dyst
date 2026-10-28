@@ -1,10 +1,11 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 ent-RubberStampBase = универсальная печать
     .desc = Печать из резины для проставления печатей на важных документах.
 ent-RubberStampBaseAlt = альтернативная печать
     .desc = { ent-RubberStampBase.desc }
 ent-RubberStampCaptain = печать Консула
     .desc = Резиновая печать с гербом Города. Без неё ни один приказ Консула не имеет силы.
-ent-RubberStampCentcom = печать ЦК
+ent-RubberStampCentcom = печать Консулата
     .desc = { ent-RubberStampBase.desc }
 ent-RubberStampChaplain = печать священника
     .desc = { ent-RubberStampBase.desc }

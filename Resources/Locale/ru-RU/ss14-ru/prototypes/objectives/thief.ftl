@@ -1,3 +1,4 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 ent-BaseThiefObjective = { ent-BaseObjective }
     .desc = { ent-BaseObjective.desc }
 ent-BaseThiefStealObjective = { ent-BaseThiefObjective }
@@ -94,7 +95,7 @@ ent-ShivaStealObjective = { ent-BaseThiefStealAnimalObjective }
     .desc = { ent-BaseThiefStealAnimalObjective.desc }
 ent-TropicoStealObjective = { ent-BaseThiefStealAnimalObjective }
     .desc = { ent-BaseThiefStealAnimalObjective.desc }
-ent-EscapeThiefShuttleObjective = Улететь на ЦК живым и свободным на эвакуационном шаттле.
+ent-EscapeThiefShuttleObjective = Улететь в Консулат живым и свободным на эвакуационном шаттле.
     .desc = Вы же не хотите, чтобы о вашей незаконной деятельности кто-нибудь узнал?
 ent-ClothingEyesHudBeerStealObjective = { ent-BaseThiefStealObjective }
     .desc = { ent-BaseThiefStealObjective.desc }

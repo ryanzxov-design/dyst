@@ -1,3 +1,4 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 thief-backpack-window-title = Воровской набор
 
 thief-backpack-window-description =
@@ -54,8 +55,8 @@ thief-backpack-category-sleeper-description =
 thief-backpack-category-communicator-name = Набор переговорщика
 thief-backpack-category-communicator-description =
     Богатство — это власть, а секреты — это богатство.
-    Используйте своё красноречие и богатство, чтобы покорить станцию.
-    В комплект входят: мастер-ключ шифрования от всех каналов станции, ручка CyberSun,
+    Используйте своё красноречие и богатство, чтобы покорить Город.
+    В комплект входят: мастер-ключ шифрования от всех каналов Города, ручка CyberSun,
     голосовая маска-хамелеон, а также 20 тысяч космокредитов в чемоданчике.
 
 thief-backpack-category-smuggler-name = Набор контрабандиста

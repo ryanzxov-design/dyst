@@ -1,8 +1,9 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 news-read-ui-next-text = ▶
 news-read-ui-prev-text = ◀
 news-read-ui-next-tooltip = Далее
 news-read-ui-prev-tooltip = Назад
-news-read-ui-default-title = Новости станции
+news-read-ui-default-title = Новости Города
 news-read-ui-not-found-text = Статей не найдено
 news-read-ui-time-prefix-text = Время публикации:
 news-reader-ui-mute-tooltip = Отключить уведомления

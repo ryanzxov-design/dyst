@@ -1,3 +1,4 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 # Commands
 ## Delay shuttle round end
 cmd-delayroundend-desc = Останавливает таймер окончания раунда, когда эвакуационный шаттл покидает гиперпространство.
@@ -6,7 +7,7 @@ emergency-shuttle-command-round-yes = Раунд продлён.
 emergency-shuttle-command-round-no = Невозможно продлить окончание раунда.
 
 ## Dock emergency shuttle
-cmd-dockemergencyshuttle-desc = Вызывает спасательный шаттл и пристыковывает его к станции... если это возможно.
+cmd-dockemergencyshuttle-desc = Вызывает спасательный шаттл и пристыковывает его к Городу... если это возможно.
 cmd-dockemergencyshuttle-help = Использование: dockemergencyshuttle
 
 ## Launch emergency shuttle
@@ -14,11 +15,11 @@ cmd-launchemergencyshuttle-desc = Досрочно запускает эваку
 cmd-launchemergencyshuttle-help = Использование: launchemergencyshuttle
 
 # Emergency shuttle
-emergency-shuttle-left = Эвакуационный шаттл покинул станцию. Расчётное время прибытия шаттла на станцию Центрального командования — { $transitTime } секунд.
+emergency-shuttle-left = Эвакуационный шаттл покинул Город. Расчётное время прибытия шаттла в Консулат — { $transitTime } секунд.
 emergency-shuttle-launch-time = Эвакуационный шаттл будет запущен через { $consoleAccumulator } секунд.
-emergency-shuttle-docked = Эвакуационный шаттл пристыковался к станции { $location }, направление: { $direction }. Он улетит через { $time } секунд.{ $extended }
-emergency-shuttle-good-luck = Эвакуационный шаттл не может найти станцию. Удачи.
-emergency-shuttle-nearby = Эвакуационный шаттл не может найти подходящий стыковочный шлюз. Он дрейфует около станции, { $location }, направление: { $direction }. Он улетит через { $time } секунд.{ $extended }
+emergency-shuttle-docked = Эвакуационный шаттл пристыковался к Городу { $location }, направление: { $direction }. Он улетит через { $time } секунд.{ $extended }
+emergency-shuttle-good-luck = Эвакуационный шаттл не может найти Город. Удачи.
+emergency-shuttle-nearby = Эвакуационный шаттл не может найти подходящий стыковочный шлюз. Он дрейфует около Города, { $location }, направление: { $direction }. Он улетит через { $time } секунд.{ $extended }
 emergency-shuttle-extended = { " " }Время до запуска было продлено в связи с непредвиденными обстоятельствами.
 
 # Emergency shuttle console popup / announcement
@@ -47,5 +48,5 @@ emergency-shuttle-ui-authorizations = Авторизации
 emergency-shuttle-ui-remaining = Осталось: { $remaining }
 
 # Map Misc.
-map-name-centcomm = Центральное командование
+map-name-centcomm = Консулат
 map-name-terminal = Терминал прибытия

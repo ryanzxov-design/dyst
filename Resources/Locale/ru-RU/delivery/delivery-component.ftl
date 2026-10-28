@@ -1,6 +1,7 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 delivery-recipient-examine = Адресовано: { $recipient }, { $job }.
 delivery-already-opened-examine = Уже вскрыто.
-delivery-earnings-examine = Доставка этого принесёт станции [color=yellow]{ $spesos }[/color] кредитов.
+delivery-earnings-examine = Доставка этого принесёт Городу [color=yellow]{ $spesos }[/color] кредитов.
 delivery-recipient-no-name = Безымянный
 delivery-recipient-no-job = Неизвестно
 

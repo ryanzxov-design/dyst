@@ -1,3 +1,4 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 ent-FoodBreadBase = { ent-SolutionNormal }
     .desc = { ent-SolutionNormal.desc }
 ent-FoodBreadSliceBase = { ent-SolutionVeryTiny }
@@ -67,7 +68,7 @@ ent-FoodBreadGarlicSlice = чесночный хлеб
 ent-FoodBreadJellySlice = желейный тост
     .desc = Как будто исследователи отдадут свои слаймов на тосты!
 ent-FoodBreadMoldySlice = заплесневелый кусок хлеба
-    .desc = Целые станции были разорваны на части из-за споров о том, можно ли это есть.
+    .desc = Целые города были разорваны на части из-за споров о том, можно ли это есть.
 ent-FoodBreadTwoSlice = два ломтика
     .desc = Классика.
 ent-MobBreadDog = хлебака

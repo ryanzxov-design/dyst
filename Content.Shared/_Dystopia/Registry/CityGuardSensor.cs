@@ -25,6 +25,10 @@ public sealed partial class CityGuardSensorComponent : Component
     [DataField]
     public TimeSpan DistressCooldown = TimeSpan.FromSeconds(30);
 
+    /// <summary>Сколько после сигнала бедствия метка стражника мигает в «Дозоре» (повторный сигнал — отсчёт заново).</summary>
+    [DataField]
+    public TimeSpan DistressShown = TimeSpan.FromMinutes(1);
+
     /// <summary>Кто носит маску сейчас.</summary>
     [ViewVariables]
     public EntityUid? Wearer;

@@ -1,3 +1,4 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 ent-ClothingHandsGlovesBoxingBase = { ent-ClothingHandsBase }
     .desc = { ent-ClothingHandsBase.desc }
 ent-ClothingHandsGlovesBoxingRed = красные боксёрские перчатки
@@ -70,7 +71,7 @@ ent-ClothingHandsKnuckleDusters = кастеты
 ent-ClothingHandsKnuckleDustersBrass = латунные кастеты
     .desc = Латунные кастеты, прямо как в старину, и бьют так же сильно.
 ent-ClothingHandsKnuckleDustersQM = золотые кастеты КМа
-    .desc = 24-каратное золото с вкраплениями пластали и фирменным логотипом Nanotrasen. Настоящий символ могущества квартирмейстера.
+    .desc = 24-каратное золото с вкраплениями пластали и фирменным логотипом Города. Настоящий символ могущества квартирмейстера.
 ent-ClothingHandsKnuckleDustersSyndicate = кастеты синдиката
     .desc = Пластитановые кастеты с фирменной кроваво-красной буквой S. Настоящий мужик забьёт ими кого-нибудь до смерти.
 ent-ClothingHandsKnuckleDustersStun = шок-кастеты

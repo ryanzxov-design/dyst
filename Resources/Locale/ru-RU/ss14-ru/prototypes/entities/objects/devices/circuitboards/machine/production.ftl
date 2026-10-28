@@ -1,3 +1,4 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 ent-AutolatheMachineCircuitboard = автолат (машинная плата)
     .desc = Печатная плата автолата.
     .suffix = { ent-BaseMachineCircuitboard.suffix }
@@ -94,8 +95,8 @@ ent-CloningPodMachineCircuitboard = капсула клонирования (м�
 ent-MedicalScannerMachineCircuitboard = медицинский сканер (машинная плата)
     .desc = Печатная плата медицинского сканера.
     .suffix = { ent-BaseMachineCircuitboard.suffix }
-ent-CrewMonitoringServerMachineCircuitboard = сервер мониторинга экипажа (машинная плата)
-    .desc = Печатная плата для сервера мониторинга экипажа.
+ent-CrewMonitoringServerMachineCircuitboard = сервер мониторинга граждан (машинная плата)
+    .desc = Печатная плата для сервера мониторинга граждан.
     .suffix = { ent-BaseMachineCircuitboard.suffix }
 ent-CryoPodMachineCircuitboard = криокапсула (машинная плата)
     .desc = Печатная плата для криокапсулы.
@@ -241,8 +242,8 @@ ent-SalvageMagnetMachineCircuitboard = магнит обломков (машин
 ent-MiniGravityGeneratorCircuitboard = мини-генератор гравитации (машинная плата)
     .desc = Печатная плата мини-генератора гравитации.
     .suffix = { ent-BaseMachineCircuitboard.suffix }
-ent-StationAnchorCircuitboard = станционный якорь (машинная плата)
-    .desc = Печатная плата для станционного якоря.
+ent-StationAnchorCircuitboard = городской якорь (машинная плата)
+    .desc = Печатная плата для городского якоря.
     .suffix = { ent-BaseMachineCircuitboard.suffix }
 ent-ReagentGrinderIndustrialMachineCircuitboard = промышленный измельчитель реагентов (машинная плата)
     .desc = { ent-BaseMachineCircuitboard.desc }

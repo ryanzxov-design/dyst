@@ -1,12 +1,13 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 sec-apartment-ui-sec-apartment = SecApartment
-sec-apartment-ui-station = СТАНЦИЯ
+sec-apartment-ui-station = ГОРОД
 sec-apartment-ui-mark = {$time} | {$station}
 sec-apartment-ui-no-squads-crew = Неназначенный персонал
 sec-apartment-ui-squads-create = Создать
 sec-apartment-ui-squads-placeholder = Введите название отряда...
 sec-apartment-ui-squads = Отряды
 sec-apartment-ui-os = SecApartment#OS ™ v1.12
-sec-apartment-ui-footer = NanoTrasen™ все права защищены
+sec-apartment-ui-footer = Города™ все права защищены
 
 sec-apartment-ui-squads-nameedit-placeholder = Название отряда...
 sec-apartment-ui-squads-rename = ✎

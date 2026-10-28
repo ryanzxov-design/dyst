@@ -1,3 +1,4 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 # Generic verbs
 delete-verb-get-data-text = Удалить
 edit-solutions-verb-get-data-text = Редактировать растворы
@@ -13,7 +14,7 @@ admin-verbs-unfreeze = Разморозить
 admin-verbs-camera = Открыть камеру
 admin-verbs-camera-description = Открыть окно камеры, следящее за выбранной сущностью.
 admin-verbs-erase = Стереть
-admin-verbs-erase-description = Удаляет игрока из раунда и манифеста членов экипажа, а также удаляет все его сообщения в чате.
+admin-verbs-erase-description = Удаляет игрока из раунда и манифеста граждан, а также удаляет все его сообщения в чате.
     Их вещи упадут на землю.
     Игроки увидят всплывающее окно, указывающее им играть как будто исчезнувшего никогда не существовало.
 toolshed-verb-mark = Отметить

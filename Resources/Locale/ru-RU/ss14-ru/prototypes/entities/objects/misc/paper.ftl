@@ -1,3 +1,4 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 ent-BasePaper = { ent-BaseItem }
     .desc = { ent-BaseItem.desc }
 ent-Paper = бумага
@@ -26,7 +27,7 @@ ent-NukeCodePaper = коды ядерной аутентификации
     .desc = { ent-Paper.desc }
 ent-NukeCodePaperStation = { ent-NukeCodePaper }
     .desc = { ent-NukeCodePaper.desc }
-    .suffix = Только станция
+    .suffix = Только Город
 ent-TraitorCodePaper = кодовое слово Синдиката
     .desc = Раскрытое кодовое слово, с помощью которого можно связаться с Синдикатом.
 ent-AllTraitorCodesPaper = реестр кодовых слов Синдиката

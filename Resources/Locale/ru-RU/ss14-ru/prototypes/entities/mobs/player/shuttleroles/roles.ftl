@@ -1,3 +1,4 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 ent-RandomHumanoidVisitorCaptain = посетитель Консул роль призрака
     .desc = { "" }
 ent-RandomHumanoidVisitorCE = посетитель СИ роль призрака
@@ -66,7 +67,7 @@ ent-RandomHumanoidVisitorJanitor = посетитель уборщик роль 
     .desc = { "" }
 ent-RandomHumanoidVisitorLawyer = посетитель адвокат роль призрака
     .desc = { "" }
-ent-RandomHumanoidVisitorLawyerCentcom = посетитель адвокат ЦК роль призрака
+ent-RandomHumanoidVisitorLawyerCentcom = посетитель адвокат Консулата роль призрака
     .desc = { "" }
 ent-RandomHumanoidVisitorLibrarian = посетитель библиотекарь роль призрака
     .desc = { "" }

@@ -1,3 +1,4 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 # Модификаторы — форма вины
 guidebook-corporatelaw-mod-guilt-intentional-effect = Полное наказание
 guidebook-corporatelaw-mod-guilt-intentional-desc =
@@ -62,7 +63,7 @@ guidebook-corporatelaw-mod-optional-hypnosis-desc =
 
 guidebook-corporatelaw-mod-optional-necessity-effect = Снятие обвинений
 guidebook-corporatelaw-mod-optional-necessity-desc =
-    Вынужденные действия в целях самозащиты, защиты здоровья и жизни своих коллег, а также сохранности своего рабочего места и станции в целом.
+    Вынужденные действия в целях самозащиты, защиты здоровья и жизни своих коллег, а также сохранности своего рабочего места и Города в целом.
 
     Модификатор применяется на усмотрение допрашивающего лица.
 

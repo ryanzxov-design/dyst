@@ -1,3 +1,4 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 ent-DrinkBottleGlassBaseFull = { ent-DrinkBase }
     .desc = { ent-DrinkBaseMaterialGlass.desc }
     .suffix = Полный
@@ -58,7 +59,7 @@ ent-DrinkWhiskeyBottleFull = Особый Запас Дядюшки Гита
 ent-DrinkWineBottleFull = вино Особое Двухбородое Бородатое
     .desc = Слабая аура беспокойства и страха окружает бутылку.
     .suffix = { ent-DrinkBottleGlassBaseFull.suffix }
-ent-DrinkNTCahorsBottleFull = бутылка НТ Кагор
+ent-DrinkNTCahorsBottleFull = бутылка городского кагора
     .desc = {ent-DrinkBottleGlassBaseFull.desc}
 ent-DrinkBeerGrowler = бутыль пива
     .desc = Алкогольный напиток, изготовленный из солода, хмеля, дрожжей и воды. Бочонок размера XL.

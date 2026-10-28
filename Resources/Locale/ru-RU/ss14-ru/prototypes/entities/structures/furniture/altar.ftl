@@ -1,10 +1,11 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 ent-AltarBase = алтарь
     .desc = Алтарь богов.
-ent-AltarBaseWood = алтарь Nanotrasen
+ent-AltarBaseWood = алтарь Города
     .desc = { ent-AltarBase.desc }
 ent-AltarBaseSteel = { ent-AltarBase }
     .desc = { ent-AltarBase.desc }
-ent-AltarNanotrasen = алтарь Nanotrasen
+ent-AltarNanotrasen = алтарь Города
     .desc = { ent-AltarBaseWood.desc }
 ent-AltarChaos = алтарь хаоса
     .desc = { ent-AltarBaseSteel.desc }

@@ -1,5 +1,6 @@
-ent-BaseHandheldStationMap = карта станции
-    .desc = Отображает схему текущей станции.
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
+ent-BaseHandheldStationMap = карта Города
+    .desc = Отображает схему текущего Города.
 ent-HandheldStationMap = { ent-BaseHandheldStationMap }
     .desc = { ent-BaseHandheldStationMap.desc }
     .suffix = Ручной
@@ -12,6 +13,6 @@ ent-HandheldStationMapUnpowered = { ent-BaseHandheldStationMap }
 ent-HandheldStationMapStatic = { ent-HandheldStationMap }
     .desc = { ent-HandheldStationMap.desc }
     .suffix = Handheld, Works Off-Station
-ent-HandheldStationMapNukeops = карта целевой станции
-    .desc = Отображает показания целевой станции.
+ent-HandheldStationMapNukeops = карта целевого города
+    .desc = Отображает показания целевого города.
     .suffix = Ручной, Ядерный оперативник

@@ -1,3 +1,4 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 ent-BaseUniquePet = { "" }
     .desc = { "" }
 ent-MobCorgiIan = Иан
@@ -40,7 +41,7 @@ ent-MobWalter = Уолтер
     .desc = Он обожает химию и угощения. Уолтер.
     .suffix = { ent-SimpleMobBase.suffix }
 ent-MobPossumMorty = Морти
-    .desc = Обитатель станции, Виргинский опоссум. Чувствительный, но стойкий парень.
+    .desc = Обитатель Города, Виргинский опоссум. Чувствительный, но стойкий парень.
     .suffix = { ent-MobPossum.suffix }
 ent-MobPossumMortyOld = Морти
     .desc = { ent-MobPossumMorty.desc }
@@ -64,7 +65,7 @@ ent-MobHamsterHamletSlippery = { ent-MobHamsterHamlet }
     .desc = { ent-MobHamsterHamlet.desc }
     .suffix = Скользкий
 ent-MobSpiderShiva = Шива
-    .desc = Первый защитник станции.
+    .desc = Первый защитник Города.
     .suffix = { ent-MobGiantSpider.suffix }
 ent-MobKangarooWillow = Уиллоу
     .desc = Уиллоу, кенгуру-боксёр.

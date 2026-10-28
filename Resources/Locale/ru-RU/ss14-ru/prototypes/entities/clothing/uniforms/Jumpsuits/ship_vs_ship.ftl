@@ -1,3 +1,4 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 ent-ClothingUniformJumpsuitRecruitNT = комбинезон рекрута
     .desc = Классический серый комбинезон с синими элементами. Идеально для достойного помощника.
 ent-ClothingUniformJumpsuitRecruitSyndie = комбинезон рекрута Синдиката
@@ -5,7 +6,7 @@ ent-ClothingUniformJumpsuitRecruitSyndie = комбинезон рекрута �
 ent-ClothingUniformJumpsuitRepairmanNT = комбинезон ремонтника
     .desc = Комбинезон, напоминающий вам определённую рабочую специальность в гражданском секторе. Надеемся, вам не придётся выполнять ту же работу, что и этим чудакам.
 ent-ClothingUniformJumpsuitRepairmanSyndie = комбинезон ремонтника Синдиката
-    .desc = Функциональный, модный, крутой. Инженеры Nanotrasen мечтают выглядеть так же хорошо, как и вы.
+    .desc = Функциональный, модный, крутой. Инженеры Города мечтают выглядеть так же хорошо, как и вы.
 ent-ClothingUniformJumpsuitParamedicSyndie = комбинезон парамедика Синдиката
     .desc = По какой-то причине, надевая его, вы чувствуете, что очень близки к нарушению Женевской конвенции.
 ent-ClothingUniformJumpsuitChiefEngineerSyndie = комбинезон старшего инженера Синдиката

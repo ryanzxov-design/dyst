@@ -1,4 +1,5 @@
-job-supervisors-centcom = Центральному командованию
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
+job-supervisors-centcom = Консулату
 job-supervisors-captain = консулу
 job-supervisors-hop = адъютанту
 job-supervisors-hos = капитану Стражи

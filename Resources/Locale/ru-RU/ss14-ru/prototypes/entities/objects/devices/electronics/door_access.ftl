@@ -1,3 +1,4 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 ent-DoorElectronicsCaptain = { ent-DoorElectronics }
     .desc = { ent-DoorElectronics.desc }
     .suffix = Консул, Закрыт
@@ -105,7 +106,7 @@ ent-DoorElectronicsSyndicateAgent = { ent-DoorElectronics }
     .suffix = Агенты Синдиката, Закрыт
 ent-DoorElectronicsCentralCommand = { ent-DoorElectronics }
     .desc = { ent-DoorElectronics.desc }
-    .suffix = ЦК, Закрыт
+    .suffix = Консулат, Закрыт
 ent-DoorElectronicsExternal = { ent-DoorElectronics }
     .desc = { ent-DoorElectronics.desc }
     .suffix = Внешний, Закрыт

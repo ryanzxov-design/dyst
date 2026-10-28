@@ -1,3 +1,4 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 ent-BaseVendingMachine = торговый автомат
     .desc = Просто добавь капитализма!
 ent-VendingMachine = { ent-BaseVendingMachine }
@@ -63,7 +64,7 @@ ent-VendingMachineNutri = БотаМакс
 ent-VendingMachineSec = СБТех
     .desc = Торговый автомат с экипировкой Стражи. На табличке написано "ТОЛЬКО ДЛЯ СОТРУДНИКОВ СТРАЖИ".
 ent-VendingMachineSeedsUnlocked = МегаРаздатчик Семян
-    .desc = Для тех случаев, когда семена нужны срочно. Лучший ассортимент семян на станции!
+    .desc = Для тех случаев, когда семена нужны срочно. Лучший ассортимент семян в Городе!
     .suffix = Разблокированный
 ent-VendingMachineSeeds = { ent-VendingMachineSeedsUnlocked }
     .desc = { ent-VendingMachineSeedsUnlocked.desc }
@@ -71,7 +72,7 @@ ent-VendingMachineSeeds = { ent-VendingMachineSeedsUnlocked }
 ent-VendingMachineSnack = Getmore Chocolate Corp
     .desc = Автомат с закусками, предоставленный корпорацией Getmore Chocolate, базирующейся на Марсе.
 ent-VendingMachineSustenance = тюремный торгомат
-    .desc = Торговый автомат, который реализует продукты питания, как того требует раздел 47-C Соглашения об этическом обращении с заключёнными NT.
+    .desc = Торговый автомат, который реализует продукты питания, как того требует раздел 47-C Соглашения об этическом обращении с заключёнными Города.
 ent-VendingMachineSnackBlue = { ent-VendingMachineSnack }
     .desc = { ent-VendingMachineSnack.desc }
     .suffix = Синий

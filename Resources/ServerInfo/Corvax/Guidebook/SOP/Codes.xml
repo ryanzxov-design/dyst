@@ -17,7 +17,7 @@
         ### Условия
         <FTLTextpart Key="guidebook-SOP-codes-green-terms"/>
 
-        ### Нормы экипажа
+        ### Нормы граждан
         <FTLTextpart Key="guidebook-SOP-codes-green-norms"/>
       </Box>
     </ColorBox>
@@ -36,7 +36,7 @@
         ### Условия
         <FTLTextpart Key="guidebook-SOP-codes-blue-terms"/>
 
-        ### Нормы экипажа
+        ### Нормы граждан
         <FTLTextpart Key="guidebook-SOP-codes-blue-norms"/>
       </Box>
     </ColorBox>
@@ -55,7 +55,7 @@
         ### Условия
         <FTLTextpart Key="guidebook-SOP-codes-red-terms"/>
 
-        ### Нормы экипажа
+        ### Нормы граждан
         <FTLTextpart Key="guidebook-SOP-codes-red-norms"/>
       </Box>
     </ColorBox>
@@ -74,7 +74,7 @@
         ### Условия
         <FTLTextpart Key="guidebook-SOP-codes-gamma-terms"/>
 
-        ### Нормы экипажа
+        ### Нормы граждан
         <FTLTextpart Key="guidebook-SOP-codes-gamma-norms"/>
       </Box>
     </ColorBox>
@@ -83,7 +83,7 @@
   <Table Columns="1">
     <ColorBox Color="#242c38">
       <Box HorizontalAlignment="Center" VerticalAlignment="Center" Margin="2">
-        [bold]Уровень угрозы Дельта: неминуемая гибель станции[/bold]
+        [bold]Уровень угрозы Дельта: неминуемая гибель Города[/bold]
       </Box>
     </ColorBox>
     <ColorBox>
@@ -93,7 +93,7 @@
         ### Условия
         <FTLTextpart Key="guidebook-SOP-codes-delta-terms"/>
 
-        ### Нормы экипажа
+        ### Нормы граждан
         <FTLTextpart Key="guidebook-SOP-codes-delta-norms"/>
       </Box>
     </ColorBox>
@@ -113,7 +113,7 @@
         ### Условия
         <FTLTextpart Key="guidebook-SOP-codes-yellow-terms"/>
 
-        ### Нормы экипажа
+        ### Нормы граждан
         <FTLTextpart Key="guidebook-SOP-codes-yellow-norms"/>
       </Box>
     </ColorBox>
@@ -132,7 +132,7 @@
         ### Условия
         <FTLTextpart Key="guidebook-SOP-codes-purple-terms"/>
 
-        ### Нормы экипажа
+        ### Нормы граждан
         <FTLTextpart Key="guidebook-SOP-codes-purple-norms"/>
       </Box>
     </ColorBox>

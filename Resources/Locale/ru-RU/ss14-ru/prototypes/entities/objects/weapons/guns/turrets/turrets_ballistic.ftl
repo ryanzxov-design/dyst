@@ -1,3 +1,4 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 ent-WeaponTurretSyndicate = { ent-BaseWeaponBallisticTurret }
     .desc = { ent-BaseWeaponBallisticTurret.desc }
     .suffix = Синдикат
@@ -6,7 +7,7 @@ ent-WeaponTurretSyndicateDisposable = баллистическая турель
     .suffix = Синдикат, Тулбокс, Ящик
 ent-WeaponTurretNanoTrasen = { ent-BaseWeaponBallisticTurret }
     .desc = { ent-BaseWeaponBallisticTurret.desc }
-    .suffix = Nanotrasen
+    .suffix = Города
 ent-WeaponTurretHostile = { ent-BaseWeaponBallisticTurret }
     .desc = { ent-BaseWeaponBallisticTurret.desc }
     .suffix = Враждебная

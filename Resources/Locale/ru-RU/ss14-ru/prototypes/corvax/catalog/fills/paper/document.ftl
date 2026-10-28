@@ -1,6 +1,7 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 ent-PrintedDocument = { ent-Paper }
     .desc = Бюрократическая единица. Документ, распечатанный на принтере.
-ent-PrintedDocumentReportStation = Отчёт о ситуации на станции
+ent-PrintedDocumentReportStation = Отчёт о ситуации в Городе
     .desc = { ent-PrintedDocument.desc }
 ent-PrintedDocumentReportOnEliminationOfViolations = Отчёт об устранении нарушений
     .desc = { ent-PrintedDocument.desc }
@@ -38,7 +39,7 @@ ent-PrintedDocumentEvacuationShuttleRequest = Запрос эвакуацион�
     .desc = { ent-PrintedDocument.desc }
 ent-PrintedDocumentShuttleRegistrationRequest = Запрос регистрации шаттла
     .desc = { ent-PrintedDocument.desc }
-ent-PrintedDocumentRequestCallMembersCentralCommitteeDSO = Запрос на вызов членов ЦК, ДСО
+ent-PrintedDocumentRequestCallMembersCentralCommitteeDSO = Запрос на вызов членов Консулата, ДСО
     .desc = { ent-PrintedDocument.desc }
 ent-PrintedDocumentRequestRequestToEstablishThreatLevel = Запрос установления уровня угрозы
     .desc = { ent-PrintedDocument.desc }

@@ -1,4 +1,5 @@
-general-station-record-console-window-title = Консоль станционного учёта
+# Dystopia: лор Города
+general-station-record-console-window-title = Консоль городского учёта
 general-station-record-console-select-record-info = Выберите запись слева.
 general-station-record-console-empty-state = Записей не найдено!
 general-station-record-console-no-record-found = Для выбранного сотрудника не найдено ни одной записи.

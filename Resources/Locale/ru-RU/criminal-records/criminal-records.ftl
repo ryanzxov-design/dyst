@@ -1,5 +1,6 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 criminal-records-console-window-title = Консоль криминальных записей
-criminal-records-console-records-list-title = Члены экипажа
+criminal-records-console-records-list-title = Граждане
 criminal-records-console-select-record-info = Выбрать запись.
 criminal-records-console-no-records = Записи не найдены!
 criminal-records-console-no-record-found = Записи о выбранном сотруднике не найдены.

@@ -1,3 +1,4 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 ent-MobXeno = Бурильщик
     .desc = Обычно они приходят ночью. Обычно.
     .suffix = { ent-SimpleSpaceMobBase.suffix }
@@ -31,7 +32,7 @@ ent-MobSmallPurpleSnake = космическая гадюка
     .desc = Уменьшенная версия грозной пурпурной змеи из Kepler-283c.
     .suffix = Маленькая
 ent-MobXenoLonePraetorianNoGhost = "Дейл"
-    .desc = Преторианец, оставшийся после первоначальной зачистки станции. У него в пасти застряла пара окровавленных жетонов с выгравированным именем "Рядовой Дейл".
+    .desc = Преторианец, оставшийся после первоначальной зачистки Города. У него в пасти застряла пара окровавленных жетонов с выгравированным именем "Рядовой Дейл".
     .suffix = { ent-SimpleSpaceMobBase.suffix }
 ent-SolutionVenomDale = { ent-SolutionWeapon }
     .desc = { ent-SolutionWeapon.desc }

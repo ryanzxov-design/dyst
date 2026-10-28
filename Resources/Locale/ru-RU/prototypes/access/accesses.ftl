@@ -1,3 +1,4 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 id-card-access-level-command = Командование
 id-card-access-level-captain = Капитан
 id-card-access-level-head-of-personnel = Глава персонала
@@ -44,7 +45,7 @@ id-card-access-level-external = Внешний
 id-card-access-level-nuclear-operative = Ядерный оперативник
 id-card-access-level-syndicate-agent = Агент Синдиката
 
-id-card-access-level-central-command = Центральное командование
+id-card-access-level-central-command = Консулат
 
 id-card-access-level-wizard = Волшебник
 

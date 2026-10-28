@@ -1,3 +1,4 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 ent-Holopad = голопад
     .desc = Напольное устройство для проецирования голографических изображений.
 ent-HolopadLongRange = голопад дальнего действия
@@ -278,10 +279,10 @@ ent-HolopadCargoAts = { ent-HolopadLongRange }
     .suffix = АТС
 ent-HolopadCommandBridgeLongRange = { ent-HolopadLongRange }
     .desc = { ent-HolopadLongRange.desc }
-    .suffix = Станция Мостик
+    .suffix = Город Мостик
 ent-HolopadCargoBayLongRange = { ent-HolopadLongRange }
     .desc = { ent-HolopadLongRange.desc }
-    .suffix = Станция Грузовой отсек
+    .suffix = Город Грузовой отсек
 ent-HolopadCargoShuttle = { ent-HolopadLongRange }
     .desc = { ent-HolopadLongRange.desc }
     .suffix = Грузовой шаттл

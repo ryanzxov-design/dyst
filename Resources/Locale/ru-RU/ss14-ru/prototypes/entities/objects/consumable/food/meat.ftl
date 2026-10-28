@@ -1,3 +1,4 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 ent-FoodMeatBase = { ent-FoodInjectableBase }
     .desc = { ent-FoodInjectableBase.desc }
 ent-FoodMeatRawBase = { ent-FoodMeatBase }
@@ -99,7 +100,7 @@ ent-FoodMeatSnailCooked = варёная улитка
 ent-FoodMeatAnomalyCooked = аномальный стейк
     .desc = Гигантская масса приготовленного мяса. Блюдо для вечеринки или для тех, кто ПО-НАСТОЯЩЕМУ голоден.
 ent-FoodMeatDragonCooked = драконий стейк
-    .desc = На большинстве станций налить кетчуп на это считается смертным преступлением.
+    .desc = На большинстве городов налить кетчуп на это считается смертным преступлением.
 ent-FoodMeatCutletBase = { ent-SolutionVeryTiny }
     .desc = { ent-SolutionVeryTiny.desc }
 ent-FoodMeatCutlet = сырая вырезка

@@ -1,3 +1,4 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 
 ### Announcement
 
@@ -9,6 +10,6 @@ earlyleave-cryo-announcement = { $character } ({ $job }) { GENDER($entity) ->
     [epicene] были перемещены
     *[neuter] было перемещено
 } в криогенное хранилище!
-earlyleave-cryo-sender = Станция
+earlyleave-cryo-sender = Города
 
 cryostorage-paused-map-name = Карта хранения тел криосна

@@ -1,6 +1,7 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 # Traitor single items
 steal-target-groups-hypospray = гипоспрей
-steal-target-groups-handheld-crew-monitor = ручной монитор экипажа
+steal-target-groups-handheld-crew-monitor = ручной монитор граждан
 steal-target-groups-clothing-outer-hardsuit-rd = экспериментальный исследовательский скафандр
 steal-target-groups-hand-teleporter = ручной телепортер
 steal-target-groups-clothing-shoes-boots-mag-adv = продвинутые магнитные сапоги
@@ -41,7 +42,7 @@ steal-target-groups-ame-part-flatpack =  упаковка ДАМ
 steal-target-groups-salvage-expeditions-computer-circuitboard = плата консоли утилизаторских экспедиций
 steal-target-groups-cargo-shuttle-console-circuitboard = плата консоли управления грузовым шаттлом
 steal-target-groups-bible = библия
-steal-target-groups-clothing-neck-goldmedal = золотая медаль мастерства экипажа
+steal-target-groups-clothing-neck-goldmedal = золотая медаль мастерства граждан
 steal-target-groups-clothing-neck-clownmedal = медаль клоуна
 steal-target-groups-wanted-list-cartridge = картридж Список разыскиваемых
 steal-target-groups-belt-ce = пояс для инструментов главы Промышленной Службы
@@ -50,7 +51,7 @@ steal-target-groups-captain-sword = сабля Консула
 # Thief structures
 steal-target-groups-teg = часть термоэлектрического генератора
 steal-target-groups-freezer-heater = нагреватель или охладитель
-steal-target-groups-altar-nanotrasen = алтарь Nanotrasen (любой)
+steal-target-groups-altar-nanotrasen = алтарь Города (любой)
 
 steal-target-groups-nuclear-bomb = ядерная боеголовка
 steal-target-groups-fax-machine-captain = факс дальнего действия Консула

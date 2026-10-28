@@ -1,3 +1,4 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 ent-BaseImplanter = имплантер
     .desc = { ent-BaseItem.desc }
 ent-Implanter = экстрактор имплантов
@@ -49,7 +50,7 @@ ent-FakeMindShieldImplanter = имплантер "Фальшивый щит ра
     .desc = { ent-BaseImplantOnlyImplanterSyndi.desc }
 ent-MindShieldImplanter = имплантер "Щит разума"
     .desc = { ent-BaseImplantOnlyImplanter.desc }
-ent-RadioImplanterCentcomm = имплантер "Радио ЦК"
+ent-RadioImplanterCentcomm = имплантер "Радио Консулата"
     .desc = { ent-BaseImplantOnlyImplanter.desc }
-ent-DeathRattleImplanterCentcomm = имплантер "Предсмертный хрип ЦК"
+ent-DeathRattleImplanterCentcomm = имплантер "Предсмертный хрип Консулата"
     .desc = { ent-BaseImplantOnlyImplanter.desc }

@@ -1,7 +1,8 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 ent-BaseMeteor = метеор
     .desc = Вы бы предпочли, чтобы они сгорали в атмосфере.
 ent-MeteorSpaceDust = космическая пыль
-    .desc = Заставляет станцию чихать.
+    .desc = Заставляет Город чихать.
 ent-MeteorSmall = { ent-BaseMeteor }
     .desc = { ent-BaseMeteor.desc }
     .suffix = Маленький

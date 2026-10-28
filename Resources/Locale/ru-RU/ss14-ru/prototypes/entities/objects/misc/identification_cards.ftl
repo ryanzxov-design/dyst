@@ -1,5 +1,6 @@
+# Dystopia: лор Города
 ent-IDCardStandard = идентификационная карта
-    .desc = Карта, необходимая для доступа к различным областям станции.
+    .desc = Карта, необходимая для доступа к различным областям Города.
 ent-PassengerIDCard = ID-карта пассажира
     .desc = { ent-IDCardStandard.desc }
 ent-CaptainIDCard = ID-карта капитана

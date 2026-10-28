@@ -1,3 +1,4 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 barsign-component-name = вывеска бара
 barsign-ui-menu = Настройка вывески бара
 barsign-ui-set-label = Выбрать вывеску:
@@ -102,7 +103,7 @@ barsign-prototype-description-maltroach = Сквик!
 
 ## Whiskey Echoes
 barsign-prototype-name-whiskeyechoes = Виски Эхо
-barsign-prototype-description-whiskeyechoes = Элитный бар для элитных опер... Подождите, это же станция Nanotrasen. Почему эта вывеска в базе данных?
+barsign-prototype-description-whiskeyechoes = Элитный бар для элитных опер... Подождите, это же Город. Почему эта вывеска в базе данных?
 
 ## EmpBarSign
 barsign-prototype-name-empbarsign = глючащая вывеска бара

@@ -1,3 +1,4 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 ent-DrinkBottlePlasticBase = { ent-DrinkBase }
     .desc = { ent-DrinkBaseMaterialPlastic.desc }
     .suffix = Полный
@@ -67,5 +68,5 @@ ent-DrinkWaterMelonJuiceJug = кувшин арбузного сока
     .desc = Может содержать остатки семян.
     .suffix = { ent-CustomDrinkJugFilled.suffix }
 ent-DrinkEnergyDrinkJug = кувшин Ред Булеан
-    .desc = Кувшин Ред Булеан, с количеством кофеина, которого хватит на убийство целой станции.
+    .desc = Кувшин Ред Булеан, с количеством кофеина, которого хватит на убийство целого Города.
     .suffix = { ent-CustomDrinkJugFilled.suffix }

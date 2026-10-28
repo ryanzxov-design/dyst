@@ -1,5 +1,6 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 ent-IngotBase = { ent-MaterialBase }
-    .desc = Тяжёлый металлический слиток с выдавленным логотипом Nanotrasen.
+    .desc = Тяжёлый металлический слиток с выдавленным логотипом Города.
 ent-IngotGold = золотой слиток
     .desc = { ent-IngotBase.desc }
     .suffix = Полный

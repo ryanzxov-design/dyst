@@ -1,3 +1,4 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 ent-BaseHealingItem = { ent-BaseItem }
     .desc = { ent-BaseItem.desc }
 ent-Ointment = мазь
@@ -25,7 +26,7 @@ ent-BrutepackAdvanced1 = { ent-MedicatedSuture }
     .desc = { ent-MedicatedSuture.desc }
     .suffix = Один
 ent-Bloodpack = пакет крови
-    .desc = Содержит новый инновационный универсальный кровезаменитель, разработанный передовыми исследователями компании Nanotrasen.
+    .desc = Содержит новый инновационный универсальный кровезаменитель, разработанный передовыми исследователями Города.
     .suffix = Полный
 ent-Bloodpack1 = { ent-Bloodpack }
     .desc = { ent-Bloodpack.desc }

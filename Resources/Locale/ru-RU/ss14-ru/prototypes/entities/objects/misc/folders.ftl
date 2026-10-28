@@ -1,3 +1,4 @@
+# Dystopia: лор Города — «станция», «экипаж», NanoTrasen и ЦК заменены на Город, граждан и Консулат.
 ent-BoxFolderNuclearCodes = папка с кодами ядерной аутентификации
     .desc = { ent-BaseItem.desc }
 ent-BoxFolderBaseEmpty = папка
@@ -77,8 +78,8 @@ ent-BoxFolderWhite = { ent-BoxFolderWhiteEmpty }
 ent-BoxFolderWhiteThreePapers = { ent-BoxFolderWhiteEmpty }
     .desc = { ent-BoxFolderWhiteEmpty.desc }
     .suffix = Белый, 3 листа бумаги
-ent-BoxFolderCentComEmpty = папка ЦК
-    .desc = Жалкая кучка секретов Центрального командования!
+ent-BoxFolderCentComEmpty = папка Консулата
+    .desc = Жалкая кучка секретов Консулата!
 ent-BoxFolderCentCom = { ent-BoxFolderCentComEmpty }
     .desc = { ent-BoxFolderCentComEmpty.desc }
     .suffix = НЕ МАППИТЬ, Заполненный
@@ -101,8 +102,8 @@ ent-BoxFolderPlasticClipboard = { ent-BoxFolderPlasticClipboardEmpty }
 ent-BoxFolderPlasticClipboardThreePapers = { ent-BoxFolderPlasticClipboardEmpty }
     .desc = { ent-BoxFolderPlasticClipboardEmpty.desc }
     .suffix = { ent-BoxFolderFillThreePapers.suffix }
-ent-BoxFolderCentComClipboardEmpty = планшет Центком
-    .desc = Роскошный планшет, обитый зелёным бархатом. Представители Центком часто носят его с собой, но редко используют.
+ent-BoxFolderCentComClipboardEmpty = планшет Консулата
+    .desc = Роскошный планшет, обитый зелёным бархатом. Представители Консулата часто носят его с собой, но редко используют.
 ent-BoxFolderCentComClipboard = { ent-BoxFolderCentComClipboardEmpty }
     .desc = { ent-BoxFolderCentComClipboardEmpty.desc }
     .suffix = { ent-BoxFolderFill.suffix }
