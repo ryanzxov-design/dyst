@@ -34,9 +34,8 @@
   - DystopiaGuardDispatcher
   - DystopiaGuardInvestigator
   - DystopiaPraetorian
-  - DystopiaGrenadier
-  - DystopiaStormtrooper
-  - DystopiaSoldier
+  - DystopiaPatrolCommand
+  - DystopiaPatrolUnit
   foreground: "#7CC4FF"
   dim: "#4A8BC4"
   glow: "#50AAFF8C"

@@ -496,8 +496,9 @@
     layers:
       Hair: HEAD
   # Dystopia-Health: класс защиты (_Dystopia/Health/Armor/armor_classes.yml)
+  # Dystopia: оболочки Внешнего Патруля — параметры под Город (классы брони, скорость, зараза)
   - type: ArmorRating
-    armorClass: Br2
+    armorClass: Br4
 
 #Bone Helmet
 #No need to hide the hair on this one

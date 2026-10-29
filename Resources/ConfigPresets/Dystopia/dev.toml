@@ -21,4 +21,6 @@ auto_call_time = 0           # не вызывать эвак автоматич
 enabled = false              # космические события (метеоры и т.п.) выключены
 
 [ic]
+random_characters = false     # Build/development.toml включает случайного персонажа на каждой смене — выключаем:
+                              # заходим выбранным в меню персонажем
 random_species_weights = "DystopiaSpeciesWeights"   # случайные персонажи — только люди

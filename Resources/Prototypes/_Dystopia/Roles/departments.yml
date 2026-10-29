@@ -33,9 +33,8 @@
   weight: 40
   roles:
   - DystopiaPraetorian
-  - DystopiaGrenadier
-  - DystopiaStormtrooper
-  - DystopiaSoldier
+  - DystopiaPatrolCommand
+  - DystopiaPatrolUnit
 
 - type: department
   id: DystopiaSanitary

@@ -1,6 +1,6 @@
-# Роли: Внешний Патруль
-# Сумки (и пояс/РПС у Стражи) выдаются через выбор снаряжения — см. Loadouts/loadouts.yml.
-# Снаряжение Внешнего Патруля — ВРЕМЕННОЕ, будет позже.
+# Роли: Внешний Патруль (переделан 29.10). Единицы — люди, переделанные Городом: оболочка, шлем, лицевая маска и КПК
+# не снимаются (UnitLockedEquipment), зарплаты нет (city.yml). Имя-номер, обнуление карт, биокод оружия и машина
+# модификации — следующим этапом. Роли в начале раунда: Единица, Командная Единица, Преторианец.
 
 - type: job
   id: DystopiaPraetorian
@@ -28,18 +28,25 @@
   id: DystopiaPraetorianGear
   equipment:
     jumpsuit: ClothingUniformJumpsuitSeniorOfficer
-    mask: DystopiaClothingMaskGasSanitary
+    outerClothing: DystopiaPatrolShellPraetorian
+    head: DystopiaPatrolShellPraetorianHelmet
+    mask: DystopiaPatrolMask
+    gloves: ClothingHandsGlovesCombat
     shoes: ClothingShoesBootsCombat
     id: DystopiaPraetorianPDA
     ears: ClothingHeadsetAltDystopiaPraetorian
+    suitstorage: DystopiaWeaponShotgunAA12
+  storage:
+    back:
+    - MagazineShotgunAA12
 
 - type: job
-  id: DystopiaGrenadier
-  name: job-name-dystopia-grenadier
-  description: job-description-dystopia-grenadier
-  playTimeTracker: JobDystopiaGrenadier
-  startingGear: DystopiaGrenadierGear
-  icon: "JobIconDystopiaGrenadier"
+  id: DystopiaPatrolCommand
+  name: job-name-dystopia-patrol-command
+  description: job-description-dystopia-patrol-command
+  playTimeTracker: JobDystopiaPatrolCommand
+  startingGear: DystopiaPatrolCommandGear
+  icon: "JobIconDystopiaPatrolCommand"
   supervisors: dystopia-job-supervisors-patrol
   accessGroups:
   # ВРЕМЕННО: ванильные доступы для дверей тестовой карты Terra. Убрать вместе с Terra.
@@ -53,50 +60,30 @@
   - External
 
 - type: startingGear
-  id: DystopiaGrenadierGear
-  equipment:
-    jumpsuit: ClothingUniformJumpsuitERTEngineer
-    mask: DystopiaClothingMaskGasSanitary
-    shoes: ClothingShoesBootsCombat
-    id: DystopiaGrenadierPDA
-    ears: ClothingHeadsetDystopiaPatrol
-
-- type: job
-  id: DystopiaStormtrooper
-  name: job-name-dystopia-stormtrooper
-  description: job-description-dystopia-stormtrooper
-  playTimeTracker: JobDystopiaStormtrooper
-  startingGear: DystopiaStormtrooperGear
-  icon: "JobIconDystopiaStormtrooper"
-  supervisors: dystopia-job-supervisors-patrol
-  accessGroups:
-  # ВРЕМЕННО: ванильные доступы для дверей тестовой карты Terra. Убрать вместе с Terra.
-  - Security
-  access:
-  - DystopiaPatrol
-  - DystopiaPatrolArmory
-  - DystopiaGates
-  # ВРЕМЕННО: ванильные доступы для дверей тестовой карты Terra. Убрать вместе с Terra.
-  - Maintenance
-  - External
-
-- type: startingGear
-  id: DystopiaStormtrooperGear
+  id: DystopiaPatrolCommandGear
   equipment:
     jumpsuit: ClothingUniformJumpsuitERTLeader
-    mask: DystopiaClothingMaskGasSanitary
+    outerClothing: DystopiaPatrolShellCommand
+    head: DystopiaPatrolShellCommandHelmet
+    mask: DystopiaPatrolMask
+    gloves: ClothingHandsGlovesCombat
     shoes: ClothingShoesBootsCombat
-    id: DystopiaStormtrooperPDA
+    id: DystopiaPatrolCommandPDA
     ears: ClothingHeadsetDystopiaPatrol
+    suitstorage: DystopiaWeaponRifleAKMSTactical
+  storage:
+    back:
+    - Magazine762x39AK
+    - Magazine762x39AK
 
 - type: job
-  id: DystopiaSoldier
-  name: job-name-dystopia-soldier
-  description: job-description-dystopia-soldier
-  playTimeTracker: JobDystopiaSoldier
-  startingGear: DystopiaSoldierGear
-  icon: "JobIconDystopiaSoldier"
-  supervisors: dystopia-job-supervisors-patrol
+  id: DystopiaPatrolUnit
+  name: job-name-dystopia-patrol-unit
+  description: job-description-dystopia-patrol-unit
+  playTimeTracker: JobDystopiaPatrolUnit
+  startingGear: DystopiaPatrolUnitGear
+  icon: "JobIconDystopiaPatrolUnit"
+  supervisors: dystopia-job-supervisors-patrol-command
   accessGroups:
   # ВРЕМЕННО: ванильные доступы для дверей тестовой карты Terra. Убрать вместе с Terra.
   - Security
@@ -108,10 +95,18 @@
   - External
 
 - type: startingGear
-  id: DystopiaSoldierGear
+  id: DystopiaPatrolUnitGear
   equipment:
     jumpsuit: ClothingUniformJumpsuitERTSecurity
-    mask: DystopiaClothingMaskGasSanitary
+    outerClothing: DystopiaPatrolShellLight
+    head: DystopiaPatrolShellLightHelmet
+    mask: DystopiaPatrolMask
+    gloves: ClothingHandsGlovesCombat
     shoes: ClothingShoesBootsCombat
-    id: DystopiaSoldierPDA
+    id: DystopiaPatrolUnitPDA
     ears: ClothingHeadsetDystopiaPatrol
+    suitstorage: DystopiaWeaponSMGMP5Tactical
+  storage:
+    back:
+    - Magazine9x19MP5
+    - Magazine9x19MP5

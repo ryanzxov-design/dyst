@@ -66,27 +66,19 @@
 
 - type: jobIcon
   parent: JobIcon
-  id: JobIconDystopiaGrenadier
-  icon:
-    sprite: /Textures/_Dystopia/Interface/job_icons.rsi
-    state: Grenadier
-  jobName: job-name-dystopia-grenadier
-
-- type: jobIcon
-  parent: JobIcon
-  id: JobIconDystopiaStormtrooper
+  id: JobIconDystopiaPatrolCommand
   icon:
     sprite: /Textures/_Dystopia/Interface/job_icons.rsi
     state: Stormtrooper
-  jobName: job-name-dystopia-stormtrooper
+  jobName: job-name-dystopia-patrol-command
 
 - type: jobIcon
   parent: JobIcon
-  id: JobIconDystopiaSoldier
+  id: JobIconDystopiaPatrolUnit
   icon:
     sprite: /Textures/_Dystopia/Interface/job_icons.rsi
     state: Soldier
-  jobName: job-name-dystopia-soldier
+  jobName: job-name-dystopia-patrol-unit
 
 - type: jobIcon
   parent: JobIcon

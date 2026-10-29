@@ -1,0 +1,276 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: шлемы оболочек Единиц Внешнего Патруля — самостоятельные копии ванильного снаряжения синдиката
+# (перекрашено в мультикам) с UnitLockedEquipment: надетое не снимается никем. Шлем не пристёгивается к костюму —
+# он надет отдельно и тоже не снимается. Сгенерировано: /tmp/claude-0/scripts/patrol/gen_patrol.py
+
+- type: entity
+  id: DystopiaPatrolShellLightHelmet
+  name: light Unit shell helmet
+  description: Helmet of the light Unit shell. Class 4. Cannot be removed.
+  components:
+  - type: Sprite
+    sprite: _Dystopia/Clothing/Head/Helmets/syndie-raid.rsi
+    state: icon
+    drawdepth: Items
+    noRot: false
+  - type: Clothing
+    sprite: _Dystopia/Clothing/Head/Helmets/syndie-raid.rsi
+    slots: [ HEAD ]
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.85
+        Slash: 0.85
+        Piercing: 0.85
+        Heat: 0.85
+  - type: HideLayerClothing
+    layers:
+      Hair: HEAD
+  - type: ArmorRating
+    armorClass: Br4
+  - type: Tag
+    tags: [ WhitelistChameleon ]
+  - type: Item
+    size: Small
+    storedRotation: -90
+  - type: Edible
+    requiresSpecialDigestion: true
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Fiber
+        Quantity: 15
+    id: food
+  - type: StaticPrice
+    price: 10
+  - type: FlavorProfile
+    flavors: [ fiber ]
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: UnitLockedEquipment
+
+- type: entity
+  id: DystopiaPatrolShellCommandHelmet
+  name: command Unit shell helmet
+  description: Helmet of the command Unit shell. Class 5. Cannot be removed.
+  components:
+  - type: Sprite
+    sprite: _Dystopia/Clothing/Head/Hardsuits/syndiecommander.rsi
+    state: icon
+    layers:
+    - state: icon
+    - state: icon-unshaded
+      shader: unshaded
+    - state: light-overlay
+      visible: false
+      shader: unshaded
+      map: [ light ]
+  - type: PointLight
+    color: green
+    radius: 5
+    energy: 2.5
+    enabled: false
+    lightMask: ConeSingle
+    autoRot: true
+    netsync: false
+  - type: PressureProtection
+    highPressureMultiplier: 0.08
+    lowPressureMultiplier: 1000
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.9
+        Slash: 0.9
+        Piercing: 0.9
+        Heat: 0.9
+  - type: Tag
+    tags: [ WhitelistChameleon ]
+  - type: ArmorRating
+    armorClass: Br5
+  - type: BreathMask
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Clothing
+    equipSound: /Audio/Mecha/mechmove03.ogg
+    unequipSound: /Audio/Mecha/mechmove03.ogg
+    quickEquip: false
+    slots: [ HEAD ]
+    clothingVisuals:
+      head:
+      - state: equipped-head
+      - state: equipped-head-unshaded
+        shader: unshaded
+    equippedPrefix: false
+  - type: GroupExamine
+  - type: IngestionBlocker
+  - type: IdentityBlocker
+  - type: HideLayerClothing
+    slots: [ Hair, Snout, HeadTop, HeadSide, FacialHair ]
+  - type: TemperatureProtection
+    coefficient: 0.6
+  - type: ToggleableVisuals
+    spriteLayer: light
+    clothingVisuals:
+      head:
+      - state: equipped-head-light
+        shader: unshaded
+  - type: ItemTogglePointLight
+  - type: Appearance
+  - type: HandheldLight
+    addPrefix: true
+    blinkingBehaviourId: blinking
+    radiatingBehaviourId: radiating
+  - type: LightBehaviour
+    behaviours:
+    - !type:FadeBehaviour
+      id: radiating
+      interpolate: Linear
+      maxDuration: 2.0
+      startValue: 3.0
+      endValue: 2.0
+      isLooped: true
+      reverseWhenFinished: true
+    - !type:PulseBehaviour
+      id: blinking
+      interpolate: Nearest
+      maxDuration: 1.0
+      startValue: 0.1
+      endValue: 2.0
+      isLooped: true
+  - type: Battery
+    maxCharge: 600
+    startingCharge: 600
+  - type: BatterySelfRecharger
+    autoRechargeRate: 2
+  - type: UnitLockedEquipment
+
+- type: entity
+  id: DystopiaPatrolShellPraetorianHelmet
+  name: Praetorian helmet
+  description: Helmet of the Praetorian shell. Class 5, fireproof. Cannot be removed.
+  components:
+  - type: Sprite
+    sprite: _Dystopia/Clothing/Head/Hardsuits/syndieelite.rsi
+    state: icon
+    layers:
+    - state: icon
+    - state: icon-unshaded
+      shader: unshaded
+    - state: light-overlay
+      visible: false
+      shader: unshaded
+      map: [ light ]
+  - type: PointLight
+    color: red
+    radius: 5
+    energy: 2.5
+    enabled: false
+    lightMask: ConeSingle
+    autoRot: true
+    netsync: false
+  - type: PressureProtection
+    highPressureMultiplier: 0.08
+    lowPressureMultiplier: 1000
+  - type: FireProtection
+    reduction: 0.2
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.9
+        Slash: 0.9
+        Piercing: 0.9
+        Heat: 0.9
+  - type: Tag
+    tags: [ WhitelistChameleon ]
+  - type: ArmorRating
+    armorClass: Br5
+  - type: TemperatureProtection
+    coefficient: 0.6
+  - type: BreathMask
+  - type: Clickable
+  - type: InteractionOutline
+  - type: Clothing
+    equipSound: /Audio/Mecha/mechmove03.ogg
+    unequipSound: /Audio/Mecha/mechmove03.ogg
+    quickEquip: false
+    slots: [ HEAD ]
+    clothingVisuals:
+      head:
+      - state: equipped-head
+      - state: equipped-head-unshaded
+        shader: unshaded
+    equippedPrefix: false
+  - type: GroupExamine
+  - type: IngestionBlocker
+  - type: IdentityBlocker
+  - type: HideLayerClothing
+    slots: [ Hair, Snout, HeadTop, HeadSide, FacialHair ]
+  - type: ToggleableVisuals
+    spriteLayer: light
+    clothingVisuals:
+      head:
+      - state: equipped-head-light
+        shader: unshaded
+  - type: ItemTogglePointLight
+  - type: Appearance
+  - type: HandheldLight
+    addPrefix: true
+    blinkingBehaviourId: blinking
+    radiatingBehaviourId: radiating
+  - type: LightBehaviour
+    behaviours:
+    - !type:FadeBehaviour
+      id: radiating
+      interpolate: Linear
+      maxDuration: 2.0
+      startValue: 3.0
+      endValue: 2.0
+      isLooped: true
+      reverseWhenFinished: true
+    - !type:PulseBehaviour
+      id: blinking
+      interpolate: Nearest
+      maxDuration: 1.0
+      startValue: 0.1
+      endValue: 2.0
+      isLooped: true
+  - type: Battery
+    maxCharge: 600
+    startingCharge: 600
+  - type: BatterySelfRecharger
+    autoRechargeRate: 2
+  - type: UnitLockedEquipment

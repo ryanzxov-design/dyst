@@ -1531,11 +1531,13 @@
     - DystopiaLawsCartridge
     - DystopiaBankCartridge
     - DystopiaStatusCartridge
+  # Dystopia: КПК Единицы не снимается
+  - type: UnitLockedEquipment
 # Самостоятельный предмет: все свойства выписаны явно (раньше: parent SecurityPDA)
 
 - type: entity
-  id: DystopiaGrenadierPDA
-  name: КПК (гренадер)
+  id: DystopiaPatrolCommandPDA
+  name: КПК (Командная Единица)
   description: Red to hide the stains of passenger blood.
   components:
   - type: Item
@@ -1617,7 +1619,7 @@
       whitelist:
         components:
         - IdCard
-    id: DystopiaGrenadierIDCard
+    id: DystopiaPatrolCommandIDCard
   - type: PdaVisuals
   - type: CityPdaCase # Dystopia: корпус окна КПК, цвета со спрайта КПК должности
     style: Steel
@@ -1717,11 +1719,13 @@
     - DystopiaLawsCartridge
     - DystopiaBankCartridge
     - DystopiaStatusCartridge
+  # Dystopia: КПК Единицы не снимается
+  - type: UnitLockedEquipment
 # Самостоятельный предмет: все свойства выписаны явно (раньше: parent SecurityPDA)
 
 - type: entity
-  id: DystopiaStormtrooperPDA
-  name: КПК (штурмовик)
+  id: DystopiaPatrolUnitPDA
+  name: КПК (Единица)
   description: Red to hide the stains of passenger blood.
   components:
   - type: Item
@@ -1803,7 +1807,7 @@
       whitelist:
         components:
         - IdCard
-    id: DystopiaStormtrooperIDCard
+    id: DystopiaPatrolUnitIDCard
   - type: PdaVisuals
   - type: CityPdaCase # Dystopia: корпус окна КПК, цвета со спрайта КПК должности
     style: Steel
@@ -1903,192 +1907,8 @@
     - DystopiaLawsCartridge
     - DystopiaBankCartridge
     - DystopiaStatusCartridge
-# Самостоятельный предмет: все свойства выписаны явно (раньше: parent SecurityPDA)
-
-- type: entity
-  id: DystopiaSoldierPDA
-  name: КПК (солдат)
-  description: Red to hide the stains of passenger blood.
-  components:
-  - type: Item
-    size: Small
-  - type: Animateable
-  - type: Clickable
-  - type: InteractionOutline
-  - type: MovedByPressure
-  - type: EmitSoundOnCollide
-    sound:
-      collection: WeakHit
-  - type: EmitSoundOnLand
-    sound:
-      path: /Audio/Effects/drop.ogg
-      params:
-        volume: 2
-  - type: DamageOnHighSpeedImpact
-    damage:
-      types:
-        Blunt: 5
-    soundHit:
-      collection: MetalThud
-  - type: CollisionWake
-  - type: GravityAffected
-  - type: Physics
-    bodyType: Dynamic
-    fixedRotation: false
-  - type: Fixtures
-    fixtures:
-      fix1:
-        shape: !type:PhysShapeAabb
-          bounds: "-0.25,-0.25,0.25,0.25"
-        density: 20
-        mask:
-        - ItemMask
-        restitution: 0.3
-        friction: 0.2
-  - type: Sprite
-    drawdepth: Items
-    noRot: false
-    sprite: _Dystopia/Objects/Devices/pda.rsi
-    layers:
-    - map: ["enum.PdaVisualLayers.Base"]
-      state: "pda"
-    - state: "light_overlay"
-      map: ["enum.PdaVisualLayers.Flashlight"]
-      shader: "unshaded"
-      visible: false
-    - state: "id_overlay"
-      map: ["enum.PdaVisualLayers.IdLight"]
-      shader: "unshaded"
-      visible: false
-  - type: Pullable
-  - type: DamageExaminable
-  - type: Rotatable
-    increment: 30
-  - type: Appearance
-    appearanceDataInit:
-      enum.PdaVisuals.PdaType: !type:String pda-patrol
-  - type: Icon
-    sprite: _Dystopia/Objects/Devices/pda.rsi
-    state: pda-patrol
-  - type: Pda
-    paiSlot:
-      priority: -2
-      whitelist:
-        components:
-        - PAI
-    penSlot:
-      startingItem: Pen
-      priority: -1
-      whitelist:
-        tags:
-        - Write
-    idSlot:
-      name: access-id-card-component-default
-      ejectSound: /Audio/Machines/id_swipe.ogg
-      insertSound: /Audio/Machines/id_insert.ogg
-      whitelist:
-        components:
-        - IdCard
-    id: DystopiaSoldierIDCard
-  - type: PdaVisuals
-  - type: CityPdaCase # Dystopia: корпус окна КПК, цвета со спрайта КПК должности
-    style: Steel
-    body: "#96A9BC"
-    trim: "#738493"
-    edge: "#353526"
-    lights:
-    - "#339900"
-    stencil: "#232B33"
-    label: dystopia-pda-label-patrol
-  - type: ContainerContainer
-    containers:
-      PDA-id: !type:ContainerSlot {}
-      PDA-pen: !type:ContainerSlot {}
-      PDA-pai: !type:ContainerSlot {}
-      Cartridge-Slot: !type:ContainerSlot {}
-      preinstalled-program-container: !type:Container
-      removable-program-container: !type:Container
-  - type: ItemSlots
-  - type: Clothing
-    quickEquip: false
-    slots:
-    - idcard
-    - Belt
-  - type: UnpoweredFlashlight
-  - type: PointLight
-    enabled: false
-    radius: 1.7
-    falloff: 3
-    softness: 5
-    autoRot: true
-  - type: Ringer
-  - type: RingerUplink
-  - type: DeviceNetwork
-    deviceNetId: Wireless
-    receiveFrequencyId: PDA
-    prefix: device-address-prefix-console
-    savableAddress: false
-  - type: WirelessNetworkConnection
-    range: 500
-  - type: CartridgeLoader
-    uiKey: enum.PdaUiKey.Key
-    diskSpace: 10 # Dystopia: место под программы Города («Мой статус») и свои картриджи
-    cartridgeSlot:
-      priority: -1
-      name: device-pda-slot-component-slot-name-cartridge
-      ejectSound: /Audio/Machines/id_swipe.ogg
-      insertSound: /Audio/Machines/id_insert.ogg
-      whitelist:
-        components:
-        - Cartridge
-  - type: EntityTableContainerFill
-    containers:
-      preinstalled-program-container: !type:AllSelector
-        children:
-        - id: CrewManifestCartridge
-        - id: NotekeeperCartridge
-        - id: NanoTaskCartridge
-        - id: NewsReaderCartridge
-        - id: WantedListCartridge
-  - type: ActivatableUI
-    key: enum.PdaUiKey.Key
-    singleUser: true
-  - type: UserInterface
-    interfaces:
-      enum.PdaUiKey.Key:
-        type: CityPdaBoundUserInterface # Dystopia: КПК — старый янтарный терминал
-      enum.StoreUiKey.Key:
-        type: StoreBoundUserInterface
-      enum.RingerUiKey.Key:
-        type: RingerBoundUserInterface
-      enum.InstrumentUiKey.Key:
-        type: InstrumentBoundUserInterface
-      enum.HealthAnalyzerUiKey.Key:
-        type: HealthAnalyzerBoundUserInterface
-  - type: RemoteStore
-  - type: Tag
-    tags:
-    - DoorBumpOpener
-    - WhitelistChameleon
-    - WhitelistChameleonPDA
-  - type: Input
-    context: "human"
-  - type: SentienceTarget
-    flavorKind: station-event-random-sentience-flavor-mechanical
-    weight: 0.001
-  - type: BlockMovement
-    blockInteraction: false
-  - type: TypingIndicator
-    proto: robot
-  - type: Speech
-    speechVerb: Robotic
-  - type: PdaBorderColor
-    borderColor: "#55636F"
-  - type: DystopiaPdaPrograms
-    programs:
-    - DystopiaLawsCartridge
-    - DystopiaBankCartridge
-    - DystopiaStatusCartridge
+  # Dystopia: КПК Единицы не снимается
+  - type: UnitLockedEquipment
 # Самостоятельный предмет: все свойства выписаны явно (раньше: parent CMOPDA)
 
 - type: entity

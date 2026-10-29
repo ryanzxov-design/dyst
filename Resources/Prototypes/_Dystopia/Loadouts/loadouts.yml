@@ -175,19 +175,13 @@
   - SecurityBackpack
 
 - type: roleLoadout
-  id: JobDystopiaGrenadier
+  id: JobDystopiaPatrolCommand
   groups:
   - Inventory # Corvax-Loadouts
   - SecurityBackpack
 
 - type: roleLoadout
-  id: JobDystopiaStormtrooper
-  groups:
-  - Inventory # Corvax-Loadouts
-  - SecurityBackpack
-
-- type: roleLoadout
-  id: JobDystopiaSoldier
+  id: JobDystopiaPatrolUnit
   groups:
   - Inventory # Corvax-Loadouts
   - SecurityBackpack

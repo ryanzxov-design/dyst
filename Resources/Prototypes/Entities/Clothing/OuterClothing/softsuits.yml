@@ -33,6 +33,33 @@
     - WhitelistChameleon
   - type: StaticPrice
     price: 1000 # Helmet is 500
+  # Dystopia: оболочки Внешнего Патруля — параметры под Город (классы брони, скорость, зараза)
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.8
+        Slash: 0.8
+        Piercing: 0.8
+        Heat: 0.3
+        Radiation: 0.1
+        Caustic: 0.2
+  # Dystopia: оболочки Внешнего Патруля — параметры под Город (классы брони, скорость, зараза)
+  - type: ArmorRating
+    armorClass: Br3
+  # Dystopia: оболочки Внешнего Патруля — параметры под Город (классы брони, скорость, зараза)
+  - type: FireProtection
+    reduction: 0.8
+  # Dystopia: оболочки Внешнего Патруля — параметры под Город (классы брони, скорость, зараза)
+  - type: DiseaseProtection
+    incoming:
+      chanceMultipliers:
+        Aerial: 0.1
+        Contact: 0.1
+        Blood: 0.1
+    outgoing:
+      chanceMultipliers:
+        Aerial: 0.1
+        Contact: 0.1
 
 #Emergency EVA
 - type: entity

@@ -1,0 +1,89 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: лицевая маска Единиц Внешнего Патруля — самостоятельные копии ванильного снаряжения синдиката
+# (перекрашено в мультикам) с UnitLockedEquipment: надетое не снимается никем. Шлем не пристёгивается к костюму —
+# он надет отдельно и тоже не снимается. Сгенерировано: /tmp/claude-0/scripts/patrol/gen_patrol.py
+
+- type: entity
+  id: DystopiaPatrolMask
+  name: Unit face mask
+  description: A tactical gas mask locked to a Unit's shell. Hides the face, filters air and contagion. Cannot be removed or pulled down.
+  components:
+  - type: Sprite
+    sprite: _Dystopia/Clothing/Mask/gassyndicate.rsi
+    state: icon
+    drawdepth: Items
+    noRot: false
+  - type: Clothing
+    sprite: _Dystopia/Clothing/Mask/gassyndicate.rsi
+    slots: [ mask ]
+  - type: FlashImmunity
+  - type: EyeProtection
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.95
+        Slash: 0.95
+        Piercing: 0.95
+        Heat: 0.95
+  - type: BreathMask
+  - type: IngestionBlocker
+  - type: IdentityBlocker
+  - type: Tag
+    tags: [ HamsterWearable, WhitelistChameleon ]
+  - type: HideLayerClothing
+    layers:
+      Snout: Mask
+    hideOnToggle: true
+  - type: DiseaseProtection
+    incoming:
+      chanceMultipliers:
+        Aerial: 0.3
+        Contact: 0.6
+    outgoing:
+      chanceMultipliers:
+        Aerial: 0.3
+  - type: Mask
+    enabled: false
+  - type: Item
+    size: Small
+  - type: StaticPrice
+    price: 25
+  - type: FlavorProfile
+    flavors: [ fiber ]
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: UnitLockedEquipment

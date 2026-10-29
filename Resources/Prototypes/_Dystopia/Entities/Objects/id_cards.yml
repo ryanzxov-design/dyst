@@ -659,90 +659,8 @@
 # Самостоятельный предмет: все свойства выписаны явно (раньше: parent IDCardStandard)
 
 - type: entity
-  id: DystopiaGrenadierIDCard
-  name: ID-карта (гренадер)
-  description: A card necessary to access various areas aboard the station.
-  components:
-  - type: Item
-    size: Small
-    heldPrefix: default
-    storedRotation: -90
-  - type: Animateable
-  - type: Clickable
-  - type: InteractionOutline
-  - type: MovedByPressure
-  - type: EmitSoundOnCollide
-    sound:
-      collection: WeakHit
-  - type: EmitSoundOnLand
-    sound:
-      path: /Audio/Effects/drop.ogg
-      params:
-        volume: 2
-  - type: DamageOnHighSpeedImpact
-    damage:
-      types:
-        Blunt: 5
-    soundHit:
-      collection: MetalThud
-  - type: CollisionWake
-  - type: GravityAffected
-  - type: Physics
-    bodyType: Dynamic
-    fixedRotation: false
-  - type: Fixtures
-    fixtures:
-      fix1:
-        shape: !type:PhysShapeAabb
-          bounds: "-0.25,-0.25,0.25,0.25"
-        density: 20
-        mask:
-        - ItemMask
-        restitution: 0.3
-        friction: 0.2
-  - type: Sprite
-    drawdepth: Items
-    noRot: false
-    sprite: _Dystopia/Objects/Misc/id_cards.rsi
-    layers:
-    - state: default
-    - state: stripe_top
-      color: "#55636F"
-    - state: stripe_bottom
-      color: "#343d44"
-    - sprite: _Dystopia/Interface/job_icons.rsi
-      offset: -0.09375, 0.0625
-      state: Grenadier
-  - type: Pullable
-  - type: DamageExaminable
-  - type: Rotatable
-    increment: 30
-  - type: Tag
-    tags:
-    - DoorBumpOpener
-    - WhitelistChameleon
-    - WhitelistChameleonIdCard
-  - type: StaticPrice
-    price: 10
-  - type: FlavorProfile
-    flavors:
-    - fiber
-  - type: Clothing
-    slots:
-    - idcard
-    sprite: _Dystopia/Objects/Misc/id_cards.rsi
-  - type: Access
-  - type: IdCard
-  - type: StationRecordKeyStorage
-  - type: StealTarget
-    stealGroup: IDCard
-  - type: PresetIdCard
-    job: DystopiaGrenadier
-# Самостоятельный предмет: все свойства выписаны явно (раньше: parent IDCardStandard)
-
-- type: entity
-  id: DystopiaStormtrooperIDCard
-  name: ID-карта (штурмовик)
+  id: DystopiaPatrolCommandIDCard
+  name: ID-карта (Командная Единица)
   description: A card necessary to access various areas aboard the station.
   components:
   - type: Item
@@ -819,12 +737,12 @@
   - type: StealTarget
     stealGroup: IDCard
   - type: PresetIdCard
-    job: DystopiaStormtrooper
+    job: DystopiaPatrolCommand
 # Самостоятельный предмет: все свойства выписаны явно (раньше: parent IDCardStandard)
 
 - type: entity
-  id: DystopiaSoldierIDCard
-  name: ID-карта (солдат)
+  id: DystopiaPatrolUnitIDCard
+  name: ID-карта (Единица)
   description: A card necessary to access various areas aboard the station.
   components:
   - type: Item
@@ -901,7 +819,7 @@
   - type: StealTarget
     stealGroup: IDCard
   - type: PresetIdCard
-    job: DystopiaSoldier
+    job: DystopiaPatrolUnit
 # Самостоятельный предмет: все свойства выписаны явно (раньше: parent IDCardStandard)
 
 - type: entity

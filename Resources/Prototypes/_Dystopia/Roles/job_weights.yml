@@ -14,9 +14,8 @@
     DystopiaGuardDispatcher: 0
     DystopiaGuardInvestigator: 0
     DystopiaPraetorian: 15
-    DystopiaGrenadier: 0
-    DystopiaStormtrooper: 0
-    DystopiaSoldier: 0
+    DystopiaPatrolCommand: 0
+    DystopiaPatrolUnit: 0
     DystopiaChiefSanitaryDoctor: 20
     DystopiaHealer: 0
     DystopiaDisinfector: 0

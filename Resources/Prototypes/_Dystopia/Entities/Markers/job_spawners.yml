@@ -211,34 +211,8 @@
 # Самостоятельный предмет: все свойства выписаны явно (раньше: parent SpawnPointJobBase)
 
 - type: entity
-  id: SpawnPointDystopiaGrenadier
-  name: гренадер
-  suffix: Job Spawn
-  placement:
-    mode: SnapgridCenter
-  components:
-  - type: Transform
-    anchored: true
-  - type: Marker
-  - type: Clickable
-  - type: InteractionOutline
-  - type: Tag
-    tags:
-    - ForceFixRotations
-  - type: Sprite
-    drawdepth: Overdoors
-    sprite: Markers/jobs.rsi
-    layers:
-    - state: green
-    - state: ertengineer
-  - type: SpawnPoint
-    spawn_type: Job
-    job_id: DystopiaGrenadier
-# Самостоятельный предмет: все свойства выписаны явно (раньше: parent SpawnPointJobBase)
-
-- type: entity
-  id: SpawnPointDystopiaStormtrooper
-  name: штурмовик
+  id: SpawnPointDystopiaPatrolCommand
+  name: Командная Единица Внешнего Патруля
   suffix: Job Spawn
   placement:
     mode: SnapgridCenter
@@ -259,12 +233,12 @@
     - state: ertleader
   - type: SpawnPoint
     spawn_type: Job
-    job_id: DystopiaStormtrooper
+    job_id: DystopiaPatrolCommand
 # Самостоятельный предмет: все свойства выписаны явно (раньше: parent SpawnPointJobBase)
 
 - type: entity
-  id: SpawnPointDystopiaSoldier
-  name: солдат
+  id: SpawnPointDystopiaPatrolUnit
+  name: Единица Внешнего Патруля
   suffix: Job Spawn
   placement:
     mode: SnapgridCenter
@@ -285,7 +259,7 @@
     - state: ertsecurity
   - type: SpawnPoint
     spawn_type: Job
-    job_id: DystopiaSoldier
+    job_id: DystopiaPatrolUnit
 # Самостоятельный предмет: все свойства выписаны явно (раньше: parent SpawnPointJobBase)
 
 - type: entity

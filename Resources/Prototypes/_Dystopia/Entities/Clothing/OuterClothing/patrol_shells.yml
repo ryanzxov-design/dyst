@@ -1,0 +1,331 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Dystopia: оболочки Единиц Внешнего Патруля — самостоятельные копии ванильного снаряжения синдиката
+# (перекрашено в мультикам) с UnitLockedEquipment: надетое не снимается никем. Шлем не пристёгивается к костюму —
+# он надет отдельно и тоже не снимается. Сгенерировано: /tmp/claude-0/scripts/patrol/gen_patrol.py
+
+- type: entity
+  id: DystopiaPatrolShellLight
+  name: light Unit shell
+  description: Mobile armor of a rank-and-file External Patrol Unit with a shoulder lamp. Class 4, full body. Cannot be removed.
+  components:
+  - type: Sprite
+    sprite: _Dystopia/Clothing/OuterClothing/Armor/syndie-raid.rsi
+    layers:
+    - state: icon
+    - state: light-overlay
+      visible: false
+      shader: unshaded
+    state: icon
+    drawdepth: Items
+    noRot: false
+  - type: Clothing
+    sprite: _Dystopia/Clothing/OuterClothing/Armor/syndie-raid.rsi
+    slots: [ outerClothing ]
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.35
+        Slash: 0.35
+        Piercing: 0.35
+        Heat: 0.35
+        Caustic: 0.5
+  - type: StaminaResistance
+    damageCoefficient: 0.45
+  - type: ClothingSpeedModifier
+    walkModifier: 0.95
+    sprintModifier: 0.95
+  - type: ToggleableVisuals
+    spriteLayer: light
+    clothingVisuals:
+      outerClothing:
+      - state: equipped-OUTERCLOTHING-light
+        shader: unshaded
+  - type: ItemTogglePointLight
+  - type: Appearance
+  - type: HandheldLight
+    addPrefix: false
+    blinkingBehaviourId: blinking
+    radiatingBehaviourId: radiating
+  - type: PointLight
+    enabled: false
+    color: "#80ff80"
+    radius: 5
+    energy: 2
+    lightMask: ConeSingle
+    autoRot: true
+    netsync: false
+  - type: LightBehaviour
+    behaviours:
+    - !type:FadeBehaviour
+      id: radiating
+      interpolate: Linear
+      maxDuration: 2.0
+      startValue: 3.0
+      endValue: 2.0
+      isLooped: true
+      reverseWhenFinished: true
+    - !type:PulseBehaviour
+      id: blinking
+      interpolate: Nearest
+      maxDuration: 1.0
+      startValue: 0.1
+      endValue: 2.0
+      isLooped: true
+  - type: Battery
+    maxCharge: 600
+    startingCharge: 600
+  - type: BatterySelfRecharger
+    autoRechargeRate: 2
+  - type: Item
+    size: Normal
+  - type: ArmorRating
+    armorClass: Br4
+  - type: ArmorCoverage
+    coverage: [ Chest, Groin, Arm, Hand, Leg, Foot ]
+  - type: HeldSpeedModifier
+  - type: Tag
+    tags: [ WhitelistChameleon ]
+  - type: StaticPrice
+    price: 10
+  - type: FlavorProfile
+    flavors: [ fiber ]
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: AllowSuitStorage
+  - type: UnitLockedEquipment
+
+- type: entity
+  id: DystopiaPatrolShellCommand
+  name: command Unit shell
+  description: Armor of an External Patrol Command Unit. Class 5, full body. Cannot be removed.
+  components:
+  - type: Sprite
+    sprite: _Dystopia/Clothing/OuterClothing/Hardsuits/syndiecommander.rsi
+    state: icon
+    drawdepth: Items
+    noRot: false
+  - type: Clothing
+    sprite: _Dystopia/Clothing/OuterClothing/Hardsuits/syndiecommander.rsi
+    slots: [ outerClothing ]
+  - type: PressureProtection
+    highPressureMultiplier: 0.05
+    lowPressureMultiplier: 1000
+  - type: ExplosionResistance
+    damageCoefficient: 0.5
+  - type: StaminaResistance
+    damageCoefficient: 0.6
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.4
+        Slash: 0.4
+        Piercing: 0.3
+        Heat: 0.5
+        Radiation: 0.25
+        Caustic: 0.4
+  - type: ClothingSpeedModifier
+    walkModifier: 0.9
+    sprintModifier: 0.9
+  - type: HeldSpeedModifier
+  - type: Tag
+    tags: [ Hardsuit, WhitelistChameleon ]
+  - type: ArmorRating
+    armorClass: Br5
+  - type: Item
+    size: Ginormous
+    shape:
+    - 0,0,4,5
+  - type: GroupExamine
+  - type: ArmorCoverage
+    coverage: [ Chest, Groin, Arm, Hand, Leg, Foot ]
+  - type: ProtectedFromStepTriggers
+    slots: WITHOUT_POCKET
+  - type: DamageOnInteractProtection
+    damageProtection:
+      flatReductions:
+        Heat: 10
+    slots: OUTERCLOTHING
+  - type: HideLayerClothing
+    slots: [ Tail ]
+  - type: StaticPrice
+    price: 10
+  - type: FlavorProfile
+    flavors: [ fiber ]
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: TemperatureProtection
+    coefficient: 0.05
+  - type: AllowSuitStorage
+  - type: Geiger
+    attachedToSuit: true
+  - type: UnitLockedEquipment
+
+- type: entity
+  id: DystopiaPatrolShellPraetorian
+  name: Praetorian shell
+  description: "Armor of the Consul's personal guard: class 5, full body, fireproof, blast-resistant and barely restricts movement. Cannot be removed."
+  components:
+  - type: Sprite
+    sprite: _Dystopia/Clothing/OuterClothing/Hardsuits/syndieelite.rsi
+    state: icon
+    drawdepth: Items
+    noRot: false
+  - type: Clothing
+    sprite: _Dystopia/Clothing/OuterClothing/Hardsuits/syndieelite.rsi
+    slots: [ outerClothing ]
+  - type: PressureProtection
+    highPressureMultiplier: 0.02
+    lowPressureMultiplier: 1000
+  - type: ExplosionResistance
+    damageCoefficient: 0.3
+  - type: FireProtection
+    reduction: 0.8
+  - type: StaminaResistance
+    damageCoefficient: 0.6
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.6
+        Slash: 0.6
+        Piercing: 0.6
+        Heat: 0.2
+        Radiation: 0.01
+        Caustic: 0.5
+  - type: Item
+    size: Huge
+    shape:
+    - 0,0,3,3
+  - type: ClothingSpeedModifier
+    walkModifier: 0.95
+    sprintModifier: 0.95
+  - type: HeldSpeedModifier
+  - type: Tag
+    tags: [ Hardsuit, WhitelistChameleon ]
+  - type: ArmorRating
+    armorClass: Br5
+  - type: TemperatureProtection
+    coefficient: 0.01
+  - type: GroupExamine
+  - type: ArmorCoverage
+    coverage: [ Chest, Groin, Arm, Hand, Leg, Foot ]
+  - type: ProtectedFromStepTriggers
+    slots: WITHOUT_POCKET
+  - type: DamageOnInteractProtection
+    damageProtection:
+      flatReductions:
+        Heat: 10
+    slots: OUTERCLOTHING
+  - type: HideLayerClothing
+    slots: [ Tail ]
+  - type: StaticPrice
+    price: 10
+  - type: FlavorProfile
+    flavors: [ fiber ]
+  - type: Animateable
+  - type: Clickable
+  - type: InteractionOutline
+  - type: MovedByPressure
+  - type: EmitSoundOnCollide
+    sound:
+      collection: WeakHit
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/Effects/drop.ogg
+      params:
+        volume: 2
+  - type: DamageOnHighSpeedImpact
+    damage:
+      types:
+        Blunt: 5
+    soundHit:
+      collection: MetalThud
+  - type: CollisionWake
+  - type: GravityAffected
+  - type: Physics
+    bodyType: Dynamic
+    fixedRotation: false
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeAabb
+          bounds: "-0.25,-0.25,0.25,0.25"
+        density: 20
+        mask: [ ItemMask ]
+        restitution: 0.3
+        friction: 0.2
+  - type: Pullable
+  - type: DamageExaminable
+  - type: Rotatable
+    increment: 30
+  - type: AllowSuitStorage
+  - type: Geiger
+    attachedToSuit: true
+  - type: UnitLockedEquipment

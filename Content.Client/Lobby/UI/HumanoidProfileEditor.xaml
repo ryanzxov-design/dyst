@@ -127,7 +127,9 @@
             <term:DystopiaTerminalFrame TitleKey="setup-preview" PadTop="26" PadLeft="14" PadRight="14">
                 <BoxContainer Orientation="Vertical" SeparationOverride="8">
                     <term:DystopiaPortraitFrame MinSize="270 310">
-                        <profile:ProfilePreviewSpriteView Name="SpriteView" Scale="8 8"
+                        <!-- Dystopia: фиксированный размер и масштаб — крупные слои (64×64 спрайт оружия за спиной)
+                             не раздувают окно и не уменьшают фигуру; лишнее обрезает рамка -->
+                        <profile:ProfilePreviewSpriteView Name="SpriteView" Scale="8 8" SetSize="256 288" Stretch="None"
                                                           HorizontalAlignment="Center" VerticalAlignment="Center" />
                         <term:DystopiaPortraitScan />
                     </term:DystopiaPortraitFrame>

@@ -63,9 +63,8 @@
             DystopiaGuardInvestigator: [ 1, 1 ]
             # Внешний Патруль
             DystopiaPraetorian: [ 1, 2 ]
-            DystopiaGrenadier: [ 1, 2 ]
-            DystopiaStormtrooper: [ 1, 3 ]
-            DystopiaSoldier: [ 2, 4 ]
+            DystopiaPatrolCommand: [ 1, 1 ]
+            DystopiaPatrolUnit: [ 2, 4 ]
             # Санитарная Служба
             DystopiaChiefSanitaryDoctor: [ 1, 1 ]
             DystopiaHealer: [ 2, 3 ]

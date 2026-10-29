@@ -31,13 +31,10 @@
   id: JobDystopiaPraetorian
 
 - type: playTimeTracker
-  id: JobDystopiaGrenadier
+  id: JobDystopiaPatrolCommand
 
 - type: playTimeTracker
-  id: JobDystopiaStormtrooper
-
-- type: playTimeTracker
-  id: JobDystopiaSoldier
+  id: JobDystopiaPatrolUnit
 
 - type: playTimeTracker
   id: JobDystopiaChiefSanitaryDoctor

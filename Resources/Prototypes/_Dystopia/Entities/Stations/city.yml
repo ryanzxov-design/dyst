@@ -48,10 +48,10 @@
         DystopiaGuardDispatcher: 120
         DystopiaGuardInvestigator: 150
         # Внешний Патруль
-        DystopiaPraetorian: 200
-        DystopiaGrenadier: 160
-        DystopiaStormtrooper: 160
-        DystopiaSoldier: 130
+        # Единицы зарплаты не получают
+        DystopiaPraetorian: 0
+        DystopiaPatrolCommand: 0
+        DystopiaPatrolUnit: 0
         # Санитарная Служба
         DystopiaChiefSanitaryDoctor: 200
         DystopiaHealer: 130
@@ -85,10 +85,9 @@
         DystopiaGuardDispatcher: 10
         DystopiaGuardInvestigator: 10
         # Внешний Патруль
-        DystopiaPraetorian: 5
-        DystopiaGrenadier: 10
-        DystopiaStormtrooper: 10
-        DystopiaSoldier: 10
+        DystopiaPraetorian: 0
+        DystopiaPatrolCommand: 0
+        DystopiaPatrolUnit: 0
         # Санитарная Служба
         DystopiaChiefSanitaryDoctor: 10
         DystopiaHealer: 10
@@ -169,9 +168,8 @@
         DystopiaGuardInvestigator: 25
         # Внешний Патруль
         DystopiaPraetorian: 25
-        DystopiaGrenadier: 20
-        DystopiaStormtrooper: 20
-        DystopiaSoldier: 20
+        DystopiaPatrolCommand: 20
+        DystopiaPatrolUnit: 20
         # Главы служб
         DystopiaChiefSanitaryDoctor: 35
         DystopiaChiefIndustrial: 35

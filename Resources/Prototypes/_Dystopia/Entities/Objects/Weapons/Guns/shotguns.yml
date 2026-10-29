@@ -322,11 +322,6 @@
         whitelist:
           tags: [ MagazineShotgunAA12 ]
         whitelistFailPopup: gun-magazine-whitelist-fail
-      gun_chamber:
-        name: Chamber
-        priority: 1
-        whitelist:
-          tags: [ ShellShotgun ]
   - type: AmmoCounter
   - type: CustomSpriteAmmoCounter
     loadedAmmoSprite: Interface/ItemStatus/Shotgun_Shells/not_spent.png
@@ -334,7 +329,6 @@
   - type: ContainerContainer
     containers:
       gun_magazine: !type:ContainerSlot
-      gun_chamber: !type:ContainerSlot
   - type: MagazineAmmoProvider
   - type: MagazineVisuals
     magState: mag
@@ -386,4 +380,3 @@
   - type: GunWieldBonus
     minAngle: -20
     maxAngle: -30
-  - type: ChamberMagazineAmmoProvider

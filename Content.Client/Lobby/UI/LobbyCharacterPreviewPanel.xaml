@@ -13,8 +13,8 @@
                         <profile:ProfilePreviewSpriteView Name="ProfilePreviewSpriteView"
                                                           OverrideDirection="South"
                                                           Scale="5 5"
-                                                          MaxSize="160 160"
-                                                          Stretch="Fill"
+                                                          SetSize="160 180"
+                                                          Stretch="None"
                                                           HorizontalAlignment="Center"
                                                           VerticalAlignment="Center"
                                                           Access="Public" />

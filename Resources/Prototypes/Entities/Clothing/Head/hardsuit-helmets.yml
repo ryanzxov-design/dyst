@@ -340,6 +340,9 @@
   - type: Tag
     tags:
     - WhitelistChameleon
+  # Dystopia: оболочки Внешнего Патруля — параметры под Город (классы брони, скорость, зараза)
+  - type: ArmorRating
+    armorClass: Br5
 
 #Blood-red Medic Hardsuit
 - type: entity
@@ -364,6 +367,20 @@
         Slash: 0.9
         Piercing: 0.9
         Heat: 0.9
+  # Dystopia: оболочки Внешнего Патруля — параметры под Город (классы брони, скорость, зараза)
+  - type: ArmorRating
+    armorClass: Br4
+  # Dystopia: оболочки Внешнего Патруля — параметры под Город (классы брони, скорость, зараза)
+  - type: DiseaseProtection
+    incoming:
+      chanceMultipliers:
+        Aerial: 0.3
+        Contact: 0.3
+        Blood: 0.3
+    outgoing:
+      chanceMultipliers:
+        Aerial: 0.3
+        Contact: 0.3
 
 #Syndicate Elite Hardsuit
 - type: entity
@@ -393,6 +410,9 @@
   - type: Tag
     tags:
     - WhitelistChameleon
+  # Dystopia: оболочки Внешнего Патруля — параметры под Город (классы брони, скорость, зараза)
+  - type: ArmorRating
+    armorClass: Br5
 
 #Syndicate Commander Hardsuit
 - type: entity
@@ -420,6 +440,9 @@
   - type: Tag
     tags:
     - WhitelistChameleon
+  # Dystopia: оболочки Внешнего Патруля — параметры под Город (классы брони, скорость, зараза)
+  - type: ArmorRating
+    armorClass: Br5
 
 #Cybersun Juggernaut Hardsuit
 - type: entity
@@ -447,6 +470,9 @@
   - type: Tag
     tags:
     - WhitelistChameleon
+  # Dystopia: оболочки Внешнего Патруля — параметры под Город (классы брони, скорость, зараза)
+  - type: ArmorRating
+    armorClass: Br6
 
 #Wizard Hardsuit
 - type: entity
